@@ -1,0 +1,71 @@
+# Colors (iTerm 2 default theme)
+colors:
+ primary:
+   background: '#101421'
+   foreground: '#fffbf6'
+ normal:
+   black:   '#2e2e2e'
+   red:     '#eb4129'
+   green:   '#abe047'
+   yellow:  '#f6c744'
+   blue:    '#47a0f3'
+   magenta: '#7b5cb0'
+   cyan:    '#64dbed'
+   white:   '#e5e9f0'
+ bright:
+   black:   '#565656'
+   red:     '#ec5357'
+   green:   '#c0e17d'
+   yellow:  '#f9da6a'
+   blue:    '#49a4f8'
+   magenta: '#a47de9'
+   cyan:    '#99faf2'
+   white:   '#ffffff'
+
+scrolling:
+  history: 10000
+  multiplier: 10
+
+font:
+   normal:
+    family: "MesloLGS NF"
+    style: regular 
+bold:
+    family: "MesloLGS NF"
+    style: bold
+italic:
+    family: "MesloLGS NF"
+    style: italic
+bold_italic:
+    family: "MesloLGS NF"
+    style: bold_italic
+
+size: 11.0
+draw_bold_text_with_bright_colors: true
+#background_opacity: 1.6 - dont use if using third party program for it
+
+cursor:
+  style:
+    #   - ▇ Block
+    #   - _ Underline
+    #   - | Beam
+    shape: Block
+  unfocused_hollow: true
+
+window:
+  dimensions:
+    columns: 90
+    lines: 28
+  decorations: none
+
+key_bindings:
+  - { key: X,         mods: Control,                  action: ToggleFullscreen   }
+  - { key: T,         mods: Control,                  action: SpawnNewInstance   }
+  - { key: Q,         mods: Control,                  action: Quit               }
+  - { key: V,         mods: Control,                  action: Paste              }
+  - { key: C,         mods: Shift,                    action: Copy               }
+  - { key: G,         mods: Control, mode: ~Search,   action: SearchForward      }
+  - { key: B,         mods: Control, mode: ~Search,   action: SearchBackward     }
+  - { key: Key0,      mods: Control,                  action: ResetFontSize      }
+  - { key: Equals,    mods: Control,                  action: IncreaseFontSize   }
+  - { key: Minus,     mods: Control,                  action: DecreaseFontSize   }
