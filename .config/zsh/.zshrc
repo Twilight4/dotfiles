@@ -84,9 +84,9 @@ bindkey -r "^d"
 # export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 #compinit
 
-# Edit line in vim with ctrl-e:
+# Edit line in vim with ctrl-i:
 autoload edit-command-line; zle -N edit-command-line
-# bindkey '^e' edit-command-line
+bindkey '^i' edit-command-line
 
 # TODO Remove these
 xset r rate 210 40
