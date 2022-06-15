@@ -20,3 +20,6 @@ alias ls='ls --color=auto'
 #alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
 #alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
 
+# Zsh Directory Stack
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
