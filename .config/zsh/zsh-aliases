@@ -1,2 +1,7 @@
 source "$XDG_CONFIG_HOME/zsh/aliases"
 
+alias ls='ls -lah'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+
