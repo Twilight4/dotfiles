@@ -52,20 +52,20 @@ cursor:
     shape: Block
   unfocused_hollow: true
 
-window:
-  dimensions:
-    columns: 90
-    lines: 28
+#window:
+#  dimensions:
+#    columns: 90
+#    lines: 28
   decorations: none
 
 key_bindings:
-  - { key: X,         mods: Control,                  action: ToggleFullscreen   }
-  - { key: T,         mods: Control,                  action: SpawnNewInstance   }
-  - { key: Q,         mods: Control,                  action: Quit               }
-  - { key: V,         mods: Control,                  action: Paste              }
-  - { key: C,         mods: Shift,                    action: Copy               }
+#  - { key: X,         mods: Control,                  action: ToggleFullscreen   }
+#  - { key: T,         mods: Control,                  action: SpawnNewInstance   }
+#  - { key: Q,         mods: Control,                  action: Quit               }
+#  - { key: V,         mods: Control,                  action: Paste              }
+#  - { key: C,         mods: Shift,                    action: Copy               }
   - { key: G,         mods: Control, mode: ~Search,   action: SearchForward      }
   - { key: B,         mods: Control, mode: ~Search,   action: SearchBackward     }
-  - { key: Key0,      mods: Control,                  action: ResetFontSize      }
-  - { key: Equals,    mods: Control,                  action: IncreaseFontSize   }
-  - { key: Minus,     mods: Control,                  action: DecreaseFontSize   }
+#  - { key: Key0,      mods: Control,                  action: ResetFontSize      }
+#  - { key: Equals,    mods: Control,                  action: IncreaseFontSize   }
+#  - { key: Minus,     mods: Control,                  action: DecreaseFontSize   }
