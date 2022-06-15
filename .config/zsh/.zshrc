@@ -30,6 +30,14 @@ zle -N down-line-or-beginning-search
 # Colors
 autoload -Uz colors && colors
 
+
+# Push the current directory visited on to the stack
+setopt AUTO_PUSHD
+# Do not store duplicate directories in the stack
+setopt PUSHD_IGNORE_DUPS
+# Do not print the directory stack after using pushd or popd
+setopt PUSHD_SILENT
+
 # Useful Functions
 source "$ZDOTDIR/zsh-functions"
 
