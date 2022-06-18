@@ -1,1 +1,3 @@
-a
+*.foreground: #C6C6C6
+*.background: #1C1C1C
+*.cursorColor: #444444
