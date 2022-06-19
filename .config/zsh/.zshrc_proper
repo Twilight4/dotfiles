@@ -1,0 +1,35 @@
+# More completions https://github.com/zsh-users/zsh-completions
+
+# Key-bindings
+bindkey '^K'     forward-word                   #Ctrl+K
+bindkey '^J'     backward-word                  #Ctrl+J
+bindkey '^H'     beginning-of-line              #Ctrl+H
+bindkey '^L'     end-of-line                    #Ctrl+L
+bindkey '^[[3~'  delete-char                    #Delete
+bindkey '^?'     backward-delete-char           #Backspace
+bindkey '^[[D'   backward-char                  #LeftArrow
+bindkey '^[[C'   forward-char                   #RightArrow
+bindkey '^[[5~'  beginning-of-buffer-or-history #PgUp
+bindkey '^[[6~'  end-of-buffer-or-history       #PgDn
+bindkey '^[[Z'   reverse-menu-complete          #Shift+Tab
+#bindkey -s '^o' 'lf^M'
+#bindkey -s '^s' 'ncdu^M'
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
+# Speedy keys
+xset r rate 210 40
+
+# Environment variables set everywhere
+export EDITOR="vim"
+export TERMINAL="alacritty"
+export BROWSER="vimb"
+
+# For QT Themes
+export QT_QPA_PLATFORMTHEME=qt5ct
+source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
