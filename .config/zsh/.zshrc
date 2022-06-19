@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # HISTORY FILE
-#HISTFILE=~/.config/zsh/.zsh-history
+HISTFILE=~/.config/zsh/.zsh-history
 setopt appendhistory
-#HISTSIZE=1000
-#SAVEHIST=1000
+HISTSIZE=1000
+SAVEHIST=1000
 
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
