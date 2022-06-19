@@ -1,9 +1,10 @@
 #!/bin/sh
-# HISTORY
-HISTFILE=~/.config/zsh/.histfile
+
+# HISTORY FILE
+#HISTFILE=~/.config/zsh/.zsh-history
 setopt appendhistory
-HISTSIZE=1000
-SAVEHIST=1000
+#HISTSIZE=1000
+#SAVEHIST=1000
 
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
@@ -21,10 +22,6 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 # compinit
 _comp_options+=(globdots)               # Include hidden files.
-
-zstyle :commpinstall filename '/home/twilight/.zshrc'
-autoload -Uz compinit
-compinit
 
 # Colors
 autoload -Uz colors && colors
