@@ -54,19 +54,45 @@ zsh_add_plugin "hlissner/zsh-autopair"
 # More completions https://github.com/zsh-users/zsh-completions
 
 # Key-bindings
-bindkey '^K'     forward-word                   #Ctrl+K
-bindkey '^J'     backward-word                  #Ctrl+J
-bindkey '^H'     beginning-of-line              #Ctrl+H
-bindkey '^L'     end-of-line                    #Ctrl+L
-bindkey '^[[3~'  delete-char                    #Delete
-bindkey '^?'     backward-delete-char           #Backspace
 bindkey '^[[D'   backward-char                  #LeftArrow
 bindkey '^[[C'   forward-char                   #RightArrow
+bindkey '^K'     forward-word                   #Ctrl+K
+bindkey '^J'     backward-word                  #Ctrl+J
+bindkey "^W"     backward-kill-word             #Ctrl+W
+#bindkey "^"     kill-word                      #Ctrl+
+bindkey '^H'     beginning-of-line              #Ctrl+H
+bindkey '^L'     end-of-line                    #Ctrl+L
+bindkey "^N"     kill-line                      #Ctrl+N
+bindkey "^B"     backward-kill-line             #Ctrl+B
+bindkey "\^Y"    undo                           #Ctrl+Y
+bindkey '^[[3~'  delete-char                    #Delete
+bindkey '^?'     backward-delete-char           #Backspace
+bindkey '^[[Z'   reverse-menu-complete          #Shift+Tab
 bindkey '^[[5~'  beginning-of-buffer-or-history #PgUp
 bindkey '^[[6~'  end-of-buffer-or-history       #PgDn
-bindkey '^[[Z'   reverse-menu-complete          #Shift+Tab
+#bindkey -s '^y' 'htop^M'
+#bindkey -s '^u' 'ncdu^M'
+#bindkey -s '^i' 'ncdu^M'
 #bindkey -s '^o' 'lf^M'
-#bindkey -s '^s' 'ncdu^M'
+#bindkey -s '^p' 'ncdu^M'
+
+#######################################################################################
+#CHECK OUT
+bindkey "^Q" history-forward-search             #Ctrl+Q
+bindkey "^A:" history-reverse-search            #Ctrl+A
+bindkey "^T:" run-help                          #Ctrl+T
+
+#zmodload zsh/terminfo #na początku
+#bindkey "$terminfo[kcuu1]" history-substring-search-up
+#bindkey "$terminfo[kcud1]" history-substring-search-down
+
+           #jak nie dziala zmodload:
+#autoload -U up-line-or-beginning-search
+#autoload -U down-line-or-beginning-search
+#zle -N up-line-or-beginning-search
+#zle -N down-line-or-beginning-search
+#######################################################################################
+
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
