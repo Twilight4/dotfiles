@@ -110,7 +110,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="MesloLGS_NF",
+    font="MesloLGS_NF_bold",
     fontsize=15,
     padding=3,
     background='#2E3440',
@@ -122,24 +122,43 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.TextBox("  ", foreground="ebcb8b", background="#566176"),
+                widget.TextBox("  ", foreground="ebcb8b", background="#566176"),
                 widget.TextBox(
                     text='◣',
-                    font = "MesloLGS_NF",
+                    font = "Ubuntu Mono",
                     fontsize=67,
                     foreground="#566176",
                     background="#4b5468",
                     padding=0
                 ),
                 widget.GroupBox(padding=0, borderwidth=0, fontsize=32, disable_drag=True, active='#8fbcbb', background="#4b5468"),
-                widget.TextBox()
-                widget.WindowName(),
-                widget.Chord()
-                widget.TextBox()
-                widget.Prompt(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.TextBox()
-                widget.Wallpaper()
+                widget.TextBox(
+                    text='◣',
+                    font = "Ubuntu Mono",
+                    fontsize=67,
+                    foreground="#4b5468",
+                    background="#404859",
+                    padding=0
+                ),
+                widget.WindowName(background="#404859"),
+                widget.Chord(
+                    chords_colors={
+                        "launch": ("#ff0000", "#ffffff"),
+                    },
+                    name_transform=lambda name: name.upper(),
+                ),
+                widget.TextBox(
+                    text = '',
+                    font = "Ubuntu Mono",
+                    fontsize=57,
+                    foreground="#363c4a",
+                    background="#404859",
+                    padding=0
+                ),
+                #widget.Prompt(),
+                widget.Clock(format="📅 %d-%m-%Y %a 🕐 %I:%M %p", foreground='#b48ead', background="#363c4a"),
+                #widget.TextBox()
+                #widget.Wallpaper()
                 widget.CurrentLayoutIcon(scale=0.5),
                 widget.Systray(),
             ],
