@@ -158,7 +158,14 @@ screens = [
                 ),
                 #widget.Prompt(),
                 widget.Clock(format="📅 %d-%m-%Y %a 🕐 %I:%M %p", foreground='#b48ead', background="#363c4a"),
-                #widget.TextBox()
+                widget.TextBox(
+                    text = '',
+                    font = "Ubuntu Mono",
+                    fontsize=57,
+                    foreground="#2E3440",
+                    background="#363c4a",
+                    padding=0
+                ),
                 #widget.Wallpaper()
                 widget.CurrentLayoutIcon(scale=0.5),
                 widget.Systray(),
