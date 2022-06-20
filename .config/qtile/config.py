@@ -62,13 +62,11 @@ keys = [
     #Key([mod], "g", lazy.spawn(), desc="joplin or obsidian"),
 ]
 
-groups = [
-    Group('1', label='  ', matches=[Match(wm_class=["Alacritty"])]),
-    Group('2', label='  ', matches=[Match(wm_class=["firefox"])]),
-    Group('3', label='  ', matches=[Match(wm_class=["kitty"])]),
-    Group('4', label='  ', matches=[Match(wm_class=["pcmanfm"])]),
-    Group('5', label='  ', matches=[Match(wm_class=["pamac-manager"])]),
-]
+groups = [Group("", layout='monadtall'),
+          Group("爵", layout='monadtall'),
+          Group("", layout='monadtall'),
+          Group("", layout='monadtall'),
+          Group("", layout='monadtall'),]
 
 for i in groups:
     keys.extend(
@@ -96,12 +94,12 @@ for i in groups:
 
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2, margin = 5),
-    layout.Max(),
+    layout.MonadTall(),
+    # layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
