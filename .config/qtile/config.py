@@ -1,10 +1,15 @@
+import os
+import subprocess
+from typing import List
+
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = guess_terminal()
+terminal = "alacritty"
+myBrowser = "vimb"
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -54,10 +59,15 @@ keys = [
     #Key([mod], "l", lazy.spawn(), desc="quick links"),
     #Key([mod], "b", lazy.spawn(), desc="web browser"),
     #Key([mod], "g", lazy.spawn(), desc="joplin or obsidian"),
-    
 ]
 
-groups = [Group(i) for i in "123456789"]
+groups = [
+    Group('1', label='  ', matches=[Match(wm_class=["Alacritty"])]),
+    Group('2', label='  ', matches=[Match(wm_class=["firefox"])]),
+    Group('3', label='  ', matches=[Match(wm_class=["kitty"])]),
+    Group('4', label='  ', matches=[Match(wm_class=["pcmanfm"])]),
+    Group('5', label='  ', matches=[Match(wm_class=["pamac-manager"])]),
+]
 
 for i in groups:
     keys.extend(
@@ -84,7 +94,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2, margin = 5),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -100,15 +110,17 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="sans",
-    fontsize=12,
+    font="MesloLGS_NF",
+    fontsize=15,
     padding=3,
+    background='#2E3440',
+    foreground='#D9E0EE',
 )
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
@@ -120,8 +132,15 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                widget.TextBox("  ", foreground="ebcb8b", background="#566176"),
+                widget.TextBox(
+                    text='◣',
+                    font = "MesloLGS_NF",
+                    fontsize=67,
+                    foreground="#566176",
+                    background="#4b5468",
+                    padding=0
+                ),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 widget.QuickExit(),
@@ -150,6 +169,7 @@ floating_layout = layout.Floating(
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
         Match(wm_class="confirmreset"),  # gitk
+        #Match(wm_class="lxappearance"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
         Match(wm_class="ssh-askpass"),  # ssh-askpass
@@ -176,4 +196,4 @@ wl_input_rules = None
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+wmname = "Qtile"
