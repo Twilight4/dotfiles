@@ -131,8 +131,10 @@ screens = [
                     background="#4b5468",
                     padding=0
                 ),
-                widget.GroupBox(),
+                widget.GroupBox(padding=0, borderwidth=0, fontsize=32, disable_drag=True, active='#8fbcbb', background="#4b5468"),
+                widget.TextBox()
                 widget.WindowName(),
+                widget.Chord()
                 widget.TextBox()
                 widget.Prompt(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
