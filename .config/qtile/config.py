@@ -122,16 +122,6 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
-                widget.Prompt(),
-                widget.WindowName(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
                 widget.TextBox("  ", foreground="ebcb8b", background="#566176"),
                 widget.TextBox(
                     text='◣',
@@ -141,11 +131,19 @@ screens = [
                     background="#4b5468",
                     padding=0
                 ),
-                widget.Systray(),
+                widget.GroupBox(),
+                widget.WindowName(),
+                widget.TextBox()
+                widget.Prompt(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.QuickExit(),
+                widget.TextBox()
+                widget.Wallpaper()
+                widget.CurrentLayoutIcon(scale=0.5),
+                widget.Systray(),
             ],
-            24,
+            30
+            margin=5
+            opacity=0.8,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
