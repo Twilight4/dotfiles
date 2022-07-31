@@ -7,7 +7,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
-########################## WORKSPACES ##########################
+########################## KEY BINDINGS ##########################
 mod = "mod4"
 terminal = "alacritty"
 myBrowser = "vimb"
