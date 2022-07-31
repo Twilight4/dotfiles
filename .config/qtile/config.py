@@ -7,6 +7,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+########################## WORKSPACES ##########################
 mod = "mod4"
 terminal = "alacritty"
 myBrowser = "vimb"
@@ -62,6 +63,7 @@ keys = [
     #Key([mod], "g", lazy.spawn(), desc="joplin or obsidian"),
 ]
 
+########################## GROUPS ##########################
 groups = [Group("", layout='monadtall'),
           Group("爵", layout='monadtall'),
           Group("", layout='monadtall'),
@@ -92,6 +94,7 @@ for i in groups:
         ]
     )
 
+########################## LAYOUTS ##########################
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2, margin = 5),
     layout.MonadTall(),
@@ -108,6 +111,7 @@ layouts = [
     # layout.Zoomy(),
 ]
 
+########################## WIDGETS ##########################
 widget_defaults = dict(
     font="MesloLGS_NF_bold",
     fontsize=15,
