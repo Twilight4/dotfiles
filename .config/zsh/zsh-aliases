@@ -3,6 +3,7 @@ alias ls='ls -lah'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
+alias vim='nvim'
 
 # colorize grep output (good for log files)
 alias grep='grep --color=auto'
