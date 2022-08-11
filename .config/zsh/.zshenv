@@ -12,7 +12,6 @@ export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-
 # $ZDOTDIR - determines where the config files for Zsh should be located
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
