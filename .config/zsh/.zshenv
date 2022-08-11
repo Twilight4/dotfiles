@@ -17,7 +17,7 @@ export VISUAL="nvim"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # For Xauthority
-export XAUTHORITY=$XDG_RUNTIME_DIR/Xauthority
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
 # History filepath
 export HISTFILE="$ZDOTDIR/.zhistory"
