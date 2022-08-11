@@ -1,26 +1,5 @@
-# Colors (iTerm 2 default theme)
-colors:
- primary:
-   background: '#101421'
-   foreground: '#fffbf6'
- normal:
-   black:   '#2e2e2e'
-   red:     '#eb4129'
-   green:   '#abe047'
-   yellow:  '#f6c744'
-   blue:    '#47a0f3'
-   magenta: '#7b5cb0'
-   cyan:    '#64dbed'
-   white:   '#e5e9f0'
- bright:
-   black:   '#565656'
-   red:     '#ec5357'
-   green:   '#c0e17d'
-   yellow:  '#f9da6a'
-   blue:    '#49a4f8'
-   magenta: '#a47de9'
-   cyan:    '#99faf2'
-   white:   '#ffffff'
+# Colors (Catpucin)
+
 
 scrolling:
   history: 10000
@@ -28,16 +7,16 @@ scrolling:
 
 font:
    normal:
-    family: "MesloLGS_NF"
+    family: "Hack"
     style: regular 
 bold:
-    family: "MesloLGS_NF"
+    family: "Hack"
     style: bold
 italic:
-    family: "MesloLGS_NF"
+    family: "Hack"
     style: italic
 bold_italic:
-    family: "MesloLGS_NF"
+    family: "Hack"
     style: bold_italic
 
 size: 11.0
@@ -65,7 +44,6 @@ key_bindings:
 #  - { key: V,         mods: Control,                  action: Paste              }
 #  - { key: C,         mods: Shift,                    action: Copy               }
   - { key: G,         mods: Control, mode: ~Search,   action: SearchForward      }
-  - { key: B,         mods: Control, mode: ~Search,   action: SearchBackward     }
 #  - { key: Key0,      mods: Control,                  action: ResetFontSize      }
 #  - { key: Equals,    mods: Control,                  action: IncreaseFontSize   }
 #  - { key: Minus,     mods: Control,                  action: DecreaseFontSize   }
