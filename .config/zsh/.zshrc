@@ -44,6 +44,7 @@ setopt PUSHD_SILENT
 
 # Useful Functions
 source "$ZDOTDIR/zsh-functions"
+source "$ZDOTDIR/plugins/zsh-z"
 
 # Normal files to source
 zsh_add_file "zsh-aliases"
