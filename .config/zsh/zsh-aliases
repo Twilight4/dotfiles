@@ -1,5 +1,5 @@
 # general
-alias ls='ls -lah'
+alias ls='ls -lah --color=auto'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
@@ -11,7 +11,6 @@ alias grep='grep --color=auto'
 # systemd
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
-alias ls='ls --color=auto'
 
 # get fastest mirrors
 #alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
