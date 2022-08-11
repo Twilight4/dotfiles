@@ -64,29 +64,21 @@ bindkey '^H'     beginning-of-line              #Ctrl+H
 bindkey '^L'     end-of-line                    #Ctrl+L
 bindkey "^N"     kill-line                      #Ctrl+N
 bindkey "^B"     backward-kill-line             #Ctrl+B
-bindkey "\^Y"    undo                           #Ctrl+Y
+bindkey "^Z"     undo                           #Ctrl+Z
 bindkey '^[[3~'  delete-char                    #Delete
 bindkey '^?'     backward-delete-char           #Backspace
 bindkey '^[[Z'   reverse-menu-complete          #Shift+Tab
 bindkey '^[[5~'  beginning-of-buffer-or-history #PgUp
 bindkey '^[[6~'  end-of-buffer-or-history       #PgDn
-#bindkey -s '^y' 'htop^M'
+
+bindkey -s '^a' 'clear^M'
+bindkey -s '^y' 'htop^M'
 #bindkey -s '^u' 'ncdu^M'
 #bindkey -s '^i' 'ncdu^M'
 #bindkey -s '^o' 'lf^M'
 #bindkey -s '^p' 'ncdu^M'
 
-#######################################################################################
-#CHECK OUT
-bindkey "^Q" history-forward-search             #Ctrl+Q
-bindkey "^A:" history-reverse-search            #Ctrl+A
-bindkey "^T:" run-help                          #Ctrl+T
-
-#zmodload zsh/terminfo #na początku
-#bindkey "$terminfo[kcuu1]" history-substring-search-up
-#bindkey "$terminfo[kcud1]" history-substring-search-down
-
-           #jak nie dziala zmodload:
+############################jak nie dziala zmodload ####################################
 #autoload -U up-line-or-beginning-search
 #autoload -U down-line-or-beginning-search
 #zle -N up-line-or-beginning-search
@@ -102,9 +94,9 @@ bindkey '^e' edit-command-line
 xset r rate 210 40
 
 # Environment variables set everywhere
-export EDITOR="vim"
+export EDITOR="nvim"
 export TERMINAL="alacritty"
-export BROWSER="vimb"
+export BROWSER="firefox"
 
 # For QT Themes
 export QT_QPA_PLATFORMTHEME=qt5ct
