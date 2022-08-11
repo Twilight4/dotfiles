@@ -16,7 +16,7 @@ SAVEHIST=1000
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
-stty stop undef         # Disable ctrl-s to freeze terminal.
+#stty stop undef         # Disable ctrl-s to freeze terminal.
 zle_highlight=('paste:none')
 
 # beeping is annoying
