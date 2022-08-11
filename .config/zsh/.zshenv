@@ -16,6 +16,8 @@ export VISUAL="nvim"
 # $ZDOTDIR - determines where the config files for Zsh should be located
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
+# For Xauthority
+export XAUTHORITY=$XDG_RUNTIME_DIR/Xauthority
 
 # History filepath
 export HISTFILE="$ZDOTDIR/.zhistory"
