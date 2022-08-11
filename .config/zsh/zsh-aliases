@@ -1,9 +1,10 @@
 # general
-alias ls='ls -lah --color=auto'
+alias ls='exa -l -g --icons'
+alias la='ls --tree --level=2 -a'
+alias vim='nvim'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
-alias vim='nvim'
 
 # colorize grep output (good for log files)
 alias grep='grep --color=auto'
