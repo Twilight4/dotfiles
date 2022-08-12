@@ -1,8 +1,8 @@
 # general
 alias ls='exa -l -g --icons -t modified -h'
-alias lss='exa -l -g --icons -t accessed -h'
+alias lsa='exa -l -g --icons -t accessed -h'
 alias la='ls --tree --level=2 -a -t modified -h'
-alias las='ls --tree --level=2 -a -t accessed -h'
+alias laa='ls --tree --level=2 -a -t accessed -h'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
