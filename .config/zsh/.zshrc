@@ -23,7 +23,7 @@ zle_highlight=('paste:none')
 unsetopt beep
 
 # completions
-autoload -Uz compinit
+autoload -Uz compinit; compinit
 zstyle ':completion:*' menu select
 # zstyle ':completion::complete:lsof:*' menu yes select
 zmodload zsh/complist
