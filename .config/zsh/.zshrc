@@ -92,10 +92,10 @@ bindkey '^j'         down-line-or-beginning-search          #Down
 #bindkey -s '^p' 'ncdu^M'
 
 
-# Edit line in set $EDITOR with 'v' key in NORMAL mode
+# Edit line in set $EDITOR with 'g' key in NORMAL mode
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey -M vicmd v edit-command-line
+bindkey -M vicmd g edit-command-line
 
 # Speedy keys
 xset r rate 210 40
