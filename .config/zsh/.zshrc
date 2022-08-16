@@ -61,7 +61,7 @@ zsh_add_plugin "agkozak/zsh-z"
 #zsh_add_plugin "ohmyzsh/copybuffer"
 #zsh_add_plugin "ohmyzsh/copydir"
 #zsh_add_plugin "ohmyzsh/dirhistory"
-#zsh_add_completion "example/githubrepo"
+zsh_add_completion "zsh-users/zsh-completions"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
 
