@@ -78,6 +78,7 @@ zsh_add_completion "zsh-users/zsh-completions"
 
 bindkey '^[[D'       backward-char                          #LeftArrow
 bindkey '^[[C'       forward-char                           #RightArrow
+bindkey '^[[Z'       reverse-menu-complete                  #Shift+tab
 bindkey '^W'         backward-kill-word                     #Ctrl+W
 bindkey '^[[3~'      delete-char                            #Delete
 bindkey '^?'         backward-delete-char                   #Backspace
