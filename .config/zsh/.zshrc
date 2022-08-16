@@ -92,9 +92,10 @@ bindkey '^j'         down-line-or-beginning-search          #Down
 #bindkey -s '^p' 'ncdu^M'
 
 
-# Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
+# Edit line in set $EDITOR with 'v' key in NORMAL mode
+autoload -Uz edit-command -line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
 # Speedy keys
 xset r rate 210 40
