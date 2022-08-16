@@ -93,7 +93,7 @@ bindkey '^j'         down-line-or-beginning-search          #Down
 
 
 # Edit line in set $EDITOR with 'v' key in NORMAL mode
-autoload -Uz edit-command -line
+autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
