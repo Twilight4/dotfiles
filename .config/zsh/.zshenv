@@ -7,16 +7,21 @@ export XDG_DATA_HOME="$XDG_CONFIG_HOME/local/share"
 # For cached files
 export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"
 
+# For state files
+export XDG_STATE_HOME="$XDG_CONFIG_HOME/local/state"
 
 # Environment variables for launching text editor
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-# $ZDOTDIR - determines where the config files for Zsh should be located
+# $ZDOTDIR - Config files for zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 # For Xauthority
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+
+# For xinit
+export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 
 # History filepath
 export HISTFILE="$ZDOTDIR/.zhistory"
