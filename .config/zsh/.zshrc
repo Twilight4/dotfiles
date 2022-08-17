@@ -93,6 +93,11 @@ bindkey '^j'         down-line-or-beginning-search          #Down
 #bindkey -s '^o' 'lf^M'
 #bindkey -s '^p' 'ncdu^M'
 
+# FZF
+if [ $(command -v "fzf") ]; then
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+fi
 
 # Edit line in set $EDITOR with 'g' key in NORMAL mode
 autoload -Uz edit-command-line
