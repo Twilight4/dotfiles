@@ -5,4 +5,5 @@ VBoxClient --vmsvg &
 
 xrdb -merge ~/.config/X11/.Xresources &
 
+dunst &
 exec qtile start
