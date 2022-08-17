@@ -1,0 +1,5 @@
+[user]
+        email = electrolight071@gmail.com
+        name = Twilight4
+[core]
+        pager = diff-so-fancy | less --tabs=4 -RFX
