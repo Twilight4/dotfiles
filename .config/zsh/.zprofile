@@ -3,4 +3,4 @@ then
 pgrep qtile || exec startx "$XDG_CONFIG_HOME/x11/xinitrc"
 fi
 
-eval "$(gh completion -s zsh)"
+#eval "$(gh completion -s zsh)"
