@@ -3,7 +3,7 @@ VBoxClient --seamless &
 VBoxClient --checkhostversion &
 VBoxClient --vmsvg &
 
-xrdb -merge ~/.config/X11/.Xresources &
+xrdb -merge ~/.config/x11/.Xresources &
 
 dunst &
 exec qtile start
