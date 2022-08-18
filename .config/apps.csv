@@ -27,20 +27,20 @@ firefox ,firefox ,Browser Firefox
 lynx,lynx,Text-based browser
 min ,min ,Browser Min (AUR)
 alacritty ,alacritty ,best terminal emulator
-wget ,wget
-curl ,curl
-picom ,picom
-mpv ,mpv
-nitrogen ,nitrogen
-neofetch ,neofetch
-tldr ,tldr
-rofi ,rofi
-bleachbit ,bleachbit
-tar ,tar
-unzip ,unzip
-ncdu ,ncdu
-sxiv ,sxiv
-ncmpcpp ,ncmpcpp
-lf ,lf
-cava ,cava
-ytfzf ,ytfzf
+tools ,wget
+tools ,curl
+tools ,picom
+tools ,mpv
+tools ,nitrogen
+tools ,neofetch
+tools ,tldr
+tools ,rofi
+tools ,bleachbit
+tools ,tar
+tools ,unzip
+tools ,ncdu
+tools ,sxiv
+tools ,ncmpcpp
+file manager ,lf
+tools ,cava
+tools ,ytfzf
