@@ -1,11 +1,11 @@
 #!/bin/bash
 aur_install() {
-curl -O "https://aur.archlinux.org/yay.git" \
-&& tar -xvf "$1.tar.gz" \
-&& cd "$1" \
+curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz" \
+&& tar -xvf "yay.tar.gz" \
+&& cd "yay" \
 && makepkg --noconfirm -si \
 && cd - \
-&& rm -rf "$1" "$1.tar.gz" ;
+&& rm -rf "yay" "yay.tar.gz" ;
 }
 
 aur_check() {
