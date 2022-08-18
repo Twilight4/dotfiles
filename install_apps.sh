@@ -64,3 +64,8 @@ if [ "$line" = "networkmanager" ]; then
 systemctl enable NetworkManager.service
 fi
 done
+
+curl https://raw.githubusercontent.com/Twilight4\
+/dotfiles/install_user.sh > /tmp/install_user.sh;
+
+sudo -u "twilight" sh /tmp/install_user.sh
