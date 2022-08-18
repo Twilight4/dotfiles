@@ -1,4 +1,4 @@
-### this is my script for installing apps
+### this is my script for installing packages
 
 #### install_apps.sh script parses apps.cvs and install_user.sh
 1. after installing base system download the script
