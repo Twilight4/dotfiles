@@ -16,5 +16,82 @@ ydl() {
     fi
 }
 
+# Create a folder like mkdir -p and jump to it. - mkcd
+mkcd() {
+    local dir="$*";
+    local mkdir -p "$dir" && cd "$dir";
+}
 
+# Move a file or a folder, and create the filepath if it doesn't exist. - mkmv
+mkmv() {
+    local dir="$2"
+    local tmp="$2"; tmp="${tmp: -1}"
+    [ "$tmp" != "/" ] && dir="$(dirname "$2")"
+    [ -d "$dir" ] ||
+        mkdir -p "$dir" &&
+        mv "$@"
+    }
 
+# Copy a file or a folder, and create the filepath if it doesn't exist. - mkcp
+mkcp() {
+    local dir="$2"
+    local tmp="$2"; tmp="${tmp: -1}"
+    [ "$tmp" != "/" ] && dir="$(dirname "$2")"
+    [ -d "$dir" ] ||
+        mkdir -p "$dir" &&
+        cp -r "$@"
+}
+
+# Calculate number of pomodoro done for a specific time in hour(s) and minute(s). -pom <hours> <minutes> <duration=25>
+pom() {
+    local -r HOURS=${1:?}
+    local -r MINUTES=${2:-0}
+    local -r POMODORO_DURATION=${3:-25}
+
+    bc <<< "(($HOURS * 60) + $MINUTES) / $POMODORO_DURATION"
+}
+
+# Calculate a mathematical operation. For example: calcul "2 * 3". - calcul <operation>
+calcul() {
+    bc -l <<< "$@"
+}
+
+# Create a server using Python with specific port. - serve <port=8888>
+serve() {
+    local -r PORT=${1:-8888}
+    python2 -m SimpleHTTPServer "$PORT"
+}
+
+# Display... the matrix! - matrix
+matrix () {
+    local lines=$(tput lines)
+    cols=$(tput cols)
+
+    awkscript='
+    {
+        letters="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()"
+        lines=$1
+        random_col=$3
+        c=$4
+        letter=substr(letters,c,1)
+        cols[random_col]=0;
+        for (col in cols) {
+            line=cols[col];
+            cols[col]=cols[col]+1;
+            printf "\033[%s;%sH\033[2;32m%s", line, col, letter;
+            printf "\033[%s;%sH\033[1;37m%s\033[0;0H", cols[col], col, letter;
+            if (cols[col] >= lines) {
+                cols[col]=0;
+            }
+    }
+}
+'
+
+echo -e "\e[1;40m"
+clear
+
+while :; do
+    echo $lines $cols $(( $RANDOM % $cols)) $(( $RANDOM % 72 ))
+    sleep 0.05
+done | awk "$awkscript"
+}
