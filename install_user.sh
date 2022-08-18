@@ -1,5 +1,4 @@
 #!/bin/bash
-
 aur_install() {
 curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" \
 && tar -xvf "$1.tar.gz" \
@@ -37,7 +36,7 @@ done
 
 DOTFILES="/home/$(whoami)/.config"
 if [ ! -d "$DOTFILES" ]; then
-git clone https://github.com/Twilight4/.config.git \
+git clone https://github.com/Twilight4/dotfiles/.config.git \
 "$DOTFILES" >/dev/null
 fi
 source "$DOTFILES/zsh/.zshenv"
