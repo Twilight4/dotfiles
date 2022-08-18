@@ -176,5 +176,5 @@ colorblocks() {
 }
 
 githeat() {
-    $DOTFILES/bash/scripts/heatmap.sh
+    $ZDOTDIR/zsh/scripts/heatmap.sh
 }
