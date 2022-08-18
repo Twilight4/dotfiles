@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo pacman -S --noconfirm tar
 aur_install() {
 curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz" \
 && tar -xvf "yay.tar.gz" \
