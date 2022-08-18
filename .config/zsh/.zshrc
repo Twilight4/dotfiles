@@ -88,6 +88,10 @@ bindkey '^[[6~'      end-of-buffer-or-history               #PgDn
 bindkey '^k'         up-line-or-beginning-search            #Up
 bindkey '^j'         down-line-or-beginning-search          #Down
 
+bindkey -r '^l'            #rebinding clear from ctrl + l to ctrl + n
+bindkey -r '^n'            #rebinding clear from ctrl + l to ctrl + n
+bindkey -s '^n' 'clear\n'  #rebinding clear from ctrl + l to ctrl + n
+
 #bindkey -s '^y' 'htop^M'
 #bindkey -s '^u' 'ncdu^M'
 #bindkey -s '^i' 'ncdu^M'
