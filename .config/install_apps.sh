@@ -27,3 +27,9 @@ You can select an option with SPACE and valid your choices with ENTER." \
 0 0 0 \
 "${apps[@]}" 2> app_choices
 choices=$(cat app_choices) && rm app_choices
+
+selection="^$(echo $choices | sed -e 's/ /,|^/g'),"
+lines=$(grep -E "$selection" "$apps_path")
+count=$(echo "$lines" | wc -l)
+packages=$(echo "$lines" | awk -F, {'print $2'})
+echo "$selection" "$lines" "$count" >> "/tmp/packages"
