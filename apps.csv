@@ -41,6 +41,10 @@ tools ,unzip
 tools ,ncdu
 tools ,sxiv
 tools ,ncmpcpp
+tools ,ani-cli
+tools ,tty-clock
+tools ,rxfetch
+tools ,ytfzf
+tools ,vtop
 file manager ,lf
 tools ,cava
-tools ,ytfzf
