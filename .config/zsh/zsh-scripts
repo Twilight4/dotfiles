@@ -62,6 +62,30 @@ serve() {
     python2 -m SimpleHTTPServer "$PORT"
 }
 
+# Display all autocompleted command in zsh, First column: command name Second column: completion function - zshcomp 
+zshcomp() {
+    for command completion in ${(kv)_comps:#-*(-|-,*)}
+    do
+        printf "%-32s %s\n" $command $completion
+    done | sort
+}
+
+# Display command cheatsheet from cheat.sh. - cheat <command>
+cheat() {
+    curl cheat.sh/$1
+}
+
+# Create a taskell project <name>. - touchproject <name>
+touchproject(){
+    if [ -z $1 ];then
+        echo "You need to pass a project name" && exit 1
+    fi
+    local project=$1
+    cd "$CLOUD/project_management/"
+    taskell $project
+    cd -
+}
+
 # Display... the matrix! - matrix
 matrix () {
     local lines=$(tput lines)
@@ -94,4 +118,13 @@ while :; do
     echo $lines $cols $(( $RANDOM % $cols)) $(( $RANDOM % 72 ))
     sleep 0.05
 done | awk "$awkscript"
+}
+
+# More scripts to source
+pipes() {
+    $ZDOTDIR/zsh/scripts/pipes.sh
+}
+
+colorblocks() {
+    $ZDOTDIR/zsh/scripts/colorblocks.sh
 }
