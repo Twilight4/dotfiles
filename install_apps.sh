@@ -5,7 +5,7 @@ name=$(cat /tmp/twilight)
 apps_path="/tmp/apps.csv"
 curl https://raw.githubusercontent.com/Twiligh4/dotfiles/main/apps.csv > $apps_path
 
-sudo pacman -Sy dialog
+sudo pacman -Sy --noconfirm dialog
 dialog --title "Welcome!" \
 --msgbox "Welcome to the installation script for your apps and dotfiles
 !" \
