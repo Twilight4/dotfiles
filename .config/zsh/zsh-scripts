@@ -1,3 +1,39 @@
+# Extract any archive automatically. Require tar and unzip - extract <archive_file>
+extract() {
+    for file in "$@"
+    do
+        if [ -f $file ]; then
+            ex $file
+        else
+            echo "'$file' is not a valid file"
+        fi
+    done
+}
+
+# Create a folder with the name of the archive, extract the archive in. - mkextract <archive_file>
+mkextract() {
+    for file in "$@"
+    do
+        if [ -f $file ]; then
+            local filename=${file%\.*}
+            mkdir -p $filename
+            cp $file $filename
+            cd $filename
+            ex $file
+            rm -f $file
+            cd -
+        else
+            echo "'$1' is not a valid file"
+        fi
+    done
+}
+
+# Compress one or multiple folder or files. - compress <files>...
+compress() {
+    local DATE="$(date +%Y%m%d-%H%M%S)"
+    tar cvzf "$DATE.tar.gz" "$@"
+}
+
 # Download a video with best quality from Youtube - ydl <video_url>
 ydlp() {
     if ; then
