@@ -1,6 +1,6 @@
 #!/bin/bash
 aur_install() {
-curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" \
+curl -O "https://aur.archlinux.org/yay.git" \
 && tar -xvf "$1.tar.gz" \
 && cd "$1" \
 && makepkg --noconfirm -si \
