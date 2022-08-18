@@ -1,11 +1,11 @@
 #!/bin/bash
 
-name=$(cat /tmp/user_name)
+name=$(cat /tmp/twilight)
 
 apps_path="/tmp/apps.csv"
-curl https://raw.githubusercontent.com/Twiligh4\
-/arch_installer/master/apps.csv > $apps_path
+curl https://raw.githubusercontent.com/Twiligh4/dotfiles/main/apps.csv > $apps_path
 
+sudo pacman -Sy dialog
 dialog --title "Welcome!" \
 --msgbox "Welcome to the installation script for your apps and dotfiles
 !" \
