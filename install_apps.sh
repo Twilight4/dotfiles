@@ -1,5 +1,7 @@
 #!/bin/bash
 
+name=$(cat /tmp/user_name)
+
 apps_path="/tmp/apps.csv"
 curl https://raw.githubusercontent.com/<Twiligh4>\
 /arch_installer/master/apps.csv > $apps_path
@@ -14,13 +16,14 @@ apps=("essential" "Essentials" on
 "notifier" "Notification tools" on
 "git" "Git & git tools" on
 "zsh" "The Z-Shell (zsh)" on
-"neovim" "Neovim" on
+"neovim" "Neovim" off
 "firefox" "Firefox (browser)" off
 "lynx" "Lynx (browser)" off
 "file manager" "lf" off
 "min" "Min (browser)" off
 "alacritty" "Alacritty" off
 "vbox" "vbox-utils") off
+
 dialog --checklist \
 "You can now choose what group of application you want to install. \n\n\
 You can select an option with SPACE and valid your choices with ENTER." \
@@ -32,6 +35,7 @@ selection="^$(echo $choices | sed -e 's/ /,|^/g'),"
 lines=$(grep -E "$selection" "$apps_path")
 count=$(echo "$lines" | wc -l)
 packages=$(echo "$lines" | awk -F, {'print $2'})
+
 echo "$selection" "$lines" "$count" >> "/tmp/packages"
 
 pacman -Syu --noconfirm
