@@ -174,3 +174,7 @@ pipes() {
 colorblocks() {
     $ZDOTDIR/zsh/scripts/colorblocks.sh
 }
+
+githeat() {
+    $DOTFILES/bash/scripts/heatmap.sh
+}
