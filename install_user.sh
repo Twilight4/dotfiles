@@ -34,3 +34,11 @@ $line..." \
 10 60
 aur_check "$line"
 done
+
+DOTFILES="/home/$(whoami)/.config"
+if [ ! -d "$.CONFIG" ]; then
+git clone https://github.com/<Twilight4 >/.config.git \
+"$.CONFIG" >/dev/null
+fi
+source "$.CONFIG/zsh/.zshenv"
+cd "$.CONFIG" && bash install.sh
