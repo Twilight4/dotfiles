@@ -30,8 +30,6 @@ setopt nobeep               # No beep
 autoload -Uz compinit; compinit
 zstyle ':completion:*' menu select
 _comp_options+=(globdots)               # Include hidden files.
-
-# Zstyle ':completion::complete:lsof:*' menu yes select
 zmodload zsh/complist
 zle_highlight=('paste:none')
 
