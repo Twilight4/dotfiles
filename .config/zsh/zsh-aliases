@@ -6,6 +6,7 @@ alias laa='ls --tree --level=2 -a -t accessed -h'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
+alias gitu='git add . && git commit && git push'
 alias vim='nvim'
 
 # colorize grep output (good for log files)
