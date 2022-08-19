@@ -26,5 +26,5 @@ alias free='free -m' # show sizes in MB
 #alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
 
 # Zsh Directory Stack
-alias dv='dirs -v'
+alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
