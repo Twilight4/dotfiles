@@ -18,6 +18,7 @@ export VISUAL="nvim"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+# Colorize FZF
 FZF_COLORS="bg+:-1,\
 fg:gray,\
 fg+:white,\
@@ -38,6 +39,15 @@ export FZF_DEFAULT_OPTS="--height 60% \
 --pointer ▶ \
 --marker ⇒"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 10'"
+
+# Colorize man pages
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # $ZDOTDIR - Config files for zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
