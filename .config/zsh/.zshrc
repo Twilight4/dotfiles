@@ -99,15 +99,6 @@ bindkey -s '^n' 'clear\n^M'  #rebinding clear from ctrl + l to ctrl + n
 #bindkey -s '^o' 'lf^M'
 #bindkey -s '^p' 'ncdu^M'
 
-# Colorize man pages
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
-
 # FZF
 if [ $(command -v "fzf") ]; then
 source /usr/share/fzf/completion.zsh
@@ -121,11 +112,6 @@ bindkey -M vicmd g edit-command-line
 
 # Speedy keys
 xset r rate 210 40
-
-# Environment variables set everywhere
-export EDITOR="nvim"
-export TERMINAL="alacritty"
-export BROWSER="firefox"
 
 # For QT themes
 export QT_QPA_PLATFORMTHEME=qt5ct
