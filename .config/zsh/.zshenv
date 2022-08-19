@@ -20,6 +20,10 @@ export HISTFILE="$ZDOTDIR/.zhistory"                 # History filepath
 export HISTSIZE=10000                                # Maximum events for internal history
 export SAVEHIST=10000                                # Maximum events in history file
 
+# Other software
+export TMUXP_CONFIGDIR="$XDG_CONFIG_HOME/tmuxp"
+export _Z_DATA="$XDG_DATA_HOME/z/z"
+
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
