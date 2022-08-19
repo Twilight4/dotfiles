@@ -18,22 +18,24 @@ setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 
-# Useful options (man zshoptions)
-setopt autocd extendedglob nomatch menucomplete
-setopt interactive_comments
-#stty stop undef                        # Disable ctrl-s to freeze terminal.
-zle_highlight=('paste:none')
-
-# Beeping is annoying
-unsetopt beep
+# Navigation
+setopt AUTO_PUSHD           # Push the current directory visited on to the stack
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicate directories in the stack
+setopt PUSHD_SILENT         # Do not print the directory stack after using pushd or popd
+setopt AUTO_CD              # Go to folder path without using cd.
+setopt EXTENDED_GLOB        # Use extended globbing syntax
+setopt INTERACTIVE_COMMENTS # Enables comments when running an interactive session
+setopt CORRECT              # Spelling correction
+setopt nobeep               # No beep
 
 # Completions
 autoload -Uz compinit; compinit
 zstyle ':completion:*' menu select
+_comp_options+=(globdots)               # Include hidden files.
+
 # Zstyle ':completion::complete:lsof:*' menu yes select
 zmodload zsh/complist
-# Compinit
-_comp_options+=(globdots)               # Include hidden files.
+zle_highlight=('paste:none')
 
 # Colors
 autoload -Uz colors && colors
@@ -42,13 +44,6 @@ autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-
-# Push the current directory visited on to the stack
-setopt AUTO_PUSHD
-# Do not store duplicate directories in the stack
-setopt PUSHD_IGNORE_DUPS
-# Do not print the directory stack after using pushd or popd
-setopt PUSHD_SILENT 
 
 # Useful Functions
 source "$ZDOTDIR/zsh-functions"
@@ -82,6 +77,7 @@ zsh_add_completion "zsh-users/zsh-completions"
 #bindkey '^[[Z'       undo                           # Shift + tab
 #bindkey '^[[1;5C]'   forward-word                   # Ctrl+LeftArrow
 #bindkey '^[[1;5D]'   backward-word                  # Ctrl+RightArrow
+#bindkey '^H'         backward-kill-word             # Ctrl+backspace
 
 bindkey '^[[D'       backward-char                          # LeftArrow
 bindkey '^[[C'       forward-char                           # RightArrow
