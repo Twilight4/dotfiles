@@ -38,11 +38,6 @@ zle_highlight=('paste:none')
 # Colors
 autoload -Uz colors && colors
 
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
 # Useful Functions
 source "$ZDOTDIR/zsh-functions"
 
@@ -77,6 +72,10 @@ zsh_add_completion "zsh-users/zsh-completions"
 #bindkey '^[[1;5D]'   backward-word                  # Ctrl+RightArrow
 #bindkey '^H'         backward-kill-word             # Ctrl+backspace
 
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
 bindkey '^[[D'       backward-char                          # LeftArrow
 bindkey '^[[C'       forward-char                           # RightArrow
 bindkey '^[[Z'       reverse-menu-complete                  # Shift+tab
