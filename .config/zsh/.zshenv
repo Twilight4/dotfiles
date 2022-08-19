@@ -2,7 +2,6 @@
 export XDG_CONFIG_HOME="$HOME/.config"               # For dotfiles
 export XDG_DATA_HOME="$XDG_CONFIG_HOME/local/share"  # For specific data
 export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
-export XDG_STATE_HOME="$XDG_CONFIG_HOME/local/state" # For state files
 
 # Environment variables
 export EDITOR="nvim"
@@ -11,8 +10,8 @@ export TERMINAL='alacritty'
 export BROWSER="firefox"
 
 # X11
-export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"      # For Xauthority
-export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"        # For xinit
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 
 # Zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                # Zsh config files
@@ -22,7 +21,7 @@ export SAVEHIST=10000                                # Maximum events in history
 
 # Other software
 export TMUXP_CONFIGDIR="$XDG_CONFIG_HOME/tmuxp"
-export _Z_DATA="$XDG_DATA_HOME/z/z"
+export _Z_DATA="$XDG_DATA_HOME/z/"
 
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
