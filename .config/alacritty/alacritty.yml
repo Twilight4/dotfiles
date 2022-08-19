@@ -34,13 +34,13 @@ cursor:
 #    lines: 28
   decorations: none
 
-key_bindings:
+#key_bindings:
 #  - { key: X,         mods: Control,                  action: ToggleFullscreen   }
 #  - { key: T,         mods: Control,                  action: SpawnNewInstance   }
 #  - { key: Q,         mods: Control,                  action: Quit               }
 #  - { key: V,         mods: Control,                  action: Paste              }
 #  - { key: C,         mods: Shift,                    action: Copy               }
-  - { key: G,         mods: Control, mode: ~Search,   action: SearchForward      }
+#  - { key: G,         mods: Control, mode: ~Search,   action: SearchForward      }
 #  - { key: Key0,      mods: Control,                  action: ResetFontSize      }
 #  - { key: Equals,    mods: Control,                  action: IncreaseFontSize   }
 #  - { key: Minus,     mods: Control,                  action: DecreaseFontSize   }
