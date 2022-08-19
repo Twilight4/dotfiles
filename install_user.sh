@@ -41,3 +41,7 @@ git clone https://github.com/Twilight4/dotfiles/.config.git \
 "$DOTFILES" >/dev/null
 fi
 source "$DOTFILES/zsh/.zshenv"
+
+[ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
+&& git clone https://github.com/tmux-plugins/tpm \
+"$XDG_CONFIG_HOME/tmux/plugins/tpm"
