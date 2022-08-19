@@ -1,3 +1,19 @@
+# TODO can improve that with a bind to switch to what was installed
+fpac() {
+    pacman -Slq | fzf --multi --reverse --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
+}
+
+fyay() {
+    yay -Slq | fzf --multi --reverse --preview 'yay -Si {1}' | xargs -ro yay -S
+}
+
+# Let you choose a tmuxp config with fzf and run it - fmux
+fmux() {
+    prj=$(find $XDG_CONFIG_HOME/tmuxp/ -execdir bash -c 'basename "${0%.*}"' {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    echo $prj
+    [ -n "$prj" ] && tmuxp load $prj
+}
+
 # ftmuxp - propose every possible tmuxp session
 ftmuxp() {
     if [[ -n $TMUX ]]; then
