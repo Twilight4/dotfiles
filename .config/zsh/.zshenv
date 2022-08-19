@@ -11,14 +11,14 @@ export TERMINAL='alacritty'
 export BROWSER="firefox"
 
 # X11
-export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"  # For Xauthority
-export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"    # For xinit
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"      # For Xauthority
+export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"        # For xinit
 
 # Zsh
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"   # Zsh config files
-export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
-export HISTSIZE=10000                   # Maximum events for internal history
-export SAVEHIST=10000                   # Maximum events in history file
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                # Zsh config files
+export HISTFILE="$ZDOTDIR/.zhistory"                 # History filepath
+export HISTSIZE=10000                                # Maximum events for internal history
+export SAVEHIST=10000                                # Maximum events in history file
 
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
