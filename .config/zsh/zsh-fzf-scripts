@@ -14,6 +14,28 @@ fmux() {
     [ -n "$prj" ] && tmuxp load $prj
 }
 
+# ftmux - help you choose tmux sessions
+ftmux() {
+    if [[ ! -n $TMUX ]]; then
+        # get the IDs
+        ID="`tmux list-sessions`"
+        if [[ -z "$ID" ]]; then
+            tmux new-session
+        fi
+        create_new_session="Create New Session"
+        ID="$ID\n${create_new_session}:"
+        ID="`echo $ID | fzf | cut -d: -f1`"
+        if [[ "$ID" = "${create_new_session}" ]]; then
+            tmux new-session
+        elif [[ -n "$ID" ]]; then
+            printf '\033]777;tabbedx;set_tab_name;%s\007' "$ID"
+            tmux attach-session -t "$ID"
+        else
+            :  # Start terminal normally
+        fi
+    fi
+}
+
 # ftmuxp - propose every possible tmuxp session
 ftmuxp() {
     if [[ -n $TMUX ]]; then
@@ -38,4 +60,12 @@ ftmuxp() {
         printf '\033]777;tabbedx;set_tab_name;%s\007' "$ID"
         tmuxp load "$ID"
     fi
+}
+
+# Display the directory stack with fzf. Jump to the directory when one selected
+fpop() {
+    # Only work with alias d (in zsh-aliases) defined as:
+    # alias d='dirs -v'
+    # for index ({1..9}) alias "$index"="cd +${index}"; unset index
+    d | fzf --height="20%" | cut -f 1 | source /dev/stdin
 }
