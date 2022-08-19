@@ -13,21 +13,21 @@ setopt appendhistory
 HISTSIZE=1000
 SAVEHIST=1000
 
-# some useful options (man zshoptions)
+# Useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
 #stty stop undef                        # Disable ctrl-s to freeze terminal.
 zle_highlight=('paste:none')
 
-# beeping is annoying
+# Beeping is annoying
 unsetopt beep
 
-# completions
+# Completions
 autoload -Uz compinit; compinit
 zstyle ':completion:*' menu select
-# zstyle ':completion::complete:lsof:*' menu yes select
+# Zstyle ':completion::complete:lsof:*' menu yes select
 zmodload zsh/complist
-# compinit
+# Compinit
 _comp_options+=(globdots)               # Include hidden files.
 
 # Colors
@@ -69,28 +69,28 @@ zsh_add_completion "zsh-users/zsh-completions"
 # More completions https://github.com/zsh-users/zsh-completions
 
 # Key-bindings (commented are without vi mode)
-#bindkey '^'          kill-word                      #unassigned
-#bindkey '^[[H'       beginning-of-line              #Home
-#bindkey '^[[F'       end-of-line                    #End
-#bindkey '^K'         kill-line                      #Ctrl+K
-#bindkey '^U'         backward-kill-line             #Ctrl+U
-#bindkey '^[[Z'       undo                           #Shift + tab
-#bindkey '^[[1;5C]'   forward-word                   #Ctrl+LeftArrow
-#bindkey '^[[1;5D]'   backward-word                  #Ctrl+RightArrow
+#bindkey '^'          kill-word                      # unassigned
+#bindkey '^[[H'       beginning-of-line              # Home
+#bindkey '^[[F'       end-of-line                    # End
+#bindkey '^K'         kill-line                      # Ctrl+K
+#bindkey '^U'         backward-kill-line             # Ctrl+U
+#bindkey '^[[Z'       undo                           # Shift + tab
+#bindkey '^[[1;5C]'   forward-word                   # Ctrl+LeftArrow
+#bindkey '^[[1;5D]'   backward-word                  # Ctrl+RightArrow
 
-bindkey '^[[D'       backward-char                          #LeftArrow
-bindkey '^[[C'       forward-char                           #RightArrow
-bindkey '^[[Z'       reverse-menu-complete                  #Shift+tab
-bindkey '^W'         backward-kill-word                     #Ctrl+W
-bindkey '^[[3~'      delete-char                            #Delete
-bindkey '^?'         backward-delete-char                   #Backspace
-bindkey '^[[5~'      beginning-of-buffer-or-history         #PgUp
-bindkey '^[[6~'      end-of-buffer-or-history               #PgDn
-bindkey '^k'         up-line-or-beginning-search            #Up
-bindkey '^j'         down-line-or-beginning-search          #Down
+bindkey '^[[D'       backward-char                          # LeftArrow
+bindkey '^[[C'       forward-char                           # RightArrow
+bindkey '^[[Z'       reverse-menu-complete                  # Shift+tab
+bindkey '^W'         backward-kill-word                     # Ctrl+W
+bindkey '^[[3~'      delete-char                            # Delete
+bindkey '^?'         backward-delete-char                   # Backspace
+bindkey '^[[5~'      beginning-of-buffer-or-history         # PgUp
+bindkey '^[[6~'      end-of-buffer-or-history               # PgDn
+bindkey '^k'         up-line-or-beginning-search            # Up
+bindkey '^j'         down-line-or-beginning-search          # Down
 
-bindkey -r '^l'            #rebinding clear from ctrl + l to ctrl + n
-bindkey -r '^n'            #rebinding clear from ctrl + l to ctrl + n
+bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + n
+bindkey -r '^n'              #rebinding clear from ctrl + l to ctrl + n
 bindkey -s '^n' 'clear\n^M'  #rebinding clear from ctrl + l to ctrl + n
 
 #bindkey -s '^y' 'htop^M'
@@ -98,6 +98,15 @@ bindkey -s '^n' 'clear\n^M'  #rebinding clear from ctrl + l to ctrl + n
 #bindkey -s '^i' 'ncdu^M'
 #bindkey -s '^o' 'lf^M'
 #bindkey -s '^p' 'ncdu^M'
+
+# Colorize man pages
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # FZF
 if [ $(command -v "fzf") ]; then
@@ -118,7 +127,7 @@ export EDITOR="nvim"
 export TERMINAL="alacritty"
 export BROWSER="firefox"
 
-# For QT Themes
+# For QT themes
 export QT_QPA_PLATFORMTHEME=qt5ct
 source /opt/powerlevel10k/powerlevel10k.zsh-theme
 
