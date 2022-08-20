@@ -27,11 +27,16 @@ setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
 # Completions
-autoload -Uz compinit; compinit
+autoload -Uz compinit
 zstyle ':completion:*' menu select
-_comp_options+=(globdots)               # Include hidden files.
 zmodload zsh/complist
+compinit
+_comp_options+=(globdots)               # Include hidden files.
 zle_highlight=('paste:none')
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
 
 # Colors
 autoload -Uz colors && colors
