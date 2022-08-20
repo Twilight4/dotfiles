@@ -34,10 +34,6 @@ compinit
 _comp_options+=(globdots)               # Include hidden files.
 zle_highlight=('paste:none')
 
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
-
 # Colors
 autoload -Uz colors && colors
 
