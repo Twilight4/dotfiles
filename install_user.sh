@@ -42,6 +42,7 @@ git clone https://github.com/Twilight4/dotfiles/.config.git \
 fi
 source "$DOTFILES/zsh/.zshenv"
 
+# tmux plugin manager
 [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
 && git clone https://github.com/tmux-plugins/tpm \
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
