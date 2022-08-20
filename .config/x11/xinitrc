@@ -4,6 +4,7 @@ VBoxClient --checkhostversion &
 VBoxClient --vmsvg &
 
 xrdb -merge ~/.config/x11/.Xresources &
+nitrogen --restore &
 
 exec --no-startup -id dunst &
 exec qtile start
