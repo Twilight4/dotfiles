@@ -36,8 +36,9 @@ zle_highlight=('paste:none')
 # Colors
 autoload -Uz colors && colors
 
-# Useful Functions
+# My plugin manager and p10k
 source "$ZDOTDIR/zsh-functions"
+source /opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # Normal files to source
 zsh_add_file "zsh-aliases"
@@ -108,9 +109,6 @@ bindkey -M vicmd g edit-command-line
 
 # Speedy keys
 xset r rate 210 40
-
-# p10k
-source /opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
