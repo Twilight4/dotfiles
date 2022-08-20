@@ -46,3 +46,7 @@ source "$DOTFILES/zsh/.zshenv"
 [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
 && git clone https://github.com/tmux-plugins/tpm \
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
+
+# neovim plugin manager
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.config/.local/share/nvim/site/pack/packer/start/packer.nvim
