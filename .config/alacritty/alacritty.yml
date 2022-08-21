@@ -34,7 +34,7 @@ cursor:
 #    lines: 28
   decorations: none
 
-# Colors
+# Colors - Darkside
 colors:
   primary:
     background: '#222324'
