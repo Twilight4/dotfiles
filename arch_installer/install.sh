@@ -1,4 +1,4 @@
-#!/bin/bashsudo pacman -S --noconfirm tar curl
+#!/bin/bashsudo pacman -S --noconfirm tar curl git
 aur_install() {
 curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz" \
 && tar -xvf "yay.tar.gz" \
@@ -8,26 +8,46 @@ curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz" \
 && rm -rf "yay" "yay.tar.gz" ;
 }
 
-DOTFILES="/home/$(whoami)/.config"
+DOTFILES="/home/twilight/"
 if [ ! -d "$DOTFILES" ]; then
 git clone https://github.com/Twilight4/dotfiles.git \
 "$DOTFILES" >/dev/null
 fi
 
-rm ~/dotfiles/fonts/MesloLGS-NF/README.md
-rm ~/dotfiles/README.md
+cd ~/dotfiles.git
+mv /home/twilight/dotfiles.git/.config /home/twilight/
+mv /home/twilight/dotfiles.git/fonts/MesloLGS-NF/* /usr/share/fonts
+mv /home/twilight/dotfiles.git/wallpapers /opt
+mv /home/twilight/dotfiles.git/wallpapers/arch_installer/paclist ~
+mv /home/twilight/dotfiles.git/wallpapers/arch_installer/paclist ~
+cd ~twilight/
+rm -rf dotfiles.git
+
 pip install --no-cache-dir cairocffi
+echo 'export ZDOTDIR="$HOME"/.config/zsh' >> /etc/zsh/zshenv
 sudo systemctl enable vboxservice.service
 chsh -s /bin/zsh
-yay -Syu
+rm .bash*
+mkdir -p /opt/github /opt/github/essentials
+yay -Syu --noconfirm
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /opt/powerlevel10k
-echo 'export ZDOTDIR="$HOME"/.config/zsh' >> /etc/zsh/zshenv
-mv /home/twilight/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh /home/twilight/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
-mv ~/dotfiles/fonts/* /usr/share/fonts
-yay -Sc
+mv /home/twilight/.config/dotfiles.git/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh /home/twilight/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
+
+yay -Yc --noconfirm
 git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 git config --global user.email "electrolight071@gmail.com"
 git config --global user.name "<Twilight4>"
 
 sudo pacman -S $(cat paclist)
 yay -S $(cat yaylist)
+rm ~/paclist
+rm ~/yaylist
+
+git clone https://github.com/shlomif/lynx-browser /opt/github/essentials
+git clone https://github.com/chubin/cheat.sh /opt/github/essentials
+git clone https://github.com/smallhadroncollider/taskell /opt/github/essentials
+git clone https://github.com/christoomey/vim-tmux-navigator /opt/github/essentials
+git clone https://github.com/tmux-plugins/tpm /opt/github/essentials
+git clone https://github.com/wbthomason/packer.nvim /opt/github/essentials
+git clone https://github.com/b3nj5m1n/xdg-ninja ~twilight/
+git clone https://github.com/shlomif/lynx-browser /opt/github/essentials
