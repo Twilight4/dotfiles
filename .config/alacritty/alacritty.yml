@@ -4,16 +4,16 @@ scrolling:
 
 font:
    normal:
-    family: "Hack"
+    family: "MesloLGS NF"
     style: regular 
 bold:
-    family: "Hack"
+    family: "MesloLGS NF"
     style: bold
 italic:
-    family: "Hack"
+    family: "MesloLGS NF"
     style: italic
 bold_italic:
-    family: "Hack"
+    family: "MesloLGS NF"
     style: bold_italic
 
 size: 11.0
