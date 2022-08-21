@@ -22,8 +22,8 @@ export SAVEHIST=10000                                # Maximum events in history
 # Other software
 export TMUXP_CONFIGDIR="$XDG_CONFIG_HOME/tmuxp"
 export _Z_DATA="$XDG_DATA_HOME/z/"
-export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export XCURSOR_PATH=/usr/share/icons:${XDG_DATA_HOME}/icons
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+export XCURSOR_PATH="$XDG_DATA_HOME/icons"
 
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
