@@ -1,4 +1,4 @@
-### Welcome to my arch installer script
+### Welcome to my arch installer scripts
 
 #### install_apps.sh script parses apps.cvs and install_user.sh
 1. after installing base system download the script
