@@ -22,7 +22,7 @@ setopt AUTO_PUSHD           # Push the current directory visited on to the stack
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicate directories in the stack
 setopt PUSHD_SILENT         # Do not print the directory stack after using pushd or popd
 setopt EXTENDED_GLOB        # Use extended globbing syntax
-setopt INTERACTIVE_COMMENTS # Enables comments when running an interactive session
+setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive session
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
