@@ -51,3 +51,8 @@ git clone https://github.com/tmux-plugins/tpm /opt/github/essentials
 git clone https://github.com/wbthomason/packer.nvim /opt/github/essentials
 git clone https://github.com/b3nj5m1n/xdg-ninja ~twilight/
 git clone https://github.com/shlomif/lynx-browser /opt/github/essentials
+
+echo 'reminders for myself:
+- add pub ssh key to github
+- choose GTK Theme in lxappearance
+'
