@@ -1,6 +1,6 @@
 # general
 alias ls='exa -l -g --icons -t modified -h'
-alias lsc='exa -l -g --icons -t created -h'
+alias lc='exa -l -g --icons -t created -h'
 alias la='ls --tree --level=2 -a -t modified -h'
 alias lac='ls --tree --level=2 -a -t created -h'
 alias ga='git add'
