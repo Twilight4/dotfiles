@@ -4,9 +4,9 @@ Warning: Don’t blindly use my settings unless you know what that entails. Ther
 # Contents
 - arch linux / arch installer
 - qtile / rofi / dunst
-- zsh / fzf
+- [zsh](https://thevaluable.dev/zsh-install-configure-mouseless/) / [fzf](https://github.com/junegunn/fzf)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 - Neovim
 - tmux
-- git / diff-so-fancy
+- git / [iff-so-fancy]https://github.com/so-fancy/diff-so-fancy)
