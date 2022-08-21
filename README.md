@@ -9,4 +9,4 @@ Warning: Don’t blindly use my settings unless you know what that entails. Ther
 - [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 - Neovim
 - tmux
-- git / [iff-so-fancy]https://github.com/so-fancy/diff-so-fancy)
+- git / [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
