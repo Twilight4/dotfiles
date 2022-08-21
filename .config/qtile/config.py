@@ -10,7 +10,7 @@ from libqtile.utils import guess_terminal
 ########################## KEY BINDINGS ##########################
 mod = "mod4"
 terminal = "alacritty"
-myBrowser = "vimb"
+myBrowser = "min"
 
 keys = [
     # A list of available commands that can be bound to keys can be found
