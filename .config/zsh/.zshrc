@@ -78,6 +78,7 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey '^[[D'       backward-char                          # LeftArrow
 bindkey '^[[C'       forward-char                           # RightArrow
+bindkey '^_'         forward-char                           # RightArrow
 bindkey '^[[Z'       reverse-menu-complete                  # Shift+tab
 bindkey '^W'         backward-kill-word                     # Ctrl+W
 bindkey '^[[3~'      delete-char                            # Delete
