@@ -65,7 +65,7 @@ screens = [
                     ),
                 widget.Prompt(
                     prompt = "Run:",
-                    foreground=colors['cyan']
+                    foreground=colors['fg']
                     ),
                 widget.Spacer(),
                 widget.TextBox(
