@@ -35,3 +35,9 @@ keys = [
     #Key([mod, "shift"], "p", lazy.spawn("rofi -show p -modi p:rofi-power-menu -theme ~/.config/qtile/rofi/themes/gradients/style-1.rasi"), desc="Launch power menu"),
 
 ]
+
+mouse = [
+    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click([mod], "Button2", lazy.window.bring_to_front()),
+]
