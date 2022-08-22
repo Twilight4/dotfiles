@@ -50,5 +50,5 @@ floating_layout = layout.Floating(float_rules=[
     ,*layout.Floating.default_float_rules,
     Match(title='program'),         # Choose which app
     Match(title='application'),     # Choose which app
-    Mach(wm_class='application2'), # Choose which app
+    Mach(wm_class='application2'),  # Choose which app
 ])
