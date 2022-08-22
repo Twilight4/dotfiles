@@ -1,6 +1,6 @@
 from libqtile.config import Key, Group
 from libqtile.lazy import lazy
-from settings.key_bindings import mod, keys
+from settings.keys import keys
 
 groups = [Group("", layout='monadtall'),
           Group("爵", layout='monadtall'),
