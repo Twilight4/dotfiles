@@ -10,6 +10,7 @@ from settings.key_bindings import key_bindings
 from settings.layouts import layouts
 from settings.colors import colors
 from settings.groups import groups
+from settings.prefs import prefs
 
 widget_defaults = dict(
     font="MesloLGS-NF",
