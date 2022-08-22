@@ -10,7 +10,7 @@ catppuccin = {
         'orange': '#f5e0dc',
         'yellow': '#ecd28b',
         'grey': '#343637',
-        'deep-grey': '#686868',
+        'dark-grey': '#686868',
         'light-grey': '#d3d3d3',
         'pink': '#f5c2e7'
         }
