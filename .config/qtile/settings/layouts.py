@@ -1,8 +1,9 @@
-from libqtile import layout.MonadTall
+from libqtile import layout
 
 layouts = [
         layout.MonadTall(
             margin = 20,
             border_focus = '#89dceb',
-            border_width=2),
-            ),
+            border_width=2,
+        ),
+]
