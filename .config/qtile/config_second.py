@@ -39,7 +39,7 @@ screens = [
                     size_percent=70,
                     ),
                 widget.GroupBox(
-                    highlight_method='text',
+                    highlight_method='line',
                     this_current_screen_border = colors['dark-blue'],
                     active = colors['blue'],
                     background=colors['dark-grey'],
