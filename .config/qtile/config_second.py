@@ -28,7 +28,7 @@ screens = [
         top=bar.Bar(
             [
                 widget.Image(
-                filename='~/.config/qtile/icons/arch.png',
+                    filename='~/.config/qtile/icons/arch.png',
                     margin=3,
                     background=colors['dark-grey']
                     ),
@@ -121,9 +121,8 @@ screens = [
                      foreground=colors['light-grey'],
                      background=colors['grey'],
                      ),
-
              29,
-             border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+            border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             border_color=["ff00ff", "000000", "ff00ff", "000000"] 
          ),
       ]
