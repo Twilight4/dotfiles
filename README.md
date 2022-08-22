@@ -9,4 +9,4 @@ Caveat: Don’t blindly use my settings unless you know what that entails. There
 - [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 - [Neovim](https://github.com/neovim/neovim)
 - [tmux](https://github.com/tmux/tmux)
-- git / [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
+- [git](https://github.com/git) / [diff-so-fancy](https://github.com/so-fancy/diff-so-fancy)
