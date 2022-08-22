@@ -9,23 +9,3 @@ groups = [Group("", layout='monadtall'),
           Group("", layout='monadtall'),
           Group("", layout='monadtall'),
           Group("", layout='monadtall'),]
-
-
-dgroups_key_binder = simple_key_binder("mod4")
-for i in groups:
-    keys.extend(
-        [
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            Key(
-                [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
-            ),
-        ]
-    )
