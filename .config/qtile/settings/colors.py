@@ -2,6 +2,7 @@ catppuccin = {
         'bg': '#1d1d2d',
         'fg': '#cdd6f4',
         'blue': '#6791c9',
+        'dark-blue': '#00008b',
         'red': '#df5b61',
         'black': '#24283b',
         'cyan': '#89dceb',
