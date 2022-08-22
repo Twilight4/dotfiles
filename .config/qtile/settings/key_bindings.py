@@ -42,13 +42,13 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
-# Floating windows - Defining what class of windows should always be floating.
-floating_layout = layout.Floating(float_rules=[
- # Run the utility fo `xprop` to see the wm class and name of an X client.
- # default_float_rules include: utility, notifications, toolbar, splash, dialog
- # file_progress, confirm, download and error.
-    ,*layout.Floating.default_float_rules,
-    Match(title='program'),         # Choose which app
-    Match(title='application'),     # Choose which app
-    Mach(wm_class='application2'),  # Choose which app
-])
+## Floating windows - Defining what class of windows should always be floating.
+#floating_layout = layout.Floating(float_rules=[
+ ## Run the utility fo `xprop` to see the wm class and name of an X client.
+ ## default_float_rules include: utility, notifications, toolbar, splash, dialog
+ ## file_progress, confirm, download and error.
+#    ,*layout.Floating.default_float_rules,
+#    Match(title='program'),         # Choose which app
+#    Match(title='application'),     # Choose which app
+#    Mach(wm_class='application2'),  # Choose which app
+#])
