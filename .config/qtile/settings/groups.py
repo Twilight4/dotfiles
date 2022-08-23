@@ -67,7 +67,7 @@ dgroups_key_binder = simple_key_binder("mod4")
 #     ]
 
 
-# First Idea
+# My Idea for the problem
 #for i, g in enumerate(groups):
 #  keys.extend([
 #    Key([mod], str(i + 1),
