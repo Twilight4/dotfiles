@@ -11,49 +11,55 @@ groups = [Group("", layout='monadtall'),
           Group("", layout='monadtall'),]
 
 #for i in groups:
-#    keys.extend(
-#        [
+    keys.extend(
+        [
             # mod1 + letter of group = switch to group
-#            Key(
-#                [mod],
-#                i.name,
-#                lazy.group[i.name].toscreen(),
-#                desc="Switch to group {}".format(i.name),
-#            ),
+            Key(
+                [mod],
+                i.name,
+                lazy.group[i.name].toscreen(),
+                desc="Switch to group {}".format(i.name),
+            ),
             # mod1 + shift + letter of group = switch to & move focused window to group
-#            Key(
-#                [mod, "shift"],
-#                i.name,
-#                lazy.window.togroup(i.name, switch_group=True),
-#                desc="Switch to & move focused window to group {}".format(i.name),
-#            ),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
-#        ]
-#    )
+            Key(
+                [mod, "shift"],
+                i.name,
+                lazy.window.togroup(i.name, switch_group=True),
+                desc="Switch to & move focused window to group {}".format(i.name),
+            ),
+           # Or, use below if you prefer not to switch to that group.
+           # # mod1 + shift + letter of group = move focused window to group
+           # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+           #     desc="move focused window to group {}".format(i.name)),
+        ]
+    )
 
-for i, g in enumerate(groups):
-  keys.extend([
-    Key([mod], str(i + 1).toscreen(),
-    desc="Switch to group {}".format(i.),
-    Key([mod], str(i + 2).toscreen(),
-    desc="Switch to group {爵}".format(i.爵),
-    Key([mod], str(i + 3).toscreen(),
-    desc="Switch to group {".format(i.),
-    Key([mod], str(i + 4).toscreen(),
-    desc="Switch to group {}".format(i.),
-    Key([mod], str(i + 5).toscreen(),
-    desc="Switch to group {}".format(i.),]
-   # switch to & move focused window to group
-    Key([mod, "shift"], str(i + 1).lazy.window.togroup(i., switch_group=True),
-    desc="Switch to & move focused window to group {}".format(i.),
-    Key([mod, "shift"], str(i + 2).lazy.window.togroup(i.爵, switch_group=True),
-    desc="Switch to & move focused window to group {}".format(i.爵),
-    Key([mod, "shift"], str(i + 3).lazy.window.togroup(i., switch_group=True),
-    desc="Switch to & move focused window to group {}".format(i.),
-    Key([mod, "shift"], str(i + 4).lazy.window.togroup(i., switch_group=True),
-    desc="Switch to & move focused window to group {}".format(i.),
-    Key([mod, "shift"], str(i + 5).lazy.window.togroup(i., switch_group=True),
-    desc="Switch to & move focused window to group {}".format(i.),
+
+# According to this pattern
+    keys.extend(
+     [
+            Key([mod],
+                i.1,
+                lazy.group[i.1].toscreen()
+                desc="Switch to group {}".format(i.1)),
+               
+
+
+
+
+
+
+
+# First Idea
+#for i, g in enumerate(groups):
+#  keys.extend([
+#    Key([mod], str(i + 1),
+#    desc="Switch to group {}".format(i, g)),
+#    Key([mod], str(i + 2),
+#    desc="Switch to group {}".format(i, g)),
+#    Key([mod], str(i + 3),
+#    desc="Switch to group {}".format(i, g)),
+#    Key([mod], str(i + 4),
+#    desc="Switch to group {}".format(i, g)),
+#    Key([mod], str(i + 5),
+#    desc="Switch to group {}".format(i, g)),])
