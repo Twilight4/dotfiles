@@ -38,59 +38,49 @@ groups = [Group("", layout='monadtall'),
 # According to this pattern
     keys.extend(
      [
-            Key([mod],
-                i.1,
+            Key([mod], i.1,
                 lazy.group[i.1].toscreen()
                 desc="Switch to group {}".format(i.1)
                ),
-            Key([mod],
-                i.2,
+            Key([mod], i.2,
                 lazy.group[i.2].toscreen()
                 desc="Switch to group {}".format(i.2)
                ),
-            Key([mod],
-                i.3,
+            Key([mod], i.3,
                 lazy.group[i.3].toscreen()
                 desc="Switch to group {}".format(i.3)
                ),   
-            Key([mod],
-                i.4,
+            Key([mod], i.4,
                 lazy.group[i.4].toscreen()
                 desc="Switch to group {}".format(i.4)
                ),
-            Key([mod],
-                i.5,
+            Key([mod], i.5,
                 lazy.group[i.5].toscreen()
                 desc="Switch to group {}".format(i.5)
                ),
 # switch & move focused window to group
             Key(
-                [mod, "shift"],
-                i.1,
+                [mod, "shift"], i.1,
                 lazy.window.togroup(i.1, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.1),
             )
             Key(
-                [mod, "shift"],
-                i.2,
+                [mod, "shift"], i.2,
                 lazy.window.togroup(i.2, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.2),
             )
             Key(
-                [mod, "shift"],
-                i.3,
+                [mod, "shift"], i.3,
                 lazy.window.togroup(i.3, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.3),
             )
             Key(
-                [mod, "shift"],
-                i.4,
+                [mod, "shift"], i.4,
                 lazy.window.togroup(i.4, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.4),
             )
             Key(
-                [mod, "shift"],
-                i.5,
+                [mod, "shift"], i.5,
                 lazy.window.togroup(i.5, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.5),
             )
