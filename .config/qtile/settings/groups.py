@@ -84,6 +84,7 @@ groups = [Group("", layout='monadtall'),
                 lazy.window.togroup(i.5, switch_group=True),
                 desc="Switch to & move focused window to group {}".format(i.5),
             )
+     ]
 
 
 
