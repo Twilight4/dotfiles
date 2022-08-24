@@ -2,21 +2,6 @@ scrolling:
   history: 10000
   multiplier: 10
 
-font:
-   normal:
-    family: "MesloLGM NF"
-    style: regular 
-bold:
-    family: "MesloLGM NF"
-    style: bold
-italic:
-    family: "MesloLGM NF"
-    style: italic
-bold_italic:
-    family: "MesloLGM NF"
-    style: bold_italic
-
-size: 11.0
 draw_bold_text_with_bright_colors: true
 #opacity: 1.0
 
