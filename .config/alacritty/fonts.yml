@@ -1,0 +1,15 @@
+font:
+   normal:
+    family: "MesloLGM NF"
+    style: regular 
+bold:
+    family: "MesloLGM NF"
+    style: bold
+italic:
+    family: "MesloLGM NF"
+    style: italic
+bold_italic:
+    family: "MesloLGM NF"
+    style: bold_italic
+
+size: 11.0
