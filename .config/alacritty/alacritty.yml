@@ -4,16 +4,16 @@ scrolling:
 
 font:
    normal:
-    family: "MesloLGS NF"
+    family: "MesloLGM NF"
     style: regular 
 bold:
-    family: "MesloLGS NF"
+    family: "MesloLGM NF"
     style: bold
 italic:
-    family: "MesloLGS NF"
+    family: "MesloLGM NF"
     style: italic
 bold_italic:
-    family: "MesloLGS NF"
+    family: "MesloLGM NF"
     style: bold_italic
 
 size: 11.0
