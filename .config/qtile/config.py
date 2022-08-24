@@ -72,7 +72,7 @@ screens = [
                     text='',
                     foreground=colors['grey'],
                     background='#1d1d2d',
-                    padding=-0,
+                    padding=-6,
                     fontsize=48
                     ),
                 #widget.ThermalZone(
