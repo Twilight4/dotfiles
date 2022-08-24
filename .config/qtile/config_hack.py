@@ -22,51 +22,51 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-
+##################### Finish configuring the bar and colors from colors_hack.py ####################
 screens = [
     Screen(
         top=bar.Bar(
             [
                 widget.Image(
-                    filename='~/.config/qtile/icons/arch.png',
+                    filename='~/.config/qtile/icons/skull.png',
                     margin=3,
-                    background=colors['dark-grey']
+                    background=colors['']
                     ),
                 widget.Sep(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     line_width=9,
                     size_percent=70,
                     ),
                 widget.GroupBox(
                     highlight_method='line',
                     this_current_screen_border = colors['dark-blue'],
-                    active = colors['blue'],
-                    background=colors['dark-grey'],
+                    active = colors[''],
+                    background=colors[''],
                     ),
                 widget.Sep(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     line_width=9,
                     size_percent=70,
                     ),
                 widget.Prompt()
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                 widget.Spacer(),
                 widget.Sep(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     line_width=9,
                     size_percent=70,
                 widget.CPU(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     format = ' {load_percent}%'
                     ),
                 widget.Memory(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm}',
                         ),
                 widget.DF(
@@ -76,14 +76,14 @@ screens = [
                     partition = `/`
                        )
                 widget.Sep(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     line_width=9,
                     size_percent=70,
                        )      
                 widget.CheckUpdates(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     colour_have_updates[''],
                     colour_no_updates[''],
                     custom_command = 
@@ -91,35 +91,35 @@ screens = [
                     distro = 'Arch'
                        )
                 widget.Sep(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     line_width=9,
                     size_percent=70,
                        )
                 widget.Batterry(
-                    foreground=colors['blue'],
-                    background=colors['dark-grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     format = {percent:2.0%} 
                     full_char = '='
                     low_foreground = 'FF0000'
                     low_percentage = 0.1
                        ),
                 widget.Wlan(
-                  foreground=colors['blue'],
-                  background=colors['dark-grey'],
+                  foreground=colors[''],
+                  background=colors[''],
                   disconnected_message = 
                   format = '{essid} {quality}/70'
                      ),
                 widget.Sep(
-                    foreground=colors['blue'],
-                    background=colors['grey'],
+                    foreground=colors[''],
+                    background=colors[''],
                     line_width=9,
                     size_percent=70,
                   ),
                 widget.Clock(
                      format=' %d/%m/%y %H:%M'
-                     foreground=colors['light-grey'],
-                     background=colors['grey'],
+                     foreground=colors[''],
+                     background=colors[''],
                      ),
              29,
             border_width=[2, 0, 2, 0],  # Draw top and bottom borders
