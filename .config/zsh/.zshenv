@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # XDG 
 export XDG_CONFIG_HOME="$HOME/.config"               # For dotfiles
 export XDG_DATA_HOME="$XDG_CONFIG_HOME/local/share"  # For specific data
@@ -6,7 +8,7 @@ export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
 # Environment variables
 export EDITOR="nvim"
 export VISUAL="nvim"
-export TERMINAL='alacritty'
+export TERMINAL="alacritty"
 export BROWSER="firefox"
 
 # X11
