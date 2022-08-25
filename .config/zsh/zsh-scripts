@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Extract any archive automatically. Require tar and unzip - extract <archive_file>
 extract() {
     for file in "$@"
