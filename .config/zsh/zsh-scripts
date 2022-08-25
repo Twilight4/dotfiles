@@ -170,13 +170,13 @@ done | awk "$awkscript"
 
 # More scripts to source
 pipes() {
-    $ZDOTDIR/zsh/scripts/pipes.sh
+    $ZDOTDIR/scripts/pipes.sh
 }
 
 colorblocks() {
-    $ZDOTDIR/zsh/scripts/colorblocks.sh
+    $ZDOTDIR/scripts/colorblocks.sh
 }
 
 githeat() {
-    $ZDOTDIR/zsh/scripts/heatmap.sh
+    $ZDOTDIR/scripts/heatmap.sh
 }
