@@ -9,7 +9,7 @@ export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
 export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="alacritty"
-export BROWSER="firefox"
+export BROWSER="min"
 
 # X11
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
