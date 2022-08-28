@@ -50,7 +50,7 @@ screens = [
                     line_width=9,
                     size_percent=70,
                     ),
-                widget.Prompt()
+                widget.Prompt(),
                     foreground=colors[''],
                     background=colors[''],
                 widget.Spacer(),
@@ -124,8 +124,10 @@ screens = [
              29,
             border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             border_color=["ff00ff", "000000", "ff00ff", "000000"] 
-         ),
-      ]
+                    ],
+                ),
+                ),
+            ]
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
