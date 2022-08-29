@@ -40,8 +40,8 @@ screens = [
                     ),
                 widget.GroupBox(
                     highlight_method='line',
-                    this_current_screen_border=colors['light-grey'],
-                    active=colors['light-grey'],
+                    this_current_screen_border=colors['white'],
+                    active=colors['white'],
                     background=colors['bg'],
                     foreground=colors['fg'],
                     highlight_color=colors['bg'],
@@ -54,7 +54,7 @@ screens = [
                     padding=8,
                     ),
                 widget.WindowName(
-                    background=colors['light-grey'],
+                    background=colors['white'],
                     foreground=colors['fg'],
                     format = "{name}",
                     empty_group_string = 'Desktop',
@@ -92,12 +92,12 @@ screens = [
                     ),
                 widget.Net(
                     background=colors['bg'],
-                    foreground=colors['light-grey'],
+                    foreground=colors['white'],
                     update_interval = 3,
                     format = '{down} ↓↑ {up}',
                     ),
                 widget.CPU(
-                    foreground=colors['light-grey'],
+                    foreground=colors['white'],
                     background=colors['bg'],
                     format = ' {load_percent}%',
                     ),
@@ -119,7 +119,7 @@ screens = [
                     padding=8,
                     ),
                 widget.Memory(
-                    foreground=colors['light-grey'],
+                    foreground=colors['white'],
                     background=colors['bg'],
                     format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm}',
                     ),
@@ -160,7 +160,7 @@ screens = [
                     ),
                 widget.Clock(
                     format=' %I:%M %p',
-                    foreground=colors['light-grey'],
+                    foreground=colors['white'],
                     background=colors['bg'],
                     ),
                  ],
