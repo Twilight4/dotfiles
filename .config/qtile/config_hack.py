@@ -22,6 +22,7 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
+# DISCLAIMER: Commented lines do NOT work on VBox
 screens = [
     Screen(
         top=bar.Bar(
