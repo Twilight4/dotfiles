@@ -91,7 +91,6 @@ screens = [
                     size_percent=100,
                     padding=8,
                     ),
-                
                 widget.Image(
                     filename='~/.config/qtile/icons/dow-arrow.png',
                     margin=4,
