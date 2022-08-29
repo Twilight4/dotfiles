@@ -28,7 +28,7 @@ screens = [
             [
                 widget.Image(
                     filename='~/.config/qtile/icons/skull.png',
-                    margin=2.5,
+                    margin=3,
                     background=colors['bg'],
                     scale=True,
                     ),
