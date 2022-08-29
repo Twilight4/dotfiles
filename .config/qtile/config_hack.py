@@ -28,8 +28,9 @@ screens = [
             [
                 widget.Image(
                     filename='~/.config/qtile/icons/skull.png',
-                    margin=3,
-                    background=colors['fg']
+                    margin=2.5,
+                    background=colors['bg'],
+                    scale=True,
                     ),
                 widget.Sep(
                     foreground=colors['fg'],
