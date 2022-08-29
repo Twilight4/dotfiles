@@ -54,7 +54,7 @@ screens = [
                     padding=8,
                     ),
                 widget.WindowName(
-                    background=colors['bg'],
+                    background=colors['light-grey'],
                     foreground=colors['fg'],
                     format = "{name}",
                     empty_group_string = 'Desktop',
@@ -93,12 +93,12 @@ screens = [
                 #    format = '{down} ↓↑ {up}',
                 #    ),
                 widget.CPU(
-                    foreground=colors['fg'],
+                    foreground=colors['light-grey'],
                     background=colors['bg'],
                     format = ' {load_percent}%',
                     ),
                 widget.ThermalZone(
-                    foreground=colors['fg'],
+                    foreground=colors['light-grey'],
                     background=colors['bg'],
                     fgcolor_high=colors['dark-yellow'],
                     fgcolor_crit=colors['dark-red'],
@@ -115,7 +115,7 @@ screens = [
                     padding=8,
                     ),
                 widget.Memory(
-                    foreground=colors['fg'],
+                    foreground=colors['light-grey'],
                     background=colors['bg'],
                     format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm}',
                     ),
@@ -133,7 +133,7 @@ screens = [
                     padding=8,
                     ),
                 widget.Battery(
-                    foreground=colors['fg'],
+                    foreground=colors['light-grey'],
                     background=colors['bg'],
                     full_char = ' ',
                     charge_char = ''
@@ -143,7 +143,7 @@ screens = [
                     low_percentage = 0.2,
                     ),
                 widget.Wlan(
-                  foreground=colors['fg'],
+                  foreground=colors['light-grey'],
                   background=colors['bg'],
                   disconnected_message='睊',
                   format='{percent:75% 直}',
@@ -156,7 +156,7 @@ screens = [
                     ),
                 widget.Clock(
                     format=' %I:%M %p',
-                    foreground=colors['fg'],
+                    foreground=colors['light-grey'],
                     background=colors['bg'],
                     ),
             border_width=[2, 0, 2, 0],  # Draw top and bottom borders
