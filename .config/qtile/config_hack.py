@@ -44,7 +44,7 @@ screens = [
                     active=colors['light-grey'],
                     background=colors['bg'],
                     foreground=colors['fg'],
-                    highlight_color=['000000'],
+                    highlight_color=colors['bg'],
                     borderwidth=1,
                     ),
                 widget.Sep(
