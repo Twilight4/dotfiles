@@ -134,7 +134,8 @@ screens = [
                     ),
                 widget.DF(
                     warn_space = 40,
-                    format = {'{p} ({uf}{m}|{r:.0f}%)'},
+                    warn_color=colors['dark-red']
+                    format = {'{p} ({uf}{m}|{r:.0f}%)'},
                     measure = 'G',
                     partition = '/',
                     background=colors['bg'],
