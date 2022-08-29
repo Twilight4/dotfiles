@@ -35,8 +35,8 @@ screens = [
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
-                    size_percent=90,
-                    padding=10
+                    size_percent=100,
+                    padding=8,
                     ),
                 widget.GroupBox(
                     highlight_method='line',
@@ -45,13 +45,13 @@ screens = [
                     background=colors['bg'],
                     foreground=colors['fg'],
                     highlight_color=['000000'],
-                    borderwidth=1
+                    borderwidth=1,
                     ),
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
-                    size_percent=90,
-                    padding=10
+                    size_percent=100,
+                    padding=8,
                     ),
                 widget.WindowName(
                     background=colors['bg'],
@@ -63,8 +63,8 @@ screens = [
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
-                    size_percent=90,
-                    padding=10
+                    size_percent=100,
+                    padding=8,
                     ),
                 widget.Prompt(
                     prompt = "Run: ",
@@ -82,8 +82,8 @@ screens = [
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
-                    size_percent=90,
-                    padding=10
+                    size_percent=100,
+                    padding=8,
                     ),
                 #widget.Net(
                 #    background=colors['dark-grey'],
@@ -110,8 +110,8 @@ screens = [
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
-                    size_percent=90,
-                    padding=10,
+                    size_percent=100,
+                    padding=8,
                     ),
                 widget.Memory(
                     foreground=colors['fg'],
@@ -128,8 +128,8 @@ screens = [
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
-                    size_percent=90,
-                    padding=10,
+                    size_percent=100,
+                    padding=8,
                     ),
                 widget.Battery(
                     foreground=colors['fg'],
@@ -147,8 +147,8 @@ screens = [
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
-                    size_percent=90,
-                    padding=10,
+                    size_percent=100,
+                    padding=8,
                     ),
                 widget.Clock(
                         format=' %I:%M %p',
@@ -156,7 +156,7 @@ screens = [
                         background=colors['bg'],
                         ),
             border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            border_color=["ff00ff", "000000", "ff00ff", "000000"] 
+            border_color=["ff00ff", "000000", "ff00ff", "000000"],
              19,
              ],
             ),
