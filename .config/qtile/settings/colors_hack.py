@@ -8,7 +8,7 @@ hack = {
   'dark-blue': '#04acb5',
   'dark-magenta': '#05bbc5',
   'dark-cyan': '#06ccd7',
-  'light-grey': '#a3b5b8',
+  'white': '#ffffff',
 }
   
 colors = hack
