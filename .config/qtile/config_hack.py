@@ -18,7 +18,7 @@ widget_defaults = dict(
     fontsize=12,
     background=colors['bg'],
     foreground=colors['fg'],
-    padding=10,
+    padding=7,
 )
 extension_defaults = widget_defaults.copy()
 
