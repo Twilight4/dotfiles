@@ -80,8 +80,8 @@ screens = [
                     #update_interval = 1800,
                     #foreground=colors['white'],
                     #background=colors['bg'],
-                    #colour_have_updates['dark-yellow'],
-                    #colour_no_updates['white'],
+                    #colour_have_updates=colors['dark-yellow'],
+                    #colour_no_updates=colors['white'],
                     #display_format='ﮮ Updates: {updates}',
                     #no_update_string=' Fully Updated',
                     ),
@@ -134,7 +134,7 @@ screens = [
                     ),
                 widget.DF(
                     warn_space = 40,
-                    warn_color=colors['dark-red']
+                    warn_color=colors['dark-red'],
                     format = {'{p} ({uf}{m}|{r:.0f}%)'},
                     measure = 'G',
                     partition = '/',
