@@ -167,6 +167,7 @@ screens = [
              20,
             border_width=[1, 1, 1, 1],  # Draw top and bottom borders
             border_color=["#66FFFF", "#66FFFF", "#66FFFF", "#66FFFF"],
+            margin=[3, 10, 0, 10],
             ),
          ),
       ]
