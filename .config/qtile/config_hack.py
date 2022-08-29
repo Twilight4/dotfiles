@@ -91,15 +91,22 @@ screens = [
                     size_percent=100,
                     padding=8,
                     ),
+                
+                widget.Image(
+                    filename='~/.config/qtile/icons/dow-arrow.png',
+                    margin=4,
+                    background=colors['bg'],
+                    scale=True,
+                    ),
                 widget.Net(
                     background=colors['bg'],
                     foreground=colors['white'],
                     update_interval = 3,
-                    format = '{down} ↓↑{up}',
+                    format = '{down} ',
+                    padding = 0,
                     ),
-                
                 widget.Image(
-                    filename='~/.config/qtile/icons/processor.png',
+                    filename='~/.config/qtile/icons/cpu.png',
                     margin=4,
                     background=colors['bg'],
                     scale=True,
@@ -107,8 +114,8 @@ screens = [
                 widget.CPU(
                     foreground=colors['white'],
                     background=colors['bg'],
-                    format = '{load_percent}% '
-                    padding = 0
+                    format = '{load_percent}% ',
+                    padding = 0,
                     ),
                 #widget.ThermalZone(
                     #foreground=colors['white'],
@@ -127,19 +134,26 @@ screens = [
                     size_percent=100,
                     padding=8,
                     ),
+                widget.Image(
+                    filename='~/.config/qtile/icons/ram.png',
+                    margin=2,
+                    background=colors['bg'],
+                    scale=True,
+                    ),
                 widget.Memory(
                     foreground=colors['white'],
                     background=colors['bg'],
-                    format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm}',
+                    format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm} ',
+                    padding 0,
                     ),
-                widget.DF(
-                    warn_space = 40,
-                    warn_color=colors['dark-red'],
-                    format = {'{p} ({uf}{m}|{r:.0f}%)'},
-                    measure = 'G',
-                    partition = '/',
-                    background=colors['bg'],
-                    ),
+                #widget.DF(
+                    #warn_space = 40,
+                    #warn_color=colors['dark-red'],
+                    #format = {'{p} ({uf}{m}|{r:.0f}%)'},
+                    #measure = 'G',
+                    #partition = '/',
+                    #background=colors['bg'],
+                    #),
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
@@ -168,10 +182,17 @@ screens = [
                     size_percent=100,
                     padding=8,
                     ),
+                widget.Image(
+                    filename='~/.config/qtile/icons/clock.png',
+                    margin=4,
+                    background=colors['bg'],
+                    scale=True,
+                    ),
                 widget.Clock(
-                    format=' %I:%M %p',
+                    format='%I:%M %p  ',
                     foreground=colors['white'],
                     background=colors['bg'],
+                    padding = 0,
                     ),
                  ],
              20,
