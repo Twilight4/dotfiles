@@ -73,8 +73,8 @@ screens = [
                     ),
                 widget.Spacer(),
                 widget.Systray(
-                       background=colors['bg'],
-                       ),
+                    background=colors['bg'],
+                    ),
                 #widget.CheckUpdates(
                     #update_interval = 1800,
                     #foreground=colors['white'],
