@@ -126,8 +126,8 @@ screens = [
                 widget.Battery(
                     foreground=colors['fg'],
                     background=colors['bg'],
-                    full_char = '=',
-                    low_foreground = 'FF0000',
+                    full_char = '',
+                    low_foreground=colors['dark-green'],
                     low_percentage = 0.1,
                        ),
                 widget.Wlan(
