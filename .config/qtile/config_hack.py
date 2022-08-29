@@ -42,6 +42,8 @@ screens = [
                     this_current_screen_border=colors['light-grey'],
                     active=colors['light-grey'],
                     background=colors['bg'],
+                    foreground=colors['fg'],
+                    highlight_color=['000000'],
                     borderwidth=1
                     ),
                 widget.Sep(
@@ -51,11 +53,11 @@ screens = [
                     padding=10
                     ),
                 widget.WindowName(
-                    background = colors['dark-grey'],
+                    background=colors['bg'],
+                    foreground=colors['fg'],
                     format = "{name}",
-                    foreground = colors['fg'],
                     empty_group_string = 'Desktop',
-                    width = 200,
+                    width = 120,
                     ),
                 widget.Sep(
                     foreground=colors['fg'],
@@ -69,19 +71,13 @@ screens = [
                     background=colors['bg'],
                     ),
                 widget.Spacer(),
-                widget.Sep(
-                    foreground=colors['fg'],
-                    background=colors['bg'],
-                    size_percent=90,
-                    padding=10
-                    ),
-                widget.CheckUpdates(
-                    foreground=colors['fg'],
-                    background=colors['bg'],
-                    colour_have_updates['dark-cyan'],
-                    colour_no_updates['fg'],
-                    display_format='Updates: {updates}',
-                    ),
+                #widget.CheckUpdates(
+                    #foreground=colors['fg'],
+                    #background=colors['bg'],
+                    #colour_have_updates['dark-cyan'],
+                    #colour_no_updates['fg'],
+                    #display_format='Updates: {updates}',
+                    #),
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
@@ -108,6 +104,7 @@ screens = [
                     background=colors['bg'],
                     size_percent=90,
                     padding=10
+                    ),
                 widget.Memory(
                     foreground=colors['fg'],
                     background=colors['bg'],
