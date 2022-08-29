@@ -15,17 +15,13 @@ from settings.rules import rules
 
 widget_defaults = dict(
     font="MesloLGS-NF",
-    fontsize=17,
-    background = "#1d1d2d",
-    foreground=colors['black'],
+    fontsize=12,
+    background=colors['bg'],
+    foreground=colors['fg'],
     padding=10,
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
 screens = [
     Screen(
         top=bar.Bar(
@@ -73,6 +69,19 @@ screens = [
                     background=colors['bg'],
                     ),
                 widget.Spacer(),
+                widget.Sep(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    size_percent=90,
+                    padding=10
+                    ),
+                widget.CheckUpdates(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    colour_have_updates['dark-cyan'],
+                    colour_no_updates['fg'],
+                    display_format='Updates: {updates}',
+                    ),
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
@@ -148,86 +157,6 @@ screens = [
             ),
          ),
       ]
-
-
-                
-                widget.Prompt(),
-                    foreground=colors[''],
-                    background=colors[''],
-                widget.Spacer(),
-                widget.Sep(
-                    foreground=colors[''],
-                    background=colors[''],
-                    line_width=9,
-                    size_percent=70,
-                widget.CPU(
-                    foreground=colors[''],
-                    background=colors[''],
-                    format = ' {load_percent}%'
-                    ),
-                widget.Memory(
-                    foreground=colors[''],
-                    background=colors[''],
-                    format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm}',
-                        ),
-                widget.DF(
-                    warn_space = 40
-                    format = {m}
-                    measure = 'G'
-                    partition = `/`
-                       )
-                widget.Sep(
-                    foreground=colors[''],
-                    background=colors[''],
-                    line_width=9,
-                    size_percent=70,
-                       )      
-                widget.CheckUpdates(
-                    foreground=colors[''],
-                    background=colors[''],
-                    colour_have_updates[''],
-                    colour_no_updates[''],
-                    custom_command = 
-                    display_format = {updates}'
-                    distro = 'Arch'
-                       )
-                widget.Sep(
-                    foreground=colors[''],
-                    background=colors[''],
-                    line_width=9,
-                    size_percent=70,
-                       )
-                widget.Batterry(
-                    foreground=colors[''],
-                    background=colors[''],
-                    format = {percent:2.0%} 
-                    full_char = '='
-                    low_foreground = 'FF0000'
-                    low_percentage = 0.1
-                       ),
-                widget.Wlan(
-                  foreground=colors[''],
-                  background=colors[''],
-                  disconnected_message = 
-                  format = '{essid} {quality}/70'
-                     ),
-                widget.Sep(
-                    foreground=colors[''],
-                    background=colors[''],
-                    line_width=9,
-                    size_percent=70,
-                  ),
-                widget.Clock(
-                     format=' %d/%m/%y %H:%M'
-                     foreground=colors[''],
-                     background=colors[''],
-                     ),
-
-                    29,
-                    ],
-                ),
-                ),
-            ]
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
