@@ -96,10 +96,18 @@ screens = [
                     update_interval = 3,
                     format = '{down} ↓↑{up}',
                     ),
+                
+                widget.Image(
+                    filename='~/.config/qtile/icons/processor.png',
+                    margin=4,
+                    background=colors['bg'],
+                    scale=True,
+                    ),
                 widget.CPU(
                     foreground=colors['white'],
                     background=colors['bg'],
-                    format = ' {load_percent}%',
+                    format = '{load_percent}% '
+                    padding = 0
                     ),
                 #widget.ThermalZone(
                     #foreground=colors['white'],
