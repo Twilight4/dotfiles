@@ -82,7 +82,7 @@ screens = [
                     colour_have_updates['dark-yellow'],
                     colour_no_updates['light-grey'],
                     display_format='ﮮ Updates: {updates}',
-                    no_update_string=' Fully Updated'
+                    no_update_string=' Fully Updated',
                     ),
                 widget.Sep(
                     foreground=colors['fg'],
