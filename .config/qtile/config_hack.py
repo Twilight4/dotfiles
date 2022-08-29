@@ -73,6 +73,7 @@ screens = [
                     ),
                 widget.Spacer(),
                 #widget.CheckUpdates(
+                    #update_interval = 1800,
                     #foreground=colors['fg'],
                     #background=colors['bg'],
                     #colour_have_updates['dark-cyan'],
@@ -89,7 +90,7 @@ screens = [
                 #    background=colors['dark-grey'],
                 #    foreground=colors['dark-yellow'],
                 #    update_interval = 3,
-                #    format = '{down} {up}',
+                #    format = '{down} ↓↑ {up}',
                 #    ),
                 widget.CPU(
                     foreground=colors['fg'],
