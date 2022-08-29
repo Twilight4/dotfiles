@@ -137,13 +137,13 @@ screens = [
                     full_char = '',
                     low_foreground=colors['dark-green'],
                     low_percentage = 0.1,
-                       ),
+                    ),
                 widget.Wlan(
                   foreground=colors['fg'],
                   background=colors['bg'],
                   disconnected_message='睊',
                   format='{percent:75% 直}',
-                     ),
+                    ),
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
@@ -151,10 +151,10 @@ screens = [
                     padding=8,
                     ),
                 widget.Clock(
-                        format=' %I:%M %p',
-                        foreground=colors['fg'],
-                        background=colors['bg'],
-                        ),
+                    format=' %I:%M %p',
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    ),
             border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             border_color=["ff00ff", "000000", "ff00ff", "000000"],
              19,
