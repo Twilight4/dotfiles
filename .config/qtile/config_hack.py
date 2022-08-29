@@ -27,7 +27,7 @@ screens = [
         top=bar.Bar(
             [
                 widget.Image(
-                    filename='~/.config/qtile/icons/arch.png',
+                    filename='~/.config/qtile/icons/skull.png',
                     margin=3,
                     background=colors['fg']
                     ),
@@ -103,14 +103,14 @@ screens = [
                     fgcolor_normal=colors['light-grey'],
                     high=70,
                     crit=90,
-                    format = ' {temp}°C'
-                    format_crit = ' {temp}°C'
-                ),
+                    format = ' {temp}°C',
+                    format_crit = ' {temp}°C',
+                    ),
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
                     size_percent=90,
-                    padding=10
+                    padding=10,
                     ),
                 widget.Memory(
                     foreground=colors['fg'],
@@ -122,13 +122,13 @@ screens = [
                     format = {'{p} ({uf}{m}|{r:.0f}%)'},
                     measure = 'G',
                     partition = '/',
-                    background=colors['bg']
+                    background=colors['bg'],
                     ),
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
                     size_percent=90,
-                    padding=10
+                    padding=10,
                     ),
                 widget.Battery(
                     foreground=colors['fg'],
@@ -147,7 +147,7 @@ screens = [
                     foreground=colors['fg'],
                     background=colors['bg'],
                     size_percent=90,
-                    padding=10
+                    padding=10,
                     ),
                 widget.Clock(
                         format=' %I:%M %p',
