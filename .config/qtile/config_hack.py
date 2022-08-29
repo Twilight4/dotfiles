@@ -22,34 +22,135 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-##################### Finish configuring the bar and colors from colors_hack.py ####################
+screens = [
+    Screen(
+        top=bar.Bar(
+            [
 screens = [
     Screen(
         top=bar.Bar(
             [
                 widget.Image(
-                    filename='~/.config/qtile/icons/skull.png',
+                    filename='~/.config/qtile/icons/arch.png',
                     margin=3,
-                    background=colors['']
+                    background=colors['fg']
                     ),
                 widget.Sep(
-                    foreground=colors[''],
-                    background=colors[''],
-                    line_width=9,
-                    size_percent=70,
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    size_percent=90,
+                    padding=10
                     ),
                 widget.GroupBox(
                     highlight_method='line',
-                    this_current_screen_border = colors['dark-blue'],
-                    active = colors[''],
-                    background=colors[''],
+                    this_current_screen_border=colors['light-grey'],
+                    active=colors['light-grey'],
+                    background=colors['bg'],
+                    borderwidth=1
                     ),
                 widget.Sep(
-                    foreground=colors[''],
-                    background=colors[''],
-                    line_width=9,
-                    size_percent=70,
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    size_percent=90,
+                    padding=10
                     ),
+                widget.WindowName(
+                    background = colors['dark-grey'],
+                    format = "{name}",
+                    foreground = colors['fg'],
+                    empty_group_string = 'Desktop',
+                    width = 200,
+                    ),
+                widget.Sep(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    size_percent=90,
+                    padding=10
+                    ),
+                widget.Prompt(
+                    prompt = "Run: ",
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    ),
+                widget.Spacer(),
+                widget.Sep(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    size_percent=90,
+                    padding=10
+                    ),
+                #widget.Net(
+                #    background=colors['dark-grey'],
+                #    foreground = colors['dark-yellow'],
+                #    update_interval = 3,
+                #    format = "{down} {up}",
+                #    ),
+                widget.CPU(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    format = ' {load_percent}%',
+                    ),
+                #widget.ThermalZone(
+                #    foreground = colors['fg'],
+                #    background = colors['bg'],
+                #),
+                widget.Sep(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    size_percent=90,
+                    padding=10
+                widget.Memory(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm}',
+                    ),
+                widget.DF(
+                    warn_space = 40,
+                    format = {'{p} ({uf}{m}|{r:.0f}%)'},
+                    measure = 'G',
+                    partition = '/',
+                    background=colors['bg']
+                    ),
+                widget.Sep(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    size_percent=90,
+                    padding=10
+                    ),
+                widget.Battery(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    full_char = '=',
+                    low_foreground = 'FF0000',
+                    low_percentage = 0.1,
+                       ),
+                widget.Wlan(
+                  foreground=colors['fg'],
+                  background=colors['bg'],
+                  disconnected_message='Disconnected',
+                  format='{essid} {percent:2.0%}',
+                     ),
+                widget.Sep(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    size_percent=90,
+                    padding=10
+                    ),
+                widget.Clock(
+                        format=' %I:%M %p',
+                        foreground=colors['fg'],
+                        background=colors['bg'],
+                        ),
+            border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+            border_color=["ff00ff", "000000", "ff00ff", "000000"] 
+             19,
+             ],
+            ),
+         ),
+      ]
+
+
+                
                 widget.Prompt(),
                     foreground=colors[''],
                     background=colors[''],
@@ -121,8 +222,7 @@ screens = [
                      foreground=colors[''],
                      background=colors[''],
                      ),
-            border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            border_color=["ff00ff", "000000", "ff00ff", "000000"] 
+
                     29,
                     ],
                 ),
