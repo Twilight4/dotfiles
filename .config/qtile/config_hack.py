@@ -86,19 +86,26 @@ screens = [
                     ),
                 #widget.Net(
                 #    background=colors['dark-grey'],
-                #    foreground = colors['dark-yellow'],
+                #    foreground=colors['dark-yellow'],
                 #    update_interval = 3,
-                #    format = "{down} {up}",
+                #    format = '{down} {up}',
                 #    ),
                 widget.CPU(
                     foreground=colors['fg'],
                     background=colors['bg'],
                     format = ' {load_percent}%',
                     ),
-                #widget.ThermalZone(
-                #    foreground = colors['fg'],
-                #    background = colors['bg'],
-                #),
+                widget.ThermalZone(
+                    foreground=colors['fg'],
+                    background=colors['bg'],
+                    fgcolor_high=colors['dark-yellow'],
+                    fgcolor_crit=colors['dark-red'],
+                    fgcolor_normal=colors['light-grey'],
+                    high=70,
+                    crit=90,
+                    format = ' {temp}°C'
+                    format_crit = ' {temp}°C'
+                ),
                 widget.Sep(
                     foreground=colors['fg'],
                     background=colors['bg'],
@@ -133,8 +140,8 @@ screens = [
                 widget.Wlan(
                   foreground=colors['fg'],
                   background=colors['bg'],
-                  disconnected_message='Disconnected',
-                  format='{essid} {percent:2.0%}',
+                  disconnected_message='睊',
+                  format='{percent:75% 直}',
                      ),
                 widget.Sep(
                     foreground=colors['fg'],
