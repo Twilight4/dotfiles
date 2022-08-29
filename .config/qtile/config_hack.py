@@ -76,14 +76,14 @@ screens = [
                 widget.Systray(
                     background=colors['bg'],
                     ),
-                #widget.CheckUpdates(
-                    #update_interval = 1800,
-                    #foreground=colors['white'],
-                    #background=colors['bg'],
-                    #colour_have_updates=colors['dark-yellow'],
-                    #colour_no_updates=colors['white'],
-                    #display_format='ﮮ Updates: {updates}',
-                    #no_update_string=' Fully Updated',
+                widget.CheckUpdates(
+                    update_interval = 1800,
+                    foreground=colors['white'],
+                    background=colors['bg'],
+                    colour_have_updates=colors['dark-yellow'],
+                    colour_no_updates=colors['white'],
+                    display_format='ﮮ Updates: {updates}',
+                    no_update_string=' Fully Updated',
                     ),
                 widget.Sep(
                     foreground=colors['fg'],
