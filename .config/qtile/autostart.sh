@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 VBoxClient --clipboard &
 VBoxClient --seamless &
