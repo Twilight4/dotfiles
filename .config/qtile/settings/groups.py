@@ -2,7 +2,6 @@ from settings.keys import keys
 from libqtile.config import Key, Group
 from libqtile.config import Group, Match
 from libqtile.lazy import lazy
-from libqtile.dgroups import simple_key_binder
 
 groups = [Group("", layout='monadtall'),
           Group("爵", layout='monadtall'),
@@ -10,73 +9,23 @@ groups = [Group("", layout='monadtall'),
           Group("", layout='monadtall'),
           Group("", layout='monadtall'),]
 
+groups = [Group(i) for i in ["", "爵", "", "", ""]]
+groups_hotkeys = "12345"
 
-dgroups_key_binder = simple_key_binder("mod4")
-
-
-# Pattern from qtile doc
-#for i in groups:
-#    keys.extend(
-#     [
-#            Key([mod], [i.1],
-#                lazy.group[i.1].toscreen(),
-#                desc="Switch to group {}".format(i.1),
-#               ),
-#            Key([mod], [i.2],
-#                lazy.group[i.2].toscreen(),
-#                desc="Switch to group {}".format(i.2),
-#               ),
-#            Key([mod], [i.3],
-#                lazy.group[i.3].toscreen(),
-#                desc="Switch to group {}".format(i.3),
-#               ),   
-#            Key([mod], [i.4],
-#                lazy.group[i.4].toscreen(),
-#                desc="Switch to group {}".format(i.4),
-#               ),
-#            Key([mod], [i.5],
-#                lazy.group[i.5].toscreen(),
-#                desc="Switch to group {}".format(i.5),
-#               ),
-## switch & move focused window to group
-#            Key(
-#                [mod, "shift"], i.1,
-#                lazy.window.togroup(i.2, switch_group=True),
-#                desc="Switch to & move focused window to group {}".format(i.2),
-#            )
-#            Key(
-#                [mod, "shift"], i.2,
-#                lazy.window.togroup(i.2, switch_group=True),
-#                desc="Switch to & move focused window to group {}".format(i.2),
-#            )
-#            Key(
-#                [mod, "shift"], i.3,
-#                lazy.window.togroup(i.3, switch_group=True),
-#                desc="Switch to & move focused window to group {}".format(i.3),
-#            )
-#            Key(
-#                [mod, "shift"], i.4,
-#                lazy.window.togroup(i.4, switch_group=True),
-#                desc="Switch to & move focused window to group {}".format(i.4),
-#            )
-#            Key(
-#                [mod, "shift"], i.5,
-#                lazy.window.togroup(i.5, switch_group=True),
-#                desc="Switch to & move focused window to group {}".format(i.5),
-#            )
-#     ]
-
-
-# My Idea for the problem
-#for i, g in enumerate(groups):
-#  keys.extend([
-#    Key([mod], str(i + 1),
-#    desc="Switch to group {}".format(i, g)),
-#    Key([mod], str(i + 2),
-#    desc="Switch to group {}".format(i, g)),
-#    Key([mod], str(i + 3),
-#    desc="Switch to group {}".format(i, g)),
-#    Key([mod], str(i + 4),
-#    desc="Switch to group {}".format(i, g)),
-#    Key([mod], str(i + 5),
-#    desc="Switch to group {}".format(i, g)),])
+for i, k in zip(groups, groups_hotkeys):
+    keys.extend(
+        [
+            Key(
+                [mod],
+                k,
+                lazy.group[i.name].toscreen(),
+                desc="Switch to group {}".format(i.name),
+            ),
+            Key(
+                [mod, "shift"],
+                k,
+                lazy.window.togroup(i.name, switch_group=True),
+                desc="Switch to & move focused window to group {}".format(i.name),
+            ),
+        ]
+    )
