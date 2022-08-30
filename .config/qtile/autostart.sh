@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 VBoxClient --clipboard &
 VBoxClient --seamless &
 VBoxClient --checkhostversion &
