@@ -1,4 +1,6 @@
-# bindkey -e will be emacs mode
+#!/usr/bin/env zsh
+
+# bindkey vim mode
 bindkey -v
 export KEYTIMEOUT=1
 
