@@ -4,13 +4,15 @@ from libqtile.config import Group, Match
 from libqtile.lazy import lazy
 
 groups = [Group("", layout='monadtall'),
-          Group("爵", layout='monadtall'),
-          Group("", layout='monadtall'),
+          Group("﨩", layout='monadtall'),
+          Group("", layout='monadtall'),
           Group("", layout='monadtall'),
-          Group("", layout='monadtall'),]
+          Group("", layout='monadtall'),
+          Group("", layout='monadtall'),
+          Group("輸", layout='monadtall'),]
 
-groups = [Group(i) for i in ["", "爵", "", "", ""]]
-groups_hotkeys = "12345"
+groups = [Group(i) for i in ["", "﨩", "", "", "", "", "輸"]]
+groups_hotkeys = "1234567"
 
 for i, k in zip(groups, groups_hotkeys):
     keys.extend(
