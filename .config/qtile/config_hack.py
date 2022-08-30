@@ -1,7 +1,8 @@
+#
 #  _____ _
-# |_   _| |
+# |_   _| |        Qtile Configuration File of TL - Twilight4
 #   | | | |
-#   | | | |___
+#   | | | |___     https://github.com/Twilight4/
 #   |_| |_____|
 #
 
