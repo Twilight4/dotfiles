@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # ls to exa
 alias ls='exa -l -g --icons -t modified -h'
 alias lc='exa -l -g --icons -t created -h'
