@@ -9,7 +9,7 @@ VBoxClient --checkhostversion &
 picom --experimental-backends &
 nitrogen --restore &
 exec --no-startup -id dunst &
-polybar &
+#polybar &
 
 #Network
 #nm-applet &
