@@ -1,10 +1,11 @@
-#
 #  _____ _
 # |_   _| |        Qtile Configuration File of TL - Twilight4
 #   | | | |
 #   | | | |___     https://github.com/Twilight4/
 #   |_| |_____|
 #
+# A customized config.py for Qtile window manager (http://www.qtile.org).
+# Modified by Twilight4 (https://github.com/Twilight4/)
 
 import os
 import subprocess 
