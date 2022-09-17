@@ -9,9 +9,9 @@ groups = [Group("", layout='monadtall'),
           Group("", layout='monadtall'),
           Group("", layout='monadtall'),
           Group("", layout='monadtall'),
-          Group("輸", layout='monadtall'),]
+          Group("", layout='monadtall'),]
 
-groups = [Group(i) for i in ["", "﨩", "", "", "", "", "輸"]]
+groups = [Group(i) for i in ["", "﨩", "", "", "", "", ""]]
 groups_hotkeys = "1234567"
 
 for i, k in zip(groups, groups_hotkeys):
