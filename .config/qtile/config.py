@@ -212,10 +212,10 @@ screens = [
          ),
       ]
 
-@hook.subscribe.startup_once
+@hook.subscribe.startup
 def autostart():
     home = os.path.expanduser('~/.config/qtile/autostart.sh')
-    subprocess.run([home])
+    subprocess.Popen([home])
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
