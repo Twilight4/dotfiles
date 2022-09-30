@@ -23,7 +23,7 @@ from settings.prefs import prefs
 from settings.rules import rules
 
 widget_defaults = dict(
-    font="MesloLGS-NF",
+    font="MesloLGM-NF",
     fontsize=12,
     background=colors['bg'],
     foreground=colors['fg'],
