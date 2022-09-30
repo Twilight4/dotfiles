@@ -101,7 +101,7 @@ screens = [
                     padding=8,
                     ),
                 widget.Image(
-                    filename='~/.config/qtile/icons/dow-arrow.png',
+                    filename='~/.config/qtile/icons/down-arrow.png',
                     margin=4,
                     background=colors['bg'],
                     scale=True,
