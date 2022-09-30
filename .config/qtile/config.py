@@ -168,6 +168,15 @@ screens = [
                     size_percent=100,
                     padding=8,
                     ),
+                #widget.Volume(
+                    #theme_path='~/.config/qtile/icons/volume.png',
+                    #update_interval = 0.2,
+                    #mute_command =
+                    #volume_down_command =
+                    #volume_up_command =
+                    #step = 2,
+                    #padding = 0,
+                    #),
                 #widget.Battery(
                     #foreground=colors['white'],
                     #background=colors['bg'],
@@ -180,10 +189,10 @@ screens = [
                     #low_percentage = 0.2,
                     #),
                 #widget.Wlan(
-                  #foreground=colors['white'],
-                  #background=colors['bg'],
-                  #disconnected_message='睊',
-                  #format='{percent:75% 直}',
+                    #foreground=colors['white'],
+                    #background=colors['bg'],
+                    #disconnected_message='睊',
+                    #format='{percent:75% 直}',
                     #),
                 widget.Sep(
                     foreground=colors['fg'],
