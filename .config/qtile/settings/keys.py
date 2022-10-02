@@ -32,8 +32,14 @@ keys = [
     #Key([mod, "shift"], "f", lazy.spawn(browser), desc="Launch web browser"),
     #Key([mod, "shift"], "d", lazy.spawn(file_manager), desc="Launch file manager"),
     #Key([mod, "shift"], "s", lazy.spawn(screenshot_tool), desc="Launch screenshot tool"),
-    #Key([mod, "shift"], "p", lazy.spawn("rofi -show p -modi p:rofi-power-menu -theme ~/.config/qtile/rofi/themes/gradients/style-1.rasi"), desc="Launch power menu"),
-
+    Key([mod, "shift"], "p", lazy.spawn("sh ~/.config/rofi/applets/bin/apps.sh"), desc="Launch fav apps menu"),
+    Key([mod, "shift"], "p", lazy.spawn("sh ~/.config/rofi/applets/bin/battery.sh"), desc="Launch battery menu"),
+    Key([mod, "shift"], "p", lazy.spawn("sh ~/.config/rofi/applets/bin/powermenu.sh"), desc="Launch power menu"),
+    Key([mod, "shift"], "p", lazy.spawn("sh ~/.config/rofi/applets/bin/brightness.sh"), desc="Launch brightness menu"),
+    Key([mod, "shift"], "p", lazy.spawn("sh ~/.config/rofi/applets/bin/mpd.sh"), desc="Launch mpd menu"),
+    Key([mod, "shift"], "p", lazy.spawn("sh ~/.config/rofi/applets/bin/quicklinks.sh"), desc="Launch quicklinks menu"),
+    Key([mod, "shift"], "p", lazy.spawn("sh ~/.config/rofi/applets/bin/screenshot.sh"), desc="Launch screenshot menu"),
+    Key([mod, "shift"], "p", lazy.spawn("sh ~/.config/rofi/applets/bin/volume.sh"), desc="Launch volume menu"),
 ]
 
 mouse = [
