@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## Author  : Twilight4
-## Github  : https://github.com/Twilight4
+## Github  : @Twilight4
 #
 ## Applets : Favorite Applications
 
