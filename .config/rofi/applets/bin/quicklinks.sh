@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-## Author  : Aditya Shakya (adi1090x)
-## Github  : @adi1090x
+## Author  : Twilight4
+## Github  : @Twilight4
 #
 ## Applets : Quick Links
 
