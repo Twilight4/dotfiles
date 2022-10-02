@@ -1,0 +1,12 @@
+/**
+ *
+ * Author : Twilight4
+ * Github : @Twilight4
+ * 
+ * Fonts
+ *
+ **/
+
+* {
+    font: "Iosevka Nerd Font 10";
+}
