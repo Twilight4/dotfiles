@@ -1,7 +1,7 @@
-require('craftzdog.base')
-require('craftzdog.highlights')
-require('craftzdog.maps')
-require('craftzdog.plugins')
+require('base')
+require('highlights')
+require('maps')
+require('plugin')
 
 local has = function(x)
   return vim.fn.has(x) == 1
