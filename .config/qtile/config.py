@@ -17,7 +17,7 @@ from libqtile.utils import guess_terminal
 
 from settings.key_bindings import mod, mouse, keys
 from settings.layouts import layouts
-from settings.colors_hack import colors_hack
+from settings.colors import colors
 from settings.groups import groups
 from settings.prefs import prefs
 from settings.rules import rules
