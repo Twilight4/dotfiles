@@ -29,17 +29,17 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     
-    #Key([mod, "shift"], "f", lazy.spawn(browser), desc="Launch web browser"),
-    #Key([mod, "shift"], "d", lazy.spawn(file_manager), desc="Launch file manager"),
-    #Key([mod, "shift"], "s", lazy.spawn(screenshot_tool), desc="Launch screenshot tool"),
-    #Key([mod, "shift"], "p", lazy.spawn(apps), desc="Launch fav apps menu"),
-    #Key([mod, "shift"], "p", lazy.spawn(battery), desc="Launch battery menu"),
-    #Key([mod, "shift"], "p", lazy.spawn(powermenu), desc="Launch power menu"),
-    #Key([mod, "shift"], "p", lazy.spawn(brightness), desc="Launch brightness menu"),
-    #Key([mod, "shift"], "p", lazy.spawn(mpd), desc="Launch mpd menu"),
-    #Key([mod, "shift"], "p", lazy.spawn(quicklinks), desc="Launch quicklinks menu"),
-    #Key([mod, "shift"], "p", lazy.spawn(screenshot), desc="Launch screenshot menu"),
-    #Key([mod, "shift"], "p", lazy.spawn(volume), desc="Launch volume menu"),
+    Key([mod, "shift"], "enter", lazy.spawn(browser), desc="Launch web browser"),
+    Key([mod], "f", lazy.spawn(browser), desc="Launch web browser"),
+    Key([mod], "s", lazy.spawn(screenshot_tool), desc="Launch screenshot tool"),
+    Key([mod], "r", lazy.spawn(apps), desc="Launch fav apps menu"),
+    Key([mod], "p", lazy.spawn(battery), desc="Launch battery menu"),
+    Key([mod], "p", lazy.spawn(powermenu), desc="Launch power menu"),
+    Key([mod], "p", lazy.spawn(brightness), desc="Launch brightness menu"),
+    Key([mod], "p", lazy.spawn(mpd), desc="Launch mpd menu"),
+    Key([mod], "p", lazy.spawn(quicklinks), desc="Launch quicklinks menu"),
+    Key([mod], "p", lazy.spawn(screenshot), desc="Launch screenshot menu"),
+    Key([mod], "p", lazy.spawn(screenshot), desc="Launch volume menu"),
 ]
 
 mouse = [
