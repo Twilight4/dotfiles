@@ -76,11 +76,6 @@ screens = [
                     size_percent=100,
                     padding=8,
                     ),
-                widget.Prompt(
-                    prompt = "Run: ",
-                    foreground=colors['fg'],
-                    background=colors['bg'],
-                    ),
                 widget.Spacer(),
                 widget.Systray(
                     background=colors['bg'],
