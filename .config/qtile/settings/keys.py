@@ -28,18 +28,17 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    
+        
     Key([mod, "shift"], "enter", lazy.spawn(browser), desc="Launch web browser"),
-    Key([mod], "f", lazy.spawn(browser), desc="Launch web browser"),
-    Key([mod], "s", lazy.spawn(screenshot_tool), desc="Launch screenshot tool"),
+    #Key([mod], "prt scr", lazy.spawn(screenshot_tool), desc="Launch screenshot tool"), --- check if rofi ss menu isn't better
+    Key([mod], "s", lazy.spawn(screenshot), desc="Launch screenshot menu"), # check if screenshot tool isn't better
+    Key([mod], "x", lazy.spawn(volume), desc="Launch volume menu"), # check if seperate keybindings aren't better
+    Key([mod], "z", lazy.spawn(brightness), desc="Launch brightness menu"), # check if seperate keybindings aren't better
     Key([mod], "r", lazy.spawn(apps), desc="Launch fav apps menu"),
-    Key([mod], "p", lazy.spawn(battery), desc="Launch battery menu"),
-    Key([mod], "p", lazy.spawn(powermenu), desc="Launch power menu"),
-    Key([mod], "p", lazy.spawn(brightness), desc="Launch brightness menu"),
-    Key([mod], "p", lazy.spawn(mpd), desc="Launch mpd menu"),
-    Key([mod], "p", lazy.spawn(quicklinks), desc="Launch quicklinks menu"),
-    Key([mod], "p", lazy.spawn(screenshot), desc="Launch screenshot menu"),
-    Key([mod], "p", lazy.spawn(screenshot), desc="Launch volume menu"),
+    Key([mod], "b", lazy.spawn(battery), desc="Launch battery menu"),
+    Key([mod], "p", lazy.spawn(powermenu), desc="Launch power menu"),    
+    Key([mod], "m", lazy.spawn(mpd), desc="Launch mpd menu"),
+    Key([mod], "l", lazy.spawn(quicklinks), desc="Launch quicklinks menu"),
 ]
 
 mouse = [
