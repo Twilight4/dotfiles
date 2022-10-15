@@ -1,6 +1,5 @@
 from settings.keys import keys
-from libqtile.config import Key, Group
-from libqtile.config import Group, Match
+from libqtile.config import Key, Group, Match
 from libqtile.lazy import lazy
 
 groups = [Group("", layout='monadtall'),
