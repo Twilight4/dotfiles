@@ -1,6 +1,6 @@
 from libqtile.config import Drag, Click, Key
 from libqtile.lazy import lazy
-from settings.prefs import terminal, browser
+from settings.prefs import prefs
 
 mod = "mod4"
 
