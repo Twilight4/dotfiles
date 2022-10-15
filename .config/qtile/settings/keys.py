@@ -1,6 +1,6 @@
 from libqtile.config import Drag, Click, Key
 from libqtile.lazy import lazy
-from settings.prefs import prefs
+from settings.prefs import terminal, browser, screenshot, volume, brightness, apps, battery, powermenu, mpd, quicklinks
 
 mod = "mod4"
 
