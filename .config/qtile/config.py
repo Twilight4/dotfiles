@@ -147,7 +147,7 @@ screens = [
                     foreground=colors['white'],
                     background=colors['bg'],
                     format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm} ',
-                    padding 0,
+                    padding=0,
                     ),
                 #widget.DF(
                     #warn_space = 40,
