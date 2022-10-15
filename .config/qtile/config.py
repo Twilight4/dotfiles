@@ -15,7 +15,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
-from settings.key_bindings import mod, mouse, keys
+from settings.keys import mod, mouse, keys
 from settings.layouts import layouts
 from settings.colors import colors
 from settings.groups import groups
