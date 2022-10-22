@@ -147,7 +147,7 @@ install-ghapps() {
 
 echo 'Post-Installation:
 - after reboot use startx ~/.config/x11/xinitrc
-- use command AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' >> /etc/zsh/zshenv
+- use command AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/.zshenv
 - once plugins gets installed for zsh type a command: mv $HOME/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh $HOME/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
 - add ssh pub key to github
 '
