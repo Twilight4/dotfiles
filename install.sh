@@ -145,15 +145,14 @@ install-ghapps() {
 && git clone https://github.com/wbthomason/packer.nvim \
 "$XDG_CONFIG_HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
 
-echo 'Post-Installation:
-- after reboot use startx ~/.config/x11/xinitrc
-- use command AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/.zshenv
-- rm conflicted files in qtile dir
-- once plugins gets installed for zsh type a command: mv $HOME/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh $HOME/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
-- add ssh pub key to github
+echo 'Reboot now and then do a post-Installation process:
+1. use command AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/.zshenv
+2. to make sure source your .zshenv in home dir once again: source ~/.config/zsh/.zshenv
+3. rm conflicted files in qtile dir
+4. launch the x-server: startx ~/.config/x11/xinitrc
+5. once plugins gets installed for zsh type a command: mv $HOME/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh $HOME/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
+6. add ssh pub key to github
 '
-
-sudo reboot
 }
 
 run "$@"
