@@ -2,7 +2,7 @@
 
 # XDG 
 export XDG_CONFIG_HOME="$HOME/.config"               # For dotfiles
-export XDG_DATA_HOME="$XDG_CONFIG_HOME/local/share"  # For specific data
+export XDG_DATA_HOME="$XDG_CONFIG_HOME/.local/share"  # For specific data
 export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
 
 # Environment variables
