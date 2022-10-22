@@ -58,6 +58,8 @@ install-yay() {
 
 install-apps() {
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
+    pip install --no-cache-dir cairocffi
+    pip install qtile
     yay -S --noconfirm $(cat /tmp/yaylist)
         
     # Needed if system installed in VBox
@@ -141,9 +143,11 @@ install-ghapps() {
 && git clone https://github.com/wbthomason/packer.nvim \
 "$XDG_CONFIG_HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
 
-echo 'reminders for myself:
-- add ssh pub key to github
+echo 'Post-Installation:
+- after reboot use startx ~/.config/x11/xinitrc
+- use command AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' >> /etc/zsh/zshenv
 - once plugins gets installed for zsh type a command: mv $HOME/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh $HOME/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
+- add ssh pub key to github
 '
 
 sudo reboot
