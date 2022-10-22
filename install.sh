@@ -1,4 +1,4 @@
-# THIS IS INSTALLATION FOR ONLY MY PERSONAL DOTFILES AND PACKAGES AFTER MINIMAL BASE-INSTALL OF ARCHINSTALL SCRIPT, ITS NOT THE SAME AS ON ARCH-INSTALL REPO
+# THIS IS INSTALLATION FOR ONLY MY PERSONAL DOTFILES AND PACKAGES AFTER MINIMAL BASE-INSTALL OF ARCHINSTALL SCRIPT, ITS NOT THE SAME AS IN THE ARCH-INSTALL REPO
 
 #!/bin/bash
 
@@ -148,6 +148,7 @@ install-ghapps() {
 echo 'Post-Installation:
 - after reboot use startx ~/.config/x11/xinitrc
 - use command AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/.zshenv
+- rm conflicted files in qtile dir
 - once plugins gets installed for zsh type a command: mv $HOME/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh $HOME/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
 - add ssh pub key to github
 '
