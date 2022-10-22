@@ -69,12 +69,6 @@ install-apps() {
     
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
-    
-    # Needed if system installed in VMWare
-    if [ "$(cat /tmp/paclist)" = "xf86-video-vmware" ]; then
-        sudo systemctl enable vmtoolsd.service
-        sudo systemctl enable vmware-vmblock-fuse.service
-    fi
             
     ## For Docker
     #groupadd docker
