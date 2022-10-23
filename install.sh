@@ -22,7 +22,7 @@ disable-horrible-beep() {
 }
 
 update-system() {
-    pacman -Syu --noconfirm
+    sudo pacman -Syu --noconfirm
 }
 
 set-user-permissions() {
