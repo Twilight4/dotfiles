@@ -136,7 +136,7 @@ install-ghapps() {
 "$XDG_CONFIG_HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
 
 echo 'Reboot now and then do a post-Installation process:
-1. use command AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/.zshenv
+1. use command AS ROOT: echo 'export ZDOTDIR=/home/twilight/.config/zsh' > /etc/zsh/.zshenv
 2. to make sure source your .zshenv in home dir once again: source ~/.config/zsh/.zshenv
 3. rm conflicted files in qtile dir
 4. launch the x-server: startx ~/.config/x11/xinitrc
