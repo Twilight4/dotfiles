@@ -1,5 +1,3 @@
-# THIS IS GONNA BE MANUAL ARCHINSTALL SCRIPT WHICH WILL BE MOUNTED INTO ISO, THAT I'M DEVELOPING FOR MYSELF, DONT USE IT
-
 #!/bin/bash
 
 ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
@@ -10,26 +8,17 @@ echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo "archlinux" >> /etc/hostname
 echo "127.0.0.1 localhost" >> /etc/hosts
 echo "::1       localhost" >> /etc/hosts
-echo "127.0.1.1 arch.localdomain arch" >> /etc/hosts
+echo "127.0.1.1 archlinux.localdomain archlinux" >> /etc/hosts
 echo root:123 | chpasswd
-
-timedatectl set-ntp true
-
-pacman -S grub networkmanager xdg-user-dirs pipewire virtualbox-guest-utils-nox
-
-# pacman -S --noconfirm xf86-video-amdgpu
-
-mkdir /boot/efi
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
-
-grub-mkconfig -o /boot/grub/grub.cfg
-
-systemctl enable NetworkManager
-systemctl enable vboxservice.service
-
-useradd -G wheel -m twilight
+useradd -m -G wheel -s /bin/bash twilight
 echo twilight:123 | chpasswd
 
+pacman -S grub efiboomgr networkmanager
+systemctl enable NetworkManager
+# pacman -S --noconfirm xf86-video-amdgpu
+grub-install --target=x86_64-efi --efi-directory=/efi/ --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
 curl https://raw.githubusercontent.com/Twilight4/arch-install/master/sudoers > /etc/sudoers
+curl https://raw.githubusercontent.com/Twilight4/arch-install/master/pacman.conf > /etc/pacman.conf
 
-printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"
+printf "\e[1;32mDone! Type exit, umount -R /mnt and poweroff.\e[0m"
