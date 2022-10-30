@@ -183,6 +183,7 @@ use-ui-max = false
 ; Interval for volume increase/decrease in percent points
 interval = 5
 
+format-volume-prefix = " "
 format-volume = <ramp-volume> <label-volume>
 
 label-volume = %percentage%%
