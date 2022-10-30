@@ -58,8 +58,6 @@ install-yay() {
 
 install-apps() {
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
-    pip install --no-cache-dir cairocffi
-    pip install qtile
     yay -S --noconfirm $(cat /tmp/yaylist)
         
     # Needed if system installed in VBox
