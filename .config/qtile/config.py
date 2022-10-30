@@ -64,7 +64,7 @@ screens = [
                     padding=8,
                     ),
                 widget.WindowName(
-                    background=colors['white'],
+                    background=colors['bg'],
                     foreground=colors['fg'],
                     format = "{name}",
                     empty_group_string = 'Desktop',
