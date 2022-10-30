@@ -12,6 +12,6 @@
 
 
 
-# To be conntinued - archinstall is still in development, in the future these files will be merged into arch-install repo and made an iso
+## To be conntinued - archinstall is still in development, in the future these files will be merged into arch-install repo and made an iso
 1. base-uefi.sh script is automated script after partitioning disk on arch and entering chroot
 2. after rebooting, install.sh script should be launched
