@@ -183,8 +183,6 @@ use-ui-max = false
 ; Interval for volume increase/decrease in percent points
 interval = 5
 
-format-volume-prefix = "墳"
-format-volume-prefix-foreground = ${colors.cyan}
 format-volume = <ramp-volume> <label-volume>
 
 label-volume = %percentage%%
@@ -193,8 +191,11 @@ label-muted-foreground = ${colors.alert_yellow}
 
 ; Level of volume
 ramp-volume-0 = 奄
+ramp-volume-0-foreground = ${colors.cyan}
 ramp-volume-1 = 
+ramp-volume-1-foreground = ${colors.cyan}
 ramp-volume-2 = 墳
+ramp-volume-2-foreground = ${colors.cyan}
 
 ; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
