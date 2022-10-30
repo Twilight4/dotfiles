@@ -13,7 +13,7 @@ echo root:123 | chpasswd
 useradd -m -G wheel -s /bin/bash twilight
 echo twilight:123 | chpasswd
 
-pacman -S grub efibootmgr networkmanager
+pacman -S --noconfirm grub efibootmgr networkmanager
 systemctl enable NetworkManager
 # pacman -S --noconfirm xf86-video-amdgpu
 grub-install --target=x86_64-efi --efi-directory=/efi/ --bootloader-id=GRUB
