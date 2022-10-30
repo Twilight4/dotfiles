@@ -98,6 +98,7 @@ install-dotfiles() {
     sudo chmod 755 $HOME/.config/rofi/applets/bin/*
     sudo chmod 755 $XDG_CONFIG_HOME/rofi/applets/shared/theme.bash
     sudo chmod 755 $XDG_CONFIG_HOME/rofi/launcher/launcher.sh
+    sudo chmod 755 $XDG_CONFIG_HOME/x11/xinitrc
     sudo mv $HOME/.config/rofi/applets/bin/* /usr/bin/
     git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     git config --global user.email "electrolight071@gmail.com"
