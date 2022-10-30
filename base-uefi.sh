@@ -20,5 +20,6 @@ grub-install --target=x86_64-efi --efi-directory=/efi/ --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 curl https://raw.githubusercontent.com/Twilight4/arch-install/master/sudoers > /etc/sudoers
 curl https://raw.githubusercontent.com/Twilight4/arch-install/master/pacman.conf > /etc/pacman.conf
+pacman -Sy
 
 printf "\e[1;32mDone! Type exit, umount -R /mnt and poweroff.\e[0m"
