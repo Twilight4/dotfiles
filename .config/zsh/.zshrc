@@ -39,7 +39,7 @@ autoload -Uz colors && colors
 
 # My plugin manager and p10k
 source "$ZDOTDIR/zsh-functions"
-source /opt/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Normal files to source
 zsh_add_file "zsh-aliases"
