@@ -115,11 +115,6 @@ install-ghapps() {
             sudo git clone "https://github.com/Swordfish90/cool-retro-term"
     fi
     
-# powerlevel10k
-[ ! -d "/opt/powerlevel10k" ] \
-&& sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-"/opt/powerlevel10k"
-
 # XDG ninja
 [ ! -d "$HOME/xdg-ninja" ] \
 && git clone https://github.com/b3nj5m1n/xdg-ninja \
