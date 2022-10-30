@@ -76,7 +76,6 @@ create-directories() {
 #sudo mkdir -p "/home/$(whoami)/{Document,Download,Video,workspace,Music}"
 sudo mkdir -p "/opt/github/essentials"
 sudo mkdir -p "/opt/powerlevel10k"
-sudo mkdir -p "/usr/share/wallpapers"
 }
 
 install-dotfiles() {
