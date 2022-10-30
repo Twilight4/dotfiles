@@ -48,7 +48,7 @@ download-yaylist() {
 
 install-yay() {
     sudo pacman -S --noconfirm tar
-    curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/yay.tar.gz" \
+    curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/paru.tar.gz" \
     && tar -xvf "yay.tar.gz" \
     && cd "yay" \
     && makepkg --noconfirm -si \
@@ -58,7 +58,7 @@ install-yay() {
 
 install-apps() {
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
-    yay -S --noconfirm $(cat /tmp/yaylist)
+    paru -S --noconfirm $(cat /tmp/yaylist)
         
     # Needed if system installed in VBox
     sudo systemctl enable vboxservice.service
@@ -125,11 +125,6 @@ install-ghapps() {
 [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
 && git clone --depth 1 https://github.com/tmux-plugins/tpm \
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
-
-# neovim plugin manager
-[ ! -d "$XDG_CONFIG_HOME/.local/share/nvim/site/pack/packer/start/packer.nvim" ] \
-&& git clone https://github.com/wbthomason/packer.nvim \
-"$XDG_CONFIG_HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
 
 echo 'Reboot now and then do a post-Installation process:
 1. use command AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
