@@ -9,6 +9,7 @@ VBoxClient --checkhostversion &
 picom --experimental-backends &
 nitrogen --restore &
 exec --no-startup -id dunst &
+udiskie &
 bash ~/.config/polybar/launch.sh
 
 #Network
