@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Create ssh key
+# Create a new ssh key at ~/.ssh/<name> with permission 700
 ssh-create() {
     if [ ! -z "$1" ]; then
         ssh-keygen -f $HOME/.ssh/$1 -t rsa -N '' -C "$1"
