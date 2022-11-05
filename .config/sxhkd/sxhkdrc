@@ -1,22 +1,29 @@
-#
-# wm independent hotkeys
-#
+# ---------------  WM independent hotkeys ----------------
 
 # terminal emulator
 super + Return
-	alacritty
+        alacritty
 
-# program launcher
-#super + @space
-#	dmenu_run
-
-# make sxhkd reload its configuration files:
+# reload sxhkd config
 super + Escape
-	pkill -USR1 -x sxhkd
+        pkill -USR1 -x sxhkd
 
-#
-# bspwm hotkeys
-#
+# Apps Launcher
+super + space
+        apps.sh
+	
+    Key([mod, "shift"], "Return", lazy.spawn(browser), desc="Launch web browser"),
+    #Key([mod], "prt scr", lazy.spawn(screenshot_tool), desc="Launch screenshot tool"), --- check if rofi ss menu isn't better
+    Key([mod], "s", lazy.spawn(screenshot), desc="Launch screenshot menu"), # check if screenshot tool isn't better
+    Key([mod], "x", lazy.spawn(volume), desc="Launch volume menu"), # check if seperate keybindings aren't better
+    Key([mod], "z", lazy.spawn(brightness), desc="Launch brightness menu"), # check if seperate keybindings aren't better
+    Key([mod], "r", lazy.spawn(apps), desc="Launch fav apps menu"),
+    Key([mod], "b", lazy.spawn(battery), desc="Launch battery menu"),
+    Key([mod], "p", lazy.spawn(powermenu), desc="Launch power menu"),    
+    Key([mod], "m", lazy.spawn(mpd), desc="Launch mpd menu"),
+    Key([mod], "l", lazy.spawn(quicklinks), desc="Launch quicklinks menu"),
+
+# --------------------- bspwm hotkeys ---------------------
 
 # quit/restart bspwm
 super + alt + {q,r}
@@ -38,9 +45,7 @@ super + y
 super + g
 	bspc node -s biggest
 
-#
-# state/flags
-#
+# --------------------- state/flags ---------------------
 
 # set the window state
 super + {t,shift + t,s,f}
@@ -50,9 +55,7 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-#
-# focus/swap
-#
+# --------------------- focus/swap ---------------------
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
@@ -84,9 +87,7 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
-#
-# preselect
-#
+# --------------------- preselect ---------------------
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -104,9 +105,7 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-#
-# move/resize
-#
+# --------------------- move/resize ---------------------
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
@@ -134,6 +133,6 @@ XF86MonBrightnessDown
 XF86MonBrightnessUp
 	xbacklight -inc 5
 
-# lockscreen
+# --------------------- lockscreen ---------------------
 #super + x
 #	betterlockscreen -l dimblur
