@@ -4,7 +4,9 @@
 type = internal/xworkspaces
 
 ; Only show workspaces defined on the same output as the bar
-pin-workspaces = true
+; Useful if you want to show monitor specific workspaces
+; on different bars
+pin-workspaces = false
 
 ; Create click handler used to focus desktop
 enable-click = false
@@ -12,24 +14,33 @@ enable-click = false
 ; Create scroll handlers used to cycle desktops
 enable-scroll = false
 
+; Icons
+icon-0 = I;
+icon-1 = II;﨩
+icon-2 = III;
+icon-3 = IV;
+icon-4 = V;
+icon-5 = VI;
+icon-6 = VII;
+
 ; Active desktops
-label-active = [%name%]
+label-active = [%icon%]
 label-active-foreground = ${colors.fg}
 label-active-background = ${colors.bg}
 label-active-padding = 1
 
 ; Non-Active Desktops
-label-empty = %name%
+label-empty = %icon%
 label-empty-foreground = ${colors.blue}
 label-empty-padding = 1
 
 ; Occupied Desktops
-label-occupied = (%name%)
+label-occupied = (%icon%)
 label-occupied-foreground = ${colors.green}
 label-occupied-padding = 1
 
 ; Idk
-label-urgent = %name%
+label-urgent = %icon%
 label-urgent-foreground = ${colors.alert_yellow}
 label-urgent-background = ${colors.bg}
 label-urgent-padding = 1
