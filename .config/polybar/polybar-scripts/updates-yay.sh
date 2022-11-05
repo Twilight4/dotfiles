@@ -11,7 +11,7 @@ fi
 updates=$((updates_arch + updates_aur))
 
 if [ "$updates" -gt 0 ]; then
-    echo " Updates: $updates"
+    echo " $updates"
 else
-    echo " Fully Updated"
+    echo " 0"
 fi
