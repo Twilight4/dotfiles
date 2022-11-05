@@ -1,5 +1,13 @@
 #!/usr/bin/env zsh
 
+# Create ssh key
+ssh-create() {
+    if [ ! -z "$1" ]; then
+        ssh-keygen -f $HOME/.ssh/$1 -t rsa -N '' -C "$1"
+        chmod 700 $HOME/.ssh/$1*
+    fi
+}
+
 # Use dd to copy an entire hard disk to another disk output
 dback () {
     if [ ! -z $1 ] && [ ! -z $2 ]; then
