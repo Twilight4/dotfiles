@@ -116,11 +116,12 @@ for i, k in zip(groups, groups_hotkeys):
     
 # --------------------- LAYOUTS ---------------------
 layouts = [
-        layout.MonadTall(
-            margin = 5,
-            border_focus = '#89dceb',
-            border_width=2,
-        ),
+    layout.MonadTall(
+    margin = 5,
+    border_focus = '#89dceb',
+    border_width=2,
+    ),
+    layout.Max(),
 ]
 
 # --------------------- RULES ---------------------
