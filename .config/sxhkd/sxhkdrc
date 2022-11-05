@@ -17,11 +17,11 @@ printscreen
 	screenshot_tool
 	
 # launcher menu
-super + space
+super + r
         launcher.sh
 	
 # apps menu
-super + r
+super + space
 	apps.sh
 	
 # screenshot menu - rofi check if screenshot tool isn't better
