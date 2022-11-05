@@ -148,20 +148,30 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# volume control
+# --------------------- volume control ---------------------
 XF86AudioLowerVolume
 	amixer set Master 5%-
 XF86AudioRaiseVolume
 	amixer set Master 5%+
 XF86AudioMute
         amixer set Master toggle
+#XF86AudioMicMute 
+	#amixer costam
 
-# brightness control
+# ------------------ brightness control --------------------
 XF86MonBrightnessDown
 	xbacklight -dec 5
 XF86MonBrightnessUp
 	xbacklight -inc 5
+	
+# ------------------  music control --------------------
+#XF86AudioPlay 
+	#playerctl play-pause
+#XF86AudioNext 
+	#playerctl next
+#XF86AudioPrev 
+	#playerctl previous
 
-# --------------------- lockscreen ---------------------
+# --------------------- lockscreen -------------------------
 #super + x
 #	betterlockscreen -l dimblur
