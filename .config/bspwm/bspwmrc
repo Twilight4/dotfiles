@@ -18,7 +18,7 @@ bash ~/.config/polybar/launch.sh
 #blueman-applet &
 
 # ----------- config -----------
-bspc monitor -d I II III IV V VI VII VIII
+bspc monitor -d I II III IV V VI VII
 #bspc monitor DP-1 -d V VI VII
 
 bspc config border_width         2
