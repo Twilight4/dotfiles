@@ -127,6 +127,11 @@ compress() {
     tar cvzf "$DATE.tar.gz" "$@"
 }
 
+# List of port opens, fuzzy searchable via fzf
+ports() {
+    sudo netstat -tulpn | grep LISTEN | fzf;
+}
+
 # Download a video with best quality from Youtube - ydl <video_url>
 ydlp() {
     if ; then
