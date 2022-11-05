@@ -13,7 +13,7 @@ super + shift + Return
 	min
 	
 # screenshot tool - check if rofi ss menu isn't better
-super + prtintscreen
+printscreen
 	screenshot_tool
 	
 # launcher menu
