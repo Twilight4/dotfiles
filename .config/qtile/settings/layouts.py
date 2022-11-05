@@ -6,4 +6,5 @@ layouts = [
             border_focus = '#89dceb',
             border_width=2,
         ),
+        layout.Max(),
 ]
