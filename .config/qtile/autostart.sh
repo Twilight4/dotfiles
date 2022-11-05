@@ -17,9 +17,3 @@ bash ~/.config/polybar/launch.sh
 
 # Bluetooth
 #blueman-applet &
-
-# systray battery icon
-## cbatticon -u 5 &
-
-# systray volume
-#volumeicon &
