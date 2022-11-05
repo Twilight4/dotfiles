@@ -1,5 +1,70 @@
 #!/usr/bin/env zsh
 
+# Display screen resolution
+screenres() {
+    [ ! -z $1 ] && xrandr --current | grep '*' | awk '{print $1}' | sed -n "$1p"
+}
+
+# Mount device with read/write permissions
+mnt() {
+    local FILE="/mnt/external"
+    if [ ! -z $2 ]; then
+        FILE=$2
+    fi
+
+    if [ ! -z $1 ]; then
+        sudo mount "$1" "$FILE" -o rw
+        echo "Device in read/write mounted in $FILE"
+    fi
+
+    if [ $# = 0 ]; then
+        echo "You need to provide the device (/dev/sd*) - use lsblk"
+    fi
+}
+
+# Unmount every devices in a specific folder recursively
+umnt() {
+    local DIRECTORY="/mnt"
+    if [ ! -z $1 ]; then
+        DIRECTORY=$1
+    fi
+    MOUNTED=$(grep $DIRECTORY /proc/mounts | cut -f2 -d" " | sort -r)
+    cd "/mnt"
+    sudo umount $MOUNTED
+    echo "$MOUNTED unmounted"
+}
+
+# Mount mtp filesystem
+mntmtp() {
+    local DIRECTORY="$HOME/mnt"
+    if [ ! -z $2 ]; then
+        local DIRECTORY=$2
+    fi
+    if [ ! -d $DIRECTORY ]; then
+        mkdir $DIRECTORY
+    fi
+
+    if [ ! -z $1 ]; then
+        simple-mtpfs --device "$1" "$DIRECTORY"
+        echo "MTPFS device in read/write mounted in $DIRECTORY"
+    fi
+
+    if [ $# = 0 ]; then
+        echo "You need to provide the device number - use simple-mtpfs -l"
+    fi
+}
+
+# Umount mtp filesystem
+umntmtp() {
+    local DIRECTORY="$HOME/mnt"
+    if ; then
+        DIRECTORY=$1
+    fi
+    cd $HOME
+    umount $DIRECTORY
+    echo "$DIRECTORY with mtp filesystem unmounted"
+}
+
 # Create a new ssh key at ~/.ssh/<name> with permission 700
 ssh-create() {
     if [ ! -z "$1" ]; then
