@@ -3,9 +3,11 @@ require('highlights')
 require('maps')
 require('plugins')
 
+-- share yanked text with the system clipboard
 local has = function(x)
   return vim.fn.has(x) == 1
 end
+
 local is_mac = has "macunix"
 local is_win = has "win32"
 
