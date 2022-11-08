@@ -42,6 +42,10 @@ packer.startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'norcalli/nvim-colorizer.lua'
   use 'folke/zen-mode.nvim'
+  use 'christoomey/vim-tmux-navigator'
+  use 'wellle/tmux-complete.vim'
+  use 'tmux-plugins/vim-tmux'
+  use 'tmux-plugins/vim-tmux-focus-events'
   use({
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
