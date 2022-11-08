@@ -35,9 +35,11 @@ keymap.set('n', '<C-w><right>', '<C-w>>')
 keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
-keymap.set('n','<leader>bn', ':bn')
-keymap.set('n','<leader>tn', 'gt')
+-- Disable arrow keys
 keyunmap.del('n','<Up>')
 keyunmap.del('n','<Down>')
 keyunmap.del('n','<Left>')
 keyunmap.del('n','<Right>')
+
+keymap.set('n','<leader>bn', ':bn')
+keymap.set('n','<leader>tn', 'gt')
