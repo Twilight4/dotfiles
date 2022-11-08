@@ -1,4 +1,5 @@
-local keymap = vim.keymap
+local keymap = vim.keymap.set()
+local keyunmap = vim.keymap.del()
 
 -- Do not yank with x
 keymap.set('n', 'x', '"_x')
@@ -34,14 +35,9 @@ keymap.set('n', '<C-w><right>', '<C-w>>')
 keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
--- disable the arrow keys - convert to lua
---noremap <Up> <Nop>
---noremap <Down> <Nop>
---noremap <Left> <Nop>
---noremap <Right> <Nop>
-
---nnoremap <space> <nop>
---let mapleader = "\<space>"
-
---nnoremap <leader>bn :bn<cr> ;buffer next
---nnoremap <leader>tn gt ;new tab
+keymap.set('n','<leader>bn', ':bn')
+keymap.set('n','<leader>tn', 'gt')
+keyunmap.set('n','<Up>')
+keyunmap.set('n', '<Down>')
+keyunmap.set('n','<Left>')
+keyunmap.set('n','<Right>')
