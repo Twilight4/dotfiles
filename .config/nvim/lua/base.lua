@@ -8,6 +8,7 @@ vim.wo.number = true
 
 vim.o.clipboard = "unnamedplus"
 vim.g.mapleader = ' '
+vim.opt.swapfile = false
 vim.opt.title = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
