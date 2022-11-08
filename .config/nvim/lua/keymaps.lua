@@ -33,3 +33,15 @@ keymap.set('n', '<C-w><left>', '<C-w><')
 keymap.set('n', '<C-w><right>', '<C-w>>')
 keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
+
+-- disable the arrow keys - convert to lua
+--noremap <Up> <Nop>
+--noremap <Down> <Nop>
+--noremap <Left> <Nop>
+--noremap <Right> <Nop>
+
+--nnoremap <space> <nop>
+--let mapleader = "\<space>"
+
+--nnoremap <leader>bn :bn<cr> ;buffer next
+--nnoremap <leader>tn gt ;new tab
