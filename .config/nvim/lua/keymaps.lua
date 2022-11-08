@@ -1,5 +1,5 @@
-local keymap = vim.keymap.set()
-local keyunmap = vim.keymap.del()
+local keymap = vim.keymap
+local keyunmap = vim.keymap
 
 -- Do not yank with x
 keymap.set('n', 'x', '"_x')
@@ -37,7 +37,7 @@ keymap.set('n', '<C-w><down>', '<C-w>-')
 
 keymap.set('n','<leader>bn', ':bn')
 keymap.set('n','<leader>tn', 'gt')
-keyunmap.set('n','<Up>')
-keyunmap.set('n', '<Down>')
-keyunmap.set('n','<Left>')
-keyunmap.set('n','<Right>')
+keyunmap.del('n','<Up>')
+keyunmap.del('n', '<Down>')
+keyunmap.del('n','<Left>')
+keyunmap.del('n','<Right>')
