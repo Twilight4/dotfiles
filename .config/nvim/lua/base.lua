@@ -6,12 +6,18 @@ vim.opt.fileencoding = 'utf-8'
 
 vim.wo.number = true
 
+vim.o.clipboard = "unnamedplus"
 vim.opt.title = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.hlsearch = true
 vim.opt.backup = false
 vim.opt.showcmd = true
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.expand('~/.config/nvim/undo')
+vim.opt.undolevels = 10000
+vim.opt.undoreload = 10000
+vim.opt.inccommand = "nosplit" -- Show substitution
 vim.opt.cmdheight = 1
 vim.opt.laststatus = 2
 vim.opt.expandtab = true
