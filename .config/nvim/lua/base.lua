@@ -7,6 +7,7 @@ vim.opt.fileencoding = 'utf-8'
 vim.wo.number = true
 
 vim.o.clipboard = "unnamedplus"
+vim.g.mapleader = ' '
 vim.opt.title = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
