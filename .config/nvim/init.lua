@@ -1,4 +1,4 @@
 require('base')
 require('highlights')
-require('maps')
+require('keymaps')
 require('plugins')
