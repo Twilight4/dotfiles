@@ -1,5 +1,4 @@
 local keymap = vim.keymap
-local keyunmap = vim.keymap
 
 -- Do not yank with x
 keymap.set('n', 'x', '"_x')
@@ -17,8 +16,10 @@ keymap.set('n', '<C-a>', 'gg<S-v>G')
 -- Save with root permission (not working for now)
 --vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
 
--- New tab
+-- New tab/buffer
 keymap.set('n', 'te', ':tabedit')
+keymap.set('n','<leader>bn', ':bn')
+keymap.set('n','<leader>tn', 'gt')
 -- Split window
 keymap.set('n', 'ss', ':split<Return><C-w>w')
 keymap.set('n', 'sv', ':vsplit<Return><C-w>w')
@@ -36,10 +37,7 @@ keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
 -- Disable arrow keys
-keyunmap.del('n','<Up>')
-keyunmap.del('n','<Down>')
-keyunmap.del('n','<Left>')
-keyunmap.del('n','<Right>')
-
-keymap.set('n','<leader>bn', ':bn')
-keymap.set('n','<leader>tn', 'gt')
+keymap.set('n',  '<Down>', '<NOP>')
+keymap.set('n',  '<Left>', '<NOP>')
+keymap.set('n',  '<Right>', '<NOP>')
+keymap.set('n',  '<Up>', '<NOP>')
