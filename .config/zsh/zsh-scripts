@@ -1,5 +1,11 @@
 #!/usr/bin/env zsh
 
+# Fix the file name
+if [[ -f "$XDG_CONFIG_HOME/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh" ]]
+then
+    mv $HOME/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh $HOME/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
+fi
+
 # Add Vi text-objects for brackets and quotes
 autoload -Uz select-bracketed select-quoted
 zle -N select-quoted
