@@ -1,4 +1,6 @@
-# ---------------  WM independent hotkeys ----------------
+#################################################################
+#	 WM independent hotkeys
+#################################################################
 
 # terminal emulator
 super + Return
@@ -148,43 +150,27 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-# --------------------- volume control ---------------------
-XF86AudioLowerVolume
-	amixer set Master 5%-
+#################################################################
+#     MULTIMEDIA/FUNCTION KEYS
+#################################################################
+XF86AudioPlay 
+	#playerctl play-pause
+XF86AudioNext 
+	#playerctl next
+XF86AudioPrev 
+	#playerctl previous
+XF86AudioStop
+    playerctl stop
 XF86AudioRaiseVolume
 	amixer set Master 5%+
+XF86AudioLowerVolume
+	amixer set Master 5%-
 XF86AudioMute
-        amixer set Master toggle
-#XF86AudioMicMute 
-	#amixer costam
-
-# ------------------ brightness control --------------------
+    amixer -D pulse set Master 1+ toggle
 XF86MonBrightnessDown
 	xbacklight -dec 5
 XF86MonBrightnessUp
 	xbacklight -inc 5
-	
-#################################################################
-#     MULTIMEDIA KEYS
-#################################################################
-#XF86AudioPlay 
-	#playerctl play-pause
-#XF86AudioNext 
-	#playerctl next
-#XF86AudioPrev 
-	#playerctl previous
-	
-#Raises volume
-XF86AudioRaiseVolume
-    amixer set Master 10%+
-
-#Lowers volume
-XF86AudioLowerVolume
-    amixer set Master 10%-
-
-#Mute
-XF86AudioMute
-    amixer -D pulse set Master 1+ toggle
 
 #################################################################
 #     LOCKSCREEN
