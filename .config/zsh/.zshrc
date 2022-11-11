@@ -77,6 +77,8 @@ bindkey '^[[6~'      end-of-buffer-or-history               # PgDn
 bindkey '^k'         up-line-or-beginning-search            # Up
 bindkey '^j'         down-line-or-beginning-search          # Down
 
+zle -N fg-bg
+bindkey '^Z' fg-bg
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + n
 bindkey -r '^n'              #rebinding clear from ctrl + l to ctrl + n
 bindkey '^n' .clear-screen   #rebinding clear from ctrl + l to ctrl + n
