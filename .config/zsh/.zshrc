@@ -52,6 +52,7 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
 zsh_add_plugin "agkozak/zsh-z"
 zsh_add_plugin "Tarrasch/zsh-bd"
+source $XDG_CONFIG_HOME/zsh/plugins/zsh-bd/bd.zsh
 #zsh_add_plugin "sinetoami/web-search"
 #zsh_add_plugin "ohmyzsh/copybuffer"
 #zsh_add_plugin "ohmyzsh/copydir"
