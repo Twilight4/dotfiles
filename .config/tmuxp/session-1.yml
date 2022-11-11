@@ -1,0 +1,15 @@
+session_name: dotfiles
+start_directory: $HOME/.config/zsh/
+
+windows:
+ - window_name: zsh
+   layout: tiled
+   panes:
+     - nvim
+     - min
+ - window_name: terms
+   layout: tiled
+   panes:
+ - la
+ - echo "where am i?"
+ - whoami
