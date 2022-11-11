@@ -27,10 +27,9 @@ setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
 # Completions
-autoload -Uz compinit
+autoload -Uz compinit; compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-compinit
 _comp_options+=(globdots)               # Include hidden files.
 zle_highlight=('paste:none')
 
@@ -61,17 +60,6 @@ zsh_add_completion "zsh-users/zsh-completions"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
 
-# Key-bindings (commented are without vi mode)
-#bindkey '^'          kill-word                      # unassigned
-#bindkey '^[[H'       beginning-of-line              # Home
-#bindkey '^[[F'       end-of-line                    # End
-#bindkey '^K'         kill-line                      # Ctrl+K
-#bindkey '^U'         backward-kill-line             # Ctrl+U
-#bindkey '^[[Z'       undo                           # Shift + tab
-#bindkey '^[[1;5C]'   forward-word                   # Ctrl+LeftArrow
-#bindkey '^[[1;5D]'   backward-word                  # Ctrl+RightArrow
-#bindkey '^H'         backward-kill-word             # Ctrl+backspace
-
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -90,8 +78,13 @@ bindkey '^j'         down-line-or-beginning-search          # Down
 
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + n
 bindkey -r '^n'              #rebinding clear from ctrl + l to ctrl + n
-bindkey -s '^n' 'clear\n^M'  #rebinding clear from ctrl + l to ctrl + n
-
+bindkey '^n' .clear-screen   #rebinding clear from ctrl + l to ctrl + n
+#bindkey -r '^p'
+#bindkey -s '^p' 'fpdf\n'
+#bindkey -r '^f'
+#bindkey -s '^f' 'fmind\n'
+#bindkey -r '^w'
+#bindkey -s '^w' 'fwork\n'
 #bindkey -s '^y' 'htop^M'
 #bindkey -s '^u' 'ncdu^M'
 #bindkey -s '^i' 'ncdu^M'
