@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Display backgorund jobs
+# Display current jobs
 function fg-bg() {
     if [[ $#BUFFER -eq 0 ]]; then
         local backgroundProgram="$(jobs | tail -n 1 | awk '{print $4}')"
