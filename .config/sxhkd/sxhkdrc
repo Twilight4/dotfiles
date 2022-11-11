@@ -164,14 +164,30 @@ XF86MonBrightnessDown
 XF86MonBrightnessUp
 	xbacklight -inc 5
 	
-# ------------------  music control --------------------
+#################################################################
+#     MULTIMEDIA KEYS
+#################################################################
 #XF86AudioPlay 
 	#playerctl play-pause
 #XF86AudioNext 
 	#playerctl next
 #XF86AudioPrev 
 	#playerctl previous
+	
+#Raises volume
+XF86AudioRaiseVolume
+    amixer set Master 10%+
 
-# --------------------- lockscreen -------------------------
+#Lowers volume
+XF86AudioLowerVolume
+    amixer set Master 10%-
+
+#Mute
+XF86AudioMute
+    amixer -D pulse set Master 1+ toggle
+
+#################################################################
+#     LOCKSCREEN
+#################################################################
 #super + x
 #	betterlockscreen -l dimblur
