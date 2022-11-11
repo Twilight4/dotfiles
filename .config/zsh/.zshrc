@@ -114,4 +114,5 @@ xset r rate 210 40
 
 # Tmuxp
 #ftmuxp
+
 source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
