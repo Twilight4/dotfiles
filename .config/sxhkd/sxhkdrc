@@ -1,6 +1,13 @@
 #################################################################
 #	 WM independent hotkeys
 #################################################################
+# change desktop
+#super + {a,s,d,f,g,h,j,k,l}
+#    bspc desktop --focus ^{1-9}
+
+# move node to desktop
+#super + shift + {a,s,d,f,g,h,j,k,l} 
+#bspc desktop --to-desktop ^{1-9}
 
 # terminal emulator
 super + Return
