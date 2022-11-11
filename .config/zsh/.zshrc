@@ -79,6 +79,7 @@ bindkey '^j'         down-line-or-beginning-search          # Down
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + n
 bindkey -r '^n'              #rebinding clear from ctrl + l to ctrl + n
 bindkey '^n' .clear-screen   #rebinding clear from ctrl + l to ctrl + n
+bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 #bindkey -r '^p'
 #bindkey -s '^p' 'fpdf\n'
 #bindkey -r '^f'
