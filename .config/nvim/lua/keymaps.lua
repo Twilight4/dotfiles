@@ -1,5 +1,8 @@
 local keymap = vim.keymap
 
+-- Clear search highlights
+keymap.set("n", "<leader>nh", ":nohl<CR>")
+
 -- Do not yank with x
 keymap.set('n', 'x', '"_x')
 
