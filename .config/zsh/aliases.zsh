@@ -7,6 +7,9 @@ alias la='ls -a -t modified -h'
 alias lac='ls -a -t created -h'
 alias tree='ls --tree --level=2 -a -t modified -h'
 
+# tmux
+alias tks='tmux kill-server'
+
 # git
 alias ga='git add'
 alias gc='git commit'
