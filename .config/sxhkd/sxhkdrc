@@ -1,29 +1,9 @@
 #################################################################
-#	 WM independent hotkeys
+#	 ROFI AND APPS
 #################################################################
-# change desktop
-#super + {a,s,d,f,g,h,j,k,l}
-#    bspc desktop --focus ^{1-9}
-
-# move node to desktop
-#super + shift + {a,s,d,f,g,h,j,k,l} 
-#bspc desktop --to-desktop ^{1-9}
-
-# terminal emulator
-super + Return
-        alacritty
-
-# reload sxhkd config
-super + Escape
-        pkill -USR1 -x sxhkd
-
 # browser
 super + shift + Return
 	min
-	
-# screenshot tool - check if rofi ss menu isn't better
-Print
-	screenshot_tool
 	
 # launcher menu
 super + r
@@ -33,35 +13,56 @@ super + r
 super + space
 	apps.sh
 	
-# screenshot menu - rofi check if screenshot tool isn't better
-#super + s
-#	screenshot.sh
-
-# volume menu - check if seperate keybindings aren't better
-super + x
-	volume.sh
+# power menu
+super + p
+	powermenu.sh
 	
-# brightness menu - check if seperate keybindings aren't better
-super + z
-	brightness.sh
+# quicklinks menu
+super + l
+	quicklinks.sh
 	
 # battery menu
 super + b
 	battery.sh
 	
-# power menu
-super + p
-	powermenu.sh
+# screenshot tool
+Print
+	screenshot_tool
 	
-# mpd menu
-super + m
+# screenshot tool - rofi screenshot menu
+shift + Print
+	screenshot.sh
+	
+# mpd menu - - my keyboard has no function keys
+super + n
 	mpd.sh
 	
-# quicklinks menu
-super + l
-	quicklinks.sh
+# brightness menu - my keyboard has no function keys
+super + z
+	brightness.sh
+	
+## volume menu - using function keys instead
+#super + x
+	#volume.sh
+	
+#################################################################
+#	 BSPWM hotkeys
+#################################################################
+# change desktop
+#super + {,s,d,f,g,,,.,/}
+#    bspc desktop --focus ^{1-7}
 
-# --------------------- bspwm hotkeys ---------------------
+# move node to desktop
+#super + shift + {s,d,f,g,,,.,/} 
+#bspc desktop --to-desktop ^{1-7}
+
+# terminal emulator
+super + Return
+        alacritty
+
+# reload sxhkd config
+super + Escape
+        pkill -USR1 -x sxhkd
 
 # quit/restart bspwm
 super + alt + {q,r}
