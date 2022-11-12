@@ -72,7 +72,7 @@ super + m
 	bspc desktop -l next
 	
 # swap the current node and the biggest node
-super + g
+super + e
 	bspc node -s biggest
 	
 # set the window state
