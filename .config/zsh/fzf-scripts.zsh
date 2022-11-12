@@ -28,6 +28,26 @@ fmux() {
     [ -n "$prj" ] && tmuxp load $prj
 }
 
+# ftmux - help you delete tmux sessions
+ftmuxd() {
+    if [[ ! -n $TMUX ]]; then
+        # get the IDs
+        ID="`tmux list-sessions`"
+        if [[ -z "$ID" ]]; then
+            tmux kill-session
+        fi
+        delete_session="Kill Session"
+        ID="$ID\n${kill_session}:"
+        ID="`echo $ID | fzf | cut -d: -f1`"
+        if [[ "$ID" = "${kill_session}" ]]; then
+            tmux kill-session -t "$ID"
+        elif [[ -n "$ID" ]]; then
+            printf '\033]777;tabbedx;set_tab_name;%s\007' "$ID"
+            tmux kill-session -t "$ID"
+        fi
+    fi
+}
+
 # ftmux - help you choose tmux sessions
 ftmux() {
     if [[ ! -n $TMUX ]]; then
