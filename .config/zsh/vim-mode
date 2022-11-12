@@ -184,22 +184,148 @@ if [[ -z $VIM_MODE_NO_DEFAULT_BINDINGS ]]; then
         esac
     fi
 
-# Change cursor shape for different vi modes.
-export KEYTIMEOUT=1
-function zle-keymap-select () {
-    case $KEYMAP in
-        vicmd) echo -ne '\e[2 q';;      # block
-        viins|main) echo -ne '\e[6 q';; # beam
-    esac
-}
-zle -N zle-keymap-select
-zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[6 q"
-}
-zle -N zle-line-init
-echo -ne '\e[6 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[6 q' ;} # Use beam shape cursor for each new prompt.
+# Identifying the editing mode {{{1
+if [[ $VIM_MODE_TRACK_KEYMAP != no ]]; then
+    # Export the main variable so higher-level processes can view it;
+    # e.g., github:starship/starship uses this
+    export VIM_MODE_KEYMAP
+
+    autoload -Uz add-zsh-hook
+    autoload -Uz add-zle-hook-widget
+
+    # Compatibility with old variable names
+    (( $+MODE_INDICATOR_I )) && : ${MODE_INDICATOR_VIINS=MODE_INDICATOR_I}
+    (( $+MODE_INDICATOR_N )) && : ${MODE_INDICATOR_VICMD=MODE_INDICATOR_N}
+    (( $+MODE_INDICATOR_C )) && : ${MODE_INDICATOR_SEARCH=MODE_INDICATOR_C}
+
+    typeset -g -a vim_mode_keymap_funcs=()
+
+    vim-mode-precmd           () { vim-mode-handle-event precmd           "$KEYMAP" }
+    add-zsh-hook precmd vim-mode-precmd
+
+    vim-mode-isearch-update   () { vim-mode-handle-event isearch-update   "$KEYMAP" }
+    vim-mode-isearch-exit     () { vim-mode-handle-event isearch-exit     "$KEYMAP" }
+    vim-mode-line-pre-redraw  () { vim-mode-handle-event line-pre-redraw  "$KEYMAP" }
+    vim-mode-line-init        () { vim-mode-handle-event line-init        "$KEYMAP" }
+
+    () {
+        local w; for w in "$@"; do add-zle-hook-widget $w vim-mode-$w; done
+    } isearch-exit isearch-update line-pre-redraw line-init
+
+    typeset -g vim_mode_keymap_state=
+
+    vim-mode-handle-event () {
+        #${(%):-%x}_debug "handle-event [${(qq)@}][cur:${VIM_MODE_KEYMAP}]"
+
+        local hook="$1"
+        local keymap="$2"
+
+        case $hook in
+        line-init )
+            [[ $VIM_MODE_KEYMAP = vicmd ]] && zle && zle vi-cmd-mode
+            ;;
+        line-pre-redraw )
+            # This hook is called (maybe several times) on every action except
+            # for the initial prompt drawing
+            case $vim_mode_keymap_state in
+            '' )
+                vim_mode_set_keymap "$keymap"
+                ;;
+            *-escape )
+                vim_mode_set_keymap "${vim_mode_keymap_state%-escape}"
+                vim_mode_keymap_state=
+                ;;
+            *-update )
+                # Normal update in isearch mode
+                vim_mode_keymap_state=${vim_mode_keymap_state%-update}
+                vim_mode_set_keymap isearch
+                ;;
+            * )
+                # ^C was hit during isearch mode!
+                vim_mode_set_keymap "$vim_mode_keymap_state"
+                vim_mode_keymap_state=
+                ;;
+            esac
+            ;;
+        isearch-update )
+            if [[ $keymap = vicmd ]]; then
+                # This is an abnormal exit from search (like <Esc>)
+                vim_mode_keymap_state+='-escape'
+            elif [[ $VIM_MODE_KEYMAP != isearch ]]; then
+                # Normal update, starting search mode
+                vim_mode_keymap_state=${VIM_MODE_KEYMAP}-update
+            else
+                # Normal update, staying in search mode
+                vim_mode_keymap_state+=-update
+            fi
+            ;;
+        isearch-exit )
+            if [[ $VIM_MODE_KEYMAP = isearch ]]; then
+                # This could be a normal (movement key) exit, but it could also
+                # be ^G which behaves almost like <Esc>. So don't trust $keymap.
+                vim_mode_keymap_state+='-escape'
+            fi
+
+            # Otherwise, we already exited search via abnormal isearch-update,
+            # so there is nothing to do here.
+            ;;
+        precmd )
+            # When the prompt is first shown line-pre-redraw does not get called
+            # so the state must be initialized here
+            vim_mode_keymap_state=
+            vim_mode_set_keymap $(vim-mode-initial-keymap)
+            ;;
+        * )
+            # Should not happen
+            zle && zle -M "zsh-vim-mode internal error: bad hook $hook"
+            ;;
+        esac
+    }
+
+    vim_mode_set_keymap () {
+        local keymap="$1"
+
+        [[ $keymap = main || $keymap = '' ]] && keymap=viins
+
+        if [[ $keymap = vicmd ]]; then
+            local active=${REGION_ACTIVE:-0}
+            if [[ $active = 1 ]]; then
+                keymap=visual
+            elif [[ $active = 2 ]]; then
+                keymap=vline
+            fi
+        elif [[ $keymap = viins ]]; then
+            [[ $ZLE_STATE = *overwrite* ]] && keymap=replace
+        fi
+
+        #${(%):-%x}_debug "     -> $keymap"
+
+        [[ $VIM_MODE_KEYMAP = $keymap ]] && return
+
+        # Can be used by prompt themes, etc.
+        VIM_MODE_KEYMAP=$keymap
+
+        local func
+        for func in ${vim_mode_keymap_funcs[@]}; do
+            ${func} "$keymap"
+        done
+    }
+
+    vim-mode-initial-keymap () {
+        case ${VIM_MODE_INITIAL_KEYMAP:-viins} in
+            last)
+                case $VIM_MODE_KEYMAP in
+                    vicmd|visual|vline) print vicmd ;;
+                    *)                  print viins ;;
+                esac
+                ;;
+            vicmd)
+                print vicmd ;;
+            *)
+                print viins ;;
+        esac
+    }
+fi
 
 # Restore shell option 'aliases'. This must be the last thing here.
 if [[ $_vim_mode_shopt_aliases = 1 ]]; then
