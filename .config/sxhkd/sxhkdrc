@@ -136,7 +136,7 @@ super + {s,d,f,g,comma,period,slash}
 
 # move node to desktop
 super + shift + {s,d,f,g,comma,period,slash}
-bspc desktop --to-desktop ^{1-7}
+    bspc node -d ^{1-7}
 
 # focus or send to the given desktop
 #super + {_,shift + }{1-9,0}
