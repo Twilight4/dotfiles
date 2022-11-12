@@ -1,10 +1,3 @@
--- Print if packer is not installed
-local status, packer = pcall(require, "packer")
-if (not status) then
-  print("Packer is not installed")
-  return
-end
-
 -- Automatically install packer
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -18,6 +11,13 @@ if fn.empty(fn.glob(install_path)) > 0 then
   }
   print "Installing packer close and reopen Neovim..."
   vim.cmd [[packadd packer.nvim]]
+end
+
+-- Print if packer is not installed
+local status, packer = pcall(require, "packer")
+if (not status) then
+  print("Packer is not installed")
+  return
 end
 
 -- Use a protected call so we don't error out on first use
