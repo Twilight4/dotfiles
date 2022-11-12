@@ -33,8 +33,8 @@ Print
 shift + Print
 	screenshot.sh
 	
-#super + v
-#	betterlockscreen -l dimblur
+#super + y
+	#betterlockscreen -l dimblur
 	
 # mpd menu - - my keyboard has no function keys
 super + n
