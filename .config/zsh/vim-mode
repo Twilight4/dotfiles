@@ -285,9 +285,8 @@ if [[ $VIM_MODE_TRACK_KEYMAP != no ]]; then
         esac
     }
 
-export KEYTIMEOUT=1
-
 # Change cursor shape for different vi modes.
+export KEYTIMEOUT=1
 function zle-keymap-select () {
     case $KEYMAP in
         vicmd) echo -ne '\e[2 q';;      # block
