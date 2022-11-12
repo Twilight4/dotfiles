@@ -184,9 +184,6 @@ if [[ -z $VIM_MODE_NO_DEFAULT_BINDINGS ]]; then
         esac
     fi
 
-    unfunction vim-mode-maybe-bind
-fi
-
 # Change cursor shape for different vi modes.
 export KEYTIMEOUT=1
 function zle-keymap-select () {
