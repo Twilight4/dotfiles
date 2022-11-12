@@ -41,7 +41,7 @@ source "$ZDOTDIR/zsh-functions.zsh"
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Normal files to source
-zsh_add_file "zsh-aliases"
+zsh_add_file "aliases.zsh"
 #zsh_add_file "zsh-vim-mode"
 zsh_add_file "zsh-scripts.zsh"
 zsh_add_file "fzf-scripts.zsh"
