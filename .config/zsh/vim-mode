@@ -30,21 +30,6 @@ vim-mode-define-special-key Insert     kich1 "^[[2~"
 vim-mode-define-special-key Delete     kdch1 "^[[3~"
 vim-mode-define-special-key Shift-Tab  kcbt  "^[[Z"
 
-# + vim-mode-bindkey {{{1
-function vim-mode-bindkey () {
-    local -a maps
-    local command
-
-    while (( $# )); do
-        [[ $1 = '--' ]] && break
-        maps+=$1
-        shift
-    done
-    shift
-
-    command=$1
-    shift
-
 if [[ -z $VIM_MODE_NO_DEFAULT_BINDINGS ]]; then
     # Emacs-like bindings {{{1
     vim-mode-bindkey viins vicmd -- beginning-of-line                  '^A'
