@@ -39,7 +39,7 @@ zsh_add_file "aliases.zsh"
 zsh_add_file "zsh-scripts.zsh"
 zsh_add_file "fzf-scripts.zsh"
 zsh_add_file "completions.zsh"
-zsh_add_file "key-bindings.zsh"
+zsh_add_file "bindings.zsh"
 zsh_add_file "vim-mode"
 
 # Plugins
