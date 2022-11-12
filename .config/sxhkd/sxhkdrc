@@ -96,21 +96,10 @@ super + {o,i}
 	bspc wm -h off; \
 	bspc node {older,newer} -f; \
 	bspc wm -h on
-	
-	
-	
-# change desktop
-#super + {,s,d,f,g,,,.,/}
-#    bspc desktop --focus ^{1-7}
-
-# move node to desktop
-#super + shift + {s,d,f,g,,,.,/} 
-#bspc desktop --to-desktop ^{1-7}
 
 #################################################################
 #	 SUPER + CTRL KEYS
 #################################################################
-
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
@@ -130,7 +119,6 @@ super + ctrl + space
 #################################################################
 #	 SUPER + ALT KEYS
 #################################################################
-
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
 	bspc node -z {right -20 0,bottom 0 20,bottom 0 -20,right 20 0}
@@ -142,10 +130,17 @@ super + alt + shift + {h,j,k,l}
 #################################################################
 #	 SUPER + SHIFT KEYS
 #################################################################
+# change desktop
+super + {s,d,f,g,comma,period,slash}
+    bspc desktop --focus ^{1-7}
+
+# move node to desktop
+super + shift + {s,d,f,g,comma,period,slash}
+bspc desktop --to-desktop ^{1-7}
 
 # focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+#super + {_,shift + }{1-9,0}
+#	bspc {desktop -f,node -d} '^{1-9,10}'
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
