@@ -44,6 +44,39 @@ function vim-mode-bindkey () {
 
     command=$1
     shift
+    
+    # A key combo can be made of more than one key press, so a binding for
+    # <Home> <End> will map to '^[[1~^[[4~', for example. XXX Except this
+    # doesn't seem to work. ZLE just wants a single special key for viins
+    # & vicmd (multiples work in emacs). Oh, well, this accumulator
+    # doesn't hurt and may come in handy. Just only call vim-mode-bindkey
+    # with one special key.
+
+    function vim-mode-accum-combo () {
+        typeset -g -a combos
+        local combo="$1"; shift
+        if (( $#@ )); then
+            local cur="$1"; shift
+            if (( ${+vim_mode_special_keys[$cur]} )); then
+                for seq in ${(z)vim_mode_special_keys[$cur]}; do
+                    vim-mode-accum-combo "$combo${(Q)seq}" "$@"
+                done
+            else
+                vim-mode-accum-combo "$combo$cur" "$@"
+            fi
+        else
+            combos+="$combo"
+        fi
+    }
+
+    local -a combos
+    vim-mode-accum-combo '' "$@"
+    for c in ${combos}; do
+        for m in ${maps}; do
+            bindkey -M $m "$c" $command
+        done
+    done
+}
 
 if [[ -z $VIM_MODE_NO_DEFAULT_BINDINGS ]]; then
     # Emacs-like bindings {{{1
