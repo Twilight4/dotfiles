@@ -26,12 +26,12 @@ setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive sessio
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
-# Completions
-autoload -Uz compinit; compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-_comp_options+=(globdots)               # Include hidden files.
-zle_highlight=('paste:none')
+########################### Completions
+#############autoload -Uz compinit; compinit
+#############zstyle ':completion:*' menu select
+#############zmodload zsh/complist
+#############_comp_options+=(globdots)               # Include hidden files.
+#############zle_highlight=('paste:none')
 
 # Colors
 autoload -Uz colors && colors
@@ -42,9 +42,12 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Normal files to source
 zsh_add_file "zsh-aliases"
-zsh_add_file "zsh-vim-mode"
-zsh_add_file "zsh-scripts"
-zsh_add_file "zsh-fzf-scripts"
+#zsh_add_file "zsh-vim-mode"
+zsh_add_file "zsh-scripts.zsh"
+zsh_add_file "fzf-scripts.zsh"
+zsh_add_file "completions.zsh"
+zsh_add_file "bindings.zsh"
+zsh_add_file "vim-mode"
 
 # Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
