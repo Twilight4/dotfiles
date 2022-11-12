@@ -36,7 +36,7 @@ shift + Print
 #super + y
 	#betterlockscreen -l dimblur
 	
-# mpd menu - - my keyboard has no function keys
+# mpd menu - my keyboard has no function keys
 super + n
 	mpd.sh
 	
