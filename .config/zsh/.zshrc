@@ -37,7 +37,7 @@ setopt nobeep               # No beep
 autoload -Uz colors && colors
 
 # My plugin manager and p10k
-source "$ZDOTDIR/zsh-functions"
+source "$ZDOTDIR/zsh-functions.zsh"
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Normal files to source
