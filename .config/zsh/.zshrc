@@ -61,24 +61,17 @@ zsh_add_completion "zsh-users/zsh-completions"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
 
+# Keybindings that can't be in bindings.zsh
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-bindkey '^[[D'       backward-char                          # LeftArrow
-bindkey '^[[C'       forward-char                           # RightArrow
-bindkey '^_'         forward-char                           # RightArrow
-bindkey '^[[Z'       reverse-menu-complete                  # Shift+tab
 bindkey '^W'         backward-kill-word                     # Ctrl+W
-bindkey '^[[3~'      delete-char                            # Delete
-bindkey '^?'         backward-delete-char                   # Backspace
-bindkey '^[[5~'      beginning-of-buffer-or-history         # PgUp
-bindkey '^[[6~'      end-of-buffer-or-history               # PgDn
 bindkey '^k'         up-line-or-beginning-search            # Up
 bindkey '^j'         down-line-or-beginning-search          # Down
-
 zle -N fg-bg
 bindkey '^Z' fg-bg
+
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + n
 bindkey -r '^n'              #rebinding clear from ctrl + l to ctrl + n
 bindkey '^n' .clear-screen   #rebinding clear from ctrl + l to ctrl + n
