@@ -26,13 +26,6 @@ setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive sessio
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
-########################### Completions
-#############autoload -Uz compinit; compinit
-#############zstyle ':completion:*' menu select
-#############zmodload zsh/complist
-#############_comp_options+=(globdots)               # Include hidden files.
-#############zle_highlight=('paste:none')
-
 # Colors
 autoload -Uz colors && colors
 
