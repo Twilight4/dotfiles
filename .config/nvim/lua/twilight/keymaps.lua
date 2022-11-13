@@ -20,15 +20,15 @@ keymap.set('n', 'dw', 'vb"_d')
 keymap.set('n', '<C-a>', 'gg<S-v>G')
 
 -- Better paste
-keymap('v', 'p', '"_dP',)
+keymap.set('v', 'p', '"_dP',)
 
 -- Add buffer
 keymap.set('n','ba', ':badd ') -- add new buffer, type filename
 -- Navigate buffers
-keymap('n', '<S-l>', ':bnext<CR>',)
-keymap('n', "<S-h>', ':bprevious<CR>',)
+keymap.set('n', '<S-l>', ':bnext<CR>',)
+keymap.set('n', "<S-h>', ':bprevious<CR>',)
 -- Close buffers
-keymap('n', '<S-q>', '<cmd>Bdelete!<CR>',)
+keymap.set('n', '<S-q>', '<cmd>Bdelete!<CR>',)
 
 -- Tabs
 keymap.set('n', 'te', ':tabedit ') -- open new tab and type a name
