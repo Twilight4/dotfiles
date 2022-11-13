@@ -52,3 +52,10 @@ keymap.set('n', '<Down>', '<NOP>')
 keymap.set('n', '<Left>', '<NOP>')
 keymap.set('n', '<Right>', '<NOP>')
 keymap.set('n', '<Up>', '<NOP>')
+
+---------------------
+-- Plugin Keybinds --
+---------------------
+
+-- vim-maximizer
+keymap.set('n', 'sm', ':MaximizerToggle<CR>') -- toggle split window maximization
