@@ -38,19 +38,16 @@ return packer.startup(function(use)
   use 'numToStr/Comment.nvim' -- commenting with gc
   use 'nvim-lua/plenary.nvim' -- lua functions that many plugins use
   use 'nvim-tree/nvim-tree.lua' -- file explorer
-    
-    
-    
+  use 'kyazdani42/nvim-web-devicons' -- file icons
   use {
     'svrana/neosolarized.nvim',
     requires = { 'tjdevries/colorbuddy.nvim' }
   }
   use 'nvim-lualine/lualine.nvim' -- Statusline
-  use 'nvim-lua/plenary.nvim' -- Common utilities
-  
-  use 'kyazdani42/nvim-web-devicons' -- File icons
-  use 'nvim-telescope/telescope.nvim'
-  use 'nvim-telescope/telescope-file-browser.nvim'
+  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
+  use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
+
+  use 'nvim-telescope/telescope-file-browser.nvim'    
   use 'windwp/nvim-autopairs'
   use 'norcalli/nvim-colorizer.lua'
   use 'folke/zen-mode.nvim'
