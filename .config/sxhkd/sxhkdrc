@@ -146,19 +146,19 @@ super + {_,shift + }{h,j,k,l}
 #     MULTIMEDIA/FUNCTION KEYS
 #################################################################
 XF86AudioPlay 
-	#playerctl play-pause
+	playerctl play-pause
 XF86AudioNext 
-	#playerctl next
+	playerctl next
 XF86AudioPrev 
-	#playerctl previous
+	playerctl previous
 XF86AudioStop
-    playerctl stop
+	playerctl stop
 XF86AudioRaiseVolume
 	amixer set Master 5%+
 XF86AudioLowerVolume
 	amixer set Master 5%-
 XF86AudioMute
-    amixer -D pulse set Master 1+ toggle
+	amixer -D pulse set Master 1+ toggle
 XF86MonBrightnessDown
 	xbacklight -dec 5
 XF86MonBrightnessUp
