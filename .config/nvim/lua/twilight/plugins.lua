@@ -46,8 +46,6 @@ return packer.startup(function(use)
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
   use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
-
-  use 'nvim-telescope/telescope-file-browser.nvim'    
   use 'windwp/nvim-autopairs'
   use 'norcalli/nvim-colorizer.lua'
   use 'folke/zen-mode.nvim'
