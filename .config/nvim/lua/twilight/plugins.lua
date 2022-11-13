@@ -36,6 +36,8 @@ return packer.startup(function(use)
   use 'tpope/vim-surround' -- add, delete, change surroundings
   use 'vim-scripts/ReplaceWithRegister' -- replace with register contents using motion (gr + motion)
   use 'numToStr/Comment.nvim' -- commenting with gc
+  use 'nvim-lua/plenary.nvim' -- lua functions that many plugins use
+  use 'nvim-tree/nvim-tree.lua' -- file explorer
     
     
     
