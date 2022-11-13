@@ -35,10 +35,9 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Normal files to source
 zsh_add_file "aliases.zsh"
-#zsh_add_file "zsh-vim-mode"
 zsh_add_file "zsh-scripts.zsh"
 zsh_add_file "fzf-scripts.zsh"
-zsh_add_file "completions.zsh"
+zsh_add_file "completion.zsh"
 zsh_add_file "bindings.zsh"
 zsh_add_file "vim-mode"
 
