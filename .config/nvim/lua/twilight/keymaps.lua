@@ -42,12 +42,6 @@ keymap.set('n', 'sv', '<C-w>v') -- split window vertically
 keymap.set('n', 'ss', '<C-w>s') -- split window horizontally
 keymap.set('n', 'se', '<C-w>=') -- make split windows equal width & height
 keymap.set('', 'sx', ':close<CR>') -- close current split window
--- Change focus of the window
-keymap.set('n', '<Space>', '<C-w>w')
-keymap.set('', 'sh', '<C-w>h')
-keymap.set('', 'sk', '<C-w>k')
-keymap.set('', 'sj', '<C-w>j')
-keymap.set('', 'sl', '<C-w>l')
 -- Resize window
 keymap.set('n', '<M-,>', '<C-w>-')
 keymap.set('n', '<M-n>', '<C-w><')
