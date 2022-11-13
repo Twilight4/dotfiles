@@ -20,7 +20,7 @@ keymap.set('n', 'dw', 'vb"_d')
 keymap.set('n', '<C-a>', 'gg<S-v>G')
 
 -- Better paste
-keymap("v", "p", '"_dP',)
+keymap('v', 'p', '"_dP',)
 
 -- Add buffer
 keymap.set('n','ba', ':badd ') -- add new buffer, type filename
