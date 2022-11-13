@@ -1,5 +1,8 @@
 local keymap = vim.keymap
 
+-- Silent keymap option
+local opts = { silent = true }
+
 -- Clear search highlights
 keymap.set('n', 'nh', ':nohl<CR>')
 
@@ -16,12 +19,16 @@ keymap.set('n', 'dw', 'vb"_d')
 -- Select all
 keymap.set('n', '<C-a>', 'gg<S-v>G')
 
--- Save with root permission (not working for now)
---vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
+-- Better paste
+keymap("v", "p", '"_dP',)
 
--- New buffer
-keymap.set('n','<leader>bn', ':bn')
-keymap.set('n','<leader>tn', 'gt')
+-- Add buffer
+keymap.set('n','ba', ':badd ') -- add new buffer, type filename
+-- Navigate buffers
+keymap("n", "<S-l>", ":bnext<CR>",)
+keymap("n", "<S-h>", ":bprevious<CR>",)
+-- Close buffers
+keymap("n", "<S-q>", "<cmd>Bdelete!<CR>",)
 
 -- Tabs
 keymap.set('n', 'te', ':tabedit ') -- open new tab and type a name
