@@ -1,4 +1,4 @@
-require('base')
-require('highlights')
-require('keymaps')
-require('plugins')
+require('twilight.base')
+require('twilight.highlights')
+require('twilight.keymaps')
+require('twilight.plugins')
