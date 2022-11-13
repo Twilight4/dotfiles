@@ -25,10 +25,10 @@ keymap("v", "p", '"_dP',)
 -- Add buffer
 keymap.set('n','ba', ':badd ') -- add new buffer, type filename
 -- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>",)
-keymap("n", "<S-h>", ":bprevious<CR>",)
+keymap('n', '<S-l>', ':bnext<CR>',)
+keymap('n', "<S-h>', ':bprevious<CR>',)
 -- Close buffers
-keymap("n", "<S-q>", "<cmd>Bdelete!<CR>",)
+keymap('n', '<S-q>', '<cmd>Bdelete!<CR>',)
 
 -- Tabs
 keymap.set('n', 'te', ':tabedit ') -- open new tab and type a name
