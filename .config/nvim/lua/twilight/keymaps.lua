@@ -26,7 +26,7 @@ keymap.set('v', 'p', '"_dP',)
 keymap.set('n','ba', ':badd ') -- add new buffer, type filename
 -- Navigate buffers
 keymap.set('n', '<S-l>', ':bnext<CR>',)
-keymap.set('n', "<S-h>', ':bprevious<CR>',)
+keymap.set('n', '<S-h>', ':bprevious<CR>',)
 -- Close buffers
 keymap.set('n', '<S-q>', '<cmd>Bdelete!<CR>',)
 
