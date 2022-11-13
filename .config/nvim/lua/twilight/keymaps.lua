@@ -59,3 +59,6 @@ keymap.set('n', '<Up>', '<NOP>')
 
 -- vim-maximizer
 keymap.set('n', 'sm', ':MaximizerToggle<CR>') -- toggle split window maximization
+
+-- nvim-tree
+keymap.set("n", "ze", ":NvimTreeToggle<CR>") -- toggle file explorer
