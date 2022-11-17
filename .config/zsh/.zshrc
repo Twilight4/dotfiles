@@ -29,9 +29,8 @@ setopt nobeep               # No beep
 # Colors
 autoload -Uz colors && colors
 
-# My plugin manager and p10k
+# My plugin manager
 source "$ZDOTDIR/zsh-functions.zsh"
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Normal files to source
 zsh_add_file "aliases.zsh"
@@ -40,6 +39,9 @@ zsh_add_file "fzf-scripts.zsh"
 zsh_add_file "completion.zsh"
 zsh_add_file "bindings.zsh"
 zsh_add_file "vim-mode"
+zsh_add_file "cursor-mode"
+source $XDG_CONFIG_HOME/zsh/plugins/zsh-bd/bd.zsh
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
@@ -47,7 +49,6 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
 zsh_add_plugin "agkozak/zsh-z"
 zsh_add_plugin "Tarrasch/zsh-bd"
-source $XDG_CONFIG_HOME/zsh/plugins/zsh-bd/bd.zsh
 #zsh_add_plugin "sinetoami/web-search"
 #zsh_add_plugin "ohmyzsh/copybuffer"
 #zsh_add_plugin "ohmyzsh/copydir"
