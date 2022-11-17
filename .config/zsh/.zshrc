@@ -40,7 +40,7 @@ zsh_add_file "completion.zsh"
 zsh_add_file "bindings.zsh"
 zsh_add_file "vim-mode"
 zsh_add_file "cursor-mode"
-source $XDG_CONFIG_HOME/zsh/plugins/zsh-bd/bd.zsh
+zsh_add_file "bd.zsh"
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Plugins
