@@ -91,7 +91,6 @@ if [[ -z $VIM_MODE_NO_DEFAULT_BINDINGS ]]; then
     vim-mode-bindkey viins vicmd -- backward-kill-line                 '^U'
     vim-mode-bindkey viins vicmd -- backward-kill-word                 '^W'
     vim-mode-bindkey viins vicmd -- yank                               '^Y'
-    vim-mode-bindkey viins vicmd -- undo                               '^_'
     
     # Avoid key bindings that conflict with <Esc> entering NORMAL mode, like
     # - common movement keys (hljk...)
