@@ -59,20 +59,11 @@ zsh_add_completion "zsh-users/zsh-completions"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
 
-# Keybindings that can't be in bindings.zsh
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey '^W'         backward-kill-word                     # Ctrl+W
-bindkey '^k'         up-line-or-beginning-search            # Up
-bindkey '^j'         down-line-or-beginning-search          # Down
 zle -N fg-bg
 bindkey '^Z' fg-bg
-
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + n
 bindkey -r '^n'              #rebinding clear from ctrl + l to ctrl + n
-bindkey '^n' .clear-screen   #rebinding clear from ctrl + l to ctrl + n
+bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + n
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 #bindkey -r '^p'
 #bindkey -s '^p' 'fpdf\n'
