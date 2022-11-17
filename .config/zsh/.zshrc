@@ -90,11 +90,6 @@ source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 fi
 
-# Edit line in set $EDITOR with 'g' key in NORMAL mode
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd g edit-command-line
-
 # Speedy keys
 xset r rate 210 40
 
