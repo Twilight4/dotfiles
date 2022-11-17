@@ -72,9 +72,6 @@ bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 #bindkey -r '^f'
 #bindkey -s '^f' 'fmind\n'
 
-#bindkey -r '^w'
-#bindkey -s '^w' 'fwork\n'
-
 #bindkey -r '^y'
 #bindkey -s '^y' 'htop^M'
 
