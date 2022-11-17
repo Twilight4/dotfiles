@@ -65,17 +65,27 @@ bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + n
 bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + n
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + n
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
+
 #bindkey -r '^p'
 #bindkey -s '^p' 'fpdf\n'
+
 #bindkey -r '^f'
 #bindkey -s '^f' 'fmind\n'
+
 #bindkey -r '^w'
 #bindkey -s '^w' 'fwork\n'
+
+#bindkey -r '^y'
 #bindkey -s '^y' 'htop^M'
+
+#bindkey -r '^u'
 #bindkey -s '^u' 'ncdu^M'
+
+#bindkey -s '^i'
 #bindkey -s '^i' 'ncdu^M'
+
+#bindkey -s '^o' 
 #bindkey -s '^o' 'lf^M'
-#bindkey -s '^p' 'ncdu^M'
 
 # FZF
 if [ $(command -v "fzf") ]; then
