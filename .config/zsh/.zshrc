@@ -29,6 +29,9 @@ setopt nobeep               # No beep
 # Colors
 autoload -Uz colors && colors
 
+# Profiling
+zmodload zsh/zprof
+
 # My plugin manager
 source "$ZDOTDIR/zsh-functions.zsh"
 
