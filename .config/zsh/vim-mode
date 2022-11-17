@@ -5,6 +5,7 @@
 builtin set -o no_aliases
 
 bindkey -v
+export KEYTIMEOUT=1
 
 zmodload zsh/terminfo
 
