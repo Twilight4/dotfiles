@@ -61,9 +61,9 @@ zsh_add_completion "zsh-users/zsh-completions"
 
 zle -N fg-bg
 bindkey '^Z' fg-bg
-bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + n
-bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + n
-bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + n
+bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + g
+bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
+bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
 #bindkey -r '^p'
@@ -79,7 +79,7 @@ bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 #bindkey -s '^u' 'ncdu^M'
 
 #bindkey -s '^i'
-#bindkey -s '^i' 'ncdu^M'
+#bindkey -s '^i' 'vtop^M'
 
 #bindkey -s '^o' 
 #bindkey -s '^o' 'lf^M'
