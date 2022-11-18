@@ -41,9 +41,8 @@ ftmuxd() {
         ID="`echo $ID | fzf | cut -d: -f1`"
         if [[ "$ID" = "${kill_session}" ]]; then
             tmux kill-session -t "$ID"
-        elif [[ -n "$ID" ]]; then
-            printf '\033]777;tabbedx;set_tab_name;%s\007' "$ID"
-            tmux kill-session -t "$ID"
+        else
+            :  # Start terminal normally
         fi
     fi
 }
