@@ -1,4 +1,4 @@
-# Display... the matrix! - matrix
+# Display matrix
 matrix () {
     local lines=$(tput lines)
     cols=$(tput cols)
