@@ -375,7 +375,7 @@ while :; do
 done | awk "$awkscript"
 }
 
-# More scripts to source
+# Source bash scripts (can't source from .zshrc)
 pipes() {
     "$ZDOTDIR/bash-scripts/pipes.sh" "$@"
 }
