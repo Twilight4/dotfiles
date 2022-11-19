@@ -35,18 +35,20 @@ zmodload zsh/zprof
 # My plugin manager
 source "$ZDOTDIR/functions.zsh"
 
-# Normal files to source
+# Source files from main directory
 zsh_add_file "aliases.zsh"
 zsh_add_file "zsh-scripts.zsh"
 zsh_add_file "fzf-scripts.zsh"
 zsh_add_file "completion.zsh"
 zsh_add_file "bindings.zsh"
+# Source additional files from plugins directory
 zsh_add_file "vim-mode"
 zsh_add_file "cursor-mode"
 zsh_add_file "bd.zsh"
+# Source prompt
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# Plugins
+# Plugin manager
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
