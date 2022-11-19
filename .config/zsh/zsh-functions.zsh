@@ -4,6 +4,7 @@
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
     [ -f "$ZDOTDIR/plugins/$1" ] && source "$ZDOTDIR/plugins/$1"
+    [ -f "$ZDOTDIR/more-scripts/$1" ] && source "$ZDOTDIR/more-scripts/$1"    
 }
 
 function zsh_add_plugin() {
