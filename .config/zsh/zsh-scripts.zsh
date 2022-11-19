@@ -417,3 +417,7 @@ colorblocks() {
 githeat() {
     $ZDOTDIR/scripts/heatmap.sh
 }
+
+bm() {
+    $ZDOTDIR/scripts/bm.sh
+}
