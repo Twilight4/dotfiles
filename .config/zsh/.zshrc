@@ -33,7 +33,7 @@ autoload -Uz colors && colors
 zmodload zsh/zprof
 
 # My plugin manager
-source "$ZDOTDIR/zsh-functions.zsh"
+source "$ZDOTDIR/functions.zsh"
 
 # Normal files to source
 zsh_add_file "aliases.zsh"
