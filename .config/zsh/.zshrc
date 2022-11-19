@@ -32,7 +32,7 @@ autoload -Uz colors && colors
 # Profiling
 zmodload zsh/zprof
 
-# My plugin manager
+# Source plugin manager
 source "$ZDOTDIR/functions.zsh"
 
 # Source files from main directory
@@ -48,7 +48,7 @@ zsh_add_file "bd.zsh"
 # Source prompt
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# Plugin manager
+# Install plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
