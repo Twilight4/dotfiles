@@ -377,17 +377,17 @@ done | awk "$awkscript"
 
 # More scripts to source
 pipes() {
-    $ZDOTDIR/bash-scripts/pipes.sh
+    "$ZDOTDIR/bash-scripts/pipes.sh" "$@"
 }
 
 colorblocks() {
-    $ZDOTDIR/bash-scripts/colorblocks.sh
+    "$ZDOTDIR/bash-scripts/colorblocks.sh" "$@"
 }
 
 githeat() {
-    $ZDOTDIR/bash-scripts/heatmap.sh
+    "$ZDOTDIR/bash-scripts/heatmap.sh" "$@"
 }
 
 bm() {
-    $ZDOTDIR/bash-scripts/bm.sh
+    "$ZDOTDIR/bash-scripts/bm.sh" "$@"
 }
