@@ -3,7 +3,7 @@
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
-    [ -f "$ZDOTDIR/scripts/$1" ] && source "$ZDOTDIR/scripts/$1"
+    [ -f "$ZDOTDIR/plugins/$1" ] && source "$ZDOTDIR/plugins/$1"
 }
 
 function zsh_add_plugin() {
