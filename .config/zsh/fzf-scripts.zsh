@@ -99,3 +99,21 @@ fpop() {
     # for index ({1..9}) alias "$index"="cd +${index}"; unset index
     d | fzf --height="20%" | cut -f 1 | source /dev/stdin
 }
+
+# List install files for dotfiles
+fdot() {
+    file=$(find "$DOTFILES/install" -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$file" ] && "$EDITOR" "$DOTFILES/install/$file"
+}
+
+# List projects
+fwork() {
+    result=$(find ~/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$result" ] && cd ~/workspace/$result
+}
+
+# List projects!
+fpdf() {
+    result=$(find -type f -name '*.pdf' | fzf --bind "ctrl-r:reload(find -type f -name '*.pdf')" --preview "pdftotext {} - | less")
+    [ -n "$result" ] && zathura "$result" &
+}
