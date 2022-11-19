@@ -341,7 +341,7 @@ touchproject(){
     cd -
 }
 
-# Source bash scripts (can't source from .zshrc)
+# Aliases to bash scripts
 pipes() {
     "$ZDOTDIR/bash-scripts/pipes.sh" "$@"
 }
