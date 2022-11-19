@@ -30,3 +30,4 @@ while :; do
     echo $lines $cols $(( $RANDOM % $cols)) $(( $RANDOM % 72 ))
     sleep 0.05
 done | awk "$awkscript"
+}
