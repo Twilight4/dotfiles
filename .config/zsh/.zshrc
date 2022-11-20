@@ -77,14 +77,14 @@ bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 #bindkey -r '^y'
 #bindkey -s '^y' 'htop^M'
 
-#bindkey -r '^u'
-#bindkey -s '^u' 'ncdu^M'
+bindkey -r '^u'
+bindkey -s '^u' 'duf^M'
 
-#bindkey -s '^i'
-#bindkey -s '^i' 'vtop^M'
+bindkey -s '^i'
+bindkey -s '^i' 'vtop^M'
 
-#bindkey -s '^o' 
-#bindkey -s '^o' 'lf^M'
+bindkey -s '^o' 
+bindkey -s '^o' 'lf^M'
 
 # FZF
 if [ $(command -v "fzf") ]; then
