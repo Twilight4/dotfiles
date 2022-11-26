@@ -84,7 +84,7 @@ ramp-signal-0-foreground = ${colors.cyan}
 [module/eth]
 inherit = network-base
 interface-type = wired
-label-connected = %{F#4dd0e1}ﲐ %{F#d3d3d3}%downspeed:3%
+label-connected = %{F#73b2c4}ﲐ %{F#d3d3d3}%downspeed:3%
 label-connected-foreground = ${colors.fg}
 label-disconnected = ""
 label-disconnected-foreground = ${colors.alert_red}
@@ -176,7 +176,7 @@ format-mounted = <label-mounted>
 format-unmounted = <label-unmounted>
 format-warn = <label-warn>
 
-label-mounted = %{F#4dd0e1} %{F#d3d3d3}%used:0%/%total:0%
+label-mounted = %{F#73b2c4} %{F#d3d3d3}%used:0%/%total:0%
 label-mounted-foreground = ${colors.fg}
 label-unmounted =  not mounted
 label-unmounted-foreground = ${colors.fg}
