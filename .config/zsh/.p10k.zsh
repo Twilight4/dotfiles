@@ -12,15 +12,18 @@
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    # =========================[ Line #1 ]=========================
     context                 # user@hostname
     dir                     # current directory
     vcs                     # git status
+    # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
   )
 
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-    vi_mode
+    # =========================[ Line #1 ]=========================
+    vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
@@ -61,11 +64,12 @@
     todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+    # =========================[ Line #2 ]=========================
     time                    # current time
     newline
   )
 
-  ###########[ vi_mode: vi mode (you don't need this if you've enabled prompt_char) ]###########
+  ########################################[ vi_mode ]############################################
   # Foreground color.
   # Text and color for normal (a.k.a. command) vi mode.
   typeset -g POWERLEVEL9K_VI_COMMAND_MODE_STRING="NORMAL "
