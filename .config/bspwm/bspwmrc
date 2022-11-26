@@ -27,8 +27,8 @@ bspc config window_gap           5
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
-#bspc config focused_border_color     "#26F0F1"
-#bspc config normal_border_color      "#202A25"
+bspc config focused_border_color     "#5c63cf"
+bspc config normal_border_color      "#202A25"
 
 # ----------- start defined app on corresponding workspace -----------
 # ----------- use xprop utility for checking class names and use it instaed of names such as Gimp -----------
