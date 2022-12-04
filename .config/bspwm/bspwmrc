@@ -11,6 +11,7 @@ picom --experimental-backends &
 nitrogen --restore &
 exec --no-startup -id dunst &
 udiskie &
+setxkbmap -option caps:escape &
 bash ~/.config/polybar/launch.sh
 #Network
 #nm-applet &
