@@ -80,8 +80,8 @@ bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 bindkey -r '^u'
 bindkey -s '^u' 'duf^M'
 
-#bindkey -r '^i'
-#bindkey -s '^i' 'vtop^M'
+#bindkey -r '^i' - C-i is tab button so don't bind it
+#bindkey -s '^i' 'vtop^M' - C-i is tab button so don't bind it
 
 bindkey -r '^o' 
 bindkey -s '^o' 'lf^M'
