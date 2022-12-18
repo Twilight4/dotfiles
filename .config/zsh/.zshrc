@@ -68,8 +68,10 @@ bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
-#bindkey -r '^p'
-#bindkey -s '^p' 'fpdf\n'
+
+### unavailable keys: m, k, u, i, o, p, r, t, d, a, e
+#bindkey -r '^s'
+#bindkey -s '^s' 'fpdf\n'
 
 #bindkey -r '^f'
 #bindkey -s '^f' 'fmind\n'
@@ -77,11 +79,8 @@ bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 #bindkey -r '^y'
 #bindkey -s '^y' 'htop^M'
 
-bindkey -r '^u'
-bindkey -s '^u' 'duf^M'
-
-#bindkey -r '^i' - C-i is tab button so don't bind it
-#bindkey -s '^i' 'vtop^M' - C-i is tab button so don't bind it
+#bindkey -r '^q'          # C-i is tab button so don't bind it
+#bindkey -s '^q' 'vtop^M' # C-i is tab button so don't bind it
 
 bindkey -r '^o' 
 bindkey -s '^o' 'lf^M'
