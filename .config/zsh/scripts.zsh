@@ -1,17 +1,5 @@
 #!/usr/bin/env zsh
 
-# Disk
-hdd() {
-  hdd="$(df -h | awk 'NR==4{print $3, $5}')"
-  echo -e "HDD: $hdd"
-}
-
-# Volume
-vol() {
-    vol=`pamixer get Master | awk -F'[][]' 'END{ print $4":"$2 }' | sed 's/on://g'`
-    echo -e "VOL: $vol"
-}
-
 # Fix the file name
 if [[ -f "$XDG_CONFIG_HOME/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh" ]]
 then
