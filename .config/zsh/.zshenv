@@ -2,8 +2,9 @@
 
 # XDG 
 export XDG_CONFIG_HOME="$HOME/.config"               # For dotfiles
-export XDG_DATA_HOME="$XDG_CONFIG_HOME/.local/share"  # For specific data
+export XDG_DATA_HOME="$XDG_CONFIG_HOME/.local/share" # For specific data
 export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
+export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 
 # Environment variables
 export EDITOR="nvim"
@@ -22,6 +23,9 @@ export HISTSIZE=10000                                # Maximum events for intern
 export SAVEHIST=10000                                # Maximum events in history file
 
 # Other software
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export TMUXP_CONFIGDIR="$XDG_CONFIG_HOME/tmuxp"
 export _Z_DATA="$XDG_DATA_HOME/z/"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
