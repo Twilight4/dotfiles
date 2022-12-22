@@ -2,8 +2,9 @@
 **Warning**: Don’t blindly use my settings unless you know what that entails. There are no backup system. If you install this on top of your dotfiles, expect a big mess. You should only pick whatever you want and include it in your own config. Use at your own risk!
 
 ## Contents
-- [qtile](http://www.qtile.org/) / [bspwm](https://github.com/baskerville/bspwm)
-- [rofi](https://github.com/davatorium/rofi) / [dunst](https://github.com/dunst-project/dunst)
+- [hyprland](https://github.com/hyprwm/Hyprland)
+- [rofi](https://github.com/davatorium/rofi) 
+- [dunst](https://github.com/dunst-project/dunst)
 - [zsh](https://thevaluable.dev/zsh-install-configure-mouseless/) / [fzf](https://github.com/junegunn/fzf)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
