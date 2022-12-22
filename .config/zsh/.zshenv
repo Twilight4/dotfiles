@@ -13,8 +13,8 @@ export TERMINAL="kitty"
 export BROWSER="librewolf"
 
 # X11 - I use wayland
-#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
-#export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
 
 # Zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                # Zsh config files
