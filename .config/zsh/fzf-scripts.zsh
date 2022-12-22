@@ -5,8 +5,8 @@ fpac() {
     pacman -Slq | fzf --multi --reverse --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
 }
 
-fpar() {
-    paru -Slq | fzf --multi --reverse --preview 'paru -Si {1}' | xargs -ro paru -S
+fyay() {
+    yay -Slq | fzf --multi --reverse --preview 'yay -Si {1}' | xargs -ro yay -S
 }
 
 # git log browser with FZF
