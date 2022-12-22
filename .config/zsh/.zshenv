@@ -6,7 +6,7 @@ export XDG_DATA_HOME="$XDG_CONFIG_HOME/.local/share" # For specific data
 export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
 export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 
-# Environment variables
+# User-specific environment variables (system-wide are in /etc/environment)
 export EDITOR="emacs"
 export VISUAL="emacs"
 export TERMINAL="kitty"
