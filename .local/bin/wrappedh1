@@ -2,6 +2,7 @@
 
 cd ~
 
+export XDG_RUNTIME_DIR=/run/user/1000                 # idk it seemed to fix me the issue with XDG_RUNTIME_DIR not found
 export WAYLAND_DISPLAY=wayland-1                      # Tells Wayland clients which Wayland compositor to to
 export XDG_CURRENT_DESKTOP=Hyprland                   # String that the current desktop environment identifies as
 export GDK_BACKEND=wayland                            # Controls how GTK apps run
