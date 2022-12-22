@@ -5,7 +5,7 @@
 - [hyprland](https://github.com/hyprwm/Hyprland)
 - [rofi](https://github.com/davatorium/rofi) 
 - [dunst](https://github.com/dunst-project/dunst)
-- [zsh](https://thevaluable.dev/zsh-install-configure-mouseless/) / [fzf](https://github.com/junegunn/fzf)
+- [zsh](https://github.com/zsh-users) / [fzf](https://github.com/junegunn/fzf)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 - [Neovim](https://github.com/neovim/neovim)
