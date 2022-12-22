@@ -7,8 +7,10 @@ alias la='ls -a -t modified -h'
 alias lac='ls -a -t created -h'
 alias tree='ls --tree --level=2 -a -t modified -h'
 
-# tmux
-alias tks='tmux kill-server'
+# other
+alias tks='tmux kill-server'                               # tmux
+alias yt3-mp3="yt-dlp --extract-audio --audio-format mp3 " # yt-dlp
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"     # wget
 
 # git
 alias ga='git add'
@@ -44,9 +46,6 @@ alias psa="ps auxf"
 alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias psmem='ps auxf | sort -nr -k 4'
 alias pscpu='ps auxf | sort -nr -k 3'
-
-# yt-dlp
-alias yt3-mp3="yt-dlp --extract-audio --audio-format mp3 "
 
 # get fastest mirrors
 #alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
