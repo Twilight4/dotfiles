@@ -7,10 +7,10 @@ export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
 export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 
 # Environment variables
-export EDITOR="nvim"
-export VISUAL="nvim"
-export TERMINAL="alacritty"
-export BROWSER="min"
+export EDITOR="emacs"
+export VISUAL="emacs"
+export TERMINAL="kitty"
+export BROWSER="librewolf"
 
 # X11
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
