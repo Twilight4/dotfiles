@@ -3,7 +3,7 @@
 
 ## Contents
 - [hyprland](https://github.com/hyprwm/Hyprland)
-- [rofi](https://github.com/davatorium/rofi) 
+- [rofi-lbonn](https://github.com/lbonn/rofi) 
 - [dunst](https://github.com/dunst-project/dunst)
 - [zsh](https://github.com/zsh-users) / [fzf](https://github.com/junegunn/fzf)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
