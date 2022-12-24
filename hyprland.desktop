@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Hyprland
+Comment=hyprland
+Exec="$HOME/.config/.local/bin/wrappedh1"
+Type=Application
