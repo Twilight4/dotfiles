@@ -2,10 +2,10 @@
 
 ## Set GTK Themes, Icons, Cursor and Fonts
 
-THEME='Arc-Dark'
-ICONS='arcolinux-candy-beauty'
-FONT='Noto Sans 11'
-CURSOR='Bibata-Modern-Ice'
+THEME='Catppuccin-Mocha-Standard-Blue-Dark'
+ICONS='Papirus-Dark'
+FONT='MesloLGM Nerd Font'
+#CURSOR='Bibata-Modern-Ice'
 
 SCHEMA='gsettings set org.gnome.desktop.interface'
 
