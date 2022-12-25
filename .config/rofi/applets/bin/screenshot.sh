@@ -10,6 +10,11 @@ source "$HOME"/.config/rofi/applets/shared/theme.bash
 theme="$type/$style"
 iDIR="$HOME/.config/hypr/mako/icons"
 
+# Screenshot
+time=$(date +%Y-%m-%d-%H-%M-%S)
+dir="$(xdg-user-dir PICTURES)/screenshots"
+file="screenshot_${time}_${RANDOM}.png"
+
 # Theme Elements
 prompt='Screenshot'
 mesg="DIR: `xdg-user-dir PICTURES`/screenshots"
@@ -65,12 +70,6 @@ run_rofi() {
 	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5" | rofi_cmd
 }
 
-# Screenshot
-time=$(date +%Y-%m-%d-%H-%M-%S)
-geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
-dir="$(xdg-user-dir PICTURES)/screenshots"
-file="screenshot_${time}_${RANDOM}.png"
-
 if [[ ! -d "$dir" ]]; then
 	mkdir -p "$dir"
 fi
@@ -79,7 +78,7 @@ fi
 notify_view() {
 notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ${iDIR}/picture.png"
 	${notify_cmd_shot} "Copied to clipboard."
-	viewnior ${dir}/"$file"
+	imv ${dir}/"$file"
 	if [[ -e "$dir/$file" ]]; then
 		${notify_cmd_shot} "Screenshot Saved."
 	else
@@ -122,7 +121,7 @@ shotwin () {
 
 shotarea () {
 	cd ${dir} && grim -g "$(slurp -b 1B1F28CC -c E06B74ff -s C778DD0D -w 2)" - | tee "$file" | wl-copy
-  notify_view
+	notify_view
 }
 
 # Execute Command
