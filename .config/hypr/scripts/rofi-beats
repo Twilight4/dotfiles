@@ -4,8 +4,8 @@
 CONFIG="$HOME/.config/rofi/config"
 STYLE="$HOME/.config/rofi/style.css"
 
-## Rofi Command
-rofi_command="wofi --show dmenu \
+## Wofi Command
+wofi_command="wofi --show dmenu \
                         --conf ${CONFIG} --style ${STYLE} \
                         --width=350 --height=380 \
                         --cache-file=/dev/null \
@@ -30,7 +30,7 @@ menu(){
 }
 
 main() {
-  choice=$(menu | ${rofi_command} | cut -d. -f1)
+  choice=$(menu | ${wofi_command} | cut -d. -f1)
 
   case $choice in
     1)
