@@ -15,7 +15,7 @@ rofi_command="rofi -dmenu \
 
 
 notification(){
-  notify-send "Now Playing: Lofi Radio"
+  notify-send -i ~/.config/mako/icons/music.png "Now Playing: Lofi Radio"
 }
 
 menu(){
