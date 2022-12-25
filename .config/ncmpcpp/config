@@ -1,7 +1,7 @@
 # vim: filetype=conf
 
 ncmpcpp_directory = "~/.config/ncmpcpp"
-lyrics_directory = "~/.local/share/lyrics"
+lyrics_directory = "~/.config/.local/share/lyrics"
 mpd_music_dir = "~/Music"
 message_delay_time = "1"
 visualizer_type = "spectrum"
