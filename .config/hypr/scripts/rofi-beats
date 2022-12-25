@@ -1,13 +1,12 @@
 #!/bin/bash
 
 ## Files
-CONFIG="$HOME/.config/rofi/config.rasi"
-STYLE="$HOME/.config/rofi/applets/type-1/style-1.rasi"
-COLORS="$HOME/.config/rofi/applets/shared/onedark.rasi"
+CONFIG="$HOME/.config/rofi/config"
+STYLE="$HOME/.config/rofi/style.css"
 
 ## Rofi Command
-rofi_command="rofi -dmenu \
-                        --conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
+rofi_command="wofi --show dmenu \
+                        --conf ${CONFIG} --style ${STYLE} \
                         --width=350 --height=380 \
                         --cache-file=/dev/null \
                         --hide-scroll --no-actions \
