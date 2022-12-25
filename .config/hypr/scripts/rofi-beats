@@ -82,5 +82,4 @@ main() {
   esac
 }
 
-
 pkill -f http && notify-send "Lofi Radio stopped" || main
