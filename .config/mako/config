@@ -2,6 +2,12 @@ max-history=100
 sort=-time
 
 # BINDING OPTIONS
+## test if they work
+#close = ctrl+x
+#close_all = ctrl+shift+x
+#history = ctrl+grave
+#context = ctrl+shift+period
+
 on-button-left=dismiss
 on-button-middle=none
 on-button-right=dismiss-all
