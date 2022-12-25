@@ -6,7 +6,7 @@ STYLE="$HOME/.config/rofi/style.css"
 
 ## Wofi Command
 wofi_command="wofi --show dmenu \
-                        --conf ${CONFIG} --style ${STYLE} \
+                        --conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
                         --width=350 --height=380 \
                         --cache-file=/dev/null \
                         --hide-scroll --no-actions \
