@@ -5,7 +5,7 @@ CONFIG="$HOME/.config/rofi/config.rasi"
 STYLE="$HOME/.config/rofi/applets/type-1/style-1.rasi"
 COLORS="$HOME/.config/rofi/applets/shared/onedark.rasi"
 
-## Wofi Command
+## Rofi Command
 rofi_command="rofi -dmenu \
                         --conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
                         --width=350 --height=380 \
