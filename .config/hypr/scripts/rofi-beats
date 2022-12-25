@@ -1,17 +1,17 @@
 #!/bin/bash
 
 ## Files
-CONFIG="$HOME/.config/hypr/wofi/config"
-STYLE="$HOME/.config/hypr/wofi/style.css"
-COLORS="$HOME/.config/hypr/wofi/colors"
+CONFIG="$HOME/.config/rofi/config.rasi"
+STYLE="$HOME/.config/rofi/applets/type-1/style-1.rasi"
+COLORS="$HOME/.config/rofi/applets/shared/onedark.rasi"
 
 ## Wofi Command
-wofi_command="wofi --show dmenu \
-			--conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
-			--width=350 --height=380 \
-			--cache-file=/dev/null \
-			--hide-scroll --no-actions \
-			--define=matching=fuzzy"
+rofi_command="rofi -dmenu \
+                        --conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
+                        --width=350 --height=380 \
+                        --cache-file=/dev/null \
+                        --hide-scroll --no-actions \
+                        --define=matching=fuzzy"
 
 
 notification(){
@@ -31,7 +31,7 @@ menu(){
 }
 
 main() {
-  choice=$(menu | ${wofi_command} | cut -d. -f1)
+  choice=$(menu | ${rofi_command} | cut -d. -f1)
 
   case $choice in
     1)
@@ -71,7 +71,7 @@ main() {
       ;;
     8)
       notification ;
-      mpv --shuffle --ytdl-raw-options="cookies=/tmp/cookies.txt" --vid=no https://www.youtube.com/playlist\?list\=PLusoefCj_Mkn6dRQMc3MxUGFHLeYT4y49
+      mpv --shuffle --ytdl-raw-options="cookies=/tmp/cookies.txt" --vid=no https://www.youtube.com/playlist\?list\=PLusoefCj_Mkn6dRQMc3MxUG>
       return
       ;;
     9)
@@ -81,5 +81,6 @@ main() {
       ;;
   esac
 }
+
 
 pkill -f http && notify-send "Lofi Radio stopped" || main
