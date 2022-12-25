@@ -82,4 +82,4 @@ main() {
   esac
 }
 
-pkill -f http && notify-send "Lofi Radio stopped" || main
+pkill -f http && notify-send -i ~/.config/mako/icons/music.png "Lofi Radio stopped" || main
