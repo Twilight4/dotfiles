@@ -12,7 +12,7 @@ iDIR="$HOME/.config/hypr/mako/icons"
 
 # Theme Elements
 prompt='Screenshot'
-mesg="DIR: `xdg-user-dir PICTURES`/Screenshots"
+mesg="DIR: `xdg-user-dir PICTURES`/screenshots"
 
 if [[ "$theme" == *'type-1'* ]]; then
 	list_col='1'
@@ -68,7 +68,7 @@ run_rofi() {
 # Screenshot
 time=$(date +%Y-%m-%d-%H-%M-%S)
 geometry=`xrandr | grep 'current' | head -n1 | cut -d',' -f2 | tr -d '[:blank:],current'`
-dir="$(xdg-user-dir PICTURES)/Screenshots"
+dir="$(xdg-user-dir PICTURES)/screenshots"
 file="screenshot_${time}_${RANDOM}.png"
 
 if [[ ! -d "$dir" ]]; then
@@ -97,8 +97,9 @@ countdown () {
 
 # take shots
 shotnow () {
-	cd ${dir} && grim - | tee "$file" | wl-copy
-	notify_view}
+	sleep 0.6 && cd ${dir} && grim - | tee "$file" | wl-copy
+	notify_view
+}
 
 shot5 () {
 	countdown '5'
