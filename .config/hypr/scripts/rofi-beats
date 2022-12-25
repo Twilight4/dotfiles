@@ -3,6 +3,7 @@
 ## Files
 CONFIG="$HOME/.config/rofi/config"
 STYLE="$HOME/.config/rofi/style.css"
+#COLORS="$HOME/.config/rofi/colors"
 
 ## Wofi Command
 wofi_command="wofi --show dmenu \
