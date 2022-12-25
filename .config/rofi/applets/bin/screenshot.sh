@@ -22,7 +22,7 @@ mesg="DIR: `xdg-user-dir PICTURES`/screenshots"
 if [[ "$theme" == *'type-1'* ]]; then
 	list_col='1'
 	list_row='5'
-	win_width='600px'
+	win_width='500px'
 elif [[ "$theme" == *'type-3'* ]]; then
 	list_col='1'
 	list_row='5'
