@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 # ls to exa
-alias ls='exa -l -g --icons -t modified -h'
-alias lc='exa -l -g --icons -t created -h'
+alias ls='exa -l -g --icons -t modified'
+alias lc='exa -l -g --icons -t created'
 alias la='ls -a -t modified -h'
 alias lac='ls -a -t created -h'
 alias tree='ls --tree --level=2 -a -t modified -h'
