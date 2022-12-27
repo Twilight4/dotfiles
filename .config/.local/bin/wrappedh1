@@ -2,7 +2,6 @@
 
 cd ~
 
-# Testing
 export QT_QPA_PLATFORMTHEME="gtk3"
 export QT_SCALE_FACTOR="1"
 export SDL_VIDEODRIVER="wayland"
@@ -12,8 +11,6 @@ export QT_AUTO_SCREEN_SCALE_FACTOR="1"
 export WLR_DRM_DEVICES="/dev/dri/card1:/dev/dri/card0"
 export XDG_CURRENT_DESKTOP="Hyprland"
 export XDG_SESSION_DESKTOP="Hyprland"
-
-# Don't touch
 export GDK_BACKEND=wayland                            # Controls how GTK apps run
 export QT_QPA_PLATFORM=wayland-egl                    # Controls how Qt apps run
 export XDG_SESSION_TYPE=wayland                       # This effects Qt and other non-GTK toolkits
