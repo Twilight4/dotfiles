@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+# Enable shell integrations
+precmd() {
+    print -Pn "\e]133;A\e\\"
+}
+
 # Spawning new terminal instances in the current working directory
 function osc7 {
     local LC_ALL=C
@@ -11,7 +16,6 @@ function osc7 {
     print -n "\e]7;file://${HOSTNAME}${uri}\e\\"
 }
 add-zsh-hook -Uz chpwd osc7
-
 
 # New command
 function _new_command {
