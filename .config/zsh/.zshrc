@@ -61,6 +61,8 @@ zsh_add_completion "zsh-users/zsh-completions"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
 
+# Bindings
+source "$ZDOTDIR/bash-scripts/fg-bg.sh"
 zle -N fg-bg
 bindkey '^Z' fg-bg
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + g
@@ -68,8 +70,8 @@ bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
-### unavailable keys: h, j, k, l, m, u, i, o, p, r, t, d, a, e, f, b, c, z, w
-#bindkey -r '^s'
+### The only available keys to bind sth: v, y, f, o, p, (g is binded to clear)
+#bindkey -r '^v'
 #bindkey -s '^s' 'fpdf\n'
 
 #bindkey -r '^n'
