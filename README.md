@@ -13,7 +13,7 @@
 - **Fonts**: [Nerd Font](https://www.nerdfonts.com/)
 - **Editor**: [Neovim](https://github.com/neovim/neovim)
 - **Terminal Multiplexer**: [tmux](https://github.com/tmux/tmux)
-- **Wallpaper Loader**: [swaybg](https://github.com/swaywm/swaybg)
 - **Browser**: [Librewolf](https://librewolf.net/) / [Qutebrowser](https://qutebrowser.org/)
+- **Fetch script**: [nitch](https://github.com/unxsh/nitch)
+- **Wallpaper Loader**: [swaybg](https://github.com/swaywm/swaybg)
 - **Wallpaper**: `~/.config/hypr/wallpapers`
-- **Fetch script**: `nitch`
