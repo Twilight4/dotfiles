@@ -73,14 +73,14 @@ bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
 ### Hint: Don't try to bind anything else cuz every other key is unavailable 
-#bindkey -r '^y'
-#bindkey -s '^y' 'fpdf\n'
-
-#bindkey -r '^f'
-#bindkey -s '^f' 'htop^M'
+bindkey -r '^f'
+bindkey -s '^f' 'fyay^M'
 
 bindkey -r '^o' 
 bindkey -s '^o' 'lf^M'
+
+#bindkey -r '^y'
+#bindkey -s '^y' 'fpdf\n'
 
 #bindkey -r '^p'
 #bindkey -s '^p' 'btop^M'
