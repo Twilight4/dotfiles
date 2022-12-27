@@ -1,9 +1,11 @@
 colors:
   primary:
-    background: '#282a36'
-    foreground: '#f8f8f2'
-
-  # Normal colors
+    background: '#020F13'
+    foreground: '#adbcbc'
+  cursor:
+    text: "#181818"
+    cursor: "#56d8c9"
+# Normal colors
   normal:
     black: '#000000'
     red: '#ff5555'
