@@ -14,6 +14,6 @@
 - **Editor**: [Neovim](https://github.com/neovim/neovim)
 - **Terminal Multiplexer**: [tmux](https://github.com/tmux/tmux)
 - **Wallpaper Manager**: [variety](https://github.com/varietywalls/variety)
+- **Browser**: [Librewolf](https://librewolf.net/)/[Qutebrowser](https://qutebrowser.org/)
 - **Wallpaper**: `.config/hypr/wallpapers`
 - **Fetch script**: `nitch`
-- **Browser**: Librewolf
