@@ -1,7 +1,6 @@
 #!/bin/bash
 
 DIR=$HOME/.config/hypr/wallpapers
-DIR=$HOME/.config/hypr/wallpapers/hack
 PICS=($(ls ${DIR}))
 
 RANDOMPICS=${PICS[ $RANDOM % ${#PICS[@]} ]}
