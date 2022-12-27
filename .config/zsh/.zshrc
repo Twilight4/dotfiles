@@ -62,14 +62,8 @@ zsh_add_completion "zsh-users/zsh-completions"
 # More completions https://github.com/zsh-users/zsh-completions
 
 # Bindings
-function _new_command {
-    zle push-input
-    BUFFER=""
-}
-
 zle -N _new_command
 bindkey '^V' _new_command
-
 source "$ZDOTDIR/bash-scripts/fg-bg.sh"
 zle -N fg-bg
 bindkey '^Z' fg-bg
