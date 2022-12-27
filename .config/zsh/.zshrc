@@ -70,21 +70,24 @@ bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
-### The only available keys to bind sth: v, y, f, o, p, (g is binded to clear)
+### Hint: Don't try to bind anything else cuz every other key is unavailable 
 #bindkey -r '^v'
-#bindkey -s '^s' 'fpdf\n'
-
-#bindkey -r '^n'
-#bindkey -s '^n' 'fmind\n'
+#bindkey -s '^v' 'fpdf\n'
 
 #bindkey -r '^y'
-#bindkey -s '^y' 'htop^M'
+#bindkey -s '^y' 'fpdf\n'
 
-#bindkey -r '^e'          # C-i is tab button so don't bind it
-#bindkey -s '^e' 'btop^M' # C-i is tab button so don't bind it
+#bindkey -r '^f'
+#bindkey -s '^f' 'htop^M'
 
 bindkey -r '^o' 
 bindkey -s '^o' 'lf^M'
+
+#bindkey -r '^p'
+#bindkey -s '^p' 'btop^M'
+
+#bindkey -r '^n'
+#bindkey -s '^n' 'fmind\n'
 
 # FZF
 if [ $(command -v "fzf") ]; then
