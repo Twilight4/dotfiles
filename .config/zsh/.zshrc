@@ -74,16 +74,16 @@ bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
 ### Hint: Don't try to bind anything else cuz every other key is unavailable 
 bindkey -r '^f'
-bindkey -s '^f' 'fyay^M'
+bindkey -s '^f' 'fyay\n'
 
 bindkey -r '^o' 
-bindkey -s '^o' 'lf^M'
+bindkey -s '^o' 'lf\n'
 
 #bindkey -r '^y'
 #bindkey -s '^y' 'fpdf\n'
 
 #bindkey -r '^p'
-#bindkey -s '^p' 'btop^M'
+#bindkey -s '^p' 'btop\n'
 
 #bindkey -r '^n'
 #bindkey -s '^n' 'fmind\n'
