@@ -62,6 +62,14 @@ zsh_add_completion "zsh-users/zsh-completions"
 # More completions https://github.com/zsh-users/zsh-completions
 
 # Bindings
+function _new_command {
+    zle push-input
+    BUFFER=""
+}
+
+zle -N _new_command
+bindkey '^V' _new_command
+
 source "$ZDOTDIR/bash-scripts/fg-bg.sh"
 zle -N fg-bg
 bindkey '^Z' fg-bg
@@ -71,9 +79,6 @@ bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
 ### Hint: Don't try to bind anything else cuz every other key is unavailable 
-#bindkey -r '^v'
-#bindkey -s '^v' 'fpdf\n'
-
 #bindkey -r '^y'
 #bindkey -s '^y' 'fpdf\n'
 
