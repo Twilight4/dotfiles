@@ -1,5 +1,11 @@
 #!/usr/bin/env zsh
 
+# New command
+function _new_command {
+    zle push-input
+    BUFFER=""
+}
+
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
