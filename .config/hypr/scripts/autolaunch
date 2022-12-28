@@ -9,4 +9,5 @@ sleep 15
 #hyprctl keyword windowrule "unset,Electron"
 #hyprctl keyword windowrule "unset,Caprine"
 hyprctl keyword windowrule "unset,foot"
-hyprctl reload
+
+#hyprctl reload
