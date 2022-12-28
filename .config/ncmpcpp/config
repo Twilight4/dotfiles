@@ -30,8 +30,12 @@ progressbar_elapsed_color = blue:b
 statusbar_color = red
 statusbar_time_color = cyan:b
 
-## Visualizer - idk ##
+# Visualizer
 visualizer_output_name = "my_fifo"
 visualizer_type = "spectrum"
 visualizer_in_stereo = "yes"
 visualizer_look = "◆▋"
+
+# Notifications (I have it in keybinds.conf)
+#execute_on_song_change = notify-send "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
+#execute_on_player_state_change = notify-send "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
