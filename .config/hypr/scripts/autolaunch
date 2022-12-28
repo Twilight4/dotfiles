@@ -2,11 +2,11 @@
 
 #hyprctl keyword windowrule "workspace 8 silent,caprine" && hyprctl dispatch exec "caprine"
 #hyprctl keyword windowrule "workspace 7 silent,Electron" && hyprctl dispatch exec "discord"
-#hyprctl keyword windowrule "workspace special silent,kitty" && hyprctl dispatch exec "kitty"
+hyprctl keyword windowrule "workspace special silent,foot" && hyprctl dispatch exec "foot"
 
-#sleep 15
+sleep 15
 
 #hyprctl keyword windowrule "unset,Electron"
 #hyprctl keyword windowrule "unset,Caprine"
-#hyprctl keyword windowrule "unset,foot"
-#hyprctl reload
+hyprctl keyword windowrule "unset,foot"
+hyprctl reload
