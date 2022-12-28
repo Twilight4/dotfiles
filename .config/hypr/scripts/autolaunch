@@ -4,7 +4,7 @@
 #hyprctl keyword windowrule "workspace 7 silent,Electron" && hyprctl dispatch exec "discord"
 #hyprctl keyword windowrule "workspace special silent,kitty" && hyprctl dispatch exec "kitty"
 
-#sleep 2
+#sleep 15
 
 #hyprctl keyword windowrule "unset,Electron"
 #hyprctl keyword windowrule "unset,Caprine"
