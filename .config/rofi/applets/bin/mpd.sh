@@ -93,13 +93,13 @@ run_rofi() {
 # Execute Command
 run_cmd() {
 	if [[ "$1" == '--opt1' ]]; then
-		mpc -q toggle && notify-send -u low -t 1000 " `mpc current`"
+		mpc -q toggle && notify-send -u low -t 1000 -i "$HOME/.config/mako/icons/music.png" "`mpc current`"
 	elif [[ "$1" == '--opt2' ]]; then
 		mpc -q stop
 	elif [[ "$1" == '--opt3' ]]; then
-		mpc -q prev && notify-send -u low -t 1000 " `mpc current`"
+		mpc -q prev && notify-send -u low -t 1000 -i "$HOME/.config/mako/icons/music.png" "`mpc current`"
 	elif [[ "$1" == '--opt4' ]]; then
-		mpc -q next && notify-send -u low -t 1000 " `mpc current`"
+		mpc -q next && notify-send -u low -t 1000 -i "$HOME/.config/mako/icons/music.png" "`mpc current`"
 	elif [[ "$1" == '--opt5' ]]; then
 		mpc -q repeat
 	elif [[ "$1" == '--opt6' ]]; then
