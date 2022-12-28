@@ -8,5 +8,5 @@
 
 #hyprctl keyword windowrule "unset,Electron"
 #hyprctl keyword windowrule "unset,Caprine"
-#hyprctl keyword windowrule "unset,kitty"
+#hyprctl keyword windowrule "unset,foot"
 #hyprctl reload
