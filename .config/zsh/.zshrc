@@ -97,6 +97,9 @@ fi
 # Speedy keys
 xset r rate 210 40
 
+# Shell random color scripts
+colorscript random
+
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
