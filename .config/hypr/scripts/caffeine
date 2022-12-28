@@ -1,10 +1,10 @@
 #!/bin/sh
 
 if pgrep -x idle-handler > /dev/null; then
-	notify-send -r 4444 -i ~/.config/mako/icons/coffee.png "Caffeine Enabled"
+	notify-send -r 4444 -i "$HOME/.config/mako/icons/coffee.png" "Caffeine Enabled"
     killall swayidle
 else
-	notify-send -r 4444 -i ~/.config/mako/icons/no-caffeine.png "Caffeine Disabled"
+	notify-send -r 4444 -i "$HOME/.config/mako/icons/no-caffeine.png" "Caffeine Disabled"
     killall swayidle
     ~/.config/hypr/scripts/idle-handler &
 fi
