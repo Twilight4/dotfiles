@@ -36,6 +36,6 @@ visualizer_type = "spectrum"
 visualizer_in_stereo = "yes"
 visualizer_look = "◆▋"
 
-# Notifications (I have it in keybinds.conf)
+# Notifications (I have them in keybinds.conf)
 #execute_on_song_change = notify-send "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
 #execute_on_player_state_change = notify-send "Now Playing" "$(mpc --format '%title% \n%artist% - %album%' current)"
