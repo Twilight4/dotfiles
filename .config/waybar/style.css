@@ -105,6 +105,10 @@ label:focus {
     background-color: #000000;
 }
 
+#custom-sep {
+    color: #d3d3d3;
+}
+
 #cpu {
 }
 
