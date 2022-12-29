@@ -72,6 +72,9 @@ bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
+# Better delete
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
 # Tip: Don't try to bind anything else cuz every other key is unavailable 
 bindkey -r '^p'
 bindkey -s '^p' 'fyay\n'
