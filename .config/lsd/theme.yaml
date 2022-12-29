@@ -1,9 +1,9 @@
-user: 230
-group: 187
+user: 105
+group: 111
 permission:
-  read: dark_green
-  write: dark_yellow
-  exec: dark_red
+  read: dark_yellow
+  write: dark_red
+  exec: dark_green
   exec-sticky: 5
   no-access: 245
   octal: 6
