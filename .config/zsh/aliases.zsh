@@ -104,6 +104,7 @@ alias snapch="sudo snapper -c home create"
 alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -  f1 | sed -e's/:\$//g' | grep -v '[0-9]\$' | xargs tail -f"
 
 # usefull
+alias cats='highlight -O ansi --force'
 alias cat='bat --paging=never -p --theme OneHalfDark'
 alias ..="cd ../"
 alias ...="cd ../../"
