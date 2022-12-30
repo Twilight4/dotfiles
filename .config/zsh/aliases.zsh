@@ -13,6 +13,9 @@ alias lm='lsd -alh |more'           # pipe through 'more'
 alias lf="lsd -l | egrep -v '^d'"   # files only
 alias ldir="lsd -l | egrep '^d'"    # directories only
 
+# xcp instead of cp
+alias cp='xcp'
+
 # Alias's to modified commands
 alias mkdir='mkdir -p'
 alias ping='ping -c 5'        
