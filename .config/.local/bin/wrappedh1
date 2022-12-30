@@ -2,15 +2,14 @@
 
 cd ~
 
-export QT_QPA_PLATFORMTHEME="gtk3"
-export QT_SCALE_FACTOR="1"
-export SDL_VIDEODRIVER="wayland"
-export QT_QPA_PLATFORM="wayland"
-export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-export QT_AUTO_SCREEN_SCALE_FACTOR="1"
-export WLR_DRM_DEVICES="/dev/dri/card1:/dev/dri/card0"
-export XDG_CURRENT_DESKTOP="Hyprland"
-export XDG_SESSION_DESKTOP="Hyprland"
+export QT_QPA_PLATFORMTHEME="qt5ct"                   # Tells QT based applications to pick your theme from qt5ct
+export SDL_VIDEODRIVER="wayland"                      # Run SDL2 applications on Wayland
+export CLUTTER_BACKEND="wayland"                      # Force Clutter applications to try and use the Wayland backend
+export QT_QPA_PLATFORM="wayland;xcb"                  # Tell QT applications to use the Wayland backend, and fall back to x11 if Wayland is unavailable
+export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"        # Disables window decorations on QT applications
+export QT_AUTO_SCREEN_SCALE_FACTOR="1"                # enables automatic scaling, based on the monitor’s pixel density
+export XDG_CURRENT_DESKTOP="Hyprland"                 # XDG specific var for sanity check
+export XDG_SESSION_DESKTOP="Hyprland"                 # XDG specific var for sanity check
 export GDK_BACKEND=wayland                            # Controls how GTK apps run
 export QT_QPA_PLATFORM=wayland-egl                    # Controls how Qt apps run
 export XDG_SESSION_TYPE=wayland                       # This effects Qt and other non-GTK toolkits
