@@ -111,7 +111,7 @@
 
     "clock": {
         "timezone": "Europe/Warsaw",
-        "format": "{:%Y-%m-%d %H:%M}"
+        "format": "{:%a %d %b %Y %H:%M}"
     },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
