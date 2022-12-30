@@ -62,3 +62,21 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+# Custom vars
+export PAYLOADS="/usr/share/payloads"
+export SECLISTS="$PAYLOADS/SecLists"
+export PAYLOADSALLTHETHINGS="$PAYLOADS/PayloadsAllTheThings"
+export FUZZDB="$PAYLOADS/FuzzDB"
+export AUTOWORDLISTS="$PAYLOADS/Auto_Wordlists"
+export SECURITYWORDLIST="$PAYLOADS/Security-Wordlist"
+export MIMIKATZ="/usr/share/windows/mimikatz/"
+export POWERSPLOIT="/usr/share/windows/powersploit/"
+export ROCKYOU="$SECLISTS/Passwords/Leaked-Databases/rockyou.txt"
+export DIRSMALL="$SECLISTS/Discovery/Web-Content/directory-list-2.3-small.txt"
+export DIRMEDIUM="$SECLISTS/Discovery/Web-Content/directory-list-2.3-medium.txt"
+export DIRBIG="$SECLISTS/Discovery/Web-Content/directory-list-2.3-big.txt"
+export WEBAPI_COMMON="$SECLISTS/Discovery/Web-Content/api/api-endpoints.txt"
+export WEBAPI_MAZEN="$SECLISTS/Discovery/Web-Content/common-api-endpoints-mazen160.txt"
+export WEBCOMMON="$SECLISTS/Discovery/Web-Content/common.txt"
+export WEBPARAM="$SECLISTS/Discovery/Web-Content/burp-parameter-names.txt"
