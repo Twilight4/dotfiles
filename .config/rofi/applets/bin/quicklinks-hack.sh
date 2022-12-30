@@ -10,7 +10,7 @@ source "$HOME"/.config/rofi/applets/shared/theme.bash
 theme="$type/$style"
 
 # Theme Elements
-prompt='Quick Links'
+prompt='Hacking Platforms'
 mesg="Using '$BROWSER' as web browser"
 
 if [[ ( "$theme" == *'type-1'* ) || ( "$theme" == *'type-3'* ) || ( "$theme" == *'type-5'* ) ]]; then
