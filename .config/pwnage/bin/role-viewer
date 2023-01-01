@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python3 /usr/share/athena-welcome/role-viewer.py
+python3 ~/.config/pwnage/role-viewer.py
