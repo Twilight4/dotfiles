@@ -1,7 +1,3 @@
-# =================================================================
-# =          Authors: Brad Heffernan & Erik Dubois                =
-# =================================================================
-
 import os
 import getpass
 from os.path import expanduser
@@ -18,8 +14,8 @@ if DEBUG:
 else:
     user = "liveuser"
 
-Settings = home + "/.config/athena-welcome/settings.conf"
-Skel_Settings = "/etc/skel/.config/athena-welcome/settings.conf"
+Settings = home + "/.config/settings.conf"
+#Skel_Settings = "/etc/skel/.config/athena-welcome/settings.conf"
 dot_desktop = "/usr/share/applications/athena-welcome.desktop"
 autostart = home + "/.config/autostart/athena-welcome.desktop"
 
