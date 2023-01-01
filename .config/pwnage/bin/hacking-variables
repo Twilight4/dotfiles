@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-python3 /usr/share/athena-welcome/hacking-variables.py
+# you can set keybind for opening this window
+python3 ~/.config/pwnage/hacking-variables.py
