@@ -292,41 +292,6 @@ def GUI(self, Gtk, GdkPixbuf):
     hbox2.pack_start(button4, True, True, 0)
     hbox2.pack_start(button5, True, True, 0)
 
-    ###########################################
-    #       Third Line Footer Buttons        #
-    ###########################################
-
-    button8 = Gtk.Button(label="Discord")
-    button8.connect("clicked", self.on_link_clicked,
-                    "https://discord.com/invite/GuDyREsNkj")
-
-    button9 = Gtk.Button(label="Video Demo")
-    button9.connect("clicked", self.on_link_clicked,
-                     "https://www.youtube.com/watch?v=4_ZY9Tj4U_8")
-
-    button10 = Gtk.Button(label="")
-    button10_label = button10.get_child()
-    button10_label.set_markup("<b>Donate</b>")
-    button10.connect("clicked", self.on_link_clicked,
-                    "https://www.paypal.com/donate/?hosted_button_id=CPBJ5AC29D9GE")
-
-    button11 = Gtk.Button(label="Wiki")
-    button11.connect("clicked", self.on_link_clicked,
-                     "https://github.com/Athena-OS/athena-iso/wiki")
-
-    button12 = Gtk.Button(label="Quit")
-    button12.connect("clicked", Gtk.main_quit)
-    button12.set_tooltip_markup("Quit the Athena Welcome")
-
-    hbox5.pack_start(button8, True, True, 0)
-    hbox5.pack_start(button9, True, True, 0)
-    hbox5.pack_start(button10, True, True, 0)
-    hbox5.pack_start(button11, True, True, 0)
-    hbox5.pack_start(button12, True, True, 0)
-
-
-    # hbox8.pack_start(self.button8, True, False, 0)
-
     # ======================================================================
     #                   Add to startup
     # ======================================================================
