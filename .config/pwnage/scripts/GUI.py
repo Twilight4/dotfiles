@@ -273,19 +273,19 @@ def GUI(self, Gtk, GdkPixbuf):
     #       Second Line Footer Buttons        #
     ###########################################
 
-    button3 = Gtk.Button(label="Release info")
+    button3 = Gtk.Button(label="My github profile")
     button3.connect("clicked", self.on_link_clicked,
-                    "https://github.com/Athena-OS/athena-iso/releases")
+                    "https://github.com/Twilight4")
     button3.set_size_request(200, 50)
 
-    button4 = Gtk.Button(label="Athena OS project")
+    button4 = Gtk.Button(label="My dotfiles")
     button4.connect("clicked", self.on_link_clicked,
-                    "https://github.com/Athena-OS/athena-iso")
+                    "https://github.com/Twilight4/dotfiles")
     button4.set_size_request(200, 50)
 
-    button5 = Gtk.Button(label="Open a ticket")
+    button5 = Gtk.Button(label="My arch installation scripts")
     button5.connect("clicked", self.on_link_clicked,
-                    "https://github.com/Athena-OS/athena-iso/issues/new/choose")
+                    "https://github.com/Twilight4/arch-install")
     button5.set_size_request(200, 50)
 
     hbox2.pack_start(button3, True, True, 0)
