@@ -2,7 +2,7 @@
 --~ If number of items in playlist didn't change since last calculation - it doesn't probe files anew.
 --~ requires ffprobe (ffmpeg)
 
-key_binding = 'F12'
+key_binding = 'T'
 -- save probed files for future reference -- ${fname} \t ${duration}
 save_probed = true
 saved_probed_filename = '~/.config/mpv/scripts/total_playtime.list'
