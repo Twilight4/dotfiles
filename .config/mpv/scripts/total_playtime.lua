@@ -171,5 +171,5 @@ function sort_playlist(start_0)
 	mp.osd_message(out, 3)
 end
 
-mp.add_forced_key_binding('KP4', "sort_playlist", sort_playlist)
-mp.add_forced_key_binding('shift+KP4', "sort_playlist_to_0", sort_playlist_to_0)
+mp.add_forced_key_binding('Alt+d', "sort_playlist", sort_playlist)
+mp.add_forced_key_binding('Alt+shift+d', "sort_playlist_to_0", sort_playlist_to_0)
