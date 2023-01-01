@@ -59,7 +59,7 @@ def GUI(self, Gtk, GdkPixbuf):
 
     label = Gtk.Label(xalign=0)
     label.set_markup(
-        "<big>Welcome to <b>Athena OS</b></big>")
+        "<big>Welcome to <b>Twilight4's Arch Linux OS</b></big>")
     label.set_line_wrap(True)
 
     # pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
@@ -86,14 +86,11 @@ def GUI(self, Gtk, GdkPixbuf):
             #"\n<span size='x-large'><b>Use the Easy Installation\n" + # noqa
             #"if the Advanced Installation fails</b></span>\n")  # noqa
     else:
-        label2.set_markup("Press <b>[CTRL+SPACE]</b> for the <b>PenTOXIC menu</b> or <b>[CTRL+TAB]</b> for the <b>PWNage menu</b>. Explore them!\n" + # noqa
-                          "Choose your role and click on <b>Set Your Role</b> button for retrieving the main resources you need!\n\n" + #noqa
+        label2.set_markup("Choose your role and click on <b>Set Your Role</b> button for retrieving the main resources you need!\n\n" + #noqa
 			  "Run <b>htb-update</b> by the terminal for setting your Hack The Box API key and start your hacking experience!\n\n" + #noqa
                     
-                          "Get started on Athena. We communicate with our community via Discord or GitHub.\n" + #noqa
-                          "Join us to learn the latest news, ask questions or for casual talk.\n" +  # noqa
-                          "Reach us on <b>Discord</b> for chatting or assistance.\n" +  # noqa
-                          "Open a <b>ticket</b> for any issue or proposal.\n" +  # noqa
+                          "Get started on Arch Linux.\n" + #noqa
+                          "Reach me on <b>Discord</b> for chatting or assistance. - Twilight#8787\n" +  # noqa
                           "Learn, study and have fun.")
 
     hbox4.set_center_widget(label2)
