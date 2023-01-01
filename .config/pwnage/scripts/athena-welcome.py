@@ -100,7 +100,7 @@ class Main(Gtk.Window):
         t.start()
 
     def on_keys_clicked(self, widget):
-        t = threading.Thread(target=self.run_app, args=(["kitty", os.path.expandvars('$SHELL'), "-c", "/usr/local/bin/set-repo-keys"],))
+        t = threading.Thread(target=self.run_app, args=(["footclient", os.path.expandvars('$SHELL'), "-c", "~/.config/pwnage/bin/set-repo-keys"],))
         t.daemon = True
         t.start()
 
@@ -110,7 +110,7 @@ class Main(Gtk.Window):
         #t.start()
 
     def on_buttonrtm_clicked(self, widget):
-        t = threading.Thread(target=self.run_app, args=(["kitty", os.path.expandvars('$SHELL'), "-c", "/usr/share/athena-welcome/role-tools "+self.role_id],))
+        t = threading.Thread(target=self.run_app, args=(["footclient", os.path.expandvars('$SHELL'), "-c", "~/.config/pwnage/scripts/role-tools "+self.role_id],))
         t.daemon = True
         t.start()
 
