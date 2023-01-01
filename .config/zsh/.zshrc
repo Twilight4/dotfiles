@@ -27,7 +27,7 @@ setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
 # add PATH
-if [ -d "$HOME/.config/pwnage/bin" ];
+if [ -d "$HOME/.config/pwnage/bin" ] ;
   then PATH="$HOME/.config/pwnage/bin:$PATH"
 fi
 
