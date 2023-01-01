@@ -14,10 +14,10 @@ if DEBUG:
 else:
     user = "liveuser"
 
-Settings = home + "~/.config/pwnage/settings.conf"
+Settings = home + "/.config/pwnage/settings.conf"
 #Skel_Settings = "/etc/skel/.config/athena-welcome/settings.conf"
 #dot_desktop = "/usr/share/applications/athena-welcome.desktop"
-autostart = home + "~/.config/pwnage/athena-welcome.desktop"
+autostart = home + "/.config/pwnage/athena-welcome.desktop"
 
 
 def GUI(self, Gtk, GdkPixbuf):
