@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python /usr/share/pwnage/hackthebox/htb-update.py
+python ~/.config/pwnage/htb-update.py
