@@ -26,6 +26,11 @@ setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive sessio
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
+# add PATH
+if [ -d "$HOME/.config/pwnage/bin" ];
+  then PATH="$HOME/.config/pwnage/bin:$PATH"
+fi
+
 # Colors
 autoload -Uz colors && colors
 
