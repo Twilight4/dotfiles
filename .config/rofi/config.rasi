@@ -118,4 +118,5 @@ configuration {
     kb-row-right: "Control+l";
     kb-mode-next: "Tab";
     kb-mode-previous: "ISO_Left_Tab";
+    kb-remove-char-back: "BackSpace,";
 }
