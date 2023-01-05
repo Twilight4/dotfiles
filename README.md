@@ -1,8 +1,8 @@
 # Dotfiles
 <div align="center">
-<img src="https://img.shields.io/github/last-commit/Twilight4/hyprland?style=for-the-badge&logo=github&color=a6da95&logoColor=D9E0EE&labelColor=302D41"/>
-<img src="https://img.shields.io/github/repo-size/Twilight4/hyprland?style=for-the-badge&logo=dropbox&color=7dc4e4&logoColor=D9E0EE&labelColor=302D41"/>
-<img src="https://img.shields.io/github/license/Twilight4/hyprland?style=for-the-badge&logo=powerpages&color=cba6f7&logoColor=D9E0EE&labelColor=302D41"/>
+<img src="https://img.shields.io/github/last-commit/Twilight4/dotfiles?style=for-the-badge&logo=github&color=a6da95&logoColor=D9E0EE&labelColor=302D41"/>
+<img src="https://img.shields.io/github/repo-size/Twilight4/dotfiles?style=for-the-badge&logo=dropbox&color=7dc4e4&logoColor=D9E0EE&labelColor=302D41"/>
+<img src="https://img.shields.io/github/license/Twilight4/dotfiles?style=for-the-badge&logo=powerpages&color=cba6f7&logoColor=D9E0EE&labelColor=302D41"/>
 </div>
 
 **Warning**: Don’t blindly use my settings unless you know what that entails. There are no backup system. If you install this on top of your dotfiles, expect a big mess. You should only pick whatever you want and include it in your own config. Use at your own risk!
