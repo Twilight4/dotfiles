@@ -26,32 +26,6 @@ setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive sessio
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
-# add PATH (for bash-scripts in zsh add to scripts.zsh aliases at the end instead)
-if [ -d "$HOME/.config/pwnage/bin" ] ;
-  then PATH="$HOME/.config/pwnage/bin:$PATH"
-fi
-
-if [ -d "$HOME/.config/hypr/scripts" ] ;
-  then PATH="$HOME/.config/hypr/scripts:$PATH"
-fi
-
-if [ -d "$HOME/.config/.local/bin" ] ;
-  then PATH="$HOME/.config/.local/bin:$PATH"
-fi
-
-if [ -d "$HOME/.config/rofi/applets/bin" ] ;
-  then PATH="$HOME/.config/rofi/applets/bin:$PATH"
-fi
-
-if [ -d "$HOME/.config/rofi/launcher" ] ;
-  then PATH="$HOME/.config/rofi/launcher:$PATH"
-fi
-
-if [ -d "$HOME/.config/rofi/wifi" ] ;
-  then PATH="$HOME/.config/rofi/wifi:$PATH"
-fi
-
-
 # Colors
 autoload -Uz colors && colors
 
