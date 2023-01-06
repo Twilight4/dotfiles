@@ -19,4 +19,8 @@ export CLUTTER_PAINT=disable-dynamic-max-render-time  # Get a smoother frame rat
 export _JAVA_AWT_WM_NONREPARENTING=1                  # Java apps don’t support Wayland natively
 export XCURSOR_SIZE=24                                # Cursor size
 
+# testing
+export WLR_NO_HARDWARE_CURSORS=1
+export MOZ_DISABLE_RDD_SANDBOX=1
+
 exec Hyprland
