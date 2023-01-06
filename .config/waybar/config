@@ -180,8 +180,8 @@
 
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid}: ({signalStrength}%)  {bandwidthDownBytes}",
-        "format-ethernet": "{essid}  {bandwidthDownBytes}",
+        "format-wifi": "{essid}: ({signalStrength}%) ",
+        "format-ethernet": "{essid} ",
         "format-linked": "{essid} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
     },
