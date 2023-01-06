@@ -31,6 +31,27 @@ if [ -d "$HOME/.config/pwnage/bin" ] ;
   then PATH="$HOME/.config/pwnage/bin:$PATH"
 fi
 
+if [ -d "$HOME/.config/hypr/scripts" ] ;
+  then PATH="$HOME/.config/pwnage/bin:$PATH"
+fi
+
+if [ -d "$HOME/.config/.local/bin" ] ;
+  then PATH="$HOME/.config/pwnage/bin:$PATH"
+fi
+
+if [ -d "$HOME/.config/rofi/applets/bin" ] ;
+  then PATH="$HOME/.config/pwnage/bin:$PATH"
+fi
+
+if [ -d "$HOME/.config/rofi/launcher" ] ;
+  then PATH="$HOME/.config/pwnage/bin:$PATH"
+fi
+
+if [ -d "$HOME/.config/rofi/wifi" ] ;
+  then PATH="$HOME/.config/pwnage/bin:$PATH"
+fi
+
+
 # Colors
 autoload -Uz colors && colors
 
