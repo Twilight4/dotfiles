@@ -32,23 +32,27 @@ if [ -d "$HOME/.config/pwnage/bin" ] ;
 fi
 
 if [ -d "$HOME/.config/hypr/scripts" ] ;
-  then PATH="$HOME/.config/pwnage/bin:$PATH"
+  then PATH="$HOME/.config/hypr/scripts:$PATH"
+fi
+
+if [ -d "$HOME/.config/zsh/bash-scripts" ] ;
+  then PATH="$HOME/.config/zsh/bash-scripts:$PATH"
 fi
 
 if [ -d "$HOME/.config/.local/bin" ] ;
-  then PATH="$HOME/.config/pwnage/bin:$PATH"
+  then PATH="$HOME/.config/.local/bin:$PATH"
 fi
 
 if [ -d "$HOME/.config/rofi/applets/bin" ] ;
-  then PATH="$HOME/.config/pwnage/bin:$PATH"
+  then PATH="$HOME/.config/rofi/applets/bin:$PATH"
 fi
 
 if [ -d "$HOME/.config/rofi/launcher" ] ;
-  then PATH="$HOME/.config/pwnage/bin:$PATH"
+  then PATH="$HOME/.config/rofi/launcher:$PATH"
 fi
 
 if [ -d "$HOME/.config/rofi/wifi" ] ;
-  then PATH="$HOME/.config/pwnage/bin:$PATH"
+  then PATH="$HOME/.config/rofi/wifi:$PATH"
 fi
 
 
