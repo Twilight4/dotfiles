@@ -40,6 +40,7 @@ window#waybar.hidden {
 }
 
 #clock,
+#custom-weather,
 #battery,
 #cpu,
 #memory,
@@ -119,6 +120,9 @@ label:focus {
 }
 
 #backlight {
+}
+
+#custom-weather {
 }
 
 #network {
