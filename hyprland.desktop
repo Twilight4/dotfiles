@@ -1,5 +1,5 @@
 [Desktop Entry]
 Name=Hyprland
 Comment=hyprland
-Exec="$HOME/.config/.local/bin/wrappedh1"
+Exec="$HOME/.config/hypr/scripts/starth"
 Type=Application
