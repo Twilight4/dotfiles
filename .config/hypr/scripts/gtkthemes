@@ -3,7 +3,7 @@
 THEME='Catppuccin-Mocha-Standard-Blue-Dark'
 ICONS='Papirus-Dark'
 FONT='MesloLGM Nerd Font 11'
-CURSOR='Bibata-Modern-Classic'
+CURSOR='Numix-Cursor-Light'
 
 SCHEMA='gsettings set org.gnome.desktop.interface'
 
