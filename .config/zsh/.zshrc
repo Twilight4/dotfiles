@@ -26,17 +26,13 @@ setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive sessio
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
-# add PATH
+# add PATH (for bash-scripts in zsh add to scripts.zsh aliases at the end instead)
 if [ -d "$HOME/.config/pwnage/bin" ] ;
   then PATH="$HOME/.config/pwnage/bin:$PATH"
 fi
 
 if [ -d "$HOME/.config/hypr/scripts" ] ;
   then PATH="$HOME/.config/hypr/scripts:$PATH"
-fi
-
-if [ -d "$HOME/.config/zsh/bash-scripts" ] ;
-  then PATH="$HOME/.config/zsh/bash-scripts:$PATH"
 fi
 
 if [ -d "$HOME/.config/.local/bin" ] ;
