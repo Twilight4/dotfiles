@@ -10,7 +10,7 @@ export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"      # Xauth file
 # User-specific environment variables (system-wide are located in /etc/environment)
 export EDITOR="emacs"
 export VISUAL="emacs"
-export TERMINAL="kitty"
+export TERMINAL="footclient"
 export BROWSER="librewolf"
 
 # Zsh
