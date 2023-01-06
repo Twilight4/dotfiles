@@ -90,7 +90,7 @@ zsh_add_completion "zsh-users/zsh-completions"
 # Bindings
 zle -N _new_command
 bindkey '^V' _new_command
-source "$ZDOTDIR/bash-scripts/fg-bg.sh"
+source "$ZDOTDIR/plugins/fg-bg.sh"
 zle -N fg-bg
 bindkey '^Z' fg-bg
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + g
