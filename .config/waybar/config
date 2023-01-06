@@ -21,7 +21,7 @@
     // Choose the order of the modules
 
     "modules-left": ["wlr/workspaces", "custom/sep", "hyprland/window", "hyprland/submap"],
-    "modules-center": ["mpd", "custom/sep", "clock",],
+    "modules-center": ["mpd", "custom/sep", "clock", "custom/sep", "custom/weather"],
     "modules-right": ["custom/updater", "custom/sep", "cpu", "memory", "temperature", "disk", "custom/sep", "pulseaudio", "network", "tray"],
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
