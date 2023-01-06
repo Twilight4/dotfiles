@@ -1,5 +1,8 @@
 #!/bin/sh
 
+PATH=$HOME/.config/pwnage/bin:$HOME/.config/hypr/scripts:$HOME/.config/zsh/bash-scripts:$HOME/.config/.local/bin:$HOME/.config/rofi/applets/bin:$HOME/.config/rofi/launcher:$HOME/.config/rofi/wifi:$PATH
+export PATH
+
 cd ~ || exit
 
 export QT_QPA_PLATFORMTHEME=qt5ct                     # Tells QT based applications to pick your theme from qt5ct
