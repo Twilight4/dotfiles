@@ -75,21 +75,11 @@ bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 # Improved backward kill word
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# Tip: Don't try to bind anything else cuz every other key is unavailable 
-bindkey -r '^p'
-bindkey -s '^p' 'fyay\n'
-
 bindkey -r '^o' 
 bindkey -s '^o' 'lf\n'
 
-#bindkey -r '^y'
-#bindkey -s '^y' 'fpdf\n'
-
-#bindkey -r '^p'
-#bindkey -s '^p' 'btop\n'
-
-#bindkey -r '^p'
-#bindkey -s '^p' 'fmind\n'
+bindkey -r '^y'
+bindkey -s '^y' 'fyay\n'
 
 # FZF
 if [ $(command -v "fzf") ]; then
