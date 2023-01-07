@@ -129,6 +129,7 @@ echo 'Post-Installation:
 - NOW DO THIS COMMAND AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv and then do: systemctl reboot -i
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 - reload tpm: ctrl + a + shift + i and hit q
+- to check if profile sync daemon is running type command: psd p
 '
 }
 
