@@ -18,14 +18,14 @@ update-system() {
 
 download-paclist() {
     paclist_path="/tmp/paclist" 
-    curl "https://raw.githubusercontent.com/Twilight4/arch-install-1/master/paclist" > "$paclist_path"
+    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/paclist" > "$paclist_path"
 
     echo $paclist_path
 }
 
 download-yaylist() {
     yaylist_path="/tmp/yaylist"
-    curl "https://raw.githubusercontent.com/Twilight4/arch-install-1/master/yaylist" > "$yaylist_path"
+    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/yaylist" > "$yaylist_path"
 
     echo $yaylist_path
 }
