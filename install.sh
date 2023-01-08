@@ -49,6 +49,10 @@ install-apps() {
     # for razer gears
     sudo groupadd plugdev
     sudo gpasswd -a "$(whoami)" plugdev
+    
+    # audit group (if used my arch-install script)
+    sudo groupadd -r audit
+    sudo gpasswd -a "$(whoami)" audit
       
     ## for Docker
     #gpasswd -a "$name" docker
