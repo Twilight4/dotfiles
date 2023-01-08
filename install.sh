@@ -104,6 +104,7 @@ install-dotfiles() {
     sudo systemctl enable ananicy.service                                          # enable ananicy daemon 
     sudo systemctl enable nohang-desktop.service                                   # enable nohang daemon
     mv ~/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop    # for hyprland
+    rm -rf ~/dotfiles
 }
 
 install-ghapps() {
