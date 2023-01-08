@@ -47,7 +47,7 @@ install-apps() {
     sudo chsh -s "$(which zsh)" "$(whoami)"
     
     # for razer gears
-    #sudo groupadd plugdev  # should be existing without manually adding the group
+    sudo groupadd plugdev
     sudo gpasswd -a "$(whoami)" plugdev
       
     ## for Docker
