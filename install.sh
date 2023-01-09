@@ -74,12 +74,7 @@ enable-blackarch() {
 #}
 
 install-dotfiles() {
-    DOTFILES="~/dotfiles"
-    if [ ! -d "$DOTFILES" ]
-        then
-            git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
-    fi
-    
+    git clone --recurse-submodules "https://github.com/Twilight4/dotfiles"
     mv -u ~/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
