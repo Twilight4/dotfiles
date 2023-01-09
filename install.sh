@@ -40,8 +40,8 @@ install-yay() {
 }
 
 install-apps() {
-    sudo pacman -S --noconfirm $(cat /tmp/paclist)
     yay -S --noconfirm $(cat /tmp/yaylist)
+    sudo pacman -S --noconfirm $(cat /tmp/paclist)
             
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
