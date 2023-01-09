@@ -74,8 +74,13 @@ enable-blackarch() {
 #}
 
 install-dotfiles() {
-    git clone --recurse-submodules "https://github.com/Twilight4/dotfiles"
-    mv -u ~/dotfiles/.config/* "$HOME/.config"
+    DOTFILES="/tmp/dotfiles"
+    if [ ! -d "$DOTFILES" ]
+        then
+            git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
+    fi
+    
+    mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
     sudo rm "/home/$(whoami)/.config/.local/share/fonts/README.md"
@@ -98,8 +103,7 @@ install-dotfiles() {
     #systemctl --user enable emacs.service                                          # enable emacs server daemon
     sudo systemctl enable ananicy.service                                          # enable ananicy daemon 
     sudo systemctl enable nohang-desktop.service                                   # enable nohang daemon
-    mv ~/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop    # for hyprland
-    rm -rf ~/dotfiles
+    mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop    # for hyprland
 }
 
 install-ghapps() {
