@@ -110,7 +110,6 @@ install-dotfiles() {
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
-    sudo systemctl enable gdm
 }
 
 install-ghapps() {
