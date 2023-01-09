@@ -96,14 +96,21 @@ install-dotfiles() {
     git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     git config --global user.email "electrolight071@gmail.com"
     git config --global user.name "Twilight4"
-    systemctl --user enable greenclip.service                                      # enable cliphistory daemon
-    systemctl --user enable mpd.service                                            # mpd daemon
-    systemctl --user enable psd.service                                            # profile sync daemon
-    systemctl --user enable vnstat.service                                         # network traffic monitor
-    #systemctl --user enable emacs.service                                          # enable emacs server daemon
-    sudo systemctl enable ananicy.service                                          # enable ananicy daemon 
-    sudo systemctl enable nohang-desktop.service                                   # enable nohang daemon
     mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop    # for hyprland
+    systemctl --user enable greenclip.service                                         # enable cliphistory daemon
+    systemctl --user enable mpd.service                                               # mpd daemon
+    systemctl --user enable psd.service                                               # profile sync daemon
+    systemctl --user enable vnstat.service                                            # network traffic monitor
+    #systemctl --user enable emacs.service                                             # enable emacs server daemon
+    sudo systemctl enable ananicy.service                                             # enable ananicy daemon 
+    sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
+    # enable performance and security tweaks
+    sudo systemctl enable auditd
+    sudo systemctl enable apparmor
+    sudo systemctl enable firewalld
+    sudo systemctl enable irqbalance
+    sudo systemctl enable chronyd
+    sudo systemctl enable gdm
 }
 
 install-ghapps() {
