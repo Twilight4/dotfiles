@@ -9,7 +9,6 @@ run() {
     enable-blackarch
     create-directories
     install-dotfiles
-    install-ghapps
 }
 
 update-system() {
@@ -96,7 +95,7 @@ install-dotfiles() {
     git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     git config --global user.email "electrolight071@gmail.com"
     git config --global user.name "Twilight4"
-    mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop    # for hyprland
+    sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop    # for hyprland
     systemctl --user enable greenclip.service                                         # enable cliphistory daemon
     systemctl --user enable mpd.service                                               # mpd daemon
     systemctl --user enable psd.service                                               # profile sync daemon
@@ -110,20 +109,7 @@ install-dotfiles() {
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
-}
-
-install-ghapps() {
-    GHAPPS="/opt/github/essentials"
-    if [ ! -d "$GHAPPS" ]
-        then
-        sudo mkdir -p $GHAPPS &&
-        sudo git clone "https://github.com/shlomif/lynx-browser"
-        sudo git clone "https://github.com/chubin/cheat.sh"
-        sudo git clone "https://github.com/smallhadroncollider/taskell"
-        sudo git clone "https://github.com/Swordfish90/cool-retro-term"
-    fi
     
-
 # tmux plugin manager
 [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
 && git clone --depth 1 https://github.com/tmux-plugins/tpm \
