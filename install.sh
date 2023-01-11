@@ -79,7 +79,7 @@ install-dotfiles() {
             git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
     fi
     
-    mv -u /tmp/dotfiles/.config/* "$HOME/.config"
+    sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
     sudo rm "/home/$(whoami)/.config/.local/share/fonts/README.md"
