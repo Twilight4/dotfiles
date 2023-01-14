@@ -117,12 +117,10 @@ install-dotfiles() {
     
     # Hyprland desktop entry
     #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
-    sudo bash -c 'cat > /usr/share/wayland-sessions/hyprland.desktop' <<-'EOF'
-    [Desktop Entry]
-    Name=Hyprland
-    Comment=hyprland
-    Exec="$HOME/.config/hypr/scripts/starth"
-    Type=Application
+    
+    bash -c 'cat > /mnt/etc/NetworkManager/conf.d/ip6-privacy.conf' <<-'EOF'
+    [connection]
+    ipv6.ip6-privacy=2
     EOF
     
     # system services
