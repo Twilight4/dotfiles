@@ -120,6 +120,7 @@ echo 'Post-Installation:
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 - reload tpm: ctrl + a + shift + i and hit q
 - to check if profile sync daemon is running type command: psd p
+- to scan for hardware thermal sensors - configure with sensors-detect
 '
 }
 
