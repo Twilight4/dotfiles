@@ -7,7 +7,8 @@ run() {
     install-yay
     install-apps
     enable-blackarch
-    create-directories
+    #create-directories
+    install-wifi-driver
     install-dotfiles
 }
 
@@ -76,6 +77,19 @@ enable-blackarch() {
 #sudo mkdir -p "/home/$(whoami)/{Document,Download,Video,workspace,Music}"
 #}
 
+install-wifi-driver() {
+git clone https://github.com/Mange/rtl8192eu-linux-driver
+cd rtl8192eu-linux-driver
+sudo dkms add .
+sudo dkms install rtl8192eu/1.0
+cd -
+echo "blacklist rtl8xxxu" | sudo tee /etc/modprobe.d/rtl8xxxu.conf
+echo -e "8192eu\n\nloop" | sudo tee /etc/modules
+echo "options 8192eu rtw_power_mgnt=0 rtw_enusbss=0" | sudo tee /etc/modprobe.d/8192eu.conf
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+rm -rf rtl8192eu-linux-driver
+}
+
 install-dotfiles() {
     DOTFILES="/tmp/dotfiles"
     if [ ! -d "$DOTFILES" ]
@@ -121,11 +135,13 @@ install-dotfiles() {
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
 
 echo 'Post-Installation:
-- NOW DO THIS COMMAND AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv and then do: systemctl reboot -i
+- NOW ISSUE THIS COMMAND AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 - reload tpm: ctrl + a + shift + i and hit q
 - to check if profile sync daemon is running type command: psd p
 - to scan for hardware thermal sensors - configure with sensors-detect
+- to check installed wifi chipset you can issue a command: sudo hwinfo --network | grep Driver
+- now you reboot: systemctl reboot -i
 '
 }
 
