@@ -49,7 +49,11 @@ install-apps() {
     sudo groupadd plugdev
     sudo gpasswd -a "$(whoami)" plugdev
     
-    # audit group (if used my arch-install script)
+    # mpd group
+    sudo gpasswd -a mpd "$(whoami)"
+    sudo chmod 710 "/home/$(whoami)"
+    
+    # audit group
     sudo groupadd -r audit
     sudo gpasswd -a "$(whoami)" audit
       
