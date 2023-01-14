@@ -14,7 +14,7 @@
     "position": "top",
     // "height": 30,             // Waybar height (to be removed for auto height)
     // "width": 1280,            // Waybar width (to be removed for auto height)
-    "spacing": 4,                // Gaps between modules (4px)
+    "spacing": 0,                // Gaps between modules (4px)
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -193,8 +193,8 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid}: ({signalStrength}%) ",
-        "format-ethernet": "{essid} ",
-        "format-linked": "{essid} (No IP) ",
+        "format-ethernet": "{bandwidthUpBytes} ﲓ ",
+        "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
     },
 
