@@ -114,7 +114,18 @@ install-dotfiles() {
     git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     git config --global user.email "electrolight071@gmail.com"
     git config --global user.name "Twilight4"
-    sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop    # for hyprland
+    
+    # Hyprland desktop entry
+    #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
+    sudo bash -c 'cat > /usr/share/wayland-sessions/hyprland.desktop' <<-'EOF'
+    [Desktop Entry]
+    Name=Hyprland
+    Comment=hyprland
+    Exec="$HOME/.config/hypr/scripts/starth"
+    Type=Application
+    EOF
+    
+    # system services
     systemctl --user enable greenclip.service                                         # enable cliphistory daemon
     systemctl --user enable mpd.service                                               # mpd daemon
     systemctl --user enable psd.service                                               # profile sync daemon
