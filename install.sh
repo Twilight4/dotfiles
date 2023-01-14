@@ -119,9 +119,9 @@ install-dotfiles() {
     #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
     
     bash -c 'cat > /mnt/etc/NetworkManager/conf.d/ip6-privacy.conf' <<-'EOF'
-    [connection]
-    ipv6.ip6-privacy=2
-    EOF
+[connection]
+ipv6.ip6-privacy=2
+EOF
     
     # system services
     systemctl --user enable greenclip.service                                         # enable cliphistory daemon
