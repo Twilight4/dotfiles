@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name=Hyprland
-Comment=hyprland
-Exec="$HOME/.config/hypr/scripts/starth"
-Type=Application
