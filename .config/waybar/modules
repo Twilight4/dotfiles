@@ -79,7 +79,7 @@
 
     "custom/updater": {
         "exec": "~/.config/waybar/scripts/check-updates.sh",
-        "interval": 600
+        "interval": 300
     },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
