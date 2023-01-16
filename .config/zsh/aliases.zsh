@@ -3,7 +3,7 @@
 # ls to lsd
 alias l='lsd'
 alias ls='lsd -l'
-alias la='lsd -la'
+alias la='lsd -lA'
 alias lt='lsd --tree'
 alias lx='lsd -lXBh'                # sort by extension
 alias lk='lsd -lSrh'                # sort by size
