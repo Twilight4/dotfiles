@@ -4,21 +4,18 @@
 //   | | | |___     https://github.com/Twilight4/
 //   |_| |_____|
 //
-// A customized config for Wolybar status bar tool (https://github.com/Alexays/Waybar).
+// A customized config for Waybar status bar tool (https://github.com/Alexays/Waybar).
 // Modified by Twilight4 (https://github.com/Twilight4/)
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 {
+    "include": "~/.config/waybar/modules",
     "layer": "top",
     "position": "top",
-    // "height": 30,             // Waybar height (to be removed for auto height)
-    // "width": 1280,            // Waybar width (to be removed for auto height)
-    "spacing": 0,                // Gaps between modules (4px)
-
-// _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-    // Choose the order of the modules
+    // "height": 30,
+    // "width": 1280,
+    "spacing": 0,
 
     "modules-left": ["wlr/workspaces", "custom/sep", "hyprland/window", "hyprland/submap"],
     "modules-center": ["clock", "custom/sep", "custom/weather"],
