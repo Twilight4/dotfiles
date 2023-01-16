@@ -1,17 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-if ! updates_arch=$(checkupdates 2> /dev/null | wc -l ); then
-    updates_arch=0
-fi
+UPDATE=$(checkupdates | wc -l)
 
-if ! updates_aur=$(yay -Qum 2> /dev/null | wc -l); then
-    updates_aur=0
-fi
-
-updates=$((updates_arch + updates_aur))
-
-if [ "$updates" -gt 0 ]; then
-    echo "$updates "
+if [ ${UPDATE} -lt 1 ]; then
+  echo ""
 else
-    echo "0 "
+  echo "<span font='12' rise='1000'></span> ${UPDATE}"
 fi
