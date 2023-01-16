@@ -75,6 +75,15 @@ bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 # Improved backward kill word
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+bindkey -r '^p' 
+bindkey -s '^p' 'fpac\n'
+
+bindkey -r '^n' 
+bindkey -s '^n' 'fpdf\n'
+
+#bindkey -r '^o' 
+#bindkey -s '^o' 'fmind\n'
+
 bindkey -r '^o' 
 bindkey -s '^o' 'lf\n'
 
