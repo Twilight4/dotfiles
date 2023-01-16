@@ -78,8 +78,9 @@
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
     "custom/updater": {
+        "format": "{}",
         "exec": "~/.config/waybar/scripts/check-updates.sh",
-        "interval": 300
+        "interval": 300,
     },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
