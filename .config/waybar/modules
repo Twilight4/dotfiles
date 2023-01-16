@@ -135,7 +135,7 @@
 
   "custom/vpncheck":{
     "format":"<span font='13' rise='1000'></span> {}",
-    "exec": "~/.config/hypr/scripts/vpnCheck",
+    "exec": "~/.config/hypr/scripts/vpn-check.sh",
     "interval": 120,
   },
   
