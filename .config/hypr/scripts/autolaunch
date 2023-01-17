@@ -1,13 +1,34 @@
 #! /bin/sh
 
-#hyprctl keyword windowrule "workspace 8 silent,caprine" && hyprctl dispatch exec "caprine"
-#hyprctl keyword windowrule "workspace 7 silent,Electron" && hyprctl dispatch exec "discord"
-hyprctl keyword windowrule "workspace 1 silent,foot" && hyprctl dispatch exec "foot"
+###### class name && binary name ######
+# workspace 1
+hyprctl keyword windowrule "workspace 1 silent,foot" && hyprctl dispatch exec "footclient"
+
+# workspace 2
+hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch exec "librewolf"
+
+# workspace 3
+hyprctl keyword windowrule "workspace 3 silent,foot" && hyprctl dispatch exec "footclient"
+
+# workspace 4
+#hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "footclient"
+
+# workspace 5
+hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "alacritty --class ncmpcpp -e ncmpcpp"
+hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "alacritty --class cava -e cava"
+
+# workspace work
+hyprctl keyword windowrule "workspace special:work silent,btop" && hyprctl dispatch exec "alacritty --class btop -e btop"
 
 sleep 15
 
-#hyprctl keyword windowrule "unset,Electron"
-#hyprctl keyword windowrule "unset,Caprine"
+# unset by class name
 hyprctl keyword windowrule "unset,foot"
+hyprctl keyword windowrule "unset,LibreWolf"
+#hyprctl keyword windowrule "unset,emacs"
+hyprctl keyword windowrule "unset,ncmpcpp"
+hyprctl keyword windowrule "unset,cava"
+hyprctl keyword windowrule "unset,btop"
 
 #hyprctl reload
+
