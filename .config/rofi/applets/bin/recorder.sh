@@ -21,7 +21,7 @@ prompt='record/capture'
 
 if [[ "$theme" == *'type-1'* ]]; then
 	list_col='1'
-	list_row='5'
+	list_row='4'
 	win_width='600px'
 fi
 
