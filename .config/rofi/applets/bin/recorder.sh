@@ -22,7 +22,7 @@ prompt='record/capture'
 if [[ "$theme" == *'type-1'* ]]; then
 	list_col='1'
 	list_row='4'
-	win_width='600px'
+	win_width='500px'
 fi
 
 # Options
@@ -56,30 +56,12 @@ run_rofi() {
 	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5" | rofi_cmd
 }
 
-TmpPathPrefix='/tmp/mp4-record'
-TmpRecordPath=$TmpPathPrefix'-cap.mp4'
-TmpPalettePath=$TmpPathPrefix'-palette.png'
-Coords=$(slurp) || exit
-
+Coords=$(slurp)
 video_selected_area(){
-    timeout 600 wf-recorder -g "$Coords" -a -f "$TmpRecordPath/$date.mp4"
-    ffmpeg -i "$TmpRecordPath/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
-    notify-send -i "/tmp/$date.png" "Video" "Area video taken" || exit
-    
-# Get the filename from the user and honor cancel
-    SavePath=$( zenity \
-	--file-selection \
-	--save \
-	--confirm-overwrite \
-	--file-filter=*.mp4 \
-	--filename="$videos_directory"'/.mp4' \
-) || exit
-
-# Copy the file from the temporary path to the save path
-cp $TmpRecordPath $SavePath
-
-# copy the file location to your clipboard
-wl-copy $SavePath
+    timeout 600 wf-recorder -g "$Coords" -a -f "$videos_directory/$date.mp4"
+    ffmpeg -i "$videos_directory/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
+    notify-send -i "/tmp/$date.png" "Video" "Area video taken"
+    wl-copy $videos_directory
 }
 
 
@@ -102,8 +84,6 @@ audio_desktop(){
 }
 
 stop(){
-    [[ -f $TmpRecordPath ]] && rm -f "$TmpRecordPath"
-    [[ -f $TmpPalettePath ]] && rm -f "$TmpPalettePath"
     killall --user $USER  --ignore-case  --signal INT  ffmpeg
     sleep 2
     pkill -fxn '(/\S+)*ffmpeg\s.*\sx11grab\s.*'
