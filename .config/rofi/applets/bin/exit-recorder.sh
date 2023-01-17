@@ -1,5 +1,5 @@
 OnExit {
-  [[ -f $TmpRecordPath ]] && rm -f "$TmpRecordPath"
+    [[ -f $TmpRecordPath ]] && rm -f "$TmpRecordPath"
   	[[ -f $TmpPalettePath ]] && rm -f "$TmpPalettePath"
     killall --user $USER  --ignore-case  --signal INT  ffmpeg
     sleep 2
