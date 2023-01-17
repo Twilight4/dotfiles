@@ -92,13 +92,13 @@
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
   "custom/weather": {
-    "format": "{}",
-    "format-alt": "{alt}: {}",
-    "format-alt-click": "click-right",
-    "interval": 1800,
-    "return-type": "json",
-    "exec": "~/.config/waybar/scripts/weather.sh",
-    "exec-if": "ping wttr.in -c1"
+        "format": "{}",
+        "format-alt": "{alt}: {}",
+        "format-alt-click": "click-right",
+        "interval": 1800,
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/weather.sh",
+        "exec-if": "ping wttr.in -c1"
     },
     
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -127,9 +127,9 @@
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
   "custom/vpncheck":{
-    "format":"<span font='13' rise='1000'></span> {}",
-    "exec": "~/.config/hypr/scripts/vpn-check.sh",
-    "interval": 120,
+        "format":"<span font='13' rise='1000'></span> {}",
+        "exec": "~/.config/hypr/scripts/vpn-check.sh",
+        "interval": 120,
     },
   
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
