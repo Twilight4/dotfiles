@@ -15,6 +15,8 @@ hyprctl keyword windowrule "workspace 3 silent,foot2" && hyprctl dispatch exec "
 
 # workspace 5
 hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "alacritty --class ncmpcpp -e ncmpcpp"
+hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "alacritty --class cava -e cava"
+hyprctl keyword windowrule "workspace 5 silent,clock" && hyprctl dispatch exec "alacritty --class clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d""
 
 # workspace special:scratchpad
 hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl dispatch exec "alacritty --class btop -e btop"
@@ -30,5 +32,7 @@ hyprctl keyword windowrule "unset,LibreWolf"
 hyprctl keyword windowrule "unset,foot2"
 #hyprctl keyword windowrule "unset,emacsone"
 hyprctl keyword windowrule "unset,ncmpcpp"
+hyprctl keyword windowrule "unset,cava"
+hyprctl keyword windowrule "unset,clock"
 hyprctl keyword windowrule "unset,btop"
 #hyprctl keyword windowrule "unset,emacstwo"
