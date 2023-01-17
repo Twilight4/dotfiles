@@ -8,27 +8,23 @@ hyprctl keyword windowrule "workspace 1 silent,foot" && hyprctl dispatch exec "f
 hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch exec "librewolf"
 
 # workspace 3
-hyprctl keyword windowrule "workspace 3 silent,foot" && hyprctl dispatch exec "footclient"
+hyprctl keyword windowrule "workspace 3 silent,foot2" && hyprctl dispatch exec "footclient -T foot2 -a foot2"
 
 # workspace 4
-#hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "footclient"
+#hyprctl keyword windowrule "workspace 4 silent,emacsone" && hyprctl dispatch exec "emacsclient -c -a "" --frame-parameters='(quote (name . "emacsone"))'"
 
 # workspace 5
 hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "alacritty --class ncmpcpp -e ncmpcpp"
-hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "alacritty --class cava -e cava"
 
-# workspace work
+# workspace special:work
 hyprctl keyword windowrule "workspace special:work silent,btop" && hyprctl dispatch exec "alacritty --class btop -e btop"
 
-sleep 15
+sleep 15      # wait untill apps run
 
 # unset by class name
 hyprctl keyword windowrule "unset,foot"
 hyprctl keyword windowrule "unset,LibreWolf"
-#hyprctl keyword windowrule "unset,emacs"
+hyprctl keyword windowrule "unset,foot2"
+#hyprctl keyword windowrule "unset,emacsone"
 hyprctl keyword windowrule "unset,ncmpcpp"
-hyprctl keyword windowrule "unset,cava"
 hyprctl keyword windowrule "unset,btop"
-
-#hyprctl reload
-
