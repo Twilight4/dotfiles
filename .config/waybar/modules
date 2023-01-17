@@ -138,13 +138,13 @@
     "format":"<span font='13' rise='1000'></span> {}",
     "exec": "~/.config/hypr/scripts/vpn-check.sh",
     "interval": 120,
-  },
+    },
   
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
     "disk": {
         "interval": 30,
-        "format": "{percentage_used}% ",
+        "format": "{percentage_used}% ",
         "path": "/"
     },
 
@@ -178,6 +178,7 @@
     "battery#bat2": {
         "bat": "BAT2"
     },
+    
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
     "network": {
