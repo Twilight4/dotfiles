@@ -16,6 +16,17 @@ if [[ ! -d "$audio_directory" ]]; then
 	mkdir -p "$audio_directory"
 fi
 
+activemon=$(hyprctl monitors | grep -B 10 "focused: yes" | awk 'NR==3 {print $1}' RS='(' FS=')')
+
+date=$(date '+%d-%m-%Y-%H-%M-%S')
+# screen_resolution="$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')"
+# microphone="$(pacmd list-sources | grep -E '^\s+name: .*alsa_input' | cut -c 8- | sed 's/[<,>]//g')"
+# desktop="$(pacmd list-sources | grep -E '^\s+name: .*alsa_output.usb' | cut -c 8- | sed 's/[<,>]//g')"
+declare -a Res=($(/usr/sbin/xrandr |grep " connected primary"));
+declare Offset=${Res[3]#*+}
+declare -a Res1=($(/usr/sbin/xrandr |grep " connected"));
+declare Offset1=${Res1[2]#*+}
+
 # Theme Elements
 prompt='record/capture'
 
