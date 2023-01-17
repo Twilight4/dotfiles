@@ -14,9 +14,9 @@ hyprctl keyword windowrule "workspace 3 silent,foot2" && hyprctl dispatch exec "
 #hyprctl keyword windowrule "workspace 4 silent,emacsone" && hyprctl dispatch exec "emacsclient -c -a "" --frame-parameters='(quote (name . "emacsone"))'"
 
 # workspace 5
-hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "alacritty --class ncmpcpp -e ncmpcpp"
 hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "alacritty --class cava -e cava"
 hyprctl keyword windowrule "workspace 5 silent,clock" && hyprctl dispatch exec "alacritty --class clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d""
+hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "alacritty --class ncmpcpp -e ncmpcpp"
 
 # workspace special:scratchpad
 hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl dispatch exec "alacritty --class btop -e btop"
