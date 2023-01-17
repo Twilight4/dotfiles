@@ -6,7 +6,7 @@ theme="$type/$style"
 
 # directories
 videos_directory="$HOME/Videos/Recordings"
-audio_directory="$HOME/Music"
+audio_directory="$HOME/Music/Recordings"
 
 if [[ ! -d "$videos_directory" ]]; then
 	mkdir -p "$videos_directory"
