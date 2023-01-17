@@ -152,6 +152,7 @@ echo 'Post-Installation:
 - to check if profile sync daemon is running type command: psd p
 - to scan for hardware thermal sensors - configure with sensors-detect
 - to check installed wifi chipset you can issue a command: sudo hwinfo --network | grep Driver
+- you can now refresh/fix keyrings with: SUPER + SHIFT + U
 - now you reboot: systemctl reboot -i
 '
 }
