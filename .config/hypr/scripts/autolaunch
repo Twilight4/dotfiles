@@ -16,8 +16,11 @@ hyprctl keyword windowrule "workspace 3 silent,foot2" && hyprctl dispatch exec "
 # workspace 5
 hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "alacritty --class ncmpcpp -e ncmpcpp"
 
+# workspace special:scratchpad
+hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl dispatch exec "alacritty --class btop -e btop"
+
 # workspace special:work
-hyprctl keyword windowrule "workspace special:work silent,btop" && hyprctl dispatch exec "alacritty --class btop -e btop"
+#hyprctl keyword windowrule "workspace special:work silent,emacstwo" && hyprctl dispatch exec "emacsclient -c -a "" --frame-parameters='(quote (name . "emacstwo"))'"
 
 sleep 15      # wait untill apps run
 
@@ -28,3 +31,4 @@ hyprctl keyword windowrule "unset,foot2"
 #hyprctl keyword windowrule "unset,emacsone"
 hyprctl keyword windowrule "unset,ncmpcpp"
 hyprctl keyword windowrule "unset,btop"
+#hyprctl keyword windowrule "unset,emacstwo"
