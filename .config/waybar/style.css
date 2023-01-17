@@ -43,10 +43,12 @@ window#waybar.hidden {
 #custom-weather,
 #battery,
 #cpu,
+#custom-cputemp,
 #memory,
 #disk,
 #temperature,
 #backlight,
+#custom-vpncheck,
 #network,
 #pulseaudio,
 #wireplumber,
@@ -113,6 +115,9 @@ label:focus {
 #cpu {
 }
 
+#custom-cputemp {
+}
+
 #memory {
 }
 
@@ -120,6 +125,9 @@ label:focus {
 }
 
 #backlight {
+}
+
+#custom-vpn_check {
 }
 
 #custom-weather {
