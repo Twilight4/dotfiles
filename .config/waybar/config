@@ -16,7 +16,7 @@
     // "width": 1280,
     "spacing": 0,
 
-    "modules-left": ["wlr/workspaces", "custom/sep", "hyprland/window", "hyprland/submap"],
+    "modules-left": ["wlr/workspaces", "custom/sep", "hyprland/window"],
     "modules-center": ["clock", "custom/sep", "custom/weather"],
     "modules-right": ["custom/updater", "custom/sep", "cpu", "custom/cputemp", "memory", "disk", "custom/sep", "mpd", "pulseaudio", "custom/vpncheck", "network", "tray"],
 }
