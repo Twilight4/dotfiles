@@ -67,9 +67,8 @@ run_rofi() {
 	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5" | rofi_cmd
 }
 
-Coords=$(slurp)
 video_selected_area(){
-    timeout 600 wf-recorder -g "$Coords" -a -f "$videos_directory/$date.mp4"
+    timeout 600 wf-recorder -g "$(slurp)" -a -f "$videos_directory/$date.mp4"
     ffmpeg -i "$videos_directory/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
     notify-send -i "/tmp/$date.png" "Video" "Area video taken"
     wl-copy $videos_directory
