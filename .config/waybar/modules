@@ -40,14 +40,6 @@
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-    "hyprland/submap": {
-        "format": "{}",
-        "max-length": 8,
-        "tooltip": false
-    },
-
-// _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
     "mpd": {
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) {songPosition}|{queueLength} {volume}% ",
         "format-disconnected": "Disconnected ",
