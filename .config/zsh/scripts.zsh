@@ -345,7 +345,3 @@ githeat() {
 bm() {
     "$ZDOTDIR/bash-scripts/bm.sh" "$@"
 }
-
-fortune() {
-    "$ZDOTDIR/bash-scripts/fortune" "$@"
-}
