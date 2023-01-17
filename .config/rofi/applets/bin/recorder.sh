@@ -5,33 +5,30 @@ source "$HOME"/.config/rofi/applets/shared/theme.bash
 theme="$type/$style"
 
 # directories
-screenshot_directory="$HOME/Pictures/screenshots"
 videos_directory="$HOME/Videos"
 audio_directory="$HOME/Music"
 
 # Theme Elements
-prompt='Capture screen'
+prompt='record/capture'
 
 if [[ "$theme" == *'type-1'* ]]; then
 	list_col='1'
 	list_row='5'
-	win_width='500px'
+	win_width='600px'
 fi
 
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" Capture Area"
-	option_2=" Capture Desktop"
-	option_3=" Capture Area w/ mic"
-	option_4=" Capture Desktop w/ mic"
-	option_5=" Capture Area only audio"
+	option_1=" Capture Desktop"
+	option_2=" Capture Area"
+	option_3=" Capture Mic"
+	option_4=" Capture Desktop Audio"
 else
 	option_1=""
 	option_2=""
 	option_3=""
 	option_4=""
-	option_5=""
 fi
 
 # Rofi CMD
@@ -51,29 +48,39 @@ run_rofi() {
 	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5" | rofi_cmd
 }
 
+TmpPathPrefix='/tmp/mp4-record'
+TmpRecordPath=$TmpPathPrefix'-cap.mp4'
+TmpPalettePath=$TmpPathPrefix'-palette.png'
+Coords=$(slurp) || exit
 
-
-
-
-activemon=$(hyprctl monitors | grep -B 10 "focused: yes" | awk 'NR==3 {print $1}' RS='(' FS=')')
-
-date=$(date '+%d-%m-%Y-%H-%M-%S')
-# screen_resolution="$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')"
-# microphone="$(pacmd list-sources | grep -E '^\s+name: .*alsa_input' | cut -c 8- | sed 's/[<,>]//g')"
-# desktop="$(pacmd list-sources | grep -E '^\s+name: .*alsa_output.usb' | cut -c 8- | sed 's/[<,>]//g')"
-declare -a Res=($(/usr/sbin/xrandr |grep " connected primary"));
-declare Offset=${Res[3]#*+}
-declare -a Res1=($(/usr/sbin/xrandr |grep " connected"));
-declare Offset1=${Res1[2]#*+}
-
-
+OnExit() {
+	[[ -f $TmpRecordPath ]] && rm -f "$TmpRecordPath"
+	[[ -f $TmpPalettePath ]] && rm -f "$TmpPalettePath"
+}
+trap OnExit EXIT
 
 video_selected_area(){
-    slop=$(slurp) || exit
-    timeout 600 wf-recorder -g "$Coords" -a -f "$TmpRecordPath"  OR THIS ONE: "$videos_directory/$date.mp4"
-    ffmpeg -i "$videos_directory/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
+    timeout 600 wf-recorder -g "$Coords" -a -f "$TmpRecordPath/$date.mp4"
+    ffmpeg -i "$TmpRecordPath/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
     notify-send -i "/tmp/$date.png" "Video" "Area video taken" || exit
+    
+# Get the filename from the user and honor cancel
+    SavePath=$( zenity \
+	--file-selection \
+	--save \
+	--confirm-overwrite \
+	--file-filter=*.mp4 \
+	--filename="$videos_directory"'/.mp4' \
+) || exit
+
+# Copy the file from the temporary path to the save path
+cp $TmpRecordPath $SavePath
+
+# copy the file location to your clipboard
+wl-copy $SavePath
 }
+
+
 
 video_full_screen(){
     ffmpeg -hide_banner -loglevel error \
@@ -100,64 +107,17 @@ stop(){
     exit 1
 }
 
-help(){
-cat << EOF 
--h | -help | --help
--s | -stop
--va | -video_selected_area
--vf | -video_full_screen
--am | -audio_microphone
--ad | -audio_desktop
-EOF
-}
-
-main(){
-while [ "$1" != "" ]; do
-    PARAM="$1"
-    case $PARAM in
-    -h | -help | --help)
-        help
-        exit 1
-        ;;
-    -s | -stop)
-        stop
-        exit 1
-        ;;
-    -va | -video_selected_area)
-        video_selected_area
-        ;;
-    -vf | -video_full_screen)
-        video_full_screen
-        ;;
-    -am | -audio_microphone)
-        audio_microphone
-        ;;
-    -ad | -audio_desktop)
-    	audio_desktop
-        ;;
-    *)
-        echo "ERROR: unknown parameter \"$PARAM\""
-        help
-        exit 1
-        ;;
-    esac
-    shift
-done
-# done
-set -e
-}
-
 # Execute Command
 run_cmd() {
-	if [[ "$1" == 'va' ]]; then
-		video_selected_area
-	elif [[ "$1" == 'vf' ]]; then
+	if [[ "$1" == '-vf' ]]; then
 		video_full_screen
-	elif [[ "$1" == 'am' ]]; then
+	elif [[ "$1" == '-va' ]]; then
+		video_selected_area
+	elif [[ "$1" == '-am' ]]; then
 		video_selected_area_audio_microphone
-	elif [[ "$1" == 'ad' ]]; then
+	elif [[ "$1" == '-ad' ]]; then
 		video_full_screen_audio_microphone
-else
+	else
 	echo -e "Available Options : va vf am ad"
 	fi
 }
@@ -166,18 +126,17 @@ else
 chosen="$(run_rofi)"
 case ${chosen} in
     $option_1)
-		run_cmd va
+		run_cmd -vf
         ;;
     $option_2)
-		run_cmd vf
+		run_cmd -va
         ;;
     $option_3)
-		run_cmd am
+		run_cmd -am
         ;;
     $option_4)
-		run_cmd ad
+		run_cmd -ad
         ;;
 esac
 
-main "$1" &
 exit 0
