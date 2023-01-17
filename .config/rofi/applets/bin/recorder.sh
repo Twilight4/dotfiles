@@ -5,8 +5,16 @@ source "$HOME"/.config/rofi/applets/shared/theme.bash
 theme="$type/$style"
 
 # directories
-videos_directory="$HOME/Videos"
+videos_directory="$HOME/Videos/Recordings"
 audio_directory="$HOME/Music"
+
+if [[ ! -d "$videos_directory" ]]; then
+	mkdir -p "$videos_directory"
+fi
+
+if [[ ! -d "$audio_directory" ]]; then
+	mkdir -p "$audio_directory"
+fi
 
 # Theme Elements
 prompt='record/capture'
@@ -53,12 +61,6 @@ TmpRecordPath=$TmpPathPrefix'-cap.mp4'
 TmpPalettePath=$TmpPathPrefix'-palette.png'
 Coords=$(slurp) || exit
 
-OnExit() {
-	[[ -f $TmpRecordPath ]] && rm -f "$TmpRecordPath"
-	[[ -f $TmpPalettePath ]] && rm -f "$TmpPalettePath"
-}
-trap OnExit EXIT
-
 video_selected_area(){
     timeout 600 wf-recorder -g "$Coords" -a -f "$TmpRecordPath/$date.mp4"
     ffmpeg -i "$TmpRecordPath/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
@@ -100,12 +102,14 @@ audio_desktop(){
 }
 
 stop(){
+    [[ -f $TmpRecordPath ]] && rm -f "$TmpRecordPath"
+    [[ -f $TmpPalettePath ]] && rm -f "$TmpPalettePath"
     killall --user $USER  --ignore-case  --signal INT  ffmpeg
     sleep 2
     pkill -fxn '(/\S+)*ffmpeg\s.*\sx11grab\s.*'
     pkill -fxn '(/\S+)*ffmpeg\s.*\spulse\s.*'
-    exit 1
 }
+trap stop EXIT
 
 # Execute Command
 run_cmd() {
