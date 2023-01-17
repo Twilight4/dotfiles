@@ -20,12 +20,13 @@ fi
 activemon=$(hyprctl monitors | grep -B 10 "focused: yes" | awk 'NR==3 {print $1}' RS='(' FS=')')
 
 # Theme Elements
-prompt='record/capture'
+prompt='Capture Menu'
 
 if [[ "$theme" == *'type-1'* ]]; then
 	list_col='1'
 	list_row='4'
 	win_width='500px'
+	win_height='400px'
 fi
 
 # Options
@@ -56,17 +57,32 @@ rofi_cmd() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5" | rofi_cmd
+	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n" | rofi_cmd
 }
 
 video_selected_area(){
-    timeout 600 wf-recorder -g "$(slurp)" -a -f "$videos_directory/$date.mp4"
-    ffmpeg -i "$videos_directory/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
-    notify-send -i "/tmp/$date.png" "Video" "Area video taken"
-    wl-copy $videos_directory
+pkill --euid "$USER" --signal SIGINT wf-recorder && exit
+
+DefaultSaveDir=$HOME'/Videos/Recordings'
+TmpPathPrefix='/tmp/mp4-record'
+TmpRecordPath=$TmpPathPrefix'-cap.mp4'
+TmpPalettePath=$TmpPathPrefix'-palette.png'
+
+Coords=$(slurp) || exit
+timeout 600 wf-recorder -g "$Coords" -a -f "$TmpRecordPath" || exit
+
+SavePath=$( zenity \
+	--file-selection \
+	--save \
+	--confirm-overwrite \
+	--file-filter=*.mp4 \
+	--filename="$DefaultSaveDir"'/.mp4' \
+) || exit
+
+cp $TmpRecordPath $SavePath
+wl-copy $SavePath
+notify-send -i "/tmp/$date.png" "Video" "Area video taken"
 }
-
-
 
 video_full_screen(){
     ffmpeg -hide_banner -loglevel error \
