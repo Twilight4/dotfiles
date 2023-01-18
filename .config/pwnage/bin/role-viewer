@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python3 ~/.config/pwnage/role-viewer.py
+python3 ~/.config/pwnage/scripts/role-viewer.py
