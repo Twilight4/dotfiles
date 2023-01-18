@@ -23,10 +23,6 @@ window#waybar.hidden {
   background: none;
 }
 
-#workspaces button.active {
-    color: @mauve;
-}
-
 .modules-left, .modules-center, .modules-right {
   background: @theme_base_color;
   border: 3px solid @surface2;
@@ -59,6 +55,10 @@ window#waybar.hidden {
 
 #idle_inhibitor {
   color: @lavender;
+}
+
+#workspaces button.active {
+  color: @mauve;
 }
 
 #backlight {
