@@ -82,7 +82,7 @@ window#waybar.hidden {
 }
 
 #clock {
-  color: @mauve;
+  color: @sky;
 }
 
 #cpu {
@@ -140,7 +140,7 @@ window#waybar.hidden {
 }
 
 #window {
-  color: @mauve;
+  color: @teal;
 }
 
 #network {
