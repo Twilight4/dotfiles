@@ -10,7 +10,8 @@
 window#waybar {
   transition-property: background-color;
   transition-duration: 0.5s;
-  background: none;
+  background-color: rgba(26, 27, 38, 0.5);
+  color: #800000;
   padding: 0;
   margin: 0;
 }
