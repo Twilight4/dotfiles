@@ -1,11 +1,4 @@
-/*
-*
-* Catppuccin Mocha palette
-* Maintainer: rubyowo
-*
-*/
-
-@define-color base   #1e1e2e;
+@define-color base   #152126;
 @define-color mantle #181825;
 @define-color crust  #11111b;
 
