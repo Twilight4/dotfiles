@@ -69,8 +69,6 @@
   "cpu": {
     "interval": 2,
     "format": "<span font='13' rise='1000'></span> <span font='13'>{usage}%</span>",
-    "format-alt": "<span font='10' rise='4000'>{icon0}{icon1}{icon2}{icon3}</span> <span font='13'rise='1000'>{usage:>2}%</span>",
-    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
   },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
