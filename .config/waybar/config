@@ -13,7 +13,7 @@
   "exclusive": true,
   "passthrough": false,
   "position": "top",
-  "fixed-center": false,
+  "fixed-center": true,
   "spacing": 3,
   "gtk-layer-shell": true,
 
