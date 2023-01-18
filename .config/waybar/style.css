@@ -23,7 +23,7 @@ window#waybar.hidden {
   background: none;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
     color: @mauve;
 }
 
