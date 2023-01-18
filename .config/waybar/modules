@@ -56,6 +56,7 @@
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
   "clock": {
+    "timezone": "Europe/Warsaw",
     "interval": 60,
     "align": 0,
     "rotate": 0,
@@ -111,8 +112,8 @@
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
   "custom/updater":{
     "format": "{}",
-    "exec": "$~/.config/waybar/scripts/check-updates.sh",
-    "exec-if": "[[ $($HOME/.config/hypr/scripts/checkUpdate) ]]",
+    "exec": "~/.config/waybar/scripts/check-updates.sh",
+    "exec-if": "[[ $($HOME/.config/hypr/scripts/check-updates.sh) ]]",
     "interval": 300,
   },
 
