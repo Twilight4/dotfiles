@@ -23,6 +23,10 @@ window#waybar.hidden {
   background: none;
 }
 
+#workspaces button.focused {
+    color: @mauve;
+}
+
 .modules-left, .modules-center, .modules-right {
   background: @theme_base_color;
   border: 3px solid @surface2;
