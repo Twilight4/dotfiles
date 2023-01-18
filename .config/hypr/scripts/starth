@@ -19,7 +19,8 @@ export MOZ_ENABLE_WAYLAND=1                           # Enables Wayland for Mozi
 export MUTTER_DEBUG_ENABLE_ATOMIC_KMS=0               # Fix slightly sloppy mouse response issue
 export CLUTTER_PAINT=disable-dynamic-max-render-time  # Get a smoother frame rate
 export _JAVA_AWT_WM_NONREPARENTING=1                  # Java apps don’t support Wayland natively
-export XCURSOR_SIZE=24                                # Cursor size
+export XCURSOR_THEME=Numix-Cursor-Light               # Cursor theme for Xwayland
+export XCURSOR_SIZE=24                                # Cursor size for Xwayland
 export WLR_NO_HARDWARE_CURSORS=1                      # idk just copied recklessly
 export MOZ_DISABLE_RDD_SANDBOX=1                      # idk just copied recklessly
 
