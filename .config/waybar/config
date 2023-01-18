@@ -1,0 +1,23 @@
+//  _____ _
+// |_   _| |        Waybar Configuration File of TL - Twilight4
+//   | | | |
+//   | | | |___     https://github.com/Twilight4/
+//   |_| |_____|
+//
+// A customized config for Waybar status bar tool (https://github.com/Alexays/Waybar).
+// Modified by Twilight4 (https://github.com/Twilight4/)
+
+{
+  "include": "~/.config/waybar/modules",
+  "layer": "top",
+  "exclusive": true,
+  "passthrough": false,
+  "position": "top",
+  "fixed-center": false,
+  "spacing": 3,
+  "gtk-layer-shell": true,
+
+  "modules-left": ["wlr/workspaces", "hyprland/window"],
+  "modules-center": ["custom/uptime", "clock", "custom/weather"],
+  "modules-right": ["cpu", "custom/cputemp", "memory", "disk", "mpd", "backlight", "pulseaudio", "custom/vpncheck", "network", "battery", "custom/updater", "tray"],
+}
