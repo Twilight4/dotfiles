@@ -42,6 +42,10 @@ install-yay() {
 install-apps() {
     yay -S --noconfirm $(cat /tmp/yaylist)
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
+    
+    # this app is unavailable in arch repos
+    pip install github-clone
+    mv ~/.local/bin/ghclone /usr/local/bin
             
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
