@@ -103,7 +103,7 @@
     "tooltip": true,
     "format": "{}",
     "interval": 300,
-    "exec": "~/.config/waybar/scripts/wttr.py",
+    "exec": "~/.config/waybar/scripts/weather.sh",
     "return-type": "json",
   },
 
