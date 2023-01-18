@@ -24,7 +24,7 @@ window#waybar.hidden {
 }
 
 .modules-left, .modules-center, .modules-right {
-  background: @theme_base_color;
+  background: #121E23;
   border: 2px solid #2C383E;
   padding: 0px 5px;
 }
@@ -118,7 +118,7 @@ window#waybar.hidden {
 }
 
 #custom-weather {
-  color: @sapphire;
+  color: @blue;
 }
 
 #custom-vpn_check {
@@ -140,7 +140,7 @@ window#waybar.hidden {
 }
 
 #window {
-  color: @lavender;
+  color: @sapphire;
 }
 
 #network {
