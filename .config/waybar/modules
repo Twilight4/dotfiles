@@ -60,8 +60,8 @@
     "interval": 60,
     "align": 0,
     "rotate": 0,
-    "format": "{:%d %b <span rise='2000'></span> %I:%M %p}",
-    "format-alt": "{:%A <span rise='2000'></span> %d %B %Y <span rise='2000'>⁙</span> %I:%M %p}",
+    "format": "{:%d %b %I:%M %p}",
+    "format-alt": "{:%A %d %B %Y %I:%M %p}",
     "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
   },
 
