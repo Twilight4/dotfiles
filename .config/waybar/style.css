@@ -86,7 +86,7 @@ window#waybar.hidden {
 }
 
 #clock {
-  color: @sky;
+  color: @lavender;
 }
 
 #cpu {
@@ -109,7 +109,7 @@ window#waybar.hidden {
 }
 
 #workspaces button.active {
-  color: @peach;
+  color: @sapphire;
   border-radius: 0px;
 }
 
