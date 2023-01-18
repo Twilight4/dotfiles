@@ -57,10 +57,6 @@ window#waybar.hidden {
   color: @lavender;
 }
 
-#workspaces button.active {
-  color: @mauve;
-}
-
 #backlight {
   color: @blue;
 }
@@ -109,7 +105,7 @@ window#waybar.hidden {
 }
 
 #workspaces button.active {
-  color: @sapphire;
+  color: @teal;
   border-radius: 0px;
 }
 
