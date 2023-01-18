@@ -83,8 +83,8 @@
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
   "memory": {
     "interval": 10,
-    "format": "<span font='13' rise='1000'></span> {}%",
-    "format-alt": "<span font='13' rise='1000'></span> {used:0.1f}G",
+    "format": "<span font='13' rise='1000'></span> {}%",
+    "format-alt": "<span font='13' rise='1000'></span> {used:0.1f}G",
   },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
