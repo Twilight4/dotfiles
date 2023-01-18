@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# you can set keybind for opening this window
-python3 ~/.config/pwnage/scripts/hacking-variables.py
