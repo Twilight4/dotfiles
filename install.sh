@@ -6,7 +6,7 @@ run() {
     download-yaylist
     install-yay
     install-apps
-    enable-blackarch
+    #enable-blackarch
     #create-directories
     install-wifi-driver
     install-dotfiles
@@ -64,14 +64,14 @@ install-apps() {
     #sudo systemctl enable docker.service
 }
 
-enable-blackarch() {
-    curl -O https://blackarch.org/strap.sh
-    echo 5ea40d49ecd14c2e024deecf90605426db97ea0c strap.sh | sha1sum -c
-    chmod +x strap.sh
-    sudo ./strap.sh
-    sudo pacman --noconfirm -Syu
-    rm strap.sh
-}
+#enable-blackarch() {
+    #curl -O https://blackarch.org/strap.sh
+    #echo 5ea40d49ecd14c2e024deecf90605426db97ea0c strap.sh | sha1sum -c
+    #chmod +x strap.sh
+    #sudo ./strap.sh
+    #sudo pacman --noconfirm -Syu
+    #rm strap.sh
+#}
 
 #create-directories() {
 #sudo mkdir -p "/home/$(whoami)/{Document,Download,Video,workspace,Music}"
