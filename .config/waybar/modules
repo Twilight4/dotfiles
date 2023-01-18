@@ -15,9 +15,6 @@
     "rotate": 0,
       "format": "<span font='13' rise='1000'>{icon}</span> {percent}",
       "format-icons": ["", "", "", ""],
-      "on-scroll-up": "~/.config/hypr/scripts/brightness --inc",
-      "on-scroll-down": "~/.config/hypr/scripts/brightness --dec",
-      "smooth-scrolling-threshold": 1,
     },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -55,18 +52,17 @@
     "format-icons": ["", "", "", "", ""],
     "format-time": "{H}h {M}min",
     "tooltip": true,
-    "on-click-middle": "~/.config/hypr/scripts/swallowToggle"
   },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
   "clock": {
+    "timezone": "Europe/Warsaw",
     "interval": 60,
     "align": 0,
     "rotate": 0,
     "format": "{:%d %b <span rise='2000'>⁙</span> %I:%M %p}",
     "format-alt": "{:%A <span rise='2000'>⁙</span> %d %B %Y <span rise='2000'>⁙</span> %I:%M %p}",
     "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-    "on-click-right": "~/.config/hypr/scripts/changeWallpaper",
   },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
