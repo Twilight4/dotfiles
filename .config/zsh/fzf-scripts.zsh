@@ -112,8 +112,26 @@ fwork() {
     [ -n "$result" ] && cd ~/workspace/$result
 }
 
-# List projects!
+# List pdfs
 fpdf() {
     result=$(find -type f -name '*.pdf' | fzf --bind "ctrl-r:reload(find -type f -name '*.pdf')" --preview "pdftotext {} - | less")
     [ -n "$result" ] && zathura "$result" &
+}
+
+# List mindmaps
+fmind() {
+    local folders=("$CLOUD/knowledge_base" "$WORKSPACE/twilight")
+
+    files=""
+    for root in ${folders[@]}; do
+        files="$files $(find $root -name '*.mm')"
+    done
+    result=$(echo "$files" | fzf -m --height 60% --border sharp | tr -s "\n" " ")
+    [ -n "$result" ] && nohup freemind $(echo $result) &> /dev/null & disown
+}
+
+# List tracking spreadsheets (productivity, money ...)
+ftrack() {
+    file=$(ls $CLOUD/tracking/**/*.{ods,csv} | fzf) || return
+    [ -n "$file" ] && libreoffice "$file" &> /dev/null &
 }
