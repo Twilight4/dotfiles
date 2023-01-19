@@ -5,6 +5,7 @@ export PATH
 
 cd ~ || exit
 
+export HYPRLAND_LOG_WLR=1                             # Log WLR errors and logs to the hyprland log
 export QT_QPA_PLATFORMTHEME=qt5ct                     # Tells QT based applications to pick your theme from qt5ct
 export SDL_VIDEODRIVER=wayland                        # Run SDL2 applications on Wayland
 export CLUTTER_BACKEND=wayland                        # Force Clutter applications to try and use the Wayland backend
@@ -21,7 +22,7 @@ export CLUTTER_PAINT=disable-dynamic-max-render-time  # Get a smoother frame rat
 export _JAVA_AWT_WM_NONREPARENTING=1                  # Java apps don’t support Wayland natively
 export XCURSOR_THEME=Numix-Cursor-Light               # Cursor theme for Xwayland
 export XCURSOR_SIZE=24                                # Cursor size for Xwayland
-export WLR_NO_HARDWARE_CURSORS=1                      # idk just copied recklessly
-export MOZ_DISABLE_RDD_SANDBOX=1                      # idk just copied recklessly
+export WLR_NO_HARDWARE_CURSORS=1                      # Cursor doesn't need hardware
+export MOZ_DISABLE_RDD_SANDBOX=1                      # Disable RDD sandbox in firefox
 
 exec Hyprland
