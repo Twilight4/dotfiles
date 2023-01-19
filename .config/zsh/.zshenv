@@ -8,8 +8,8 @@ export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"      # Xauth file
 
 # User-specific environment variables (system-wide are located in /etc/environment)
-export EDITOR="emacs"
-export VISUAL="emacs"
+export EDITOR="nvim"
+export VISUAL="nvim"
 export TERMINAL="footclient"
 export BROWSER="librewolf"
 
@@ -63,7 +63,12 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-# Custom vars
+# Nnn
+export NNN_BMS="h:~;d:~/Documents;D:~/Downloads;w:~/.config/hypr/wallpapers;m:~/Music/"
+export NNN_TRASH=1
+export NNN_PLUG='o:fzopen;x:!chmod +x $nnn'
+
+# Clean up
 export PAYLOADS="/usr/share/payloads"
 export SECLISTS="$PAYLOADS/SecLists"
 export PAYLOADSALLTHETHINGS="$PAYLOADS/PayloadsAllTheThings"
