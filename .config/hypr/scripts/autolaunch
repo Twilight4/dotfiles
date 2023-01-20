@@ -2,13 +2,13 @@
 
 ###### class name && binary name ######
 ## workspace 1 - in autostart.conf for delay fix
-#hyprctl keyword windowrule "workspace 1 silent,kitty" && hyprctl dispatch exec "kitty -1"
+hyprctl keyword windowrule "workspace 1 silent,casual-kitty" && hyprctl dispatch exec "kitty -1 -T casual-kitty --class casual-kitty --session ~/.config/kitty/ws-1-session"
 
 # workspace 2
 hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch exec "librewolf"
 
 # workspace 3
-hyprctl keyword windowrule "workspace 3 silent,kitty2" && hyprctl dispatch exec "kitty -T kitty2 --class kitty2"
+hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch exec "kitty -1 -T hacker-kitty --class hacker-kitty --session ~/.config/kitty/ws-3-session"
 
 # workspace 4
 #hyprctl keyword windowrule "workspace 4 silent,emacsone" && hyprctl dispatch exec "emacsclient -c -a "" --frame-parameters='(quote (name . "emacsone"))'"
@@ -27,8 +27,9 @@ hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl
 sleep 15      # wait untill apps run
 
 # unset by class name
+hyprctl keyword windowrule "unset,casual-kitty"
 hyprctl keyword windowrule "unset,LibreWolf"
-hyprctl keyword windowrule "unset,kitty2"
+hyprctl keyword windowrule "unset,hacker-kitty"
 #hyprctl keyword windowrule "unset,emacsone"
 hyprctl keyword windowrule "unset,ncmpcpp"
 hyprctl keyword windowrule "unset,cava"
