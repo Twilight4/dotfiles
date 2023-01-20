@@ -1,7 +1,7 @@
 #! /bin/sh
 
 ###### class name && binary name ######
-## workspace 1 - in autostart.conf for delay fix
+## workspace 1
 hyprctl keyword windowrule "workspace 1 silent,casual-kitty" && hyprctl dispatch exec "kitty -1 -T casual-kitty --class casual-kitty --session ~/.config/kitty/ws-1-session"
 
 # workspace 2
