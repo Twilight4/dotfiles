@@ -18,7 +18,7 @@
 | **Session Manager**            |     [archlinux-logout](https://github.com/arcolinux/archlinux-logout/)   |
 |  **Notifications**             |     [Mako](https://github.com/emersion/mako)               |
 |   **Web Browser**              |     [Librewolf](https://librewolf.net/) / [Qutebrowser](https://qutebrowser.org/)   |
-|     **Terminal**               |     [Foot](https://codeberg.org/dnkl/foot)                 |
+|     **Terminal**               |     [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)                 |
 |   **Terminal Multiplexer**     |     [Tmux](https://github.com/tmux/tmux)                   |
 |  **Editor**                    | [Neovim](https://github.com/neovim/neovim)                 |
 |  **Colorscheme**               | [Selenized Dark](https://github.com/jan-warchol/selenized) |
