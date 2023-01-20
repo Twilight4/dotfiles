@@ -1,25 +1,25 @@
 #! /bin/sh
 
 ###### class name && binary name ######
-# workspace 1
-hyprctl keyword windowrule "workspace 1 silent,foot" && hyprctl dispatch exec "footclient"
+## workspace 1 - in autostart.conf for delay fix
+#hyprctl keyword windowrule "workspace 1 silent,kitty" && hyprctl dispatch exec "kitty -1"
 
 # workspace 2
 hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch exec "librewolf"
 
 # workspace 3
-hyprctl keyword windowrule "workspace 3 silent,foot2" && hyprctl dispatch exec "footclient -T foot2 -a foot2"
+hyprctl keyword windowrule "workspace 3 silent,kitty2" && hyprctl dispatch exec "kitty -T kitty2 --class kitty2"
 
 # workspace 4
 #hyprctl keyword windowrule "workspace 4 silent,emacsone" && hyprctl dispatch exec "emacsclient -c -a "" --frame-parameters='(quote (name . "emacsone"))'"
 
 # workspace 5
-hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "alacritty --class cava -e cava"
-hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "alacritty --class ncmpcpp -e ncmpcpp"
-hyprctl keyword windowrule "workspace 5 silent,clock" && hyprctl dispatch exec 'alacritty --class clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d"'
+hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "footclient -T cava -a cava -e cava"
+hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp"
+hyprctl keyword windowrule "workspace 5 silent,clock" && hyprctl dispatch exec 'footclient -T clock -a clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d"'
 
 # workspace special:scratchpad
-hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl dispatch exec "alacritty --class btop -e btop"
+hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl dispatch exec "footcilent -T btop -a btop -e btop"
 
 # workspace special:work
 #hyprctl keyword windowrule "workspace special:work silent,emacstwo" && hyprctl dispatch exec "emacsclient -c -a "" --frame-parameters='(quote (name . "emacstwo"))'"
@@ -27,9 +27,8 @@ hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl
 sleep 15      # wait untill apps run
 
 # unset by class name
-hyprctl keyword windowrule "unset,foot"
 hyprctl keyword windowrule "unset,LibreWolf"
-hyprctl keyword windowrule "unset,foot2"
+hyprctl keyword windowrule "unset,kitty2"
 #hyprctl keyword windowrule "unset,emacsone"
 hyprctl keyword windowrule "unset,ncmpcpp"
 hyprctl keyword windowrule "unset,cava"
