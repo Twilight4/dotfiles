@@ -72,14 +72,6 @@ bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
 bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
-# make C-g scroll the current content up and clear the screen
-scroll-and-clear-screen() {
-    printf '\n%.0s' {1..$LINES}
-    zle clear-screen
-}
-zle -N scroll-and-clear-screen
-bindkey '^g' scroll-and-clear-screen
-
 # Improved backward kill word
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
