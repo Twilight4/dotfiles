@@ -1,5 +1,13 @@
 #!/usr/bin/env zsh
 
+# make C-g scroll the current content up and clear the screen
+scroll-and-clear-screen() {
+    printf '\n%.0s' {1..$LINES}
+    zle clear-screen
+}
+zle -N scroll-and-clear-screen
+bindkey '^g' scroll-and-clear-screen
+
 # # ex = EXtractor for all kinds of archives
 # # usage: ex <file>
 ex ()
