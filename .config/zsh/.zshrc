@@ -70,7 +70,6 @@ bindkey '^Z' fg-bg
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + g
 bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
-bindkey '^x' fzf-cd-widget   #bind ctrl+x to do the same as alt+c in fzf
 
 # Improved backward kill word
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
