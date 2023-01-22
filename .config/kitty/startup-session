@@ -1,3 +1,4 @@
+enabled_layouts grid,fat,splits,stack
 # Set the layout for the current tab
 layout grid
 # Set the working directory for windows in the current tab
@@ -15,7 +16,7 @@ launch --title "Chat with x" irssi --profile x
 new_tab casual-tab
 cd ~/Documents
 # Set the layouts allowed in this tab
-enabled_layouts tall,stack
+enabled_layouts grid,fat,splits,stack
 # Set the current layout
 layout stack
 launch zsh
