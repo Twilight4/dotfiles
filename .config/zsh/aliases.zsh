@@ -1,17 +1,23 @@
 #!/usr/bin/env zsh
 
 # ls to lsd
-alias l='lsd'
-alias ls='lsd -l'
-alias la='lsd -lA'
-alias lt='lsd --tree'
-alias lx='lsd -lXBh'                # sort by extension
-alias lk='lsd -lSrh'                # sort by size
-alias lc='lsd -lcrh'                # sort by change time
-alias lu='lsd -lurh'                # sort by access time
-alias lm='lsd -alh |more'           # pipe through 'more'
-alias lf="lsd -l | egrep -v '^d'"   # files only
-alias ldir="lsd -l | egrep '^d'"    # directories only
+alias l='lsd --hyperlink=auto'
+alias ls='lsd -l --hyperlink=auto'
+alias la='lsd -lA --hyperlink=auto'
+alias lt='lsd --tree --hyperlink=auto'
+alias lx='lsd -lXBh --hyperlink=auto'                # sort by extension
+alias lk='lsd -lSrh --hyperlink=auto'                # sort by size
+alias lc='lsd -lcrh --hyperlink=auto'                # sort by change time
+alias lu='lsd -lurh --hyperlink=auto'                # sort by access time
+alias lm='lsd -alh |more --hyperlink=auto'           # pipe through 'more'
+alias lf="lsd -l | egrep -v '^d' --hyperlink=auto"   # files only
+alias ldir="lsd -l | egrep '^d' --hyperlink=auto"    # directories only
+
+# kitty icat
+alias icat='kitty +kitten icat'
+
+# kitty diff
+alias diff="kitty +kitten diff"
 
 # xcp instead of cp
 alias cp='xcp'
