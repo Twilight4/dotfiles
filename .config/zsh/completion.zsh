@@ -28,6 +28,9 @@ _comp_options+=(globdots) # With hidden files
 # See $DOTFILES/zsh/scripts.zsh
 compdef vman="man"
 
+# load wrapper script for hyperlinked grep
+compdef _rg hg
+
 # +---------+
 # | Options |
 # +---------+
