@@ -20,6 +20,9 @@ alias icat='kitty +kitten icat'
 alias diff="kitty +kitten diff"
 alias gdiff="git difftool --no-symlinks --dir-diff"
 
+# kitty hyperlinked grep
+alias hg="kitty +kitten hyperlinked_grep"
+
 # xcp instead of cp
 alias cp='xcp'
 
