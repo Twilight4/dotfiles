@@ -115,7 +115,6 @@ install-dotfiles() {
     sudo chmod 755 $XDG_CONFIG_HOME/rofi/launcher/launcher.sh
     sudo chmod 755 $XDG_CONFIG_HOME/rofi/wifi/wifi
     sudo chmod 755 $XDG_CONFIG_HOME/zsh/bash-scripts/*.sh
-    git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     git config --global user.email "electrolight071@gmail.com"
     git config --global user.name "Twilight4"
         
