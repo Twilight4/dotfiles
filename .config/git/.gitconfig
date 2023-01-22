@@ -1,5 +1,13 @@
+[diff]
+    tool = kitty
+    guitool = kitty.gui
+[difftool]
+    prompt = false
+    trustExitCode = true
+[difftool "kitty"]
+    cmd = kitty +kitten diff $LOCAL $REMOTE
+[difftool "kitty.gui"]
+    cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [user]
         email = electrolight071@gmail.com
         name = Twilight4
-[core]
-        pager = diff-so-fancy | less --tabs=4 -RFX
