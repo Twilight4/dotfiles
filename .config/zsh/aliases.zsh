@@ -13,12 +13,15 @@ alias lm='lsd -alh |more --hyperlink=auto'           # pipe through 'more'
 alias lf="lsd -l | egrep -v '^d' --hyperlink=auto"   # files only
 alias ldir="lsd -l | egrep '^d' --hyperlink=auto"    # directories only
 
-# kitty icat
+# icat kitten
 alias icat='kitty +kitten icat'
 
-# kitty diff
+# diff kitten
 alias diff="kitty +kitten diff"
 alias gdiff="git difftool --no-symlinks --dir-diff"
+
+# ssh kitten
+alias s="kitty +kitten ssh"
 
 # xcp instead of cp
 alias cp='xcp'
