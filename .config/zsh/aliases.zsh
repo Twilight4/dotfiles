@@ -18,6 +18,7 @@ alias icat='kitty +kitten icat'
 
 # kitty diff
 alias diff="kitty +kitten diff"
+alias gdiff="git difftool --no-symlinks --dir-diff"
 
 # xcp instead of cp
 alias cp='xcp'
