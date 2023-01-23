@@ -17,7 +17,7 @@ bindkey -v
 ## Yank to the system clipboard - if plugin wouldn't work
 #function vi-yank-clip {
 #    zle vi-yank
-#   echo "$CUTBUFFER" | wl-copy -p
+#   echo "$CUTBUFFER" | wl-copy -p -n
 #}
 #zle -N vi-yank-clip
 #bindkey -M vicmd 'y' vi-yank-clip
