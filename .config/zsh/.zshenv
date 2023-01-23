@@ -69,7 +69,7 @@ export NNN_TRASH=1
 export NNN_PLUG='o:fzopen;c:fcd;z:jump;p:preview-tui;t:preview-tabbed;i:imgview;v:vidthumb;d:dragd;x:!chmod +x $nnn'
 export NNN_FIFO='/tmp/nnn.fifo'
 
-# Clean up
+# Payloads vars
 export PAYLOADS="/usr/share/payloads"
 export SECLISTS="$PAYLOADS/SecLists"
 export PAYLOADSALLTHETHINGS="$PAYLOADS/PayloadsAllTheThings"
