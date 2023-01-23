@@ -11,6 +11,18 @@ zmodload zsh/terminfo
 
 typeset -A -H vim_mode_special_keys
 
+# vi mode
+bindkey -v
+
+## Yank to the system clipboard - if plugin wouldn't work
+#function vi-yank-clip {
+#    zle vi-yank
+#   echo "$CUTBUFFER" | wl-copy -n
+#}
+#zle -N vi-yank-clip
+#bindkey -M vicmd 'y' vi-yank-clip
+
+
 function vim-mode-define-special-key () {
     local name="$1" tiname="$2"
     local -a seqs
@@ -21,15 +33,6 @@ function vim-mode-define-special-key () {
     done
     vim_mode_special_keys[$name]=${${(uOqqq)seqs}}
 }
-
-# These are for alacritty
-vim-mode-define-special-key Home       khome "^[[1~" "^[[H"
-vim-mode-define-special-key End        kend  "^[[4~" "^[[F"
-vim-mode-define-special-key PgUp       kpp   "^[[5~"
-vim-mode-define-special-key PgDown     knp   "^[[6~"
-vim-mode-define-special-key Insert     kich1 "^[[2~"
-vim-mode-define-special-key Delete     kdch1 "^[[3~"
-vim-mode-define-special-key Shift-Tab  kcbt  "^[[Z"
 
 # + vim-mode-bindkey {{{1
 function vim-mode-bindkey () {
