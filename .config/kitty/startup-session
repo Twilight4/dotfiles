@@ -5,6 +5,8 @@ layout grid
 cd ~
 # Create a window with zsh
 launch zsh
+# Launch nnn in a new window
+launch nnn -e
 # Create a window with nvim (don't use aliases)
 launch nvim
 # Set the title for the next window
