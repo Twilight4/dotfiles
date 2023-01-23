@@ -43,6 +43,9 @@ install-apps() {
     yay -S --noconfirm $(cat /tmp/yaylist)
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
     
+    # plugins for nnn file manager
+    sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
+    
     # this app is unavailable in arch repos
     pip install github-clone
     mv ~/.local/bin/ghclone /usr/local/bin
