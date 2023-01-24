@@ -110,7 +110,7 @@
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
   "custom/updater":{
     "format": "{}",
-    "exec": "~/.config/waybar/scripts/check-updates.sh",
+    "exec": "$HOME/.config/waybar/scripts/check-updates.sh",
     "exec-if": "[[ $($HOME/.config/waybar/scripts/check-updates.sh) ]]",
     "interval": 300,
   },
