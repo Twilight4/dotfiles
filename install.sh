@@ -141,11 +141,10 @@ EOF
 echo 'Post-Installation:
 - NOW ISSUE THIS COMMAND AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
-- reload tpm: ctrl + a + shift + i and hit q
+-- reload tmux plugin manager: ctrl + a + shift + i and hit q
 - to check if profile sync daemon is running type command: psd p
 - to scan for hardware thermal sensors - configure with sensors-detect
-- to check installed wifi chipset you can issue a command: sudo hwinfo --network | grep Driver
-- you can now refresh/fix keyrings with: SUPER + SHIFT + U
+- after reboot you can refresh/fix keyrings with: SUPER + SHIFT + U
 - now you reboot: systemctl reboot -i
 '
 }
