@@ -40,8 +40,8 @@ install-yay() {
 }
 
 install-apps() {
-    yay -S --noconfirm $(cat /tmp/yaylist)
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
+    yay -S --noconfirm $(cat /tmp/yaylist)
     
     # plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
