@@ -111,7 +111,7 @@
   "custom/updater":{
     "format": "{}",
     "exec": "~/.config/waybar/scripts/check-updates.sh",
-    "exec-if": "[[ $($HOME/.config/hypr/scripts/check-updates.sh) ]]",
+    "exec-if": "[[ $($HOME/.config/waybar/scripts/check-updates.sh) ]]",
     "interval": 300,
   },
 
