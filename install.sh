@@ -5,7 +5,7 @@ run() {
     update-system
     download-paclist
     download-yaylist
-    #install-yay
+    install-yay
     install-apps
     #enable-blackarch
     #create-directories
@@ -30,14 +30,14 @@ download-yaylist() {
     echo $yaylist_path
 }
 
-#install-yay() {
-#    sudo pacman -S --noconfirm git
-#    git clone https://aur.archlinux.org/yay-bin \
-#    && cd yay-bin \
-#    && makepkg --noconfirm -si \
-#    && cd - \
-#    && rm -rf yay-bin
-#}
+install-yay() {
+    sudo pacman -S --noconfirm git
+    git clone https://aur.archlinux.org/yay-bin \
+    && cd yay-bin \
+    && makepkg --noconfirm -si \
+    && cd - \
+    && rm -rf yay-bin
+}
 
 install-apps() {
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
