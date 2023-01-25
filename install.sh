@@ -46,10 +46,12 @@ install-apps() {
     # plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
     
-    # this app is unavailable in arch repos
+    # these apps are unavailable in arch repos
     pip install github-clone
     mv ~/.local/bin/ghclone /usr/local/bin
-            
+    sudo wget https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.01-01-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
+    sudo pacman -U --noconfirm --needed /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
+    
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
     
