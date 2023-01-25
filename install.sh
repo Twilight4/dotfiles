@@ -134,20 +134,17 @@ EOF
 
 # SDDM autologin setting
 sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
-[Autologin]
-Session=hyprland
-User=twilight
+# Use autologin if have problems with sddm
+#[Autologin]
+#Session=hyprland
+#User=twilight
 
-# I wish it worked
-#[General]
-#DisplayServer=wayland
-
-#[Theme]
-#Current=aerial
-#CursorSize=24
-#CursorTheme=Numix-Cursor-Light
-#Font=Sans
-#ThemeDir=/usr/share/sddm/themes
+[Theme]
+Current=aerial
+CursorSize=24
+CursorTheme=Numix-Cursor-Light
+Font=Sans
+ThemeDir=/usr/share/sddm/themes
 EOF
     
 # tmux plugin manager
