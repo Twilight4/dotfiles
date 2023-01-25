@@ -59,12 +59,16 @@ install-apps() {
     sudo gpasswd -a "$(whoami)" plugdev
     
     # mpd group
-    sudo gpasswd -a mpd "$(whoami)"
+    sudo gpasswd -a "$(whoami)" mpd
     sudo chmod 710 "/home/$(whoami)"
     
     # audit group
     sudo groupadd -r audit
     sudo gpasswd -a "$(whoami)" audit
+    
+    # autologin group for sddm
+    sudo groupadd autologin
+    sudo gpasswd -a "$(whoami)" autologin
       
     ## for Docker
     #gpasswd -a "$name" docker
