@@ -132,7 +132,7 @@ Exec="$HOME/.config/hypr/scripts/starth"
 Type=Application
 EOF
 
-# SDDM autologin setting
+# SDDM rice
 sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
 # Use autologin if have problems with sddm
 #[Autologin]
@@ -146,6 +146,13 @@ CursorTheme=Numix-Cursor-Light
 Font=Sans
 ThemeDir=/usr/share/sddm/themes
 EOF
+
+# Grub rice
+git clone https://github.com/HenriqueLopes42/themeGrub.CyberEXS
+mv themeGrub.CyberEXS CyberEXS
+sudo mv CyberEXS /boot/grub/themes/
+sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
     
 # tmux plugin manager
 [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
