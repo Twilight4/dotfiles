@@ -110,8 +110,8 @@ install-dotfiles() {
     systemctl --user enable greenclip.service                                         # enable cliphistory daemon
     systemctl --user enable mpd.service                                               # mpd daemon
     systemctl --user enable psd.service                                               # profile sync daemon
-    systemctl --user enable vnstat.service                                            # network traffic monitor
     #systemctl --user enable emacs.service                                             # enable emacs server daemon
+    sudo systemctl enable vnstat.service                                              # network traffic monitor
     sudo systemctl enable ananicy.service                                             # enable ananicy daemon 
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
     # enable performance and security tweaks
