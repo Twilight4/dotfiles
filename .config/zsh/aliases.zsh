@@ -23,9 +23,6 @@ alias gdiff="git difftool --no-symlinks --dir-diff"
 # ssh kitten
 alias s="kitty +kitten ssh"
 
-# xcp instead of cp
-alias cp='xcp'
-
 # Alias's to modified commands
 alias mkdir='mkdir -p'
 alias ping='ping -c 5'        
