@@ -109,6 +109,7 @@ install-dotfiles() {
     sudo systemctl enable ananicy.service                                             # enable ananicy daemon 
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
     # enable performance and security tweaks
+    sudo systemctl enable sddm
     sudo systemctl enable auditd
     sudo systemctl enable apparmor
     sudo systemctl enable firewalld
