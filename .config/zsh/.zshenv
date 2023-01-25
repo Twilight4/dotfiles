@@ -68,6 +68,7 @@ export NNN_BMS="h:~;d:~/Documents;D:~/Downloads;w:~/.config/hypr/wallpapers;m:~/
 export NNN_TRASH=1
 export NNN_PLUG='o:fzopen;c:fzcd;z:jump;p:preview-tui;t:preview-tabbed;i:imgview;v:vidthumb;d:dragd;x:!chmod +x $nnn'
 export NNN_FIFO='/tmp/nnn.fifo'
+export SPLIT='v'
 
 # Payloads vars
 export PAYLOADS="/usr/share/payloads"
