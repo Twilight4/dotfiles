@@ -88,6 +88,8 @@ install-dotfiles() {
     fi
     
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
+    mkdir -p "$HOME/.config/.local/share"
+    sudo mv /tmp/dotfiles/.config/.local/share/fonts "$HOME/.config/.local/share/"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
     sudo rm "/home/$(whoami)/.config/.local/share/fonts/README.md"
