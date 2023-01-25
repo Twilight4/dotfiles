@@ -16,7 +16,7 @@ launch --title "Chat with x" irssi --profile x
 # The part after new_tab is the optional tab title which will be displayed in
 # the tab bar, if omitted, the title of the active window will be used instead.
 new_tab casual-tab
-cd ~/Documents
+cd ~
 # Set the layouts allowed in this tab
 enabled_layouts grid,fat,splits,stack
 # Set the current layout
