@@ -29,6 +29,9 @@ setopt nobeep               # No beep
 # Colors
 autoload -Uz colors && colors
 
+# Jump plugin
+eval "$(jump shell --bind=j)"
+
 # Profiling
 zmodload zsh/zprof
 
