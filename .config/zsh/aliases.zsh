@@ -25,7 +25,7 @@ alias s="kitty +kitten ssh"
 
 # Alias's to modified commands
 alias mkdir='mkdir -p'
-alias ping='ping -c 5'        
+alias ping='prettyping -c 5'        
 alias less='less -R'
 alias svi='sudo vi'
 alias train='sl | lolcat'
