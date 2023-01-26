@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mkdir -p ~/.trash
+mkdir ~/.trash
 while read file
 do
         case "$1" in
