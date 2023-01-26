@@ -156,6 +156,9 @@ alias rg="rg --sort path"
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
 
+# fun
+alis cmatrix="cmatrix -a"
+
 # adding flags
 alias df='df -h'     # human-readable sizes
 alias free='free -m' # show sizes in MB
