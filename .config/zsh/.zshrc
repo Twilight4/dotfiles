@@ -48,6 +48,8 @@ zsh_add_file "bindings.zsh"
 zsh_add_file "vim-mode"
 zsh_add_file "cursor-mode"
 zsh_add_file "bd.zsh"
+# Source plugins that are not sourced automatically
+zsh_add_file "web-search/web_search.plugin.zsh"
 # Source prompt
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
@@ -56,8 +58,7 @@ zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
 zsh_add_plugin "kutsan/zsh-system-clipboard"
-#zsh_add_plugin "sinetoami/web-search"
-#zsh_add_plugin "ohmyzsh/copybuffer"
+zsh_add_plugin "sineto/web-search"
 zsh_add_plugin "unixorn/prettyping"
 zsh_add_plugin "zshzoo/copier"
 zsh_add_completion "zsh-users/zsh-completions"
