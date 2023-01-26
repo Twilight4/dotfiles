@@ -97,7 +97,7 @@ install-dotfiles() {
     sudo rm /home/$(whoami)/.bash*
     sudo mkdir -p ~/.config/.local/share/mpd
     sudo chmod 755 $XDG_CONFIG_HOME/hypr/scripts/*
-    sudo chmod 755 $XDG_CONFIG_HOME/nsxiv/*
+    sudo chmod 755 $XDG_CONFIG_HOME/zsh/plugins/web-search/web_search.plugin.zsh
     sudo chmod 755 $XDG_CONFIG_HOME/waybar/scripts/*
     sudo chmod 755 $HOME/.config/rofi/applets/bin/*
     sudo chmod 755 $XDG_CONFIG_HOME/rofi/applets/shared/theme.bash
