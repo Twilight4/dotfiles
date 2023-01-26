@@ -24,7 +24,7 @@ alias gdiff="git difftool --no-symlinks --dir-diff"
 alias s="kitty +kitten ssh"
 
 # nnn
-alias nnn="nnn -e"
+alias nnn="nnn -Ra"
 
 # Alias's to modified commands
 alias mkdir='mkdir -p'
