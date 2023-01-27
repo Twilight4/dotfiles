@@ -42,9 +42,9 @@ return packer.startup(function(use)
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
   use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
-  use 'windwp/nvim-autopairs'
-  use 'norcalli/nvim-colorizer.lua'
-  use 'folke/zen-mode.nvim'
+  use 'windwp/nvim-autopairs' -- auto closing
+  use 'norcalli/nvim-colorizer.lua' -- a high-performance color highlighter
+  use 'folke/zen-mode.nvim' -- distraction-free mode
   --use 'wellle/tmux-complete.vim'
   --use 'tmux-plugins/vim-tmux'
   --use 'tmux-plugins/vim-tmux-focus-events'
@@ -52,11 +52,11 @@ return packer.startup(function(use)
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
   })
-  use 'akinsho/nvim-bufferline.lua'
+  use 'akinsho/nvim-bufferline.lua' -- a snazzy bufferline
   -- use 'github/copilot.vim'
 
-  use 'lewis6991/gitsigns.nvim'
-  use 'dinhhuy258/git.nvim' -- For git blame & browse
+  use 'lewis6991/gitsigns.nvim' -- git integration
+  use 'dinhhuy258/git.nvim' -- for git blame & browse
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
