@@ -27,18 +27,11 @@ keymap.set('n', '<C-a>', 'gg<S-v>G')
 -- Better paste
 keymap.set('v', 'p', '"_dP')
 
--- Buffers
-keymap.set('n','<S-h>', ':badd ') -- add new buffer, type filename
-keymap.set('n','<S-l>', ':ls!<CR>') -- list all buffers
-keymap.set('n', '<S-j>', ':bnext<CR>') -- buffer next
-keymap.set('n', '<S-k>', ':bprevious<CR>') -- buffer previous
-keymap.set('n', '<S-q>', '<cmd>bdel!<CR>') -- close active buffer
-
 -- Split window
 keymap.set('n', 'sv', '<C-w>v') -- split window vertically
 keymap.set('n', 'ss', '<C-w>s') -- split window horizontally
-keymap.set('n', 'se', '<C-w>=') -- make split windows equal width & height
 keymap.set('', 'sx', ':close<CR>') -- close current split window
+keymap.set('n', 'se', '<C-w>=') -- make split windows equal width & height
 -- Resize window
 keymap.set('n', 'zk', ':resize -3<CR>')
 keymap.set('n', 'zj', ':resize +3<CR>')
