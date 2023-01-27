@@ -1,4 +1,8 @@
-local status, gitsigns = pcall(require, "gitsigns")
-if (not status) then return end
+-- import gitsigns plugin safely
+local setup, gitsigns = pcall(require, "gitsigns")
+if not setup then
+  return
+end
 
-gitsigns.setup {}
+-- configure/enable gitsigns
+gitsigns.setup()
