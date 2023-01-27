@@ -21,7 +21,7 @@
 |     **Terminal**               |     [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)                 |
 |   **Terminal Multiplexer**     |     [Tmux](https://github.com/tmux/tmux)                   |
 |  **Editor**                    | [Neovim](https://github.com/neovim/neovim)                 |
-|  **Colorscheme**               | [Selenized Dark](https://github.com/jan-warchol/selenized) |
+|  **Colorscheme**               | [Nightfly](https://github.com/bluz71/vim-nightfly-colors) |
 |  **Shell**                     | [Zsh](https://github.com/zsh-users) / [Fzf](https://github.com/junegunn/fzf) |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
 |  **Fonts**                     |     [Nerd Font](https://www.nerdfonts.com/)                |
