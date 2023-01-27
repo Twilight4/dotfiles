@@ -1,4 +1,4 @@
-require('comment')
+require('Comment')
 require('nvim-tree')
 require('colorscheme')
 require('lualine')
