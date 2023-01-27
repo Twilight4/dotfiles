@@ -45,6 +45,9 @@ return packer.startup(function(use)
   use 'windwp/nvim-autopairs' -- auto closing
   use 'norcalli/nvim-colorizer.lua' -- a high-performance color highlighter
   use 'folke/zen-mode.nvim' -- distraction-free mode
+  use 'lewis6991/gitsigns.nvim' -- git integration
+  use 'dinhhuy258/git.nvim' -- for git blame & browse
+  use 'akinsho/nvim-bufferline.lua' -- a snazzy bufferline
   --use 'wellle/tmux-complete.vim'
   --use 'tmux-plugins/vim-tmux'
   --use 'tmux-plugins/vim-tmux-focus-events'
@@ -52,11 +55,6 @@ return packer.startup(function(use)
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
   })
-  use 'akinsho/nvim-bufferline.lua' -- a snazzy bufferline
-  -- use 'github/copilot.vim'
-
-  use 'lewis6991/gitsigns.nvim' -- git integration
-  use 'dinhhuy258/git.nvim' -- for git blame & browse
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
