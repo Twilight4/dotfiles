@@ -24,6 +24,7 @@ vim.cmd([[
 -- Use a protected call so we don't error out on first use
 local status, packer = pcall(require, "packer")
 if not status then
+  print("Packer is not installed")
   return
 end
 
