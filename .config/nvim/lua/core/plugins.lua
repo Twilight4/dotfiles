@@ -32,26 +32,23 @@ return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
     
   use 'szw/vim-maximizer' -- maximizes and restores current window
-  use 'christoomey/vim-tmux-navigator' -- tmux & split window navigation  
+  --use 'christoomey/vim-tmux-navigator' -- tmux & split window navigation  
   use 'tpope/vim-surround' -- add, delete, change surroundings
   use 'vim-scripts/ReplaceWithRegister' -- replace with register contents using motion (gr + motion)
   use 'numToStr/Comment.nvim' -- commenting with gc
   use 'nvim-lua/plenary.nvim' -- lua functions that many plugins use
   use 'nvim-tree/nvim-tree.lua' -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- file icons
-  use {
-    'svrana/neosolarized.nvim',
-    requires = { 'tjdevries/colorbuddy.nvim' }
-  }
+  use("bluz71/vim-nightfly-guicolors") -- preferred colorscheme
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
   use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
   use 'windwp/nvim-autopairs'
   use 'norcalli/nvim-colorizer.lua'
   use 'folke/zen-mode.nvim'
-  use 'wellle/tmux-complete.vim'
-  use 'tmux-plugins/vim-tmux'
-  use 'tmux-plugins/vim-tmux-focus-events'
+  --use 'wellle/tmux-complete.vim'
+  --use 'tmux-plugins/vim-tmux'
+  --use 'tmux-plugins/vim-tmux-focus-events'
   use({
     "iamcco/markdown-preview.nvim",
     run = function() vim.fn["mkdp#util#install"]() end,
