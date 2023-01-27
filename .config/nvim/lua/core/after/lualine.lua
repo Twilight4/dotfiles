@@ -13,7 +13,7 @@ local new_colors = {
   green = "#3EFFDC",
   yellow = "#FFDA7B",
   black = "#000000",
-  cyan = "#7fdbca",
+  cyan = "#b2ceee",
 }
 
 -- change nightlfy theme colors
