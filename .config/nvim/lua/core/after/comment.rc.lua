@@ -1,5 +1,5 @@
 -- import comment plugin safely
-local setup, comment = pcall(require, 'Comment')
+local setup, comment = pcall(require, 'comment')
 if not setup then
   return
 end
