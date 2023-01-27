@@ -6,8 +6,13 @@ local opts = { silent = true }
 -- Clear search highlights
 keymap.set('n', 'nh', ':nohl<CR>')
 
--- Do not yank with x
+-- Use only 'y' to yank
 keymap.set('n', 'x', '"_x')
+keymap.set('n', 'dw', '"_dw')
+keymap.set('n', 'de', '"_de')
+keymap.set('n', 'dd', '"_dd')
+keymap.set('n', 's', '"_s')
+keymap.set('n', 'S', '"_S')
 
 -- Increment/decrement with +/-
 keymap.set('n', '+', '<C-a>')
