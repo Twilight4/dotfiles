@@ -30,11 +30,11 @@ fi
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" Hack The Box"
-	option_2=" TryHackMe"
+	option_1=" TryHackMe"
+	option_2=" Hack The Box"
 	option_3=" PortSwigger"
-	option_4=" Proving Grounds"
-	option_5=" PentesterLab"
+	option_4=" PentesterLab"
+	option_5=" Proving Grounds"
 	option_6=" Root Me"
 	option_7=" PWNX"
 else
@@ -67,15 +67,15 @@ run_rofi() {
 # Execute Command
 run_cmd() {
 	if [[ "$1" == '--opt1' ]]; then
-		xdg-open 'https://www.hackthebox.com/'
-	elif [[ "$1" == '--opt2' ]]; then
 		xdg-open 'https://tryhackme.com/'
+	elif [[ "$1" == '--opt2' ]]; then
+		xdg-open 'https://www.hackthebox.com/'
 	elif [[ "$1" == '--opt3' ]]; then
 		xdg-open 'https://portswigger.net/web-security/all-labs'
 	elif [[ "$1" == '--opt4' ]]; then
-		xdg-open 'https://www.offensive-security.com/labs/'
-	elif [[ "$1" == '--opt5' ]]; then
 		xdg-open 'https://pentesterlab.com/'
+	elif [[ "$1" == '--opt5' ]]; then
+		xdg-open 'https://www.offensive-security.com/labs/'
 	elif [[ "$1" == '--opt6' ]]; then
 		xdg-open 'https://www.root-me.org/?lang=en/'
 	elif [[ "$1" == '--opt7' ]]; then
