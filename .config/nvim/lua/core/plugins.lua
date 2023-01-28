@@ -85,6 +85,17 @@ return packer.startup(function(use)
     'iamcco/markdown-preview.nvim',
     run = function() vim.fn['mkdp#util#install']() end,
   })
+		
+  -- [[ Highlight on yank ]]
+  -- See `:help vim.highlight.on_yank()`
+  local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+  vim.api.nvim_create_autocmd('TextYankPost', {
+    callback = function()
+      vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
