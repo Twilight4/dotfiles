@@ -52,6 +52,8 @@ return packer.startup(function(use)
   use 'akinsho/nvim-bufferline.lua' -- a snazzy bufferline
   use 'junegunn/fzf' -- fzf integration
   use 'junegunn/fzf.vim' -- fzf integration
+  use 'simeji/winresizer' -- toggle resize mode for windows
+  use 'simnalamburt/vim-mundo' -- show the vim undo tree
   --use 'wellle/tmux-complete.vim'
   --use 'tmux-plugins/vim-tmux'
   --use 'tmux-plugins/vim-tmux-focus-events'
