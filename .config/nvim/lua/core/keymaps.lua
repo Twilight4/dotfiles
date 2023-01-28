@@ -106,3 +106,19 @@ keymap.set('n', 'zt', ':ToggleTerm size=40 dir=~/Desktop direction=horizontal<CR
 keymap.set('n', '<leader>p', ':PasteImg <CR>')
 keymap.set('n', '<leader>n', ':ASToggle<CR>')
 keymap.set('n', '<leader>m', ':MarkdownPreviewToggle<CR>')
+
+-- Git integration with fugitive, gitsigns and rhubarb
+keymap.set({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+keymap.set({'n', 'v'}, '<leader>hs', ':Gitsigns reset_hunk<CR>')
+keymap.set('n', '<leader>hS', gs.stage_buffer)
+keymap.set('n', '<leader>ha', gs.stage_hunk)
+keymap.set('n', '<leader>hu', gs.undo_stage_hunk)
+keymap.set('n', '<leader>hR', gs.reset_buffer)
+keymap.set('n', '<leader>hp', gs.preview_hunk)
+keymap.set('n', '<leader>hb', function() gs.blame_line{full=true} end)
+keymap.set('n', '<leader>tb', gs.toggle_current_line_blame)
+keymap.set('n', '<leader>hd', gs.diffthis)
+keymap.set('n', '<leader>hD', function() gs.diffthis('~') end)
+keymap.set('n', '<leader>td', gs.toggle_deleted)
+-- Text object
+keymap.set({'o', 'x'}, 'ih', '<C-U>Gitsigns select_hunk<CR>')
