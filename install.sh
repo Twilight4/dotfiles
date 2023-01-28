@@ -110,7 +110,7 @@ install-dotfiles() {
     git config --global user.email "electrolight071@gmail.com"
     git config --global user.name "Twilight4"
     
-    # install doom emacs (need to be after cloned dotfiles)
+    # install doom emacs (has to be after cloned dotfiles)
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
     ~/.emacs.d/bin/doom install
     ~/.emacs.d/bin/doom sync
