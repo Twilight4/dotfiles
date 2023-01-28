@@ -12,13 +12,8 @@ keymap.set('', '<Space>', '<Nop>')
 -- Clear search highlights
 keymap.set('n', 'nh', ':nohl<CR>')
 
--- Use only 'y' to yank
+-- Use only 'y - copy' and 'd - cut' to yank
 keymap.set('n', 'x', '"_x')
-keymap.set('n', 'dw', '"_dw')
-keymap.set('n', 'de', '"_de')
-keymap.set('n', 'db', '"_db')
-keymap.set('n', 'dd', '"_dd')
-keymap.set('n', 'D', '"_D')
 keymap.set('n', 'cw', '"_cw')
 keymap.set('n', 'ce', '"_ce')
 keymap.set('n', 'cb', '"_cb')
