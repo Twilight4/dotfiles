@@ -49,6 +49,8 @@ return packer.startup(function(use)
   use 'folke/zen-mode.nvim' -- distraction-free mode
   use 'lewis6991/gitsigns.nvim' -- git integration
   use 'dinhhuy258/git.nvim' -- for git blame & browse
+  use 'tpope/vim-fugitive' -- git integration
+  use 'tpope/vim-rhubarb' -- git integration
   use 'akinsho/nvim-bufferline.lua' -- a snazzy bufferline
   use 'junegunn/fzf' -- fzf integration
   use 'junegunn/fzf.vim' -- fzf integration
