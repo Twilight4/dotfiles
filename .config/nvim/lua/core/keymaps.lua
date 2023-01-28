@@ -41,12 +41,7 @@ keymap.set('n', 'sv', '<C-w>v') -- split window vertically
 keymap.set('n', 'ss', '<C-w>s') -- split window horizontally
 keymap.set('n', 'sx', ':close<CR>') -- close current split window
 keymap.set('n', 'se', '<C-w>=') -- make split windows equal width & height
--- Resize window
-keymap.set('n', '<C-Up>', ':resize -3<CR>')
-keymap.set('n', '<C-Down>', ':resize +3<CR>')
-keymap.set('n', '<C-Left>', ':vertical resize -5<CR>')
-keymap.set('n', '<C-Right>', ':vertical resize +5<CR>')
--- Navigate windows with C-h/j/k/l (tmux plugin does it by default)
+-- Navigate windows with C-h/j/k/l - (tmux plugin does it by default)
 --keymap.set('', '<C-h>', '<C-w>h')
 --keymap.set('', '<C-k>', '<C-w>k')
 --keymap.set('', '<C-j>', '<C-w>j')
