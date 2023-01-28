@@ -58,6 +58,13 @@ return packer.startup(function(use)
   use 'junegunn/goyo.vim' -- changes the window on main focus
   use 'moll/vim-bbye' -- unfuck buffers
   use 'lewis6991/impatient.nvim' -- Speed up loading Lua modules 
+  use 'RRethy/vim-illuminate' -- Quick word search under cursor alt+p and alt+n
+  use {
+    'goolord/alpha-nvim',
+    config = function ()
+        require'alpha'.setup(require'alpha.themes.dashboard'.config)
+    end
+  }    
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end}
