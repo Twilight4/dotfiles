@@ -54,6 +54,8 @@ install-apps() {
     sudo mv ~/node_modules/.bin/* /usr/local/bin
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
     ~/.emacs.d/bin/doom install
+    ~/.emacs.d/bin/doom sync
+    emacs --batch -f all-the-icons-install-fonts
     
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
