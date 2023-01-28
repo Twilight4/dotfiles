@@ -103,3 +103,6 @@ keymap.set('n', 'zm', ':MundoToggle<CR>')
 
 -- Toggle Undo Tree
 keymap.set('n', 'zg', ':Goyo<CR>')
+
+-- Toggle Term
+keymap.set('n', 'zt', ':ToggleTerm size=40 dir=~/Desktop direction=horizontal<CR>')
