@@ -52,6 +52,8 @@ install-apps() {
     sudo pacman -U --noconfirm --needed /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     npm install git-file-downloader
     sudo mv ~/node_modules/.bin/* /usr/local/bin
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+    ~/.emacs.d/bin/doom install
     
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
