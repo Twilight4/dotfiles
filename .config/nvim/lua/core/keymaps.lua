@@ -110,3 +110,5 @@ keymap.set('n', 'zt', ':ToggleTerm size=40 dir=~/Desktop direction=horizontal<CR
 -- Other
 keymap.set('n', '<leader>p', ':PasteImg <CR>')
 keymap.set('n', '<leader>n', ':ASToggle<CR>')
+keymap.set('n', '<leader>m', '::MarkdownPreview<CR>')
+keymap.set('n', '<leader>ms', '::MarkdownPreviewStop<CR>')
