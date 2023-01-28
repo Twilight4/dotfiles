@@ -139,11 +139,21 @@ alias gp='git push'
 alias gitu='git add . && git commit && git push'
 
 # pacman and yay
+alias pacs='sudo pacman -S'                      # Install package faster
+alias yays='pacman -S'                           # Install AUR package faster
 alias pacsyu='sudo pacman -Syu'                  # update only standard pkgs
 alias pacsyyu='sudo pacman -Syyu'                # Refresh pkglist & update standard pkgs
 alias yaysua='yay -Sua --noconfirm'              # update only AUR pkgs (yay)
 alias yaysyu='yay -Syu --noconfirm'              # update standard pkgs and AUR pkgs (yay)
-alias yaysc='yay -Sc'                          # remove orphaned packages
+alias yaysc='yay -Sc'                            # remove orphaned packages
+
+# quick access to config files
+alias zshrc='nvim ~/.config/zsh/.zshrc'
+alias aliases='nvim ~/.config/zsh/aliases.zsh'
+alias keybinds='nvim ~/.config/hypr/configs/keybinds.conf'
+alias prefs='nvim ~/.config/hypr/configs/prefs.conf'
+alias vimmaps='nvim ~/.config/nvim/lua/core/keymaps.lua'
+alias vimplugs='nvim ~/.config/nvim/lua/core/plugins.lua'
 
 # colorize grep output
 alias grep='grep --color=auto'
