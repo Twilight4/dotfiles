@@ -97,3 +97,6 @@ keymap.set("n", "gc", "<cmd>Telescope git_commits<cr>") -- list all git commits 
 keymap.set("n", "gfc", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
 keymap.set("n", "gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
 keymap.set("n", "gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
+
+-- FZF
+keymap.set('n', '<leader>f', ':FZF<CR>')
