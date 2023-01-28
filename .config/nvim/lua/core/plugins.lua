@@ -45,7 +45,7 @@ return packer.startup(function(use)
   use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }) -- dependency for better sorting performance
   use({ 'nvim-telescope/telescope.nvim', branch = '0.1.x' }) -- fuzzy finder
   use 'windwp/nvim-autopairs' -- auto closing
-  use 'norcalli/nvim-colorizer.lua' -- a high-performance color highlighter
+  use 'ap/vim-css-color' -- a high-performance color highlighter
   use 'folke/zen-mode.nvim' -- distraction-free mode
   use 'lewis6991/gitsigns.nvim' -- git integration
   use 'dinhhuy258/git.nvim' -- for git blame & browse
