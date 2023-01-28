@@ -56,6 +56,7 @@ return packer.startup(function(use)
   use 'simnalamburt/vim-mundo' -- show the vim undo tree
   use 'farmergreg/vim-lastplace' -- saves the last cursor place
   use 'junegunn/goyo.vim' -- changes the window on main focus
+  use 'moll/vim-bbye' -- unfuck buffers
   --use 'wellle/tmux-complete.vim'
   --use 'tmux-plugins/vim-tmux'
   --use 'tmux-plugins/vim-tmux-focus-events'
