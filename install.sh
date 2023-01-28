@@ -52,10 +52,6 @@ install-apps() {
     sudo pacman -U --noconfirm --needed /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     npm install git-file-downloader
     sudo mv ~/node_modules/.bin/* /usr/local/bin
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
-    ~/.emacs.d/bin/doom install
-    ~/.emacs.d/bin/doom sync
-    emacs --batch -f all-the-icons-install-fonts
     
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
@@ -113,6 +109,12 @@ install-dotfiles() {
     sudo chmod 755 $XDG_CONFIG_HOME/zsh/bash-scripts/*.sh
     git config --global user.email "electrolight071@gmail.com"
     git config --global user.name "Twilight4"
+    
+    # install doom emacs (need to be after cloned dotfiles)
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+    ~/.emacs.d/bin/doom install
+    ~/.emacs.d/bin/doom sync
+    emacs --batch -f all-the-icons-install-fonts
         
     # system services
     systemctl --user enable greenclip.service                                         # enable cliphistory daemon
