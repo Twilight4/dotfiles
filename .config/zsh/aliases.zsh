@@ -140,7 +140,9 @@ alias gitu='git add . && git commit && git push'
 
 # pacman and yay
 alias pacs='sudo pacman -S'                      # Install package faster
-alias yays='pacman -S'                           # Install AUR package faster
+alias pacr='sudo pacman -Rns'                    # Remove package faster
+alias yayr='yay -Rns'                            # Remove package faster
+alias yays='yay -S'                           # Install AUR package faster
 alias pacsyu='sudo pacman -Syu'                  # update only standard pkgs
 alias pacsyyu='sudo pacman -Syyu'                # Refresh pkglist & update standard pkgs
 alias yaysua='yay -Sua --noconfirm'              # update only AUR pkgs (yay)
