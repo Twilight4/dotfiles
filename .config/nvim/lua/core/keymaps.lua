@@ -36,13 +36,18 @@ keymap.set('v', 'p', '"_dP')
 -- Split window
 keymap.set('n', 'sv', '<C-w>v') -- split window vertically
 keymap.set('n', 'ss', '<C-w>s') -- split window horizontally
-keymap.set('', 'sx', ':close<CR>') -- close current split window
+keymap.set('n', 'sx', ':close<CR>') -- close current split window
 keymap.set('n', 'se', '<C-w>=') -- make split windows equal width & height
 -- Resize window
 keymap.set('n', 'zk', ':resize -3<CR>')
 keymap.set('n', 'zj', ':resize +3<CR>')
 keymap.set('n', 'zh', ':vertical resize -5<CR>')
 keymap.set('n', 'zl', ':vertical resize +5<CR>')
+-- Move window
+--keymap.set('', 'sh', '<C-w>h')
+--keymap.set('', 'sk', '<C-w>k')
+--keymap.set('', 'sj', '<C-w>j')
+--keymap.set('', 'sl', '<C-w>l')
 
 -- Tabs
 keymap.set('n', 'te', ':tabedit ') -- open new tab and type a name
