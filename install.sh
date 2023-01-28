@@ -87,9 +87,11 @@ install-dotfiles() {
             git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
     fi
     
-    sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
+    # Prevent permission denied errors
     mkdir -p "$HOME/.config/.local/share"
-    sudo mv /tmp/dotfiles/.config/.local/share/fonts "$HOME/.config/.local/share/"
+    sudo chown ~/.config/.local twilight
+    sudo chgrp ~/.config/.local twilight
+    sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
     sudo rm "/home/$(whoami)/.config/.local/share/fonts/README.md"
