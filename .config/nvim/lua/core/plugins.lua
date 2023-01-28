@@ -50,6 +50,8 @@ return packer.startup(function(use)
   use 'lewis6991/gitsigns.nvim' -- git integration
   use 'dinhhuy258/git.nvim' -- for git blame & browse
   use 'akinsho/nvim-bufferline.lua' -- a snazzy bufferline
+  use 'junegunn/fzf' -- fzf integration
+  use 'junegunn/fzf.vim' -- fzf integration
   --use 'wellle/tmux-complete.vim'
   --use 'tmux-plugins/vim-tmux'
   --use 'tmux-plugins/vim-tmux-focus-events'
