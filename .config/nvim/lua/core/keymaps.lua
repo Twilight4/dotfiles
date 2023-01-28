@@ -99,4 +99,4 @@ keymap.set('n', 'gb', '<cmd>Telescope git_branches<cr>') -- list git branches (u
 keymap.set('n', 'gs', '<cmd>Telescope git_status<cr>') -- list current changes per file with diff preview ["gs" for git status]
 
 -- FZF
-keymap.set('n', '<leader>f', ':Files<CR>')
+keymap.set('n', 'zf', ':Files<CR>')
