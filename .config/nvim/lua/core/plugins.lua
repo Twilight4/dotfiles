@@ -54,6 +54,8 @@ return packer.startup(function(use)
   use 'junegunn/fzf.vim' -- fzf integration
   use 'simeji/winresizer' -- toggle resize mode for windows
   use 'simnalamburt/vim-mundo' -- show the vim undo tree
+  use 'farmergreg/vim-lastplace' -- saves the last cursor place
+  use 'junegunn/goyo.vim' -- changes the window on main focus
   --use 'wellle/tmux-complete.vim'
   --use 'tmux-plugins/vim-tmux'
   --use 'tmux-plugins/vim-tmux-focus-events'
