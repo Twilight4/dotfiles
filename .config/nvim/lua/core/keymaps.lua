@@ -7,7 +7,7 @@ local keymap = vim.keymap
 local opts = { silent = true }
 
 --Remap space as leader key
-keymap('', '<Space>', '<Nop>')
+keymap.set('', '<Space>', '<Nop>')
 
 -- Clear search highlights
 keymap.set('n', 'nh', ':nohl<CR>')
@@ -65,15 +65,15 @@ keymap.set('n', 'tn', ':tabn<CR>') --  go to next tab
 keymap.set('n', 'tp', ':tabp<CR>') --  go to previous tab
 
 -- Navigate buffers
-keymap('n', '<S-l>', ':bnext<CR>')
-keymap('n', '<S-h>', ':bprevious<CR>')
+keymap.set('n', '<S-l>', ':bnext<CR>')
+keymap.set('n', '<S-h>', ':bprevious<CR>')
 -- Close buffers
-keymap('n', '<S-q>', '<cmd>Bdelete!<CR>')
+keymap.set('n', '<S-q>', '<cmd>Bdelete!<CR>')
 
 -- Visual --
 -- Stay in indent mode
-keymap('v', '<', '<gv')
-keymap('v', '>', '>gv')
+keymap.set('v', '<', '<gv')
+keymap.set('v', '>', '>gv')
 
 
 ---------------------
