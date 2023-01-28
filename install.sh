@@ -89,8 +89,8 @@ install-dotfiles() {
     
     # Prevent permission denied errors
     mkdir -p "$HOME/.config/.local/share"
-    sudo chown ~/.config/.local twilight
-    sudo chgrp ~/.config/.local twilight
+    sudo chown twilight ~/.config/.local
+    sudo chgrp twilight ~/.config/.local
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
