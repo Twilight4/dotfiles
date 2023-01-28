@@ -95,3 +95,9 @@ keymap.set('n', 'gs', '<cmd>Telescope git_status<cr>') -- list current changes p
 
 -- FZF
 keymap.set('n', 'zf', ':Files<CR>')
+
+-- Toggle Undo Tree
+keymap.set('n', 'zm', ':MundoToggle<CR>')
+
+-- Toggle Undo Tree
+keymap.set('n', 'zg', ':Goyo<CR>')
