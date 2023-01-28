@@ -99,10 +99,14 @@ keymap.set('n', 'gs', '<cmd>Telescope git_status<cr>') -- list current changes p
 keymap.set('n', 'zf', ':Files<CR>')
 
 -- Toggle Undo Tree
-keymap.set('n', 'zm', ':MundoToggle<CR>')
+keymap.set('n', 'zu', ':UndotreeToggle<CR>')
 
 -- Toggle Undo Tree
 keymap.set('n', 'zg', ':Goyo<CR>')
 
 -- Toggle Term
 keymap.set('n', 'zt', ':ToggleTerm size=40 dir=~/Desktop direction=horizontal<CR>')
+
+-- Other
+keymap.set('n', '<leader>p', ':PasteImg <CR>')
+keymap.set('n', '<leader>n', ':ASToggle<CR>')
