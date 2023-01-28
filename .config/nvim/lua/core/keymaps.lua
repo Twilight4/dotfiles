@@ -6,6 +6,9 @@ local keymap = vim.keymap
 -- Silent keymap option
 local opts = { silent = true }
 
+--Remap space as leader key
+keymap('', '<Space>', '<Nop>')
+
 -- Clear search highlights
 keymap.set('n', 'nh', ':nohl<CR>')
 
