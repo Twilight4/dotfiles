@@ -53,12 +53,22 @@ return packer.startup(function(use)
   use 'junegunn/fzf' -- fzf integration
   use 'junegunn/fzf.vim' -- fzf integration
   use 'simeji/winresizer' -- toggle resize mode for windows
-  use 'simnalamburt/vim-mundo' -- show the vim undo tree
   use 'farmergreg/vim-lastplace' -- saves the last cursor place
   use 'junegunn/goyo.vim' -- changes the window on main focus
   use 'moll/vim-bbye' -- unfuck buffers
   use 'lewis6991/impatient.nvim' -- Speed up loading Lua modules 
   use 'RRethy/vim-illuminate' -- Quick word search under cursor alt+p and alt+n
+  use 'ekickx/clipboard-image.nvim' -- paste img from clipboard
+  use 'mbbill/undotree' -- show the vim undo tree
+  use({
+	"Pocco81/auto-save.nvim",
+	config = function()
+		 require("auto-save").setup {
+			-- your config goes here
+			-- or just leave it empty :)
+		 }
+	end,
+  })
   use {
     'goolord/alpha-nvim',
     config = function ()
