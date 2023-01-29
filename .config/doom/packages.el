@@ -48,3 +48,8 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+(package! calfw)
+(package! calfw-org)
+(package! org-auto-tangle)
+(package! org-web-tools)
