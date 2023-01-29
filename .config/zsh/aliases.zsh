@@ -23,9 +23,10 @@ alias gdiff="git difftool --no-symlinks --dir-diff"
 # ssh kitten
 alias s="kitty +kitten ssh"
 
-# emacs1 and emacs2
-alias emacs1="emacsclient -c -a "" --frame-parameters='(quote (name . "emacsone"))'"
-alias emacs2="emacsclient -c -a "" --frame-parameters='(quote (name . "emacstwo"))'"
+# emacs
+alias emacs="emacsclient -c -a ''"
+alias emacs1="emacsclient -c -a '' --frame-parameters='(quote (name . "emacsone"))'"
+alias emacs2="emacsclient -c -a '' --frame-parameters='(quote (name . "emacstwo"))'"
 
 # Alias's to modified commands
 alias mkdir='mkdir -p'
