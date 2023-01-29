@@ -5,10 +5,10 @@
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 
-;; org-directory. It must be set before org loads.
+;; Org-directory. It must be set before org loads.
 (setq org-directory "~/Documents/org/")
 
-;; this controls the color of bold, italic, underline, verbatim, strikethrough
+;; This controls the color of bold, italic, underline, verbatim, strikethrough
 (setq org-emphasis-alist
   '(("*" (bold :slant italic :weight black )) ;; this make bold both italic and bold, but not color change
     ("/" (italic :foreground "dark salmon" )) ;; italic text, the text will be "dark salmon"
@@ -18,7 +18,7 @@
     ("+" (:strike-through nil :foreground "dark orange" ))))
 (setq org-hide-emphasis-markers t) ;; hides the emphasis markers
 
-;; bookmark keybinds
+;; Bookmark keybinds
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 (map! :leader
       (:prefix ("b". "buffer")
@@ -27,11 +27,11 @@
        :desc "Delete bookmark"                         "M" #'bookmark-set
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 
-;; enable global auto revert
+;; Enable global auto revert
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
-; ibuffer keys
+;; Ibuffer keys
 (evil-define-key 'normal ibuffer-mode-map
   (kbd "f c") 'ibuffer-filter-by-content
   (kbd "f d") 'ibuffer-filter-by-directory
@@ -42,7 +42,7 @@
   (kbd "g h") 'ibuffer-do-kill-lines
   (kbd "g H") 'ibuffer-update)
 
-; Settings related to fonts within Doom Emacs
+;; Settings related to fonts within Doom Emacs
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
 ;; refresh your font settings. If Emacs still can't find your font, it likely
@@ -57,7 +57,7 @@
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
 
-; line settings
+;; Line settings
 (setq display-line-numbers-type t)
 (map! :leader
       :desc "Comment or uncomment lines"      "TAB TAB" #'comment-line
@@ -67,7 +67,7 @@
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
        :desc "Toggle truncate lines"          "t" #'toggle-truncate-lines))
 
-; mardown
+;; Mardown
 (custom-set-faces
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.7))))
@@ -77,14 +77,14 @@
  '(markdown-header-face-5 ((t (:inherit markdown-header-face :height 1.3))))
  '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
 
-; modeline (status bar)
+;; Modeline (status bar)
 (set-face-attribute 'mode-line nil :font "Ubuntu Mono-13")
 (setq doom-modeline-height 30     ;; sets modeline height
       doom-modeline-bar-width 5   ;; sets right bar width
       doom-modeline-persp-name t  ;; adds perspective name to modeline
       doom-modeline-persp-icon t) ;; adds folder icon next to persp name
 
-; open specific file examples
+;; Open specific file examples
 (map! :leader
       (:prefix ("=" . "open file")
        :desc "Edit agenda file"      "=" #'(lambda () (interactive) (find-file "~/.config/doom/start.org"))
@@ -97,7 +97,7 @@
        :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
        :desc "Edit eshell profile"   "p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))))
 
-; org mode
+;; Org mode
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
@@ -128,7 +128,7 @@
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
 
-; org agenda
+;; Org agenda
 (after! org
   (setq org-agenda-files '("~/nc/Org/agenda.org")))
 
@@ -160,7 +160,7 @@
           (agenda "")
           (alltodo "")))))
 
-; Org-auto-tangle
+;; Org-auto-tangle
 (use-package! org-auto-tangle
   :defer t
   :hook (org-mode . org-auto-tangle-mode)
@@ -177,7 +177,7 @@
 (map! :leader
       :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
 
-; Org fonts
+;; Org fonts
 (defun dt/org-colors-doom-one ()
   "Enable Doom One colors for Org headers."
   (interactive)
@@ -341,18 +341,18 @@
 ;; Load our desired dt/org-colors-* theme on startup
 (dt/org-colors-doom-one)
 
-; Org-export
+;; Org-export
 (use-package ox-man)
 (use-package ox-gemini)
 
-; Org-journal
+;; Org-journal
 (setq org-journal-dir "~/nc/Org/journal/"
       org-journal-date-prefix "* "
       org-journal-time-prefix "** "
       org-journal-date-format "%B %d, %Y (%A) "
       org-journal-file-format "%Y-%m-%d.org")
 
-; Org-publish
+;; Org-publish
 (setq org-publish-use-timestamps-flag nil)
 (setq org-export-with-broken-links t)
 (setq org-publish-project-alist
@@ -471,7 +471,7 @@
 
       ))
 
-; Org-roam
+;; Org-roam
 (after! org
   (setq org-roam-directory "~/nc/Org/roam/"
         org-roam-graph-viewer "/usr/bin/brave"))
@@ -485,7 +485,7 @@
        :desc "Capture to node"     "n" #'org-roam-capture
        :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
 
-; perspective
+;; Perspective
 (map! :leader
       :desc "Switch to perspective NAME"       "DEL" #'persp-switch
       :desc "Switch to buffer in perspective"  "," #'persp-switch-to-buffer
@@ -494,7 +494,7 @@
       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
       :desc "Remove perspective by name"       "-" #'persp-remove-by-name)
 
-; Rainbow-mode
+;; Rainbow-mode
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
   (lambda ()
     (when (not (memq major-mode
@@ -502,7 +502,7 @@
      (rainbow-mode 1))))
 (global-rainbow-mode 1 )
 
-; Registers
+;; Registers
 (map! :leader
       (:prefix ("r" . "registers")
        :desc "Copy to register" "c" #'copy-to-register
@@ -517,7 +517,7 @@
        :desc "Increment register" "+" #'increment-register
        :desc "Point to register" "SPC" #'point-to-register))
 
-; Splits
+;; Splits
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
@@ -525,7 +525,7 @@
 (map! :leader
       :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
 
-; Start page
+;; Start page
 (setq initial-buffer-choice "~/.config/doom/start.org")
 
 (define-minor-mode start-mode
