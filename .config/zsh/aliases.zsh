@@ -25,7 +25,7 @@ alias s="kitty +kitten ssh"
 
 # emacs1 and emacs2
 alias emacs1="emacsclient -c -a "" --frame-parameters='(quote (name . "emacsone"))'"
-alias emacs1="emacsclient -c -a "" --frame-parameters='(quote (name . "emacstwo"))'"
+alias emacs2="emacsclient -c -a "" --frame-parameters='(quote (name . "emacstwo"))'"
 
 # Alias's to modified commands
 alias mkdir='mkdir -p'
