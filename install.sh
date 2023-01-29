@@ -50,8 +50,7 @@ install-apps() {
     mv ~/.local/bin/ghclone /usr/local/bin
     sudo wget https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.01-01-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     sudo pacman -U --noconfirm --needed /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
-    npm install git-file-downloader
-    sudo mv ~/node_modules/.bin/* /usr/local/bin
+    npm install git-file-downloader # TODO: move the installed dir and add .bin to PATH
     
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
