@@ -74,3 +74,13 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; this controls the color of bold, italic, underline, verbatim, strikethrough
+(setq org-emphasis-alist
+  '(("*" (bold :slant italic :weight black )) ;; this make bold both italic and bold, but not color change
+    ("/" (italic :foreground "dark salmon" )) ;; italic text, the text will be "dark salmon"
+    ("_" underline :foreground "cyan" ) ;; underlined text, color is "cyan"
+    ("=" (:background "snow1" :foreground "deep slate blue" )) ;; background of text is "snow1" and text is "deep slate blue"
+    ("~" (:background "PaleGreen1" :foreground "dim gray" ))
+    ("+" (:strike-through nil :foreground "dark orange" ))))
+(setq org-hide-emphasis-markers t) ;; hides the emphasis markers
