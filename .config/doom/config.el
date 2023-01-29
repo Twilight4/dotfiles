@@ -547,3 +547,62 @@
        :desc "Insert node"         "i" #'org-roam-node-insert
        :desc "Capture to node"     "n" #'org-roam-capture
        :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
+
+; perspective
+(map! :leader
+      :desc "Switch to perspective NAME"       "DEL" #'persp-switch
+      :desc "Switch to buffer in perspective"  "," #'persp-switch-to-buffer
+      :desc "Switch to next perspective"       "]" #'persp-next
+      :desc "Switch to previous perspective"   "[" #'persp-prev
+      :desc "Add a buffer current perspective" "+" #'persp-add-buffer
+      :desc "Remove perspective by name"       "-" #'persp-remove-by-name)
+
+; Rainbow-mode
+(define-globalized-minor-mode global-rainbow-mode rainbow-mode
+  (lambda ()
+    (when (not (memq major-mode
+                (list 'org-agenda-mode)))
+     (rainbow-mode 1))))
+(global-rainbow-mode 1 )
+
+; Registers
+(map! :leader
+      (:prefix ("r" . "registers")
+       :desc "Copy to register" "c" #'copy-to-register
+       :desc "Frameset to register" "f" #'frameset-to-register
+       :desc "Insert contents of register" "i" #'insert-register
+       :desc "Jump to register" "j" #'jump-to-register
+       :desc "List registers" "l" #'list-registers
+       :desc "Number to register" "n" #'number-to-register
+       :desc "Interactively choose a register" "r" #'counsel-register
+       :desc "View a register" "v" #'view-register
+       :desc "Window configuration to register" "w" #'window-configuration-to-register
+       :desc "Increment register" "+" #'increment-register
+       :desc "Point to register" "SPC" #'point-to-register))
+
+; Splits
+(defun prefer-horizontal-split ()
+  (set-variable 'split-height-threshold nil t)
+  (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
+(add-hook 'markdown-mode-hook 'prefer-horizontal-split)
+(map! :leader
+      :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
+
+; Start page
+(setq initial-buffer-choice "~/.config/doom/start.org")
+
+(define-minor-mode start-mode
+  "Provide functions for custom start page."
+  :lighter " start"
+  :keymap (let ((map (make-sparse-keymap)))
+          ;;(define-key map (kbd "M-z") 'eshell)
+            (evil-define-key 'normal start-mode-map
+              (kbd "1") '(lambda () (interactive) (find-file "~/.config/doom/config.org"))
+              (kbd "2") '(lambda () (interactive) (find-file "~/.config/doom/init.el"))
+              (kbd "3") '(lambda () (interactive) (find-file "~/.config/doom/packages.el"))
+              (kbd "4") '(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
+              (kbd "5") '(lambda () (interactive) (find-file "~/.config/doom/eshell/profile")))
+          map))
+
+(add-hook 'start-mode-hook 'read-only-mode) ;; make start.org read-only; use 'SPC t r' to toggle off read-only.
+(provide 'start-mode)
