@@ -84,3 +84,12 @@
     ("~" (:background "PaleGreen1" :foreground "dim gray" ))
     ("+" (:strike-through nil :foreground "dark orange" ))))
 (setq org-hide-emphasis-markers t) ;; hides the emphasis markers
+
+(setq bookmark-default-file "~/.config/doom/bookmarks")
+
+(map! :leader
+      (:prefix ("b". "buffer")
+       :desc "List bookmarks"                          "L" #'list-bookmarks
+       :desc "Set bookmark"                            "m" #'bookmark-set
+       :desc "Delete bookmark"                         "M" #'bookmark-set
+       :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
