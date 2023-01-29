@@ -85,11 +85,26 @@
     ("+" (:strike-through nil :foreground "dark orange" ))))
 (setq org-hide-emphasis-markers t) ;; hides the emphasis markers
 
+;; bookmark keybinds
 (setq bookmark-default-file "~/.config/doom/bookmarks")
-
 (map! :leader
       (:prefix ("b". "buffer")
        :desc "List bookmarks"                          "L" #'list-bookmarks
        :desc "Set bookmark"                            "m" #'bookmark-set
        :desc "Delete bookmark"                         "M" #'bookmark-set
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
+
+;; enable global auto revert
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
+
+; ibuffer keys
+(evil-define-key 'normal ibuffer-mode-map
+  (kbd "f c") 'ibuffer-filter-by-content
+  (kbd "f d") 'ibuffer-filter-by-directory
+  (kbd "f f") 'ibuffer-filter-by-filename
+  (kbd "f m") 'ibuffer-filter-by-mode
+  (kbd "f n") 'ibuffer-filter-by-name
+  (kbd "f x") 'ibuffer-filter-disable
+  (kbd "g h") 'ibuffer-do-kill-lines
+  (kbd "g H") 'ibuffer-update)
