@@ -5,19 +5,6 @@
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 
-;; Org-directory. It must be set before org loads.
-(setq org-directory "~/Documents/org/")
-
-;; This controls the color of bold, italic, underline, verbatim, strikethrough
-(setq org-emphasis-alist
-  '(("*" (bold :slant italic :weight black )) ;; this make bold both italic and bold, but not color change
-    ("/" (italic :foreground "dark salmon" )) ;; italic text, the text will be "dark salmon"
-    ("_" underline :foreground "cyan" ) ;; underlined text, color is "cyan"
-    ("=" (:background "snow1" :foreground "deep slate blue" )) ;; background of text is "snow1" and text is "deep slate blue"
-    ("~" (:background "PaleGreen1" :foreground "dim gray" ))
-    ("+" (:strike-through nil :foreground "dark orange" ))))
-(setq org-hide-emphasis-markers t) ;; hides the emphasis markers
-
 ;; Bookmark keybinds
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 (map! :leader
@@ -88,7 +75,7 @@
 (map! :leader
       (:prefix ("=" . "open file")
        :desc "Edit agenda file"      "=" #'(lambda () (interactive) (find-file "~/.config/doom/start.org"))
-       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/nc/Org/agenda.org"))
+       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/Documents/Org/agenda.org"))
        :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit doom init.el"     "i" #'(lambda () (interactive) (find-file "~/.config/doom/init.el"))
        :desc "Edit doom packages.el" "p" #'(lambda () (interactive) (find-file "~/.config/doom/packages.el"))))
@@ -101,13 +88,13 @@
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
-  (setq org-directory "~/nc/Org/"
+  (setq org-directory "~/Documents/Org/"
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
         org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
         org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
         org-log-done 'time
-        org-hide-emphasis-markers t
+        org-hide-emphasis-markers t ;; hides the emphasis markers
         ;; ex. of org-link-abbrev-alist in action
         ;; [[arch-wiki:Name_of_Page][Description]]
         org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
@@ -128,9 +115,19 @@
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
 
+;; This controls the color of bold, italic, underline, verbatim, strikethrough
+(after! org 
+  (setq org-emphasis-alist
+  '(("*" (bold :slant italic :weight black )) ;; this make bold both italic and bold, but not color change
+    ("/" (italic :foreground "dark salmon" )) ;; italic text, the text will be "dark salmon"
+    ("_" underline :foreground "cyan" ) ;; underlined text, color is "cyan"
+    ("=" (:background "snow1" :foreground "deep slate blue" )) ;; background of text is "snow1" and text is "deep slate blue"
+    ("~" (:background "PaleGreen1" :foreground "dim gray" ))
+    ("+" (:strike-through nil :foreground "dark orange" ))))
+
 ;; Org agenda
 (after! org
-  (setq org-agenda-files '("~/nc/Org/agenda.org")))
+  (setq org-agenda-files '("~/Documents/Org/agenda.org")))
 
 (setq
    ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
@@ -342,139 +339,20 @@
 (dt/org-colors-doom-one)
 
 ;; Org-export
-(use-package ox-man)
-(use-package ox-gemini)
+;;(use-package ox-man)
+;;(use-package ox-gemini)
 
 ;; Org-journal
-(setq org-journal-dir "~/nc/Org/journal/"
+(setq org-journal-dir "~/Documents/Org/journal/"
       org-journal-date-prefix "* "
       org-journal-time-prefix "** "
       org-journal-date-format "%B %d, %Y (%A) "
       org-journal-file-format "%Y-%m-%d.org")
 
-;; Org-publish
-(setq org-publish-use-timestamps-flag nil)
-(setq org-export-with-broken-links t)
-(setq org-publish-project-alist
-      '(("distro.tube without manpages"
-         :base-directory "~/nc/gitlab-repos/distro.tube/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/"
-         :recursive t
-         :exclude "org-html-themes/.*\\|man-org/man*"
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man0p"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man0p/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man0p/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man1"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man1/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man1/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man1p"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man1p/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man1p/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man2"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man2/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man2/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man3"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man3/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man3/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man3p"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man3p/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man3p/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man4"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man4/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man4/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man5"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man5/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man5/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man6"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man6/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man6/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man7"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man7/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man7/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("man8"
-         :base-directory "~/nc/gitlab-repos/distro.tube/man-org/man8/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/distro.tube/html/man-org/man8/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-         ("org-static"
-         :base-directory "~/Org/website"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-         :publishing-directory "~/public_html/"
-         :recursive t
-         :exclude ".*/org-html-themes/.*"
-         :publishing-function org-publish-attachment)
-         ("dtos.dev"
-         :base-directory "~/nc/gitlab-repos/dtos.dev/"
-         :base-extension "org"
-         :publishing-directory "~/nc/gitlab-repos/dtos.dev/html/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t)
-
-      ))
-
 ;; Org-roam
 (after! org
-  (setq org-roam-directory "~/nc/Org/roam/"
-        org-roam-graph-viewer "/usr/bin/brave"))
+  (setq org-roam-directory "~/Documents/Org/roam/"
+        org-roam-graph-viewer "/usr/bin/librewolf"))
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
