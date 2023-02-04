@@ -54,3 +54,4 @@
 (package! org-auto-tangle)
 (package! org-web-tools)
 (package! emojify)
+(package! org-super-agenda)
