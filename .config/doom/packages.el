@@ -55,3 +55,4 @@
 (package! org-web-tools)
 (package! emojify)
 (package! org-super-agenda)
+(package! rainbow-mode)
