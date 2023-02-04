@@ -35,7 +35,7 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
-      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 15)
+      doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 15)
       doom-big-font (font-spec :family "JetBrains Mono" :size 24))
 (after! doom-themes
   (setq doom-themes-enable-bold t
@@ -65,7 +65,7 @@
  '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
 
 ;; Modeline (status bar)
-(set-face-attribute 'mode-line nil :font "Ubuntu Mono-13")
+(set-face-attribute 'mode-line nil :font "JetBrains Mono-13")
 (setq doom-modeline-height 30     ;; sets modeline height
       doom-modeline-bar-width 5   ;; sets right bar width
       doom-modeline-persp-name t  ;; adds perspective name to modeline
@@ -465,7 +465,6 @@
               (kbd "2") '(lambda () (interactive) (find-file "~/.config/doom/init.el"))
               (kbd "3") '(lambda () (interactive) (find-file "~/.config/doom/packages.el"))
               (kbd "4") '(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
-              (kbd "5") '(lambda () (interactive) (find-file "~/.config/doom/eshell/profile")))
           map))
 
 (add-hook 'start-mode-hook 'read-only-mode) ;; make start.org read-only; use 'SPC t r' to toggle off read-only.
