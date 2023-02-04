@@ -1,0 +1,21 @@
+# Aliases for emacs commands
+alias ff find-file $1
+
+# Aliasing standard shell commands to better emacs alternatives
+alias less view-file $1
+
+# Changing "ls" to "exa"
+alias l lsd $*
+alias ls lsd -l $*
+alias la lsd -lA $*
+alias lt lsd --tree $*
+alias l. lsd -A $* | grep "^\."
+
+# Aliases for doom emacs utilties
+alias doomsync ~/.emacs.d/bin/doom sync
+alias doomdoctor ~/.emacs.d/bin/doom doctor
+alias doomupgrade ~/.emacs.d/bin/doom upgrade
+alias doompurge ~/.emacs.d/bin/doom purge
+
+# Bare git repo alias for dotfiles
+alias config /usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME $*
