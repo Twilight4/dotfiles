@@ -165,10 +165,10 @@
   (setq org-emphasis-alist
   '(("*" (bold :slant italic :weight black ))
     ("/" (italic :foreground "dark salmon" ))
-    ("_" underline :foreground "cyan" )
+    ("_" (underline :foreground "cyan" ))
     ("=" (:foreground "deep slate blue" ))
     ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
-    ("+" (:strike-through nil :foreground "dark orange" ))))
+    ("+" (:strike-through nil :foreground "dark orange" )))))
 
 ;; Org agenda
 (after! org
