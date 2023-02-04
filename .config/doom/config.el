@@ -118,11 +118,11 @@
 ;; This controls the color of bold, italic, underline, verbatim, strikethrough
 (after! org 
   (setq org-emphasis-alist
-  '(("*" (bold :slant italic :weight black )) ;; this make bold both italic and bold, but not color change
-    ("/" (italic :foreground "dark salmon" )) ;; italic text, the text will be "dark salmon"
-    ("_" underline :foreground "cyan" ) ;; underlined text, color is "cyan"
-    ("=" (:background "snow1" :foreground "deep slate blue" )) ;; background of text is "snow1" and text is "deep slate blue"
-    ("~" (:background "PaleGreen1" :foreground "dim gray" ))
+  '(("*" (bold :slant italic :weight black ))
+    ("/" (italic :foreground "dark salmon" ))
+    ("_" underline :foreground "cyan" )
+    ("=" (:foreground "deep slate blue" ))
+    ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
     ("+" (:strike-through nil :foreground "dark orange" ))))
 
 ;; Org agenda
