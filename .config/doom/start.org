@@ -1,0 +1,45 @@
+#+STARTUP: inlineimages
+
+;; [[file:./images/emacs-start-page.png]]
+
+⦿ *IMPORTANT KEYBINDINGS*
+|------------+---------------------+------------------------------------|
+| M-x        | [[elisp:(counsel-M-x)][counsel-M-x]]         | Prompt for Emacs programs          |
+| SPC .      | [[elisp:(counsel-find-file)][counsel-find-file]]   | Find a file                        |
+| SPC f r    | [[elisp:(counsel-recentf)][counsel-recentf]]     | Find a recent file                 |
+| SPC d d    | [[elisp:(dired (getenv "HOME"))][dired]]               | Dired file manager                 |
+| SPC h r r  | [[elisp:(doom/reload)][doom/reload]]         | Reload Doom Emacs                  |
+| SPC f u    | [[elisp:(doom/sudo-find-file nil)][doom/sudo-find-file]] | Find file and open as root         |
+| SPC f U    | /doom/sudo-this-file/ | Open current file as root          |
+| SPC e t    | [[elisp:(+eshell/toggle nil)][+eshell/toggle]]      | Toggle the eshell                  |
+| SPC v t    | [[elisp:(+vterm/toggle nil)][+vterm/toggle]]       | Toggle the vterm terminal emulator |
+|------------+---------------------+------------------------------------|
+
+⦿ *BUFFERS AND SPLITS*
+|------------------------------+------------------------------+-----------------------------|
+| (SPC b i) [[elisp:(ibuffer)][ibuffer]]            | (SPC b p) [[elisp:(previous-buffer)][previous-buffer]]    | (SPC b n) [[elisp:(next-buffer)][next-buffer]]       |
+| (SPC b k) [[elisp:(kill-buffer)][kill-buffer]]        | (SPC b s) [[elisp:(save-buffer)][save-buffer]]        | (SPC b u) /sudo-save-buffer/  |
+| (SPC w s) [[elisp:(evil-window-split)][evil-window-split]]  | (SPC w v) [[elisp:(evil-window-vsplit)][evil-window-vsplit]] | (SPC w w) [[elisp:(evil-window-next)][evil-window-next]]  |
+| (SPC w c) [[elisp:(evil-window-delete)][evil-window-delete]] | (SPC w l) [[elisp:(evil-window-left 1)][evil-window-left]]   | (SPC w h) [[elisp:(evil-window-right 1)][evil-window-right]] |
+|------------------------------+------------------------------+-----------------------------|
+
+⦿ *HELP INFORMATION*
+|-----------------------------+-----------------------------+-------------------------------|
+| (SPC h d h) [[elisp:(doom/help)][doom/help]]       | (SPC h d f) [[elisp:(doom/help-faq)][doom/help-faq]]   | (SPC h i) [[elisp:(info)][info]]                |
+| (SPC h f) [[elisp:(counsel-describe-function)][describe-function]] | (SPC h v) [[elisp:(counsel-describe-variable)][describe-variable]] | (SPC h b b) [[elisp:(counsel-descbinds)][describe-bindings]] |
+|-----------------------------+-----------------------------+-------------------------------|
+
+⦿ *DOOM EMACS CONFIGS* (Press =1-5= to immediately open a file)
+|---+----------------+------------------------------------------------------------|
+| =1= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/config.org"))][config.org]]     | This is the main user configuration file for Doom Emacs.   |
+| =2= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/init.el"))][init.el]]        | Allows you to turn on/off the standard Doom modules.       |
+| =3= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/packages.el"))][packages.el]]    | Easily install extra packages by adding them to this file. |
+| =4= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/aliases"))][eshell/aliases]] | Aliases file for the eshell.                               |
+| =5= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/profile"))][eshell/profile]] | Profile for the eshell.                                    |
+|---+----------------+------------------------------------------------------------|
+
+=NOTE=: 'SPC f p' [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]])
+
+;; Local Variables:
+;; eval: (start-mode)
+;; End:
