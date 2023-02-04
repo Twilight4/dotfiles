@@ -1,6 +1,6 @@
 #+STARTUP: inlineimages
 
-;; [[file:./images/emacs-start-page.png]]
+[[file:./images/emacs-start-page.png]]
 
 ⦿ *IMPORTANT KEYBINDINGS*
 |------------+---------------------+------------------------------------|
