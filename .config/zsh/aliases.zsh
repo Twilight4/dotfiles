@@ -10,8 +10,9 @@ alias lk='lsd -lSrh --hyperlink=auto'                # sort by size
 alias lc='lsd -lcrh --hyperlink=auto'                # sort by change time
 alias lu='lsd -lurh --hyperlink=auto'                # sort by access time
 alias lm='lsd -alh |more --hyperlink=auto'           # pipe through 'more'
-alias lf="lsd -l | egrep -v '^d' --hyperlink=auto"   # files only
-alias ldir="lsd -l | egrep '^d' --hyperlink=auto"    # directories only
+alias lf='lsd -l | egrep -v '^d' --hyperlink=auto'   # files only
+alias ldir='lsd -l | egrep '^d' --hyperlink=auto'    # directories only
+alias l.='lsd -A $* | grep "^\."'                    # list hidden files
 
 # icat kitten
 alias icat='kitty +kitten icat'
