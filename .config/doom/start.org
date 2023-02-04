@@ -42,7 +42,6 @@
 | =2= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/init.el"))][init.el]]        | Allows you to turn on/off the standard Doom modules.       |
 | =3= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/packages.el"))][packages.el]]    | Easily install extra packages by adding them to this file. |
 | =4= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/aliases"))][eshell/aliases]] | Aliases file for the eshell.                               |
-| =5= | [[elisp:(find-file (concat (getenv "HOME") "/.config/doom/eshell/profile"))][eshell/profile]] | Profile for the eshell.                                    |
 |---+----------------+------------------------------------------------------------|
 
 =NOTE=: 'SPC f p' [[elisp:(doom/find-file-in-private-config)][doom/find-file-in-private-config]])
