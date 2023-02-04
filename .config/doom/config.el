@@ -465,7 +465,7 @@
               (kbd "2") '(lambda () (interactive) (find-file "~/.config/doom/init.el"))
               (kbd "3") '(lambda () (interactive) (find-file "~/.config/doom/packages.el"))
               (kbd "4") '(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
-          map))
+          map)))
 
 (add-hook 'start-mode-hook 'read-only-mode) ;; make start.org read-only; use 'SPC t r' to toggle off read-only.
 (provide 'start-mode)
