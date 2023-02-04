@@ -29,11 +29,9 @@
   (kbd "g h") 'ibuffer-do-kill-lines
   (kbd "g H") 'ibuffer-update)
 
-;; Settings related to fonts within Doom Emacs
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
+;; Settings related to fonts
+;; If you or Emacs can't find your font, use 'M-x describe-font' to look them up
+;; and use 'SPC h r f' to refresh your font settings
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 15)
       doom-big-font (font-spec :family "JetBrains Mono" :size 24))
