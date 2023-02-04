@@ -173,6 +173,10 @@
 
 (map! :leader
       :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
+        
+;; Emojis
+(use-package emojify
+  :hook (after-init . global-emojify-mode))
 
 ;; Org fonts
 (defun dt/org-colors-doom-one ()
