@@ -53,3 +53,4 @@
 (package! calfw-org)
 (package! org-auto-tangle)
 (package! org-web-tools)
+(package! emojify)
