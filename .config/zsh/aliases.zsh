@@ -29,7 +29,7 @@ alias emacs="emacsclient -c -a ''"
 alias emacs1="emacsclient -c -a '' --frame-parameters='(quote (name . "emacsone"))'"
 alias emacs2="emacsclient -c -a '' --frame-parameters='(quote (name . "emacstwo"))'"
 
-# Alias's to modified commands
+# Aliases to modified commands
 alias mkdir='mkdir -p'
 alias ping='prettyping -c 5'        
 alias less='less -R'
