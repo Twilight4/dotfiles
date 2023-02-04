@@ -151,11 +151,11 @@
         org-todo-keywords        ; This overwrites the default Doom org-todo-keywords
           '((sequence
              "TODO(t)"           ; A task that is ready to be tackled
-             "BLOG(b)"           ; Blog writing assignments
+             "INPROGGRESS(i)"    ; A task is in proggress 
              "GYM(g)"            ; Things to accomplish at the gym
              "PROJ(p)"           ; A project that contains other tasks
              "VIDEO(v)"          ; Video assignments
-             "WAIT(w)"           ; Something is holding up this task
+             "WAITING(w)"        ; Something is holding up this task
              "|"                 ; The pipe necessary to separate "active" states and "inactive" states
              "DONE(d)"           ; Task has been completed
              "CANCELLED(c)" )))) ; Task has been cancelled
