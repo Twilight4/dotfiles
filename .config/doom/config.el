@@ -196,10 +196,10 @@
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))))
                         
 ;; save all org-buffers when todo state changes                                                                               
-(advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
-(advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
-(advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
-(advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
+;;(advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
+;;(advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
+;;(advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
+;;(advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
 
 ;; global keyboard shortcuts
 ;;(global-set-key (kbd "SPC c") #'org-capture)
