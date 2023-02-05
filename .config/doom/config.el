@@ -71,16 +71,13 @@
 
 ;; Open specific file examples
 (map! :leader
-      (:prefix ("=" . "open file")
-       :desc "Edit repeaters file"   "=" #'(lambda () (interactive) (find-file "~/.config/doom/repeaters.org"))
+      (:prefix ("e" . "open file")
+       :desc "Edit repeaters file"   "r" #'(lambda () (interactive) (find-file "~/.config/doom/repeaters.org"))
        :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/Documents/Org/agenda.org"))
        :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/.config/Org/inbox.org"))
        :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))))
-(map! :leader
-      (:prefix ("= e" . "open eshell files")
-       :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
-       :desc "Edit eshell profile"   "p" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/profile"))))
+       :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))))))
 
 ;; Org mode
 (map! :leader
