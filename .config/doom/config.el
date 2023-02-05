@@ -63,7 +63,7 @@
  '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
 
 ;; Modeline (status bar)
-(set-face-attribute 'mode-line nil :font "JetBrains Mono-13")
+(set-face-attribute 'mode-line nil :font "JetBrains Mono-10")
 (setq doom-modeline-height 30     ;; sets modeline height
       doom-modeline-bar-width 5   ;; sets right bar width
       doom-modeline-persp-name t  ;; adds perspective name to modeline
