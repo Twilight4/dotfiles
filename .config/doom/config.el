@@ -202,8 +202,8 @@
 (advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
 
 ;; global keyboard shortcuts
-(global-set-key (kbd "SPC c") #'org-capture)
-(global-set-key (kbd "SPC a") #'org-agenda)
+;;(global-set-key (kbd "SPC c") #'org-capture)
+;;(global-set-key (kbd "SPC a") #'org-agenda)
 
 (setq
    ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
