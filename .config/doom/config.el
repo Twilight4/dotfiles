@@ -166,9 +166,6 @@
     ("+" (:strike-through nil :foreground "dark orange" )))))
 
 ;; Org agenda
-(after! org
-  (setq org-agenda-files '("~/Documents/Org/agenda.org")))
-
 (setq org-return-follows-link t
       org-agenda-tags-column 75
       org-deadline-warning-days 30
