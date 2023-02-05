@@ -152,8 +152,8 @@
              "WAITING(w)"         ; Something is holding up this task
              "GYM(g)"             ; Things to accomplish at the gym
              "PROJ(p)")           ; A project that contains other tasks
-             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)"))
-             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))))) ; The pipe necessary to separate "active" states and "inactive" states
+             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
 
 ;; This controls the color of bold, italic, underline, verbatim, strikethrough
 (after! org 
