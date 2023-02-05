@@ -203,9 +203,7 @@
 ;;(global-set-key (kbd "SPC a") #'org-agenda)
 
 (setq
-   ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
-   ;; org-fancy-priorities-list '("❗" "[B]" "[C]")
-   org-fancy-priorities-list '("🟥" "🟧" "🟨")
+   org-fancy-priorities-list '("[A]" "[B]" "[C]")
    org-priority-faces
    '((?A :foreground "#ff6c6b" :weight bold)
      (?B :foreground "#98be65" :weight bold)
