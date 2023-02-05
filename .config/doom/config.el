@@ -72,11 +72,11 @@
 ;; Open specific file examples
 (map! :leader
       (:prefix ("=" . "open file")
-       :desc "Edit repeaters file"      "=" #'(lambda () (interactive) (find-file "~/.config/doom/repeaters.org"))
+       :desc "Edit repeaters file"   "=" #'(lambda () (interactive) (find-file "~/.config/doom/repeaters.org"))
        :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/Documents/Org/agenda.org"))
        :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
-       :desc "Edit inbox file"     "i" #'(lambda () (interactive) (find-file "~/.config/Org/inbox.org"))
-       :desc "Edit projects file" "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))))
+       :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/.config/Org/inbox.org"))
+       :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))))
 (map! :leader
       (:prefix ("= e" . "open eshell files")
        :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))
