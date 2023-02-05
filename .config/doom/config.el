@@ -173,13 +173,13 @@
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file "~/Documents/test_gtd/inbox.org")
+      '(("t" "Todo" entry (file "~/Documents/Org/inbox.org")
          "* TODO %?\n  %i\n  %a")))
          
 (setq org-agenda-files (list
-                        "~/Documents/test_gtd/inbox.org"
-                        "~/Documents/test_gtd/projects.org"
-                        "~/Documents/test_gtd/repeaters.org"))
+                        "~/Documents/Org/inbox.org"
+                        "~/Documents/Org/projects.org"
+                        "~/Documents/Org/repeaters.org"))
 
 (setq org-agenda-custom-commands
       '((" " "Agenda"
@@ -187,12 +187,12 @@
                   ((org-agenda-span 'day)))
           (todo "TODO"
                 ((org-agenda-overriding-header "Unscheduled tasks")
-                 (org-agenda-files '("~/Documents/test_gtd/inbox.org"))
+                 (org-agenda-files '("~/Documents/Org/inbox.org"))
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
                  ))
           (todo "TODO"
                 ((org-agenda-overriding-header "Unscheduled project tasks")                                                   
-                 (org-agenda-files '("~/Documents/test_gtd/projects.org"))
+                 (org-agenda-files '("~/Documents/Org/projects.org"))
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))))
                         
 ;; save all org-buffers when todo state changes                                                                               
