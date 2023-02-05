@@ -146,19 +146,14 @@
             ("ddg" . "https://duckduckgo.com/?q=")
             ("wiki" . "https://en.wikipedia.org/wiki/"))
         org-table-convert-region-max-lines 20000
-        org-todo-keywords        ; This overwrites the default Doom org-todo-keywords
+        org-todo-keywords         ; This overwrites the default Doom org-todo-keywords
           '((sequence
-             "TODO(t)"           ; A task that is ready to be tackled
-             "NEXT(n)"           ; A task that will be next
-             "INPROGGRESS(i)"    ; A task is in proggress 
-             "WAITING(w)"        ; Something is holding up this task
-             "DONE(d)"           ; Task has been completed
-             "HOLD(h)"           ; A task that's in hold
-             "GYM(g)"            ; Things to accomplish at the gym
-             "PROJ(p)"           ; A project that contains other tasks
-             "VIDEO(v)"          ; Video assignments
-             "|"                 ; The pipe necessary to separate "active" states and "inactive" states
-             "CANCELLED(c)" )))) ; Task has been cancelled
+             "INPROGGRESS(i)"     ; A task is in proggress 
+             "WAITING(w)"         ; Something is holding up this task
+             "GYM(g)"             ; Things to accomplish at the gym
+             "PROJ(p)")           ; A project that contains other tasks
+             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)"))
+             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)"))))) ; The pipe necessary to separate "active" states and "inactive" states
 
 ;; This controls the color of bold, italic, underline, verbatim, strikethrough
 (after! org 
@@ -173,6 +168,45 @@
 ;; Org agenda
 (after! org
   (setq org-agenda-files '("~/Documents/Org/agenda.org")))
+
+(setq org-return-follows-link t
+      org-agenda-tags-column 75
+      org-deadline-warning-days 30
+      org-use-speed-commands t)
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file "~/Documents/test_gtd/inbox.org")
+         "* TODO %?\n  %i\n  %a")))
+         
+(setq org-agenda-files (list
+                        "~/Documents/test_gtd/inbox.org"
+                        "~/Documents/test_gtd/projects.org"
+                        "~/Documents/test_gtd/repeaters.org"))
+
+(setq org-agenda-custom-commands
+      '((" " "Agenda"
+         ((agenda ""
+                  ((org-agenda-span 'day)))
+          (todo "TODO"
+                ((org-agenda-overriding-header "Unscheduled tasks")
+                 (org-agenda-files '("~/Documents/test_gtd/inbox.org"))
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+                 ))
+          (todo "TODO"
+                ((org-agenda-overriding-header "Unscheduled project tasks")                                                   
+                 (org-agenda-files '("~/Documents/test_gtd/projects.org"))
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))))
+                        
+;; save all org-buffers when todo state changes                                                                               
+(advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
+(advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
+(advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
+(advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
+
+;; global keyboard shortcuts
+(global-set-key (kbd "SPC c") #'org-capture)
+(global-set-key (kbd "SPC a") #'org-agenda)
 
 (setq
    ;; org-fancy-priorities-list '("[A]" "[B]" "[C]")
