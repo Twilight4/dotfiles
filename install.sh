@@ -111,8 +111,8 @@ install-dotfiles() {
     
     # install doom emacs (has to be after cloned dotfiles)
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
-    ~/.emacs.d/bin/doom install
     ~/.emacs.d/bin/doom sync
+    ~/.emacs.d/bin/doom env
     emacs --batch -f all-the-icons-install-fonts
         
     # system services
