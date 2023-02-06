@@ -20,9 +20,11 @@ export HISTSIZE=10000                                # Maximum events for intern
 export SAVEHIST=10000                                # Maximum events in history file
 
 # Other softwares
+export NIMBLE_DIR="$XDG_DATA_HOME/nimble"
+export LESSHISTFILE="$XDG_STATE_HOME"/less/history
+export GOPATH="$XDG_DATA_HOME"/go
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export TMUXP_CONFIGDIR="$XDG_CONFIG_HOME/tmuxp"
 export _Z_DATA="$XDG_DATA_HOME/z/"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
