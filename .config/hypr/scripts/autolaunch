@@ -10,6 +10,9 @@ hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch ex
 # workspace 3
 hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch exec "kitty -1 -T hacker-kitty --class hacker-kitty --session ~/.config/kitty/ws-3-session"
 
+# workspace 4
+hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "[opaque] emacsclient -c -a ''"
+
 # workspace 5
 hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "footclient -T cava -a cava -e cava"
 hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp"
@@ -23,6 +26,7 @@ sleep 15      # wait untill apps run
 # unset by class name
 hyprctl keyword windowrule "unset,casual-kitty"
 hyprctl keyword windowrule "unset,LibreWolf"
+hyprctl keyword windowrule "unset,emacs"
 hyprctl keyword windowrule "unset,hacker-kitty"
 hyprctl keyword windowrule "unset,ncmpcpp"
 hyprctl keyword windowrule "unset,cava"
