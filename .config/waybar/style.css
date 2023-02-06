@@ -87,7 +87,7 @@ window#waybar.hidden {
 }
 
 #cpu {
-  color: @sky;
+  color: @sapphire;
 }
 
 #memory {
@@ -95,7 +95,7 @@ window#waybar.hidden {
 }
 
 #disk {
-  color: @teal;
+  color: @sky;
 }
 
 #tray > .passive {
@@ -130,7 +130,7 @@ window#waybar.hidden {
 }
 
 #pulseaudio {
-  color: @green;
+  color: @teal;
 }
 
 #pulseaudio.bluetooth {
@@ -145,7 +145,7 @@ window#waybar.hidden {
 }
 
 #network {
-  color: @green;
+  color: @teal;
 }
 #network.disconnected,
 #network.disabled {
