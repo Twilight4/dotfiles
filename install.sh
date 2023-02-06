@@ -97,7 +97,7 @@ install-dotfiles() {
     sudo rm /home/$(whoami)/.bash*
     sudo mkdir -p ~/.config/.local/share/mpd
     sudo chmod 755 $XDG_CONFIG_HOME/hypr/scripts/*
-    sudo chmod 755 $XDG_CONFIG_HOME/zsh/plugins/web-search/web_search.plugin.zsh
+    #sudo chmod 755 $XDG_CONFIG_HOME/zsh/plugins/web-search/web_search.plugin.zsh            # check if you have to and if then do it manually cuz plugin not installed yet
     sudo chmod 755 $XDG_CONFIG_HOME/waybar/scripts/*
     sudo chmod 755 $HOME/.config/rofi/applets/bin/*
     sudo chmod 755 $XDG_CONFIG_HOME/rofi/applets/shared/theme.bash
@@ -109,9 +109,7 @@ install-dotfiles() {
     
     # install doom emacs (has to be after cloned dotfiles)
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
-    ~/.emacs.d/bin/doom sync
-    ~/.emacs.d/bin/doom env
-    emacs --batch -f all-the-icons-install-fonts
+    ~/.emacs.d/bin/doom install
         
     # system services
     systemctl --user enable greenclip.service                                         # enable cliphistory daemon
