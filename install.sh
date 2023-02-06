@@ -97,7 +97,7 @@ install-dotfiles() {
     sudo rm /home/$(whoami)/.bash*
     sudo mkdir -p ~/.config/.local/share/mpd
     sudo chmod 755 $XDG_CONFIG_HOME/hypr/scripts/*
-    #sudo chmod 755 $XDG_CONFIG_HOME/zsh/plugins/web-search/web_search.plugin.zsh            # check if you have to and if then do it manually cuz plugin not installed yet
+    sudo rm -rf /usr/share/sddm/themes/aerial/playlists
     sudo chmod 755 $XDG_CONFIG_HOME/waybar/scripts/*
     sudo chmod 755 $HOME/.config/rofi/applets/bin/*
     sudo chmod 755 $XDG_CONFIG_HOME/rofi/applets/shared/theme.bash
