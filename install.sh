@@ -181,6 +181,7 @@ echo 'Post-Installation:
 - to check if profile sync daemon is running type command: psd p
 - to scan for hardware thermal sensors - configure with sensors-detect
 - after reboot you can refresh/fix keyrings with: SUPER + SHIFT + U
+- and type: chown -R twilight:twilight ~/.config/.local/share/mpd
 - now you reboot: systemctl reboot -i
 '
 }
