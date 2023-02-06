@@ -34,7 +34,6 @@ window#waybar.hidden {
   margin: 0px 5px;
 }
 
-#idle_inhibitor,
 #backlight,
 #battery,
 #clock,
@@ -52,10 +51,6 @@ window#waybar.hidden {
 #window,
 #network {
   padding: 0px 4px;
-}
-
-#idle_inhibitor {
-  color: @lavender;
 }
 
 #backlight {
