@@ -15,7 +15,7 @@ wofi_command="wofi --show dmenu \
 
 
 notification(){
-  notify-send -i ~/.config/mako/icons/music.png "Now Playing: Lofi Radio"
+  notify-send "Lofi Stream" "Now Playing: Lofi Radio"
 }
 
 menu(){
@@ -71,7 +71,7 @@ main() {
       ;;
     8)
       notification ;
-      mpv --shuffle --ytdl-raw-options="cookies=/tmp/cookies.txt" --vid=no https://www.youtube.com/playlist\?list\=PLusoefCj_Mkn6dRQMc3MxUG>
+      mpv --shuffle --ytdl-raw-options="cookies=/tmp/cookies.txt" --vid=no https://www.youtube.com/playlist\?list\=PLusoefCj_Mkn6dRQMc3MxUGFHLeYT4y49
       return
       ;;
     9)
@@ -82,4 +82,4 @@ main() {
   esac
 }
 
-pkill -f http && notify-send -i ~/.config/mako/icons/music.png "Lofi Radio stopped" || main
+pkill -f http && notify-send "Lofi Stream" "Lofi Radio stopped" || main
