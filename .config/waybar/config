@@ -12,6 +12,7 @@
   "layer": "top",
   "exclusive": true,
   "passthrough": false,
+  "height": 37,
   "position": "top",
   "fixed-center": true,
   "spacing": 3,
