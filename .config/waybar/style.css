@@ -132,7 +132,7 @@ window#waybar.hidden {
   color: @pink;
 }
 #pulseaudio.muted {
-  color: @green;
+  color: @red;
 }
 
 #window {
