@@ -23,7 +23,7 @@ fi
 
 # CMDs (add your apps here)
 term_cmd='discord'
-file_cmd='thunderbird'
+file_cmd='FREEPLANE_USE_UNSUPPORTED_JAVA_VERSION=1 freeplane'
 text_cmd='keepassxc'
 web_cmd='qemu'
 music_cmd='calendar'
@@ -33,7 +33,7 @@ setting_cmd='anki'
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
 	option_1=" Chat <span weight='light' size='small'><i>($term_cmd)</i></span>"
-	option_2=" Mailer <span weight='light' size='small'><i>($file_cmd)</i></span>"
+	option_2=" Mind map <span weight='light' size='small'><i>($file_cmd)</i></span>"
 	option_3=" Passwordmanager <span weight='light' size='small'><i>($text_cmd)</i></span>"
 	option_4=" QEMU <span weight='light' size='small'><i>($web_cmd)</i></span>"
 	option_5=" Calendar <span weight='light' size='small'><i>($music_cmd)</i></span>"
