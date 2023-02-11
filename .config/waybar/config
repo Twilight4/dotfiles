@@ -19,6 +19,6 @@
   "gtk-layer-shell": true,
 
   "modules-left": ["wlr/workspaces", "hyprland/window"],
-  "modules-center": ["custom/uptime", "clock", "custom/weather"],
-  "modules-right": ["cpu", "custom/cputemp", "memory", "disk", "backlight", "pulseaudio", "custom/vpncheck", "network", "battery", "custom/updater", "tray"],
+  "modules-center": ["clock", "custom/weather"],
+  "modules-right": ["custom/uptime", "cpu", "custom/cputemp", "memory", "disk", "backlight", "pulseaudio", "custom/vpncheck", "network", "battery", "custom/updater", "tray"],
 }
