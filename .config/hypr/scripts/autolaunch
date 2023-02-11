@@ -11,7 +11,7 @@ hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch ex
 hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch exec "kitty -1 -T hacker-kitty --class hacker-kitty --session ~/.config/kitty/ws-3-session"
 
 # workspace 4
-hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "emacsclient -c -a ''"
+#hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "emacsclient -c -a ''"
 
 # workspace 5
 hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "footclient -T cava -a cava -e cava"
