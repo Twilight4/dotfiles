@@ -125,8 +125,8 @@ install-dotfiles() {
     git config --global user.name "Twilight4"
     
     # install doom emacs (has to be after cloned dotfiles)
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
-    ~/.emacs.d/bin/doom install
+    #git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
+    #~/.emacs.d/bin/doom install
         
     # system services
     playerctld daemon                                                                 # if it doesn't work try installing volumectl
