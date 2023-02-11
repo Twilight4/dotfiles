@@ -429,6 +429,10 @@
 (after! org
   (setq org-roam-directory "~/Documents/Org/roam/"
         org-roam-graph-viewer "/usr/bin/librewolf"))
+        
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry "* %<%I:%M %p>: %?"
+         :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
