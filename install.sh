@@ -105,6 +105,7 @@ install-dotfiles() {
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
+    sudo mv /tmp/dotfiles/.config/.local/share/fonts ~/.config/.local/share
     sudo rm "/home/$(whoami)/.config/.local/share/fonts/README.md"
     sudo fc-cache -fv
     sudo rm /home/$(whoami)/.bash*
