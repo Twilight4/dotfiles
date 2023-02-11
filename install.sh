@@ -50,7 +50,9 @@ install-apps() {
     sudo mv ~/.local/bin/ghclone /usr/local/bin
     sudo wget https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.01-01-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     sudo pacman -U --noconfirm --needed /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
-    npm install git-file-downloader # TODO: move the installed dir and add .bin to PATH
+    npm install git-file-downloader
+    sudo mv ~/node_modules /opt
+    ln -sf /opt/node_modules/git-file-downloader/cli.js ~/.config/zsh/bash-scripts/gfd
     
     # gaming on linux
     #sudo pacman --noconfirm -S lutris
