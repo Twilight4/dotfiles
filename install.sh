@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# I assume I used my personal alis script with install-only-tweaks.sh script before this one
+# This script assumes that I used my personal alis installation script with install-tweaks.sh beforewards
 run() {
     update-system
     download-paclist
