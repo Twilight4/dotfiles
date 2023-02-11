@@ -49,7 +49,7 @@ install-apps() {
     # these apps are unavailable in arch repos
     pip install github-clone
     sudo mv ~/.local/bin/ghclone /usr/local/bin
-    sudo curl -LO /tmp/https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.01-01-any.pkg.tar.zst
+    sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.01-01-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     sudo pacman -U --noconfirm --needed /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     npm install git-file-downloader
     sudo mv ~/node_modules /opt
