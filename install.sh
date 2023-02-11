@@ -142,6 +142,8 @@ install-dotfiles() {
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
+    # change the ownership of mpd directory
+    sudo chown -R twilight:twilight ~/.config/.local/share/mpd
     
 # Hyprland desktop entry
 #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
@@ -187,8 +189,7 @@ echo 'Post-Installation:
 - to check if profile sync daemon is running type command: psd p
 - to scan for hardware thermal sensors - configure with sensors-detect
 - after reboot you can refresh/fix keyrings with: SUPER + SHIFT + U
-- and type: chown -R twilight:twilight ~/.config/.local/share/mpd
-- now you reboot: systemctl reboot -i
+- you can now reboot: systemctl reboot -i
 '
 }
 
