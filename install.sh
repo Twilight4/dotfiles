@@ -145,7 +145,7 @@ install-dotfiles() {
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
     # change the ownership of mpd directory
-    sudo chown -R twilight:twilight ~/.config/.local/share/mpd
+    sudo chown -R twilight:twilight ~/.config/.local
     
 # Hyprland desktop entry
 #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
