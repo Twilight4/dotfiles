@@ -39,6 +39,7 @@ install-yay() {
 }
 
 install-apps() {
+    sudo pacman -Rns sddm      # remove sddm package installed by alis
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
     yay -S --noconfirm $(cat /tmp/yaylist)
     
