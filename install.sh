@@ -127,7 +127,7 @@ install-dotfiles() {
     ~/.emacs.d/bin/doom install
         
     # system services
-    playerctld                                                                        # if it doesn't work try installing volumectl
+    playerctld daemon                                                                 # if it doesn't work try installing volumectl
     systemctl --user enable greenclip.service                                         # enable cliphistory daemon
     systemctl --user enable mpd.service                                               # mpd daemon
     systemctl --user enable psd.service                                               # profile sync daemon
