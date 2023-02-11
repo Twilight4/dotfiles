@@ -24,5 +24,6 @@ export XCURSOR_THEME=Numix-Cursor-Light               # Cursor theme for Xwaylan
 export XCURSOR_SIZE=24                                # Cursor size for Xwayland
 export WLR_NO_HARDWARE_CURSORS=1                      # Cursor doesn't need hardware
 export MOZ_DISABLE_RDD_SANDBOX=1                      # Disable RDD sandbox in firefox
+export CLUTTER_PAINT=disable-dynamic-max-render-time  # Get a smoother frame rate
 
 exec Hyprland
