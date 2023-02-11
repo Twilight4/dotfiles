@@ -13,8 +13,8 @@
     "interval": 30,
     "align": 0,
     "rotate": 0,
-      "format": "<span font='13' rise='1000'>{icon}</span> {percent}",
-      "format-icons": ["", "", "", ""],
+    "format": "<span font='13' rise='1000'>{icon}</span> {percent}",
+    "format-icons": ["", "", "", ""],
     },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
