@@ -88,7 +88,7 @@
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
   "network": {
     "interval": 5,
-    "format-wifi": "<span font='13' rise='2000'></span> {signalStrength}%",
+    "format-wifi": "<span font='13' rise='1000'></span> {signalStrength}%",
     "format-ethernet": "<span font='13' rise='1000'></span> {bandwidthUpBytes}",
     "format-linked": "<span font='13' rise='1000'></span> {ifname} (No IP)",
     "format-disconnected": "<span font='13' rise='1000'>睊</span> Disconnected",
