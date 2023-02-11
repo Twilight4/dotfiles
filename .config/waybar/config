@@ -20,5 +20,5 @@
 
   "modules-left": ["wlr/workspaces", "hyprland/window"],
   "modules-center": ["clock", "custom/weather"],
-  "modules-right": ["custom/uptime", "cpu", "custom/cputemp", "memory", "disk", "backlight", "pulseaudio", "custom/vpncheck", "network", "battery", "custom/updater", "tray"],
+  "modules-right": ["custom/uptime", "cpu", "custom/cputemp", "memory", "disk", "backlight", "custom/vpncheck", "network", "battery", "custom/updater", "tray"],
 }
