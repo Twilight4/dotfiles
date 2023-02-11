@@ -124,7 +124,7 @@ install-dotfiles() {
     git config --global user.email "electrolight071@gmail.com"
     git config --global user.name "Twilight4"
     
-    # install doom emacs (has to be after cloned dotfiles)
+    # (has to be after cloned dotfiles) - don't install doom emacs, if you change your mind then this is the package from aur: emacs-gcc-wayland-devel-bin
     #git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.emacs.d
     #~/.emacs.d/bin/doom install
         
