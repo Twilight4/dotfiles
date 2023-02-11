@@ -54,6 +54,8 @@ install-apps() {
     npm install git-file-downloader
     sudo mv ~/node_modules /opt
     ln -sf /opt/node_modules/git-file-downloader/cli.js ~/.config/zsh/bash-scripts/gfd
+    rm ~/package.json
+    rm ~/package-lock.json
     
     # gaming on linux
     #sudo pacman --noconfirm -S lutris
