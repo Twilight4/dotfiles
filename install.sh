@@ -57,6 +57,7 @@ install-apps() {
     ln -sf /opt/node_modules/git-file-downloader/cli.js ~/.config/zsh/bash-scripts/gfd
     rm ~/package.json
     rm ~/package-lock.json
+    sudo rm -rf ~/go
     
     # gaming on linux
     #sudo pacman --noconfirm -S lutris
