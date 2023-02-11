@@ -38,7 +38,7 @@
     "align": 0,
     "rotate": 0,
     "full-at": 100,
-    "design-capacity": false,
+    "design-capacity": true,
     "states": {
       "good": 95,
       "warning": 30,
