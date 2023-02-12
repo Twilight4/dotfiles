@@ -58,7 +58,7 @@ config.bind("<y><o>", "yank inline [[{url}][{title}]]")
 config.bind("V", "hint links spawn " + os.environ["BROWSER"] + ' "{hint-url}"')
 config.bind("v", 'hint links spawn funnel "{hint-url}"')
 
-# ======================= Redline Insert Mode ============= {{{
+# ======================= Redline Insert Mode =============
 # Awesome way to open vim from qutebrowser
 c.editor.command = [
     os.environ["TERMINAL"],
