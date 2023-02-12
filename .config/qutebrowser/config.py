@@ -53,7 +53,6 @@ config.bind("<y><o>", "yank inline [[{url}][{title}]]")
 # ======================= External Open ===================
 config.bind("V", "hint links spawn " + os.environ["BROWSER"] + ' "{hint-url}"')
 config.bind("v", 'hint links spawn funnel "{hint-url}"')
-config.bind("\\", 'spawn dmenuhandler "{url}"')
 
 # ======================= Redline Insert Mode ============= {{{
 # Awesome way to open vim from qutebrowser
