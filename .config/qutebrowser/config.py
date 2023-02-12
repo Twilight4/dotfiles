@@ -81,10 +81,6 @@ config.bind("<Ctrl-u>", "fake-key <Shift-Home><Delete>", "insert")
 config.bind("<Ctrl-k>", "fake-key <Shift-End><Delete>", "insert")
 config.bind("<Ctrl-x><Ctrl-e>", "open-editor", "insert")
 
-
-
-
-
 # Bindings for normal mode
 config.bind('M', 'hint links spawn mpv {hint-url}')
 config.bind('Z', 'hint links spawn st -e youtube-dl {hint-url}')
