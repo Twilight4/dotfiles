@@ -47,6 +47,10 @@ c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'am': 'https:/
 # Setting dark mode
 #config.set("colors.webpage.darkmode.enabled", True)
 
+# Setting default page for when opening new tabs or new windows with
+# commands like :open -t and :open -w .
+c.url.default_page = 'file:///home/.config/qutebrowser/homepage.html'
+
 # =============== Special Format Yanking (designed for org mode) ===========
 config.bind("<y><o>", "yank inline [[{url}][{title}]]")
 
