@@ -11,6 +11,7 @@ hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch ex
 hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch exec "kitty -1 -T hacker-kitty --class hacker-kitty --session ~/.config/kitty/ws-3-session"
 
 # workspace 4
+hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec "logseq"
 #hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "emacsclient -c -a ''"
 
 # workspace 5
@@ -27,6 +28,7 @@ sleep 15      # wait untill apps run
 hyprctl keyword windowrule "unset,casual-kitty"
 hyprctl keyword windowrule "unset,LibreWolf"
 #hyprctl keyword windowrule "unset,emacs"
+hyprctl keyword windowrule "unset,logseq"
 hyprctl keyword windowrule "unset,hacker-kitty"
 hyprctl keyword windowrule "unset,ncmpcpp"
 hyprctl keyword windowrule "unset,cava"
