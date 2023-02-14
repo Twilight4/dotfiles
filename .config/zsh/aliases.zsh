@@ -25,7 +25,7 @@ alias gdiff="git difftool --no-symlinks --dir-diff"
 alias s="kitty +kitten ssh"
 
 # emacs
-alias emacs="emacsclient -c -a ''"
+#alias emacs="emacsclient -c -a ''"
 
 # Aliases to modified commands
 alias mkdir='mkdir -p'
@@ -36,10 +36,10 @@ alias train='sl | lolcat'
 alias devil='fortune | cowsay -f eyes | lolcat'
 
 # Aliases for doom emacs utilties
-alias doomsync='~/.emacs.d/bin/doom sync'
-alias doomdoctor='~/.emacs.d/bin/doom doctor'
-alias doomupgrade='~/.emacs.d/bin/doom upgrade'
-alias doompurge='~/.emacs.d/bin/doom purge'
+#alias doomsync='~/.emacs.d/bin/doom sync'
+#alias doomdoctor='~/.emacs.d/bin/doom doctor'
+#alias doomupgrade='~/.emacs.d/bin/doom upgrade'
+#alias doompurge='~/.emacs.d/bin/doom purge'
 
 # python
 alias pyserver='python3 -m http.server'
@@ -55,6 +55,10 @@ alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 #add new fonts
 alias update-fc='sudo fc-cache -fv'
+
+# trans
+alias tre='trans en:pl'
+alias trp='trans pl:en'
 
 #hardware info --short
 alias hw="hwinfo --short"
