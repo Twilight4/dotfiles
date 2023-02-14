@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+##########
+# Pacman #
+##########
+
 # TODO can improve that with a bind to switch to what was installed
 fpac() {
     pacman -Slq | fzf --multi --reverse --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
@@ -9,8 +13,13 @@ fyay() {
     yay -Slq | fzf --multi --reverse --preview 'yay -Si {1}' | xargs -ro yay -S
 }
 
+
+#######
+# Git #
+#######
+
 # git log browser with FZF
-fglog() {
+fgl() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
@@ -21,30 +30,24 @@ fglog() {
 FZF-EOF"
 }
 
+fgb() {
+  local branches branch
+  branches=$(git --no-pager branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+
+
+########
+# tmux #
+########
+
 # Let you choose a tmuxp config with fzf and run it - fmux
 fmux() {
     prj=$(find $XDG_CONFIG_HOME/tmuxp/ -execdir bash -c 'basename "${0%.*}"' {} ';' | sort | uniq | nl | fzf | cut -f 2)
     echo $prj
     [ -n "$prj" ] && tmuxp load $prj
-}
-
-# ftmux - help you delete tmux sessions
-ftmuxd() {
-    if [[ ! -n $TMUX ]]; then
-        # get the IDs
-        ID="`tmux list-sessions`"
-        if [[ -z "$ID" ]]; then
-            tmux kill-session
-        fi
-        delete_session="Kill Session"
-        ID="$ID\n${kill_session}:"
-        ID="`echo $ID | fzf | cut -d: -f1`"
-        if [[ "$ID" = "${kill_session}" ]]; then
-            tmux kill-session -t "$ID"
-        else
-            :  # Start terminal normally
-        fi
-    fi
 }
 
 # ftmux - help you choose tmux sessions
@@ -92,6 +95,11 @@ ftmuxp() {
     fi
 }
 
+
+#########
+# Other #
+#########
+
 # Display the directory stack with fzf. Jump to the directory when one selected
 fpop() {
     # Only work with alias d (in zsh-aliases) defined as:
@@ -134,4 +142,22 @@ fmind() {
 ftrack() {
     file=$(ls $CLOUD/tracking/**/*.{ods,csv} | fzf) || return
     [ -n "$file" ] && libreoffice "$file" &> /dev/null &
+}
+
+# Find in File using ripgrep
+fif() {
+  if [ ! "$#" -gt 0 ]; then return 1; fi
+  rg --files-with-matches --no-messages "$1" \
+      | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
+      | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' \
+      || rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
+# Find in file using ripgrep-all
+fifa() {
+    if [ ! "$#" -gt 0 ]; then return 1; fi
+    local file
+    file="$(rga --max-count=1 --ignore-case --files-with-matches --no-messages "$*" \
+        | fzf-tmux -p +m --preview="rga --ignore-case --pretty --context 10 '"$*"' {}")" \
+        && print -z "./$file" || return 1;
 }
