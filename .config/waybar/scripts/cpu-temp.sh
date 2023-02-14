@@ -5,4 +5,4 @@ a="$(acpi -t)"
 a="${a#*, }"
 a="${a% d*}"
 
-echo "$a"
+echo "$a°C"
