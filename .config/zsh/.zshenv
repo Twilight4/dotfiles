@@ -26,9 +26,9 @@ export GOPATH="$XDG_DATA_HOME"/go
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export TMUXP_CONFIGDIR="$XDG_CONFIG_HOME/tmuxp"
-export _Z_DATA="$XDG_DATA_HOME/z/"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export XCURSOR_PATH=/usr/share/icons:${XDG_DATA_HOME}/icons
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
