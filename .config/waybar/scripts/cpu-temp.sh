@@ -1,2 +1,8 @@
 #!/bin/sh
-sensors | awk '/Package/ {sub(/^\+/, "", $4); sub(/\.0/, "", $4);print $4}'
+# Since string manipulations in bash can't be nested, temporary variables are necessary.
+
+a="$(acpi -t)"
+a="${a#*, }"
+a="${a% d*}"
+
+echo "$a"
