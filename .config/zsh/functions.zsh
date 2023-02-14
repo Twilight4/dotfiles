@@ -73,11 +73,6 @@ function _new_command {
     BUFFER=""
 }
 
-# Search through all man pages
-function fman() {
-    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
-}
-
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
