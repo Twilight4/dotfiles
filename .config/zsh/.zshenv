@@ -66,7 +66,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # Nnn
-export NNN_BMS="d:~/Documents;D:~/Downloads;w:~/.config/hypr/wallpapers;m:~/Music/;p:~/Pictures;c:~/.config"
+export NNN_BMS="d:~/documents;D:~/downloads;w:~/.config/hypr/wallpapers;m:~/music;p:~/pictures;c:~/.config;v:~/videos;o:/opt;r:/run/media/twilight"
 export NNN_TRASH=1
 export NNN_PLUG='b:bulknew;o:fzopen;c:fzcd;j:autojump;p:preview-tui;t:preview-tabbed;i:imgview;u:upload;f:fixname;d:dragdrop;x:imgur'
 export NNN_FIFO='/tmp/nnn.fifo'
