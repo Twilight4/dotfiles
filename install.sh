@@ -173,8 +173,6 @@ EOF
 git clone https://github.com/HenriqueLopes42/themeGrub.CyberEXS
 mv themeGrub.CyberEXS CyberEXS
 sudo mv CyberEXS /boot/grub/themes/
-sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
-sudo grub-mkconfig -o /boot/grub/grub.cfg
     
 # tmux plugin manager
 [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
@@ -183,6 +181,9 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 echo 'Post-Installation:
 - NOW ISSUE THIS COMMAND AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
+- you have to finish GRUB rice as root user by issuing these commands:
+sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 -- reload tmux plugin manager: ctrl + a + shift + i and hit q
 - to check if profile sync daemon is running type command: psd p
