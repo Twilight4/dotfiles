@@ -7,7 +7,7 @@ run() {
     download-yaylist
     install-yay
     install-apps
-    #create-directories
+    create-directories
     install-dotfiles
 }
 
@@ -88,9 +88,9 @@ install-apps() {
     #sudo systemctl enable docker.service
 }
 
-#create-directories() {
-#sudo mkdir -p "/home/$(whoami)/{Document,Download,Video,workspace,Music}"
-#}
+create-directories() {
+sudo mkdir -p "/home/$(whoami)/{documents,desktop,downloads,videos,workspace,music,pictures}"
+}
 
 install-dotfiles() {
     DOTFILES="/tmp/dotfiles"
