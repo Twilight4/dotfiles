@@ -1,3 +1,4 @@
+import os
 import dracula.draw
 
 # Load existing settings made via :set
