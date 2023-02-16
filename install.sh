@@ -53,14 +53,6 @@ install-apps() {
     sudo mv ~/.local/bin/ghclone /usr/local/bin
     sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.01-01-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     sudo pacman -U --noconfirm --needed /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
-    sudo npm install git-file-downloader
-    sudo npm install cli-fireplace
-    sudo npm install git-stats
-    sudo mv ~/node_modules /opt
-    ln -sf /opt/node_modules/git-file-downloader/cli.js ~/.config/zsh/bash-scripts/gfd
-    rm ~/package.json
-    rm ~/package-lock.json
-    sudo rm -rf ~/go
     
     # gaming on linux
     #sudo pacman --noconfirm -S lutris
@@ -109,6 +101,7 @@ install-dotfiles() {
     fi
     
     # Prevent permission denied errors
+    sudo rm -rf ~/go
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
@@ -194,7 +187,7 @@ echo 'Post-Installation:
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 -- reload tmux plugin manager: ctrl + a + shift + i and hit q
 - to check if profile sync daemon is running type command: psd p
-- to scan for hardware thermal sensors - configure with sensors-detect
+- these needs to be installed after shell is changed to zsh: sudo npm install git-file-downloader cli-fireplace git-stats
 - after reboot you can refresh/fix keyrings with: SUPER + SHIFT + U
 - you can now reboot: systemctl reboot -i
 '
