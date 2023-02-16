@@ -41,7 +41,7 @@ install-yay() {
 install-apps() {
     # remove useless packages installed by alis
     sudo pacman -Rns sddm linux linux-headers
-    # without flag --noconfirm cuz otherwise it won't install
+    # without flag --noconfirm to choose from which provider to install certain packages
     sudo pacman -S $(cat /tmp/paclist)
     yay -S $(cat /tmp/yaylist)
     
