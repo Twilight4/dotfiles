@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PATH=$HOME/.config/hypr/scripts:$HOME/.config/zsh/bash-scripts:$HOME/.config/.local/bin:$HOME/.config/rofi/applets/bin:$HOME/.config/rofi/launcher:$HOME/.config/rofi/wifi:$HOME/.emacs.d/bin:$PATH
+PATH=$HOME/.config/hypr/scripts:$HOME/.config/zsh/bash-scripts:$HOME/.config/.local/bin:$HOME/.config/rofi/applets/bin:$HOME/.config/rofi/launcher:$HOME/.config/rofi/wifi:$HOME/.config/node_modules/bin:$PATH
 export PATH
 
 cd ~ || exit
