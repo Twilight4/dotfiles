@@ -19,6 +19,11 @@ export HISTFILE="$ZDOTDIR/.zhistory"                 # History filepath
 export HISTSIZE=10000                                # Maximum events for internal history
 export SAVEHIST=10000                                # Maximum events in history file
 
+# NPM
+export NPM_PATH="$XDG_CONFIG_HOME/node_modules"
+export NPM_BIN="$XDG_CONFIG_HOME/node_modules/bin"
+export NPM_CONFIG_PREFIX="$XDG_CONFIG_HOME/node_modules"
+
 # Other softwares
 export NIMBLE_DIR="$XDG_DATA_HOME/nimble"
 export LESSHISTFILE="$XDG_STATE_HOME"/less/history
