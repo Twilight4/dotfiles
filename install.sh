@@ -42,8 +42,8 @@ install-apps() {
     # remove useless packages installed by alis
     sudo pacman -Rns sddm linux linux-headers
     # without flag --noconfirm to choose from which provider to install certain packages
-    sudo pacman -S $(cat /tmp/paclist)
-    yay -S $(cat /tmp/yaylist)
+    sudo pacman -S "$(cat /tmp/paclist)"
+    yay -S "$(cat /tmp/yaylist)"
     
     # plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
@@ -107,17 +107,17 @@ install-dotfiles() {
     sudo mv /tmp/dotfiles/.config/.local/share/fonts ~/.config/.local/share
     sudo rm "/home/$(whoami)/.config/.local/share/fonts/README.md"
     sudo fc-cache -fv
-    sudo rm /home/$(whoami)/.bash*
+    sudo rm /home/"$(whoami)"/.bash*
     sudo mkdir -p ~/.config/.local/share/mpd/playlists
-    sudo chmod 755 $XDG_CONFIG_HOME/hypr/scripts/*
+    sudo chmod 755 "$XDG_CONFIG_HOME"/hypr/scripts/*
     sudo rm -rf /usr/share/sddm/themes/aerial/playlists
-    sudo chmod 755 $XDG_CONFIG_HOME/waybar/scripts/*
-    sudo chmod 755 $HOME/.config/rofi/applets/bin/*
-    sudo chmod 755 $XDG_CONFIG_HOME/rofi/applets/shared/theme.bash
-    sudo chmod 755 $XDG_CONFIG_HOME/rofi/launcher/launcher.sh
-    sudo chmod 755 $XDG_CONFIG_HOME/rofi/wifi/wifi
-    sudo chmod 755 $XDG_CONFIG_HOME/rofi/applets/bin/*
-    sudo chmod 755 $XDG_CONFIG_HOME/zsh/bash-scripts/*.sh
+    sudo chmod 755 "$XDG_CONFIG_HOME"/waybar/scripts/*
+    sudo chmod 755 "$HOME"/.config/rofi/applets/bin/*
+    sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/shared/theme.bash
+    sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/launcher/launcher.sh
+    sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/wifi/wifi
+    sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/bin/*
+    sudo chmod 755 "$XDG_CONFIG_HOME"/zsh/bash-scripts/*.sh
     sudo chmod 755 /opt/logseq-desktop
     
     # (has to be after cloned dotfiles) - don't install doom emacs, if you change your mind then this is the package from aur: emacs-gcc-wayland-devel-bin
@@ -188,8 +188,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 - to check if profile sync daemon is running type command: psd p
 - these needs to be installed after shell is changed to zsh: sudo npm install git-file-downloader cli-fireplace git-stats
 - after reboot you can refresh/fix keyrings with: SUPER + SHIFT + U
-- you can now reboot: systemctl reboot -i
-'
+- you can now reboot: systemctl reboot -i'
 }
 
 run "$@"
