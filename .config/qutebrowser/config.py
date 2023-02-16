@@ -58,7 +58,7 @@ c.downloads.location.directory = '~/downloads'
 c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'am': 'https://www.amazon.com/s?k={}', 'aw': 'https://wiki.archlinux.org/?search={}', 'goog': 'https://www.google.com/search?q={}', 'hoog': 'https://hoogle.haskell.org/?hoogle={}', 're': 'https://www.reddit.com/r/{}', 'ub': 'https://www.urbandictionary.com/define.php?term={}', 'yt': 'https://www.youtube.com/results?search_query={}'}
 
 # Setting dark mode
-#config.set("colors.webpage.darkmode.enabled", True)
+config.set("colors.webpage.darkmode.enabled", True)
 
 # Setting default page for when opening new tabs or new windows with
 # commands like :open -t and :open -w .
