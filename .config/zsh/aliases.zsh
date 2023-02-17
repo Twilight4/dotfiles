@@ -144,7 +144,6 @@ alias yta-best="yt-dlp --extract-audio --audio-format best "
 alias yta-flac="yt-dlp --extract-audio --audio-format flac "
 alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
 alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+          bestaudio' --merge-output-format mp4 "
-alias yt3-mp3="yt-dlp --extract-audio --audio-format mp3 " 
 
 # git
 alias ga='git add'
