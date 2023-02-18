@@ -99,6 +99,12 @@ install-dotfiles() {
             git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
     fi
     
+    LOGSEQ="~/documents/logseq-notes"
+    if [ ! -d "$LOGSEQ" ]
+        then
+            git clone --recurse-submodules "https://github.com/Twilight4/logseq-notes" "$DOTFILES" >/dev/null
+    fi
+    
     # Prevent permission denied errors
     sudo rm -rf ~/go
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
