@@ -10,6 +10,7 @@
 {
   "include": "~/.config/waybar/modules",
   "layer": "top",
+  "output": "DP-2",
   "exclusive": true,
   "passthrough": false,
   "height": 37,
