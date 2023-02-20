@@ -182,9 +182,10 @@ sudo mv CyberEXS /boot/grub/themes/
 
 echo 'Post-Installation:
 - NOW ISSUE THIS COMMAND AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
-- you have to finish GRUB rice as root user by issuing these commands:
+- to finish GRUB rice as root user by issue commands:
 sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+- setup logseq git sync
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 -- reload tmux plugin manager: ctrl + a + shift + i and hit q
 - to check if profile sync daemon is running type command: psd p
