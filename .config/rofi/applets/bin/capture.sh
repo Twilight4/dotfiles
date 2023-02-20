@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # screenshot directory
-screenshot_directory="$HOME/Pictures/screenshots"
-videos_directory="$HOME/Videos/Recordings"
-audio_directory="$HOME/Music/Recordings"
+screenshot_directory="$HOME/pictures/screenshots"
+videos_directory="$HOME/videos/recordings"
+audio_directory="$HOME/music/recordings"
 
 mkdir -p "$screenshot_directory"
 mkdir -p "$videos_directory"
