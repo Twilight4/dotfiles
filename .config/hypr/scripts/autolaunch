@@ -14,8 +14,9 @@ hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch
 hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec "logseq"
 
 # workspace 5
-hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "footclient -T cava -a cava -e cava"
+hyprctl keyword windowrule "workspace 5 silent,qutebrowser" && hyprctl dispatch exec "qutebrowser"
 hyprctl keyword windowrule "workspace 5 silent,ncmpcpp" && hyprctl dispatch exec "footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp"
+hyprctl keyword windowrule "workspace 5 silent,cava" && hyprctl dispatch exec "footclient -T cava -a cava -e cava"
 hyprctl keyword windowrule "workspace 5 silent,clock" && hyprctl dispatch exec 'footclient -T clock -a clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d"'
 
 # workspace special:scratchpad
@@ -26,8 +27,9 @@ sleep 15      # wait untill apps run
 # unset by class name
 hyprctl keyword windowrule "unset,casual-kitty"
 hyprctl keyword windowrule "unset,LibreWolf"
-hyprctl keyword windowrule "unset,logseq"
 hyprctl keyword windowrule "unset,hacker-kitty"
+hyprctl keyword windowrule "unset,logseq"
+hyprctl keyword windowrule "unset,qutebrowser"
 hyprctl keyword windowrule "unset,ncmpcpp"
 hyprctl keyword windowrule "unset,cava"
 hyprctl keyword windowrule "unset,clock"
