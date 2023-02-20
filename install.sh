@@ -166,7 +166,7 @@ sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
 Current=aerial
 CursorSize=24
 CursorTheme=Numix-Cursor-Light
-Font=Sans
+Font=JetBrains Mono
 ThemeDir=/usr/share/sddm/themes
 EOF
 
