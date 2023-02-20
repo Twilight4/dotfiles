@@ -3,7 +3,7 @@
 set -o pipefail
 
 # Directory
-_SCREENSHOT_DIR_=$HOME/Pictures/Screenshots
+_SCREENSHOT_DIR_=$HOME/pictures/screenshots
 _ORIGINAL_DIR_=$_SCREENSHOT_DIR_/Original
 _LOG_FILE_="$_SCREENSHOT_DIR_/.screensht.log"
 # Color
