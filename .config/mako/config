@@ -15,7 +15,7 @@ on-touch=dismiss
 #on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
 
 # STYLE OPTIONS
-font=Noto Sans 11
+font=JetBrains Mono 11
 width=300
 height=100
 margin=10
@@ -33,7 +33,7 @@ default-timeout=5000
 ignore-timeout=0
 max-visible=5
 layer=overlay
-anchor=bottom-right
+anchor=top-right
 
 background-color=#1e1e2e
 text-color=#d9e0ee
