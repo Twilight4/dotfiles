@@ -41,7 +41,7 @@ return packer.startup(function(use)
   use 'nvim-tree/nvim-tree.lua' -- file explorer
   use 'kyazdani42/nvim-web-devicons' -- file icons
   use 'bluz71/vim-nightfly-guicolors' -- preferred colorscheme
-  use 'nvim-lualine/lualine.nvim' -- Statusline
+  use 'nvim-lualine/lualine.nvim' -- statusline
   use({ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }) -- dependency for better sorting performance
   use({ 'nvim-telescope/telescope.nvim', branch = '0.1.x' }) -- fuzzy finder
   use 'windwp/nvim-autopairs' -- auto closing
@@ -58,8 +58,8 @@ return packer.startup(function(use)
   use 'farmergreg/vim-lastplace' -- saves the last cursor place
   use 'junegunn/goyo.vim' -- changes the window on main focus
   use 'moll/vim-bbye' -- unfuck buffers
-  use 'lewis6991/impatient.nvim' -- Speed up loading Lua modules 
-  use 'RRethy/vim-illuminate' -- Quick word search under cursor alt+p and alt+n
+  use 'lewis6991/impatient.nvim' -- speed up loading Lua modules 
+  use 'RRethy/vim-illuminate' -- quick word search under cursor alt+p and alt+n
   use 'ekickx/clipboard-image.nvim' -- paste img from clipboard
   use 'mbbill/undotree' -- show the vim undo tree
   use({
