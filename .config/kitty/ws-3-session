@@ -3,7 +3,7 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~
 # Create a window with nvim (don't use aliases)
-launch nvim
+launch --title neovim nvim
 
 # Create a new tab
 # The part after new_tab is the optional tab title which will be displayed in
