@@ -1,30 +1,15 @@
 # Set the layout for the current tab
-layout tall
+layout tall,grid,splits,stack
 # Set the working directory for windows in the current tab
 cd ~
 # Create a window with zsh
-launch zsh
-# Create a window with nvim (don't use aliases)
-launch nvim
-# Set the title for the next window
-launch --title "Chat with x" irssi --profile x
+launch --title cli zsh
 
 # Create a new tab
-# The part after new_tab is the optional tab title which will be displayed in
-# the tab bar, if omitted, the title of the active window will be used instead.
-new_tab casual-tab
+new_tab file-explorer
 cd ~/documents
 # Set the layouts allowed in this tab
-enabled_layouts tall,stack
+enabled_layouts tall,grid,splits,stack
 # Set the current layout
-layout stack
-launch zsh
-
-# Create a new OS window
-# Any definitions specifed before the first new_os_window will apply to first OS window.
-new_os_window
-# Set the --class for the new OS window
-os_window_class mywindow
-launch zsh
-# Make the current window the active (focused) window in its tab
-focus
+layout tall
+launch sh -c "nnn -Ra"
