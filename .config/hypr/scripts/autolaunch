@@ -18,7 +18,7 @@ hyprctl keyword windowrule "workspace 5 silent,qutebrowser" && hyprctl dispatch 
 #hyprctl keyword windowrule "workspace 5 silent,newsboat" && hyprctl dispatch exec "footclient -T newsboat -a newsboat -e newsboat"
 
 # workspace 6
-hyprctl keyword windowrule "workspace 6 silent,ncmpcpp" && hyprctl dispatch exec "footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp"
+#hyprctl keyword windowrule "workspace 6 silent,ncmpcpp" && hyprctl dispatch exec "footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp"
 hyprctl keyword windowrule "workspace 6 silent,cava" && hyprctl dispatch exec "footclient -T cava -a cava -e cava"
 hyprctl keyword windowrule "workspace 6 silent,clock" && hyprctl dispatch exec 'footclient -T clock -a clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d"'
 
@@ -34,7 +34,7 @@ hyprctl keyword windowrule "unset,hacker-kitty"
 hyprctl keyword windowrule "unset,logseq"
 hyprctl keyword windowrule "unset,qutebrowser"
 #hyprctl keyword windowrule "unset,newsboat"
-hyprctl keyword windowrule "unset,ncmpcpp"
+#hyprctl keyword windowrule "unset,ncmpcpp"
 hyprctl keyword windowrule "unset,cava"
 hyprctl keyword windowrule "unset,clock"
 hyprctl keyword windowrule "unset,btop"
