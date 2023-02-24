@@ -14,5 +14,4 @@ cd ~/documents
 enabled_layouts tall,stack
 # Set the current layout
 layout stack
-launch zsh
 launch sh -c "nnn -Ra"
