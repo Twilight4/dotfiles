@@ -26,7 +26,7 @@ term_cmd='element'
 file_cmd='anki'
 text_cmd='keepassxc'
 web_cmd='qemu'
-music_cmd='spotify'
+music_cmd='footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp'
 
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
@@ -35,7 +35,7 @@ if [[ "$layout" == 'NO' ]]; then
 	option_2=" Anki <span weight='light' size='small'><i>($file_cmd)</i></span>"
 	option_3=" Passwordmanager <span weight='light' size='small'><i>($text_cmd)</i></span>"
 	option_4=" QEMU <span weight='light' size='small'><i>($web_cmd)</i></span>"
-	option_5=" Spotify <span weight='light' size='small'><i>($music_cmd)</i></span>"
+	option_5=" Music <span weight='light' size='small'><i>($music_cmd)</i></span>"
 else
 	option_1=""
 	option_2=""
