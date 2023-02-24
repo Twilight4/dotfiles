@@ -80,6 +80,13 @@ install-apps() {
     # autologin group for sddm
     sudo groupadd autologin
     sudo gpasswd -a "$(whoami)" autologin
+    
+    # libvirt group
+    sudo usermod -aG libvirt "$(whoami)"
+    sudo usermod -aG libvirt-qemu "$(whoami)"
+    sudo usermod -aG kvm "$(whoami)"
+    sudo usermod -aG input "$(whoami)"
+    sudo usermod -aG disk "$(whoami)"
       
     ## for Docker
     #gpasswd -a "$name" docker
