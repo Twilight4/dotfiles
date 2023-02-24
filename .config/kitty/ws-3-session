@@ -1,8 +1,9 @@
-# Set the layout for the current tab
-layout grid,tall,splits,stack
+# Set the layout in this tab
+layout grid
 # Set the working directory for windows in the current tab
 cd ~
-launch zsh
+# Open 4 windows
+launch --title zsh zsh
 launch zsh
 launch zsh
 launch zsh
@@ -10,9 +11,9 @@ launch zsh
 # Create a new tab
 new_tab neovim
 cd ~
-# Set the layouts allowed in this tab
-enabled_layouts grid,tall,splits,stack
-# Set the current layout
+# Set the layout in this tab
 layout grid
 # Create a window with nvim (don't use aliases)
 launch nvim
+# Focus the current tab
+focus
