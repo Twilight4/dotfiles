@@ -15,36 +15,33 @@ mesg="Installed Packages : `pacman -Q | wc -l` (pacman)"
 
 if [[ ( "$theme" == *'type-1'* ) || ( "$theme" == *'type-3'* ) || ( "$theme" == *'type-5'* ) ]]; then
 	list_col='1'
-	list_row='6'
+	list_row='5'
 elif [[ ( "$theme" == *'type-2'* ) || ( "$theme" == *'type-4'* ) ]]; then
-	list_col='6'
+	list_col='5'
 	list_row='1'
 fi
 
 # CMDs (add your apps here)
-term_cmd='discord'
-file_cmd='FREEPLANE_USE_UNSUPPORTED_JAVA_VERSION=1 freeplane'
+term_cmd='element'
+file_cmd='anki'
 text_cmd='keepassxc'
 web_cmd='qemu'
-music_cmd='calendar'
-setting_cmd='anki'
+music_cmd='spotify'
 
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
 	option_1=" Chat <span weight='light' size='small'><i>($term_cmd)</i></span>"
-	option_2=" Mind map <span weight='light' size='small'><i>($file_cmd)</i></span>"
+	option_2=" Anki <span weight='light' size='small'><i>($file_cmd)</i></span>"
 	option_3=" Passwordmanager <span weight='light' size='small'><i>($text_cmd)</i></span>"
 	option_4=" QEMU <span weight='light' size='small'><i>($web_cmd)</i></span>"
-	option_5=" Calendar <span weight='light' size='small'><i>($music_cmd)</i></span>"
-	option_6=" Anki <span weight='light' size='small'><i>($setting_cmd)</i></span>"
+	option_5=" Spotify <span weight='light' size='small'><i>($music_cmd)</i></span>"
 else
 	option_1=""
 	option_2=""
 	option_3=""
 	option_4=""
 	option_5=""
-	option_6=""
 fi
 
 # Rofi CMD
@@ -60,7 +57,7 @@ rofi_cmd() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6" | rofi_cmd
+	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5" | rofi_cmd
 }
 
 # Execute Command
@@ -75,8 +72,6 @@ run_cmd() {
 		${web_cmd}
 	elif [[ "$1" == '--opt5' ]]; then
 		${music_cmd}
-	elif [[ "$1" == '--opt6' ]]; then
-		${setting_cmd}
 	fi
 }
 
@@ -97,8 +92,5 @@ case ${chosen} in
         ;;
     $option_5)
 		run_cmd --opt5
-        ;;
-    $option_6)
-		run_cmd --opt6
         ;;
 esac
