@@ -82,6 +82,9 @@ alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 alias fix-gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 alias fix-keyserver="[ -d ~/.gnupg ] || mkdir ~/.gnupg ; cp /etc/pacman.d/gnupg/gpg. conf ~/.gnupg/ ; echo 'done'"
 
+# vim
+alias vi="nvim"
+
 # hblock (stop tracking with hblock) - use unhblock to stop using hblock
 alias unhblock="hblock -S none -D none"
 
