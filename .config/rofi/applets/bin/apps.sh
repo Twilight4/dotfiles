@@ -22,7 +22,7 @@ elif [[ ( "$theme" == *'type-2'* ) || ( "$theme" == *'type-4'* ) ]]; then
 fi
 
 # CMDs (add your apps here)
-term_cmd='element'
+term_cmd='fractal'
 file_cmd='anki'
 text_cmd='keepassxc'
 web_cmd='qemu'
