@@ -25,7 +25,7 @@ fi
 term_cmd='fractal'
 file_cmd='anki'
 text_cmd='keepassxc'
-web_cmd='qemu'
+web_cmd='virt-manager'
 music_cmd='footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp'
 
 # Options
