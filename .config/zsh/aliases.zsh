@@ -97,9 +97,6 @@ alias btrfsli="sudo btrfs su li / -t"
 alias p="ps aux | grep "
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
-#remove
-alias rmgitcache="rm -r ~/.cache/git"
-
 # Count all files (recursively) in the current folder
 alias countfiles="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
 
@@ -150,6 +147,10 @@ alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
 alias gitu='git add . && git commit && git push'
+alias rmgitcache="rm -r ~/.cache/git"
+alias gcm="git checkout master"
+alias gcs="git checkout stable"
+alias gcd="cloneit https://github.com/"
 
 # pacman and yay
 alias pacs='sudo pacman -S'                      # Install package faster
@@ -176,10 +177,6 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 #search content with ripgrep
 alias rg="rg --sort path"
-
-# systemd
-alias gcm="git checkout master"
-alias gcs="git checkout stable"
 
 # fun
 alias cmatrix="cmatrix -a"
