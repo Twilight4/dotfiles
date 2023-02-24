@@ -15,12 +15,3 @@ layout tall
 launch sh -c "nnn -Ra"
 # Focus the current tab
 focus
-
-# Create a new tab
-new_tab news
-cd ~
-# Set the layout in this tab
-layout tall
-# Set the current layout
-layout tall
-launch sh -c "newsboat"
