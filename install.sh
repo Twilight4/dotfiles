@@ -87,7 +87,11 @@ install-apps() {
     sudo usermod -aG kvm "$(whoami)"
     sudo usermod -aG input "$(whoami)"
     sudo usermod -aG disk "$(whoami)"
-      
+    
+    # Start Default Network for Networking
+    sudo virsh net-start default
+    sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
+
     ## for Docker
     #gpasswd -a "$name" docker
     #usermod -aG docker $(whoami)
