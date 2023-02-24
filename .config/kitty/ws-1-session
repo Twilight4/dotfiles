@@ -1,5 +1,4 @@
-# Set the layout for the current tab
-enabled_layouts tall,grid,splits,stack
+# Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
 cd ~
@@ -9,8 +8,10 @@ launch --title cli zsh
 # Create a new tab
 new_tab file-explorer
 cd ~/documents
-# Set the layouts allowed in this tab
-enabled_layouts tall,grid,splits,stack
+# Set the layout in this tab
+layout tall
 # Set the current layout
 layout tall
 launch sh -c "nnn -Ra"
+# Focus the current tab
+focus
