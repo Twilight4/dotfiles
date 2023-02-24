@@ -1,5 +1,5 @@
 # Set the layout for the current tab
-layout tall
+layout grid,stack
 # Set the working directory for windows in the current tab
 cd ~
 # Create a window with nvim (don't use aliases)
@@ -8,10 +8,10 @@ launch --title neovim nvim
 # Create a new tab
 # The part after new_tab is the optional tab title which will be displayed in
 # the tab bar, if omitted, the title of the active window will be used instead.
-new_tab file explorer
+new_tab file-explorer
 cd ~/documents
 # Set the layouts allowed in this tab
-enabled_layouts tall,stack
+enabled_layouts grid,stack
 # Set the current layout
-layout stack
+layout grid
 launch sh -c "nnn -Ra"
