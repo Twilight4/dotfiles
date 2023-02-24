@@ -28,12 +28,13 @@ alias s="kitty +kitten ssh"
 #alias emacs="emacsclient -c -a ''"
 
 # Aliases to modified commands
-alias mkdir='mkdir -p'
-alias ping='prettyping -c 5'        
-alias less='less -R'
-alias svi='sudo vi'
-alias train='sl | lolcat'
-alias devil='fortune | cowsay -f eyes | lolcat'
+alias mkdir="mkdir -p"
+alias ping="prettyping -c 5"
+alias less="less -R"
+alias svi="sudo vi"
+alias vi="nvim"
+alias train="sl | lolcat"
+alias devil="fortune | cowsay -f eyes | lolcat"
 
 # Aliases for doom emacs utilties
 #alias doomsync='~/.emacs.d/bin/doom sync'
@@ -81,9 +82,6 @@ alias fix-gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
 alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 alias fix-gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 alias fix-keyserver="[ -d ~/.gnupg ] || mkdir ~/.gnupg ; cp /etc/pacman.d/gnupg/gpg. conf ~/.gnupg/ ; echo 'done'"
-
-# vim
-alias vi="nvim"
 
 # hblock (stop tracking with hblock) - use unhblock to stop using hblock
 alias unhblock="hblock -S none -D none"
