@@ -2,7 +2,7 @@
 layout grid
 # Set the working directory for windows in the current tab
 cd ~
-# Open 4 windows (title sets the tab title)
+# Create 4 windows (title sets the tab title)
 launch --title hack zsh
 launch zsh
 launch zsh
