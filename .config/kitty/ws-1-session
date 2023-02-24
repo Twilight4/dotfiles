@@ -2,7 +2,7 @@
 layout tall
 # Set the working directory for windows in the current tab
 cd ~
-# Create a window with zsh
+# Create a window (title sets the tab title)
 launch --title cli zsh
 
 # Create a new tab
