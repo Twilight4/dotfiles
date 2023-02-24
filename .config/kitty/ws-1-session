@@ -1,5 +1,6 @@
 # Set the layout for the current tab
-layout tall,grid,splits,stack
+enabled_layouts tall,grid,splits,stack
+layout tall
 # Set the working directory for windows in the current tab
 cd ~
 # Create a window with zsh
