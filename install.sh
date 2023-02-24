@@ -134,6 +134,7 @@ install-dotfiles() {
     sudo systemctl enable ananicy.service                                             # enable ananicy daemon 
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
+    sudo systemctl status libvirtd.service                                            # enable quemu/virt manager daemon
     # enable performance and security tweaks
     sudo systemctl enable sddm
     sudo systemctl enable auditd
