@@ -252,10 +252,28 @@ ydlp() {
     fi
 }
 
+# Download a playlist from Youtube only audio with best quality - ydlp <playlist_url> 
+ydlpa() {
+    if ; then
+        yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
+    else
+        echo "You need to specify a playlist url as argument"
+    fi
+}
+
 # Download a video with best quality from Youtube - ydl <video_url>
 ydl() {
     if [ ! -z $1 ]; then
         yt-dlp --restrict-filenames -f 22 -o "%(title)s.%(ext)s" "$1"
+    else
+        echo "You need to specify a video url as argument"
+    fi
+}
+
+# Download audio from video with best quality from Youtube - ydl <video_url>
+ydla() {
+    if [ ! -z $1 ]; then
+        yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -o "%(title)s.%(ext)s" "$1"
     else
         echo "You need to specify a video url as argument"
     fi
