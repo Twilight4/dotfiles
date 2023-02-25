@@ -287,7 +287,7 @@ calcul() {
 # Create a server using Python with specific port. - serve <port=8888>
 serve() {
     local -r PORT=${1:-8888}
-    python2 -m SimpleHTTPServer "$PORT"
+    python3 -m SimpleHTTPServer "$PORT"
 }
 
 # Display the time for the prompt to appear when opening a new zsh instance. - promptspeed
@@ -311,17 +311,6 @@ zshcomp() {
 # Display command cheatsheet from cheat.sh. - cheat <command>
 cheat() {
     curl cheat.sh/$1
-}
-
-# Create a taskell project <name>. - touchproject <name>
-touchproject(){
-    if [ -z $1 ];then
-        echo "You need to pass a project name" && exit 1
-    fi
-    local project=$1
-    cd "$CLOUD/project_management/"
-    taskell $project
-    cd -
 }
 
 # Aliases to bash scripts
