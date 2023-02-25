@@ -218,7 +218,7 @@ ports() {
 # Download a playlist from Youtube - ydlp <playlist_url> 
 ydlp() {
     if ; then
-        youtube-dl --restrict-filenames -f 22 -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
+        yt-dlp --restrict-filenames -f 22 -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
         echo "You need to specify a playlist url as argument"
     fi
@@ -227,7 +227,7 @@ ydlp() {
 # Download a video with best quality from Youtube - ydl <video_url>
 ydl() {
     if [ ! -z $1 ]; then
-        youtube-dl --restrict-filenames -f 22 -o "%(title)s.%(ext)s" "$1"
+        yt-dlp --restrict-filenames -f 22 -o "%(title)s.%(ext)s" "$1"
     else
         echo "You need to specify a video url as argument"
     fi
