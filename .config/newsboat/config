@@ -9,8 +9,8 @@ reload-threads 100
 
 # Macro Bindings
 browser "lynx -vikeys -accept_all_cookies %u"
-macro f set browser "librewolf %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
-macro b set browser "qutebrowser %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
+macro l set browser "librewolf %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
+macro q set browser "qutebrowser %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
 macro m set browser "mpv %u" ; open-in-browser ; set browser "librewolf %u"
 feed-sort-order lastupdated
 
