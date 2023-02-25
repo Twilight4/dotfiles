@@ -1,6 +1,5 @@
 # Feed settings
 auto-reload yes
-prepopulate-query-feeds yes
 refresh-on-startup yes
 feed-sort-order lastupdated
 
