@@ -146,6 +146,8 @@ install-dotfiles() {
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
     sudo systemctl status libvirtd.service                                            # enable qemu/virt manager daemon
+    sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks
+    sudo systemctl mask power-profiles-daemon.service                                 # install cpu performance tweaks
     # enable performance and security tweaks
     sudo systemctl enable sddm
     sudo systemctl enable auditd
@@ -155,8 +157,6 @@ install-dotfiles() {
     sudo systemctl enable chronyd
     # change the ownership of mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
-    # install cpu performance tweaks
-    sudo auto-cpufreq --install
     
 # Hyprland desktop entry
 #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
