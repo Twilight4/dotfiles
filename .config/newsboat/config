@@ -21,12 +21,20 @@ bind-key h quit
 bind-key j down
 bind-key k up
 bind-key l open
-bind-key H prev-feed
-bind-key L next-feed
+bind-key K prev-feed
+bind-key J next-feed
 bind-key c toggle-show-read-feeds
 bind-key q hard-quit
-bind-key ^U pageup
-bind-key ^D pagedown
+bind-key G end
+bind-key g home
+bind-key d pagedown
+bind-key u pageup
+bind-key a toggle-article-read
+bind-key n next-unread
+bind-key N prev-unread
+bind-key D pb-download
+bind-key U show-urls
+bind-key x pb-delete
 
 # Colors
 color background default default
