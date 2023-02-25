@@ -11,7 +11,7 @@ reload-threads 100
 browser "lynx -vikeys -accept_all_cookies %u"
 macro l set browser "librewolf %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
 macro q set browser "qutebrowser %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
-macro m set browser "mpv %u" ; open-in-browser ; set browser "librewolf %u"
+macro m set browser "mpv %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
 feed-sort-order lastupdated
 
 # Keys binds
