@@ -25,7 +25,7 @@ hyprctl keyword windowrule "workspace 6 silent,clock" && hyprctl dispatch exec '
 # workspace special:scratchpad
 hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl dispatch exec "footcilent -T btop -a btop -e btop"
 
-sleep 15      # wait untill apps run
+sleep 10      # wait untill apps run
 
 # unset by class name
 hyprctl keyword windowrule "unset,casual-kitty"
