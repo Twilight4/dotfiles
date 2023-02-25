@@ -155,6 +155,8 @@ install-dotfiles() {
     sudo systemctl enable chronyd
     # change the ownership of mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
+    # install cpu performance tweaks
+    sudo auto-cpufreq --install
     
 # Hyprland desktop entry
 #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
@@ -196,6 +198,7 @@ echo 'Post-Installation:
 - to finish GRUB rice as root user by issue commands:
 sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+- check status of auto-cpufreq by: sudo systemctl status auto-cpufreq and auto-cpufreq --stats
 - setup logseq git sync
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 -- reload tmux plugin manager: ctrl + a + shift + i and hit q
