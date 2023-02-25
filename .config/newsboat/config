@@ -1,0 +1,14 @@
+auto-reload yes
+
+browser "lynx -vikeys -accept_all_cookies %u"
+macro l set browser "librewolf %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
+macro q set browser "qutebrowser %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
+feed-sort-order lastupdated
+
+reload-time 30
+reload-threads 100
+
+bind-key j down
+bind-key k up
+bind-key ^U pageup
+bind-key ^D pagedown
