@@ -55,7 +55,7 @@ config.set('content.notifications.enabled', True, 'https://www.youtube.com')
 c.downloads.location.directory = '~/downloads'
 
 # Search engines which can be used via the address bar
-c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'am': 'https://www.amazon.com/s?k={}', 'aw': 'https://wiki.archlinux.org/?search={}', 'goog': 'https://www.google.com/search?q={}', 'hoog': 'https://hoogle.haskell.org/?hoogle={}', 're': 'https://www.reddit.com/r/{}', 'ub': 'https://www.urbandictionary.com/define.php?term={}', 'yt': 'https://www.youtube.com/results?search_query={}'}
+c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}', 'am': 'https://www.amazon.com/s?k={}', 'aw': 'https://wiki.archlinux.org/?search={}', 'gg': 'https://www.google.com/search?q={}', 're': 'https://www.reddit.com/r/{}', 'yt': 'https://www.youtube.com/results?search_query={}'}
 
 # Setting dark mode
 config.set("colors.webpage.darkmode.enabled", True)
