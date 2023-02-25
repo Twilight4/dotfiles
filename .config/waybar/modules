@@ -117,6 +117,18 @@
   },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+  "custom/playerctl": {
+    "format": "{icon}  <span>{}</span>",
+    "return-type": "json",
+    "max-length": 35,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} ~ {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "format-icons": {
+      "Playing": "<span foreground='#f38ba8'></span>",
+      "Paused": "<span foreground='#94e2d5'></span>"
+    }
+  },
+
+// _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
   "custom/uptime":{
     "format": "<span font='13' rise='1000'></span> {}",
     "exec": "~/.config/waybar/scripts/upt.sh",
