@@ -128,10 +128,6 @@ help() {
 alias tks='tmux kill-server'                               # tmux
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'   # wget
 
-# yt-dlp
-alias yta-best="yt-dlp --extract-audio --audio-format best "
-alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
-
 # git
 alias ga="git add"
 alias gc="git commit"
