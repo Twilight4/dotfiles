@@ -2,17 +2,20 @@
 auto-reload yes
 prepopulate-query-feeds yes
 refresh-on-startup yes
+feed-sort-order lastupdated
 
 # Reload settings
 reload-time 30
 reload-threads 100
 
-# Macro Bindings
+# Macro bindings
 browser "lynx -vikeys -accept_all_cookies %u"
 macro l set browser "librewolf %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
 macro q set browser "qutebrowser %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
 macro m set browser "mpv %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
-feed-sort-order lastupdated
+macro v set browser "setsid -f mpv" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
+macro t set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
+macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
 
 # Keys binds
 bind-key ; macro-prefix
