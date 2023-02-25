@@ -24,6 +24,7 @@ bind-key l open
 bind-key H prev-feed
 bind-key L next-feed
 bind-key c toggle-show-read-feeds
+bind-key q hard-quit
 bind-key ^U pageup
 bind-key ^D pagedown
 
