@@ -126,18 +126,6 @@ fpdf() {
     [ -n "$result" ] && zathura "$result" &
 }
 
-# List mindmaps
-fmind() {
-    local folders=("$CLOUD/knowledge_base" "$WORKSPACE/twilight")
-
-    files=""
-    for root in ${folders[@]}; do
-        files="$files $(find $root -name '*.mm')"
-    done
-    result=$(echo "$files" | fzf -m --height 60% --border sharp | tr -s "\n" " ")
-    [ -n "$result" ] && nohup freemind $(echo $result) &> /dev/null & disown
-}
-
 # List tracking spreadsheets (productivity, money ...)
 ftrack() {
     file=$(ls $CLOUD/tracking/**/*.{ods,csv} | fzf) || return
