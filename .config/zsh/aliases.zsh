@@ -120,6 +120,13 @@ alias ..="cd ../"
 alias ...="cd ../../"
 alias ....="cd ../../../"
 
+# prettify help
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+    "$@" -h 2>&1 | bathelp
+}
+
 # other
 alias tks='tmux kill-server'                               # tmux
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'   # wget
