@@ -59,8 +59,6 @@ keymap.set('n', '<S-l>', ':bnext<CR>')
 keymap.set('n', '<S-h>', ':bprevious<CR>')
 -- Close buffers
 keymap.set('n', '<S-q>', ':Bdelete!<CR>')
--- Close all unsaved buffers
-keymap.set('n', '<S-a>', ':bufdo :Bdelete!<CR>')
 
 -- Visual --
 -- Stay in indent mode
