@@ -239,6 +239,13 @@ mkcd() {
     local mkdir -p "$dir" && cd "$dir";
 }
 
+# Backup all files in cwd
+back() {
+    for file in "$@"; do
+        cp "$file" "$file".bak
+    done
+}
+
 # Move a file or a folder, and create the filepath if it doesn't exist. - mkmv
 mkmv() {
     local dir="$2"
@@ -328,4 +335,8 @@ githeat() {
 
 bm() {
     "$ZDOTDIR/bash-scripts/bm.sh" "$@"
+}
+
+optimize-video() {
+    "$ZDOTDIR/bash-scripts/optimize-video.sh" "$@"
 }
