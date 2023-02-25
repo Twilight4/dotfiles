@@ -142,7 +142,7 @@ alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+     
 alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
-alias gitu='git add . && git commit -m "fix" && git push'
+alias gitu='git add . && git commit && git push'
 alias rmgitcache="rm -r ~/.cache/git"
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
