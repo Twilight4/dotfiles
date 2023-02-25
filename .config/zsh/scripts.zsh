@@ -88,11 +88,6 @@ Imgoptimizeall() {
     done
 }
 
-# Display screen resolution
-screenres() {
-    [ ! -z $1 ] && xrandr --current | grep '*' | awk '{print $1}' | sed -n "$1p"
-}
-
 # Mount device with read/write permissions
 mnt() {
     local FILE="/mnt/external"
@@ -220,7 +215,7 @@ ports() {
     sudo netstat -tulpn | grep LISTEN | fzf;
 }
 
-# Download a video with best quality from Youtube - ydl <video_url>
+# Download a playlist from Youtube - ydlp <playlist_url> 
 ydlp() {
     if ; then
         youtube-dl --restrict-filenames -f 22 -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
@@ -229,7 +224,7 @@ ydlp() {
     fi
 }
 
-# Download a playlist from Youtube - ydlp <playlist_url> 
+# Download a video with best quality from Youtube - ydl <video_url>
 ydl() {
     if [ ! -z $1 ]; then
         youtube-dl --restrict-filenames -f 22 -o "%(title)s.%(ext)s" "$1"
