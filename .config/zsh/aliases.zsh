@@ -132,11 +132,8 @@ alias tks='tmux kill-server'                               # tmux
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'   # wget
 
 # yt-dlp
-alias yta-aac="yt-dlp --extract-audio --audio-format aac "
 alias yta-best="yt-dlp --extract-audio --audio-format best "
-alias yta-flac="yt-dlp --extract-audio --audio-format flac "
 alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
-alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+          bestaudio' --merge-output-format mp4 "
 
 # git
 alias ga="git add"
