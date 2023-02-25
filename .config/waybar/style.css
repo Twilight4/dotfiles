@@ -46,6 +46,7 @@ window#waybar.hidden {
 #custom-weather,
 #custom-updater,
 #custom-vpn_check,
+#custom-playerctl,
 #custom-uptime,
 #custom-cputemp,
 #window,
@@ -107,6 +108,10 @@ window#waybar.hidden {
 
 #custom-updater {
   color: @red;
+}
+
+#custom-playerctl {
+  color: @blue;
 }
 
 #custom-uptime {
