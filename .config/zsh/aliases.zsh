@@ -33,9 +33,6 @@ alias vi="nvim"
 alias train="sl | lolcat"
 alias devil="fortune | cowsay -f eyes | lolcat"
 
-# python
-alias pyserv='python3 -m http.server'
-
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
 
