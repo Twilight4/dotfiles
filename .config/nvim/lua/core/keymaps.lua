@@ -98,7 +98,7 @@ keymap.set('n', 'zu', ':UndotreeToggle<CR>')
 keymap.set('n', 'zg', ':Goyo<CR>')
 
 -- Toggle Term
-keymap.set('n', 'zt', ':ToggleTerm size=40 dir=~/Desktop direction=horizontal<CR>')
+keymap.set('n', 'zt', ':ToggleTerm size=10 dir=~/desktop direction=horizontal<CR>')
 
 -- Other
 keymap.set('n', '<leader>p', ':PasteImg <CR>')
