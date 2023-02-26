@@ -42,8 +42,8 @@ install-apps() {
     # remove useless packages installed by alis
     sudo pacman -Rns sddm linux linux-headers
     # without flag --noconfirm to choose from which provider to install certain packages
-    sudo pacman -S "$(cat /tmp/paclist)"
-    yay -S "$(cat /tmp/yaylist)"
+    sudo pacman -S $(cat /tmp/paclist)
+    yay -S $(cat /tmp/yaylist)
     
     # plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
