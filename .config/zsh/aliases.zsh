@@ -136,7 +136,7 @@ alias gitu='git add . && git commit && git push'
 alias rmgitcache="rm -r ~/.cache/git"
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
-alias gcd="cloneit https://github.com/"
+alias gcd="cloneit"
 
 # pacman and yay
 alias pacs="sudo pacman -S"                      # Install package faster
