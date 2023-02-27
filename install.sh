@@ -134,15 +134,18 @@ install-dotfiles() {
     mkdir -p .config/.local/share/nimble
     mkdir -p .config/.local/share/pki
     mkdir -p .config/.local/share/cache
-    mv ~/.gnupg .config/.local/share/gnupg
-    mv ~/.cargo .config/.local/share/cargo
-    mv ~/go .config/.local/share/go
-    mv ~/.lesshst .config/.local/state/less/history
-    mv ~/.nimble .config/.local/share/nimble
-    mv ~/.pki .config/.local/share/pki
-    mv ~/.cache .config/.local/share/cache
-    mv ~/node_modules .config
-    mv ~/package.json ~/package-lock.json .config/node_modules
+    mv ~/.gnupg ~.config/.local/share/gnupg
+    mv ~/.cargo ~.config/.local/share/cargo
+    mv ~/go ~.config/.local/share/go
+    mv ~/.lesshst ~.config/.local/state/less/history
+    mv ~/.nimble ~.config/.local/share/nimble
+    mv ~/.pki ~.config/.local/share/pki
+    mv ~/.cache ~.config/.local/share/cache
+    mv ~/node_modules ~.config
+    mv ~/package.json ~/package-lock.json ~.config/node_modules
+    mv ~/.local/share* ~.config/.local/share
+    mv ~/.local/state* ~.config/.local/state
+    rm -r ~/.local
     rm ~/.viminfo
     
     # Enable system services
