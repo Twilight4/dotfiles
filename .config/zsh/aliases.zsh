@@ -168,6 +168,7 @@ alias rg="rg --sort path"
 
 # fun
 alias cmatrix="cmatrix -a"
+alias asciiquarium="asciiquarium --transparent"
 
 # adding flags
 alias df="df -h"     # human-readable sizes
