@@ -43,6 +43,8 @@ install-apps() {
     sudo pacman -Rns sddm linux linux-headers
     sudo pacman -S --noconfirm $(cat /tmp/paclist)
     yay -S --noconfirm $(cat /tmp/yaylist)
+    # remove useless packages installed by pacman
+    sudo pacman -Rns xdg-desktop-portal-gnome xdg-desktop-portal-gtk
     
     # plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
