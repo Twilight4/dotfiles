@@ -200,22 +200,26 @@ sudo mv CyberEXS /boot/grub/themes/
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
 
 echo 'Post-Installation:
-- NOW ISSUE THIS COMMAND AS ROOT:
+- NOW ISSUE THESE COMMANDS (must be as root):
+    su
     echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
+    exit
 - to finish GRUB rice issue commands:
     sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
-- Start Default Network for Networking
+- Start Default Network for Networking (didnt work inside the script)
     sudo virsh net-start default
     sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
-- check status of auto-cpufreq by: 
+- check status of auto-cpufreq with this command
     sudo systemctl status auto-cpufreq and auto-cpufreq --stats
 - clone logseq notes to and setup logseq git sync
     git clone https://github.com/logseq-notes ~/documents
-- these needs to be installed after shell is changed to zsh: 
+- these needs to be installed after current shell is switched to zsh
+    zsh
     sudo npm install git-file-downloader cli-fireplace git-stats
+- check if profile sync daemon is running
+    psd p
 - uncomment last 2 lines in kitty.conf
-- to check if profile sync daemon is running type command: psd p
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 -- reload tmux plugin manager: ctrl + a + shift + i and hit q
 - you can now reboot'
