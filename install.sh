@@ -109,15 +109,13 @@ install-dotfiles() {
     fi
     
     # Prevent permission denied errors
-    sudo rm -rf ~/go
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
     sudo mv /tmp/dotfiles/.config/.local/ ~/.config
-    sudo rm "/home/$(whoami)/.config/.local/share/fonts/README.md"
     sudo fc-cache -fv
     sudo rm /home/"$(whoami)"/.bash*
-    sudo mkdir -p ~/.config/.local/share/mpd/playlists
+    mkdir -p ~/.config/.local/share/mpd/playlists
     sudo chmod 755 "$XDG_CONFIG_HOME"/hypr/scripts/*
     sudo chmod 755 "$XDG_CONFIG_HOME"/waybar/scripts/*
     sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/shared/theme.bash
@@ -126,7 +124,6 @@ install-dotfiles() {
     sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/bin/*
     sudo chmod 755 "$XDG_CONFIG_HOME"/zsh/bash-scripts/*
     sudo chmod 755 /opt/logseq-desktop
-    
     # Cleanup home dir
     mkdir -p .config/.local/share/gnupg
     mkdir -p .config/.local/share/cargo
