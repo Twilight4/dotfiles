@@ -191,6 +191,7 @@ sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 - check status of auto-cpufreq by: sudo systemctl status auto-cpufreq and auto-cpufreq --stats
 - clone logseq notes to ~/documents and setup logseq git sync
+- uncomment last 2 lines in kitty.conf
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 -- reload tmux plugin manager: ctrl + a + shift + i and hit q
 - to check if profile sync daemon is running type command: psd p
