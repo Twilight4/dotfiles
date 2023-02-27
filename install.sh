@@ -30,7 +30,7 @@ download-yaylist() {
 }
 
 install-yay() {
-    sudo pacman -S --noconfirm git
+    sudo pacman -S --noconfirm git ccache
     git clone https://aur.archlinux.org/yay-bin \
     && cd yay-bin \
     && makepkg --noconfirm -si \
