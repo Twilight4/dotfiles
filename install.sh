@@ -108,12 +108,6 @@ install-dotfiles() {
             git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
     fi
     
-    LOGSEQ="~/documents/logseq-notes"
-    if [ ! -d "$LOGSEQ" ]
-        then
-            git clone --recurse-submodules "https://github.com/Twilight4/logseq-notes" "$DOTFILES" >/dev/null
-    fi
-    
     # Prevent permission denied errors
     sudo rm -rf ~/go
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
@@ -198,7 +192,7 @@ echo 'Post-Installation:
 sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 - check status of auto-cpufreq by: sudo systemctl status auto-cpufreq and auto-cpufreq --stats
-- setup logseq git sync
+- clone logseq notes to ~/documents and setup logseq git sync
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 -- reload tmux plugin manager: ctrl + a + shift + i and hit q
 - to check if profile sync daemon is running type command: psd p
