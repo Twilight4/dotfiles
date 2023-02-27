@@ -113,20 +113,18 @@ install-dotfiles() {
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
-    sudo mv /tmp/dotfiles/.config/.local/share/fonts ~/.config/.local/share
+    sudo mv /tmp/dotfiles/.config/.local/ ~/.config
     sudo rm "/home/$(whoami)/.config/.local/share/fonts/README.md"
     sudo fc-cache -fv
     sudo rm /home/"$(whoami)"/.bash*
     sudo mkdir -p ~/.config/.local/share/mpd/playlists
     sudo chmod 755 "$XDG_CONFIG_HOME"/hypr/scripts/*
-    sudo rm -rf /usr/share/sddm/themes/aerial/playlists
     sudo chmod 755 "$XDG_CONFIG_HOME"/waybar/scripts/*
-    sudo chmod 755 "$HOME"/.config/rofi/applets/bin/*
     sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/shared/theme.bash
     sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/launcher/launcher.sh
     sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/wifi/wifi
     sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/bin/*
-    sudo chmod 755 "$XDG_CONFIG_HOME"/zsh/bash-scripts/*.sh
+    sudo chmod 755 "$XDG_CONFIG_HOME"/zsh/bash-scripts/*
     sudo chmod 755 /opt/logseq-desktop
     
     # system services
@@ -138,7 +136,7 @@ install-dotfiles() {
     sudo systemctl enable ananicy.service                                             # enable ananicy daemon 
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
-    sudo systemctl status libvirtd.service                                            # enable qemu/virt manager daemon
+    sudo systemctl enable libvirtd.service                                            # enable qemu/virt manager daemon
     sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks
     sudo systemctl mask power-profiles-daemon.service                                 # install cpu performance tweaks
     # enable performance and security tweaks
