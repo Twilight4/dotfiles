@@ -127,7 +127,22 @@ install-dotfiles() {
     sudo chmod 755 "$XDG_CONFIG_HOME"/zsh/bash-scripts/*
     sudo chmod 755 /opt/logseq-desktop
     
-    # system services
+    # Cleanup home dir
+    sudo mkdir -p .config/.local/share/gnupg
+    sudo mkdir -p .config/.local/share/cargo
+    sudo mkdir -p .config/.local/share/go
+    sudo mkdir -p .config/.local/state/less/history
+    sudo mkdir -p .config/.local/share/nimble
+    sudo mkdir -p .config/.local/share/pki
+    sudo mv ~/.gnupg .config/.local/share/gnupg
+    sudo mv ~/.cargo .config/.local/share/cargo
+    sudo mv ~/go .config/.local/share/go
+    sudo mv ~/.lesshst .config/.local/state/less/history
+    sudo mv ~/.nimble .config/.local/share/nimble
+    sudo mv ~/.pki .config/.local/share/pki
+    rm ~/.vimrc
+    
+    # Enable system services
     playerctld daemon                                                                 # if it doesn't work try installing volumectl
     systemctl --user enable greenclip.service                                         # enable cliphistory daemon
     systemctl --user enable mpd.service                                               # mpd daemon
@@ -139,14 +154,14 @@ install-dotfiles() {
     sudo systemctl enable libvirtd.service                                            # enable qemu/virt manager daemon
     sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks
     sudo systemctl mask power-profiles-daemon.service                                 # install cpu performance tweaks
-    # enable performance and security tweaks
+    # Enable performance and security tweaks
     sudo systemctl enable sddm
     sudo systemctl enable auditd
     sudo systemctl enable apparmor
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
-    # change the ownership of mpd directory
+    # Change the ownership of mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
     
 # Hyprland desktop entry
