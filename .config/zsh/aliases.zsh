@@ -151,9 +151,11 @@ alias yaysc="yay -Sc"                            # remove orphaned packages
 
 # quick access to config files
 alias zshrc="nvim ~/.config/zsh/.zshrc"
+alias zshenv="nvim ~/.config/zsh/.zshenv"
+alias zsh-scripts="nvim ~/.config/zsh/zsh-scripts"
 alias aliases="nvim ~/.config/zsh/aliases.zsh"
 alias keybinds="nvim ~/.config/hypr/configs/keybinds.conf"
-alias prefs="nvim ~/.config/hypr/configs/prefs.conf"
+alias hyprland="nvim ~/.config/hypr/hyprland.conf"
 alias vimaps="nvim ~/.config/nvim/lua/core/keymaps.lua"
 alias viplugs="nvim ~/.config/nvim/lua/core/plugins.lua"
 
