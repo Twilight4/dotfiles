@@ -124,6 +124,8 @@ install-dotfiles() {
     sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/bin/*
     sudo chmod 755 "$XDG_CONFIG_HOME"/zsh/bash-scripts/*
     sudo chmod 755 /opt/logseq-desktop
+    # Change the ownership of mpd directory
+    sudo chown -R twilight:twilight ~/.config/.local
     # Cleanup home dir
     mkdir -p .config/.local/share/gnupg
     mkdir -p .config/.local/share/cargo
@@ -158,8 +160,6 @@ install-dotfiles() {
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
-    # Change the ownership of mpd directory
-    sudo chown -R twilight:twilight ~/.config/.local
     
 # Hyprland desktop entry
 #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
