@@ -86,10 +86,6 @@ install-apps() {
     sudo usermod -aG kvm "$(whoami)"
     sudo usermod -aG input "$(whoami)"
     sudo usermod -aG disk "$(whoami)"
-    
-    # Start Default Network for Networking
-    sudo virsh net-start default
-    sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
 
     ## for Docker
     #gpasswd -a "$name" docker
@@ -204,19 +200,25 @@ sudo mv CyberEXS /boot/grub/themes/
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
 
 echo 'Post-Installation:
-- NOW ISSUE THIS COMMAND AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
+- NOW ISSUE THIS COMMAND AS ROOT:
+    echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
 - to finish GRUB rice issue commands:
-sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-- check status of auto-cpufreq by: sudo systemctl status auto-cpufreq and auto-cpufreq --stats
-- clone logseq notes to ~/documents and setup logseq git sync
+    sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+- Start Default Network for Networking
+    sudo virsh net-start default
+    sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
+- check status of auto-cpufreq by: 
+    sudo systemctl status auto-cpufreq and auto-cpufreq --stats
+- clone logseq notes to and setup logseq git sync
+    git clone https://github.com/logseq-notes ~/documents
+- these needs to be installed after shell is changed to zsh: 
+    sudo npm install git-file-downloader cli-fireplace git-stats
 - uncomment last 2 lines in kitty.conf
+- to check if profile sync daemon is running type command: psd p
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
 -- reload tmux plugin manager: ctrl + a + shift + i and hit q
-- to check if profile sync daemon is running type command: psd p
-- these needs to be installed after shell is changed to zsh: sudo npm install git-file-downloader cli-fireplace git-stats
-- after reboot you can refresh/fix keyrings with: SUPER + SHIFT + U
-- you can now reboot: systemctl reboot -i'
+- you can now reboot'
 }
 
 run "$@"
