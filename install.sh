@@ -98,7 +98,7 @@ install-apps() {
 }
 
 create-directories() {
-sudo mkdir -p "/home/$(whoami)/{documents,desktop,downloads,videos,workspace,music,pictures}"
+mkdir -p "/home/$(whoami)/{documents,desktop,downloads,videos,workspace,music,pictures}"
 }
 
 install-dotfiles() {
@@ -128,18 +128,18 @@ install-dotfiles() {
     sudo chmod 755 /opt/logseq-desktop
     
     # Cleanup home dir
-    sudo mkdir -p .config/.local/share/gnupg
-    sudo mkdir -p .config/.local/share/cargo
-    sudo mkdir -p .config/.local/share/go
-    sudo mkdir -p .config/.local/state/less/history
-    sudo mkdir -p .config/.local/share/nimble
-    sudo mkdir -p .config/.local/share/pki
-    sudo mv ~/.gnupg .config/.local/share/gnupg
-    sudo mv ~/.cargo .config/.local/share/cargo
-    sudo mv ~/go .config/.local/share/go
-    sudo mv ~/.lesshst .config/.local/state/less/history
-    sudo mv ~/.nimble .config/.local/share/nimble
-    sudo mv ~/.pki .config/.local/share/pki
+    mkdir -p .config/.local/share/gnupg
+    mkdir -p .config/.local/share/cargo
+    mkdir -p .config/.local/share/go
+    mkdir -p .config/.local/state/less/history
+    mkdir -p .config/.local/share/nimble
+    mkdir -p .config/.local/share/pki
+    mv ~/.gnupg .config/.local/share/gnupg
+    mv ~/.cargo .config/.local/share/cargo
+    mv ~/go .config/.local/share/go
+    mv ~/.lesshst .config/.local/state/less/history
+    mv ~/.nimble .config/.local/share/nimble
+    mv ~/.pki .config/.local/share/pki
     rm ~/.vimrc
     
     # Enable system services
