@@ -200,18 +200,19 @@ sudo mv CyberEXS /boot/grub/themes/
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
 
 echo 'Post-Installation:
-- NOW ISSUE THESE COMMANDS (must be as root):
+- NOW ISSUE THESE COMMANDS (must be as root)
     su
     echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
     exit
-- to finish GRUB rice issue commands:
+- to finish GRUB rice issue commands
     sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 - Start Default Network for Networking (didnt work inside the script)
     sudo virsh net-start default
     sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
 - check status of auto-cpufreq with this command
-    sudo systemctl status auto-cpufreq and auto-cpufreq --stats
+    sudo systemctl status auto-cpufreq
+    auto-cpufreq --stats
 - clone logseq notes to and setup logseq git sync
     git clone https://github.com/logseq-notes ~/documents
 - these needs to be installed after current shell is switched to zsh
