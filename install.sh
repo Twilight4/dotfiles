@@ -186,9 +186,9 @@ sudo mv CyberEXS /boot/grub/themes/
 
 echo 'Post-Installation:
 - NOW ISSUE THIS COMMAND AS ROOT: echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
-- to finish GRUB rice issue commands:
-sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+- to finish GRUB rice issue commands AS ROOT:
+echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
 - check status of auto-cpufreq by: sudo systemctl status auto-cpufreq and auto-cpufreq --stats
 - clone logseq notes to ~/documents and setup logseq git sync
 - sshcreate <name> - Add pub key to github: Settings > SSH > New
