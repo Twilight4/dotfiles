@@ -279,11 +279,6 @@ ydla() {
     fi
 }
 
-# Convert sound from a video to mp3 (extract audio)
-exa() {
-    ffmpeg -vn -ar 44100 -ac 2 -ab 192k -i  # video.mp4 -f mp3 sound.mp3
-}
-
 # Create a folder like mkdir -p and jump to it. - mkcd
 mkcd() {
     local dir="$*";
