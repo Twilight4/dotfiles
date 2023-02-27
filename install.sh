@@ -139,7 +139,7 @@ install-dotfiles() {
     mv ~/.lesshst .config/.local/state/less/history
     mv ~/.nimble .config/.local/share/nimble
     mv ~/.pki .config/.local/share/pki
-    rm ~/.vimrc
+    rm ~/.viminfo
     
     # Enable system services
     playerctld daemon                                                                 # if it doesn't work try installing volumectl
