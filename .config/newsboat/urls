@@ -5,33 +5,53 @@ https://www.reddit.com/r/unixporn/new.rss "reddit"
 https://www.reddit.com/r/commandline/new.rss "reddit"
 https://www.reddit.com/r/vim/new.rss "reddit"
 
+# Dev
+https://thevaluable.dev/index.xml "dev"
+
 # Polish
 http://feeds.feedburner.com/niebezpiecznik/ "pl"
 http://feeds.feedburner.com/sekurak "pl"
-https://thevaluable.dev/index.xml "dev"
-https://helion.pl/rss/promocje.rss "helion"
-https://helion.pl/rss/ "helion"
+https://helion.pl/rss/promocje.rss "pl"
+https://helion.pl/rss/ "pl"
 
 # HTB
-https://www.hackthebox.com/rss/blog/hacker "htb"
-https://www.hackthebox.com/rss/blog/university "htb"
-https://www.hackthebox.com/rss/blog/events "htb"
-https://www.hackthebox.com/rss/blog/tips-and-tricks "htb"
-https://www.hackthebox.com/rss/blog/news "htb"
+https://www.hackthebox.com/rss/blog/hacker "HTB"
+https://www.hackthebox.com/rss/blog/university "HTB"
+https://www.hackthebox.com/rss/blog/events "HTB"
+https://www.hackthebox.com/rss/blog/tips-and-tricks "HTB"
+https://www.hackthebox.com/rss/blog/news "HTB"
 
 # Pentest
-https://feeds.feedburner.com/TheHackersNews
-https://www.pentestpartners.com/feed/
+https://feeds.feedburner.com/TheHackersNews "pentest"
+https://www.pentestpartners.com/feed/ "pentest"
 https://threatninja.net/category/masterclass/penetration-testing/feed/ "pentest"
-https://embracethered.com/blog/index.xml
-https://www.blazeinfosec.com/feed/
-https://latesthackingnews.com/feed/
-https://www.kitploit.com//feeds/posts/default
-https://pentestmag.com/feed/
-http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Ftryhackme.com%2Fresources%2Fblog&max=5&order=document&guid=0&strip=&keep_qs_params=
-http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Fpentestmag.com%2Fblog%2F&max=5&order=document&guid=0&strip=&keep_qs_params=
+https://embracethered.com/blog/index.xml "pentest"
+https://www.blazeinfosec.com/feed/ "pentest"
+https://latesthackingnews.com/feed/ "pentest"
+https://www.kitploit.com//feeds/posts/default "pentest"
+https://pentestmag.com/feed/ "pentest"
+http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Ftryhackme.com%2Fresources%2Fblog&max=5&order=document&guid=0&strip=&keep_qs_params= "pentest"
+http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Fpentestmag.com%2Fblog%2F&max=5&order=document&guid=0&strip=&keep_qs_params= "pentest"
 
 # Bug Bounty
-https://www.hackerone.com/blog.rss
-https://portswigger.net/daily-swig/rss
-https://www.bugcrowd.com/about/news/feed/
+https://www.hackerone.com/blog.rss "BB"
+https://portswigger.net/daily-swig/rss "BB"
+https://www.bugcrowd.com/about/news/feed/ "BB"
+
+# Github
+https://github.com/hyprwm/Hyprland/releases.atom "GH"
+
+# Repo releases 
+#https://github.com/:owner/:repo/releases.atom
+
+# Repo commits 
+#https://github.com/:owner/:repo/commits.atom
+
+# Private feed (You can find Subscribe to your news feed in dashboard page after login) 
+#https://github.com/:user.private.atom?token=:secret
+
+# Repo tags 
+#https://github.com/:user/:repo/tags.atom
+
+# User activity 
+#https://github.com/:user.atom
