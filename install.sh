@@ -215,17 +215,18 @@ echo 'Post-Installation:
 - check status of auto-cpufreq with this command
     sudo systemctl status auto-cpufreq
     auto-cpufreq --stats
-- clone logseq notes to and setup logseq git sync
-    git clone https://github.com/logseq-notes ~/documents
+- add pub key to github: Settings > SSH > New
+    ssh-keygen -t ed25519 -C "your_email@example.com"
+- clone logseq and dotfiles repos using ssh
+    git clone git@github.com:Twilight4/dotfiles.git ~/workspace
+    git clone git@github.com:Twilight4/logseq-notes.git ~/documents
 - these needs to be installed after current shell is switched to zsh
     zsh
     sudo npm install git-file-downloader cli-fireplace git-stats
 - check if profile sync daemon is running
     psd p
 - uncomment last 2 lines in kitty.conf
-- add pub key to github: Settings > SSH > New
-    ssh-keygen -t ed25519 -C "your_email@example.com"
--- reload tmux plugin manager: C-a + S-i + q
+- reload tmux plugin manager: C-a + S-i + q
 - you can now reboot'
 }
 
