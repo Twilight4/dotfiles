@@ -209,7 +209,7 @@ echo 'Post-Installation:
 - to finish GRUB rice issue commands
     sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
-- Start Default Network for Networking (didnt work inside the script)
+- start Default Network for Networking (didnt work inside the script)
     sudo virsh net-start default
     sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
 - check status of auto-cpufreq with this command
@@ -223,8 +223,9 @@ echo 'Post-Installation:
 - check if profile sync daemon is running
     psd p
 - uncomment last 2 lines in kitty.conf
-- sshcreate <name> - Add pub key to github: Settings > SSH > New
--- reload tmux plugin manager: ctrl + a + shift + i and hit q
+- add pub key to github: Settings > SSH > New
+    ssh-keygen -t ed25519 -C "your_email@example.com"
+-- reload tmux plugin manager: C-a + S-i + q
 - you can now reboot'
 }
 
