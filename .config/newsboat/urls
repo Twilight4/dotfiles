@@ -27,10 +27,11 @@ https://embracethered.com/blog/index.xml
 https://www.blazeinfosec.com/feed/
 https://latesthackingnews.com/feed/
 https://www.kitploit.com//feeds/posts/default
+https://pentestmag.com/feed/
+http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Ftryhackme.com%2Fresources%2Fblog&max=5&order=document&guid=0&strip=&keep_qs_params=
+http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Fpentestmag.com%2Fblog%2F&max=5&order=document&guid=0&strip=&keep_qs_params=
 
 # Bug Bounty
 https://www.hackerone.com/blog.rss
 https://portswigger.net/daily-swig/rss
 https://www.bugcrowd.com/about/news/feed/
-https://pentestmag.com/feed/
-http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Ftryhackme.com%2Fresources%2Fblog&max=5&order=document&guid=0&strip=&keep_qs_params=
