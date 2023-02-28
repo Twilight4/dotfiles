@@ -114,13 +114,6 @@ install-dotfiles() {
     sudo fc-cache -fv
     sudo rm /home/"$(whoami)"/.bash*
     mkdir -p ~/.config/.local/share/mpd/playlists
-    sudo chmod 755 "$XDG_CONFIG_HOME"/hypr/scripts/*
-    sudo chmod 755 "$XDG_CONFIG_HOME"/waybar/scripts/*
-    sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/shared/theme.bash
-    sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/launcher/launcher.sh
-    sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/wifi/wifi
-    sudo chmod 755 "$XDG_CONFIG_HOME"/rofi/applets/bin/*
-    sudo chmod 755 "$XDG_CONFIG_HOME"/zsh/bash-scripts/*
     sudo chmod 755 /opt/logseq-desktop
     # Change the ownership of mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
