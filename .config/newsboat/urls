@@ -40,6 +40,7 @@ https://www.bugcrowd.com/about/news/feed/ "BB"
 
 # Github
 https://github.com/hyprwm/Hyprland/releases.atom "GH"
+https://github.com/nawfalmrouyan/hyprland/commits.atom "GH"
 
 # Repo releases 
 #https://github.com/:owner/:repo/releases.atom
