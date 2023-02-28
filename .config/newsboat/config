@@ -8,13 +8,13 @@ reload-time 30
 reload-threads 100
 
 # Macro bindings
-browser "lynx -vikeys -accept_all_cookies %u"
-macro l set browser "librewolf %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
-macro q set browser "qutebrowser %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
-macro m set browser "mpv %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
-macro v set browser "setsid -f mpv" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
-macro t set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
-macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
+browser "qutebrowser %u"
+macro l set browser "librewolf %u" ; open-in-browser ; set browser "qutebrowser %u"
+macro f set browser "lynx -vikeys -accept_all_cookies %u" ; open-in-browser ; set browser "lynx -vikeys -accept_all_cookies %u"
+macro m set browser "mpv %u" ; open-in-browser ; set browser "qutebrowser %u"
+macro v set browser "setsid -f mpv" ; open-in-browser ; set browser "qutebrowser %u"
+macro t set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser "qutebrowser %u"
+macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "qutebrowser %u"
 
 # Keys binds
 bind-key ; macro-prefix
