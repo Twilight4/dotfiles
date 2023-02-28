@@ -5,5 +5,32 @@ https://www.reddit.com/r/unixporn/new.rss "reddit"
 https://www.reddit.com/r/commandline/new.rss "reddit"
 https://www.reddit.com/r/vim/new.rss "reddit"
 
-# Other
-https://thevaluable.dev/index.xml "newsletter"
+# Polish
+http://feeds.feedburner.com/niebezpiecznik/ "pl"
+http://feeds.feedburner.com/sekurak "pl"
+https://thevaluable.dev/index.xml "dev"
+https://helion.pl/rss/promocje.rss "helion"
+https://helion.pl/rss/ "helion"
+
+# HTB
+https://www.hackthebox.com/rss/blog/hacker "htb"
+https://www.hackthebox.com/rss/blog/university "htb"
+https://www.hackthebox.com/rss/blog/events "htb"
+https://www.hackthebox.com/rss/blog/tips-and-tricks "htb"
+https://www.hackthebox.com/rss/blog/news "htb"
+
+# Pentest
+https://feeds.feedburner.com/TheHackersNews
+https://www.pentestpartners.com/feed/
+https://threatninja.net/category/masterclass/penetration-testing/feed/ "pentest"
+https://embracethered.com/blog/index.xml
+https://www.blazeinfosec.com/feed/
+https://latesthackingnews.com/feed/
+https://www.kitploit.com//feeds/posts/default
+
+# Bug Bounty
+https://www.hackerone.com/blog.rss
+https://portswigger.net/daily-swig/rss
+https://www.bugcrowd.com/about/news/feed/
+https://pentestmag.com/feed/
+http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Ftryhackme.com%2Fresources%2Fblog&max=5&order=document&guid=0&strip=&keep_qs_params=
