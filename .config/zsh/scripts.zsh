@@ -281,7 +281,7 @@ ydlab() {
 
 ydla() {
     if [ ! -z $1 ]; then
-        yt-dlp --extract-audio --audio-format --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
+        yt-dlp --extract-audio --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
         echo "You need to specify a video url as argument"
     fi
