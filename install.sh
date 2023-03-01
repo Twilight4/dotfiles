@@ -49,7 +49,7 @@ install-apps() {
     # plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
     
-    # these apps are unavailable in arch repos
+    # these tools are unavailable in arch repos
     sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.01-01-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
     
