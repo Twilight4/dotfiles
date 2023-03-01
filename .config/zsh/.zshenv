@@ -11,7 +11,7 @@ export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"      # Xauth file
 export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="footclient"
-export BROWSER="librewolf"
+export BROWSER="qutebrowser"
 
 # Zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                # Zsh config files
