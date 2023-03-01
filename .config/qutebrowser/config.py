@@ -67,10 +67,6 @@ c.url.default_page = 'file:///home/twilight/.config/qutebrowser/homepage.html'
 # =============== Special Format Yanking (designed for org mode) ===========
 config.bind("<y><o>", "yank inline [[{url}][{title}]]")
 
-# ======================= External Open ===================
-config.bind("V", "hint links spawn " + os.environ["BROWSER"] + ' "{hint-url}"')
-config.bind("v", 'hint links spawn funnel "{hint-url}"')
-
 # ======================= Redline Insert Mode =============
 # Awesome way to open vim from qutebrowser
 c.editor.command = [
@@ -103,8 +99,14 @@ config.bind("<Ctrl-x><Ctrl-e>", "open-editor", "insert")
 config.bind('M', 'hint links spawn mpv {hint-url}')
 config.bind('P', 'hint links spawn mpv {hint-url} --no-video')
 config.bind('X', 'hint links spawn librewolf {hint-url}')
-config.bind('Z', 'hint links spawn st -e youtube-dl {hint-url}')
+config.bind('Z', 'hint links spawn st -e yt-dlp {hint-url} -P ~/videos')
+config.bind('A', 'hint links spawn st -e yt-dlp {hint-url} --extract-audio --audio-format best -P ~/videos')
 config.bind('t', 'set-cmd-text -s :open -t')
 config.bind('xb', 'config-cycle statusbar.show always never')
 config.bind('xt', 'config-cycle tabs.show always never')
 config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.show always never')
+
+# Other bindings
+config.bind('J', 'tab-prev')
+config.bind('K', 'tab-next')
+
