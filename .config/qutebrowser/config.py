@@ -64,10 +64,7 @@ config.set("colors.webpage.darkmode.enabled", True)
 # commands like :open -t and :open -w .
 c.url.default_page = 'file:///home/twilight/.config/qutebrowser/homepage.html'
 
-# =============== Special Format Yanking (designed for org mode) ===========
-config.bind("<y><o>", "yank inline [[{url}][{title}]]")
-
-# ======================= Redline Insert Mode =============
+# Redline Insert Mode
 # Awesome way to open vim from qutebrowser
 c.editor.command = [
     os.environ["TERMINAL"],
