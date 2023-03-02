@@ -3,7 +3,7 @@
 # +---------+
 
 # Load more completions
-fpath=($DOTFILES/zsh/plugins/completions.zsh/src $fpath)
+fpath=($DOTFILES/zsh/plugins/zsh-completions/src $fpath)
 
 local cheats taglist pathlist
 
