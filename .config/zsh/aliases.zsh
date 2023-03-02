@@ -9,9 +9,9 @@ alias lx='lsd -lXBh --hyperlink=auto'                # sort by extension
 alias lk='lsd -lSrh --hyperlink=auto'                # sort by size
 alias lc='lsd -lcrh --hyperlink=auto'                # sort by change time
 alias lu='lsd -lurh --hyperlink=auto'                # sort by access time
-alias lm='lsd -alh |more --hyperlink=auto'           # pipe through 'more'
-#alias lf='lsd -l | egrep -v '^d' --hyperlink=auto'   # files only (it's broken)
-#alias ldir='lsd -l | egrep '^d' --hyperlink=auto'    # directories only (it's broken)
+alias lm='lsd -alh --hyperlink=auto |less -'         # pipe through 'less'
+#alias lf='lsd -l --hyperlink=auto| egrep -v '^d''   # files only
+#alias ldir='lsd -l --hyperlink=auto| egrep '^d''    # directories only
 alias l.='lsd -A $* | grep "^\."'                    # list hidden files
 
 # icat kitten
@@ -89,7 +89,7 @@ alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | s
 alias openports='netstat -nape --inet'
 
 # aliases to show disk space and space used in a folder
-alias diskspace="du -S | sort -n -r |more"
+alias diskspace="du -S | sort -n -r |less -R"
 alias folders='du -h --max-depth=1'
 alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
 alias tree='tree -CAhF --dirsfirst'
