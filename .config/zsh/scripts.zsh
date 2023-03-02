@@ -370,7 +370,7 @@ zshcomp() {
 }
 
 # Display command cheatsheet from cheat.sh. - cheat <command>
-cheat() {
+cht() {
     curl cheat.sh/$1
 }
 
