@@ -121,7 +121,9 @@ alias ....="cd ../../../"
 alias bathelp='bat --plain --language=help'
 help() {
     "$@" --help 2>&1 | bathelp
-    "$@" -h 2>&1 | bathelp
+}
+h() {
+    "$@" --help 2>&1 | bathelp
 }
 
 # other
