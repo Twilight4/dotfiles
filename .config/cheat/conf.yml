@@ -1,5 +1,3 @@
----
-
 # Should 'cheat' always colorize output?
 colorize: true
 
@@ -21,7 +19,7 @@ cheatpaths:
   - name: new
     path: /home/twilight/.config/cheat/cheatsheets/new
     tags: [ new ]
-    readonly: true
+    readonly: false
 
   - name: community
     path: /home/twilight/.config/cheat/cheatsheets/community
