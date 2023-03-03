@@ -39,13 +39,13 @@ bind-key U show-urls
 bind-key x pb-delete
 
 # Colors
-color background default default
-color listnormal default default
-color listnormal_unread default default
-color listfocus color16 cyan
-color listfocus_unread color16 cyan
-color info default black
+color listnormal cyan default
+color listfocus black yellow standout bold
+color listnormal_unread blue default
+color listfocus_unread yellow default bold
+color info default black bold
 color article default default
+color background default default
 
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" cyan default bold
 highlight article "(^Link:.*|^Date:.*)" default default
