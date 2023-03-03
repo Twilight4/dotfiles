@@ -3,15 +3,13 @@ set selection-clipboard "clipboard"
 set window-title-home-tilde "true"
 set window-title-basename "true"
 set statusbar-basename "true"
+set adjust-open "best-fit"  # Open document in fit-width mode by default
+set pages-per-row 1         # One page per row by default
 #set render-loading "false"
+#set scroll-step 100
 
 # Font
 set font "JetBrainsMono Mono 10"
-
-# Startup options
-set adjust-open "best-fit"  # Open document in fit-width mode by default
-set pages-per-row 1         # One page per row by default
-#set scroll-step 100
 
 # Recolor
 set recolor true
@@ -41,4 +39,5 @@ map R rotate
 map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
 
+# Source Colorscheme
 include catppuccin
