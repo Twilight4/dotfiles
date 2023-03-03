@@ -164,10 +164,6 @@ install-dotfiles() {
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
-    
-    # Copy librewolf configuration
-    mv ~/.librewolf/twilight-librewolf-8bejujaq.default-release /run/user/1000/psd
-    ln -s /run/user/1000/psd/twilight-librewolf-8bejujaq.default-release ~/.librewolf/8bejujaq.default-release
 
 # Hyprland desktop entry
 #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
