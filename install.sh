@@ -127,6 +127,7 @@ install-dotfiles() {
     mkdir -p .config/.local/share/gnupg
     mkdir -p .config/.local/share/cargo
     mkdir -p .config/.local/share/go
+    mkdir -p .config/.local/state/mpd
     mkdir -p .config/.local/state/less/history
     mkdir -p .config/.local/share/nimble
     mkdir -p .config/.local/share/pki
