@@ -114,24 +114,25 @@ install-dotfiles() {
     
     # Prevent permission denied errors
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
+    sudo mv -r /tmp/dotfiles/.librewolf "$HOME"
+    sudo mv -r /tmp/dotfiles/.config/.local/ "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
-    sudo mv /tmp/dotfiles/.config/.local/ ~/.config
     sudo fc-cache -fv
     sudo rm /home/"$(whoami)"/.bash*
-    mkdir -p ~/.config/.local/share/mpd/playlists
     sudo chmod 755 /opt/logseq-desktop
     # Change the ownership of mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
     # Cleanup home dir
-    mkdir -p .config/.local/share/gnupg
-    mkdir -p .config/.local/share/cargo
-    mkdir -p .config/.local/share/go
-    mkdir -p .config/.local/state/mpd
-    mkdir -p .config/.local/state/less/history
-    mkdir -p .config/.local/share/nimble
-    mkdir -p .config/.local/share/pki
-    mkdir -p .config/.local/share/cache
+    mkdir -p ~/.config/.local/share/gnupg
+    mkdir -p ~/.config/.local/share/cargo
+    mkdir -p ~/.config/.local/share/go
+    mkdir -p ~/.config/.local/share/mpd/playlists
+    mkdir -p ~/.config/.local/state/mpd
+    mkdir -p ~/.config/.local/state/less/history
+    mkdir -p ~/.config/.local/share/nimble
+    mkdir -p ~/.config/.local/share/pki
+    mkdir -p ~/.config/.local/share/cache
     mv ~/.gnupg ~/.config/.local/share/gnupg
     mv ~/.cargo ~/.config/.local/share/cargo
     mv ~/go ~/.config/.local/share/go
