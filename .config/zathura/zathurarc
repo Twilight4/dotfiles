@@ -22,8 +22,11 @@ set page-padding 1
 map K zoom in
 map J zoom out
 map i recolor
-#map u page up
-#map d page down
+map u scroll half-up
+map d scroll half-down
+map D toggle page-mode
+map r reload
+map R rotate
 
 # Theme
 set default-fg                "#CDD6F4"
