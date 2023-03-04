@@ -31,18 +31,18 @@ fi
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
 	option_1=" ChatGBT"
-	option_2=" Gmail"
+	option_2=" Mail"
 	option_3=" Youtube"
 	option_4=" Github"
-	option_5=" Reddit"
-	option_6=" Twitter"
+	option_5=" Amazon"
+	option_6=" AWS"
 else
 	option_1=""
 	option_2=""
 	option_3=""
 	option_4=""
-	option_5=""
-	option_6=""
+	option_5=""
+	option_6=""
 fi
 
 # Rofi CMD
@@ -73,9 +73,9 @@ run_cmd() {
 	elif [[ "$1" == '--opt4' ]]; then
 		xdg-open 'https://www.github.com/'
 	elif [[ "$1" == '--opt5' ]]; then
-		xdg-open 'https://www.reddit.com/'
+		xdg-open 'https://www.amazon.com/'
 	elif [[ "$1" == '--opt6' ]]; then
-		xdg-open 'https://www.twitter.com/'
+		xdg-open 'https://aws.amazon.com/'
 	fi
 }
 
