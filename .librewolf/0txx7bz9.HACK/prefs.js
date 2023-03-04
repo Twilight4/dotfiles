@@ -9,6 +9,7 @@
 // - modify it via the UI (e.g. via about:config in the browser); or
 // - set it within a user.js file in your profile.
 
+user_pref("accessibility.typeaheadfind.flashBar", 0);
 user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1677853162);
 user_pref("app.update.lastUpdateTime.browser-cleanup-thumbnails", 1677924409);
 user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1677917240);
@@ -81,7 +82,7 @@ user_pref("extensions.databaseSchema", 35);
 user_pref("extensions.lastAppBuildId", "20230219174612");
 user_pref("extensions.lastAppVersion", "110.0");
 user_pref("extensions.lastPlatformVersion", "110.0");
-user_pref("extensions.pendingOperations", false);
+user_pref("extensions.pendingOperations", true);
 user_pref("extensions.pictureinpicture.enable_picture_in_picture_overrides", true);
 user_pref("extensions.systemAddonSet", "{\"schema\":1,\"addons\":{}}");
 user_pref("extensions.ui.dictionary.hidden", true);

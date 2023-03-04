@@ -1,0 +1,5 @@
+www.eff.org:HSTS	0	19420	1740996381581,1,1
+rules2.clearurls.xyz:HSTS	0	19420	1709481333303,1,0
+librewolf.net^partitionKey=%28http%2Clibrewolf.net%29:HSTS	0	19420	1709460792071,1,0
+www.mozilla.org:HSTS	0	19420	1709460828328,1,0
+librewolf.net:HSTS	0	19420	1709460791963,1,0

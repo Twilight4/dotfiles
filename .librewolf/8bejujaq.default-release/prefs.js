@@ -79,7 +79,7 @@ user_pref("extensions.databaseSchema", 35);
 user_pref("extensions.lastAppBuildId", "20230219174612");
 user_pref("extensions.lastAppVersion", "110.0");
 user_pref("extensions.lastPlatformVersion", "110.0");
-user_pref("extensions.pendingOperations", false);
+user_pref("extensions.pendingOperations", true);
 user_pref("extensions.pictureinpicture.enable_picture_in_picture_overrides", true);
 user_pref("extensions.systemAddonSet", "{\"schema\":1,\"addons\":{}}");
 user_pref("extensions.ui.dictionary.hidden", true);
