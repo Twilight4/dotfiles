@@ -10,10 +10,12 @@ launch zsh
 
 # Create a new tab
 new_tab neovim
-cd ~
 # Set the layout in this tab
 layout grid
-# Create a window with nvim (don't use aliases)
+# Set the working directory
+cd ~
+# Create a window with nvim (aliases won't work here)
 launch nvim
 # Focus the current tab
 focus
+

@@ -1,17 +1,23 @@
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
-cd ~
+cd ~/workspace/dotfiles/.config
 # Create a window (title sets the tab title)
-launch --title cli zsh
+launch --title nnn sh -c "nnn -Ra"
+# Create second window in the same workind directory
+launch zsh
+# Create third window
+cd ~/.config
+launch sh -c "nnn -Ra"
 
 # Create a new tab
-new_tab file-explorer
-cd ~/documents
+new_tab zsh
 # Set the layout in this tab
 layout tall
-# Set the current layout
-layout tall
-launch sh -c "nnn -Ra"
-# Focus the current tab
-focus
+# Create a window
+cd ~/workspace/dotfiles/.config
+launch sh -c "lsd -lA --hyperlink=auto && exec zsh"
+# Create a second window
+cd ~/.config
+launch sh -c "lsd -lA --hyperlink=auto && exec zsh"
+
