@@ -30,21 +30,21 @@ fi
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" TryHackMe"
-	option_2=" Hack The Box"
-	option_3=" PortSwigger"
-	option_4=" PentesterLab"
-	option_5=" Proving Grounds"
-	option_6=" Root Me"
-	option_7=" PWNX"
+	option_1=" TryHackMe"
+	option_2=" Hack The Box"
+	option_3=" PortSwigger"
+	option_4=" PentesterLab"
+	option_5=" Proving Grounds"
+	option_6=" Root Me"
+	option_7=" PWNX"
 else
-	option_1=""
-	option_2=""
-	option_3=""
-	option_4=""
-	option_5=""
-	option_6=""
-	option_7=""
+	option_1=""
+	option_2=""
+	option_3=""
+	option_4=""
+	option_5=""
+	option_6=""
+	option_7=""
 fi
 
 # Rofi CMD
