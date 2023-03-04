@@ -15,9 +15,9 @@ mesg="Using '$BROWSER' as web browser"
 
 if [[ ( "$theme" == *'type-1'* ) || ( "$theme" == *'type-3'* ) || ( "$theme" == *'type-5'* ) ]]; then
 	list_col='1'
-	list_row='6'
+	list_row='7'
 elif [[ ( "$theme" == *'type-2'* ) || ( "$theme" == *'type-4'* ) ]]; then
-	list_col='6'
+	list_col='7'
 	list_row='1'
 fi
 
@@ -61,7 +61,7 @@ rofi_cmd() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6" | rofi_cmd
+	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7" | rofi_cmd
 }
 
 # Execute Command
@@ -105,6 +105,6 @@ case ${chosen} in
 		run_cmd --opt6
         ;;
     $option_7)
-		run_cmd --opt6
+		run_cmd --opt7
         ;;
 esac
