@@ -74,7 +74,7 @@ alias unhblock="hblock -S none -D none"
 # systeminfo
 alias probe="sudo -E hw-probe -all -upload"
 alias sysfailed="systemctl list-units --failed"
-alias sysfailed="ncdu --color dark"
+alias ncdu="ncdu --color dark"
 
 # search running processes
 alias p="ps aux | grep "
