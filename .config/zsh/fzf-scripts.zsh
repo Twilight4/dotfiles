@@ -122,7 +122,7 @@ fwork() {
 
 # List pdfs
 fpdf() {
-    result=$(find -type f -name '*.pdf' | fzf --bind "ctrl-r:reload(find -type f -name '*.pdf')" --preview "pdftotext {} - | less")
+    result=$(find ~/documents -type f -name '*.pdf' | fzf --bind "ctrl-r:reload(find -type f -name '*.pdf')" --preview "pdftotext {} - | less")
     [ -n "$result" ] && zathura "$result" &
 }
 
