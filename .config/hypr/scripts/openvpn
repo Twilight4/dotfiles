@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Toggle VPN
+if [ $(ip a s | grep tun0 | grep inet | awk '{print $2;}' | cut -d . -f2 | tr -d '\n' | wc -c) -eq 0 ]; then
+	kitty -1 --class foot-vpn -e sudo openvpn ~/downloads/starting_point_Twilight0.ovpn 
+  notify-send -u low -t 4000 -i "$HOME/.config/mako/icons/vpn.png" "VPN is active"
+elif [ $(ip a s | grep tun0 | grep inet | awk '{print $2;}' | cut -d . -f2 | tr -d '\n' | wc -c) -eq 2 ]; then
+  kill -9 foot-vpn 
+  notify-send -u low -t 4000 -i "$HOME/.config/mako/icons/vpn.png" "VPN is down"
+fi
+
