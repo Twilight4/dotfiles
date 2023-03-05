@@ -55,7 +55,7 @@ window#waybar.hidden {
 }
 
 #backlight {
-  color: @teal;
+  color: @green;
 }
 
 #battery {
@@ -126,11 +126,11 @@ window#waybar.hidden {
   color: @sky;
 }
 #custom-cputemp {
-  color: @sky;
+  color: @sapphire;
 }
 
 #pulseaudio {
-  color: @teal;
+  color: @green;
 }
 
 #pulseaudio.bluetooth {
