@@ -3,7 +3,7 @@
 # Toggle VPN
 if [ $(ip a s | grep tun0 | grep inet | awk '{print $2;}' | cut -d . -f2 | tr -d '\n' | wc -c) -eq 0 ]; then
   notify-send -u low -t 4000 -i "$HOME/.config/mako/icons/vpn.png" "VPN is active"
-	footclient -T footvpn -a footvpn -e sudo openvpn ~/downloads/starting_point_Twilight0.ovpn
+	footclient -T footvpn -a footvpn -e sudo openvpn ~/downloads/starting_point_twilightt.ovpn
 elif [ $(ip a s | grep tun0 | grep inet | awk '{print $2;}' | cut -d . -f2 | tr -d '\n' | wc -c) -eq 2 ]; then
   kill -9 $(ps aux | grep footvpn)
   notify-send -u low -t 4000 -i "$HOME/.config/mako/icons/vpn.png" "VPN is down"
