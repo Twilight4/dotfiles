@@ -13,7 +13,7 @@
   "output": "DP-2",
   "exclusive": true,
   "passthrough": false,
-  "height": 37,
+  "height": 38,
   "position": "top",
   "fixed-center": true,
   "spacing": 3,
