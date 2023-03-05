@@ -96,7 +96,6 @@
     "format-disabled": "<span font='13' rise='1000'>睊</span> Disabled",
     "format-alt": "<span font='13' rise='1000'></span> {bandwidthUpBits} | <span font='13' rise='1000'></span> {bandwidthDownBits}",
     "tooltip-format": "<span font='13' rise='1000'></span> {ifname} {essid} via {gwaddr}",
-    "on-click-right": "~/.local/bin/mmuvpn up cbj",
   },
 
 // _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
