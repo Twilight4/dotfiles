@@ -156,6 +156,7 @@ install-dotfiles() {
     systemctl --user enable mpd.service                                               # mpd daemon
     systemctl --user enable psd.service                                               # profile sync daemon
     sudo systemctl enable vnstat.service                                              # network traffic monitor
+    sudo systemctl enable bluetooth                                                   # enable bluetooth daemon
     sudo systemctl enable ananicy.service                                             # enable ananicy daemon 
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
