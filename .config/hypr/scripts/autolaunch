@@ -14,7 +14,7 @@ hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch
 hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec "logseq"
 
 # workspace 5
-hyprctl keyword windowrule "workspace 5 silent,qutebrowser" && hyprctl dispatch exec "qutebrowser"
+hyprctl keyword windowrule "workspace 2 silent,qutebrowser" && hyprctl dispatch exec "qutebrowser"
 hyprctl keyword windowrule "workspace 5 silent,newsboat" && hyprctl dispatch exec "footclient -T newsboat -a newsboat -e newsboat"
 
 # workspace 6
