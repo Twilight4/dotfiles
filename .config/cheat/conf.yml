@@ -16,16 +16,15 @@ cheatpaths:
   #   'path': the filesystem path of the cheatsheet directory (view with 'cheat -d')
   #   'tags': tags that should be automatically applied to sheets on this path
   #   'readonly': shall user-created ('cheat -e') cheatsheets be saved here?
-  - name: new
-    path: /home/twilight/.config/cheat/cheatsheets/new
-    tags: [ new ]
-    readonly: false
-
   - name: community
     path: /home/twilight/.config/cheat/cheatsheets/community
     tags: [ community ]
     readonly: true
 
+  - name: new
+    path: /home/twilight/.config/cheat/cheatsheets/new
+    tags: [ new ]
+    readonly: false
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets.
   - name: personal
