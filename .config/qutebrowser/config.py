@@ -106,4 +106,6 @@ config.bind('xx', 'config-cycle statusbar.show always never;; config-cycle tabs.
 # Other bindings
 config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
+config.bind('gJ', 'tab-move -')
+config.bind('gK', 'tab-move +')
 
