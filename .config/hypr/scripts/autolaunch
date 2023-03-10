@@ -6,6 +6,7 @@ hyprctl keyword windowrule "workspace 1 silent,casual-kitty" && hyprctl dispatch
 
 # workspace 2
 hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch exec "librewolf"
+hyprctl keyword windowrule "workspace 2 silent,burpsuite" && hyprctl dispatch exec "burpsuite"
 
 # workspace 3
 hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch exec "kitty -1 -T hacker-kitty --class hacker-kitty --session ~/.config/kitty/ws-3-session"
@@ -13,14 +14,9 @@ hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch
 # workspace 4
 hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec "logseq"
 
-# workspace 5
-hyprctl keyword windowrule "workspace 2 silent,qutebrowser" && hyprctl dispatch exec "qutebrowser"
-hyprctl keyword windowrule "workspace 5 silent,newsboat" && hyprctl dispatch exec "footclient -T newsboat -a newsboat -e newsboat"
-
 # workspace 6
-hyprctl keyword windowrule "workspace 6 silent,ncmpcpp" && hyprctl dispatch exec "footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp"
-hyprctl keyword windowrule "workspace 6 silent,cava" && hyprctl dispatch exec "footclient -T cava -a cava -e cava"
-hyprctl keyword windowrule "workspace 6 silent,clock" && hyprctl dispatch exec 'footclient -T clock -a clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d"'
+hyprctl keyword windowrule "workspace 6 silent,qutebrowser" && hyprctl dispatch exec "qutebrowser"
+hyprctl keyword windowrule "workspace 6 silent,newsboat" && hyprctl dispatch exec "footclient -T newsboat -a newsboat -e newsboat"
 
 # workspace special:scratchpad
 hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl dispatch exec "footcilent -T btop -a btop -e btop"
@@ -32,9 +28,7 @@ hyprctl keyword windowrule "unset,casual-kitty"
 hyprctl keyword windowrule "unset,LibreWolf"
 hyprctl keyword windowrule "unset,hacker-kitty"
 hyprctl keyword windowrule "unset,logseq"
-hyprctl keyword windowrule "unset,qutebrowser"
+hyprctl keyword windowrule "unset,burpsuite"
 hyprctl keyword windowrule "unset,newsboat"
-hyprctl keyword windowrule "unset,ncmpcpp"
-hyprctl keyword windowrule "unset,cava"
-hyprctl keyword windowrule "unset,clock"
+hyprctl keyword windowrule "unset,qutebrowser"
 hyprctl keyword windowrule "unset,btop"
