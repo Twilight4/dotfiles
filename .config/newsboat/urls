@@ -42,6 +42,7 @@ https://portswigger.net/daily-swig/rss "BB"
 https://www.bugcrowd.com/about/news/feed/ "BB"
 
 # Github
+https://github.com/Athena-OS/athena-iso/releases.atom "GH"
 https://github.com/hyprwm/Hyprland/releases.atom "GH"
 https://github.com/nawfalmrouyan/hyprland/commits.atom "GH"
 https://github.com/AmadeusWM/dotfiles-hyprland/commits.atom "GH"
