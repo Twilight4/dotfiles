@@ -1,0 +1,5 @@
+# try to connect to the MSSQL server by using impacket's mssqlclient.py script 
+# along with the following flags
+-windows-auth        # this flag is specified to use Windows Authentication
+
+mssqlclient.py ARCHETYPE/sql_svc@{TARGET_IP} -windows-auth
