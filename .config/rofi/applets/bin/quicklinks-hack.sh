@@ -67,11 +67,11 @@ run_rofi() {
 # Execute Command
 run_cmd() {
 	if [[ "$1" == '--opt1' ]]; then
-		xdg-open 'https://tryhackme.com/'
+		xdg-open 'https://portswigger.net/web-security/all-labs'
 	elif [[ "$1" == '--opt2' ]]; then
 		xdg-open 'https://www.hackthebox.com/'
 	elif [[ "$1" == '--opt3' ]]; then
-		xdg-open 'https://portswigger.net/web-security/all-labs'
+		xdg-open 'https://tryhackme.com/'
 	elif [[ "$1" == '--opt4' ]]; then
 		xdg-open 'https://pentesterlab.com/'
 	elif [[ "$1" == '--opt5' ]]; then
