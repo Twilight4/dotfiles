@@ -30,9 +30,9 @@ fi
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" TryHackMe"
+	option_1=" PortSwigger"
 	option_2=" Hack The Box"
-	option_3=" PortSwigger"
+	option_3=" TryHackMe"
 	option_4=" PentesterLab"
 	option_5=" Proving Grounds"
 	option_6=" Root Me"
