@@ -38,9 +38,9 @@ if [[ "$layout" == 'NO' ]]; then
 	option_6=" Root Me"
 	option_7=" PWNX"
 else
-	option_1=""
+	option_1=""
 	option_2=""
-	option_3=""
+	option_3=""
 	option_4=""
 	option_5=""
 	option_6=""
