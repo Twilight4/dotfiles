@@ -40,6 +40,7 @@ http://createfeed.fivefilters.org/extract.php?url=https%3A%2F%2Fpentestmag.com%2
 https://www.hackerone.com/blog.rss "BB"
 https://portswigger.net/daily-swig/rss "BB"
 https://www.bugcrowd.com/about/news/feed/ "BB"
+https://portswigger.net/daily-swig/rss "BB"
 
 # Github
 https://github.com/Athena-OS/athena-iso/releases.atom "GH"
