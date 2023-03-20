@@ -354,6 +354,12 @@ gtfo() {
     "$@" &> /dev/null & disown
 }
 
+# Generate a password - default 20 characters
+pass() {
+    local size=${1:-20}
+    cat /dev/random | tr -dc '[:graph:]' | head -c$size
+}
+
 # Calculate repo size
 reposize() {
   url=`echo $1 \
