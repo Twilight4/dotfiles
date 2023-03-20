@@ -359,11 +359,6 @@ pom() {
     bc <<< "(($HOURS * 60) + $MINUTES) / $POMODORO_DURATION"
 }
 
-# Calculate a mathematical operation. For example: calcul "2 * 3". - calcul <operation>
-calcul() {
-    bc -l <<< "$@"
-}
-
 # Create a server using Python with specific port. - serve <port=8888>
 serve() {
     local -r PORT=${1:-8888}
@@ -373,11 +368,6 @@ serve() {
 # Display the time for the prompt to appear when opening a new zsh instance. - promptspeed
 promptspeed() {
     for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
-}
-
-# Search on duckduckgo using the text-based browser lynx. - duckduckgo <search>
-duckduckgo() {
-    lynx -vikeys -accept_all_cookies "https://lite.duckduckgo.com/lite/?q=$@"
 }
 
 # Display all autocompleted command in zsh, First column: command name Second column: completion function - zshcomp 
