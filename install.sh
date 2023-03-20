@@ -218,6 +218,8 @@ echo 'Post-Installation:
 - these needs to be installed after current shell is switched to zsh
     zsh
     sudo npm install git-file-downloader cli-fireplace git-stats
+- to fix the issue with xdg-open using wrong browser, change the filename so it no longer recognized by xdg
+    sudo mv /usr/share/applications/librewolf.desktop /usr/share/applications/librewolf.desktop-wrong 
 - check if profile sync daemon is running
     psd p
 - uncomment last 2 lines in kitty.conf
