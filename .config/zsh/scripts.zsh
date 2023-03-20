@@ -400,6 +400,10 @@ githeat() {
     "$ZDOTDIR/bash-scripts/heatmap.sh" "$@"
 }
 
+backup() {
+    "$DOTFILES/bash/scripts/backup/backup.sh" "$@" "$CLOUD/dotfiles/dir.csv"
+}
+
 bm() {
     "$ZDOTDIR/bash-scripts/bm.sh" "$@"
 }
