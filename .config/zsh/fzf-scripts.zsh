@@ -91,7 +91,6 @@ ftmuxp() {
 
     if [[ "$ID" = "${create_new_session}" ]]; then
         tmux new-session
-    elif [[ -n "$ID" ]]; then
     fi
 }
 
