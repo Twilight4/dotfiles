@@ -109,8 +109,8 @@ fpop() {
 
 # List install files for dotfiles
 fdot() {
-    file=$(find "$DOTFILES/install" -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$file" ] && "$EDITOR" "$DOTFILES/install/$file"
+    file=$(find "$XDG_CONFIG_HOME/install" -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$file" ] && "$EDITOR" "$XDG_CONFIG_HOME/install/$file"
 }
 
 # List projects
