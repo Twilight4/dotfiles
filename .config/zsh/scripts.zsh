@@ -289,7 +289,7 @@ ydl() {
     fi
 }
 
-# Download audio from Youtube video with best quality  - ydl <video_url>
+# Download audio from Youtube video with best quality - ydl <video_url>
 ydlab() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
@@ -298,7 +298,7 @@ ydlab() {
     fi
 }
 
-# Download audio from Youtube video
+# Download audio from Youtube video - ydla <video_url>
 ydla() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
