@@ -88,6 +88,25 @@ Imgoptimizeall() {
     done
 }
 
+# Convert any image to jpg
+imgtojpg() {
+    for file in "$@"
+    do
+        local filename=${file%\.*}
+        convert -quality 100 $file "${filename}.jpg"
+    done
+}
+
+
+# Convert any image to webp - require cwebp
+imgtowebp() {
+    for file in "$@"
+    do
+        local filename=${file%\.*}
+        cwebp -q 100 $file -o $(basename ${filename}).webp
+    done
+}
+
 # Mount device with read/write permissions
 mnt() {
     local FILE="/mnt/external"
