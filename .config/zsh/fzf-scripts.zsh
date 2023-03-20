@@ -107,12 +107,6 @@ fpop() {
     d | fzf --height="20%" | cut -f 1 | source /dev/stdin
 }
 
-# List install files for dotfiles
-fdot() {
-    file=$(find "$DOTFILES/install" -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$file" ] && "$EDITOR" "$DOTFILES/install/$file"
-}
-
 # List projects
 fwork() {
     result=$(find ~/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
