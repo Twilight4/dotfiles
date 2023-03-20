@@ -33,6 +33,7 @@ alias cat='bat'
 alias svi="sudo vim"
 alias vi="nvim"
 alias train="sl | lolcat"
+alias fetch='clear && neofetch && fortune'
 alias devil="fortune | cowsay -f eyes | lolcat"
 
 # alias to show the date
