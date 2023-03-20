@@ -344,12 +344,6 @@ historystat() {
     history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
 }
 
-# Use tinyurl to shorten the <url>.
-tiny() {
-    local URL=${1:?}
-    curl -s "http://tinyurl.com/api-create.php?url=$1"
-}
-
 # Calculate number of pomodoro done for a specific time in hour(s) and minute(s). -pom <hours> <minutes> <duration=25>
 pom() {
     local -r HOURS=${1:?}
@@ -376,6 +370,12 @@ zshcomp() {
     do
         printf "%-32s %s\n" $command $completion
     done | sort
+}
+
+# Use tinyurl to shorten the <url>.
+tiny() {
+    local URL=${1:?}
+    curl -s "http://tinyurl.com/api-create.php?url=$1"
 }
 
 # Display command cheatsheet from cheat.sh. - cheat <command>
