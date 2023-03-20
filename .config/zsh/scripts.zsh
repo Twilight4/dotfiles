@@ -257,7 +257,7 @@ compress() {
     tar cvzf "$DATE.tar.gz" "$@"
 }
 
-# List of port opens, fuzzy searchable via fzf
+# List of port opens, fuzzy searchable via fzf - require net-tools
 ports() {
     sudo netstat -tulpn | grep LISTEN | fzf;
 }
