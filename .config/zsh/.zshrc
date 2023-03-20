@@ -91,3 +91,6 @@ fi
 #ftmuxp
 
 source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Fortune
+#fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat
