@@ -33,8 +33,8 @@ alias cat='bat'
 alias svi="sudo vim"
 alias vi="nvim"
 alias train="sl | lolcat"
-alias fetch='clear && neofetch && fortune'
-alias devil="fortune | cowsay -f eyes | lolcat"
+alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
+alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
 
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
