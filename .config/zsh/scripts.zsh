@@ -392,6 +392,10 @@ colorblocks() {
     "$ZDOTDIR/bash-scripts/colorblocks.sh" "$@"
 }
 
+git-jump() {
+    "$ZDOTDIR/bash/scripts/git-jump.sh" "$@"
+}
+
 githeat() {
     "$ZDOTDIR/bash-scripts/heatmap.sh" "$@"
 }
