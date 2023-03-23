@@ -215,7 +215,7 @@ echo 'Post-Installation:
     ssh-keygen -t ed25519 -C "your_email@example.com"
 - clone logseq and dotfiles repos using ssh
     git clone git@github.com:Twilight4/dotfiles.git ~/workspace
-    git clone git@github.com:Twilight4/logseq-notes.git ~/documents
+    git clone git@github.com:Twilight4/logseq-notes.git ~/documents/logseq-notes
 - install more packages
     sudo npm install git-file-downloader cli-fireplace git-stats
 - to fix the issue with xdg-open using wrong browser, change the filename so it no longer recognized by xdg
