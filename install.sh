@@ -107,8 +107,8 @@ install-dotfiles() {
     
     # Prevent permission denied errors
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
-    sudo mv -r /tmp/dotfiles/.librewolf "$HOME"
-    sudo mv -r /tmp/dotfiles/.config/.local/ "$HOME/.config"
+    sudo mv /tmp/dotfiles/.librewolf "$HOME"
+    sudo mv /tmp/dotfiles/.config/.local/ "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
     sudo fc-cache -fv
