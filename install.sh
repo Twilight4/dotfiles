@@ -200,9 +200,9 @@ echo 'Post-Installation:
 - NOW ISSUE THESE COMMANDS (must be as root)
     su
     echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
+    echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
     exit
 - to finish GRUB rice issue commands
-    sudo echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 - start Default Network for Networking (didnt work inside the script)
     sudo virsh net-start default
