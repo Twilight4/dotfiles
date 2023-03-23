@@ -223,8 +223,7 @@ echo 'Post-Installation:
 - check if profile sync daemon is running
     psd p
 - uncomment last 2 lines in kitty.conf
-- reload tmux plugin manager: C-a + S-i + q
-- you can now reboot'
+- reload tmux plugin manager: C-a + S-i + q'
 }
 
 run "$@"
