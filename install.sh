@@ -204,19 +204,19 @@ echo 'Post-Installation:
     exit
 - to finish GRUB rice issue commands
     sudo grub-mkconfig -o /boot/grub/grub.cfg
-- start Default Network for Networking (didnt work inside the script)
-    sudo virsh net-start default
-    sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
 - check status of auto-cpufreq with this command
     sudo systemctl status auto-cpufreq
     auto-cpufreq --stats
+------- AFTER REBOOT -------
+- start Default Network for Networking
+    sudo virsh net-start default
+    sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
 - add pub key to github: Settings > SSH > New
     ssh-keygen -t ed25519 -C "your_email@example.com"
 - clone logseq and dotfiles repos using ssh
     git clone git@github.com:Twilight4/dotfiles.git ~/workspace
     git clone git@github.com:Twilight4/logseq-notes.git ~/documents
-- these needs to be installed after current shell is switched to zsh
-    zsh
+- install more packages
     sudo npm install git-file-downloader cli-fireplace git-stats
 - to fix the issue with xdg-open using wrong browser, change the filename so it no longer recognized by xdg
     sudo mv /usr/share/applications/librewolf.desktop /usr/share/applications/librewolf.desktop-wrong 
