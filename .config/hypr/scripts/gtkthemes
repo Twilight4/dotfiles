@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THEME='Catppuccin-Mocha-Standard-Blue-Dark'
+THEME='NumixSolarizedDarkCyan'
 ICONS='Papirus'
 FONT='Sans 10'
 CURSOR='Numix-Cursor-Light'
