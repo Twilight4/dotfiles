@@ -95,7 +95,7 @@ install-apps() {
 }
 
 create-directories() {
-mkdir -p "/home/$(whoami)/{documents,desktop,downloads,videos,workspace,music,pictures}"
+mkdir -p /home/$(whoami)/{documents,desktop,downloads,videos,workspace,music,pictures}
 }
 
 install-dotfiles() {
