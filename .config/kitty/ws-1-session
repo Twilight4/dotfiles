@@ -11,7 +11,7 @@ cd ~/.config
 launch sh -c "nnn -Ra"
 
 # Create a new tab
-new_tab zsh
+new_tab dots
 # Set the layout in this tab
 layout tall
 # Create a window
