@@ -26,7 +26,7 @@ term_cmd='fractal'
 file_cmd='anki'
 text_cmd='keepassxc'
 web_cmd='virt-manager'
-music_cmd='footclient -T ncmpcpp -a ncmpcpp -e ncmpcpp'
+music_cmd='qbittorrent'
 
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
@@ -35,13 +35,13 @@ if [[ "$layout" == 'NO' ]]; then
 	option_2=" Anki <span weight='light' size='small'><i>($file_cmd)</i></span>"
 	option_3=" Passwordmanager <span weight='light' size='small'><i>($text_cmd)</i></span>"
 	option_4=" QEMU <span weight='light' size='small'><i>($web_cmd)</i></span>"
-	option_5=" Music <span weight='light' size='small'><i>(ncmpcpp)</i></span>"
+	option_5=" qBittorrent <span weight='light' size='small'><i>(ncmpcpp)</i></span>"
 else
 	option_1=""
 	option_2=""
 	option_3=""
 	option_4=""
-	option_5=""
+	option_5=""
 fi
 
 # Rofi CMD
