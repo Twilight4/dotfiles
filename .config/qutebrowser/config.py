@@ -1,15 +1,19 @@
 import os
-import dracula.draw
+from urllib.request import urlopen
 
-# Load existing settings made via :set
+# load autoconfig
 config.load_autoconfig()
 
-dracula.draw.blood(c, {
-    'spacing': {
-        'vertical': 6,
-        'horizontal': 8
-    }
-})
+# catppuccin theme
+if not os.path.exists(config.configdir / "theme.py"):
+    theme = "https://raw.githubusercontent.com/catppuccin/qutebrowser/main/setup.py"
+    with urlopen(theme) as themehtml:
+        with open(config.configdir / "theme.py", "a") as file:
+            file.writelines(themehtml.read().decode("utf-8"))
+
+if os.path.exists(config.configdir / "theme.py"):
+    import theme
+    theme.setup(c, 'macchiato', True)
 
 # Enable JavaScript.
 # Type: Bool
@@ -110,3 +114,7 @@ config.bind('J', 'tab-prev')
 config.bind('K', 'tab-next')
 config.bind('gJ', 'tab-move -')
 config.bind('gK', 'tab-move +')
+
+# Bindings for cycling through CSS stylesheets from Solarized Everything CSS:
+# https://github.com/alphapapa/solarized-everything-css
+config.bind(',sl', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/solarized-everything-css/css/solarized-dark/solarized-dark-all-sites.css ""') 
