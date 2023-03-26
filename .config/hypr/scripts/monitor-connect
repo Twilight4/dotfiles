@@ -4,7 +4,7 @@ function handle {
   if [[ ${1:0:12} == "monitoradded" ]]; then
     hyprctl dispatch moveworkspacetomonitor "2 2"
     hyprctl dispatch moveworkspacetomonitor "3 2"
-    hyprctl dispatch moveworkspacetomonitor "4 2"
+    hyprctl dispatch moveworkspacetomonitor "6 2"
   fi
 }
 
