@@ -42,4 +42,4 @@ map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
 
 # Source Colorscheme
-include catppuccin
+include zathura-solorized-dark
