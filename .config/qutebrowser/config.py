@@ -115,6 +115,6 @@ config.bind('K', 'tab-next')
 config.bind('gJ', 'tab-move -')
 config.bind('gK', 'tab-move +')
 
-# Bindings for cycling through CSS stylesheets from Solarized Everything CSS
+# Binding for switching between the solorized CSS theme and default CSS theme
 # https://github.com/alphapapa/solarized-everything-css
 config.bind(',sl', 'config-cycle content.user_stylesheets ~/.config/qutebrowser/solorized-dark/solarized-dark-all-sites.css ""')
