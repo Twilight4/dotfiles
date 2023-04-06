@@ -1,0 +1,10 @@
+# ASN Enumeration
+amass intel -asn 46489
+
+
+Subcommands:
+amass intel - Discover targets for enumerations
+amass enum  - Perform enumerations and network mapping
+
+# Subdomain Scraping
+amass enum -d domain.com

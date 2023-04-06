@@ -27,7 +27,12 @@ cheatpaths:
     readonly: false
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets.
-  - name: personal
-    path: /home/twilight/.config/cheat/cheatsheets/personal
-    tags: [ personal ]
+  - name: recon
+    path: /home/twilight/.config/cheat/cheatsheets/recon
+    tags: [ scraping, brute]
+    readonly: true
+
+  - name: content-discovery
+    path: /home/twilight/.config/cheat/cheatsheets/content-discovery
+    tags: [ fuzzers ]
     readonly: true
