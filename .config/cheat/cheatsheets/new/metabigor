@@ -1,0 +1,35 @@
+# discovery IP of a company/organization
+echo "company" | metabigor net --org -o -v result.txt
+
+# discovery IP of an ASN
+echo "ASN1111" | metabigor net --asn -o /tmp/result.txt
+cat list_of_ASNs | metabigor net --asn -o /tmp/result.txt
+
+# Only run rustscan with full ports
+echo '1.2.3.4/24' | metabigor scan -o result.txt
+
+# Only run nmap detail scan based on pre-scan data
+echo '1.2.3.4:21' | metabigor scan -s
+cat list_of_ip_with_port.txt | metabigor scan -c 10 --8 -s -o result.txt
+cat list_of_ip_with_port.txt | metabigor scan -c 10 --tmp /tmp/raw-result/ -s -o result.txt
+echo '1.2.3.4 -> [80,443,2222]' | metabigor scan -R
+
+# Run rustscan with full ports and nmap detail scan based on pre-scan data
+echo '1.2.3.4/24' | metabigor scan --pipe | metabigor scan -R 
+
+# Only run scan with zmap
+cat ranges.txt | metabigor scan -p '443,80' -z
+
+# Get Summary about IP address (powered by @thebl4ckturtle)
+cat list_of_ips.txt | metabigor ipc --json
+
+# Finding more related domains of the target by applying various techniques
+
+## Getting more related domains by searching for certificate info
+echo 'example.com' | metabigor related -s 'cert'
+
+## Getting more related by searching for whois info
+echo 'example.com' | metabigor related -s 'whois'
+
+## Getting more related by searching for google analytics ID
+echo 'https://example.com' | metabigor related -s 'google-analytic'
