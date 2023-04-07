@@ -1,0 +1,3 @@
+# Usage
+wfuzz -c -z file /usr/share/wfuzz/wordlist/general/common.txt --hc 404 IP_Address
+wfuzz -w wordlist.txt --hc 4040 -c -t XX -u domain.com

@@ -1,0 +1,2 @@
+# Usage
+cat urls.txt | gf sqli

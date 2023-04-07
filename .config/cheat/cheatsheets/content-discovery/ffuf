@@ -1,0 +1,11 @@
+# Usage 
+ffuf -c -v -t XX -w wordlist.txt -u domain.com
+
+# Fuzz host-[H]eaders with a host file on a target website and [m]atch HTTP 200 [c]ode responses:
+ffuf -w hosts.txt -u https://example.org -H "Host: FUZZ" -mc 200
+
+# Fuzz POST method with POST [d]ata of password on a target website and [f]ilter out HTTP response [c]ode 401:
+ffuf -w path/to/postdata.txt -X POST -d "username=admin\&password=FUZZ" -u https://target/login.php -fc 401
+
+# Discover subdomains using a subdomain list on a target website:
+ffuf -w subdomains.txt -u https://website.com -H "Host: FUZZ.website.com"

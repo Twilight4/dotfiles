@@ -1,0 +1,5 @@
+# Usage
+feroxbuster -u domain.com -r
+feroxbuster -u domain.com -w wordlist -t XX -n
+
+# Options
