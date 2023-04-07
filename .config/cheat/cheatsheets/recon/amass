@@ -1,10 +1,18 @@
 # ASN Enumeration
 amass intel -asn 46489
 
-
-Subcommands:
-amass intel - Discover targets for enumerations
-amass enum  - Perform enumerations and network mapping
-
 # Subdomain Scraping
 amass enum -d domain.com
+# Active Scanning
+amass enum -active -brute -o target.txt -d mailerlite.com
+
+# Validate urls
+cat domains.txt | httprobe
+
+# Check waybackmachine and valid urls from the output 
+cat domains.txt | waybackurls > yahoo.urls
+cat yahoo.urls | httprobe -t 1000
+
+# Subdomain bruting
+amass enum -brute -d domain.com -src
+-src  # shows where the subdomains are coming from

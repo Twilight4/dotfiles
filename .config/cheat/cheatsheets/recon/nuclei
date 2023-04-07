@@ -1,0 +1,5 @@
+# Look for subdomain takeovers
+nuclei -l httprobe.txt -t /usr/share/nuclei-templates/takeovers/* -v -o output.txt
+
+# Look for CVES
+nuclei -l httprobe.txt -t /usr/share/nuclei-templates/cves/* -v -o output.txt

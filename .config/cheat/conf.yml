@@ -29,10 +29,10 @@ cheatpaths:
   # precedence over the more global cheatsheets.
   - name: recon
     path: /home/twilight/.config/cheat/cheatsheets/recon
-    tags: [ scraping, brute]
+    tags: [ subdomain, scraping, favicon, port, github, fingerprint ]
     readonly: true
 
   - name: content-discovery
     path: /home/twilight/.config/cheat/cheatsheets/content-discovery
-    tags: [ fuzzers ]
+    tags: [ scan, fuzzer, dir, cve ]
     readonly: true

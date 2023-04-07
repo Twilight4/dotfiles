@@ -1,0 +1,2 @@
+# Usage
+go run main.go -d target.com -s yourAPIKEY

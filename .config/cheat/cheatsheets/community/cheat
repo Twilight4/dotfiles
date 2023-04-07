@@ -12,3 +12,11 @@ cheat -s <command>
 
 # To get the current `cheat' version
 cheat -v
+
+# Cheatpaths can be also configured to automatically apply tags to cheatsheets
+# on certain paths, which can be useful for querying purposes.
+# Example: 
+cheat -t work jenkins
+
+
+# ('cheat -p' can be used to view cheatsheets from alternative cheatpaths.)
