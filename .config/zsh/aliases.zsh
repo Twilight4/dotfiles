@@ -37,10 +37,7 @@ alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
 
 # alias to show the date
-alias da='date "+%Y-%m-%d %A %T %Z"'
-
-# grub update
-alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias date='date "+%Y-%m-%d %A %T %Z"'
 
 # add new fonts
 alias update-fc='sudo fc-cache -fv'
@@ -58,6 +55,8 @@ alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 # recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+alias big="expac -H M '%m\t%n' | sory -h | nl"
+alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
 
 # get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
@@ -183,6 +182,7 @@ alias ncmpcpp="ncmpcpp ncmpcpp_directory=$HOME/.config/ncmpcpp/"
 alias psa="ps auxf"
 alias psrg="ps aux | grep -v grep | grep -i -e VSZ -e"
 alias psmem="ps auxf | sort -nr -k 4"
+alias psmem10="ps auxf | sort -nr -k 4 | head -10"
 alias pscpu="ps auxf | sort -nr -k 3"
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
