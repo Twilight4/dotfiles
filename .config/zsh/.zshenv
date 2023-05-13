@@ -15,6 +15,9 @@ export BROWSER="qutebrowser"
 
 # Zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                # Zsh config files
+export HISTCONTROL=ignoreboth       		     # Ignore commands that start with spaces and duplicates
+export HISTIGNORE="&:[bf]g:clear:history:exit:q:pwd:* --help" # Dont add certain commands to the history file
+export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"  # Make new shells get the history lines from all previous shells instead of the default "last window closed" history
 export HISTFILE="$ZDOTDIR/.zhistory"                 # History filepath
 export HISTSIZE=10000                                # Maximum events for internal history
 export SAVEHIST=10000                                # Maximum events in history file

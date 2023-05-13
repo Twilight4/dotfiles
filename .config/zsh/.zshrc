@@ -26,6 +26,9 @@ setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive sessio
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
 
+# Uncomment the following line if pasting URLs and other text is messed up
+DISABLE_MAGIC_FUNCTIONS="true"
+
 # Colors
 autoload -Uz colors && colors
 
@@ -91,6 +94,10 @@ fi
 #ftmuxp
 
 source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $XDG_CONFIG_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# pkgfile "command not found" handler
+source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Fortune
 #fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat

@@ -141,15 +141,16 @@ alias gcs="git checkout stable"
 alias gcd="cloneit"
 
 # pacman and yay
-alias pacs="sudo pacman -S"                      # Install package faster
-alias pacr="sudo pacman -Rns"                    # Remove package faster
-alias yayr="yay -Rns"                            # Remove package faster
-alias yays="yay -S"                              # Install AUR package faster
+alias pacs="sudo pacman -S"                      # install package faster
+alias pacr="sudo pacman -Rns"                    # remove package faster
+alias yayr="yay -Rns"                            # remove package faster
+alias yays="yay -S"                              # install AUR package faster
 alias pacsyu="sudo pacman -Syu"                  # update only standard pkgs
-alias pacsyyu="sudo pacman -Syyu"                # Refresh pkglist & update standard pkgs
+alias pacsyyu="sudo pacman -Syyu"                # refresh pkglist & update standard pkgs
 alias yaysua="yay -Sua --noconfirm"              # update only AUR pkgs (yay)
 alias yaysyu="yay -Syu --noconfirm"              # update standard pkgs and AUR pkgs (yay)
-alias yaysc="yay -Sc"                            # remove orphaned packages
+alias fixpac="sudo rm /var/lib/pacman/db.lck"    # remove pacman lock
+alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # cleanup orphaned packages
 
 # quick access to config files
 alias zshrc="nvim ~/.config/zsh/.zshrc"
