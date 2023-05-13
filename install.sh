@@ -167,7 +167,7 @@ sudo bash -c 'cat > /usr/share/wayland-sessions/hyprland.desktop' <<-'EOF'
 [Desktop Entry]
 Name=Hyprland
 Comment=hyprland
-Exec="$HOME/.config/hypr/scripts/starth"
+Exec="$HOME/.config/hypr/scripts/starth"  # IF CRASHES TRY: bash -c "$HOME/.config/hypr/scripts/starth"
 Type=Application
 EOF
 
