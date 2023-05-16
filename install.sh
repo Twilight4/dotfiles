@@ -179,6 +179,7 @@ sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
 #User=twilight
 
 [Theme]
+#Current=archlinux-soft-grey
 Current=aerial
 CursorSize=24
 CursorTheme=Numix-Cursor-Light
