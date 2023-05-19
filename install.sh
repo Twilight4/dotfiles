@@ -39,11 +39,14 @@ install-yay() {
 }
 
 install-apps() {
-    # remove useless packages installed by alis
+    # remove redundant packages installed by alis
     sudo pacman -Rns --noconfirm sddm linux linux-headers
-    sudo pacman -S --noconfirm $(cat /tmp/paclist)
-    yay -S --noconfirm $(cat /tmp/yaylist)
-    # remove useless packages installed by pacman
+    # remove redundant packages installed by cachyos
+    sudo pacman -Rns --noconfirm cachyos-fish-config cachyos-zsh-config cachyos-hello cachyos-kernel-manager
+    # start packages installation
+    sudo pacman -S --noconfirm --needed $(cat /tmp/paclist)
+    yay -S --noconfirm --needed $(cat /tmp/yaylist)
+    # remove redundant packages installed by pacman
     sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
     
     # plugins for nnn file manager
