@@ -42,7 +42,7 @@ install-apps() {
     # remove redundant packages installed by alis
     sudo pacman -Rns --noconfirm sddm linux linux-headers
     # remove redundant packages installed by cachyos
-    sudo pacman -Rns --noconfirm cachyos-fish-config cachyos-zsh-config cachyos-hello cachyos-kernel-manager
+    sudo pacman -Rns --noconfirm cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh.git cachyos-hello cachyos-kernel-manager exa
     # start packages installation
     sudo pacman -S --noconfirm --needed $(cat /tmp/paclist)
     yay -S --noconfirm --needed $(cat /tmp/yaylist)
