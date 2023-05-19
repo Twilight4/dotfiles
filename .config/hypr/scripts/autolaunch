@@ -5,7 +5,7 @@
 hyprctl keyword windowrule "workspace 1 silent,casual-kitty" && hyprctl dispatch exec "kitty -1 -T casual-kitty --class casual-kitty --session ~/.config/kitty/ws-1-session"
 
 # workspace 2
-hyprctl keyword windowrule "workspace 2 silent,LibreWolf" && hyprctl dispatch exec "librewolf"
+hyprctl keyword windowrule "workspace 2 silent,cachybrowser" && hyprctl dispatch exec "cachy-browser"
 hyprctl keyword windowrule "workspace 2 silent,burpsuite" && hyprctl dispatch exec "burpsuite"
 
 # workspace 3
@@ -25,7 +25,7 @@ sleep 10      # wait untill apps run
 
 # unset by class name
 hyprctl keyword windowrule "unset,casual-kitty"
-hyprctl keyword windowrule "unset,LibreWolf"
+hyprctl keyword windowrule "unset,cachybrowser"
 hyprctl keyword windowrule "unset,hacker-kitty"
 hyprctl keyword windowrule "unset,logseq"
 hyprctl keyword windowrule "unset,burpsuite"
