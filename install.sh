@@ -220,8 +220,6 @@ echo 'Post-Installation:
     git clone git@github.com:Twilight4/logseq-notes.git ~/documents/logseq-notes
 - install more packages
     sudo npm install git-file-downloader cli-fireplace git-stats
-- to fix the issue with xdg-open using wrong browser, change the filename so it no longer recognized by xdg
-    sudo mv /usr/share/applications/librewolf.desktop /usr/share/applications/librewolf.desktop-wrong 
 - check if profile sync daemon is running
     psd p
 - uncomment last 2 lines in kitty.conf
