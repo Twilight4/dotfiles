@@ -119,7 +119,7 @@ install-dotfiles() {
     sudo chmod 755 /opt/logseq-desktop
     # Change the ownership of mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
-    # Cleanup home dir
+    # Cleanup home dir bloat
     mkdir -p ~/.config/.local/share/gnupg
     mkdir -p ~/.config/.local/share/cargo
     mkdir -p ~/.config/.local/share/go
@@ -129,6 +129,7 @@ install-dotfiles() {
     mkdir -p ~/.config/.local/share/nimble
     mkdir -p ~/.config/.local/share/pki
     mkdir -p ~/.config/.local/share/cache
+    mkdir -p ~/cachyos-repo
     mv ~/.gnupg ~/.config/.local/share/gnupg
     mv ~/.cargo ~/.config/.local/share/cargo
     mv ~/go ~/.config/.local/share/go
@@ -142,6 +143,7 @@ install-dotfiles() {
     mv ~/.local/state* ~/.config/.local/state
     rm -r ~/.local
     rm ~/.viminfo
+    sudo rm cachyos-repo*
     
     # Enable system services
     hblock                                                                            # block ads and malware domains
