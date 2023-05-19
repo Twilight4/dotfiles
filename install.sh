@@ -16,14 +16,14 @@ update-system() {
 }
 
 download-paclist() {
-    paclist_path="/tmp/paclist" 
+    paclist_path="/tmp/paclist"    # Also possible paclist-stripped
     curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/paclist" > "$paclist_path"
 
     echo $paclist_path
 }
 
 download-yaylist() {
-    yaylist_path="/tmp/yaylist"
+    yaylist_path="/tmp/yaylist"    # Also possible yaylist-stripped
     curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/yaylist" > "$yaylist_path"
 
     echo $yaylist_path
@@ -147,11 +147,11 @@ install-dotfiles() {
     systemctl --user enable psd.service                                               # profile sync daemon
     sudo systemctl enable vnstat.service                                              # network traffic monitor
     sudo systemctl enable bluetooth                                                   # enable bluetooth daemon
-    sudo systemctl enable ananicy.service                                             # enable ananicy daemon 
+    #sudo systemctl enable ananicy.service                                             # enable ananicy daemon (cachy-os has it built in)
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
     sudo systemctl enable libvirtd.service                                            # enable qemu/virt manager daemon
-    sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks
+    #sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks (error)
     sudo systemctl mask power-profiles-daemon.service                                 # install cpu performance tweaks
     # Enable performance and security tweaks
     sudo systemctl enable sddm
@@ -208,6 +208,7 @@ echo 'Post-Installation:
 - check status of auto-cpufreq with this command
     sudo systemctl status auto-cpufreq
     auto-cpufreq --stats
+- if you used yaylist-striped packages then change sddm.conf to archlinux theme
 ------- AFTER REBOOT -------
 - start Default Network for Networking
     sudo virsh net-start default
