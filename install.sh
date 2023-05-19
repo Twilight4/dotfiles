@@ -192,10 +192,13 @@ Font=JetBrains Mono
 ThemeDir=/usr/share/sddm/themes
 EOF
 
-# Grub rice
-git clone https://github.com/HenriqueLopes42/themeGrub.CyberEXS
-mv themeGrub.CyberEXS CyberEXS
-sudo mv CyberEXS /boot/grub/themes/
+# Grub rice - using systemd-boot
+#git clone https://github.com/HenriqueLopes42/themeGrub.CyberEXS
+#mv themeGrub.CyberEXS CyberEXS
+#sudo mv CyberEXS /boot/grub/themes/
+# to finish GRUB rice issue commands:
+## sudo grub-mkconfig -o /boot/grub/grub.cfg
+## echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub  # works only as root
     
 # tmux plugin manager
 [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
@@ -206,10 +209,7 @@ echo 'Post-Installation:
 - NOW ISSUE THESE COMMANDS (must be as root)
     su
     echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
-    echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub
     exit
-- to finish GRUB rice issue commands
-    sudo grub-mkconfig -o /boot/grub/grub.cfg
 - check status of auto-cpufreq with this command
     sudo systemctl status auto-cpufreq
     auto-cpufreq --stats
@@ -220,9 +220,8 @@ echo 'Post-Installation:
     sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
 - add pub key to github: Settings > SSH > New
     ssh-keygen -t ed25519 -C "your_email@example.com"
-- clone logseq and dotfiles repos using ssh
+- clone logseq and dotfiles repos via SSH
     git clone git@github.com:Twilight4/dotfiles.git ~/workspace/dotfiles
-- make sure the contents of logseq repo is in logseq folder in ~/documents/logseq-notes
     git clone git@github.com:Twilight4/logseq-notes.git ~/documents/logseq-notes
 - install more packages
     sudo npm install git-file-downloader cli-fireplace git-stats
