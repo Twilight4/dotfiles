@@ -143,7 +143,9 @@ install-dotfiles() {
     mv ~/.local/state* ~/.config/.local/state
     rm -r ~/.local
     rm ~/.viminfo
-    sudo rm cachyos-repo*
+    sudo rm ~/cachyos-repo*
+    rm ~/.zsh*
+    rm ~/.zcompdummp*
     
     # Enable system services
     hblock                                                                            # block ads and malware domains
