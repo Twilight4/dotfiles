@@ -53,14 +53,14 @@ install-apps() {
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
     
     # these tools are unavailable in arch repos
-    sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.01-01-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
+    sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.04-05-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.04-05-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
 
     sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst -O /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
 
-    sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.1-4-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.1-3-any.pkg.tar.zst
-    sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.1-4-any.pkg.tar.zst
+    sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst
+    sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst
     
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
