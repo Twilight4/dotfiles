@@ -207,6 +207,12 @@ EOF
 && git clone --depth 1 https://github.com/tmux-plugins/tpm \
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
 
+# clone SecLists repo
+[ ! -d "/usr/share/payloads/SecLists" ] \
+&& mkdir -p /usr/share/payloads/SecLists \
+&& git clone https://github.com/danielmiessler/SecLists \
+"/usr/share/payloads/SecLists"
+
 echo 'Post-Installation:
 - NOW ISSUE THESE COMMANDS (must be as root)
     su
