@@ -26,8 +26,13 @@ https://www.hackthebox.com/rss/blog/news "HTB"
 
 # Write-ups
 https://0xdf.gitlab.io/feed.xml "write-ups"
+https://www.reddit.com/r/netsec/new.rss "CTF"
+https://www.reddit.com/r/AskNetsec/new.rss "CTF"
+https://www.reddit.com/r/securityCTF/new.rss "CTF"
 
-# Pentest
+# Pentest news
+https://hackaday.com/blog/feed/ "pentest"
+https://www.darkreading.com/rss.xml "pentest"
 https://feeds.feedburner.com/TheHackersNews "pentest"
 https://www.pentestpartners.com/feed/ "pentest"
 https://threatninja.net/category/masterclass/penetration-testing/feed/ "pentest"
