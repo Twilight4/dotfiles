@@ -42,6 +42,7 @@ alias free="free -m" # show sizes in MB
 alias lynx="lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys"
 alias ncmpcpp="ncmpcpp ncmpcpp_directory=$HOME/.config/ncmpcpp/"
 alias h2t="html2text -style pretty"
+alias x2h="xsltproc -o result.html"
 
 # alias to show the date
 alias date='date "+%Y-%m-%d %A %T %Z"'
