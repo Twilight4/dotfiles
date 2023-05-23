@@ -373,6 +373,18 @@ reposize() {
   | numfmt --to=iec --from-unit=1024
 }
 
+# Create a server using Python with specific port.
+serve() {
+    PORT=${1:-80}
+    DIR=${2:-$(pwd)}
+    echo "Serving files from $DIR"
+    if type python3 >/dev/null 2>&1; then
+       python3 -m http.server "$PORT"
+    else
+       python -m SimpleHTTPServer "$PORT" 
+    fi
+}
+
 # Calculate number of pomodoro done for a specific time in hour(s) and minute(s). -pom <hours> <minutes> <duration=25>
 pom() {
     local -r HOURS=${1:?}
@@ -380,12 +392,6 @@ pom() {
     local -r POMODORO_DURATION=${3:-25}
 
     bc <<< "(($HOURS * 60) + $MINUTES) / $POMODORO_DURATION"
-}
-
-# Create a server using Python with specific port. - serve <port=8888>
-serve() {
-    local -r PORT=${1:-8888}
-    python3 -m http.server "$PORT"
 }
 
 # Display the time for the prompt to appear when opening a new zsh instance. - promptspeed
