@@ -35,6 +35,13 @@ alias vi="nvim"
 alias train="sl | lolcat"
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
+alias cmatrix="cmatrix -a"
+alias asciiquarium="asciiquarium --transparent"
+alias df="df -h"     # human-readable sizes
+alias free="free -m" # show sizes in MB
+alias lynx="lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys"
+alias ncmpcpp="ncmpcpp ncmpcpp_directory=$HOME/.config/ncmpcpp/"
+alias h2t="html2text -style pretty"
 
 # alias to show the date
 alias date='date "+%Y-%m-%d %A %T %Z"'
@@ -45,9 +52,6 @@ alias update-fc='sudo fc-cache -fv'
 # trans
 alias tre='trans en:pl'
 alias trp='trans pl:en'
-
-# hardware info --short
-alias hw="hwinfo --short"
 
 # check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
@@ -98,6 +102,8 @@ alias unhblock="hblock -S none -D none"
 alias probe="sudo -E hw-probe -all -upload"
 alias sysfailed="systemctl list-units --failed"
 alias ncdu="ncdu --color dark"
+alias me='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
+alias hw="hwinfo --short"
 
 # count all files (recursively) in the current folder
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
@@ -177,16 +183,6 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 #search content with ripgrep
 alias rg="rg --sort path"
-
-# fun
-alias cmatrix="cmatrix -a"
-alias asciiquarium="asciiquarium --transparent"
-
-# adding flags
-alias df="df -h"     # human-readable sizes
-alias free="free -m" # show sizes in MB
-alias lynx="lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys"
-alias ncmpcpp="ncmpcpp ncmpcpp_directory=$HOME/.config/ncmpcpp/"
 
 # search running processes
 alias psa="ps auxf"
