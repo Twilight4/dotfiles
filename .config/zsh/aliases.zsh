@@ -58,6 +58,10 @@ alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | n
 alias big="expac -H M '%m\t%n' | sory -h | nl"
 alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
 
+# blackarch repo packages
+alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # list all available tools
+alias blackcat="sudo pacman -Sg | grep blackarch"                             # see the blackarch categories
+
 # get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
 
