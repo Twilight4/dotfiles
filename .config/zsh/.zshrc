@@ -44,6 +44,7 @@ source "$ZDOTDIR/functions.zsh"
 # Source files from main directory
 zsh_add_file "aliases.zsh"
 zsh_add_file "scripts.zsh"
+zsh_add_file "scripts-pentest.zsh"
 zsh_add_file "fzf-scripts.zsh"
 zsh_add_file "completion.zsh"
 zsh_add_file "bindings.zsh"
