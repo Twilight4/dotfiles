@@ -19,33 +19,28 @@ cheatpaths:
   #
   #   CAVEAT: EVERY CHEATSHEET MUST HAVE UNIQUE NAME AND EVERY DIRECTORY MUST HAVE UNIQUE TAG
   #   THE NEW CHEATSHEETS WILL BE CREATED IN "new" DIRECTORY WHICH AFTERWARDS MUST BE MOVED MANUALLY
-  - name: community
-    path: /home/twilight/.config/cheat/cheatsheets/community
-    tags: [ community ]
-    readonly: true
-
   - name: new
-    path: /home/twilight/.config/cheat/cheatsheets/new
+    path: /home/twilight/.config/cheat/new
     tags: [ new ]
     readonly: false
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets.
   - name: info-gathering
-    path: /home/twilight/.config/cheat/cheatsheets/bug-bounty/info-gathering
+    path: /home/twilight/.config/cheat/bug-bounty/info-gathering
     tags: [ info ]
     readonly: false
 
   - name: content-discovery
-    path: /home/twilight/.config/cheat/cheatsheets/bug-bounty/content-discovery
+    path: /home/twilight/.config/cheat/bug-bounty/content-discovery
     tags: [ discovery ]
     readonly: false
 
   - name: recon
-    path: /home/twilight/.config/cheat/cheatsheets/pentest/recon
+    path: /home/twilight/.config/cheat/pentest/recon
     tags: [ recon ]
     readonly: false
 
   - name: enum
-    path: /home/twilight/.config/cheat/cheatsheets/pentest/enum
+    path: /home/twilight/.config/cheat/pentest/enum
     tags: [ enum ]
     readonly: false
