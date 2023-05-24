@@ -1,0 +1,18 @@
+# To display public shares on the server:
+smbclient -L <host> -U%
+
+# To connect to a share:
+smbclient //<host>/<share> -U<user>%<password>
+
+# Enumerate SMB
+smbclient -N -L \\\\{TARGET_IP}\\
+-N : No password
+-L : This option allows you to look at what services are available on a server
+
+# Attempt to connect as the guest user to non-deafult (no $) share named users
+smbclient \\\\{TARGET_IP}\\users
+# Access and enumerate the backups share without password prompt
+smbclient -N \\\\{TARGET_IP}\\backups
+
+# Access the share with credentials (username bob) if you get permission denied
+smbclient -U bob \\\\10.129.42.253\\users

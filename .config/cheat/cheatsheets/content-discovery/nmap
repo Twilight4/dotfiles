@@ -1,2 +1,15 @@
 # Usage
 nmap -A -F -T2 10.10.10.10 -v
+
+# Banner grabbing
+nmap -sV --script=banner <target>
+# Example
+nmap -sV --script=banner -p21 10.10.10.0/24
+
+# nc banner grabbing
+nc -nv <target> <port>
+
+# SMB Enumeration - extract OS version
+nmap --script smb-os-discovery.nse -p445 <target>
+# Gather information from the SMB service
+nmap -A -p445 <target>

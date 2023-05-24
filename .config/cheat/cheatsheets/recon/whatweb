@@ -1,0 +1,5 @@
+# extract the version of web servers, supporting frameworks, and applications
+whatweb 10.10.10.121
+
+# web application enumeration across a network
+whatweb --no-errors 10.10.10.0/24

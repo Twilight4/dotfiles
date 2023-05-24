@@ -16,6 +16,9 @@ cheatpaths:
   #   'path': the filesystem path of the cheatsheet directory (view with 'cheat -d')
   #   'tags': tags that should be automatically applied to sheets on this path
   #   'readonly': shall user-created ('cheat -e') cheatsheets be saved here?
+  #
+  #   CAVEAT: EVERY CHEATSHEET MUST HAVE UNIQUE NAME AND EVERY DIRECTORY MUST HAVE UNIQUE TAG
+  #   THE NEW CHEATSHEETS WILL BE CREATED IN "new" DIRECTORY WHICH AFTERWARDS MUST BE MOVED MANUALLY
   - name: community
     path: /home/twilight/.config/cheat/cheatsheets/community
     tags: [ community ]
@@ -27,12 +30,22 @@ cheatpaths:
     readonly: false
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets.
-  - name: recon
-    path: /home/twilight/.config/cheat/cheatsheets/recon
-    tags: [ subdomain, scraping, favicon, port, github, fingerprint ]
-    readonly: true
+  - name: info-gathering
+    path: /home/twilight/.config/cheat/cheatsheets/bug-bounty/info-gathering
+    tags: [ info ]
+    readonly: false
 
   - name: content-discovery
-    path: /home/twilight/.config/cheat/cheatsheets/content-discovery
-    tags: [ scan, fuzzer, dir, cve ]
-    readonly: true
+    path: /home/twilight/.config/cheat/cheatsheets/bug-bounty/content-discovery
+    tags: [ discovery ]
+    readonly: false
+
+  - name: recon
+    path: /home/twilight/.config/cheat/cheatsheets/pentest/recon
+    tags: [ recon ]
+    readonly: false
+
+  - name: enum
+    path: /home/twilight/.config/cheat/cheatsheets/pentest/enum
+    tags: [ enum ]
+    readonly: false
