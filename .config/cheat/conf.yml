@@ -18,7 +18,9 @@ cheatpaths:
   #   'readonly': shall user-created ('cheat -e') cheatsheets be saved here?
   #
   #   CAVEAT: EVERY CHEATSHEET MUST HAVE UNIQUE NAME AND EVERY DIRECTORY MUST HAVE UNIQUE TAG
-  #   THE NEW CHEATSHEETS WILL BE CREATED IN "new" DIRECTORY WHICH AFTERWARDS MUST BE MOVED MANUALLY
+  #   NEW CHEATSHEETS ARE AUTOMATICALLY CREATED IN "new" CHEATPATH UNLESS YOU DEFINE PATH YOURSELF
+  #   USING COMMAND: cheat -d (to view all cheatsheet directories) and
+  #   cheat -p enum -e tool - to create a cheat "tool"
   #
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets 
