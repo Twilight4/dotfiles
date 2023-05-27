@@ -1,8 +1,0 @@
-# Scan public community string version 2c (also exists version 1)
-snmpwalk -v 2c -c public <TARGET_IP> 1.3.6.1.2.1.1.5.0
-
-# Scan private commmunity string version 2c
-snmpwalk -v 2c -c private <TARGET_IP>
-
-# Brute force the community string names using a dictionary file
-onesixtyone -c dict.txt <TARGET_IP> 
