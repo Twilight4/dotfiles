@@ -11,21 +11,21 @@
 
 |      Label                     |                         Application                        |
 | :----------------------------: | :--------------------------------------------------------: | 
-| **Operating System**           |     [Arch Linux](https://archlinux.org/)                   |
-|    **Compositor**              |     [Hyprland](https://github.com/hyprwm/Hyprland)         |
-|    **Status Bar**              |     [Waybar-hyprland](https://github.com/Alexays/Waybar)   |
-|   **App Launcher**             |     [Rofi-lbonn](https://github.com/lbonn/rofi)            |
-| **Session Manager**            |     [archlinux-logout](https://github.com/arcolinux/archlinux-logout/)   |
-|  **Notifications**             |     [Mako](https://github.com/emersion/mako)               |
-|   **Web Browser**              |     [Librewolf](https://librewolf.net/) / [Qutebrowser](https://qutebrowser.org/)   |
-|     **Terminal**               |     [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)                 |
-|   **Terminal Multiplexer**     |     [Zellij](https://github.com/zellij-org/zellij)                   |
+|  **Operating System**          | [Arch Linux](https://archlinux.org/)                       |
+|  **Compositor**                | [Hyprland](https://github.com/hyprwm/Hyprland)             |
+|  **Status Bar**                | [Waybar-hyprland](https://github.com/Alexays/Waybar)       |
+|  **App Launcher**              | [Rofi-lbonn](https://github.com/lbonn/rofi)                |
+|  **Session Manager**           | [archlinux-logout](https://github.com/arcolinux/archlinux-logout/)                            |
+|  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
+|  **Web Browser**               | [Librewolf](https://librewolf.net/) / [Qutebrowser](https://qutebrowser.org/)                 |
+|  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)            |
+|  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
 |  **Editor**                    | [Neovim](https://github.com/neovim/neovim)                 |
-|  **Colorscheme**               | [Nightfly](https://github.com/bluz71/vim-nightfly-colors) |
-|  **Shell**                     | [Zsh](https://github.com/zsh-users) / [Fzf](https://github.com/junegunn/fzf) |
+|  **Colorscheme**               | [Nightfly](https://github.com/bluz71/vim-nightfly-colors)  |
+|  **Shell**                     | [Zsh](https://github.com/zsh-users) / [Fzf](https://github.com/junegunn/fzf)                  |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
-|  **Fonts**                     |     [MesloLGM Nerd Font](https://www.nerdfonts.com/)                |
-|  **Media Player**              |     [Mpv](https://mpv.io/) / [Lua Scripts](https://github.com/mpv-player/mpv/wiki/User-Scripts)   |
-|  **Fetch script**              |     [Nitch](https://github.com/unxsh/nitch)                |
-|  **Wallpaper Loader**          |     [Swaybg](https://github.com/swaywm/swaybg)             |
-|  **Wallpaper**                 |     `~/.config/hypr/wallpapers`                            |
+|  **Fonts**                     | [MesloLGM Nerd Font](https://www.nerdfonts.com/)           |
+|  **Media Player**              | [Mpv](https://mpv.io/) / [Lua Scripts](https://github.com/mpv-player/mpv/wiki/User-Scripts)   |
+|  **Fetch script**              | [Nitch](https://github.com/unxsh/nitch)                    |
+|  **Wallpaper Loader**          | [Swaybg](https://github.com/swaywm/swaybg)                 |
+|  **Wallpaper**                 | `~/.config/hypr/wallpapers`                                |
