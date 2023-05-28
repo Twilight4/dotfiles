@@ -177,8 +177,8 @@ alias zsh-scripts="nvim ~/.config/zsh/zsh-scripts"
 alias aliases="nvim ~/.config/zsh/aliases.zsh"
 alias keybinds="nvim ~/.config/hypr/configs/keybinds.conf"
 alias hyprland="nvim ~/.config/hypr/hyprland.conf"
-alias vimaps="nvim ~/.config/nvim/lua/core/keymaps.lua"
-alias viplugs="nvim ~/.config/nvim/lua/core/plugins.lua"
+alias vmaps="nvim ~/.config/nvim/lua/core/keymaps.lua"
+alias vplugs="nvim ~/.config/nvim/lua/core/plugins.lua"
 
 # colorize grep output
 alias grep="grep --color=auto"
