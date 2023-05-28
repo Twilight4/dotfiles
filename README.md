@@ -19,7 +19,7 @@
 |  **Notifications**             |     [Mako](https://github.com/emersion/mako)               |
 |   **Web Browser**              |     [Librewolf](https://librewolf.net/) / [Qutebrowser](https://qutebrowser.org/)   |
 |     **Terminal**               |     [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)                 |
-|   **Terminal Multiplexer**     |     [Tmux](https://github.com/tmux/tmux)                   |
+|   **Terminal Multiplexer**     |     [Zellij](https://github.com/zellij-org/zellij)                   |
 |  **Editor**                    | [Neovim](https://github.com/neovim/neovim)                 |
 |  **Colorscheme**               | [Nightfly](https://github.com/bluz71/vim-nightfly-colors) |
 |  **Shell**                     | [Zsh](https://github.com/zsh-users) / [Fzf](https://github.com/junegunn/fzf) |
