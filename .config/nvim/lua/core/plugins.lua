@@ -62,7 +62,7 @@ return packer.startup(function(use)
   use 'RRethy/vim-illuminate' -- quick word search under cursor alt+p and alt+n
   use 'ekickx/clipboard-image.nvim' -- paste img from clipboard
   use 'mbbill/undotree' -- show the vim undo tree
-  use 'vimwiki/vimwiki' -- personal Wiki for Vim 
+  --use 'vimwiki/vimwiki' -- personal Wiki for Vim 
   use({
 	"Pocco81/auto-save.nvim",
 	config = function()
