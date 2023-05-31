@@ -153,7 +153,7 @@ install-dotfiles() {
     systemctl --user enable mpd.service                                               # mpd daemon
     systemctl --user enable psd.service                                               # profile sync daemon
     sudo systemctl enable vnstat.service                                              # network traffic monitor
-    sudo systemctl enable bluetooth                                                   # enable bluetooth daemon
+    #sudo systemctl enable bluetooth                                                   # enable bluetooth daemon
     #sudo systemctl enable ananicy.service                                             # enable ananicy daemon (cachy-os has it built in)
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
@@ -202,10 +202,10 @@ EOF
 ## sudo grub-mkconfig -o /boot/grub/grub.cfg
 ## echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub  # works only as root
     
-# tmux plugin manager
-[ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
-&& git clone --depth 1 https://github.com/tmux-plugins/tpm \
-"$XDG_CONFIG_HOME/tmux/plugins/tpm"
+# tmux plugin manager - reload tmux plugin manager: C-a + S-i + q
+#[ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
+#&& git clone --depth 1 https://github.com/tmux-plugins/tpm \
+#"$XDG_CONFIG_HOME/tmux/plugins/tpm"
 
 # clone SecLists repo
 [ ! -d "/usr/share/payloads/SecLists" ] \
@@ -235,8 +235,7 @@ echo 'Post-Installation:
     sudo npm install git-file-downloader cli-fireplace git-stats
 - check if profile sync daemon is running
     psd p
-- uncomment last 2 lines in kitty.conf
-- reload tmux plugin manager: C-a + S-i + q'
+- uncomment last 2 lines in kitty.conf'
 }
 
 run "$@"
