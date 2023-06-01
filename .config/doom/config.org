@@ -27,7 +27,7 @@
 - [[#splits][Splits]]
 
 * Theme
-Set theme to doom-one and `SPC h t` for theme selection
+Set theme to doom-ayu-mirage and `SPC h t` for theme selection
 
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-ayu-mirage)
@@ -327,6 +327,9 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
           (agenda "")
           (alltodo "")))))
 #+end_src
+
+#+RESULTS:
+| v | A better agenda view | ((tags PRIORITY="A" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header High-priority unfinished tasks:))) (tags PRIORITY="B" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Medium-priority unfinished tasks:))) (tags PRIORITY="C" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Low-priority unfinished tasks:))) (tags customtag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Tasks marked with customtag:))) (agenda ) (alltodo )) |
 
 ** Org-auto-tangle
 =org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document. I have made adding this to your file even easier by creating a function 'dt/insert-auto-tangle-tag' and setting it to a keybinding 'SPC i a'.
