@@ -1,52 +1,12 @@
-#+title: Config
-#+property: header-args :tangle configl.el
-
-* Table Of Contents :toc:
-- [[#theme][Theme]]
-- [[#bookmarks-and-ibuffer-mode][Bookmarks and Ibuffer mode]]
-  - [[#bookmarks][Bookmarks]]
-  - [[#global-auto-revert][Global auto revert]]
-  - [[#ibuffer-mode-keybinds][Ibuffer mode keybinds]]
-- [[#fonts][Fonts]]
-- [[#line-settings][Line settings]]
-- [[#mardown][Mardown]]
-- [[#modeline-status-bar][Modeline (status bar)]]
-- [[#open-specific-file-examples][Open specific file examples]]
-- [[#style-formatting][Style formatting]]
-- [[#org-mode][Org mode]]
-  - [[#super-agenda-package][Super-agenda package]]
-  - [[#org-agenda][Org-agenda]]
-  - [[#org-auto-tangle][Org-auto-tangle]]
-  - [[#org-fonts][Org fonts]]
-  - [[#org-export][Org-export]]
-  - [[#org-journal][Org-journal]]
-  - [[#org-roam][Org-roam]]
-- [[#perspective][Perspective]]
-- [[#rainbow-mode][Rainbow-mode]]
-- [[#registers][Registers]]
-- [[#splits][Splits]]
-
-* Theme
-Set theme to doom-one and `SPC h t` for theme selection
-
 #+begin_src emacs-lisp
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; Setting the theme to doom-one
 (setq doom-theme 'doom-one)
 (map! :leader
-      :desc "Load new theme" "h t" #'counsel-load-theme)
-#+end_src
+      :desc "Load new theme" "h t" #'consult-theme)
 
-* Bookmarks and Ibuffer mode
-** Bookmarks
-Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.
-
-| COMMAND         | DESCRIPTION                            | KEYBINDING |
-|-----------------+----------------------------------------+------------|
-| list-bookmarks  | /List bookmarks/                         | SPC b L    |
-| bookmark-set    | /Set bookmark/                           | SPC b m    |
-| bookmark-delete | /Delete bookmark/                        | SPC b M    |
-| bookmark-save   | /Save current bookmark to bookmark file/ | SPC b w    |
-
-#+begin_src emacs-lisp
+;; Bookmark keybinds
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 (map! :leader
       (:prefix ("b". "buffer")
@@ -54,32 +14,12 @@ Bookmarks are somewhat like registers in that they record positions you can jump
        :desc "Set bookmark"                            "m" #'bookmark-set
        :desc "Delete bookmark"                         "M" #'bookmark-set
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
-#+end_src
 
-** Global auto revert
-Keep buffers synced and up to date with auto revert mode.
-
-#+begin_src emacs-lisp
+;; Enable global auto revert
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
-#+end_src
 
-** Ibuffer mode keybinds
-| COMMAND                           | DESCRIPTION                            | KEYBINDING |
-|-----------------------------------+----------------------------------------+------------|
-| ibuffer-mark-forward              | /Mark the buffer/                        | m          |
-| ibuffer-unmark-forward            | /Unmark the buffer/                      | u          |
-| ibuffer-do-kill-on-deletion-marks | /Kill the marked buffers/                | x          |
-| ibuffer-filter-by-content         | /Ibuffer filter by content/              | f c        |
-| ibuffer-filter-by-directory       | /Ibuffer filter by directory/            | f d        |
-| ibuffer-filter-by-filename        | /Ibuffer filter by filename (full path)/ | f f        |
-| ibuffer-filter-by-mode            | /Ibuffer filter by mode/                 | f m        |
-| ibuffer-filter-by-name            | /Ibuffer filter by name/                 | f n        |
-| ibuffer-filter-disable            | /Disable ibuffer filter/                 | f x        |
-| ibuffer-do-kill-lines             | /Hide marked buffers/                    | g h        |
-| ibuffer-update                    | /Restore hidden buffers/                 | g H        |
-
-#+begin_src emacs-lisp
+;; Ibuffer keys
 (evil-define-key 'normal ibuffer-mode-map
   (kbd "f c") 'ibuffer-filter-by-content
   (kbd "f d") 'ibuffer-filter-by-directory
@@ -89,12 +29,10 @@ Keep buffers synced and up to date with auto revert mode.
   (kbd "f x") 'ibuffer-filter-disable
   (kbd "g h") 'ibuffer-do-kill-lines
   (kbd "g H") 'ibuffer-update)
-#+end_src
 
-* Fonts
-If you or Emacs can't find your font, use 'M-x describe-font' to look them up and use 'SPC h r f' to refresh your font settings.
-
-#+begin_src emacs-lisp
+;; Settings related to fonts
+;; If you or Emacs can't find your font, use 'M-x describe-font' to look them up
+;; and use 'SPC h r f' to refresh your font settings
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 15)
       doom-big-font (font-spec :family "JetBrains Mono" :size 24))
@@ -104,19 +42,8 @@ If you or Emacs can't find your font, use 'M-x describe-font' to look them up an
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
-#+end_src
 
-* Line settings
- Doom Emacs uses 'SPC t' for "toggle" commands, so I choose 'SPC t' plus 'key' for those bindings.
-| COMMAND                  | DESCRIPTION                               | KEYBINDING  |
-|--------------------------+-------------------------------------------+-------------|
-| comment-line             | /Comment or uncomment lines/                | SPC TAB TAB |
-| hl-line-mode             | /Toggle line highlighting in current frame/ | SPC t h     |
-| global-hl-line-mode      | /Toggle line highlighting globally/         | SPC t H     |
-| doom/toggle-line-numbers | /Toggle line numbers/                       | SPC t l     |
-| toggle-truncate-lines    | /Toggle truncate lines/                     | SPC t t     |
-
-#+begin_src emacs-lisp
+;; Line settings
 (setq display-line-numbers-type t)
 (map! :leader
       :desc "Comment or uncomment lines"      "TAB TAB" #'comment-line
@@ -125,10 +52,8 @@ If you or Emacs can't find your font, use 'M-x describe-font' to look them up an
        :desc "Toggle line highlight in frame" "h" #'hl-line-mode
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
        :desc "Toggle truncate lines"          "t" #'toggle-truncate-lines))
-#+end_src
 
-* Mardown
-#+begin_src emacs-lisp
+;; Mardown
 (custom-set-faces
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.7))))
@@ -137,85 +62,29 @@ If you or Emacs can't find your font, use 'M-x describe-font' to look them up an
  '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.4))))
  '(markdown-header-face-5 ((t (:inherit markdown-header-face :height 1.3))))
  '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
-#+end_src
 
-* Modeline (status bar)
-#+begin_src emacs-lisp
-(set-face-attribute 'mode-line nil :font "JetBrains Mono-9")
-(setq doom-modeline-height 20     ;; sets modeline height
+;; Modeline (status bar)
+(set-face-attribute 'mode-line nil :font "JetBrains Mono-10")
+(setq doom-modeline-height 30     ;; sets modeline height
       doom-modeline-bar-width 5   ;; sets right bar width
       doom-modeline-persp-name t  ;; adds perspective name to modeline
       doom-modeline-persp-icon t) ;; adds folder icon next to persp name
-#+end_src
 
-* Open specific file examples
-The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does not use 'SPC ='.
-
-| PATH TO FILE                  | DESCRIPTION            | KEYBINDING |
-|-------------------------------+------------------------+------------|
-| ~/.config/doom/repeaters.org  | /Edit repeaters.org/     | SPC = r    |
-| ~/documents/Org/agenda.org    | /Edit agenda file/       | SPC = a    |
-| ~/.config/doom/config.org     | /Edit doom config.org/   | SPC = c    |
-| ~/.config/doom/inbox.org      | /Edit inbox.org/         | SPC = i    |
-| ~/.config/doom/projects.org   | /Edit doom projects.org/ | SPC = p    |
-| ~/.config/doom/eshell/aliases | /Edit eshell aliases/    | SPC = e    |
-
-#+begin_src emacs-lisp
+;; Open specific file examples
 (map! :leader
       (:prefix ("e" . "open file")
        :desc "Edit repeaters file"   "r" #'(lambda () (interactive) (find-file "~/.config/doom/repeaters.org"))
-       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/documents/Org/agenda.org"))
+       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/Documents/Org/agenda.org"))
        :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/.config/Org/inbox.org"))
        :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))
        :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))))
-#+end_src
 
-* Style formatting
-This controls the color of bold, italic, underline, verbatim, strikethrough.
-#+begin_src emacs-lisp
-(after! org
-  (setq org-emphasis-alist
-  '(("*" (bold :slant italic :weight black ))
-    ("/" (italic :foreground "dark salmon" ))
-    ("_" (underline :foreground "cyan" ))
-    ("=" (:foreground "deep slate blue" ))
-    ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
-    ("+" (:strike-through nil :foreground "dark orange" )))))
-#+end_src
-
-* Org mode
-#+begin_src emacs-lisp
+;; Org mode
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
-(after! org
-  (setq org-directory "~/documents/Org/"
-        org-default-notes-file (expand-file-name "notes.org" org-directory)
-        org-ellipsis " ▼ "
-        org-superstar-headline-bullets-list '("◉" "○" "◆" "●" "○" "◆" "●")
-        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
-        org-log-done 'time
-        org-hide-emphasis-markers t ;; hides the emphasis markers
-        ;; ex. of org-link-abbrev-alist in action
-        ;; [[arch-wiki:Name_of_Page][Description]]
-        org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
-          '(("google" . "http://www.google.com/search?q=")
-            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
-            ("ddg" . "https://duckduckgo.com/?q=")
-            ("wiki" . "https://en.wikipedia.org/wiki/"))
-        org-table-convert-region-max-lines 20000
-        org-todo-keywords         ; This overwrites the default Doom org-todo-keywords
-          '((sequence
-             "INPROGGRESS(i)"     ; A task is in proggress
-             "WAITING(w)"         ; Something is holding up this task
-             "GYM(g)"             ; Things to accomplish at the gym
-             "PROJ(p)")           ; A project that contains other tasks
-             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
-#+end_src
 
-** Super-agenda package
-#+begin_src emacs-lisp
+;; Super agenda package
 (let ((org-super-agenda-groups
        '(;; Each group has an implicit boolean OR operator between its selectors.
          (:name "Today"  ; Optionally specify section name
@@ -258,10 +127,43 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
          ;; match any of these groups, with the default order position of 99
          )))
   (org-agenda nil "a"))
-#+end_src
 
-** Org-agenda
-#+begin_src emacs-lisp
+(after! org
+  (setq org-directory "~/Documents/Org/"
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "
+        org-superstar-headline-bullets-list '("◉" "○" "◆" "●" "○" "◆" "●")
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
+        org-log-done 'time
+        org-hide-emphasis-markers t ;; hides the emphasis markers
+        ;; ex. of org-link-abbrev-alist in action
+        ;; [[arch-wiki:Name_of_Page][Description]]
+        org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
+          '(("google" . "http://www.google.com/search?q=")
+            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+            ("ddg" . "https://duckduckgo.com/?q=")
+            ("wiki" . "https://en.wikipedia.org/wiki/"))
+        org-table-convert-region-max-lines 20000
+        org-todo-keywords         ; This overwrites the default Doom org-todo-keywords
+          '((sequence
+             "INPROGGRESS(i)"     ; A task is in proggress 
+             "WAITING(w)"         ; Something is holding up this task
+             "GYM(g)"             ; Things to accomplish at the gym
+             "PROJ(p)")           ; A project that contains other tasks
+             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
+
+;; This controls the color of bold, italic, underline, verbatim, strikethrough
+(after! org 
+  (setq org-emphasis-alist
+  '(("*" (bold :slant italic :weight black ))
+    ("/" (italic :foreground "dark salmon" ))
+    ("_" (underline :foreground "cyan" ))
+    ("=" (:foreground "deep slate blue" ))
+    ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
+    ("+" (:strike-through nil :foreground "dark orange" )))))
+
+;; Org agenda
 (setq org-return-follows-link t
       org-agenda-tags-column 75
       org-deadline-warning-days 30
@@ -269,13 +171,13 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file "~/documents/Org/inbox.org")
+      '(("t" "Todo" entry (file "~/Documents/Org/inbox.org")
          "* TODO %?\n  %i\n  %a")))
-
+         
 (setq org-agenda-files (list
-                        "~/documents/Org/inbox.org"
-                        "~/documents/Org/projects.org"
-                        "~/documents/Org/repeaters.org"))
+                        "~/Documents/Org/inbox.org"
+                        "~/Documents/Org/projects.org"
+                        "~/Documents/Org/repeaters.org"))
 
 (setq org-agenda-custom-commands
       '((" " "Agenda"
@@ -287,11 +189,11 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
                  ))
           (todo "TODO"
-                ((org-agenda-overriding-header "Unscheduled project tasks")
+                ((org-agenda-overriding-header "Unscheduled project tasks")                                                   
                  (org-agenda-files '("~/Documents/Org/projects.org"))
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))))
-
-;; save all org-buffers when todo state changes
+                        
+;; save all org-buffers when todo state changes                                                                               
 ;;(advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
 ;;(advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
 ;;(advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
@@ -326,11 +228,8 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
 
           (agenda "")
           (alltodo "")))))
-#+end_src
 
-** Org-auto-tangle
-=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document. I have made adding this to your file even easier by creating a function 'dt/insert-auto-tangle-tag' and setting it to a keybinding 'SPC i a'.
-#+begin_src emacs-lisp
+;; Org-auto-tangle
 (use-package! org-auto-tangle
   :defer t
   :hook (org-mode . org-auto-tangle-mode)
@@ -346,16 +245,12 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
 
 (map! :leader
       :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
-#+end_src
-
+        
 ;; Emojis
-#+begin_src emacs-lisp
 (use-package emojify
   :hook (after-init . global-emojify-mode))
-#+end_src
 
-** Org fonts
-#+begin_src emacs-lisp
+;; Org fonts
 (defun dt/org-colors-doom-one ()
   "Enable Doom One colors for Org headers."
   (interactive)
@@ -516,39 +411,28 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-;; Load dt/org-colors-* theme on startup
+;; Load our desired dt/org-colors-* theme on startup
 (dt/org-colors-doom-one)
-#+end_src
 
-** Org-export
-#+begin_src emacs-lisp
+;; Org-export
 ;;(use-package ox-man)
 ;;(use-package ox-gemini)
-#+end_src
 
-** Org-journal
-#+begin_src emacs-lisp
-(setq org-journal-dir "~/documents/Org/journal/"
+;; Org-journal
+(setq org-journal-dir "~/Documents/Org/journal/"
       org-journal-date-prefix "* "
       org-journal-time-prefix "** "
       org-journal-date-format "%B %d, %Y (%A) "
       org-journal-file-format "%Y-%m-%d.org")
-#+end_src
 
-** Org-roam
-| COMMAND                | DESCRIPTION                        | KEYBINDING |
-|------------------------+------------------------------------+------------|
-| completion-at-point    | /Completion of node-insert at point/ | SPC n r c  |
-| org-roam-node-find     | /Find node or create a new one/      | SPC n r f  |
-| org-roam-graph         | /Show graph of all nodes/            | SPC n r g  |
-| org-roam-node-insert   | /Insert link to a node/              | SPC n r i  |
-| org-roam-capture       | /Capture to node/                    | SPC n r n  |
-| org-roam-buffer-toggle | /Toggle roam buffer/                 | SPC n r r  |
-
-#+begin_src emacs-lisp
+;; Org-roam
 (after! org
-  (setq org-roam-directory "~/documents/Org/roam/"
-        org-roam-graph-viewer "/usr/bin/cachy-browser"))
+  (setq org-roam-directory "~/Documents/Org/roam/"
+        org-roam-graph-viewer "/usr/bin/librewolf"))
+        
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry "* %<%I:%M %p>: %?"
+         :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
@@ -558,22 +442,8 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
        :desc "Insert node"         "i" #'org-roam-node-insert
        :desc "Capture to node"     "n" #'org-roam-capture
        :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
-#+end_src
 
-* Perspective
-Perspective provides multiple named workspaces (or "perspectives") in Emacs, similar to having multiple desktops in window managers. Doom Emacs uses 'SPC some_key' for binding some of the perspective commands, so I used this binging format for the perspective bindings that I created.
-
-| COMMAND                    | DESCRIPTION                         | KEYBINDING |
-|----------------------------+-------------------------------------+------------|
-| persp-switch               | /Switch to perspective NAME/          | SPC DEL    |
-| persp-switch-to-buffer     | /Switch to buffer in perspective/     | SPC ,      |
-| persp-next                 | /Switch to next perspective/          | SPC ]      |
-| persp-prev                 | /Switch to previous perspective/      | SPC [      |
-| persp-add-buffer           | /Add a buffer to current perspective/ | SPC +      |
-| persp-remove-by-name       | /Remove perspective by name/          | SPC -      |
-| +workspace/switch-to-{0-9} | /Switch to workspace n/               | SPC 0-9    |
-
-#+begin_src emacs-lisp
+;; Perspective
 (map! :leader
       :desc "Switch to perspective NAME"       "DEL" #'persp-switch
       :desc "Switch to buffer in perspective"  "," #'persp-switch-to-buffer
@@ -581,38 +451,16 @@ Perspective provides multiple named workspaces (or "perspectives") in Emacs, sim
       :desc "Switch to previous perspective"   "[" #'persp-prev
       :desc "Add a buffer current perspective" "+" #'persp-add-buffer
       :desc "Remove perspective by name"       "-" #'persp-remove-by-name)
-#+end_src
 
-* Rainbow-mode
-Rainbox mode displays the actual color for any hex value color. The following creates a global minor mode for rainbow-mode and enables it (exception: org-agenda-mode since rainbow-mode destroys all highlighting in org-agenda).
-
-#+begin_src emacs-lisp
+;; Rainbow-mode
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
   (lambda ()
     (when (not (memq major-mode
                 (list 'org-agenda-mode)))
      (rainbow-mode 1))))
 (global-rainbow-mode 1 )
-#+end_src
 
-* Registers
-Emacs registers are compartments where you can save text, rectangles and positions for later use. Once you save text or a rectangle in a register, you can copy it into the buffer once or many times; once you save a position in a register, you can jump back to that position once or many times.
-
-| COMMAND                          | DESCRIPTION                      | KEYBINDING |
-|----------------------------------+----------------------------------+------------|
-| copy-to-register                 | /Copy to register/                 | SPC r c    |
-| frameset-to-register             | /Frameset to register/             | SPC r f    |
-| insert-register                  | /Insert contents of register/      | SPC r i    |
-| jump-to-register                 | /Jump to register/                 | SPC r j    |
-| list-registers                   | /List registers/                   | SPC r l    |
-| number-to-register               | /Number to register/               | SPC r n    |
-| counsel-register                 | /Interactively choose a register/  | SPC r r    |
-| view-register                    | /View a register/                  | SPC r v    |
-| window-configuration-to-register | /Window configuration to register/ | SPC r w    |
-| increment-register               | /Increment register/               | SPC r +    |
-| point-to-register                | /Point to register/                | SPC r SPC  |
-
-#+begin_src emacs-lisp
+;; Registers
 (map! :leader
       (:prefix ("r" . "registers")
        :desc "Copy to register" "c" #'copy-to-register
@@ -626,12 +474,8 @@ Emacs registers are compartments where you can save text, rectangles and positio
        :desc "Window configuration to register" "w" #'window-configuration-to-register
        :desc "Increment register" "+" #'increment-register
        :desc "Point to register" "SPC" #'point-to-register))
-#+end_src
 
-* Splits
-I set a keybinding for 'clone-indirect-buffer-other-window' for when I want to have the same document in two splits. The text of the indirect buffer is always identical to the text of its base buffer.
-
-#+begin_src emacs-lisp
+;; Splits
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
