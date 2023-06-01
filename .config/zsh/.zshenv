@@ -8,7 +8,9 @@ export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"      # Xauth file
 
 # User-specific environment variables (system-wide are located in /etc/environment)
-export EDITOR="nvim"
+export EDITOR="emacsclient -c -a emacs"
+export ALTERNATE_EDITOR=""
+#export EDITOR="nvim"
 export VISUAL="nvim"
 export TERMINAL="footclient"
 export BROWSER="qutebrowser"

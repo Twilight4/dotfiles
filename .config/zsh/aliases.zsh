@@ -52,6 +52,13 @@ alias date='date "+%Y-%m-%d %A %T %Z"'
 # add new fonts
 alias update-fc='sudo fc-cache -fv'
 
+# doom emacs
+alias doomsync="~/.config/emacs/bin/doom sync"
+alias doomdoctor="~/.config/emacs/bin/doom doctor"
+alias doomupgrade="~/.config/emacs/bin/doom upgrade"
+alias doompurge="~/.config/emacs/bin/doom purge"
+alias emacs="emacsclient -c -a emacs"
+
 # trans
 alias tre='trans en:pl'
 alias trp='trans pl:en'
