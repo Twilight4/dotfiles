@@ -3,18 +3,18 @@
 
 * Table Of Contents :toc:
 - [[#theme][Theme]]
-- [[#bookmarks-keybinds][Bookmarks keybinds]]
+- [[#bookmarks-and-ibuffer-mode][Bookmarks and Ibuffer mode]]
   - [[#bookmarks][Bookmarks]]
   - [[#global-auto-revert][Global auto revert]]
-  - [[#ibuffer-mode-keysbinds][Ibuffer mode keysbinds]]
+  - [[#ibuffer-mode-keybinds][Ibuffer mode keybinds]]
 - [[#fonts][Fonts]]
 - [[#line-settings][Line settings]]
 - [[#mardown][Mardown]]
 - [[#modeline-status-bar][Modeline (status bar)]]
 - [[#open-specific-file-examples][Open specific file examples]]
+- [[#style-formatting][Style formatting]]
 - [[#org-mode][Org mode]]
-  - [[#super-agenda-package][Super agenda package]]
-  - [[#style-formatting][Style formatting]]
+  - [[#super-agenda-package][Super-agenda package]]
   - [[#org-agenda][Org agenda]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#org-fonts][Org fonts]]
@@ -35,7 +35,7 @@ Set theme to doom-one and `SPC h t` for theme selection
       :desc "Load new theme" "h t" #'counsel-load-theme)
 #+end_src
 
-* Bookmarks keybinds
+* Bookmarks and Ibuffer mode
 ** Bookmarks
 Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.
 
@@ -45,6 +45,7 @@ Bookmarks are somewhat like registers in that they record positions you can jump
 | bookmark-set    | /Set bookmark/                           | SPC b m    |
 | bookmark-delete | /Delete bookmark/                        | SPC b M    |
 | bookmark-save   | /Save current bookmark to bookmark file/ | SPC b w    |
+
 #+begin_src emacs-lisp
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 (map! :leader
@@ -57,12 +58,13 @@ Bookmarks are somewhat like registers in that they record positions you can jump
 
 ** Global auto revert
 Keep buffers synced and up to date with auto revert mode.
+
 #+begin_src emacs-lisp
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 #+end_src
 
-** Ibuffer mode keysbinds
+** Ibuffer mode keybinds
 | COMMAND                           | DESCRIPTION                            | KEYBINDING |
 |-----------------------------------+----------------------------------------+------------|
 | ibuffer-mark-forward              | /Mark the buffer/                        | m          |
@@ -76,6 +78,7 @@ Keep buffers synced and up to date with auto revert mode.
 | ibuffer-filter-disable            | /Disable ibuffer filter/                 | f x        |
 | ibuffer-do-kill-lines             | /Hide marked buffers/                    | g h        |
 | ibuffer-update                    | /Restore hidden buffers/                 | g H        |
+
 #+begin_src emacs-lisp
 (evil-define-key 'normal ibuffer-mode-map
   (kbd "f c") 'ibuffer-filter-by-content
@@ -90,6 +93,7 @@ Keep buffers synced and up to date with auto revert mode.
 
 * Fonts
 If you or Emacs can't find your font, use 'M-x describe-font' to look them up and use 'SPC h r f' to refresh your font settings.
+
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 15)
@@ -111,6 +115,7 @@ If you or Emacs can't find your font, use 'M-x describe-font' to look them up an
 | global-hl-line-mode      | /Toggle line highlighting globally/         | SPC t H     |
 | doom/toggle-line-numbers | /Toggle line numbers/                       | SPC t l     |
 | toggle-truncate-lines    | /Toggle truncate lines/                     | SPC t t     |
+
 #+begin_src emacs-lisp
 (setq display-line-numbers-type t)
 (map! :leader
@@ -154,6 +159,7 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
 | ~/.config/doom/inbox.org      | /Edit inbox.org/         | SPC = i    |
 | ~/.config/doom/projects.org   | /Edit doom projects.org/ | SPC = p    |
 | ~/.config/doom/eshell/aliases | /Edit eshell aliases/    | SPC = e    |
+
 #+begin_src emacs-lisp
 (map! :leader
       (:prefix ("e" . "open file")
@@ -163,6 +169,19 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
        :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/.config/Org/inbox.org"))
        :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))
        :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))))
+#+end_src
+
+* Style formatting
+This controls the color of bold, italic, underline, verbatim, strikethrough.
+#+begin_src emacs-lisp
+(after! org
+  (setq org-emphasis-alist
+  '(("*" (bold :slant italic :weight black ))
+    ("/" (italic :foreground "dark salmon" ))
+    ("_" (underline :foreground "cyan" ))
+    ("=" (:foreground "deep slate blue" ))
+    ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
+    ("+" (:strike-through nil :foreground "dark orange" )))))
 #+end_src
 
 * Org mode
@@ -195,7 +214,7 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
 #+end_src
 
-** Super agenda package
+** Super-agenda package
 #+begin_src emacs-lisp
 (let ((org-super-agenda-groups
        '(;; Each group has an implicit boolean OR operator between its selectors.
@@ -239,19 +258,6 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
          ;; match any of these groups, with the default order position of 99
          )))
   (org-agenda nil "a"))
-#+end_src
-
-** Style formatting
-This controls the color of bold, italic, underline, verbatim, strikethrough.
-#+begin_src emacs-lisp
-(after! org
-  (setq org-emphasis-alist
-  '(("*" (bold :slant italic :weight black ))
-    ("/" (italic :foreground "dark salmon" ))
-    ("_" (underline :foreground "cyan" ))
-    ("=" (:foreground "deep slate blue" ))
-    ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
-    ("+" (:strike-through nil :foreground "dark orange" )))))
 #+end_src
 
 ** Org agenda
@@ -538,6 +544,7 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
 | org-roam-node-insert   | /Insert link to a node/              | SPC n r i  |
 | org-roam-capture       | /Capture to node/                    | SPC n r n  |
 | org-roam-buffer-toggle | /Toggle roam buffer/                 | SPC n r r  |
+
 #+begin_src emacs-lisp
 (after! org
   (setq org-roam-directory "~/documents/Org/roam/"
@@ -565,6 +572,7 @@ Perspective provides multiple named workspaces (or "perspectives") in Emacs, sim
 | persp-add-buffer           | /Add a buffer to current perspective/ | SPC +      |
 | persp-remove-by-name       | /Remove perspective by name/          | SPC -      |
 | +workspace/switch-to-{0-9} | /Switch to workspace n/               | SPC 0-9    |
+
 #+begin_src emacs-lisp
 (map! :leader
       :desc "Switch to perspective NAME"       "DEL" #'persp-switch
@@ -577,6 +585,7 @@ Perspective provides multiple named workspaces (or "perspectives") in Emacs, sim
 
 * Rainbow-mode
 Rainbox mode displays the actual color for any hex value color. The following creates a global minor mode for rainbow-mode and enables it (exception: org-agenda-mode since rainbow-mode destroys all highlighting in org-agenda).
+
 #+begin_src emacs-lisp
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
   (lambda ()
@@ -602,6 +611,7 @@ Emacs registers are compartments where you can save text, rectangles and positio
 | window-configuration-to-register | /Window configuration to register/ | SPC r w    |
 | increment-register               | /Increment register/               | SPC r +    |
 | point-to-register                | /Point to register/                | SPC r SPC  |
+
 #+begin_src emacs-lisp
 (map! :leader
       (:prefix ("r" . "registers")
@@ -620,6 +630,7 @@ Emacs registers are compartments where you can save text, rectangles and positio
 
 * Splits
 I set a keybinding for 'clone-indirect-buffer-other-window' for when I want to have the same document in two splits. The text of the indirect buffer is always identical to the text of its base buffer.
+
 #+begin_src emacs-lisp
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)

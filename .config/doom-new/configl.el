@@ -66,6 +66,15 @@
        :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))
        :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))))
 
+(after! org
+  (setq org-emphasis-alist
+  '(("*" (bold :slant italic :weight black ))
+    ("/" (italic :foreground "dark salmon" ))
+    ("_" (underline :foreground "cyan" ))
+    ("=" (:foreground "deep slate blue" ))
+    ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
+    ("+" (:strike-through nil :foreground "dark orange" )))))
+
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
@@ -135,15 +144,6 @@
          ;; match any of these groups, with the default order position of 99
          )))
   (org-agenda nil "a"))
-
-(after! org
-  (setq org-emphasis-alist
-  '(("*" (bold :slant italic :weight black ))
-    ("/" (italic :foreground "dark salmon" ))
-    ("_" (underline :foreground "cyan" ))
-    ("=" (:foreground "deep slate blue" ))
-    ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
-    ("+" (:strike-through nil :foreground "dark orange" )))))
 
 (setq org-return-follows-link t
       org-agenda-tags-column 75
