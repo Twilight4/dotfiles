@@ -13,6 +13,7 @@ hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch
 
 # workspace 4
 hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec "logseq"
+#hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "emacsclient -c -a emacs"  # idk if emacs --daemon from autstart.conf will be in time to run before this executes
 
 # workspace 6
 hyprctl keyword windowrule "workspace 6 silent,qutebrowser" && hyprctl dispatch exec "qutebrowser"
@@ -28,6 +29,7 @@ hyprctl keyword windowrule "unset,casual-kitty"
 hyprctl keyword windowrule "unset,cachybrowser"
 hyprctl keyword windowrule "unset,hacker-kitty"
 hyprctl keyword windowrule "unset,logseq"
+#hyprctl keyword windowrule "unset,emacs"
 hyprctl keyword windowrule "unset,burpsuite"
 hyprctl keyword windowrule "unset,newsboat"
 hyprctl keyword windowrule "unset,qutebrowser"
