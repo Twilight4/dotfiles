@@ -1,5 +1,5 @@
 #+title: Config
-#+property: header-args :tangle configl.el
+#+property: header-args :tangle config.el
 
 * Table Of Contents :toc:
 - [[#theme][Theme]]
