@@ -15,7 +15,7 @@
 - [[#style-formatting][Style formatting]]
 - [[#org-mode][Org mode]]
   - [[#super-agenda-package][Super-agenda package]]
-  - [[#org-agenda][Org agenda]]
+  - [[#org-agenda][Org-agenda]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#org-fonts][Org fonts]]
   - [[#org-export][Org-export]]
@@ -260,7 +260,7 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
   (org-agenda nil "a"))
 #+end_src
 
-** Org agenda
+** Org-agenda
 #+begin_src emacs-lisp
 (setq org-return-follows-link t
       org-agenda-tags-column 75
