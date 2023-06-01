@@ -64,6 +64,10 @@ install-apps() {
     
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
+
+    # install emacs
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
     
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
