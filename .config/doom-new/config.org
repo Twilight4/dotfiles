@@ -1,11 +1,15 @@
 #+title: Config
 #+property: header-args :tangle configl.el
 
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
-* TABLE OF CONTENTS :toc:
+* Table Of Contents :toc:
 - [[#theme][Theme]]
-- [[#-bookmark-keybinds][;; Bookmark keybinds]]
+- [[#bookmark-keybinds][Bookmark keybinds]]
+  - [[#enable-global-auto-revert][Enable global auto revert]]
+  - [[#ibuffer-mode-keys][Ibuffer mode keys]]
+- [[#fonts][Fonts]]
+- [[#line-settings][Line settings]]
+- [[#mardown][Mardown]]
+- [[#modeline-status-bar][Modeline (status bar)]]
 
 * Theme
 Set theme to doom-one and `SPC h t` for theme selection
@@ -16,7 +20,15 @@ Set theme to doom-one and `SPC h t` for theme selection
       :desc "Load new theme" "h t" #'counsel-load-theme)
 #+end_src
 
-* ;; Bookmark keybinds
+* Bookmark keybinds
+Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.
+
+| COMMAND         | DESCRIPTION                            | KEYBINDING |
+|-----------------+----------------------------------------+------------|
+| list-bookmarks  | /List bookmarks/                         | SPC b L    |
+| bookmark-set    | /Set bookmark/                           | SPC b m    |
+| bookmark-delete | /Delete bookmark/                        | SPC b M    |
+| bookmark-save   | /Save current bookmark to bookmark file/ | SPC b w    |
 #+begin_src emacs-lisp
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 (map! :leader
@@ -27,13 +39,27 @@ Set theme to doom-one and `SPC h t` for theme selection
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 #+end_src
 
-;; Enable global auto revert
+** Enable global auto revert
+Keep buffers synced and up to date with auto revert mode.
 #+begin_src emacs-lisp
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 #+end_src
 
-;; Ibuffer keys
+** Ibuffer mode keys
+| COMMAND                           | DESCRIPTION                            | KEYBINDING |
+|-----------------------------------+----------------------------------------+------------|
+| ibuffer-mark-forward              | /Mark the buffer/                        | m          |
+| ibuffer-unmark-forward            | /Unmark the buffer/                      | u          |
+| ibuffer-do-kill-on-deletion-marks | /Kill the marked buffers/                | x          |
+| ibuffer-filter-by-content         | /Ibuffer filter by content/              | f c        |
+| ibuffer-filter-by-directory       | /Ibuffer filter by directory/            | f d        |
+| ibuffer-filter-by-filename        | /Ibuffer filter by filename (full path)/ | f f        |
+| ibuffer-filter-by-mode            | /Ibuffer filter by mode/                 | f m        |
+| ibuffer-filter-by-name            | /Ibuffer filter by name/                 | f n        |
+| ibuffer-filter-disable            | /Disable ibuffer filter/                 | f x        |
+| ibuffer-do-kill-lines             | /Hide marked buffers/                    | g h        |
+| ibuffer-update                    | /Restore hidden buffers/                 | g H        |
 #+begin_src emacs-lisp
 (evil-define-key 'normal ibuffer-mode-map
   (kbd "f c") 'ibuffer-filter-by-content
@@ -46,9 +72,8 @@ Set theme to doom-one and `SPC h t` for theme selection
   (kbd "g H") 'ibuffer-update)
 #+end_src
 
-;; Settings related to fonts
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them up
-;; and use 'SPC h r f' to refresh your font settings
+* Fonts
+If you or Emacs can't find your font, use 'M-x describe-font' to look them up and use 'SPC h r f' to refresh your font settings
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 15)
@@ -61,7 +86,15 @@ Set theme to doom-one and `SPC h t` for theme selection
   '(font-lock-keyword-face :slant italic))
 #+end_src
 
-;; Line settings
+* Line settings
+ Doom Emacs uses 'SPC t' for "toggle" commands, so I choose 'SPC t' plus 'key' for those bindings.
+| COMMAND                  | DESCRIPTION                               | KEYBINDING  |
+|--------------------------+-------------------------------------------+-------------|
+| comment-line             | /Comment or uncomment lines/                | SPC TAB TAB |
+| hl-line-mode             | /Toggle line highlighting in current frame/ | SPC t h     |
+| global-hl-line-mode      | /Toggle line highlighting globally/         | SPC t H     |
+| doom/toggle-line-numbers | /Toggle line numbers/                       | SPC t l     |
+| toggle-truncate-lines    | /Toggle truncate lines/                     | SPC t t     |
 #+begin_src emacs-lisp
 (setq display-line-numbers-type t)
 (map! :leader
@@ -73,7 +106,7 @@ Set theme to doom-one and `SPC h t` for theme selection
        :desc "Toggle truncate lines"          "t" #'toggle-truncate-lines))
 #+end_src
 
-;; Mardown
+* Mardown
 #+begin_src emacs-lisp
 (custom-set-faces
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
@@ -85,7 +118,7 @@ Set theme to doom-one and `SPC h t` for theme selection
  '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
 #+end_src
 
-;; Modeline (status bar)
+* Modeline (status bar)
 #+begin_src emacs-lisp
 (set-face-attribute 'mode-line nil :font "JetBrains Mono-10")
 (setq doom-modeline-height 30     ;; sets modeline height
