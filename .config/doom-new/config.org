@@ -3,9 +3,10 @@
 
 * Table Of Contents :toc:
 - [[#theme][Theme]]
-- [[#bookmark-keybinds][Bookmark keybinds]]
-  - [[#enable-global-auto-revert][Enable global auto revert]]
-  - [[#ibuffer-mode-keys][Ibuffer mode keys]]
+- [[#bookmarks-keybinds][Bookmarks keybinds]]
+  - [[#bookmarks][Bookmarks]]
+  - [[#global-auto-revert][Global auto revert]]
+  - [[#ibuffer-mode-keysbinds][Ibuffer mode keysbinds]]
 - [[#fonts][Fonts]]
 - [[#line-settings][Line settings]]
 - [[#mardown][Mardown]]
@@ -34,7 +35,8 @@ Set theme to doom-one and `SPC h t` for theme selection
       :desc "Load new theme" "h t" #'counsel-load-theme)
 #+end_src
 
-* Bookmark keybinds
+* Bookmarks keybinds
+** Bookmarks
 Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.
 
 | COMMAND         | DESCRIPTION                            | KEYBINDING |
@@ -53,14 +55,14 @@ Bookmarks are somewhat like registers in that they record positions you can jump
        :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
 #+end_src
 
-** Enable global auto revert
+** Global auto revert
 Keep buffers synced and up to date with auto revert mode.
 #+begin_src emacs-lisp
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 #+end_src
 
-** Ibuffer mode keys
+** Ibuffer mode keysbinds
 | COMMAND                           | DESCRIPTION                            | KEYBINDING |
 |-----------------------------------+----------------------------------------+------------|
 | ibuffer-mark-forward              | /Mark the buffer/                        | m          |
