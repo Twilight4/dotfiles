@@ -1,0 +1,104 @@
+# General
+SPC f s         # saving the current file
+SPC :           # entering a command
+SPC q q         # close Emacs
+SPC f D         # delete this file
+SPC h r r       # restarts emacs (when changing init.el or packages.el)
+SPC f r         # recently opened files
+SPC o p         # neotree or treemacs
+SPC h t         # change theme
+SPC f p         # open config
+SPC h d h       # open documentation
+
+
+### Basic Navigation ###
+# Buffers
+SPC .           # create or find file
+SPC b b         # open another buffer (workspace buffer)
+SPC b B         # see all the buffers
+SPC ,           # switch buffers
+SPC SHIFT ,     # switch to all buffers
+SPC b X         # create a scratch buffer
+SPC b s         # save and name it
+# Windows
+SPC w v         # window split vertically
+SPC w s         # window split horizontally
+SPC w w         # to switch windows
+SPC w q         # to close window, frame, quit EMACS if last frame
+SPC w +         # and SPC w - to increase and decrease window height
+SPC w >         # and SPC w < to increase and decrease window width
+# Use vim keys to navigate between open windows
+# Workspaces
+SPC TAB n/C-t   # New workspace
+SPC TAB N       # Newly named workspace
+SPC TAB [       # Previous workspace
+SPC TAB ]       # Next workspace
+SPC TAB d       # Remove workspace
+SPC TAB R       # Restore last session
+M-1             # Switch to workspace 1
+M-2             # Switch to workspace 2 and so forth
+
+### Packages ###
+# Evil snipe - Inline navigation
+f               # and then the letter you want to navigate to: ";" - forward, "," - backward
+t               # find and move cursor to the character before what you’ve searched.
+v               # puts you in visual mode. You can select text by with v t some-char-you-navigate-to or v f some-char-you-navigate-to
+;               # jump to the next find
+,               # jump to the previous one
+s               # snipe
+# Evil snipe - Long distance navigation
+g s SPC         # to use avy and going to a certain word in file
+t               # is the same thing except for a character you want to jump to before the one you insert
+s               # to do a double character search
+# Evil-snipe will remember your last search so "," and ";" will navigate
+F or T          # go backwards
+g s SPC         # and then select the letter that avy gives you to navigate to that spot, these letters are on your home row so they are easy to click
+SPC h v         # for variable, to set the avy variable to search all open windows. "avy-all-windows" lets you search in all windows open.
+# You can remove a word with "g s SPC select-one-letter x select-the-removal-spot". You can use "X" to stay in your original spot of search
+# You can go "g s space select-one-letter i select-the-correction-spot" to correct the spelling of the search. Install ispell on your OS first
+# You can yank a word from one place to another with "g s SPC select-one-letter y select-the-correction-spot-to-paste"
+# Use "t" to “teleport” the word from one place to another "g s SPC select-one-letter t select-the-correction-spot-to-teleport"
+
+### Org mode ###
+# Basics
+SPC n          # prefix for org keybinds
+M-h/j/k/l      # promotes/demotes/up header/down header
+tab/S-tab      # fold/unfold cycle through folded stages
+C-Return       # create headline of the same type
+C-S-Return     # create headline of the same type above
+C-M-Return     # create another level heading
+SPC m h        # create heading
+
+# Links, hyperlinks
+SPC m l        # add a link to an org page
+# You can add :: to specify a heading or a line number
+# You can paste http links as well
+
+# Org roam #
+SPC n r f      # create/find new node, in capture mode C-c to accept
+SPC n r i      # insert link to other node (can also create new ones at the same time)
+SPC n r r      # show backlinks connected to that note
+
+# Org babel tangle - .org source code files
+<s                # create source block
+#+property header-args :tangle config.el     # define which file should be it tangled it and then go to the beginning and press: C-c C-c
+SPC m B           # use org-babel-tangle command
+
+# Help pages
+SPC h k        # tells you how key combinations translate to Emacs commands
+SPC h w        # helps you find keyboard shortcuts for different commands
+SPC h v        # lets you see what’s inside variables and change them
+SPC h f        # tells you about functions and where they are define
+#doom emacs cheat sheet: https://cheatography.com/karronqiu/cheat-sheets/the-ultimate-doom-emacs/
+
+# Installation
+yay -S emacs-gcc-wayland-devel-bin
+git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+~/.config/emacs/bin/doom install
+# Add aliases for doom bins
+# add blurls in hyprland.conf and opacity in window-rules.conf to emacs
+# Run emacs server on autostart: emacs --daemon
+# Add emacs client to autostart in autolaunch script
+# Add alias for launching emacs: alias emacs="emacsclient -c -a 'emacs'"
+# set vars: EDITOR="emacsclient -c -a emacs"
+# ALTERNATE_EDITOR=""
