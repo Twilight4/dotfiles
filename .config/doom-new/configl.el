@@ -152,7 +152,7 @@
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file "~/Documents/Org/inbox.org")
+      '(("t" "Todo" entry (file "~/documents/Org/inbox.org")
          "* TODO %?\n  %i\n  %a")))
 
 (setq org-agenda-files (list
@@ -173,6 +173,42 @@
                 ((org-agenda-overriding-header "Unscheduled project tasks")
                  (org-agenda-files '("~/Documents/Org/projects.org"))
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))))
+
+;; save all org-buffers when todo state changes
+;;(advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
+;;(advice-add 'org-schedule       :after (func-ignore #'org-save-all-org-buffers))
+;;(advice-add 'org-store-log-note :after (func-ignore #'org-save-all-org-buffers))
+;;(advice-add 'org-todo           :after (func-ignore #'org-save-all-org-buffers))
+
+;; global keyboard shortcuts
+;;(global-set-key (kbd "SPC c") #'org-capture)
+;;(global-set-key (kbd "SPC a") #'org-agenda)
+
+(setq
+   org-fancy-priorities-list '("[A]" "[B]" "[C]")
+   org-priority-faces
+   '((?A :foreground "#ff6c6b" :weight bold)
+     (?B :foreground "#98be65" :weight bold)
+     (?C :foreground "#c678dd" :weight bold))
+   org-agenda-block-separator 8411)
+
+(setq org-agenda-custom-commands
+      '(("v" "A better agenda view"
+         ((tags "PRIORITY=\"A\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "High-priority unfinished tasks:")))
+          (tags "PRIORITY=\"B\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Medium-priority unfinished tasks:")))
+          (tags "PRIORITY=\"C\""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Low-priority unfinished tasks:")))
+          (tags "customtag"
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done))
+                 (org-agenda-overriding-header "Tasks marked with customtag:")))
+
+          (agenda "")
+          (alltodo "")))))
 
 (use-package! org-auto-tangle
   :defer t

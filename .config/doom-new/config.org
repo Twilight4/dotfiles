@@ -16,7 +16,7 @@
   - [[#style-formatting][Style formatting]]
   - [[#org-agenda][Org agenda]]
   - [[#org-auto-tangle][Org-auto-tangle]]
-  - [[#-org-fonts][;; Org fonts]]
+  - [[#org-fonts][Org fonts]]
   - [[#load-doom-theme-on-startup][Load doom theme on startup]]
   - [[#org-export][Org-export]]
   - [[#org-journal][Org-journal]]
@@ -88,7 +88,7 @@ Keep buffers synced and up to date with auto revert mode.
 #+end_src
 
 * Fonts
-If you or Emacs can't find your font, use 'M-x describe-font' to look them up and use 'SPC h r f' to refresh your font settings
+If you or Emacs can't find your font, use 'M-x describe-font' to look them up and use 'SPC h r f' to refresh your font settings.
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15)
       doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 15)
@@ -241,7 +241,7 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
 #+end_src
 
 ** Style formatting
-This controls the color of bold, italic, underline, verbatim, strikethrough
+This controls the color of bold, italic, underline, verbatim, strikethrough.
 #+begin_src emacs-lisp
 (after! org
   (setq org-emphasis-alist
@@ -262,7 +262,7 @@ This controls the color of bold, italic, underline, verbatim, strikethrough
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file "~/Documents/Org/inbox.org")
+      '(("t" "Todo" entry (file "~/documents/Org/inbox.org")
          "* TODO %?\n  %i\n  %a")))
 
 (setq org-agenda-files (list
@@ -283,7 +283,6 @@ This controls the color of bold, italic, underline, verbatim, strikethrough
                 ((org-agenda-overriding-header "Unscheduled project tasks")
                  (org-agenda-files '("~/Documents/Org/projects.org"))
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))))
-#+end_src
 
 ;; save all org-buffers when todo state changes
 ;;(advice-add 'org-deadline       :after (func-ignore #'org-save-all-org-buffers))
@@ -320,6 +319,7 @@ This controls the color of bold, italic, underline, verbatim, strikethrough
 
           (agenda "")
           (alltodo "")))))
+#+end_src
 
 ** Org-auto-tangle
 =org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document. I have made adding this to your file even easier by creating a function 'dt/insert-auto-tangle-tag' and setting it to a keybinding 'SPC i a'.
@@ -347,7 +347,7 @@ This controls the color of bold, italic, underline, verbatim, strikethrough
   :hook (after-init . global-emojify-mode))
 #+end_src
 
-** ;; Org fonts
+** Org fonts
 #+begin_src emacs-lisp
 (defun dt/org-colors-doom-one ()
   "Enable Doom One colors for Org headers."
