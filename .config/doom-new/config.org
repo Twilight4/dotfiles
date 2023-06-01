@@ -12,6 +12,19 @@
 - [[#modeline-status-bar][Modeline (status bar)]]
 - [[#open-specific-file-examples][Open specific file examples]]
 - [[#org-mode][Org mode]]
+  - [[#super-agenda-package][Super agenda package]]
+  - [[#style-formatting][Style formatting]]
+  - [[#org-agenda][Org agenda]]
+  - [[#org-auto-tangle][Org-auto-tangle]]
+  - [[#-org-fonts][;; Org fonts]]
+  - [[#load-doom-theme-on-startup][Load doom theme on startup]]
+  - [[#org-export][Org-export]]
+  - [[#org-journal][Org-journal]]
+  - [[#org-roam][Org-roam]]
+- [[#perspective][Perspective]]
+- [[#rainbow-mode][Rainbow-mode]]
+- [[#registers][Registers]]
+- [[#splits][Splits]]
 
 * Theme
 Set theme to doom-one and `SPC h t` for theme selection
@@ -155,9 +168,33 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
 #+begin_src emacs-lisp
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
+(after! org
+  (setq org-directory "~/documents/Org/"
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "
+        org-superstar-headline-bullets-list '("◉" "○" "◆" "●" "○" "◆" "●")
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
+        org-log-done 'time
+        org-hide-emphasis-markers t ;; hides the emphasis markers
+        ;; ex. of org-link-abbrev-alist in action
+        ;; [[arch-wiki:Name_of_Page][Description]]
+        org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
+          '(("google" . "http://www.google.com/search?q=")
+            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+            ("ddg" . "https://duckduckgo.com/?q=")
+            ("wiki" . "https://en.wikipedia.org/wiki/"))
+        org-table-convert-region-max-lines 20000
+        org-todo-keywords         ; This overwrites the default Doom org-todo-keywords
+          '((sequence
+             "INPROGGRESS(i)"     ; A task is in proggress
+             "WAITING(w)"         ; Something is holding up this task
+             "GYM(g)"             ; Things to accomplish at the gym
+             "PROJ(p)")           ; A project that contains other tasks
+             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
 #+end_src
 
-;; Super agenda package
+** Super agenda package
 #+begin_src emacs-lisp
 (let ((org-super-agenda-groups
        '(;; Each group has an implicit boolean OR operator between its selectors.
@@ -203,32 +240,8 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
   (org-agenda nil "a"))
 #+end_src
 
-(after! org
-  (setq org-directory "~/Documents/Org/"
-        org-default-notes-file (expand-file-name "notes.org" org-directory)
-        org-ellipsis " ▼ "
-        org-superstar-headline-bullets-list '("◉" "○" "◆" "●" "○" "◆" "●")
-        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
-        org-log-done 'time
-        org-hide-emphasis-markers t ;; hides the emphasis markers
-        ;; ex. of org-link-abbrev-alist in action
-        ;; [[arch-wiki:Name_of_Page][Description]]
-        org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
-          '(("google" . "http://www.google.com/search?q=")
-            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
-            ("ddg" . "https://duckduckgo.com/?q=")
-            ("wiki" . "https://en.wikipedia.org/wiki/"))
-        org-table-convert-region-max-lines 20000
-        org-todo-keywords         ; This overwrites the default Doom org-todo-keywords
-          '((sequence
-             "INPROGGRESS(i)"     ; A task is in proggress
-             "WAITING(w)"         ; Something is holding up this task
-             "GYM(g)"             ; Things to accomplish at the gym
-             "PROJ(p)")           ; A project that contains other tasks
-             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
-
-;; This controls the color of bold, italic, underline, verbatim, strikethrough
+** Style formatting
+This controls the color of bold, italic, underline, verbatim, strikethrough
 #+begin_src emacs-lisp
 (after! org
   (setq org-emphasis-alist
@@ -240,7 +253,7 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
     ("+" (:strike-through nil :foreground "dark orange" )))))
 #+end_src
 
-;; Org agenda
+** Org agenda
 #+begin_src emacs-lisp
 (setq org-return-follows-link t
       org-agenda-tags-column 75
@@ -253,9 +266,9 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
          "* TODO %?\n  %i\n  %a")))
 
 (setq org-agenda-files (list
-                        "~/Documents/Org/inbox.org"
-                        "~/Documents/Org/projects.org"
-                        "~/Documents/Org/repeaters.org"))
+                        "~/documents/Org/inbox.org"
+                        "~/documents/Org/projects.org"
+                        "~/documents/Org/repeaters.org"))
 
 (setq org-agenda-custom-commands
       '((" " "Agenda"
@@ -308,7 +321,8 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
           (agenda "")
           (alltodo "")))))
 
-;; Org-auto-tangle
+** Org-auto-tangle
+=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document. I have made adding this to your file even easier by creating a function 'dt/insert-auto-tangle-tag' and setting it to a keybinding 'SPC i a'.
 #+begin_src emacs-lisp
 (use-package! org-auto-tangle
   :defer t
@@ -333,7 +347,7 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
   :hook (after-init . global-emojify-mode))
 #+end_src
 
-;; Org fonts
+** ;; Org fonts
 #+begin_src emacs-lisp
 (defun dt/org-colors-doom-one ()
   "Enable Doom One colors for Org headers."
@@ -496,31 +510,39 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 #+end_src
 
-;; Load our desired dt/org-colors-* theme on startup
+** Load doom theme on startup
 #+begin_src emacs-lisp
 (dt/org-colors-doom-one)
 #+end_src
 
-;; Org-export
+** Org-export
 #+begin_src emacs-lisp
 ;;(use-package ox-man)
 ;;(use-package ox-gemini)
 #+end_src
 
-;; Org-journal
+** Org-journal
 #+begin_src emacs-lisp
-(setq org-journal-dir "~/Documents/Org/journal/"
+(setq org-journal-dir "~/documents/Org/journal/"
       org-journal-date-prefix "* "
       org-journal-time-prefix "** "
       org-journal-date-format "%B %d, %Y (%A) "
       org-journal-file-format "%Y-%m-%d.org")
 #+end_src
 
-;; Org-roam
+** Org-roam
+| COMMAND                | DESCRIPTION                        | KEYBINDING |
+|------------------------+------------------------------------+------------|
+| completion-at-point    | /Completion of node-insert at point/ | SPC n r c  |
+| org-roam-node-find     | /Find node or create a new one/      | SPC n r f  |
+| org-roam-graph         | /Show graph of all nodes/            | SPC n r g  |
+| org-roam-node-insert   | /Insert link to a node/              | SPC n r i  |
+| org-roam-capture       | /Capture to node/                    | SPC n r n  |
+| org-roam-buffer-toggle | /Toggle roam buffer/                 | SPC n r r  |
 #+begin_src emacs-lisp
 (after! org
-  (setq org-roam-directory "~/Documents/Org/roam/"
-        org-roam-graph-viewer "/usr/bin/librewolf"))
+  (setq org-roam-directory "~/documents/Org/roam/"
+        org-roam-graph-viewer "/usr/bin/cachy-browser"))
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
@@ -532,7 +554,18 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
        :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
 #+end_src
 
-;; Perspective
+* Perspective
+Perspective provides multiple named workspaces (or "perspectives") in Emacs, similar to having multiple desktops in window managers. Doom Emacs uses 'SPC some_key' for binding some of the perspective commands, so I used this binging format for the perspective bindings that I created.
+
+| COMMAND                    | DESCRIPTION                         | KEYBINDING |
+|----------------------------+-------------------------------------+------------|
+| persp-switch               | /Switch to perspective NAME/          | SPC DEL    |
+| persp-switch-to-buffer     | /Switch to buffer in perspective/     | SPC ,      |
+| persp-next                 | /Switch to next perspective/          | SPC ]      |
+| persp-prev                 | /Switch to previous perspective/      | SPC [      |
+| persp-add-buffer           | /Add a buffer to current perspective/ | SPC +      |
+| persp-remove-by-name       | /Remove perspective by name/          | SPC -      |
+| +workspace/switch-to-{0-9} | /Switch to workspace n/               | SPC 0-9    |
 #+begin_src emacs-lisp
 (map! :leader
       :desc "Switch to perspective NAME"       "DEL" #'persp-switch
@@ -543,7 +576,8 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
       :desc "Remove perspective by name"       "-" #'persp-remove-by-name)
 #+end_src
 
-;; Rainbow-mode
+* Rainbow-mode
+Rainbox mode displays the actual color for any hex value color. The following creates a global minor mode for rainbow-mode and enables it (exception: org-agenda-mode since rainbow-mode destroys all highlighting in org-agenda).
 #+begin_src emacs-lisp
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
   (lambda ()
@@ -553,7 +587,22 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
 (global-rainbow-mode 1 )
 #+end_src
 
-;; Registers
+* Registers
+Emacs registers are compartments where you can save text, rectangles and positions for later use. Once you save text or a rectangle in a register, you can copy it into the buffer once or many times; once you save a position in a register, you can jump back to that position once or many times.
+
+| COMMAND                          | DESCRIPTION                      | KEYBINDING |
+|----------------------------------+----------------------------------+------------|
+| copy-to-register                 | /Copy to register/                 | SPC r c    |
+| frameset-to-register             | /Frameset to register/             | SPC r f    |
+| insert-register                  | /Insert contents of register/      | SPC r i    |
+| jump-to-register                 | /Jump to register/                 | SPC r j    |
+| list-registers                   | /List registers/                   | SPC r l    |
+| number-to-register               | /Number to register/               | SPC r n    |
+| counsel-register                 | /Interactively choose a register/  | SPC r r    |
+| view-register                    | /View a register/                  | SPC r v    |
+| window-configuration-to-register | /Window configuration to register/ | SPC r w    |
+| increment-register               | /Increment register/               | SPC r +    |
+| point-to-register                | /Point to register/                | SPC r SPC  |
 #+begin_src emacs-lisp
 (map! :leader
       (:prefix ("r" . "registers")
@@ -570,7 +619,8 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
        :desc "Point to register" "SPC" #'point-to-register))
 #+end_src
 
-;; Splits
+* Splits
+I set a keybinding for 'clone-indirect-buffer-other-window' for when I want to have the same document in two splits. The text of the indirect buffer is always identical to the text of its base buffer.
 #+begin_src emacs-lisp
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)

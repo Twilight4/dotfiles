@@ -68,6 +68,30 @@
 
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
+(after! org
+  (setq org-directory "~/documents/Org/"
+        org-default-notes-file (expand-file-name "notes.org" org-directory)
+        org-ellipsis " ▼ "
+        org-superstar-headline-bullets-list '("◉" "○" "◆" "●" "○" "◆" "●")
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
+        org-log-done 'time
+        org-hide-emphasis-markers t ;; hides the emphasis markers
+        ;; ex. of org-link-abbrev-alist in action
+        ;; [[arch-wiki:Name_of_Page][Description]]
+        org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
+          '(("google" . "http://www.google.com/search?q=")
+            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+            ("ddg" . "https://duckduckgo.com/?q=")
+            ("wiki" . "https://en.wikipedia.org/wiki/"))
+        org-table-convert-region-max-lines 20000
+        org-todo-keywords         ; This overwrites the default Doom org-todo-keywords
+          '((sequence
+             "INPROGGRESS(i)"     ; A task is in proggress
+             "WAITING(w)"         ; Something is holding up this task
+             "GYM(g)"             ; Things to accomplish at the gym
+             "PROJ(p)")           ; A project that contains other tasks
+             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
 
 (let ((org-super-agenda-groups
        '(;; Each group has an implicit boolean OR operator between its selectors.
@@ -132,9 +156,9 @@
          "* TODO %?\n  %i\n  %a")))
 
 (setq org-agenda-files (list
-                        "~/Documents/Org/inbox.org"
-                        "~/Documents/Org/projects.org"
-                        "~/Documents/Org/repeaters.org"))
+                        "~/documents/Org/inbox.org"
+                        "~/documents/Org/projects.org"
+                        "~/documents/Org/repeaters.org"))
 
 (setq org-agenda-custom-commands
       '((" " "Agenda"
@@ -334,15 +358,15 @@
 ;;(use-package ox-man)
 ;;(use-package ox-gemini)
 
-(setq org-journal-dir "~/Documents/Org/journal/"
+(setq org-journal-dir "~/documents/Org/journal/"
       org-journal-date-prefix "* "
       org-journal-time-prefix "** "
       org-journal-date-format "%B %d, %Y (%A) "
       org-journal-file-format "%Y-%m-%d.org")
 
 (after! org
-  (setq org-roam-directory "~/Documents/Org/roam/"
-        org-roam-graph-viewer "/usr/bin/librewolf"))
+  (setq org-roam-directory "~/documents/Org/roam/"
+        org-roam-graph-viewer "/usr/bin/cachy-browser"))
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
