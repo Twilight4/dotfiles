@@ -90,15 +90,3 @@ SPC h w        # helps you find keyboard shortcuts for different commands
 SPC h v        # lets you see what’s inside variables and change them
 SPC h f        # tells you about functions and where they are define
 #doom emacs cheat sheet: https://cheatography.com/karronqiu/cheat-sheets/the-ultimate-doom-emacs/
-
-# Installation
-yay -S emacs-gcc-wayland-devel-bin
-git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-~/.config/emacs/bin/doom install
-# Add aliases for doom bins
-# add blurls in hyprland.conf and opacity in window-rules.conf to emacs
-# Run emacs server on autostart: emacs --daemon
-# Add emacs client to autostart in autolaunch script
-# Add alias for launching emacs: alias emacs="emacsclient -c -a 'emacs'"
-# set vars: EDITOR="emacsclient -c -a emacs"
-# ALTERNATE_EDITOR=""
