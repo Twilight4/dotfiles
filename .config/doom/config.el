@@ -1,4 +1,4 @@
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-ayu-mirage)
 (map! :leader
       :desc "Load new theme" "h t" #'counsel-load-theme)
 
@@ -52,7 +52,7 @@
  '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
 
 (set-face-attribute 'mode-line nil :font "JetBrains Mono-9")
-(setq doom-modeline-height 10     ;; sets modeline height
+(setq doom-modeline-height 20     ;; sets modeline height
       doom-modeline-bar-width 5   ;; sets right bar width
       doom-modeline-persp-name t  ;; adds perspective name to modeline
       doom-modeline-persp-icon t) ;; adds folder icon next to persp name
@@ -229,86 +229,6 @@
 (use-package emojify
   :hook (after-init . global-emojify-mode))
 
-(defun dt/org-colors-doom-one ()
-  "Enable Doom One colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#51afef" ultra-bold)
-         (org-level-2 1.1 "#c678dd" extra-bold)
-         (org-level-3 1.05 "#98be65" bold)
-         (org-level-4 1.0 "#da8548" semi-bold)
-         (org-level-5 1.1 "#5699af" normal)
-         (org-level-6 1.1 "#a9a1e1" normal)
-         (org-level-7 1.1 "#46d9ff" normal)
-         (org-level-8 1.1 "#ff6c6b" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
-(defun dt/org-colors-dracula ()
-  "Enable Dracula colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#8be9fd" ultra-bold)
-         (org-level-2 1.1 "#bd93f9" extra-bold)
-         (org-level-3 1.05 "#50fa7b" bold)
-         (org-level-4 1.0 "#ff79c6" semi-bold)
-         (org-level-5 1.1 "#9aedfe" normal)
-         (org-level-6 1.1 "#caa9fa" normal)
-         (org-level-7 1.1 "#5af78e" normal)
-         (org-level-8 1.1 "#ff92d0" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
-(defun dt/org-colors-gruvbox-dark ()
-  "Enable Gruvbox Dark colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#458588" ultra-bold)
-         (org-level-2 1.1 "#b16286" extra-bold)
-         (org-level-3 1.05 "#98971a" bold)
-         (org-level-4 1.0 "#fb4934" semi-bold)
-         (org-level-5 1.1 "#83a598" normal)
-         (org-level-6 1.1 "#d3869b" normal)
-         (org-level-7 1.1 "#d79921" normal)
-         (org-level-8 1.1 "#8ec07c" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
-(defun dt/org-colors-monokai-pro ()
-  "Enable Monokai Pro colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#78dce8" ultra-bold)
-         (org-level-2 1.1 "#ab9df2" extra-bold)
-         (org-level-3 1.05 "#a9dc76" bold)
-         (org-level-4 1.0 "#fc9867" semi-bold)
-         (org-level-5 1.1 "#ff6188" normal)
-         (org-level-6 1.1 "#ffd866" normal)
-         (org-level-7 1.1 "#78dce8" normal)
-         (org-level-8 1.1 "#ab9df2" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
-(defun dt/org-colors-nord ()
-  "Enable Nord colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#81a1c1" ultra-bold)
-         (org-level-2 1.1 "#b48ead" extra-bold)
-         (org-level-3 1.05 "#a3be8c" bold)
-         (org-level-4 1.0 "#ebcb8b" semi-bold)
-         (org-level-5 1.1 "#bf616a" normal)
-         (org-level-6 1.1 "#88c0d0" normal)
-         (org-level-7 1.1 "#81a1c1" normal)
-         (org-level-8 1.1 "#b48ead" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
 (defun dt/org-colors-oceanic-next ()
   "Enable Oceanic Next colors for Org headers."
   (interactive)
@@ -325,72 +245,8 @@
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
-(defun dt/org-colors-palenight ()
-  "Enable Palenight colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#82aaff" ultra-bold)
-         (org-level-2 1.1 "#c792ea" extra-bold)
-         (org-level-3 1.05 "#c3e88d" bold)
-         (org-level-4 1.0 "#ffcb6b" semi-bold)
-         (org-level-5 1.1 "#a3f7ff" normal)
-         (org-level-6 1.1 "#e1acff" normal)
-         (org-level-7 1.1 "#f07178" normal)
-         (org-level-8 1.1 "#ddffa7" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
-(defun dt/org-colors-solarized-dark ()
-  "Enable Solarized Dark colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#268bd2" ultra-bold)
-         (org-level-2 1.1 "#d33682" extra-bold)
-         (org-level-3 1.05 "#859900" bold)
-         (org-level-4 1.0 "#b58900" semi-bold)
-         (org-level-5 1.1 "#cb4b16" normal)
-         (org-level-6 1.1 "#6c71c4" normal)
-         (org-level-7 1.1 "#2aa198" normal)
-         (org-level-8 1.1 "#657b83" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
-(defun dt/org-colors-solarized-light ()
-  "Enable Solarized Light colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#268bd2" ultra-bold)
-         (org-level-2 1.1 "#d33682" extra-bold)
-         (org-level-3 1.05 "#859900" bold)
-         (org-level-4 1.0 "#b58900" semi-bold)
-         (org-level-5 1.1 "#cb4b16" normal)
-         (org-level-6 1.1 "#6c71c4" normal)
-         (org-level-7 1.1 "#2aa198" normal)
-         (org-level-8 1.1 "#657b83" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
-(defun dt/org-colors-tomorrow-night ()
-  "Enable Tomorrow Night colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#81a2be" ultra-bold)
-         (org-level-2 1.1 "#b294bb" extra-bold)
-         (org-level-3 1.05 "#b5bd68" bold)
-         (org-level-4 1.0 "#e6c547" semi-bold)
-         (org-level-5 1.1 "#cc6666" normal)
-         (org-level-6 1.1 "#70c0ba" normal)
-         (org-level-7 1.1 "#b77ee0" normal)
-         (org-level-8 1.1 "#9ec400" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
 ;; Load dt/org-colors-* theme on startup
-(dt/org-colors-doom-one)
+(dt/org-colors-oceanic-next)
 
 ;;(use-package ox-man)
 ;;(use-package ox-gemini)
