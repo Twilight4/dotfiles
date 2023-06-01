@@ -17,7 +17,6 @@
   - [[#org-agenda][Org agenda]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#org-fonts][Org fonts]]
-  - [[#load-doom-theme-on-startup][Load doom theme on startup]]
   - [[#org-export][Org-export]]
   - [[#org-journal][Org-journal]]
   - [[#org-roam][Org-roam]]
@@ -508,10 +507,8 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
          (org-level-8 1.1 "#9ec400" normal)))
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-#+end_src
 
-** Load doom theme on startup
-#+begin_src emacs-lisp
+;; Load dt/org-colors-* theme on startup
 (dt/org-colors-doom-one)
 #+end_src
 

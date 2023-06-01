@@ -389,6 +389,7 @@
     (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
     (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
 
+;; Load dt/org-colors-* theme on startup
 (dt/org-colors-doom-one)
 
 ;;(use-package ox-man)
