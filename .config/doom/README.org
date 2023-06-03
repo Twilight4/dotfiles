@@ -13,8 +13,9 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#ibuffer-mode][Ibuffer mode]]
 - [[#file-search][File Search]]
   - [[#general-file-search][General file search]]
-  - [[#open-specific-files][Open specific files]]
+  - [[#open-specific-files---to-change-keybinding][Open specific files - to change keybinding]]
   - [[#dired][Dired]]
+  - [[#line-settings][Line settings]]
 - [[#search-and-replace][Search and Replace]]
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
@@ -106,12 +107,27 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC .      | Create or find file   |
 | SPC f r    | Recently opened files |
 
-** Open specific files
-| KEYBINDING | DESCRIPTION           |
-|------------+-----------------------|
-| SPC f p    | Open config directory |
+** Open specific files - to change keybinding
+| KEYBINDING | DESCRIPTION            |
+|------------+------------------------|
+| SPC f p    | Open config directory  |
+| SPC = r    | Edit repeaters.org     |
+| SPC = a    | Edit agenda file       |
+| SPC = c    | Edit doom config.org   |
+| SPC = i    | Edit inbox.org         |
+| SPC = p    | Edit doom projects.org |
+| SPC = e    | Edit eshell aliases    |
 
 ** Dired
+
+** Line settings
+| KEYBINDING  | DESCRIPTION                               |
+|-------------+-------------------------------------------|
+| SPC TAB TAB | Comment or uncomment lines                |
+| SPC t h     | Toggle line highlighting in current frame |
+| SPC t H     | Toggle line highlighting globally         |
+| SPC t l     | Toggle line numbers                       |
+| SPC t t     | Toggle truncate lines                     |
 
 * Search and Replace
 
@@ -139,7 +155,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 |------------+------------------------------------|
 | SPC n r f  | Create/find new node               |
 | SPC n r i  | Insert link to other node          |
-| SPC n r r  | Toggle roam buffer                 |
+| SPC n r r  | Toggle roam buffers                |
 | SPC n r c  | Completion of node-insert at point |
 | SPC n r g  | Show graph of all nodes            |
 | SPC n r n  | Capture to node                    |
