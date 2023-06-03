@@ -16,9 +16,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#file-search][File Search]]
   - [[#general-file-search][General file search]]
   - [[#open-specific-files---to-change-keybinding][Open specific files - to change keybinding]]
-  - [[#dired][Dired]]
-  - [[#line-settings][Line settings]]
-- [[#search-and-replace][Search and Replace]]
+- [[#line-settings][Line settings]]
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
   - [[#org-mode-basics][Org mode basics]]
@@ -28,7 +26,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#tables][Tables]]
 - [[#plugins][Plugins]]
   - [[#magit][Magit]]
-  - [[#evil-snipe][Evil Snipe]]
+  - [[#evil-snipe][Evil-Snipe]]
   - [[#neotree][Neotree]]
 - [[#tips-and-tricks][Tips and Tricks]]
   - [[#window-managers-wm][Window Managers (WM)]]
@@ -131,10 +129,13 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 
 * File Search
 ** General file search
-| KEYBINDING | DESCRIPTION           |
-|------------+-----------------------|
-| SPC .      | Create or find file   |
-| SPC f r    | Recently opened files |
+| KEYBINDING | DESCRIPTION                         |
+|------------+-------------------------------------|
+| SPC .      | Create or find file                 |
+| SPC f r    | Recently opened files               |
+| SPC p r    | Recently visited files in a project |
+| SPC p p    | Open a project                      |
+| SPC SPC    | Open a file in a project            |
 
 ** Open specific files - to change keybinding
 | KEYBINDING | DESCRIPTION            |
@@ -147,9 +148,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC = p    | Edit doom projects.org |
 | SPC = e    | Edit eshell aliases    |
 
-** Dired
-
-** Line settings
+* Line settings
 | KEYBINDING  | DESCRIPTION                               |
 |-------------+-------------------------------------------|
 | SPC TAB TAB | Comment or uncomment lines                |
@@ -157,8 +156,6 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC t H     | Toggle line highlighting globally         |
 | SPC t l     | Toggle line numbers                       |
 | SPC t t     | Toggle truncate lines                     |
-
-* Search and Replace
 
 * Project Management
 
@@ -212,7 +209,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 
 * Plugins
 ** Magit
-** Evil Snipe
+** Evil-Snipe
 ** Neotree
 | KEYBINDING | DESCRIPTION       |
 |------------+-------------------|
