@@ -91,7 +91,7 @@
 (eval-after-load 'org
      (define-key evil-visual-state-map (kbd "m") 'surround-with-bold))
 
-;; Define the custom function to surround the word with asteriks.
+;; Define the custom function to surround the word with slashes.
 (defun surround-with-italic ()
   (interactive)
   (when (evil-visual-state-p) ;; Enter visual mode
@@ -102,10 +102,10 @@
     (goto-char region-start)
     (insert "/"))))
 
-;; Map the custom function to "m" key while in visual mode
+;; Map the custom function to "/" key while in visual mode
 (define-key evil-visual-state-map (kbd "/") 'surround-with-italic)
 
-;; Define the custom function to surround the word with asteriks.
+;; Define the custom function to surround the word with pluses.
 (defun surround-with-green ()
   (interactive)
   (when (evil-visual-state-p) ;; Enter visual mode
@@ -116,7 +116,7 @@
     (goto-char region-start)
     (insert "+"))))
 
-;; Map the custom function to "m" key while in visual mode
+;; Map the custom function to "." key while in visual mode
 (define-key evil-visual-state-map (kbd ".") 'surround-with-green)
 
 (map! :leader
