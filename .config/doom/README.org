@@ -10,6 +10,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#window-management---to-change-keybindings][Window Management - to change keybindings]]
   - [[#workspace-management---to-change-keybinds][Workspace Management - to change keybinds]]
   - [[#bookmark-management][Bookmark Management]]
+  - [[#ibuffer-mode][Ibuffer mode]]
 - [[#file-search][File Search]]
   - [[#general-file-search][General file search]]
   - [[#open-specific-files][Open specific files]]
@@ -17,6 +18,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#search-and-replace][Search and Replace]]
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
+  - [[#org-mode-basics][Org mode basics]]
   - [[#org-roam][Org-Roam]]
   - [[#tables][Tables]]
 - [[#plugins][Plugins]]
@@ -81,6 +83,21 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC b M    | Delete bookmark                        |
 | SPC b w    | Save current bookmark to bookmark file |
 
+** Ibuffer mode
+| KEYBINDING | DESCRIPTION                            |
+|------------+----------------------------------------|
+| m          | Mark the buffer                        |
+| u          | Unmark the buffer                      |
+| x          | Kill the marked buffers                |
+| f c        | Ibuffer filter by content              |
+| f d        | Ibuffer filter by directory            |
+| f f        | Ibuffer filter by filename (full path) |
+| f m        | Ibuffer filter by mode                 |
+| f n        | Ibuffer filter by name                 |
+| f x        | Disable ibuffer filter                 |
+| g h        | Hide marked buffers                    |
+| g H        | Restore hidden buffers                 |
+
 * File Search
 ** General file search
 | KEYBINDING | DESCRIPTION           |
@@ -100,6 +117,17 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 * Project Management
 
 * Org Mode
+** Org mode basics
+| KEYBINDING | DESCRIPTION                                        |
+|------------+----------------------------------------------------|
+| SPC n      | prefix for org keybinding                          |
+| C-Ret      | create a headline of the same type                 |
+| C-S-Ret    | create a headline of the same type above           |
+| M-Ret      | create a headline of the same type (from anywhere) |
+| C-M-Ret    | create another level headline (from anywhere)      |
+| TAB/S-TAB  | toggle folding/cycle through folded stages         |
+| M-h/j/k/l  | promotes/demotes/up/down header                    |
+
 ** Org-Roam
 
 ** Tables
