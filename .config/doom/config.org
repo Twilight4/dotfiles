@@ -3,6 +3,7 @@
 
 * Table Of Contents :toc:
 - [[#better-defaults][Better Defaults]]
+- [[#window-management][Window Management]]
 - [[#theme][Theme]]
 - [[#bookmarks-and-ibuffer-mode][Bookmarks and Ibuffer mode]]
   - [[#bookmarks][Bookmarks]]
@@ -63,6 +64,22 @@ unless (string-match-p "^Power N/A" (battery))   ; On laptops...
 (defadvice! prompt-for-buffer (&rest _)
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
+#+end_src
+
+* Window Management
+#+begin_src emacs-lisp
+(map! :map evil-window-map "SPC" #'rotate-layout
+      ;; Navigation
+      "<left>"     #'evil-window-left
+      "<down>"     #'evil-window-down
+      "<up>"       #'evil-window-up
+      "<right>"    #'evil-window-right
+      ;; Swapping windows
+      "C-<left>"       #'+evil/window-move-left
+      "C-<down>"       #'+evil/window-move-down
+      "C-<up>"         #'+evil/window-move-up
+      "C-<right>"      #'+evil/window-move-right)
+
 #+end_src
 * Theme
 Set theme to doom-ayu-mirage and `SPC h t` for theme selection.

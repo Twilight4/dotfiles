@@ -73,6 +73,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | C-S-n       | Split window vertically            |
 | SPC w s     | Split window horizontally          |
 | C-h/k/l     | Switch to window (C-j is new line) |
+| SPC C-h/k/l | Move window left/down/up/right     |
 | C-S-w       | Close window                       |
 | resize mode | Enter resize mode                  |
 
