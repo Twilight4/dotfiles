@@ -5,6 +5,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
 * Table of Contents :toc:
 - [[#keybinding-philosophy][Keybinding Philosophy]]
 - [[#essential-keybindings][Essential Keybindings]]
+  - [[#help-pages][Help pages]]
 - [[#navigation][Navigation]]
   - [[#buffer-management---to-change-keybinding][Buffer Management - to change keybinding]]
   - [[#window-management---to-change-keybindings][Window Management - to change keybindings]]
@@ -17,7 +18,6 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#general-file-search][General file search]]
   - [[#open-specific-files---to-change-keybinding][Open specific files - to change keybinding]]
 - [[#line-settings][Line settings]]
-- [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
   - [[#org-mode-basics][Org mode basics]]
   - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
@@ -29,6 +29,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#evil-snipe][Evil-Snipe]]
   - [[#neotree][Neotree]]
 - [[#tips-and-tricks][Tips and Tricks]]
+  - [[#literate-programming][literate programming]]
   - [[#window-managers-wm][Window Managers (WM)]]
 
 * Keybinding Philosophy
@@ -44,6 +45,14 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC q q    | close emacs           |
 | SPC h t    | change theme          |
 | SPC h d h  | open documentation    |
+
+** Help pages
+| KEYBINDING | DESCRIPTION                                                |
+|------------+------------------------------------------------------------|
+| SPC h k    | tells you how key combinations translate to Emacs commands |
+| SPC h w    | helps you find keyboard shortcuts for different commands   |
+| SPC h v    | lets you see what’s inside variables and change them       |
+| SPC h f    | tells you about functions and where they are define        |
 
 * Navigation
 ** Buffer Management - to change keybinding
@@ -157,8 +166,6 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC t l     | Toggle line numbers                       |
 | SPC t t     | Toggle truncate lines                     |
 
-* Project Management
-
 * Org Mode
 ** Org mode basics
 | KEYBINDING | DESCRIPTION                                        |
@@ -217,5 +224,11 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 
 * Tips and Tricks
 - Reload emacs every time you alter =init.el=, =packages.el= or =config.el= - =SPC h r r=
+
+** literate programming
+1. =<s *TAB*=
+2. =+property header-args :tangle config.el= - define which file should be it tangled
+3. go to the beginning and press: C-c C-c
+4. if tangled file hasn't been created use: SPC m B
 
 ** Window Managers (WM)
