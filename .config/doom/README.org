@@ -29,7 +29,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#evil-snipe][Evil-Snipe]]
   - [[#neotree][Neotree]]
 - [[#tips-and-tricks][Tips and Tricks]]
-  - [[#literate-programming][literate programming]]
+  - [[#literate-programming][Literate programming]]
   - [[#installation-on-wayland---hyprland-wm][Installation on Wayland - *Hyprland* (WM)]]
 
 * Keybinding Philosophy
@@ -225,7 +225,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 * Tips and Tricks
 - Reload emacs every time you alter =init.el=, =packages.el= or =config.el= - =SPC h r r=
 
-** literate programming
+** Literate programming
 1. =<s *TAB*=
 2. =+property header-args :tangle config.el= - define which file should be it tangled
 3. go to the beginning and press: C-c C-c
@@ -259,7 +259,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
    #+begin_src bash
     emacs --daemon
    #+end_src
-7. Add emacs client to autostart in autolaunch script
+7. Add emacs client to autostart in =autolaunch= script
    #+begin_src
      hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "emacsclient -c -a emacs"
      hyprctl keyword windowrule "unset,emacs"
