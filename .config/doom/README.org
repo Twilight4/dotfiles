@@ -12,6 +12,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
   - [[#org-roam][Org-Roam]]
+  - [[#tables][Tables]]
 - [[#plugins][Plugins]]
   - [[#magit][Magit]]
   - [[#evil-snipe][Evil Snipe]]
@@ -22,8 +23,10 @@ This documentation provides cheat sheet for which presents keybindings for my em
 The keybinding philosophy adopted in this configuration prioritizes simplicity and ease of use. The aim is to minimize the number of key combinations required to perform frequently used actions, thereby reducing cognitive load and improving overall efficiency. This approach makes Emacs more accessible to users familiar with other applications and encourages a smoother transition.
 
 * Essential Keybindings
+| KEYBINDING | DESCRIPTION |
+|------------+-------------|
+|            |             |
 - =SPC f s= for saving the current file
-- =SPC := for entering a command
 - =SPC q q= to close Emacs
 - =SPC f D= to delete this file
 * Navigation and Editing
@@ -33,6 +36,17 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 * Project Management
 * Org Mode
 ** Org-Roam
+** Tables
+- to start a table just start typing: =| table | name | description=
+| KEYBINDING        | DESCRIPTION                                   |
+|-------------------+-----------------------------------------------|
+| TAB/S-Tab         | forward/backward                              |
+| SPC m b -         | make org table headline                       |
+| S-Ret             | duplicate a field in the call below           |
+| C-Ret             | create new table below                        |
+| Ret (normal mode) | clear the field and enter insert mode         |
+| M-h/j/k/l         | the same essential keybindings for navigation |
+| M-S-j/k           | insert a new row above/delete single row      |
 * Plugins
 ** Magit
 ** Evil Snipe
