@@ -1,6 +1,7 @@
 (setq doom-theme 'doom-ayu-mirage)
-(map! :leader
-      :desc "Load new theme" "h t" #'counsel-load-theme)
+;; Commented out bcs doesn't make difference
+;;(map! :leader
+;;      :desc "Load new theme" "h t" #'counsel-load-theme)
 
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 (map! :leader

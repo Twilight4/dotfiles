@@ -31,8 +31,9 @@ Set theme to doom-ayu-mirage and `SPC h t` for theme selection.
 
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-ayu-mirage)
-(map! :leader
-      :desc "Load new theme" "h t" #'counsel-load-theme)
+;; Commented out bcs doesn't make difference
+;;(map! :leader
+;;      :desc "Load new theme" "h t" #'counsel-load-theme)
 #+end_src
 
 * Bookmarks and Ibuffer mode
