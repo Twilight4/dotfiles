@@ -7,16 +7,16 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#essential-keybindings][Essential Keybindings]]
   - [[#help-pages][Help pages]]
 - [[#navigation][Navigation]]
-  - [[#buffer-management---to-change-keybinding][Buffer Management - to change keybinding]]
-  - [[#window-management---to-change-keybindings][Window Management - to change keybindings]]
-  - [[#workspace-management---to-change-keybinds][Workspace Management - to change keybinds]]
+  - [[#buffer-management][Buffer Management]]
+  - [[#window-management][Window Management]]
+  - [[#workspace-management][Workspace Management]]
   - [[#bookmark-management][Bookmark Management]]
   - [[#ibuffer-mode][Ibuffer mode]]
   - [[#perspective][Perspective]]
   - [[#registers][Registers]]
 - [[#file-search][File Search]]
   - [[#general-file-search][General file search]]
-  - [[#open-specific-files---to-change-keybinding][Open specific files - to change keybinding]]
+  - [[#open-specific-files][Open specific files]]
 - [[#line-settings][Line settings]]
 - [[#org-mode][Org Mode]]
   - [[#org-mode-basics][Org mode basics]]
@@ -54,8 +54,8 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC h v    | lets you see what’s inside variables and change them       |
 | SPC h f    | tells you about functions and where they are define        |
 
-* Navigation
-** Buffer Management - to change keybinding
+* TODO Navigation
+** TODO Buffer Management
 | KEYBINDING | DESCRIPTION                 |
 |------------+-----------------------------|
 | SPC b b    | Open another buffer         |
@@ -67,7 +67,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC b p    | Buffer previous             |
 | SPC b n    | Buffer next                 |
 
-** Window Management - to change keybindings
+** TODO Window Management
 | KEYBINDING  | DESCRIPTION                        |
 |-------------+------------------------------------|
 | C-S-n       | Split window vertically            |
@@ -76,7 +76,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | C-S-w       | Close window                       |
 | resize mode | Enter resize mode                  |
 
-** Workspace Management - to change keybinds
+** TODO Workspace Management
 | KEYBINDING | DESCRIPTION                 |
 |------------+-----------------------------|
 | C-t        | New workspace               |
@@ -136,7 +136,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC r +    | Increment register               |
 | SPC r SPC  | Point to register                |
 
-* File Search
+* TODO File Search
 ** General file search
 | KEYBINDING | DESCRIPTION                         |
 |------------+-------------------------------------|
@@ -146,7 +146,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC p p    | Open a project                      |
 | SPC SPC    | Open a file in a project            |
 
-** Open specific files - to change keybinding
+** TODO Open specific files
 | KEYBINDING | DESCRIPTION            |
 |------------+------------------------|
 | SPC f p    | Open config directory  |
@@ -166,7 +166,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC t l     | Toggle line numbers                       |
 | SPC t t     | Toggle truncate lines                     |
 
-* Org Mode
+* TODO Org Mode
 ** Org mode basics
 | KEYBINDING | DESCRIPTION                                        |
 |------------+----------------------------------------------------|
@@ -186,11 +186,11 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | /          | Italic      |
 | .          | green color |
 
-** Links and hyperlinks
+** TODO Links and hyperlinks
 | KEYBINDING | DESCRIPTION               |
 |------------+---------------------------|
 
-** Org-Roam
+** TODO Org-Roam
 | KEYBINDING | DESCRIPTION                        |
 |------------+------------------------------------|
 | SPC n r f  | Create/find new node               |
@@ -214,15 +214,15 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | M-S-j/k             | insert a new row above/delete current row     |
 | o                   | insert new roam and move to the beginning     |
 
-* Plugins
-** Magit
-** Evil-Snipe
-** Neotree
+* TODO Plugins
+** TODO Magit
+** TODO Evil-Snipe
+** TODO Neotree
 | KEYBINDING | DESCRIPTION       |
 |------------+-------------------|
 | SPC o p    | toggle on and off |
 
-* Tips and Tricks
+* TODO Tips and Tricks
 - Reload emacs every time you alter =init.el=, =packages.el= or =config.el= - =SPC h r r=
 
 ** Literate programming
