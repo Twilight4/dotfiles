@@ -72,9 +72,9 @@
   '(("*" (bold :slant italic :weight black ))
     ("/" (italic :foreground "dark salmon" ))
     ("_" (underline :foreground "cyan" ))
-    ("=" (:foreground "deep slate blue" ))
+    ("=" (:foreground "slate blue" ))
     ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
-    ("+" (:strike-through nil :foreground "dark orange" )))))
+    ("+" (:strike-through nil :foreground "PaleGreen1" )))))
 
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
