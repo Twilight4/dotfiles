@@ -20,9 +20,9 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#line-settings][Line settings]]
 - [[#org-mode][Org Mode]]
   - [[#org-mode-basics][Org mode basics]]
-  - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
-  - [[#links-and-hyperlinks][Links and hyperlinks]]
   - [[#org-roam][Org-Roam]]
+  - [[#task-management][Task Management]]
+  - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
   - [[#tables][Tables]]
 - [[#plugins][Plugins]]
   - [[#magit][Magit]]
@@ -179,21 +179,6 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | TAB/S-TAB  | Toggle folding/cycle through folded stages         |
 | M-h/j/k/l  | Promotes/demotes/up/down header                    |
 
-** Style formatting (visual mode)
-| KEYBINDING | DESCRIPTION |
-|------------+-------------|
-| m          | Bold        |
-| /          | Italic      |
-| .          | Green color |
-
-** TODO Links and hyperlinks
-- You can add =::= to specify a heading or a line number
-- You can paste http links as well
-
-| KEYBINDING | DESCRIPTION               |
-|------------+---------------------------|
-| SPC m l    | Add a link to an org page |
-
 ** TODO Org-Roam
 | KEYBINDING | DESCRIPTION                        |
 |------------+------------------------------------|
@@ -203,6 +188,27 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC n r c  | Completion of node-insert at point |
 | SPC n r g  | Show graph of all nodes            |
 | SPC n r n  | Capture to node                    |
+
+** TODO Task Management
+
+*** TODO Lists
+
+*** TODO Checkboxes
+
+*** TODO Links and hyperlinks
+- You can add =::= to specify a heading or a line number
+- You can paste http links as well
+
+| KEYBINDING | DESCRIPTION               |
+|------------+---------------------------|
+| SPC m l    | Add a link to an org page |
+
+** Style formatting (visual mode)
+| KEYBINDING | DESCRIPTION |
+|------------+-------------|
+| m          | Bold        |
+| /          | Italic      |
+| .          | Green color |
 
 ** Tables
 - to start a table just start typing: =| table | name | description=
