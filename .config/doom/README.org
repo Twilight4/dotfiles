@@ -30,7 +30,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#neotree][Neotree]]
 - [[#tips-and-tricks][Tips and Tricks]]
   - [[#literate-programming][literate programming]]
-  - [[#window-managers-wm][Window Managers (WM)]]
+  - [[#installation-on-wayland---hyprland-wm][Installation on Wayland - *Hyprland* (WM)]]
 
 * Keybinding Philosophy
 The keybinding philosophy adopted in this configuration prioritizes simplicity and ease of use. The aim is to minimize the number of key combinations required to perform frequently used actions, thereby reducing cognitive load and improving overall efficiency. This approach makes Emacs more accessible to users familiar with other applications and encourages a smoother transition.
@@ -231,8 +231,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 3. go to the beginning and press: C-c C-c
 4. if tangled file hasn't been created use: SPC m B
 
-** Window Managers (WM)
-Installation on wayland - *Hyprland*
+** Installation on Wayland - *Hyprland* (WM)
 1. Install bare emacs package: =yay -S emacs-gcc-wayland-devel-bin=
 2. run the installer script
    #+begin_src bash
