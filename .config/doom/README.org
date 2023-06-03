@@ -9,6 +9,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#buffer-management---to-change-keybinding][Buffer Management - to change keybinding]]
   - [[#window-management---to-change-keybindings][Window Management - to change keybindings]]
   - [[#workspace-management---to-change-keybinds][Workspace Management - to change keybinds]]
+  - [[#bookmark-management][Bookmark Management]]
 - [[#file-search][File Search]]
   - [[#general-file-search][General file search]]
   - [[#open-specific-files][Open specific files]]
@@ -71,6 +72,14 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC TAB d  | Remove workspace            |
 | SPC TAB R  | Restore last session        |
 | M-1/2/3/4  | Switch to workspace 1/2/3/4 |
+
+** Bookmark Management
+| KEYBINDING | DESCRIPTION                            |
+|------------+----------------------------------------|
+| SPC b L    | List bookmarks                         |
+| SPC b m    | Set bookmark                           |
+| SPC b M    | Delete bookmark                        |
+| SPC b w    | Save current bookmark to bookmark file |
 
 * File Search
 ** General file search
