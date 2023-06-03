@@ -240,10 +240,13 @@ Installation on wayland - *Hyprland*
     ~/.config/emacs/bin/doom install
     #+end_src
 3. Add aliases for doom bins and for launching emacs: =alias emacs="emacsclient -c -a 'emacs'"=
-4. add =blurls= in hyprland.conf and opacity in =window-rules.conf= to emacs
-5. Run emacs server on autostart: =emacs --daemon=
-6. Add emacs client to autostart in autolaunch script
-7. set vars in =.zshenv=
+4. add =blurls= in hyprland.conf
+       =blurls = emacs=
+5. Add opacity in =window-rules.conf= to emacs
+   =windowrulev2 = opacity 0.97,class:^(emacs)$=
+6. Run emacs server on autostart: =emacs --daemon=
+7. Add emacs client to autostart in autolaunch script
+8. set vars in =.zshenv=
    #+begin_src bash
     EDITOR="emacsclient -c -a emacs"
     ALTERNATE_EDITOR=""
