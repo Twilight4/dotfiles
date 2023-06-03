@@ -227,6 +227,9 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 * TODO Plugins
 ** TODO Magit
 ** TODO Evil-Snipe
+*** TODO Inline navigation
+
+*** TODO Long distance navigation
 ** TODO Neotree
 | KEYBINDING | DESCRIPTION       |
 |------------+-------------------|
