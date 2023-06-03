@@ -232,3 +232,19 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 4. if tangled file hasn't been created use: SPC m B
 
 ** Window Managers (WM)
+Installation on wayland - *Hyprland*
+1. =yay -S emacs-gcc-wayland-devel-bin=
+2. run the installer script
+   #+begin_src bash
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
+    #+end_src
+3. Add aliases for doom bins and for launching emacs: =alias emacs="emacsclient -c -a 'emacs'"=
+4. add =blurls= in hyprland.conf and opacity in =window-rules.conf= to emacs
+5. Run emacs server on autostart: =emacs --daemon=
+6. Add emacs client to autostart in autolaunch script
+7. set vars in =.zshenv=
+   #+begin_src bash
+    EDITOR="emacsclient -c -a emacs"
+    ALTERNATE_EDITOR=""
+   #+end_src
