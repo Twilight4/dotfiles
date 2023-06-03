@@ -1,3 +1,6 @@
+(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
+  (display-battery-mode 1))                       ; it's nice to know how much power you have
+
 (setq doom-theme 'doom-ayu-mirage)
 ;; Commented out bcs doesn't make difference
 ;;(map! :leader

@@ -2,6 +2,7 @@
 #+property: header-args :tangle config.el
 
 * Table Of Contents :toc:
+- [[#simple-settings][Simple Settings]]
 - [[#theme][Theme]]
 - [[#bookmarks-and-ibuffer-mode][Bookmarks and Ibuffer mode]]
   - [[#bookmarks][Bookmarks]]
@@ -29,6 +30,11 @@
 - [[#registers][Registers]]
 - [[#splits][Splits]]
 
+* Simple Settings
+#+begin_src emacs-lisp
+(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
+  (display-battery-mode 1))                       ; it's nice to know how much power you have
+#+end_src
 * Theme
 Set theme to doom-ayu-mirage and `SPC h t` for theme selection.
 
