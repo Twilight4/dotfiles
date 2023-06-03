@@ -211,7 +211,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | .          | Green color |
 
 ** Tables
-- to start a table just start typing: =| table | name | description=
+- To start a table just start typing: =| table | name | description=
 
 | KEYBINDING          | DESCRIPTION                                   |
 |---------------------+-----------------------------------------------|
