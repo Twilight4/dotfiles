@@ -16,12 +16,16 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#magit][Magit]]
   - [[#evil-snipe][Evil Snipe]]
 - [[#tips-and-tricks][Tips and Tricks]]
-  - [[#window-managers-settings-wm][Window Managers settings (WM)]]
+  - [[#window-managers-wm][Window Managers (WM)]]
 
 * Keybinding Philosophy
 The keybinding philosophy adopted in this configuration prioritizes simplicity and ease of use. The aim is to minimize the number of key combinations required to perform frequently used actions, thereby reducing cognitive load and improving overall efficiency. This approach makes Emacs more accessible to users familiar with other applications and encourages a smoother transition.
 
 * Essential Keybindings
+- =SPC f s= for saving the current file
+- =SPC := for entering a command
+- =SPC q q= to close Emacs
+- =SPC f D= to delete this file
 * Navigation and Editing
 * Window Management
 * Buffer Management
@@ -33,4 +37,4 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 ** Magit
 ** Evil Snipe
 * Tips and Tricks
-** Window Managers settings (WM)
+** Window Managers (WM)
