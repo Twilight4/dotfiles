@@ -27,7 +27,7 @@
 - [[#splits][Splits]]
 
 * Theme
-Set theme to doom-ayu-mirage and `SPC h t` for theme selection
+Set theme to doom-ayu-mirage and `SPC h t` for theme selection.
 
 #+begin_src emacs-lisp
 (setq doom-theme 'doom-ayu-mirage)
