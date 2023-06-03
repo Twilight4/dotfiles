@@ -11,6 +11,8 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#workspace-management---to-change-keybinds][Workspace Management - to change keybinds]]
   - [[#bookmark-management][Bookmark Management]]
   - [[#ibuffer-mode][Ibuffer mode]]
+  - [[#perspective][Perspective]]
+  - [[#registers][Registers]]
 - [[#file-search][File Search]]
   - [[#general-file-search][General file search]]
   - [[#open-specific-files---to-change-keybinding][Open specific files - to change keybinding]]
@@ -20,6 +22,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
   - [[#org-mode-basics][Org mode basics]]
+  - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
   - [[#links-and-hyperlinks][Links and hyperlinks]]
   - [[#org-roam][Org-Roam]]
   - [[#tables][Tables]]
@@ -100,6 +103,32 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | g h        | Hide marked buffers                    |
 | g H        | Restore hidden buffers                 |
 
+** Perspective
+| KEYBINDING | DESCRIPTION                         |
+|------------+-------------------------------------|
+| SPC DEL    | Switch to perspective NAME          |
+| SPC ,      | Switch to buffer in perspective     |
+| SPC ]      | Switch to next perspective          |
+| SPC [      | Switch to previous perspective      |
+| SPC +      | Add a buffer to current perspective |
+| SPC -      | Remove perspective by name          |
+| SPC 0-9    | Switch to workspace n               |
+
+** Registers
+| KEYBINDING | DESCRIPTION                      |
+|------------+----------------------------------|
+| SPC r c    | Copy to register                 |
+| SPC r f    | Frameset to register             |
+| SPC r i    | Insert contents of register      |
+| SPC r j    | Jump to register                 |
+| SPC r l    | List registers                   |
+| SPC r n    | Number to register               |
+| SPC r r    | Interactively choose a register  |
+| SPC r v    | View a register                  |
+| SPC r w    | Window configuration to register |
+| SPC r +    | Increment register               |
+| SPC r SPC  | Point to register                |
+
 * File Search
 ** General file search
 | KEYBINDING | DESCRIPTION           |
@@ -145,6 +174,13 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | C-M-Ret    | Create another level headline (from anywhere)      |
 | TAB/S-TAB  | Toggle folding/cycle through folded stages         |
 | M-h/j/k/l  | Promotes/demotes/up/down header                    |
+
+** Style formatting (visual mode)
+| KEYBINDING | DESCRIPTION |
+|------------+-------------|
+| m          | Bold        |
+| /          | Italic      |
+| .          | green color |
 
 ** Links and hyperlinks
 | KEYBINDING | DESCRIPTION               |
