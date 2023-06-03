@@ -270,7 +270,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
    #+end_src
 6. Add emacs daemon to autostart.conf
    #+begin_src bash
-    emacs --daemon
+    exec-once=emacs --daemon
    #+end_src
 7. Add emacs client to autostart in =autolaunch= script
    #+begin_src
