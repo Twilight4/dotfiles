@@ -262,7 +262,9 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
    #+end_src
 4. Add =blurls= in hyprland.conf
    #+begin_src bash
-     blurls = emacs
+    decoration {
+        blurls = emacs
+    }
    #+end_src
 5. Add opacity in =window-rules.conf= to emacs
    #+begin_src
