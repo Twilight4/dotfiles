@@ -125,16 +125,7 @@ If you or Emacs can't find your font, use 'M-x describe-font' to look them up an
 #+end_src
 
 * Open specific file examples
-The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does not use 'SPC ='.
-
-| PATH TO FILE                  | DESCRIPTION            | KEYBINDING |
-|-------------------------------+------------------------+------------|
-| ~/.config/doom/repeaters.org  | /Edit repeaters.org/     | SPC = r    |
-| ~/documents/Org/agenda.org    | /Edit agenda file/       | SPC = a    |
-| ~/.config/doom/config.org     | /Edit doom config.org/   | SPC = c    |
-| ~/.config/doom/inbox.org      | /Edit inbox.org/         | SPC = i    |
-| ~/.config/doom/projects.org   | /Edit doom projects.org/ | SPC = p    |
-| ~/.config/doom/eshell/aliases | /Edit eshell aliases/    | SPC = e    |
+The format I use for these bindings is 'SPC e' plus 'key' since Doom Emacs does not use 'SPC e'.
 
 #+begin_src emacs-lisp
 (map! :leader
