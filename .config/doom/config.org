@@ -43,13 +43,6 @@ Set theme to doom-ayu-mirage and `SPC h t` for theme selection.
 ** Bookmarks
 Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.
 
-| COMMAND         | DESCRIPTION                            | KEYBINDING |
-|-----------------+----------------------------------------+------------|
-| list-bookmarks  | /List bookmarks/                         | SPC b L    |
-| bookmark-set    | /Set bookmark/                           | SPC b m    |
-| bookmark-delete | /Delete bookmark/                        | SPC b M    |
-| bookmark-save   | /Save current bookmark to bookmark file/ | SPC b w    |
-
 #+begin_src emacs-lisp
 (setq bookmark-default-file "~/.config/doom/bookmarks")
 (map! :leader
@@ -69,20 +62,6 @@ Keep buffers synced and up to date with auto revert mode.
 #+end_src
 
 ** Ibuffer mode keybinds
-| COMMAND                           | DESCRIPTION                            | KEYBINDING |
-|-----------------------------------+----------------------------------------+------------|
-| ibuffer-mark-forward              | /Mark the buffer/                        | m          |
-| ibuffer-unmark-forward            | /Unmark the buffer/                      | u          |
-| ibuffer-do-kill-on-deletion-marks | /Kill the marked buffers/                | x          |
-| ibuffer-filter-by-content         | /Ibuffer filter by content/              | f c        |
-| ibuffer-filter-by-directory       | /Ibuffer filter by directory/            | f d        |
-| ibuffer-filter-by-filename        | /Ibuffer filter by filename (full path)/ | f f        |
-| ibuffer-filter-by-mode            | /Ibuffer filter by mode/                 | f m        |
-| ibuffer-filter-by-name            | /Ibuffer filter by name/                 | f n        |
-| ibuffer-filter-disable            | /Disable ibuffer filter/                 | f x        |
-| ibuffer-do-kill-lines             | /Hide marked buffers/                    | g h        |
-| ibuffer-update                    | /Restore hidden buffers/                 | g H        |
-
 #+begin_src emacs-lisp
 (evil-define-key 'normal ibuffer-mode-map
   (kbd "f c") 'ibuffer-filter-by-content
@@ -112,13 +91,6 @@ If you or Emacs can't find your font, use 'M-x describe-font' to look them up an
 
 * Line settings
  Doom Emacs uses 'SPC t' for "toggle" commands, so I choose 'SPC t' plus 'key' for those bindings.
-| COMMAND                  | DESCRIPTION                               | KEYBINDING  |
-|--------------------------+-------------------------------------------+-------------|
-| comment-line             | /Comment or uncomment lines/                | SPC TAB TAB |
-| hl-line-mode             | /Toggle line highlighting in current frame/ | SPC t h     |
-| global-hl-line-mode      | /Toggle line highlighting globally/         | SPC t H     |
-| doom/toggle-line-numbers | /Toggle line numbers/                       | SPC t l     |
-| toggle-truncate-lines    | /Toggle truncate lines/                     | SPC t t     |
 
 #+begin_src emacs-lisp
 (setq display-line-numbers-type t)
@@ -172,7 +144,7 @@ The format I use for these bindings is 'SPC =' plus 'key' since Doom Emacs does 
        :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/.config/Org/inbox.org"))
        :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))
-       :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))))
+       :desc "Edit emacs cheatsheet" "s" #'(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/doom/README.org"))))
 #+end_src
 
 * Style formatting

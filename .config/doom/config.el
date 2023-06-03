@@ -65,7 +65,7 @@
        :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
        :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/.config/Org/inbox.org"))
        :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))
-       :desc "Edit eshell aliases"   "a" #'(lambda () (interactive) (find-file "~/.config/doom/eshell/aliases"))))
+       :desc "Edit emacs cheatsheet" "s" #'(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/doom/README.org"))))
 
 (after! org
   (setq org-emphasis-alist

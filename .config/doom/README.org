@@ -153,9 +153,9 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC = r    | Edit repeaters.org     |
 | SPC = a    | Edit agenda file       |
 | SPC = c    | Edit doom config.org   |
+| SPC = s    | Edit emacs cheatsheet  |
 | SPC = i    | Edit inbox.org         |
 | SPC = p    | Edit doom projects.org |
-| SPC = e    | Edit eshell aliases    |
 
 * Line settings
 | KEYBINDING  | DESCRIPTION                               |
