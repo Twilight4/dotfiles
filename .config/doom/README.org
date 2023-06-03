@@ -9,9 +9,9 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#general-file-search][General file search]]
   - [[#open-specific-files][Open specific files]]
   - [[#dired][Dired]]
-  - [[#window-management][Window Management]]
+  - [[#window-management---to-change-keybindings][Window Management - to change keybindings]]
   - [[#buffer-management---to-change-keybinding][Buffer Management - to change keybinding]]
-  - [[#workspaces-management][Workspaces Management]]
+  - [[#workspace-management---to-change-keybinds][Workspace Management - to change keybinds]]
 - [[#search-and-replace][Search and Replace]]
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
@@ -53,7 +53,14 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 
 ** Dired
 
-** Window Management
+** Window Management - to change keybindings
+| KEYBINDING  | DESCRIPTION                        |
+|-------------+------------------------------------|
+| C-S-n       | split window vertically            |
+| SPC w s     | split window horizontally          |
+| C-h/k/l     | switch to window (C-j is new line) |
+| C-S-w       | close window                       |
+| resize mode | enter resize mode                  |
 
 ** Buffer Management - to change keybinding
 | KEYBINDING | DESCRIPTION                 |
@@ -67,7 +74,12 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC b p    | buffer previous             |
 | SPC b n    | buffer next                 |
 
-** Workspaces Management
+** Workspace Management - to change keybinds
+| KEYBINDING | DESCRIPTION           |
+|------------+-----------------------|
+| C-t        | new workspace         |
+| SPC TAB n  | newly named workspace |
+|            |                       |
 
 * Search and Replace
 
