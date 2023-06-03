@@ -282,3 +282,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
     EDITOR="emacsclient -c -a emacs"
     ALTERNATE_EDITOR=""
    #+end_src
+9. Add a keybinding for launching emacs client in =keybinds.conf=
+   #+begin_src bash
+    bind = SUPER, E, exec, pgrep 'emacs' && hyprctl dispatch focuswindow '^emacs$' || hyprctl dispatch exec 'emacsclient -c -a emacs'
+   #+end_src
