@@ -233,19 +233,38 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 
 ** Window Managers (WM)
 Installation on wayland - *Hyprland*
-1. =yay -S emacs-gcc-wayland-devel-bin=
+1. Install bare emacs package: =yay -S emacs-gcc-wayland-devel-bin=
 2. run the installer script
    #+begin_src bash
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
     ~/.config/emacs/bin/doom install
     #+end_src
-3. Add aliases for doom bins and for launching emacs: =alias emacs="emacsclient -c -a 'emacs'"=
+3. Add aliases for doom bins and for launching emacs
+   #+begin_src bash
+    alias doomsync="~/.config/emacs/bin/doom sync"
+    alias doomdoctor="~/.config/emacs/bin/doom doctor"
+    alias doomupgrade="~/.config/emacs/bin/doom upgrade"
+    alias doompurge="~/.config/emacs/bin/doom purge"
+    alias emacs="emacsclient -c -a emacs"
+    alias emacs="emacsclient -c -a 'emacs'"
+   #+end_src
 4. add =blurls= in hyprland.conf
-       =blurls = emacs=
+   #+begin_src bash
+     blurls = emacs
+   #+end_src
 5. Add opacity in =window-rules.conf= to emacs
-   =windowrulev2 = opacity 0.97,class:^(emacs)$=
-6. Run emacs server on autostart: =emacs --daemon=
+   #+begin_src
+   windowrulev2 = opacity 0.97,class:^(emacs)$
+   #+end_src
+6. Add emacs daemon to autostart.conf
+   #+begin_src bash
+    emacs --daemon
+   #+end_src
 7. Add emacs client to autostart in autolaunch script
+   #+begin_src
+     hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "emacsclient -c -a emacs"
+     hyprctl keyword windowrule "unset,emacs"
+   #+end_src
 8. set vars in =.zshenv=
    #+begin_src bash
     EDITOR="emacsclient -c -a emacs"
