@@ -1,2 +1,3 @@
-#+title: The Ultimate Doom Emacs Cheatsheet
+#+title: Doom Emacs Keybinds Cheatsheet
+
 This documentation provides cheat sheet for doom emacs keybindingsf for my emacs configuration which is designed for potentiality to achieve enhanced productivity while minimizing the need for excessive key combinations. The primary objective is to streamline the user experience, by enjoying the same vi-driven keybindings across various keyboard-driven tools such as terminal multiplexers, browsers and text editors.
