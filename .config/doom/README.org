@@ -5,13 +5,14 @@ This documentation provides cheat sheet for which presents keybindings for my em
 * Table of Contents :toc:
 - [[#keybinding-philosophy][Keybinding Philosophy]]
 - [[#essential-keybindings][Essential Keybindings]]
-- [[#navigation-and-editing][Navigation and Editing]]
+- [[#navigation][Navigation]]
+  - [[#buffer-management---to-change-keybinding][Buffer Management - to change keybinding]]
+  - [[#window-management---to-change-keybindings][Window Management - to change keybindings]]
+  - [[#workspace-management---to-change-keybinds][Workspace Management - to change keybinds]]
+- [[#file-search][File Search]]
   - [[#general-file-search][General file search]]
   - [[#open-specific-files][Open specific files]]
   - [[#dired][Dired]]
-  - [[#window-management---to-change-keybindings][Window Management - to change keybindings]]
-  - [[#buffer-management---to-change-keybinding][Buffer Management - to change keybinding]]
-  - [[#workspace-management---to-change-keybinds][Workspace Management - to change keybinds]]
 - [[#search-and-replace][Search and Replace]]
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
@@ -38,7 +39,40 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | SPC h t    | change theme          |
 | SPC h d h  | open documentation    |
 
-* Navigation and Editing
+* Navigation
+** Buffer Management - to change keybinding
+| KEYBINDING | DESCRIPTION                 |
+|------------+-----------------------------|
+| SPC b b    | Open another buffer         |
+| SPC ,      | Switch to buffer            |
+| SPC b B    | See all buffers             |
+| SPC S-,    | Switch and show all buffers |
+| SPC b X    | Create a scratch buffer     |
+| SPC b s    | Save a buffer and name it   |
+| SPC b p    | Buffer previous             |
+| SPC b n    | Buffer next                 |
+
+** Window Management - to change keybindings
+| KEYBINDING  | DESCRIPTION                        |
+|-------------+------------------------------------|
+| C-S-n       | Split window vertically            |
+| SPC w s     | Split window horizontally          |
+| C-h/k/l     | Switch to window (C-j is new line) |
+| C-S-w       | Close window                       |
+| resize mode | Enter resize mode                  |
+
+** Workspace Management - to change keybinds
+| KEYBINDING | DESCRIPTION                 |
+|------------+-----------------------------|
+| C-t        | New workspace               |
+| SPC TAB N  | New workspace and name it   |
+| SPC TAB [  | Previous workspace          |
+| SPC TAB ]  | Next workspace              |
+| SPC TAB d  | Remove workspace            |
+| SPC TAB R  | Restore last session        |
+| M-1/2/3/4  | Switch to workspace 1/2/3/4 |
+
+* File Search
 ** General file search
 | KEYBINDING | DESCRIPTION           |
 |------------+-----------------------|
@@ -50,36 +84,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 |------------+-----------------------|
 | SPC f p    | open config directory |
 
-
 ** Dired
-
-** Window Management - to change keybindings
-| KEYBINDING  | DESCRIPTION                        |
-|-------------+------------------------------------|
-| C-S-n       | split window vertically            |
-| SPC w s     | split window horizontally          |
-| C-h/k/l     | switch to window (C-j is new line) |
-| C-S-w       | close window                       |
-| resize mode | enter resize mode                  |
-
-** Buffer Management - to change keybinding
-| KEYBINDING | DESCRIPTION                 |
-|------------+-----------------------------|
-| SPC b b    | open another buffer         |
-| SPC ,      | switch to buffer            |
-| SPC b B    | see all buffers             |
-| SPC S-,    | switch and show all buffers |
-| SPC b X    | create a scratch buffer     |
-| SPC b s    | save a buffer and name it   |
-| SPC b p    | buffer previous             |
-| SPC b n    | buffer next                 |
-
-** Workspace Management - to change keybinds
-| KEYBINDING | DESCRIPTION           |
-|------------+-----------------------|
-| C-t        | new workspace         |
-| SPC TAB n  | newly named workspace |
-|            |                       |
 
 * Search and Replace
 
