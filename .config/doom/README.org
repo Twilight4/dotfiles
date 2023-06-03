@@ -18,8 +18,8 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#search-and-replace][Search and Replace]]
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
-  - [[#essential-keys][Essential keys]]
-  - [[#org-mode-1][Org mode]]
+  - [[#org-mode-basics][Org mode basics]]
+  - [[#links-and-hyperlinks][Links and hyperlinks]]
   - [[#org-roam][Org-Roam]]
   - [[#tables][Tables]]
 - [[#plugins][Plugins]]
@@ -118,9 +118,11 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 * Project Management
 
 * Org Mode
-** Essential keys
+** Org mode basics
 | KEYBINDING | DESCRIPTION                                        |
 |------------+----------------------------------------------------|
+| SPC n      | Prefix for org keybinding                          |
+| SPC m h    | toggle heading                                     |
 | C-Ret      | Create a headline of the same type                 |
 | C-S-Ret    | Create a headline of the same type above           |
 | M-Ret      | Create a headline of the same type (from anywhere) |
@@ -128,10 +130,9 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | TAB/S-TAB  | Toggle folding/cycle through folded stages         |
 | M-h/j/k/l  | Promotes/demotes/up/down header                    |
 
-** Org mode
-| KEYBINDING | DESCRIPTION                                        |
-|------------+----------------------------------------------------|
-| SPC n      | Prefix for org keybinding                          |
+** Links and hyperlinks
+| KEYBINDING | DESCRIPTION               |
+|------------+---------------------------|
 
 ** Org-Roam
 
