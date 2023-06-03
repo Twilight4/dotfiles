@@ -76,6 +76,49 @@
     ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
     ("+" (:strike-through nil :foreground "PaleGreen1" )))))
 
+;; Define the custom function to surround the word with asteriks.
+(defun surround-with-bold ()
+  (interactive)
+  (when (evil-visual-state-p) ;; Enter visual mode
+    (let ((region-start (region-beginning))
+          (region-end (region-end)))
+    (goto-char region-end)
+    (insert "*")
+    (goto-char region-start)
+    (insert "*"))))
+
+;; Map the custom function to "m" key while in visual mode
+(eval-after-load 'org
+     (define-key evil-visual-state-map (kbd "m") 'surround-with-bold))
+
+;; Define the custom function to surround the word with asteriks.
+(defun surround-with-italic ()
+  (interactive)
+  (when (evil-visual-state-p) ;; Enter visual mode
+    (let ((region-start (region-beginning))
+          (region-end (region-end)))
+    (goto-char region-end)
+    (insert "/")
+    (goto-char region-start)
+    (insert "/"))))
+
+;; Map the custom function to "m" key while in visual mode
+(define-key evil-visual-state-map (kbd "/") 'surround-with-italic)
+
+;; Define the custom function to surround the word with asteriks.
+(defun surround-with-green ()
+  (interactive)
+  (when (evil-visual-state-p) ;; Enter visual mode
+    (let ((region-start (region-beginning))
+          (region-end (region-end)))
+    (goto-char region-end)
+    (insert "+")
+    (goto-char region-start)
+    (insert "+"))))
+
+;; Map the custom function to "m" key while in visual mode
+(define-key evil-visual-state-map (kbd ".") 'surround-with-green)
+
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org

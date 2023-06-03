@@ -13,6 +13,9 @@
 - [[#modeline-status-bar][Modeline (status bar)]]
 - [[#open-specific-file-examples][Open specific file examples]]
 - [[#style-formatting][Style formatting]]
+  - [[#bold-surround-automation][Bold surround automation]]
+  - [[#italic-surround-automation][Italic surround automation]]
+  - [[#green-color-automation][Green color automation]]
 - [[#org-mode][Org mode]]
   - [[#super-agenda-package][Super-agenda package]]
   - [[#org-agenda][Org-agenda]]
@@ -183,6 +186,59 @@ This controls the color of bold, italic, underline, verbatim, strikethrough.
     ("=" (:foreground "slate blue" ))
     ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
     ("+" (:strike-through nil :foreground "PaleGreen1" )))))
+#+end_src
+
+** Bold surround automation
+This automates the surround for bold style with "m" key in visual mode.
+#+begin_src emacs-lisp
+;; Define the custom function to surround the word with asteriks.
+(defun surround-with-bold ()
+  (interactive)
+  (when (evil-visual-state-p) ;; Enter visual mode
+    (let ((region-start (region-beginning))
+          (region-end (region-end)))
+    (goto-char region-end)
+    (insert "*")
+    (goto-char region-start)
+    (insert "*"))))
+
+;; Map the custom function to "m" key while in visual mode
+(eval-after-load 'org
+     (define-key evil-visual-state-map (kbd "m") 'surround-with-bold))
+#+end_src
+
+** Italic surround automation
+#+begin_src emacs-lisp
+;; Define the custom function to surround the word with asteriks.
+(defun surround-with-italic ()
+  (interactive)
+  (when (evil-visual-state-p) ;; Enter visual mode
+    (let ((region-start (region-beginning))
+          (region-end (region-end)))
+    (goto-char region-end)
+    (insert "/")
+    (goto-char region-start)
+    (insert "/"))))
+
+;; Map the custom function to "m" key while in visual mode
+(define-key evil-visual-state-map (kbd "/") 'surround-with-italic)
+#+end_src
+
+** Green color automation
+#+begin_src emacs-lisp
+;; Define the custom function to surround the word with asteriks.
+(defun surround-with-green ()
+  (interactive)
+  (when (evil-visual-state-p) ;; Enter visual mode
+    (let ((region-start (region-beginning))
+          (region-end (region-end)))
+    (goto-char region-end)
+    (insert "+")
+    (goto-char region-start)
+    (insert "+"))))
+
+;; Map the custom function to "m" key while in visual mode
+(define-key evil-visual-state-map (kbd ".") 'surround-with-green)
 #+end_src
 
 * Org mode
