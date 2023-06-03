@@ -6,8 +6,12 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#keybinding-philosophy][Keybinding Philosophy]]
 - [[#essential-keybindings][Essential Keybindings]]
 - [[#navigation-and-editing][Navigation and Editing]]
-- [[#window-management][Window Management]]
-- [[#buffer-management][Buffer Management]]
+  - [[#general-file-search][General file search]]
+  - [[#open-specific-files][Open specific files]]
+  - [[#dired][Dired]]
+  - [[#window-management][Window Management]]
+  - [[#buffer-management---to-change-keybinding][Buffer Management - to change keybinding]]
+  - [[#workspaces-management][Workspaces Management]]
 - [[#search-and-replace][Search and Replace]]
 - [[#project-management][Project Management]]
 - [[#org-mode][Org Mode]]
@@ -16,6 +20,7 @@ This documentation provides cheat sheet for which presents keybindings for my em
 - [[#plugins][Plugins]]
   - [[#magit][Magit]]
   - [[#evil-snipe][Evil Snipe]]
+  - [[#neotree][Neotree]]
 - [[#tips-and-tricks][Tips and Tricks]]
   - [[#window-managers-wm][Window Managers (WM)]]
 
@@ -23,32 +28,77 @@ This documentation provides cheat sheet for which presents keybindings for my em
 The keybinding philosophy adopted in this configuration prioritizes simplicity and ease of use. The aim is to minimize the number of key combinations required to perform frequently used actions, thereby reducing cognitive load and improving overall efficiency. This approach makes Emacs more accessible to users familiar with other applications and encourages a smoother transition.
 
 * Essential Keybindings
-| KEYBINDING | DESCRIPTION |
-|------------+-------------|
-|            |             |
-- =SPC f s= for saving the current file
-- =SPC q q= to close Emacs
-- =SPC f D= to delete this file
+| KEYBINDING | DESCRIPTION           |
+|------------+-----------------------|
+| SPC .      | create or find file   |
+| SPC f s    | save the current file |
+| SPC f D    | delete this file      |
+| SPC h r r  | reload emacs          |
+| SPC q q    | close emacs           |
+| SPC h t    | change theme          |
+| SPC h d h  | open documentation    |
+
 * Navigation and Editing
-* Window Management
-* Buffer Management
+** General file search
+| KEYBINDING | DESCRIPTION           |
+|------------+-----------------------|
+| SPC .      | create or find file   |
+| SPC f r    | recently opened files |
+
+** Open specific files
+| KEYBINDING | DESCRIPTION           |
+|------------+-----------------------|
+| SPC f p    | open config directory |
+
+
+** Dired
+
+** Window Management
+
+** Buffer Management - to change keybinding
+| KEYBINDING | DESCRIPTION                 |
+|------------+-----------------------------|
+| SPC b b    | open another buffer         |
+| SPC ,      | switch to buffer            |
+| SPC b B    | see all buffers             |
+| SPC S-,    | switch and show all buffers |
+| SPC b X    | create a scratch buffer     |
+| SPC b s    | save a buffer and name it   |
+| SPC b p    | buffer previous             |
+| SPC b n    | buffer next                 |
+
+** Workspaces Management
+
 * Search and Replace
+
 * Project Management
+
 * Org Mode
 ** Org-Roam
+
 ** Tables
 - to start a table just start typing: =| table | name | description=
-| KEYBINDING        | DESCRIPTION                                   |
-|-------------------+-----------------------------------------------|
-| TAB/S-Tab         | forward/backward                              |
-| SPC m b -         | make org table headline                       |
-| S-Ret             | duplicate a field in the call below           |
-| C-Ret             | create new table below                        |
-| Ret (normal mode) | clear the field and enter insert mode         |
-| M-h/j/k/l         | the same essential keybindings for navigation |
-| M-S-j/k           | insert a new row above/delete single row      |
+
+| KEYBINDING          | DESCRIPTION                                   |
+|---------------------+-----------------------------------------------|
+| TAB/S-Tab           | forward/backward                              |
+| SPC m b -           | make org table headline                       |
+| S-Ret               | duplicate a field in the call below           |
+| C-Ret (normal mode) | create new table below                        |
+| Ret (normal mode)   | clear the field and enter insert mode         |
+| M-h/j/k/l           | the same essential keybindings for navigation |
+| M-S-j/k             | insert a new row above/delete current row     |
+| o                   | insert new roam and move to the beginning     |
+
 * Plugins
 ** Magit
 ** Evil Snipe
+** Neotree
+| KEYBINDING | DESCRIPTION       |
+|------------+-------------------|
+| SPC o p    | toggle on and off |
+
 * Tips and Tricks
+- Reload emacs every time you alter =init.el=, =packages.el= or =config.el= - =SPC h r r=
+
 ** Window Managers (WM)
