@@ -376,18 +376,16 @@
  window-combination-resize t                      ; take new window space from all other windows (not just current)
  x-stretch-cursor t)                              ; Stretch cursor to the glyph width
 
-((setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
-      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
-      truncate-string-ellipsis "…"                ; Unicode ellispis are nicer than "...", and also save /precious/ space
-      password-cache-expiry nil                   ; I can trust my computers ... can't I?
-      ;; scroll-preserve-screen-position 'always     ; Don't have `point' jump around
-      scroll-margin 2                             ; It's nice to maintain a little margin
-      display-time-default-load-average nil)      ; I don't think I've ever found this useful
+(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
+ evil-want-fine-undo t                            ; By default while in insert all changes are one big blob. Be more granular
+ auto-save-default t                              ; Nobody likes to loose work, I certainly don't
+ truncate-string-elipsis "…"                      ; Unicode ellispis are nicer than "...", and also save /precious/ space
+ scroll-margin 2                                  ; It's nice to maintain a little margin
+ display-time-default-load-average nil)           ; I don't think I've ever found this useful
 
 (display-time-mode 1)                             ; Enable time in the mode-line
 
-unless (string-match-p "^Power N/A" (battery))   ; On laptops...
+(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   (display-battery-mode 1))                       ; it's nice to know how much power you have
 
 (global-subword-mode 1)                           ; Iterate through CamelCase words

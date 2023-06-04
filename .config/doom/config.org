@@ -23,6 +23,7 @@
   - [[#super-agenda-package][Super-agenda package]]
   - [[#org-agenda][Org-agenda]]
   - [[#org-auto-tangle][Org-auto-tangle]]
+  - [[#emojis][Emojis]]
   - [[#org-fonts][Org fonts]]
   - [[#org-export][Org-export]]
   - [[#org-journal][Org-journal]]
@@ -402,9 +403,6 @@ This automates the surround for bold style with "m" key in visual mode.
           (alltodo "")))))
 #+end_src
 
-#+RESULTS:
-| v | A better agenda view | ((tags PRIORITY="A" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header High-priority unfinished tasks:))) (tags PRIORITY="B" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Medium-priority unfinished tasks:))) (tags PRIORITY="C" ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Low-priority unfinished tasks:))) (tags customtag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)) (org-agenda-overriding-header Tasks marked with customtag:))) (agenda ) (alltodo )) |
-
 ** Org-auto-tangle
 =org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document. I have made adding this to your file even easier by creating a function 'dt/insert-auto-tangle-tag' and setting it to a keybinding 'SPC i a'.
 #+begin_src emacs-lisp
@@ -425,7 +423,7 @@ This automates the surround for bold style with "m" key in visual mode.
       :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
 #+end_src
 
-;; Emojis
+** Emojis
 #+begin_src emacs-lisp
 (use-package emojify
   :hook (after-init . global-emojify-mode))
@@ -469,14 +467,6 @@ This automates the surround for bold style with "m" key in visual mode.
 #+end_src
 
 ** Org-roam
-| COMMAND                | DESCRIPTION                        | KEYBINDING |
-|------------------------+------------------------------------+------------|
-| completion-at-point    | /Completion of node-insert at point/ | SPC n r c  |
-| org-roam-node-find     | /Find node or create a new one/      | SPC n r f  |
-| org-roam-graph         | /Show graph of all nodes/            | SPC n r g  |
-| org-roam-node-insert   | /Insert link to a node/              | SPC n r i  |
-| org-roam-capture       | /Capture to node/                    | SPC n r n  |
-| org-roam-buffer-toggle | /Toggle roam buffer/                 | SPC n r r  |
 
 #+begin_src emacs-lisp
 (after! org
@@ -495,16 +485,6 @@ This automates the surround for bold style with "m" key in visual mode.
 
 * Perspective
 Perspective provides multiple named workspaces (or "perspectives") in Emacs, similar to having multiple desktops in window managers. Doom Emacs uses 'SPC some_key' for binding some of the perspective commands, so I used this binging format for the perspective bindings that I created.
-
-| COMMAND                    | DESCRIPTION                         | KEYBINDING |
-|----------------------------+-------------------------------------+------------|
-| persp-switch               | /Switch to perspective NAME/          | SPC DEL    |
-| persp-switch-to-buffer     | /Switch to buffer in perspective/     | SPC ,      |
-| persp-next                 | /Switch to next perspective/          | SPC ]      |
-| persp-prev                 | /Switch to previous perspective/      | SPC [      |
-| persp-add-buffer           | /Add a buffer to current perspective/ | SPC +      |
-| persp-remove-by-name       | /Remove perspective by name/          | SPC -      |
-| +workspace/switch-to-{0-9} | /Switch to workspace n/               | SPC 0-9    |
 
 #+begin_src emacs-lisp
 (map! :leader
@@ -535,18 +515,16 @@ Rainbox mode displays the actual color for any hex value color. The following cr
  window-combination-resize t                      ; take new window space from all other windows (not just current)
  x-stretch-cursor t)                              ; Stretch cursor to the glyph width
 
-((setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
-      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
-      auto-save-default t                         ; Nobody likes to loose work, I certainly don't
-      truncate-string-ellipsis "…"                ; Unicode ellispis are nicer than "...", and also save /precious/ space
-      password-cache-expiry nil                   ; I can trust my computers ... can't I?
-      ;; scroll-preserve-screen-position 'always     ; Don't have `point' jump around
-      scroll-margin 2                             ; It's nice to maintain a little margin
-      display-time-default-load-average nil)      ; I don't think I've ever found this useful
+(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
+ evil-want-fine-undo t                            ; By default while in insert all changes are one big blob. Be more granular
+ auto-save-default t                              ; Nobody likes to loose work, I certainly don't
+ truncate-string-elipsis "…"                      ; Unicode ellispis are nicer than "...", and also save /precious/ space
+ scroll-margin 2                                  ; It's nice to maintain a little margin
+ display-time-default-load-average nil)           ; I don't think I've ever found this useful
 
 (display-time-mode 1)                             ; Enable time in the mode-line
 
-unless (string-match-p "^Power N/A" (battery))   ; On laptops...
+(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   (display-battery-mode 1))                       ; it's nice to know how much power you have
 
 (global-subword-mode 1)                           ; Iterate through CamelCase words
@@ -588,20 +566,6 @@ unless (string-match-p "^Power N/A" (battery))   ; On laptops...
 
 * Registers
 Emacs registers are compartments where you can save text, rectangles and positions for later use. Once you save text or a rectangle in a register, you can copy it into the buffer once or many times; once you save a position in a register, you can jump back to that position once or many times.
-
-| COMMAND                          | DESCRIPTION                      | KEYBINDING |
-|----------------------------------+----------------------------------+------------|
-| copy-to-register                 | /Copy to register/                 | SPC r c    |
-| frameset-to-register             | /Frameset to register/             | SPC r f    |
-| insert-register                  | /Insert contents of register/      | SPC r i    |
-| jump-to-register                 | /Jump to register/                 | SPC r j    |
-| list-registers                   | /List registers/                   | SPC r l    |
-| number-to-register               | /Number to register/               | SPC r n    |
-| counsel-register                 | /Interactively choose a register/  | SPC r r    |
-| view-register                    | /View a register/                  | SPC r v    |
-| window-configuration-to-register | /Window configuration to register/ | SPC r w    |
-| increment-register               | /Increment register/               | SPC r +    |
-| point-to-register                | /Point to register/                | SPC r SPC  |
 
 #+begin_src emacs-lisp
 (map! :leader
