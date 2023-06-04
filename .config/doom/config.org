@@ -20,6 +20,7 @@
   - [[#italic-surround-automation][Italic surround automation]]
   - [[#green-color-automation][Green color automation]]
 - [[#org-mode][Org mode]]
+  - [[#org-buffer-creation][Org buffer creation]]
   - [[#super-agenda-package][Super-agenda package]]
   - [[#org-agenda][Org-agenda]]
   - [[#org-auto-tangle][Org-auto-tangle]]
@@ -289,6 +290,28 @@ This automates the surround for bold style with "m" key in visual mode.
              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
 #+end_src
 
+** Org buffer creation
+Let’s make creating an Org buffer just that little bit easier.
+
+#+begin_src emacs-lisp
+(evil-define-command +evil-buffer-org-new (count file)
+  "Creates a new ORG buffer replacing the current window, optionally
+   editing a certain FILE"
+  :repeat nil
+  (interactive "P<f>")
+  (if file
+      (evil-edit file)
+    (let ((buffer (generate-new-buffer "*new org*")))
+      (set-window-buffer nil buffer)
+      (with-current-buffer buffer
+        (org-mode)
+        (setq-local doom-real-buffer-p t)))))
+
+(map! :leader
+      (:prefix "b"
+       :desc "New empty Org buffer" "o" #'+evil-buffer-org-new))
+#+end_src
+
 ** Super-agenda package
 #+begin_src emacs-lisp
 (let ((org-super-agenda-groups
@@ -533,7 +556,7 @@ Rainbox mode displays the actual color for any hex value color. The following cr
 (add-to-list 'default-frame-alist '(height . 24))
 (add-to-list 'default-frame-alist '(width . 80))
 
-;; pull up prompt for which buffer I want to see after splitting the window
+;; Pull up prompt for which buffer I want to see after splitting the window
 (setq evil-vsplit-window-right t
       evil-split-window-below t)
 (defadvice! prompt-for-buffer (&rest _)
