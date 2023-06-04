@@ -30,28 +30,20 @@ unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
 
-(defcli! htmlize (file)
-  "Export a FILE buffer to HTML."
+(set-face-attribute 'mode-line nil :font "JetBrains Mono-9")
+(setq doom-modeline-height 20     ;; sets modeline height
+      doom-modeline-bar-width 5   ;; sets right bar width
+      doom-modeline-persp-name t  ;; adds perspective name to modeline
+      doom-modeline-persp-icon t) ;; adds folder icon next to persp name
 
-  (print! "Htmlizing %s" file)
-
-  (doom-initialize)
-  (require 'highlight-numbers)
-  (require 'highlight-quoted)
-  (require 'rainbow-delimiters)
-  (require 'engrave-faces-html)
-
-  ;; Lighten org-mode
-  (when (string= "org" (file-name-extension file))
-    (setcdr (assoc 'org after-load-alist) nil)
-    (setq org-load-hook nil)
-    (require 'org)
-    (setq org-mode-hook nil)
-    (add-hook 'engrave-faces-before-hook
-              (lambda () (if (eq major-mode 'org-mode)
-                        (org-show-all)))))
-
-  (engrave-faces-html-file file))
+(setq display-line-numbers-type t)
+(map! :leader
+      :desc "Comment or uncomment lines"      "TAB TAB" #'comment-line
+      (:prefix ("t" . "toggle")
+       :desc "Toggle line numbers"            "l" #'doom/toggle-line-numbers
+       :desc "Toggle line highlight in frame" "h" #'hl-line-mode
+       :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
+       :desc "Toggle truncate lines"          "t" #'toggle-truncate-lines))
 
 (map! :map evil-window-map "SPC" #'rotate-layout
       ;; Navigation
@@ -64,6 +56,51 @@ unless (string-match-p "^Power N/A" (battery))   ; On laptops...
       "C-<down>"       #'+evil/window-move-down
       "C-<up>"         #'+evil/window-move-up
       "C-<right>"      #'+evil/window-move-right)
+
+;; Disable default keybindings for window switching
+(global-set-key (kbd "C-j") nil)
+
+;; Define custom functions to switch to different windows
+(defun switch-to-right-window ()
+  (interactive)
+  (other-window 1))
+
+(defun switch-to-left-window ()
+  (interactive)
+  (other-window -1))
+
+(defun switch-to-up-window ()
+  (interactive)
+  (windmove-up))
+
+(defun switch-to-down-window ()
+  (interactive)
+  (windmove-down))
+
+;; Bind the custom functions to the respective key combinations
+(global-set-key (kbd "C-l") 'switch-to-right-window)
+(global-set-key (kbd "C-h") 'switch-to-left-window)
+(global-set-key (kbd "C-k") 'switch-to-up-window)
+
+;; Define a custom function to create a new vertical window
+(defun create-vertical-window ()
+  (interactive)
+  (split-window-right)
+  (balance-windows)
+  (other-window 1))
+
+;; Bind the custom function to the new key combination
+(global-set-key (kbd "C-S-n") 'create-vertical-window)
+
+;; Define a custom function to close the current window
+(defun close-current-window ()
+  (interactive)
+  (delete-window)
+  (balance-windows))
+
+;; Bind the custom function to the new key combination
+(global-set-key (kbd "C-S-w") 'close-current-window)
+(delq! t custom-theme-load-path)
 
 (setq doom-theme 'doom-ayu-mirage)
 ;; Commented out bcs doesn't make difference
@@ -101,15 +138,6 @@ unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
 
-(setq display-line-numbers-type t)
-(map! :leader
-      :desc "Comment or uncomment lines"      "TAB TAB" #'comment-line
-      (:prefix ("t" . "toggle")
-       :desc "Toggle line numbers"            "l" #'doom/toggle-line-numbers
-       :desc "Toggle line highlight in frame" "h" #'hl-line-mode
-       :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
-       :desc "Toggle truncate lines"          "t" #'toggle-truncate-lines))
-
 (custom-set-faces
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.7))))
@@ -118,12 +146,6 @@ unless (string-match-p "^Power N/A" (battery))   ; On laptops...
  '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.4))))
  '(markdown-header-face-5 ((t (:inherit markdown-header-face :height 1.3))))
  '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
-
-(set-face-attribute 'mode-line nil :font "JetBrains Mono-9")
-(setq doom-modeline-height 20     ;; sets modeline height
-      doom-modeline-bar-width 5   ;; sets right bar width
-      doom-modeline-persp-name t  ;; adds perspective name to modeline
-      doom-modeline-persp-icon t) ;; adds folder icon next to persp name
 
 (map! :leader
       (:prefix ("e" . "open file")
