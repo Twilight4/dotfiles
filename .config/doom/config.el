@@ -30,6 +30,29 @@ unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
 
+(defcli! htmlize (file)
+  "Export a FILE buffer to HTML."
+
+  (print! "Htmlizing %s" file)
+
+  (doom-initialize)
+  (require 'highlight-numbers)
+  (require 'highlight-quoted)
+  (require 'rainbow-delimiters)
+  (require 'engrave-faces-html)
+
+  ;; Lighten org-mode
+  (when (string= "org" (file-name-extension file))
+    (setcdr (assoc 'org after-load-alist) nil)
+    (setq org-load-hook nil)
+    (require 'org)
+    (setq org-mode-hook nil)
+    (add-hook 'engrave-faces-before-hook
+              (lambda () (if (eq major-mode 'org-mode)
+                        (org-show-all)))))
+
+  (engrave-faces-html-file file))
+
 (map! :map evil-window-map "SPC" #'rotate-layout
       ;; Navigation
       "<left>"     #'evil-window-left
