@@ -49,6 +49,13 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+;; To install a package directly from a particular git repository, you’ll need to specify a :recipe.
+;; If the package you are trying to install does not contain a PACKAGENAME.el file, or is located in a subdirectory of the repo, you’ll need to specify :files in the :recipe:
+;; (package! this-package
+;;  :recipe (:host github :repo "username/repo"
+;;           :files ("some-file.el" "src/lisp/*.el")))
+
+
 (package! calfw)
 (package! calfw-org)
 (package! org-auto-tangle)
