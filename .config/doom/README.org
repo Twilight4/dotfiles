@@ -260,7 +260,6 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
     alias doomupgrade="~/.config/emacs/bin/doom upgrade"
     alias doompurge="~/.config/emacs/bin/doom purge"
     alias emacs="emacsclient -c -a emacs"
-    alias emacs="emacsclient -c -a 'emacs'"
    #+end_src
 4. Add =blurls= in hyprland.conf
    #+begin_src bash
