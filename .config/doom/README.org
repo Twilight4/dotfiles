@@ -270,6 +270,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 5. Add opacity in =window-rules.conf= to emacs
    #+begin_src
    windowrulev2 = opacity 0.97,class:^(emacs)$
+   windowrulev2 = workspace 4, class:^(emacs)$
    #+end_src
 6. Add emacs daemon to autostart.conf
    #+begin_src bash
@@ -277,7 +278,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
    #+end_src
 7. Add emacs client to autostart in =autolaunch= script
    #+begin_src
-     hyprctl keyword windowrule "workspace 4 silent,emacs" && hyprctl dispatch exec "emacsclient -c -a emacs"
+     hyprctl keyword windowrule "workspace 4 silent,emacs" && sleep 4 && hyprctl dispatch exec "emacsclient -c -a emacs"
      hyprctl keyword windowrule "unset,emacs"
    #+end_src
 8. Set vars in =.zshenv=
