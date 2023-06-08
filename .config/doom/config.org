@@ -31,7 +31,7 @@
   - [[#org-roam][Org-roam]]
 - [[#perspective][Perspective]]
 - [[#rainbow-mode][Rainbow-mode]]
-- [[#modeline-status-bar][Modeline (status bar)]]
+- [[#modeline][Modeline]]
   - [[#file-encoding][File encoding]]
 - [[#better-defaults][Better Defaults]]
   - [[#line-settings][Line settings]]
@@ -537,7 +537,7 @@ Rainbox mode displays the actual color for any hex value color. The following cr
 (global-rainbow-mode 1 )
 #+end_src
 
-* Modeline (status bar)
+* Modeline
 #+begin_src emacs-lisp
 (set-face-attribute 'mode-line nil :font "JetBrains Mono-9")
 (setq doom-modeline-height 20     ;; sets modeline height
