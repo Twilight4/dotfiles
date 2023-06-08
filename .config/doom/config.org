@@ -36,6 +36,7 @@
   - [[#line-settings][Line settings]]
   - [[#abbrev-mode][Abbrev mode]]
   - [[#evil-mode][Evil mode]]
+  - [[#consult][Consult]]
 - [[#registers][Registers]]
 - [[#splits][Splits]]
 
@@ -607,6 +608,16 @@ Now, EVIL cares a fair bit about keeping compatibility with Vim’s default beha
   (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
         evil-move-cursor-back nil       ; Don't move the block cursor when toggling insert mode
         evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
+#+end_src
+
+** Consult
+Since we're using Marginalia too, the separation between buffers and files is
+already clear, and there's no need for a different face.
+
+#+begin_src emacs-lisp
+(after! consult
+  (set-face-attribute 'consult-file nil :inherit 'consult-buffer)
+  (setf (plist-get (alist-get 'perl consult-async-split-styles-alist) :initial) ";"))
 #+end_src
 
 * Registers
