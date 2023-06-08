@@ -64,5 +64,3 @@
 (package! org-super-agenda)
 (package! rainbow-mode)
 (package! evil-escape :disable t)   ; instead of just disabling the mode on startup, I prevent installation of the package.
-(package! aas :recipe (:host github :repo "ymarco/auto-activating-snippets")
-  :pin "e92b5cffa4e87c221c24f3e72ae33959e1ec2b68")
