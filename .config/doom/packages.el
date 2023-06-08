@@ -63,3 +63,4 @@
 (package! emojify)
 (package! org-super-agenda)
 (package! rainbow-mode)
+(package! evil-escape :disable t)   ; instead of just disabling the mode on startup, I prevent installation of the package.

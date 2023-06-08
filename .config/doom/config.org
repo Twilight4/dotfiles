@@ -35,6 +35,7 @@
   - [[#modeline-status-bar][Modeline (status bar)]]
   - [[#line-settings][Line settings]]
   - [[#abbrev-mode][Abbrev mode]]
+  - [[#evil-mode][Evil mode]]
 - [[#registers][Registers]]
 - [[#splits][Splits]]
 
@@ -598,6 +599,15 @@ Thanks to [[https://emacs.stackexchange.com/questions/45462/use-a-single-abbrev-
             (setq abbrev-file-name (expand-file-name "abbrev.el" doom-private-dir))))
 #+end_src
 
+** Evil mode
+Now, EVIL cares a fair bit about keeping compatibility with Vim’s default behaviour. I don’t. There are some particular settings that I’d rather be something else.
+
+#+begin_src emacs-lisp
+(after! evil
+  (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
+        evil-move-cursor-back nil       ; Don't move the block cursor when toggling insert mode
+        evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
+#+end_src
 
 * Registers
 Emacs registers are compartments where you can save text, rectangles and positions for later use. Once you save text or a rectangle in a register, you can copy it into the buffer once or many times; once you save a position in a register, you can jump back to that position once or many times.
