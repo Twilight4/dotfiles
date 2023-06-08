@@ -37,6 +37,7 @@
   - [[#abbrev-mode][Abbrev mode]]
   - [[#evil-mode][Evil mode]]
   - [[#consult][Consult]]
+  - [[#company][Company]]
 - [[#registers][Registers]]
 - [[#splits][Splits]]
 
@@ -618,6 +619,17 @@ already clear, and there's no need for a different face.
 (after! consult
   (set-face-attribute 'consult-file nil :inherit 'consult-buffer)
   (setf (plist-get (alist-get 'perl consult-async-split-styles-alist) :initial) ";"))
+#+end_src
+
+** Company
+It’s nice to have completions almost all the time, in my opinion. Key strokes are just waiting to be saved!
+
+#+begin_src emacs-lisp
+(after! company
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2)
+  (setq company-show-numbers t)
+  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 #+end_src
 
 * Registers
