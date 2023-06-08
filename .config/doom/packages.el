@@ -63,5 +63,3 @@
 (package! emojify)
 (package! org-super-agenda)
 (package! rainbow-mode)
-(package! emacs-everywhere :recipe (:local-repo "lisp/emacs-everywhere"))
-(unpin! emacs-everywhere)
