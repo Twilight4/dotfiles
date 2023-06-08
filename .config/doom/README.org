@@ -267,7 +267,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
         blurls = emacs
     }
    #+end_src
-5. Add opacity in =window-rules.conf= to emacs
+5. Add opacity and designated workspace in =window-rules.conf= to emacs
    #+begin_src
    windowrulev2 = opacity 0.97,class:^(emacs)$
    windowrulev2 = workspace 4, class:^(emacs)$
