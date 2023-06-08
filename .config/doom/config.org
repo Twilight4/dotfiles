@@ -34,6 +34,7 @@
 - [[#better-defaults][Better Defaults]]
   - [[#modeline-status-bar][Modeline (status bar)]]
   - [[#line-settings][Line settings]]
+  - [[#abbrev-mode][Abbrev mode]]
 - [[#registers][Registers]]
 - [[#splits][Splits]]
 
@@ -586,6 +587,17 @@ Rainbox mode displays the actual color for any hex value color. The following cr
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
        :desc "Toggle truncate lines"          "t" #'toggle-truncate-lines))
 #+end_src
+
+** Abbrev mode
+Thanks to [[https://emacs.stackexchange.com/questions/45462/use-a-single-abbrev-table-for-multiple-modes/45476#45476][use a single abbrev-table for multiple modes? - Emacs Stack Exchange]] - Emacs Stack Exchange I have the following.
+
+#+begin_src emacs-lisp
+(add-hook 'doom-first-buffer-hook
+          (defun +abbrev-file-name ()
+            (setq-default abbrev-mode t)
+            (setq abbrev-file-name (expand-file-name "abbrev.el" doom-private-dir))))
+#+end_src
+
 
 * Registers
 Emacs registers are compartments where you can save text, rectangles and positions for later use. Once you save text or a rectangle in a register, you can copy it into the buffer once or many times; once you save a position in a register, you can jump back to that position once or many times.
