@@ -388,6 +388,22 @@
      (rainbow-mode 1))))
 (global-rainbow-mode 1 )
 
+(set-face-attribute 'mode-line nil :font "JetBrains Mono-9")
+(setq doom-modeline-height 20     ;; sets modeline height
+      doom-modeline-bar-width 5   ;; sets right bar width
+      doom-modeline-persp-name t  ;; adds perspective name to modeline
+      doom-modeline-persp-icon t) ;; adds folder icon next to persp name
+
+(defun doom-modeline-conditional-buffer-encoding ()
+  "We expect the encoding to be LF UTF-8, so only show the modeline when this is not the case"
+  (setq-local doom-modeline-buffer-encoding
+              (unless (and (memq (plist-get (coding-system-plist buffer-file-coding-system) :category)
+                                 '(coding-category-undecided coding-category-utf-8))
+                           (not (memq (coding-system-eol-type buffer-file-coding-system) '(1 2))))
+                t)))
+
+(add-hook 'after-change-major-mode-hook #'doom-modeline-conditional-buffer-encoding)
+
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
  window-combination-resize t                      ; take new window space from all other windows (not just current)
@@ -417,12 +433,6 @@
 (defadvice! prompt-for-buffer (&rest _)
   :after '(evil-window-split evil-window-vsplit)
   (consult-buffer))
-
-(set-face-attribute 'mode-line nil :font "JetBrains Mono-9")
-(setq doom-modeline-height 20     ;; sets modeline height
-      doom-modeline-bar-width 5   ;; sets right bar width
-      doom-modeline-persp-name t  ;; adds perspective name to modeline
-      doom-modeline-persp-icon t) ;; adds folder icon next to persp name
 
 (setq display-line-numbers-type t)
 (map! :leader
