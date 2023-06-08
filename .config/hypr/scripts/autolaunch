@@ -12,11 +12,11 @@ hyprctl keyword windowrule "workspace 2 silent,burpsuite" && hyprctl dispatch ex
 hyprctl keyword windowrule "workspace 3 silent,hacker-kitty" && hyprctl dispatch exec "kitty -1 -T hacker-kitty --class hacker-kitty --session ~/.config/kitty/ws-3-session"
 
 # workspace 4
-hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec "logseq"
+hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec "logseq"        # to remove
 hyprctl keyword windowrule "workspace 4 silent,emacs" && sleep 4 && hyprctl dispatch exec "emacsclient -c -a emacs"   # sleep 4 waits for emacs --daemon from autstart.conf to start
 
 # workspace 6
-hyprctl keyword windowrule "workspace 6 silent,qutebrowser" && hyprctl dispatch exec "qutebrowser"
+hyprctl keyword windowrule "workspace 6 silent,qutebrowser" && hyprctl dispatch exec "qutebrowser"    # to remove
 hyprctl keyword windowrule "workspace 6 silent,newsboat" && hyprctl dispatch exec "footclient -T newsboat -a newsboat -e newsboat"
 
 # workspace special:scratchpad
@@ -28,9 +28,9 @@ sleep 10      # wait untill apps run
 hyprctl keyword windowrule "unset,casual-kitty"
 hyprctl keyword windowrule "unset,cachybrowser"
 hyprctl keyword windowrule "unset,hacker-kitty"
-hyprctl keyword windowrule "unset,logseq"
-#hyprctl keyword windowrule "unset,emacs"
+hyprctl keyword windowrule "unset,logseq"       # to remove
+hyprctl keyword windowrule "unset,emacs"
 hyprctl keyword windowrule "unset,burpsuite"
 hyprctl keyword windowrule "unset,newsboat"
-hyprctl keyword windowrule "unset,qutebrowser"
+hyprctl keyword windowrule "unset,qutebrowser"   # to remove
 hyprctl keyword windowrule "unset,btop"
