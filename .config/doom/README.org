@@ -243,8 +243,8 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 ** Literate programming
 1. =<s *TAB*=
 2. =+property header-args :tangle config.el= - define which file should be it tangled
-3. Go to the beginning and press: C-c C-c
-4. If tangled file hasn't been created use: SPC m B
+3. Go to the beginning of the line and press: =C-c C-c=
+4. If tangled file hasn't been created press: =SPC m B=
 
 ** Installation on Wayland - *Hyprland* (WM)
 1. Install bare emacs package: =yay -S emacs-gcc-wayland-devel-bin=
