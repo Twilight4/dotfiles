@@ -1,3 +1,9 @@
+[user]
+    email = electrolight071@gmail.com
+    name = Twilight4
+[core]
+    excludesfile = ~/.config/git/ignore
+    attributesfile = ~/.config/git/attributes
 [diff]
     tool = kitty
     guitool = kitty.gui
@@ -8,6 +14,7 @@
     cmd = kitty +kitten diff $LOCAL $REMOTE
 [difftool "kitty.gui"]
     cmd = kitty kitty +kitten diff $LOCAL $REMOTE
-[user]
-        email = electrolight071@gmail.com
-        name = Twilight4
+[diff "lisp"]
+  xfuncname = "^(\\(.*)$"
+[diff "org"]
+  xfuncname = "^(\\*+ +.*)$"
