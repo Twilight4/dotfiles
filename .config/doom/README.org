@@ -24,13 +24,15 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - [[#task-management][Task Management]]
   - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
   - [[#tables][Tables]]
-- [[#plugins][Plugins]]
+- [[#packages][Packages]]
   - [[#magit][Magit]]
   - [[#evil-snipe][Evil-Snipe]]
-  - [[#neotree][Neotree]]
-- [[#tips-and-tricks][Tips and Tricks]]
+  - [[#treemacs][Treemacs]]
+- [[#system-config-and-setup-on-wayland][System config and setup on Wayland]]
   - [[#literate-programming][Literate programming]]
-  - [[#system-config-and-installation-on-wayland---hyprland-wm][System config and installation on Wayland - *Hyprland* WM]]
+  - [[#setup-on-hyprland-wm][Setup on Hyprland WM]]
+  - [[#mime-types][Mime types]]
+  - [[#git-diffs][Git diffs]]
 
 * Keybinding Philosophy
 The keybinding philosophy adopted in this configuration prioritizes simplicity and ease of use. The aim is to minimize the number of key combinations required to perform frequently used actions, thereby reducing cognitive load and improving overall efficiency. This approach makes Emacs more accessible to users familiar with other applications and encourages a smoother transition.
@@ -226,27 +228,31 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | M-S-j/k             | Insert a new row above/delete current row     |
 | o                   | Insert new roam and move to the beginning     |
 
-* TODO Plugins
+* TODO Packages
 ** TODO Magit
 ** TODO Evil-Snipe
 *** TODO Inline navigation
 
 *** TODO Long distance navigation
-** TODO Neotree
+** TODO Treemacs
 | KEYBINDING | DESCRIPTION       |
 |------------+-------------------|
 | SPC o p    | Toggle on and off |
 
-* TODO Tips and Tricks
+* TODO System config and setup on Wayland
 - Reload emacs every time you alter =init.el=, =packages.el= or =config.el= - =SPC h r r=
 
 ** Literate programming
 1. =<s *TAB*=
-2. =+property header-args :tangle config.el= - define which file should be it tangled
+2. define which file should be it tangled
+   in the beginning
+   - =+property header-args :tangle config.el=
+   or with the code block
+   - =#+begin_src xml :tangle ~/.local/share/mime/packages/org.xml :mkdirp yes :comments no=
 3. Go to the beginning of the line and press: =C-c C-c=
 4. If tangled file hasn't been created press: =SPC m B=
 
-** System config and installation on Wayland - *Hyprland* WM
+** Setup on Hyprland WM
 1. Install bare emacs package: =yay -S emacs-gcc-wayland-devel-bin=
 2. Run the installer script
    #+begin_src bash
@@ -291,10 +297,10 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
     bind = SUPER, E, exec, pgrep 'emacs' && hyprctl dispatch focuswindow '^emacs$' || hyprctl dispatch exec 'emacsclient -c -a emacs'
    #+end_src
 
-*** Mime types
+** Mime types
 Org mode isn't recognised as it's own mime type by default, but that can easily be changed with the following file. For system-wide changes try ~/usr/share/mime/packages/org.xml~.
 
-#+begin_src xml :tangle ~/.local/share/mime/packages/org.xml :mkdirp yes :comments no
+#+begin_src xml
 <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
   <mime-type type="text/org">
     <comment>Emacs Org-mode File</comment>
@@ -304,15 +310,15 @@ Org mode isn't recognised as it's own mime type by default, but that can easily 
 </mime-info>
 #+end_src
 What's nice is that Papirus [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/commit/a10fb7f2423d5e30b9c4477416ccdc93c4f3849d][now]] has an icon for =text/org=. One simply needs to refresh their mime database
-#+begin_src shell :tangle (if (string= (shell-command-to-string "xdg-mime query default text/org") "") "setup.sh" "no")
-update-mime-database ~/.local/share/mime
+#+begin_src shell
+update-mime-database ~/config/.local/share/mime
 #+end_src
 Then set Emacs as the default editor
-#+begin_src shell :tangle (if (string= (shell-command-to-string "xdg-mime query default text/org") "emacs-client.desktop\n") "no" "setup.sh")
+#+begin_src shell
 xdg-mime default emacs.desktop text/org
 #+end_src
 
-*** Git diffs
+** Git diffs
 Protesilaos wrote a [[https://protesilaos.com/codelog/2021-01-26-git-diff-hunk-elisp-org/][very helpful article]] in which he explains how to change the git diff chunk heading to something more useful than just the immediate line above the hunk --- like the parent heading.
 
 This can be achieved by first adding a new diff mode to git in =~/.config/git/attributes=
