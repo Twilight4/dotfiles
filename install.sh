@@ -114,7 +114,7 @@ install-dotfiles() {
     
     # Prevent permission denied errors
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
-    sudo mv /tmp/dotfiles/.librewolf "$HOME"
+    sudo mv /tmp/dotfiles/.librewolf "$HOME"     # to change
     sudo mv /tmp/dotfiles/.config/.local/ "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
     sudo rm -rf /usr/share/fonts
@@ -152,6 +152,10 @@ install-dotfiles() {
     rm ~/.zsh*
     rm ~/.zcompdummp*
     
+    # Setting mime type for org mode (org mode isn't recognised as it's own mime type by default)
+    update-mime-database ~/.config/.local/share/mime
+    xdg-mime default emacs.desktop text/org
+
     # Enable system services
     hblock                                                                            # block ads and malware domains
     playerctld daemon                                                                 # if it doesn't work try installing volumectl
