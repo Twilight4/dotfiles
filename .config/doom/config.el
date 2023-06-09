@@ -161,14 +161,59 @@
 ;; Map the custom function to "." key while in visual mode
 (define-key evil-visual-state-map (kbd ".") 'surround-with-green)
 
-(map! :leader
-      :desc "Org babel tangle" "m B" #'org-babel-tangle)
-(after! org
-  (setq org-directory "~/documents/Org/"
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+
+(use-package! org-modern
+  :hook (org-mode . org-modern-mode)
+  :config
+  (setq org-modern-star '("◉" "○" "◆" "●" "○" "◆" "●")
+        org-modern-list '((45 . "➤")
+                          (43 . "–")
+                          (42 . "•"))
+        org-modern-table-vertical 1
+        org-modern-table-horizontal 0.2
+        org-modern-todo-faces
+        '(("TODO" :inverse-video t :inherit org-todo)
+          ("PROJ" :inverse-video t :inherit +org-todo-project)
+          ("[-]"  :inverse-video t :inherit +org-todo-active)
+          ("NEXT" :inverse-video t :inherit +org-todo-active)
+          ("DONE" :inverse-video t :inherit +org-todo-cancel)
+          ("WAIT" :inverse-video t :inherit +org-todo-onhold)
+          ("[?]"  :inverse-video t :inherit +org-todo-onhold))
+        org-modern-footnote
+        (cons nil (cadr org-script-display))
+        org-modern-block-fringe nil
+                org-modern-block-name
+        '((t . t)
+          ("src" "»" "«")
+          ("example" "»–" "–«")
+          ("quote" "❝" "❞")
+          ("export" "⏩" "⏪"))
+        org-modern-progress nil
+        org-modern-priority nil
+        org-modern-horizontal-rule (make-string 36 ?─)
+        ;; Edit org settings
+        org-directory "~/documents/Org/"
+        org-auto-align-tags nil
+        org-tags-column 0
+        org-catch-invisible-edits 'show-and-error
+        org-special-ctrl-a/e t
+        org-insert-heading-respect-content t
+        org-pretty-entities t
+
+        ;; Agenda styling
+        org-agenda-tags-column 0
+        org-agenda-block-separator ?─
+        org-agenda-time-grid
+        '((daily today require-timed)
+          (800 1000 1200 1400 1600 1800 2000)
+          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        org-agenda-current-time-string
+        "⭠ now ─────────────────────────────────────────────────")
+
         org-default-notes-file (expand-file-name "notes.org" org-directory)
         org-ellipsis " ▼ "
-        org-superstar-headline-bullets-list '("◉" "○" "◆" "●" "○" "◆" "●")
-        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
         org-log-done 'time
         org-hide-emphasis-markers t ;; hides the emphasis markers
         ;; ex. of org-link-abbrev-alist in action
@@ -178,15 +223,35 @@
             ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
             ("ddg" . "https://duckduckgo.com/?q=")
             ("wiki" . "https://en.wikipedia.org/wiki/"))
-        org-table-convert-region-max-lines 20000
-        org-todo-keywords         ; This overwrites the default Doom org-todo-keywords
-          '((sequence
-             "INPROGGRESS(i)"     ; A task is in proggress
-             "WAITING(w)"         ; Something is holding up this task
-             "GYM(g)"             ; Things to accomplish at the gym
-             "PROJ(p)")           ; A project that contains other tasks
-             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
+        org-table-convert-region-max-lines 20000)
+  (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo))
+
+;(map! :leader
+;      :desc "Org babel tangle" "m B" #'org-babel-tangle)
+;(after! org
+;  (setq org-directory "~/documents/Org/"
+;        org-default-notes-file (expand-file-name "notes.org" org-directory)
+;        org-ellipsis " ▼ "
+;        org-superstar-headline-bullets-list '("◉" "○" "◆" "●" "○" "◆" "●")
+;        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)) ; changes +/- symbols in item lists
+;        org-log-done 'time
+;        org-hide-emphasis-markers t ;; hides the emphasis markers
+;        ;; ex. of org-link-abbrev-alist in action
+;        ;; [[arch-wiki:Name_of_Page][Description]]
+;        org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
+;          '(("google" . "http://www.google.com/search?q=")
+;            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+;            ("ddg" . "https://duckduckgo.com/?q=")
+;            ("wiki" . "https://en.wikipedia.org/wiki/"))
+;        org-table-convert-region-max-lines 20000
+;        org-todo-keywords         ; This overwrites the default Doom org-todo-keywords
+;          '((sequence
+;             "INPROGGRESS(i)"     ; A task is in proggress
+;             "WAITING(w)"         ; Something is holding up this task
+;             "GYM(g)"             ; Things to accomplish at the gym
+;             "PROJ(p)")           ; A project that contains other tasks
+;             (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+;             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
 
 (evil-define-command +evil-buffer-org-new (count file)
   "Creates a new ORG buffer replacing the current window, optionally
