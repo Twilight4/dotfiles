@@ -68,3 +68,7 @@
 (package! org-super-agenda)
 (package! org-modern)
 (package! org-transclusion)
+(package! org-pandoc-import
+  :recipe (:host github
+           :repo "tecosaur/org-pandoc-import"
+           :files ("*.el" "filters" "preprocessors")))

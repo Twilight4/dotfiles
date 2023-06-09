@@ -26,6 +26,7 @@
   - [[#org-agenda][Org-agenda]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#transclusion][Transclusion]]
+  - [[#importing-with-pandoc][Importing with Pandoc]]
   - [[#emojis][Emojis]]
   - [[#org-fonts][Org fonts]]
   - [[#org-export][Org-export]]
@@ -530,10 +531,21 @@ There’s a really cool package to transclude Org document content.
 
 #+begin_src emacs-lisp
 (use-package! org-transclusion
-  :commands org-transclusion-mode
+  :after org
   :init
-  (map! :after org :map org-mode-map
-        "<f12>" #'org-transclusion-mode))
+  (map!
+   :map global-map "<f12>" #'org-transclusion-add
+   :leader
+   :prefix "n"
+   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
+#+end_src
+
+** Importing with Pandoc
+Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a way to make that right again, and this package makes that even easier to do.
+
+#+begin_src emacs-lisp
+(use-package! org-pandoc-import
+  :after org)
 #+end_src
 
 ** Emojis
