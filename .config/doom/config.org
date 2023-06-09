@@ -25,6 +25,7 @@
   - [[#org-super-agenda][Org Super-agenda]]
   - [[#org-agenda][Org-agenda]]
   - [[#extra-functionality---zero-width-spaces][Extra functionality - zero-width spaces]]
+  - [[#easier-file-links][Easier file links]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#transclusion][Transclusion]]
   - [[#importing-with-pandoc][Importing with Pandoc]]
@@ -529,6 +530,29 @@ We then want to stop the space from being included in exports, which can be done
 
 (after! ox
   (add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t))
+#+end_src
+
+** Easier file links
+While ~org-insert-link~ is all very well and good, a large portion of the time I
+want to insert a file, and so it would be good to have a way to skip straight to
+that and avoid the description prompt. Looking at ~org-link-parameters~, we can
+see that the ="file"= link type uses the completion function
+~org-link-complete-file~, so let's use that to make a little file-link inserting
+function.
+
+#+begin_src emacs-lisp
+(defun +org-insert-file-link ()
+  "Insert a file link.  At the prompt, enter the filename."
+  (interactive)
+  (insert (format "[[%s]]" (org-link-complete-file))))
+#+end_src
+
+Now we'll just add that under the Org mode link localleader for convenience.
+#+begin_src emacs-lisp
+(map! :after org
+      :map org-mode-map
+      :localleader
+      "l f" #'+org-insert-file-link)
 #+end_src
 
 ** Org-auto-tangle

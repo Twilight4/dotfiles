@@ -208,6 +208,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | KEYBINDING | DESCRIPTION               |
 |------------+---------------------------|
 | SPC m l    | Add a link to an org page |
+| SPC m l f  | Insert file link          |
 
 ** Style formatting (visual mode)
 | KEYBINDING | DESCRIPTION |

@@ -395,6 +395,16 @@
 (after! ox
   (add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t))
 
+(defun +org-insert-file-link ()
+  "Insert a file link.  At the prompt, enter the filename."
+  (interactive)
+  (insert (format "[[%s]]" (org-link-complete-file))))
+
+(map! :after org
+      :map org-mode-map
+      :localleader
+      "l f" #'+org-insert-file-link)
+
 (use-package! org-auto-tangle
   :defer t
   :hook (org-mode . org-auto-tangle-mode)
