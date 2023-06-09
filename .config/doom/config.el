@@ -171,6 +171,7 @@
         org-modern-list '((45 . "➤")
                           (43 . "–")
                           (42 . "•"))
+        org-list-demote-modify-bullet '(("+" . "-") ("-" . "*") ("*" . "+") ("1." . "a."))
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
         org-modern-todo-faces

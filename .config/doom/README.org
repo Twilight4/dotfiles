@@ -175,6 +175,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 |------------+----------------------------------------------------|
 | SPC n      | Prefix for org keybinding                          |
 | SPC m h    | toggle heading                                     |
+| SPC m i    | toggle item                                        |
 | C-Ret      | Create a headline of the same type                 |
 | C-S-Ret    | Create a headline of the same type above           |
 | M-Ret      | Create a headline of the same type (from anywhere) |
