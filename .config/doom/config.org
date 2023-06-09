@@ -21,11 +21,11 @@
   - [[#green-color-automation][Green color automation]]
 - [[#org-mode][Org mode]]
   - [[#org-modern][Org modern]]
-  - [[#old][old]]
   - [[#org-buffer-creation][Org buffer creation]]
   - [[#super-agenda-package][Super-agenda package]]
   - [[#org-agenda][Org-agenda]]
   - [[#org-auto-tangle][Org-auto-tangle]]
+  - [[#transclusion][Transclusion]]
   - [[#emojis][Emojis]]
   - [[#org-fonts][Org fonts]]
   - [[#org-export][Org-export]]
@@ -270,6 +270,8 @@ This automates the surround for bold style with "m" key in visual mode.
 
 * Org mode
 ** Org modern
+Fontifying org-mode buffers to be as pretty as possible is of paramount importance, and Minad’s lovely org-modern goes a long way in this regard.
+
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
@@ -337,7 +339,7 @@ This automates the surround for bold style with "m" key in visual mode.
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo))
 #+end_src
 
-** old
+*** old
 #+begin_src emacs-lisp
 ;(map! :leader
 ;      :desc "Org babel tangle" "m B" #'org-babel-tangle)
@@ -521,6 +523,17 @@ Let’s make creating an Org buffer just that little bit easier.
 
 (map! :leader
       :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
+#+end_src
+
+** Transclusion
+There’s a really cool package to transclude Org document content.
+
+#+begin_src emacs-lisp
+(use-package! org-transclusion
+  :commands org-transclusion-mode
+  :init
+  (map! :after org :map org-mode-map
+        "<f12>" #'org-transclusion-mode))
 #+end_src
 
 ** Emojis

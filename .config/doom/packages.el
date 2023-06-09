@@ -67,3 +67,4 @@
 (package! org-web-tools)
 (package! org-super-agenda)
 (package! org-modern)
+(package! org-transclusion)

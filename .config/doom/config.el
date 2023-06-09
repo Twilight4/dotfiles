@@ -394,6 +394,12 @@
 (map! :leader
       :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
 
+(use-package! org-transclusion
+  :commands org-transclusion-mode
+  :init
+  (map! :after org :map org-mode-map
+        "<f12>" #'org-transclusion-mode))
+
 (use-package emojify
   :hook (after-init . global-emojify-mode))
 
