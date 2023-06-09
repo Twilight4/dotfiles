@@ -58,9 +58,12 @@
 
 (package! calfw)
 (package! calfw-org)
-(package! org-auto-tangle)
-(package! org-web-tools)
 (package! emojify)
-(package! org-super-agenda)
 (package! rainbow-mode)
 (package! evil-escape :disable t)   ; instead of just disabling the mode on startup, I prevent installation of the package.
+
+;; ORG MODE
+(package! org-auto-tangle)
+(package! org-web-tools)
+(package! org-super-agenda)
+(package! org-modern)
