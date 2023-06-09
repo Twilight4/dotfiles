@@ -269,7 +269,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
    windowrulev2 = opacity 0.97,class:^(emacs)$
    windowrulev2 = workspace 4, class:^(emacs)$
    #+end_src
-6. Add emacs daemon to autostart.conf
+6. Add emacs daemon to =autostart.conf=
    #+begin_src bash
     exec-once=emacs --daemon
    #+end_src
