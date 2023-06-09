@@ -329,4 +329,4 @@ Then adding a regex for it to =~/.config/git/config=
    or with the code block
    - =#+begin_src xml :tangle ~/.local/share/mime/packages/org.xml :mkdirp yes :comments no=
 3. Go to the beginning of the line and press: =C-c C-c=
-4. If tangled file hasn't been created press: =SPC m B=
+4. If tangled file hasn't been created use: =org-babel-tangle=
