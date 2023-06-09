@@ -196,7 +196,12 @@
         ;; Edit org settings
         org-directory "~/documents/Org/"
         org-auto-align-tags nil
+        org-export-with-sub-superscripts '{}
+        org-export-allow-bind-keywords t
         org-tags-column 0
+        org-use-property-inheritance t
+        org-catch-invisible-edits 'smart
+        org-image-actual-width '(0.9))
         org-catch-invisible-edits 'show-and-error
         org-special-ctrl-a/e t
         org-insert-heading-respect-content t
