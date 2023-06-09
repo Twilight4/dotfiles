@@ -182,6 +182,7 @@ The keybinding philosophy adopted in this configuration prioritizes simplicity a
 | TAB/S-TAB  | Toggle folding/cycle through folded stages         |
 | M-h/j/k/l  | Promotes/demotes/up/down header                    |
 | SPC b o    | Create new empty Org buffer                        |
+| g h/j/k/l  | Backward/forward/up/down heading                   |
 
 ** TODO Org-Roam
 | KEYBINDING | DESCRIPTION                        |
