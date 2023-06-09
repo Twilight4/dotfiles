@@ -383,6 +383,17 @@
           (agenda "")
           (alltodo "")))))
 
+(map! :map org-mode-map
+      :nie "M-SPC M-SPC" (cmd! (insert "\u200B")))
+
+(defun +org-export-remove-zero-width-space (text _backend _info)
+  "Remove zero width spaces from TEXT."
+  (unless (org-export-derived-backend-p 'org)
+    (replace-regexp-in-string "\u200B" "" text)))
+
+(after! ox
+  (add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t))
+
 (use-package! org-auto-tangle
   :defer t
   :hook (org-mode . org-auto-tangle-mode)

@@ -24,6 +24,7 @@
   - [[#org-buffer-creation][Org buffer creation]]
   - [[#org-super-agenda][Org Super-agenda]]
   - [[#org-agenda][Org-agenda]]
+  - [[#extra-functionality---zero-width-spaces][Extra functionality - zero-width spaces]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#transclusion][Transclusion]]
   - [[#importing-with-pandoc][Importing with Pandoc]]
@@ -509,6 +510,24 @@ Let’s make creating an Org buffer just that little bit easier.
 
           (agenda "")
           (alltodo "")))))
+#+end_src
+
+** Extra functionality - zero-width spaces
+Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. There is a solution to this, it just sounds slightly hacky — zero width spaces. Because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map.
+#+begin_src emacs-lisp
+(map! :map org-mode-map
+      :nie "M-SPC M-SPC" (cmd! (insert "\u200B")))
+#+end_src
+
+We then want to stop the space from being included in exports, which can be done with a little filter.
+#+begin_src emacs-lisp
+(defun +org-export-remove-zero-width-space (text _backend _info)
+  "Remove zero width spaces from TEXT."
+  (unless (org-export-derived-backend-p 'org)
+    (replace-regexp-in-string "\u200B" "" text)))
+
+(after! ox
+  (add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t))
 #+end_src
 
 ** Org-auto-tangle
