@@ -340,12 +340,12 @@
                   ((org-agenda-span 'day)))
           (todo "TODO"
                 ((org-agenda-overriding-header "Unscheduled tasks")
-                 (org-agenda-files '("~/Documents/Org/inbox.org"))
+                 (org-agenda-files '("~/documents/Org/inbox.org"))
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
                  ))
           (todo "TODO"
                 ((org-agenda-overriding-header "Unscheduled project tasks")
-                 (org-agenda-files '("~/Documents/Org/projects.org"))
+                 (org-agenda-files '("~/documents/Org/projects.org"))
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))))
 
 ;; save all org-buffers when todo state changes
