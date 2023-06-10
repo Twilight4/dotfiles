@@ -102,11 +102,11 @@
 
 (map! :leader
       (:prefix ("e" . "open file")
-       :desc "Edit repeaters file"   "r" #'(lambda () (interactive) (find-file "~/.config/doom/repeaters.org"))
+       :desc "Edit repeaters file"   "r" #'(lambda () (interactive) (find-file "~/documents/Org/repeaters.org"))
        :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/documents/Org/agenda.org"))
        :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
-       :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/.config/Org/inbox.org"))
-       :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/.config/Org/projects.org"))
+       :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/documents/Org/inbox.org"))
+       :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/documents/Org/projects.org"))
        :desc "Edit emacs cheatsheet" "s" #'(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/doom/README.org"))))
 
 (after! org
