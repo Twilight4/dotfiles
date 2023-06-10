@@ -192,7 +192,6 @@
           ("quote" "❝" "❞")
           ("export" "⏩" "⏪"))
         org-modern-progress nil
-        org-modern-priority nil
         org-modern-horizontal-rule (make-string 36 ?─)
         ;; Edit org settings
         org-directory "~/documents/Org/"
@@ -229,7 +228,7 @@
             ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
             ("ddg" . "https://duckduckgo.com/?q=")
             ("wiki" . "https://en.wikipedia.org/wiki/"))
-        org-table-convert-region-max-lines 20000)
+        org-table-convert-region-max-lines 20000
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo))
 
 ;(map! :leader
