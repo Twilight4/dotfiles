@@ -319,8 +319,9 @@
   (org-agenda nil "a"))
 
 (setq org-return-follows-link t
-      org-agenda-tags-column 75
+      org-agenda-tags-column 100
       org-deadline-warning-days 30
+      org-agenda-block-separator nil
       org-use-speed-commands t)
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
@@ -330,7 +331,6 @@
 
 (setq org-agenda-files (list
                         "~/documents/Org/inbox.org"
-                        "~/documents/Org/projects.org"
                         "~/documents/Org/repeaters.org"))
 
 (setq org-agenda-custom-commands
