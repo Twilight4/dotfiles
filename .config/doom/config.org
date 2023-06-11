@@ -23,7 +23,7 @@
   - [[#org-modern][Org modern]]
   - [[#org-buffer-creation][Org buffer creation]]
   - [[#org-super-agenda][Org Super-agenda]]
-  - [[#org-agenda][Org-agenda]]
+  - [[#org-agenda][Org agenda]]
   - [[#extra-functionality---zero-width-spaces][Extra functionality - zero-width spaces]]
   - [[#easier-file-links][Easier file links]]
   - [[#org-auto-tangle][Org-auto-tangle]]
@@ -445,11 +445,12 @@ Let’s make creating an Org buffer just that little bit easier.
   (org-agenda nil "a"))
 #+end_src
 
-** Org-agenda
+** Org agenda
 #+begin_src emacs-lisp
 (setq org-return-follows-link t
-      org-agenda-tags-column 75
+      org-agenda-tags-column 100
       org-deadline-warning-days 30
+      org-agenda-block-separator nil
       org-use-speed-commands t)
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
@@ -459,7 +460,6 @@ Let’s make creating an Org buffer just that little bit easier.
 
 (setq org-agenda-files (list
                         "~/documents/Org/inbox.org"
-                        "~/documents/Org/projects.org"
                         "~/documents/Org/repeaters.org"))
 
 (setq org-agenda-custom-commands
