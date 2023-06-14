@@ -210,11 +210,6 @@ EOF
 # to finish GRUB rice issue commands:
 ## sudo grub-mkconfig -o /boot/grub/grub.cfg
 ## echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub  # works only as root
-    
-# tmux plugin manager - reload tmux plugin manager: C-a + S-i + q
-#[ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
-#&& git clone --depth 1 https://github.com/tmux-plugins/tpm \
-#"$XDG_CONFIG_HOME/tmux/plugins/tpm"
 
 # clone SecLists repo
 [ ! -d "/usr/share/payloads/SecLists" ] \
