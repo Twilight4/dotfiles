@@ -110,7 +110,11 @@ install-apps() {
     sudo chsh -s "$(which zsh)" "$(/home/testuser)"
     rm ~/.bash*
     # switch to that user and to load zsh files type: zsh
+    
+    # EXPERIMENTING #
     # if you get errors related to XDG_RUNTIME_DIR var issue command: id -u testuser - to test check user id and export var: export XDG_RUNTIME_DIR=/run/user/<user_id> - in .zshenv
+    # don't forget to run doomsync and removing lines from packages.el before launching emacs and experimenting with config.org
+    # no need to clone doom emacs cuz it's copied from twilight .config/emacs
 
     ## for Docker
     #gpasswd -a "$name" docker
