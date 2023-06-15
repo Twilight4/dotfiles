@@ -99,7 +99,6 @@ install-apps() {
     mkdir ~/.config/.config
     # copying necessary files for shell integration
     cp ~/.config/zsh ~/.config/.config
-    cp ~/.config/nvim ~/.config/.config
     cp ~/.config/nnn ~/.config/.config
     cp ~/.config/lsd ~/.config/.config
     cp ~/.config/emacs ~/.config/.config
