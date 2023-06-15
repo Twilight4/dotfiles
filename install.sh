@@ -95,6 +95,19 @@ install-apps() {
     sudo usermod -aG input "$(whoami)"
     sudo usermod -aG disk "$(whoami)"
 
+    # move config files to testuser created in distro installation (user for testing purposes)
+    mkdir ~/.config/.config
+    # copying necessary files for shell integration
+    cp ~/.config/zsh ~/.config/.config
+    cp ~/.config/nvim ~/.config/.config
+    cp ~/.config/nnn ~/.config/.config
+    cp ~/.config/lsd ~/.config/.config
+    cp ~/.config/emacs ~/.config/.config
+    cp ~/.config/doom ~/.config/.config
+    cp ~/.config/user-dirs.dirs ~/.config/.config
+    sudo mv /home/$(whoami)/.config/.config /home/testuser/
+    sudo chown -R testuser:testuser /home/testuser/.config
+
     ## for Docker
     #gpasswd -a "$name" docker
     #usermod -aG docker $(whoami)
