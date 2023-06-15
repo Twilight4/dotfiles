@@ -105,9 +105,12 @@ install-apps() {
     cp ~/.config/emacs ~/.config/.config
     cp ~/.config/doom ~/.config/.config
     cp ~/.config/user-dirs.dirs ~/.config/.config
+    rm ~/.config/.config/.zhistory
     sudo mv /home/$(whoami)/.config/.config /home/testuser/
     sudo chown -R testuser:testuser /home/testuser/.config
     sudo chsh -s "$(which zsh)" "$(/home/testuser)"
+    rm ~/.bash*
+    # switch to that user and to load zsh files type: zsh
 
     ## for Docker
     #gpasswd -a "$name" docker
