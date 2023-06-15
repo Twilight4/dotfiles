@@ -5,7 +5,6 @@ export XDG_CONFIG_HOME="$HOME/.config"               # For dotfiles
 export XDG_DATA_HOME="$XDG_CONFIG_HOME/.local/share" # For specific data
 export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
 export XDG_STATE_HOME="$HOME/.local/state"           # For state files
-export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"      # Xauth file
 
 # User-specific environment variables (system-wide are located in /etc/environment)
 export EDITOR="emacsclient -c -a emacs"
