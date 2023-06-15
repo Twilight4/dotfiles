@@ -107,6 +107,7 @@ install-apps() {
     cp ~/.config/user-dirs.dirs ~/.config/.config
     sudo mv /home/$(whoami)/.config/.config /home/testuser/
     sudo chown -R testuser:testuser /home/testuser/.config
+    sudo chsh -s "$(which zsh)" "$(/home/testuser)"
 
     ## for Docker
     #gpasswd -a "$name" docker
