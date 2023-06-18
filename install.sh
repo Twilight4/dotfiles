@@ -197,6 +197,8 @@ install-dotfiles() {
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
+    # Disable the systemd-boot startup entry
+    sudo sed -i 's/^timeout/# timeout/' /boot/loader/loader.conf 
 
 # Hyprland desktop entry
 #sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
