@@ -186,6 +186,7 @@ install-dotfiles() {
     #sudo systemctl enable bluetooth                                                   # enable bluetooth daemon
     #sudo systemctl enable ananicy.service                                             # enable ananicy daemon (cachy-os has it built in)
     sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
+    sudo systemctl enable sshd.service                                      # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
     sudo systemctl enable libvirtd.service                                            # enable qemu/virt manager daemon
     #sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks (error)
