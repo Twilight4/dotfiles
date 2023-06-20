@@ -266,6 +266,10 @@ echo 'Post-Installation:
     sudo npm install git-file-downloader cli-fireplace git-stats
 - check if profile sync daemon is running
     psd p
+- Check if DBus service is launched (for kde connect)
+    gapplication launch org.gnome.Shell.Extensions.GSConnect
+    - if it returns error message then restart the DBus session
+    systemctl --user reload dbus-broker.service
 - uncomment last 2 lines in kitty.conf'
 }
 
