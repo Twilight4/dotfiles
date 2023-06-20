@@ -270,6 +270,8 @@ echo 'Post-Installation:
     gapplication launch org.gnome.Shell.Extensions.GSConnect
     - if it returns error message then restart the DBus session
     systemctl --user reload dbus-broker.service
+- If you are on GNOME then to switch caps with esc issue command
+    gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape']"
 - uncomment last 2 lines in kitty.conf'
 }
 
