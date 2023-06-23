@@ -29,6 +29,7 @@ alias mkdir="mkdir -p"
 alias ping="prettyping -c 3"
 alias less="less -R"
 alias kill='killall -q'
+alias kgnome='killall -3 gnome-shell'
 alias cat='bat'
 alias sv="sudo nvim"
 alias v="nvim"
