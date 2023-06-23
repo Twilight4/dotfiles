@@ -32,8 +32,6 @@ end
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'szw/vim-maximizer' -- maximizes and restores current window
-  --use 'christoomey/vim-tmux-navigator' -- tmux & split window navigation  
-  use 'knubie/vim-kitty-navigator' -- kitty & split window navigation
   use 'tpope/vim-surround' -- add, delete, change surroundings
   use 'vim-scripts/ReplaceWithRegister' -- replace with register contents using motion (gr + motion)
   use 'numToStr/Comment.nvim' -- commenting with gc
@@ -81,9 +79,6 @@ return packer.startup(function(use)
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
     require("toggleterm").setup()
   end}
-  --use 'wellle/tmux-complete.vim'
-  --use 'tmux-plugins/vim-tmux'
-  --use 'tmux-plugins/vim-tmux-focus-events'
   use({
     'iamcco/markdown-preview.nvim',
     run = function() vim.fn['mkdp#util#install']() end,
