@@ -39,22 +39,22 @@ install-yay() {
 }
 
 install-apps() {
-    # remove redundant packages installed by alis
-    sudo pacman -Rns --noconfirm sddm linux linux-headers
+    # if you used alis script then remove redundant packages installed by it
+    #sudo pacman -Rns --noconfirm sddm linux linux-headers
     # remove redundant packages installed by cachyos
-    sudo pacman -Rns --noconfirm cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh.git cachyos-hello cachyos-kernel-manager exa alacritty
+    sudo pacman -Rns --noconfirm cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh-git cachyos-hello cachyos-kernel-manager exa alacritty micro micro cachyos-micro-settings btop cachyos-packageinstaller
     # start packages installation
     sudo pacman -S --noconfirm --needed $(cat /tmp/paclist)
     yay -S --noconfirm --needed $(cat /tmp/yaylist)
-    # remove redundant packages installed by pacman
-    sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk xdg-desktop-portal-wlr
+    # remove redundant packages installed by pacman (on Hyprland)
+    #sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk xdg-desktop-portal-wlr
     
     # plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
     
     # these tools are unavailable in arch repos
-    sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.04-05-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.04-05-any.pkg.tar.zst
-    sudo pacman -U --noconfirm /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
+    #sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.04-05-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.04-05-any.pkg.tar.zst
+    #sudo pacman -U --noconfirm /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
 
     sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst -O /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
