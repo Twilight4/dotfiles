@@ -208,6 +208,8 @@ install-dotfiles() {
     sudo systemctl enable systemd-oomd
     # Disable the systemd-boot startup entry
     sudo sed -i 's/^timeout/# timeout/' /boot/loader/loader.conf 
+    # Change data locale back to english
+    sudo localectl set-locale LC_TIME=en_US.utf8
     # Enable Firewall blocking kdeconnect port
     sudo firewall-cmd --permanent --zone=public --add-service=kdeconnect 
     sudo firewall-cmd --reload
