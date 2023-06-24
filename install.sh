@@ -134,13 +134,18 @@ install-dotfiles() {
     fi
     
     # Prevent permission denied errors
+    ####### rsync #######
     sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
     sudo mv /tmp/dotfiles/.librewolf "$HOME"     # to change
     sudo mv /tmp/dotfiles/.config/.local/ "$HOME/.config"
     source "/home/$(whoami)/.config/zsh/.zshenv"
-    sudo rm -rf /usr/share/fonts
+    sudo rm -rf /usr/share/fonts/encodings
+    # Rm auto-generated bloat
+    rm -rf .config/{fish,gtk-3.0,ibus,kitty,micro,nautilus,pulse,yay,user-dirs.dirs,user-dirs,locate,dconf}
+    rm -rf .config/.gsd-keyboard.settings-ported
+    ####### rsync #######
+
     sudo fc-cache -fv
-    sudo rm /home/"$(whoami)"/.bash*
     sudo chmod 755 /opt/logseq-desktop
     # Change the ownership of mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
@@ -167,6 +172,7 @@ install-dotfiles() {
     mv ~/package.json ~/package-lock.json ~/.config/node_modules
     mv ~/.local/share* ~/.config/.local/share
     mv ~/.local/state* ~/.config/.local/state
+    sudo rm /home/"$(whoami)"/.bash*
     rm -r ~/.local
     rm -r ~/{Documents,Pictures,Desktop,Downloads,Templates,Music,Videos,Public}
     rm ~/.viminfo
