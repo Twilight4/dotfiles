@@ -42,7 +42,7 @@ install-apps() {
     # if you used alis script then remove redundant packages installed by it
     #sudo pacman -Rns --noconfirm sddm linux linux-headers
     # remove redundant packages installed by cachyos
-    sudo pacman -Rns --noconfirm cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh-git cachyos-hello cachyos-kernel-manager exa alacritty micro micro cachyos-micro-settings btop cachyos-packageinstaller vim
+    sudo pacman -Rns --noconfirm cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh-git cachyos-hello cachyos-kernel-manager exa alacritty micro micro cachyos-micro-settings btop cachyos-packageinstaller vim nautilus
     # start packages installation
     sudo pacman -S --noconfirm --needed $(cat /tmp/paclist)
     yay -S --noconfirm --needed $(cat /tmp/yaylist)
