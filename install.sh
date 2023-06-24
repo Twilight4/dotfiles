@@ -47,7 +47,7 @@ install-apps() {
     sudo pacman -S --noconfirm --needed $(cat /tmp/paclist)
     yay -S --noconfirm --needed $(cat /tmp/yaylist)
     # remove redundant packages installed by pacman
-    sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
+    sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk xdg-desktop-portal-wlr
     
     # plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
