@@ -133,22 +133,22 @@ install-dotfiles() {
             git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
     fi
     
-    # Prevent permission denied errors
-    ####### rsync #######
-    sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
-    sudo mv /tmp/dotfiles/.librewolf "$HOME"     # to change
-    sudo mv /tmp/dotfiles/.config/.local/ "$HOME/.config"
-    source "/home/$(whoami)/.config/zsh/.zshenv"
-    sudo rm -rf /usr/share/fonts/encodings
     # Rm auto-generated bloat
+    sudo rm -rf /usr/share/fonts/encodings
+    sudo fc-cache -fv
     rm -rf .config/{fish,gtk-3.0,ibus,kitty,micro,nautilus,pulse,yay,user-dirs.dirs,user-dirs,locate,dconf}
     rm -rf .config/.gsd-keyboard.settings-ported
-    ####### rsync #######
-
-    sudo fc-cache -fv
-    sudo chmod 755 /opt/logseq-desktop
-    # Change the ownership of mpd directory
+    # Cp dotfiles
+    rsync -av  /tmp/dotfiles/ ~
+    rm ~/README.md
+    ##### Old way #####
+    #sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
+    #sudo mv /tmp/dotfiles/.librewolf "$HOME"
+    #sudo mv /tmp/dotfiles/.config/.local/ "$HOME/.config"
+    ##### Old way #####
+    # Change ownerships of logseq and mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
+    sudo chmod 755 /opt/logseq-desktop
     # Cleanup home dir bloat
     mkdir -p ~/.config/.local/share/gnupg
     mkdir -p ~/.config/.local/share/cargo
