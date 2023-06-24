@@ -168,6 +168,7 @@ install-dotfiles() {
     mv ~/.local/share* ~/.config/.local/share
     mv ~/.local/state* ~/.config/.local/state
     rm -r ~/.local
+    rm -r ~/{Documents,Pictures,Desktop,Downloads,Templates,Music,Videos,Public}
     rm ~/.viminfo
     sudo rm ~/cachyos-repo*
     rm ~/.zsh*
