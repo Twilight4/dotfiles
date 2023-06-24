@@ -37,6 +37,7 @@ alias tr="trash"
 alias c="cheat"
 alias train="sl | lolcat"
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
+alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
 alias cmatrix="cmatrix -a"
 alias asciiquarium="asciiquarium --transparent"
