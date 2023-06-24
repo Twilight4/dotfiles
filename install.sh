@@ -205,6 +205,7 @@ install-dotfiles() {
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
     sudo systemctl enable chronyd
+    sudo systemctl enable systemd-oomd
     # Disable the systemd-boot startup entry
     sudo sed -i 's/^timeout/# timeout/' /boot/loader/loader.conf 
     # Enable Firewall blocking kdeconnect port
