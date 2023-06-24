@@ -196,7 +196,7 @@ install-dotfiles() {
     sudo systemctl enable sshd.service                                                # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
     #sudo systemctl enable libvirtd.service                                            # enable qemu/virt manager daemon
-    #sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks (error)
+    sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks
     sudo systemctl mask power-profiles-daemon.service                                 # install cpu performance tweaks
     # Enable performance and security tweaks
     #sudo systemctl enable sddm
