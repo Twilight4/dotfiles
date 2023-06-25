@@ -17,7 +17,7 @@
 |  **App Launcher**              | [Rofi-lbonn](https://github.com/lbonn/rofi)                |
 |  **Session Manager**           | [archlinux-logout](https://github.com/arcolinux/archlinux-logout/)                            |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
-|  **Web Browser**               | [Librewolf](https://librewolf.net/) / [Qutebrowser](https://qutebrowser.org/)                 |
+|  **Web Browser**               | [Cachy-Browser](https://github.com/CachyOS/CachyOS-Browser-Settings)                          |
 |  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)            |
 |  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
 |  **Editor**                    | [Neovim](https://github.com/neovim/neovim)                 |
