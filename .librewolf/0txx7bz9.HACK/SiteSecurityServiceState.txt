@@ -1,1 +1,0 @@
-rules2.clearurls.xyz:HSTS	0	19439	1711114572767,1,0
