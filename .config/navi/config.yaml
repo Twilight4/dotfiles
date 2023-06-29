@@ -15,9 +15,9 @@ finder:
   # overrides: --tac # equivalent to the --fzf-overrides option
   # overrides_var: --tac # equivalent to the --fzf-overrides-var option
 
-# cheats:
-# paths:
-# - /path/to/some/dir
+cheats:
+  paths:
+    - ~/workspace/Twilight4__cheats
 # - /path/to/another/dir
 # path: /path/to/some/dir # (DEPRECATED) equivalent to the --path option
 
