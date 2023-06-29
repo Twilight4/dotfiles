@@ -161,6 +161,7 @@ install-dotfiles() {
     mkdir -p ~/.config/.local/share/cache
     mkdir -p ~/cachyos-repo
     mkdir -p ~/documents/Org/roam
+    mkdir -p ~/.config/.local/share/navi/cheats
     mv ~/.gnupg ~/.config/.local/share/gnupg
     mv ~/.cargo ~/.config/.local/share/cargo
     mv ~/go ~/.config/.local/share/go
