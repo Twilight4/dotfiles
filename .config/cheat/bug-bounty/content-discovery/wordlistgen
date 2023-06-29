@@ -1,2 +1,0 @@
-# Usage
-echo bugcrowd | gau | wordlistgen | sort -u

@@ -25,32 +25,8 @@ cheatpaths:
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets 
   # meaning last directory is the one to which are created newly created cheatsheets
-  - name: info-gathering
-    path: /home/twilight/.config/cheat/bug-bounty/info-gathering
-    tags: [ info ]
-    readonly: false
 
-  - name: content-discovery
-    path: /home/twilight/.config/cheat/bug-bounty/content-discovery
-    tags: [ discovery ]
-    readonly: false
-
-  - name: recon
-    path: /home/twilight/.config/cheat/pentest/recon
-    tags: [ recon ]
-    readonly: false
-
-  - name: enum
-    path: /home/twilight/.config/cheat/pentest/enum
-    tags: [ enum ]
-    readonly: false
-
-  - name: other
-    path: /home/twilight/.config/cheat/other
-    tags: [ enum ]
-    readonly: false
-
-  - name: new
-    path: /home/twilight/.config/cheat/new
-    tags: [ new ]
+  - name: keys
+    path: /home/twilight/.config/cheat/keys
+    tags: [ keys ]
     readonly: false

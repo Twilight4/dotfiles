@@ -1,7 +1,0 @@
-# Recursion - Subdomain bruting to guess sensitive paths that might exist with 401 responses
-amass enum -brute -d domain.com -src -o brute-domains.txt
--src  : shows where the subdomains are coming from
-
-# Check waybackmachine and valid urls from the output 
-cat brute-domains.txt | waybackurls > waybackurls.txt
-cat waybackurls.txt | httprobe -t 1000
