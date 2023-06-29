@@ -1,4 +1,2 @@
-https:cdn.jsdelivr.net:443:.::3	0	19537	https:cdn.jsdelivr.net:443:cdn.jsdelivr.net:443::n:1688123065:h3:y:1688036632:n::|n:y:
-https:malware-filter.pages.dev:443:.::3	0	19537	https:malware-filter.pages.dev:443:malware-filter.pages.dev:443::n:1688123068:h3:y:1688036632:n::|n:y:
-https:cdn.statically.io:443:.::3	0	19537	https:cdn.statically.io:443:cdn.statically.io:443::n:1688123060:h3:y:1688036632:n::|n:y:
-https:ublockorigin.pages.dev:443:.::3	0	19537	https:ublockorigin.pages.dev:443:ublockorigin.pages.dev:443::n:1688123048:h3:y:1688036632:n::|n:y:
+https:fonts.googleapis.com:443:.::3	0	19537	https:fonts.googleapis.com:443:fonts.googleapis.com:443::n:1690631444:h3:y:1688038802:n::|n:y:
+https:fonts.gstatic.com:443:.::3	0	19537	https:fonts.gstatic.com:443:fonts.gstatic.com:443::n:1690631444:h3:y:1688038802:n::|n:y:
