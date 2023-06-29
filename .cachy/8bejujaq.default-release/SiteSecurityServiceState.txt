@@ -1,0 +1,2 @@
+cdn.jsdelivr.net:HSTS	0	19537	1719572653952,1,1
+cdn.statically.io:HSTS	0	19537	1719572656275,1,1
