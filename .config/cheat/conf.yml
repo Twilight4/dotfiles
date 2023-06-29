@@ -45,6 +45,11 @@ cheatpaths:
     tags: [ enum ]
     readonly: false
 
+  - name: other
+    path: /home/twilight/.config/cheat/other
+    tags: [ enum ]
+    readonly: false
+
   - name: new
     path: /home/twilight/.config/cheat/new
     tags: [ new ]
