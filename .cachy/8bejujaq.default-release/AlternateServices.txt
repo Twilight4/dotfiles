@@ -1,2 +1,0 @@
-https:fonts.googleapis.com:443:.::3	0	19537	https:fonts.googleapis.com:443:fonts.googleapis.com:443::n:1690631444:h3:y:1688038802:n::|n:y:
-https:fonts.gstatic.com:443:.::3	0	19537	https:fonts.gstatic.com:443:fonts.gstatic.com:443::n:1690631444:h3:y:1688038802:n::|n:y:
