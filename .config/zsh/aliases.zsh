@@ -14,6 +14,17 @@ alias lm='lsd -alh --hyperlink=auto |less -'         # pipe through 'less'
 #alias ldir='lsd -l --hyperlink=auto| egrep '^d''    # directories only
 alias l.='lsd -A $* | grep "^\."'                    # list hidden files
 
+# pentest recon
+alias lpr='lsd --hyperlink=auto ~/workspace/cheats/pentest/recon'
+# pentest enum
+alias lpe='lsd --hyperlink=auto ~/workspace/cheats/pentest/enum'
+# bug bounty recon
+alias lbr='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/info-gathering'
+# bug bounty enum
+alias lbe='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/content-discovery'
+# other
+alias lo='lsd --hyperlink=auto ~/workspace/cheats/other'
+
 # icat kitten
 alias icat='kitty +kitten icat'
 
