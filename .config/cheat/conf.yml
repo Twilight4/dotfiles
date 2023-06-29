@@ -25,8 +25,17 @@ cheatpaths:
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets 
   # meaning last directory is the one to which are created newly created cheatsheets
+  - name: tools
+    path: /home/twilight/.config/cheat/tools
+    tags: [ tools ]
+    readonly: false
 
   - name: keys
     path: /home/twilight/.config/cheat/keys
     tags: [ keys ]
+    readonly: false
+
+  - name: new
+    path: /home/twilight/.config/cheat/new
+    tags: [ new ]
     readonly: false
