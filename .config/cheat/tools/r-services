@@ -1,0 +1,15 @@
+# R-Services are a deprecated suite of services fore remote access in Unix OSs and now are replaced by SSH.
+# Much like telnet, r-services transmit information from client to server over the network in unencrypted format.
+# R-services span across the ports 512, 513, 514 and are only accessible through a suite of programs known as r-commands.
+# The /etc/hosts.equiv file contains a list of trusted hosts and is used to grant access to other systems on the network. 
+# When users on one of these hosts attempt to access the system, they are automatically granted access without further authentication.
+
+# Once successfully logged in, we can also abuse the rwho command to list all interactive sessions on the local network by sending requests to the UDP port 513
+
+# From this information, we can see that the htb-student user is currently authenticated to the workstn01 host,
+# whereas the root user is authenticated to the web01 host. We can use this when scoping out potential usernames to 
+# use during further attacks on hosts over the network.
+
+# rusers command will give us information such
+# as the username, hostname of the accessed machine, TTY that the user is logged in to, the date and time the user logged in
+# the amount of time since the user typed on the keyboard, and the remote host they logged in from (if applicable).
