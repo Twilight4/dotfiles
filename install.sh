@@ -183,7 +183,7 @@ install-dotfiles() {
 
     # Enabling system services
     hblock                                                                            # block ads and malware domains
-    playerctld daemon                                                                 # if it doesn't work try installing volumectl
+    #playerctld daemon                                                                 # if it doesn't work try installing volumectl
     systemctl --user enable mpd.service                                               # mpd daemon
     systemctl --user enable psd.service                                               # profile sync daemon
     sudo systemctl enable vnstat.service                                              # network traffic monitor
