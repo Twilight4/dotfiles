@@ -71,7 +71,7 @@ alias doomsync="~/.config/emacs/bin/doom sync"
 alias doomdoctor="~/.config/emacs/bin/doom doctor"
 alias doomupgrade="~/.config/emacs/bin/doom upgrade"
 alias doompurge="~/.config/emacs/bin/doom purge"
-alias emacs="emacsclient -c -a emacs"
+alias emc="emacsclient -c -a emacs"
 
 # trans
 alias tre='trans en:pl'
