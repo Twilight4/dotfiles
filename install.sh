@@ -197,7 +197,7 @@ install-dotfiles() {
     sudo systemctl mask power-profiles-daemon.service                                 # install cpu performance tweaks
     # Enable performance and security tweaks
     #sudo systemctl enable sddm
-    sudo systemctl enable auditd
+    #sudo systemctl enable auditd
     sudo systemctl enable apparmor
     sudo systemctl enable firewalld
     sudo systemctl enable irqbalance
