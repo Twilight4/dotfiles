@@ -1,0 +1,6 @@
+# the command VRFY can be used to enumerate existing users on the system. 
+# However, this does not always work. Depending on how the SMTP server 
+# is configured, the SMTP server may issue code 252 and confirm the existence 
+# of a user that does not exist on the system.
+
+# If we also print out the output of the scan in detail, we will also be able to see which tests the script is running
