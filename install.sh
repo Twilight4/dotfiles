@@ -65,10 +65,6 @@ install-apps() {
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
 
-    # install doom emacs on top of emacs
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-    ~/.config/emacs/bin/doom install
-    
     # zsh as default terminal for user
     sudo chsh -s "$(which zsh)" "$(whoami)"
     
@@ -180,12 +176,16 @@ install-dotfiles() {
     sudo rm ~/cachyos-repo*
     rm ~/.zsh*
     rm ~/.zcompdummp*
+
+    # Installing doom emacs on top of emacs
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
     
     # Setting mime type for org mode (org mode isn't recognised as it's own mime type by default)
     update-mime-database ~/.config/.local/share/mime
     xdg-mime default emacs.desktop text/org
 
-    # Enable system services
+    # Enabling system services
     hblock                                                                            # block ads and malware domains
     playerctld daemon                                                                 # if it doesn't work try installing volumectl
     systemctl --user enable mpd.service                                               # mpd daemon
