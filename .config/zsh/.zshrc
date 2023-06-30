@@ -64,7 +64,7 @@ zsh_add_plugin "hlissner/zsh-autopair"
 zsh_add_plugin "kutsan/zsh-system-clipboard"
 zsh_add_plugin "sineto/web-search"
 zsh_add_plugin "unixorn/prettyping"
-zsh_add_plugin "zshzoo/copier"
+#zsh_add_plugin "zshzoo/copier"
 zsh_add_completion "zsh-users/zsh-completions"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
