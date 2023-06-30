@@ -137,11 +137,6 @@ install-dotfiles() {
     # Cp dotfiles
     rsync -av  /tmp/dotfiles/ ~
     rm ~/README.md
-    ##### Old way #####
-    #sudo mv -u /tmp/dotfiles/.config/* "$HOME/.config"
-    #sudo mv /tmp/dotfiles/.librewolf "$HOME"
-    #sudo mv /tmp/dotfiles/.config/.local/ "$HOME/.config"
-    ##### Old way #####
     # Change ownerships of logseq and mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
     sudo chmod 755 /opt/logseq-desktop
