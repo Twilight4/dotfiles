@@ -174,6 +174,7 @@ install-dotfiles() {
     rm -r ~/{Documents,Pictures,Desktop,Downloads,Templates,Music,Videos,Public}
     rm ~/.viminfo
     sudo rm ~/cachyos-repo*
+    rm -r ~/cachyos-repo
     rm ~/.zsh*
     rm ~/.zcompdummp*
 
