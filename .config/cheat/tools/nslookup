@@ -1,0 +1,6 @@
+# A manual approach for testing zonetransfers will be the following set of commands
+# USE THE TARGET'S IP ADDRESS AS THE NAME SERVER
+
+# ZONE TRANSFERS ARE THE ONE WITH ADDRESS: 127.0.0.1
+# If we manage to perform a successful zone transfer for a domain, there is no need to 
+# continue enumerating this particular domain as this will extract all the available information.

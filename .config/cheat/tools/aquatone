@@ -1,0 +1,8 @@
+# Aquatone is a tool for automatic and visual inspection of websites across many hosts
+# and is convenient for quickly gaining an overview of HTTP-based attack surfaces 
+# by scanning a list of configurable ports, visiting the website with a headless
+# Chrome browser, and taking and screenshot.
+
+
+# When it finishes, we will have a file called aquatone_report.html where we
+# can see screenshots, technologies identified, server response headers, and HTML.

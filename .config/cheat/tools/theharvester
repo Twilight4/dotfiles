@@ -1,0 +1,18 @@
+# We can use it to gather information to help identify a company's attack surface. 
+# The tool collects emails, names, subdomains, IP addresses, and URLs from various public data sources for passive information gathering.
+
+# create list of sources in a file - sources.txt
+baidu
+bufferoverun
+crtsh
+hackertarget
+otx
+projecdiscovery
+rapiddns
+sublist3r
+threatcrowd
+trello
+urlscan
+vhost
+virustotal
+zoomeye

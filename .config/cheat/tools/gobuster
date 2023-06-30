@@ -1,0 +1,17 @@
+# Usage
+vhost : Uses VHOST for brute-forcing
+-w    : Path to the wordlist
+-u    : Specify the URL
+
+# gobuster - DNS subdomain enumeration
+export TARGET="facebook.com"
+export NS="d.ns.facebook.com"
+export WORDLIST="numbers.txt"
+gobuster dns -q -r "${NS}" -d "${TARGET}" -w "${WORDLIST}" -p ./patterns.txt -o "gobuster_${TARGET}.txt"
+dns  # Launch the DNS module
+-q   # Don't print the banner and other noise.
+-r   # Use custom DNS server
+-d   # A target domain name
+-p   # Path to the patterns file
+-w   # Path to the wordlist
+-o   # Output file
