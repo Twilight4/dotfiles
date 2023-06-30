@@ -1,0 +1,8 @@
+# Useful info from nmap output
+commonName=dev.inlanefreight.htb
+organizationName=InlaneFreight Ltd
+stateOrProvinceName=California
+
+# To interact with the IMAP or POP3 server over SSL, we can use openssl, as well as ncat.
+# Once we have successfully initiated a connection we can use the commands
+# for IMAP/POP3 to work with and navigate the server (check notes for commands)

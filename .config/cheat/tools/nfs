@@ -1,0 +1,9 @@
+# Once we have discovered such an NFS service, we can mount it 
+# on our local machine. For this, we can create a new empty folder
+# to which the NFS share will be mounted. Once mounted, we can navigate 
+# it and view the contents just like our local system
+
+# We can also use NFS for further escalation. For example, if we have
+# access to the system via SSH and want to read files from another folder
+# that a specific user can read, we would need to upload a shell to the NFS
+# share that has the SUID of that user and then run the shell via the SSH user

@@ -1,0 +1,6 @@
+# Windows Remote Management (WinRM) - ports: 5985 (HTTP), 5986 (HTTPS)
+# WinRM is a simple Windows integrated remote management protocol based on the command line
+
+# If we want to find out whether one or more remote servers can be reached via WinRM, we can easily
+# do this with the help of PowerShell. The Test-WsMan cmdlet is responsible for this, and the host's
+# name in question is passed to it. In Linux-based environments
