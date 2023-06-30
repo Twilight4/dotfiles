@@ -166,6 +166,7 @@ install-dotfiles() {
     mv ~/.local/state* ~/.config/.local/state
     sudo rm /home/"$(whoami)"/.bash*
     rm -r ~/.local
+    rm -rf ~/.git
     rm -r ~/{Documents,Pictures,Desktop,Downloads,Templates,Music,Videos,Public}
     rm ~/.viminfo
     sudo rm ~/cachyos-repo*
