@@ -260,6 +260,10 @@ echo 'Post-Installation:
 - check status of auto-cpufreq with this command
     sudo systemctl status auto-cpufreq
     auto-cpufreq --stats
+  - to force, override and persist after reboot the use of either "powersave" or "performance" governor use
+      sudo auto-cpufreq --force=performance
+      sudo auto-cpufreq --force=powersave
+      sudo auto-cpufreq --force=reset         # Setting to "reset" will go back to normal mode
 - if you used yaylist-striped packages then change sddm.conf to archlinux theme
 ------- AFTER REBOOT -------
 - start Default Network for Networking
