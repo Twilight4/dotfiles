@@ -182,6 +182,11 @@ install-dotfiles() {
     update-mime-database ~/.config/.local/share/mime
     xdg-mime default emacs.desktop text/org
 
+    # auto-cpufreq-installer
+    git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+    cd auto-cpufreq && sudo ./auto-cpufreq-installer
+    sudo auto-cpufreq --install
+
     # Enabling system services
     hblock                                                                            # block ads and malware domains
     #playerctld daemon                                                                 # if it doesn't work try installing volumectl
@@ -194,8 +199,6 @@ install-dotfiles() {
     sudo systemctl enable sshd.service                                                # enable nohang daemon
     sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
     #sudo systemctl enable libvirtd.service                                            # enable qemu/virt manager daemon
-    sudo systemctl enable --now auto-cpufreq.service                                  # install cpu performance tweaks
-    sudo systemctl mask power-profiles-daemon.service                                 # install cpu performance tweaks
     # Enable performance and security tweaks
     #sudo systemctl enable sddm
     #sudo systemctl enable auditd
