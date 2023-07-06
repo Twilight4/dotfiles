@@ -8,8 +8,8 @@
 
 # Solution 2 - updating bootsnap
 - go to the project home
-- bundle update bootsnap
-- bundle install
+bundle update bootsnap
+bundle install
 
 
 ### bundle update bootsnap error: ###
