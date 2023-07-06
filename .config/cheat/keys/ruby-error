@@ -1,0 +1,24 @@
+### application using ruby error: ###
+#cannot load such file vendor/bundle/ruby/3.0.0/gems/bootsnap-1.16.0/lib/bootsnap/version (LoadError)
+#from /vendor/bundle/ruby/3.0.0/gems/bootsnap-1.16.0/lib/bootsnap.rb:3:in `<top (required)>'
+
+# Solution 1 - clearing the bootsnap cache
+- go to the project home, then cd into tmp/cache
+- delete bootsnap-load-path-cache and bootsnap-compile-cache
+
+# Solution 2 - updating bootsnap
+- go to the project home
+- bundle update bootsnap
+- bundle install
+
+
+### bundle update bootsnap error: ###
+#Could not load OpenSSL.
+#You must recompile Ruby with OpenSSL support.
+
+# Solution - recompiling ruby with OpenSSL
+rvm pkg install openssl
+
+## ruby --version
+rvm reinstall ruby-3.0.5 --with-openssl-dir=$HOME/.rvm/usr
+rvm use ruby-3.0.5
