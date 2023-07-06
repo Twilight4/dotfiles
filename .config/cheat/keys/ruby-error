@@ -17,8 +17,6 @@ bundle install
 #You must recompile Ruby with OpenSSL support.
 
 # Solution - recompiling ruby with OpenSSL
-rvm pkg install openssl
-
 ## ruby --version
 rvm reinstall ruby-3.0.5 --with-openssl-dir=$HOME/.rvm/usr
 rvm use ruby-3.0.5
