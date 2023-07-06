@@ -15,15 +15,15 @@ alias lm='lsd -alh --hyperlink=auto |less -'         # pipe through 'less'
 alias l.='lsd -A $* | grep "^\."'                    # list hidden files
 
 # pentest recon
-alias lpr='lsd --hyperlink=auto ~/workspace/cheats/pentest/recon'
+alias lpr='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/pentest/recon'
 # pentest enum
-alias lpe='lsd --hyperlink=auto ~/workspace/cheats/pentest/enum'
+alias lpe='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/pentest/enum'
 # bug bounty recon
-alias lbr='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/info-gathering'
+alias lbr='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/bug-bounty/info-gathering'
 # bug bounty enum
-alias lbe='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/content-discovery'
+alias lbe='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/bug-bounty/content-discovery'
 # other
-alias lo='lsd --hyperlink=auto ~/workspace/cheats/other'
+alias lo='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/other'
 
 # icat kitten
 alias icat='kitty +kitten icat'
@@ -83,29 +83,12 @@ alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 # recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
-alias big="expac -H M '%m\t%n' | sory -h | nl"
+alias big="expac -H M '%m\t%n' | sort -h | nl"
 alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
 
 # blackarch repo packages
 alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # list all available tools
 alias blackcat="sudo pacman -Sg | grep blackarch"                             # see the blackarch categories
-
-# nmap
-alias nmap_open_ports="nmap --open"
-alias nmap_list_interfaces="nmap --iflist"
-alias nmap_slow="sudo nmap -sS -v -T1"
-alias nmap_fin="sudo nmap -sF -v"
-alias nmap_full="sudo nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v"
-alias nmap_check_for_firewall="sudo nmap -sA -p1-65535 -v -T4"
-alias nmap_ping_through_firewall="nmap -PS -PA"
-alias nmap_fast="nmap -F -T5 --version-light --top-ports 300"
-alias nmap_detect_versions="sudo nmap -sV -p1-65535 -O --osscan-guess -T4 -Pn"
-alias nmap_check_for_vulns="nmap --script=vuln"
-alias nmap_full_udp="sudo nmap -sS -sU -T4 -A -v -PE -PS22,25,80 -PA21,23,80,443,3389 "
-alias nmap_traceroute="sudo nmap -sP -PE -PS22,25,80 -PA21,23,80,3389 -PU -PO --traceroute "
-alias nmap_full_with_scripts="sudo nmap -sS -sU -T4 -A -v -PE -PP -PS21,22,23,25,80,113,31339 -PA80,113,443,10042 -PO --script all " 
-alias nmap_web_safe_osscan="sudo nmap -p 80,443 -O -v --osscan-guess --fuzzy "
-alias nmap_ping_scan="nmap -n -sP"
 
 # get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
@@ -182,8 +165,10 @@ alias gcd="cloneit"
 # pacman and yay
 alias pacs="sudo pacman -S"                      # install package faster
 alias pacr="sudo pacman -Rns"                    # remove package faster
+alias pacf="sudo pacman -F"                      # search binary package faster
 alias yayr="yay -Rns"                            # remove package faster
 alias yays="yay -S"                              # install AUR package faster
+alias yayf="yay -F"                              # search binary package faster
 alias pacsyu="sudo pacman -Syu"                  # update only standard pkgs
 alias pacsyyu="sudo pacman -Syyu"                # refresh pkglist & update standard pkgs
 alias yaysua="yay -Sua --noconfirm"              # update only AUR pkgs (yay)
@@ -207,6 +192,23 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 #search content with ripgrep
 alias rg="rg --sort path"
+
+# nmap
+alias nmap_open="nmap --open"
+alias nmap_list_interfaces="nmap --iflist"
+alias nmap_slow="sudo nmap -sS -v -T1"
+alias nmap_fin="sudo nmap -sF -v"
+alias nmap_full="sudo nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v"
+alias nmap_check_for_firewall="sudo nmap -sA -p1-65535 -v -T4"
+alias nmap_ping_through_firewall="nmap -PS -PA"
+alias nmap_fast="nmap -F -T5 --version-light --top-ports 300"
+alias nmap_detect_versions="sudo nmap -sV -p1-65535 -O --osscan-guess -T4 -Pn"
+alias nmap_check_for_vulns="nmap --script=vuln"
+alias nmap_full_udp="sudo nmap -sS -sU -T4 -A -v -PE -PS22,25,80 -PA21,23,80,443,3389 "
+alias nmap_traceroute="sudo nmap -sP -PE -PS22,25,80 -PA21,23,80,3389 -PU -PO --traceroute "
+alias nmap_full_with_scripts="sudo nmap -sS -sU -T4 -A -v -PE -PP -PS21,22,23,25,80,113,31339 -PA80,113,443,10042 -PO --script all " 
+alias nmap_web_safe_osscan="sudo nmap -p 80,443 -O -v --osscan-guess --fuzzy "
+alias nmap_ping="nmap -n -sP"
 
 # search running processes
 alias psa="ps auxf"
