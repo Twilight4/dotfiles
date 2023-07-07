@@ -27,6 +27,7 @@ alias lo='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/other'
 
 # icat kitten
 alias icat='kitty +kitten icat'
+alias icat='bat'
 
 # diff kitten
 alias diff="kitty +kitten diff"
