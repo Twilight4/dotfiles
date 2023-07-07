@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
-##########
-# Pacman #
-##########
+####################
+# Package Managers #
+####################
 
-# TODO can improve that with a bind to switch to what was installed
+# install packages
 fpac() {
     pacman -Slq | fzf --multi --reverse --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
 }
@@ -38,63 +38,6 @@ fgb() {
 }
 
 
-
-########
-# tmux #
-########
-
-# Let you choose a tmuxp config with fzf and run it - fmux
-fmux() {
-    prj=$(find $XDG_CONFIG_HOME/tmuxp/ -execdir bash -c 'basename "${0%.*}"' {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    echo $prj
-    [ -n "$prj" ] && tmuxp load $prj
-}
-
-# ftmux - help you choose tmux sessions
-ftmux() {
-    if [[ ! -n $TMUX ]]; then
-        # get the IDs
-        ID="`tmux list-sessions`"
-        if [[ -z "$ID" ]]; then
-            tmux new-session
-        fi
-        create_new_session="Create New Session"
-        ID="$ID\n${create_new_session}:"
-        ID="`echo $ID | fzf | cut -d: -f1`"
-        if [[ "$ID" = "${create_new_session}" ]]; then
-            tmux new-session
-        elif [[ -n "$ID" ]]; then
-            printf '\033]777;tabbedx;set_tab_name;%s\007' "$ID"
-            tmux attach-session -t "$ID"
-        else
-            :  # Start terminal normally
-        fi
-    fi
-}
-
-# ftmuxp - propose every possible tmuxp session
-ftmuxp() {
-    if [[ -n $TMUX ]]; then
-        return
-    fi
-
-    # get the IDs
-    ID="$(ls $XDG_CONFIG_HOME/tmuxp | sed -e 's/\.yml$//')"
-    if [[ -z "$ID" ]]; then
-        tmux new-session
-    fi
-
-    create_new_session="Create New Session"
-
-    ID="${create_new_session}\n$ID"
-    ID="$(echo $ID | fzf | cut -d: -f1)"
-
-    if [[ "$ID" = "${create_new_session}" ]]; then
-        tmux new-session
-    fi
-}
-
-
 #########
 # Other #
 #########
@@ -105,6 +48,12 @@ fpop() {
     # alias d='dirs -v'
     # for index ({1..9}) alias "$index"="cd +${index}"; unset index
     d | fzf --height="20%" | cut -f 1 | source /dev/stdin
+}
+
+# Better cd-ls navigation
+fcd() {
+    local dir
+    dir=$(find ${1:-.} -type d -not -path '*/\.*' 2> /dev/null | fzf +m) && cd "$dir"
 }
 
 # List projects
