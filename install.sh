@@ -53,9 +53,6 @@ install-apps() {
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
     
     # these tools are unavailable in arch repos
-    #sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/archlinux-logout-git-23.04-05-any.pkg.tar.zst -O /tmp/archlinux-logout-git-23.04-05-any.pkg.tar.zst
-    #sudo pacman -U --noconfirm /tmp/archlinux-logout-git-23.01-01-any.pkg.tar.zst
-
     sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst -O /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
 
@@ -175,8 +172,8 @@ install-dotfiles() {
     rm ~/.zcompdummp*
 
     # Installing doom emacs on top of emacs
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-    ~/.config/emacs/bin/doom install
+    #git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    #~/.config/emacs/bin/doom install
     
     # Setting mime type for org mode (org mode isn't recognised as it's own mime type by default)
     update-mime-database ~/.config/.local/share/mime
