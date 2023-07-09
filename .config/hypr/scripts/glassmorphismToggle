@@ -8,6 +8,6 @@ if [ "${STATE}" == "3" ]; then
   notify-send "Normal blur"
 else
   hyprctl keyword decoration:blur_size 7
-	hyprctl keyword decoration:blur_passes 3
+	hyprctl keyword decoration:blur_passes 4
   notify-send "Glassy blur"
 fi
