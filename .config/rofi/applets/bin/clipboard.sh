@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
 
-theme="launcher/style.rasi"
-dir="$HOME/.config/rofi"
+CONFIG="$HOME/.config/rofi/config"
+STYLE="$HOME/.config/rofi/style.css"
+#COLORS="$HOME/.config/rofi/colors"
 
 if [[ "$XDG_SESSION_DESKTOP" == "Hyprland" ]]; then
-	# clipman pick --tool=CUSTOM --tool-args="rofi -p \
-	#    pick -dmenu -i -theme \
-	#    $dir/'$theme' -lines 10"
-	cliphist list | rofi -p \
-		pick -dmenu -i -theme \
-		"$dir/$theme" -lines 10 | cliphist decode | wl-copy
+	cliphist list | wofi --dmenu \
+    --conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
+    --width=350 --height=380 \
+    --cache-file=/dev/null \
+    --hide-scroll --no-actions | cliphist decode | wl-copy
 else
-	rofi -modi "clipboard:greenclip print" \
-		-show clipboard \
-		-run-command '{cmd}' \
-		-theme "$dir/""$theme"
+  return
 fi
