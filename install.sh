@@ -42,7 +42,38 @@ install-apps() {
     # if you used alis script then remove redundant packages installed by it
     #sudo pacman -Rns --noconfirm sddm linux linux-headers
     # remove redundant packages installed by cachyos
-    sudo pacman -Rns cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh-git cachyos-hello cachyos-kernel-manager exa alacritty micro cachyos-micro-settings btop cachyos-packageinstaller vim
+    #sudo pacman -Rns cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh-git cachyos-hello cachyos-kernel-manager exa alacritty micro cachyos-micro-settings btop cachyos-packageinstaller vim
+    cachyos_bloat=(
+      sddm
+      linux
+      linux-headers
+      cachyos-fish-config
+      fish-autopair
+      fisher
+      fish-pure-prompt
+      fish
+      cachyos-zsh-config
+      oh-my-zsh-git
+      cachyos-hello
+      cachyos-kernel-manager
+      exa
+      alacritty
+      micro
+      cachyos-micro-settings
+      btop
+      cachyos-packageinstaller
+      vim
+    )
+
+    for package in "${cachyos_bloat[@]}"; do
+      if pacman -Qs "$package" > /dev/null 2>&1; then
+        echo "Removing $package..."
+        sudo pacman -Rsn --noconfirm "$package"
+      else
+        echo "$package is not installed."
+      fi
+    done
+
     # start packages installation
     sudo pacman -S --needed $(cat /tmp/paclist)
     yay -S --needed $(cat /tmp/yaylist)
@@ -62,8 +93,15 @@ install-apps() {
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
 
-    # zsh as default terminal for user
-    sudo chsh -s "$(which zsh)" "$(whoami)"
+    # zsh as default shell
+    default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
+    if [ "$default_shell" != "$(which zsh)" ]; then
+        echo "Zsh is not the default shell. Changing shell..."
+        sudo chsh -s "$(which zsh)" "$(whoami)"
+        echo "Shell changed to Zsh."
+    else
+        echo "Zsh is already the default shell."
+    fi
     
     # for razer gears
     sudo groupadd plugdev
