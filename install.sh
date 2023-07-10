@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
-# This script assumes that I used my personal alis installation script with install-tweaks.sh beforewards
+# This script assumes that I used cachyos/alis installation with install-tweaks.sh beforewards
 run() {
     update-system
     download-paclist
     download-yaylist
     install-yay
-    install-apps
-    create-directories
+    install-packages
     install-dotfiles
     enable-services
     set-leftovers
@@ -40,11 +39,15 @@ install-yay() {
     && rm -rf yay-bin
 }
 
-install-apps() {
-    # if you used alis script then remove redundant packages installed by it
+install-packages() {
+    # Remove redundant packages installed by alis script
     #sudo pacman -Rns --noconfirm sddm linux linux-headers
-    # remove redundant packages installed by cachyos
+    # Remove redundant packages installed by cachyos
     #sudo pacman -Rns cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh-git cachyos-hello cachyos-kernel-manager exa alacritty micro cachyos-micro-settings btop cachyos-packageinstaller vim
+    # Remove redundant packages installed by pacman (on Hyprland)
+    #sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk xdg-desktop-portal-wlr
+
+    # First remove bloat that came with distro installation
     cachyos_bloat=(
       sddm
       linux
@@ -65,6 +68,9 @@ install-apps() {
       btop
       cachyos-packageinstaller
       vim
+      xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
     )
 
     for package in "${cachyos_bloat[@]}"; do
@@ -76,16 +82,14 @@ install-apps() {
       fi
     done
 
-    # start packages installation
+    # Start packages installation
     sudo pacman -S --needed $(cat /tmp/paclist-stripped)
     yay -S --needed $(cat /tmp/yaylist-stripped)
-    # remove redundant packages installed by pacman (on Hyprland)
-    #sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk xdg-desktop-portal-wlr
     
-    # plugins for nnn file manager
+    # Plugins for nnn file manager
     sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
     
-    # these tools are unavailable in arch repos
+    # These tools are unavailable in arch repos
     sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst -O /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
 
@@ -95,13 +99,18 @@ install-apps() {
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
 
-    # clone SecLists repo
+    # Auto-cpufreq-installer
+    git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+    cd auto-cpufreq && sudo ./auto-cpufreq-installer
+    sudo auto-cpufreq --install
+
+    # Clone SecLists repo
     [ ! -d "/usr/share/payloads/SecLists" ] \
-    && mkdir -p /usr/share/payloads/SecLists \
-    && git clone https://github.com/danielmiessler/SecLists \
+    && sudo mkdir -p /usr/share/payloads/SecLists \
+    && sudo git clone https://github.com/danielmiessler/SecLists \
     "/usr/share/payloads/SecLists"
 
-    # zsh as default shell
+    # Zsh as default shell
     default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
     if [ "$default_shell" != "$(which zsh)" ]; then
         echo "Zsh is not the default shell. Changing shell..."
@@ -111,37 +120,33 @@ install-apps() {
         echo "Zsh is already the default shell."
     fi
     
-    # for razer gears
+    # For razer gears
     sudo groupadd plugdev
     sudo gpasswd -a "$(whoami)" plugdev
     
-    # mpd group
+    # Mpd group
     sudo gpasswd -a "$(whoami)" mpd
     sudo chmod 710 "/home/$(whoami)"
     
-    # audit group
+    # Audit group
     sudo groupadd -r audit
     sudo gpasswd -a "$(whoami)" audit
     
-    # autologin group for sddm
+    # Autologin group for sddm
     sudo groupadd autologin
     sudo gpasswd -a "$(whoami)" autologin
     
-    # libvirt group
+    # Libvirt group
     sudo usermod -aG libvirt "$(whoami)"
     sudo usermod -aG libvirt-qemu "$(whoami)"
     sudo usermod -aG kvm "$(whoami)"
     sudo usermod -aG input "$(whoami)"
     sudo usermod -aG disk "$(whoami)"
 
-    ## for Docker
+    ## Docker group
     #gpasswd -a "$name" docker
     #usermod -aG docker $(whoami)
     #sudo systemctl enable docker.service
-}
-
-create-directories() {
-mkdir -p /home/$(whoami)/{documents,desktop,downloads,videos,workspace,music,pictures}
 }
 
 install-dotfiles() {
@@ -165,6 +170,7 @@ install-dotfiles() {
 
     # Create needed directories
     directories=(
+        ~/{documents,desktop,downloads,videos,workspace,music,pictures}
         ~/.config/.local/share/gnupg
         ~/.config/.local/share/cargo
         ~/.config/.local/share/go
@@ -209,14 +215,10 @@ install-dotfiles() {
     rm ~/.zsh*
     rm ~/.zcompdummp*
 
-    # Setting mime type for org mode (org mode isn't recognised as it's own mime type by default)
+    # Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
     update-mime-database ~/.config/.local/share/mime
     xdg-mime default emacs.desktop text/org
 
-    # auto-cpufreq-installer
-    git clone https://github.com/AdnanHodzic/auto-cpufreq.git
-    cd auto-cpufreq && sudo ./auto-cpufreq-installer
-    sudo auto-cpufreq --install
 
 enable-services() {
     services=(
@@ -233,9 +235,10 @@ enable-services() {
         bluetooth
         vnstat              # network traffic monitor
         libvirtd            # enable qemu/virt manager daemon
-        #auditd             # it's broken
+        #auditd             # it is broken
     )
 
+    # Enable services if they exist and are not enabled
     for service in "${services[@]}"; do
         if systemctl list-unit-files --type=service | grep -q "^$service.service"; then
             if ! systemctl is-enabled --quiet "$service"; then
@@ -249,7 +252,7 @@ enable-services() {
         fi
     done
 
-    # Enable psd service as user if service exists
+    # Enable psd service as user if service exists and isn not enabled
     if systemctl list-unit-files --user --type=service | grep -q "^psd.service"; then
         if ! systemctl --user is-enabled --quiet psd.service; then
             echo "Enabling service: psd.service..."
