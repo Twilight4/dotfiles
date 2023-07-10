@@ -304,6 +304,7 @@ enable-services() {
         irqbalance
         chronyd
         systemd-oomd
+        systemd-resolve
         paccache.timer      # enable weekly pkg cache cleaning
         ananicy             # enable ananicy daemon (CachyOS has it built in)
         nohang-desktop
