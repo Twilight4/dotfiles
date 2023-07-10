@@ -22,6 +22,7 @@ main() {
     install-dotfiles
     enable-services
     set-leftovers
+    post-install-message
 }
 
 update-system() {
@@ -414,7 +415,9 @@ set-leftovers() {
     else
         echo "sddm is not installed."
     fi
+}
 
+post-install-message () {}
     echo 'Post-Installation:
     - check auto-cpufreq stats
         auto-cpufreq --stats
