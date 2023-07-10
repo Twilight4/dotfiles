@@ -112,8 +112,8 @@ configuration {
     kb-element-prev: "";
 
     kb-accept-entry: "Control+m,Return,KP_Enter";
-    kb-row-up: "Up,Control+k";
-    kb-row-down: "Down,Control+j";
+    kb-row-up: "Up,Control+p";
+    kb-row-down: "Down,Control+n";
     kb-row-left: "Control+h";
     kb-row-right: "Control+l";
     kb-mode-next: "Tab";
