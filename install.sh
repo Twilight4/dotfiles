@@ -10,7 +10,7 @@
 # It streamlines the setup process, saving time and effort for system administrators and power users and ensuring
 # a consistent and efficient setup experience across multiple systems.
 
-run() {
+main() {
     update-system
     download-paclist
     download-yaylist
@@ -432,4 +432,4 @@ set-leftovers() {
     - uncomment last 2 lines in kitty.conf'
 }
 
-run "$@"
+main "$@"
