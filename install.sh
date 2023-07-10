@@ -16,6 +16,7 @@ main() {
     download-paclist
     download-yaylist
     install-yay
+    remove-distro-bloat
     install-packages
     set-user-groups
     install-dotfiles
@@ -50,7 +51,7 @@ install-yay() {
     && rm -rf yay-bin
 }
 
-install-packages() {
+remove-distro-bloat() {
     # Remove redundant packages installed by alis script
     #sudo pacman -Rns --noconfirm sddm linux linux-headers
     # Remove redundant packages installed by cachyos
@@ -92,7 +93,9 @@ install-packages() {
         echo "$package is not installed."
       fi
     done
+}
 
+install-packages() {
     # Start packages installation
     sudo pacman -S --needed $(cat /tmp/paclist-stripped)
     yay -S --needed $(cat /tmp/yaylist-stripped)
