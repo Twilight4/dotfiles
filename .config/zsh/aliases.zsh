@@ -5,13 +5,11 @@ alias l='lsd --hyperlink=auto'
 alias ls='lsd -l --hyperlink=auto'
 alias la='lsd -lA --hyperlink=auto'
 alias lt='lsd --tree --hyperlink=auto'
-alias lx='lsd -lXBh --hyperlink=auto'                # sort by extension
+alias lx='lsd -lXh --hyperlink=auto'                 # sort by extension
 alias lk='lsd -lSrh --hyperlink=auto'                # sort by size
-alias lc='lsd -lcrh --hyperlink=auto'                # sort by change time
-alias lu='lsd -lurh --hyperlink=auto'                # sort by access time
-alias lm='lsd -alh --hyperlink=auto |less -'         # pipe through 'less'
-#alias lf='lsd -l --hyperlink=auto| egrep -v '^d''   # files only
-#alias ldir='lsd -l --hyperlink=auto| egrep '^d''    # directories only
+alias lc='lsd -ltrh --hyperlink=auto'                # sort by date
+#alias lf='lsd -l --hyperlink=auto| grep -v '^d''     # files only
+#alias ld='lsd -l --hyperlink=auto| grep '^d''        # directories only
 alias l.='lsd -A $* | grep "^\."'                    # list hidden files
 
 # pentest recon
@@ -60,19 +58,13 @@ alias lynx="lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys"
 alias ncmpcpp="ncmpcpp ncmpcpp_directory=$HOME/.config/ncmpcpp/"
 alias h2t="html2text -style pretty"
 alias x2h="xsltproc -o result.html"
+alias emc="emacsclient -c -a emacs"
 
 # alias to show the date
-alias date='date "+%Y-%m-%d %A %T %Z"'
+alias da='date "+%Y-%m-%d %A %T %Z"'
 
 # add new fonts
 alias update-fc='sudo fc-cache -fv'
-
-# doom emacs
-alias doomsync="~/.config/emacs/bin/doom sync"
-alias doomdoctor="~/.config/emacs/bin/doom doctor"
-alias doomupgrade="~/.config/emacs/bin/doom upgrade"
-alias doompurge="~/.config/emacs/bin/doom purge"
-alias emc="emacsclient -c -a emacs"
 
 # trans
 alias tre='trans en:pl'
