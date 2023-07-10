@@ -2,7 +2,7 @@
     "label" : "lock",
     "action" : "~/.config/hypr/scripts/lock",
     "text" : "Lock",
-    "keybind" : "l"
+    "keybind" : "y"
 }
 {
     "label" : "hibernate",
@@ -14,7 +14,7 @@
     "label" : "logout",
     "action" : "loginctl terminate-user $USER",
     "text" : "Logout",
-    "keybind" : "e"
+    "keybind" : "l"
 }
 {
     "label" : "shutdown",
