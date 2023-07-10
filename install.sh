@@ -65,6 +65,8 @@ remove-distro-bloat() {
       btop
       cachyos-packageinstaller
       vim
+      meld
+      glances
       xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
       xdg-desktop-portal-wlr
