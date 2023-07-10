@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Warning:
 # I recommend utilizing the CachyOS installation of Arch Linux for optimal performance and streamlined setup experience.
 # Prior to executing this script, it is imperative that users have previously run the "install-tweaks.sh" script available in the "alis-iso" repository.
 # This preliminary step ensures the successful application of necessary system tweaks and optimizations, adding additional pacman repositories and 
