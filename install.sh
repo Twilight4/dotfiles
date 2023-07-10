@@ -9,6 +9,8 @@ run() {
     install-apps
     create-directories
     install-dotfiles
+    enable-services
+    set-leftovers
 }
 
 update-system() {
@@ -16,15 +18,15 @@ update-system() {
 }
 
 download-paclist() {
-    paclist_path="/tmp/paclist"    # Also possible paclist-stripped
-    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/paclist" > "$paclist_path"
+    paclist_path="/tmp/paclist-stripped"
+    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/paclist-stripped" > "$paclist_path"
 
     echo $paclist_path
 }
 
 download-yaylist() {
-    yaylist_path="/tmp/yaylist"    # Also possible yaylist-stripped
-    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/yaylist" > "$yaylist_path"
+    yaylist_path="/tmp/yaylist-stripped"
+    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/yaylist-stripped" > "$yaylist_path"
 
     echo $yaylist_path
 }
@@ -75,8 +77,8 @@ install-apps() {
     done
 
     # start packages installation
-    sudo pacman -S --needed $(cat /tmp/paclist)
-    yay -S --needed $(cat /tmp/yaylist)
+    sudo pacman -S --needed $(cat /tmp/paclist-stripped)
+    yay -S --needed $(cat /tmp/yaylist-stripped)
     # remove redundant packages installed by pacman (on Hyprland)
     #sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk xdg-desktop-portal-wlr
     
@@ -92,6 +94,12 @@ install-apps() {
     
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
+
+    # clone SecLists repo
+    [ ! -d "/usr/share/payloads/SecLists" ] \
+    && mkdir -p /usr/share/payloads/SecLists \
+    && git clone https://github.com/danielmiessler/SecLists \
+    "/usr/share/payloads/SecLists"
 
     # zsh as default shell
     default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
@@ -154,19 +162,32 @@ install-dotfiles() {
     # Change ownerships of logseq and mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
     sudo chmod 755 /opt/logseq-desktop
+
+    # Create needed directories
+    directories=(
+        ~/.config/.local/share/gnupg
+        ~/.config/.local/share/cargo
+        ~/.config/.local/share/go
+        ~/.config/.local/share/mpd/playlists
+        ~/.config/.local/state/mpd
+        ~/.config/.local/state/less/history
+        ~/.config/.local/share/nimble
+        ~/.config/.local/share/pki
+        ~/.config/.local/share/cache
+        ~/cachyos-repo
+        ~/documents/Org/roam
+    )
+
+    for directory in "${directories[@]}"; do
+        if [ ! -d "$directory" ]; then
+            echo "Creating directory: $directory..."
+            mkdir -p "$directory"
+        else
+            echo "Directory already exists: $directory."
+        fi
+    done
+
     # Cleanup home dir bloat
-    mkdir -p ~/.config/.local/share/gnupg
-    mkdir -p ~/.config/.local/share/cargo
-    mkdir -p ~/.config/.local/share/go
-    mkdir -p ~/.config/.local/share/mpd/playlists
-    mkdir -p ~/.config/.local/state/mpd
-    mkdir -p ~/.config/.local/state/less/history
-    mkdir -p ~/.config/.local/share/nimble
-    mkdir -p ~/.config/.local/share/pki
-    mkdir -p ~/.config/.local/share/cache
-    mkdir -p ~/cachyos-repo
-    mkdir -p ~/documents/Org/roam
-    mkdir -p ~/.config/.local/share/navi/cheats
     mv ~/.gnupg ~/.config/.local/share/gnupg
     mv ~/.cargo ~/.config/.local/share/cargo
     mv ~/go ~/.config/.local/share/go
@@ -197,26 +218,68 @@ install-dotfiles() {
     cd auto-cpufreq && sudo ./auto-cpufreq-installer
     sudo auto-cpufreq --install
 
-    # Enabling system services
-    hblock                                                                            # block ads and malware domains
-    #playerctld daemon                                                                 # if it doesn't work try installing volumectl
-    systemctl --user enable mpd.service                                               # mpd daemon
-    systemctl --user enable psd.service                                               # profile sync daemon
-    sudo systemctl enable vnstat.service                                              # network traffic monitor
-    sudo systemctl enable bluetooth                                                   # enable bluetooth daemon
-    #sudo systemctl enable ananicy.service                                             # enable ananicy daemon (cachy-os has it built in)
-    sudo systemctl enable nohang-desktop.service                                      # enable nohang daemon
-    sudo systemctl enable sshd.service                                                # enable nohang daemon
-    sudo systemctl enable paccache.timer                                              # enable weekly pkg cache cleaning
-    #sudo systemctl enable libvirtd.service                                            # enable qemu/virt manager daemon
-    # Enable performance and security tweaks
-    #sudo systemctl enable sddm
-    #sudo systemctl enable auditd
-    sudo systemctl enable apparmor
-    sudo systemctl enable firewalld
-    sudo systemctl enable irqbalance
-    sudo systemctl enable chronyd
-    sudo systemctl enable systemd-oomd
+enable-services() {
+    services=(
+        sddm
+        apparmor
+        firewalld
+        irqbalance
+        chronyd
+        systemd-oomd
+        paccache.timer      # enable weekly pkg cache cleaning
+        ananicy             # enable ananicy daemon (cachy-os has it built in)
+        nohang-desktop
+        sshd.service
+        bluetooth
+        vnstat              # network traffic monitor
+        libvirtd            # enable qemu/virt manager daemon
+        #auditd             # it's broken
+    )
+
+    for service in "${services[@]}"; do
+        if systemctl list-unit-files --type=service | grep -q "^$service.service"; then
+            if ! systemctl is-enabled --quiet "$service"; then
+                echo "Enabling service: $service..."
+                sudo systemctl enable "$service"
+            else
+                echo "Service already enabled: $service."
+            fi
+        else
+            echo "Service does not exist: $service."
+        fi
+    done
+
+    # Enable psd service as user if service exists
+    if systemctl list-unit-files --user --type=service | grep -q "^psd.service"; then
+        if ! systemctl --user is-enabled --quiet psd.service; then
+            echo "Enabling service: psd.service..."
+            systemctl --user enable psd.service                  # profile sync daemon
+        else
+            echo "Service already enabled: psd.service."
+        fi
+    else
+        echo "Service does not exist: psd.service."
+    fi
+
+    # Enable mpd service as user if service exists
+    #if ! systemctl list-unit-files --user --type=service | grep -q "^mpd.service"; then
+    #    echo "Service does not exist: mpd.service. Adding and enabling..."
+    #    systemctl --user enable mpd.service
+    #else
+    #    if ! systemctl --user is-enabled --quiet mpd.service; then
+    #        echo "Enabling service: mpd.service..."
+    #        systemctl --user enable mpd.service                  # mpd daemon
+    #    else
+    #        echo "Service already enabled: mpd.service."
+    #    fi
+    #fi
+
+    # Other services
+    hblock                               # block ads and malware domains
+    #playerctld daemon                   # if it doesn't work try installing volumectl
+}
+
+set-leftovers() {
     # Disable the systemd-boot startup entry
     sudo sed -i 's/^timeout/# timeout/' /boot/loader/loader.conf 
     # Change data locale back to english
@@ -255,11 +318,6 @@ EOF
 ## sudo grub-mkconfig -o /boot/grub/grub.cfg
 ## echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub  # works only as root
 
-# clone SecLists repo
-[ ! -d "/usr/share/payloads/SecLists" ] \
-&& mkdir -p /usr/share/payloads/SecLists \
-&& git clone https://github.com/danielmiessler/SecLists \
-"/usr/share/payloads/SecLists"
 
 echo 'Post-Installation:
 - NOW ISSUE THESE COMMANDS (must be as root)
