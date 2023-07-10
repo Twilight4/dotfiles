@@ -13,8 +13,6 @@
 
 main() {
     update-system
-    download-paclist
-    download-yaylist
     install-yay
     remove-distro-bloat
     install-packages
@@ -27,20 +25,6 @@ main() {
 
 update-system() {
     sudo pacman --noconfirm -Syu
-}
-
-download-paclist() {
-    paclist_path="/tmp/paclist-stripped"
-    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/paclist-stripped" > "$paclist_path"
-
-    echo $paclist_path
-}
-
-download-yaylist() {
-    yaylist_path="/tmp/yaylist-stripped"
-    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/yaylist-stripped" > "$yaylist_path"
-
-    echo $yaylist_path
 }
 
 install-yay() {
@@ -97,6 +81,16 @@ remove-distro-bloat() {
 }
 
 install-packages() {
+    # Download paclist
+    paclist_path="/tmp/paclist-stripped"
+    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/paclist-stripped" > "$paclist_path"
+    echo $paclist_path
+
+    # Download yaylist
+    yaylist_path="/tmp/yaylist-stripped"
+    curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/yaylist-stripped" > "$yaylist_path"
+    echo $yaylist_path
+
     # Start packages installation
     sudo pacman -S --needed $(cat /tmp/paclist-stripped)
     yay -S --needed $(cat /tmp/yaylist-stripped)
