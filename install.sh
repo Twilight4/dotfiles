@@ -167,33 +167,62 @@ install-packages() {
 }
     
 set-user-groups() {
-    # For razer gears
-    sudo groupadd plugdev
-    sudo gpasswd -a "$(whoami)" plugdev
-    
-    # Mpd group
-    sudo gpasswd -a "$(whoami)" mpd
-    sudo chmod 710 "/home/$(whoami)"
-    
-    # Audit group
-    sudo groupadd -r audit
-    sudo gpasswd -a "$(whoami)" audit
-    
-    # Autologin group for sddm
-    sudo groupadd autologin
-    sudo gpasswd -a "$(whoami)" autologin
-    
-    # Libvirt group
-    sudo usermod -aG libvirt "$(whoami)"
-    sudo usermod -aG libvirt-qemu "$(whoami)"
-    sudo usermod -aG kvm "$(whoami)"
-    sudo usermod -aG input "$(whoami)"
-    sudo usermod -aG disk "$(whoami)"
+    # Razer, audit and sddm autologin group
+    add_groups=(
+     plugdev
+     audit
+     autologin
+    )
 
-    # Docker group
-    #gpasswd -a "$name" docker
-    #usermod -aG docker $(whoami)
-    #sudo systemctl enable docker.service
+    for group in "${add_groups[@]}"; do
+      if ! getent group "$group" >/dev/null; then
+        echo "Creating group '$group'..."
+        sudo groupadd "$group"
+      else
+        echo "Group '$group' already exists."
+      fi
+    done
+
+    # Libvirtd groups (for virt-manager)
+    usermod_groups=(
+      libvirt
+      libvirt-qemu
+      kvm
+      input
+      disk
+      #docker
+    )
+
+    gpasswd_groups=(
+      audit
+      autologin
+      plugdev
+      mpd
+      #docker
+    )
+
+    username="$(whoami)"
+
+    # Adding user to groups using usermod
+    for group in "${usermod_groups[@]}"; do
+      if ! groups "$username" | grep -q "\<$group\>"; then
+        echo "Adding user '$username' to group '$group'..."
+        sudo usermod -aG "$group" "$username"
+      else
+        echo "User '$username' is already a member of group '$group'."
+      fi
+    done
+
+    # Adding user to groups using gpasswd
+    for group in "${gpasswd_groups[@]}"; do
+      if ! groups "$username" | grep -q "\<$group\>"; then
+        echo "Adding user '$username' to group '$group'..."
+        sudo gpasswd -a "$username" "$group"
+        sudo chmod 710 "/home/$(whoami)"      # needed for mpd group
+      else
+        echo "User '$username' is already a member of group '$group'."
+      fi
+    done
 }
 
 install-dotfiles() {
@@ -283,6 +312,7 @@ enable-services() {
         vnstat              # network traffic monitor
         libvirtd            # enable qemu/virt manager daemon
         #auditd             # it is broken
+        #docker
     )
 
     # Enable services if they exist and are not enabled
