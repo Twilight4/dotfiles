@@ -188,7 +188,7 @@ install-packages() {
     sudo usermod -aG input "$(whoami)"
     sudo usermod -aG disk "$(whoami)"
 
-    ## Docker group
+    # Docker group
     #gpasswd -a "$name" docker
     #usermod -aG docker $(whoami)
     #sudo systemctl enable docker.service
@@ -201,12 +201,12 @@ install-dotfiles() {
             git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
     fi
     
-    # Rm auto-generated bloat
+    # Remove auto-generated bloat
     sudo rm -rf /usr/share/fonts/encodings
     sudo fc-cache -fv
     rm -rf .config/{fish,gtk-3.0,ibus,kitty,micro,nautilus,pulse,yay,user-dirs.dirs,user-dirs,locate,dconf}
     rm -rf .config/.gsd-keyboard.settings-ported
-    # Cp dotfiles
+    # Copy dotfiles
     rsync -av  /tmp/dotfiles/ ~
     rm ~/README.md
     # Change ownerships of logseq and mpd directory
