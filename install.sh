@@ -88,27 +88,6 @@ install-apps() {
     sudo usermod -aG input "$(whoami)"
     sudo usermod -aG disk "$(whoami)"
 
-    # move config files to testuser created in distro installation (user for testing purposes)
-    mkdir ~/.config/.config
-    # copying necessary files for shell integration
-    cp ~/.config/zsh ~/.config/.config
-    cp ~/.config/nnn ~/.config/.config
-    cp ~/.config/lsd ~/.config/.config
-    cp ~/.config/emacs ~/.config/.config
-    cp ~/.config/doom ~/.config/.config
-    cp ~/.config/user-dirs.dirs ~/.config/.config
-    rm ~/.config/.config/.zhistory
-    sudo mv /home/$(whoami)/.config/.config /home/testuser/
-    sudo chown -R testuser:testuser /home/testuser/.config
-    sudo chsh -s "$(which zsh)" "$(/home/testuser)"
-    rm ~/.bash*
-    # switch to that user and to load zsh files type: zsh
-    
-    # EXPERIMENTING #
-    # if you get errors related to XDG_RUNTIME_DIR var issue command: id -u testuser - to test check user id and export var: export XDG_RUNTIME_DIR=/run/user/<user_id> - in .zshenv
-    # don't forget to run doomsync and removing lines from packages.el before launching emacs and experimenting with config.org
-    # no need to clone doom emacs cuz it's copied from twilight .config/emacs
-
     ## for Docker
     #gpasswd -a "$name" docker
     #usermod -aG docker $(whoami)
@@ -171,10 +150,6 @@ install-dotfiles() {
     rm ~/.zsh*
     rm ~/.zcompdummp*
 
-    # Installing doom emacs on top of emacs
-    #git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-    #~/.config/emacs/bin/doom install
-    
     # Setting mime type for org mode (org mode isn't recognised as it's own mime type by default)
     update-mime-database ~/.config/.local/share/mime
     xdg-mime default emacs.desktop text/org
