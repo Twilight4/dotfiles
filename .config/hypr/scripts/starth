@@ -30,5 +30,8 @@ export MOZ_DBUS_REMOTE=1
 export BEMENU_BACKEND=wayland
 export ECORE_EVAS_ENGINE=wayland_egl
 export ELM_ENGINE=wayland_egl
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=dbus
+export QT_IM_MODULE=ibus
 
 exec Hyprland
