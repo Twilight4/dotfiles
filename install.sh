@@ -194,7 +194,7 @@ Exec="$HOME/.config/hypr/scripts/starth"  # IF CRASHES TRY: bash -c "$HOME/.conf
 Type=Application
 EOF
 
-# SDDM rice
+# SDDM rice (don't install GDM cuz it installs and logs into GNOME instead)
 sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
 # Use autologin if have problems with sddm
 #[Autologin]
