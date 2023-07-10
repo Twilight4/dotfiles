@@ -86,29 +86,53 @@ install-packages() {
     sudo pacman -S --needed $(cat /tmp/paclist-stripped)
     yay -S --needed $(cat /tmp/yaylist-stripped)
     
-    # Plugins for nnn file manager
-    sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
+    # Installing nnn file manager plugins if not installled
+    plugins_dir="$HOME/.config/nnn/plugins"
+
+    if [ -z "$(ls -A "$plugins_dir")" ]; then
+        echo "Fetching nnn plugins..."
+
+        sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
+
+        echo "nnn plugins fetched."
+    else
+        echo "nnn plugins directory is not empty."
+    fi
     
     # These tools are unavailable in arch repos
-    sudo curl -L https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst -O /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
-    sudo pacman -U --noconfirm /tmp/arcolinux-hblock-git-3.4.1-1-any.pkg.tar.zst
-
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst
     
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
 
-    # Auto-cpufreq-installer
-    git clone https://github.com/AdnanHodzic/auto-cpufreq.git
-    cd auto-cpufreq && sudo ./auto-cpufreq-installer
-    sudo auto-cpufreq --install
+    # Install auto-cpufreq if not installed
+    if ! command -v auto-cpufreq >/dev/null; then
+        echo "Installing auto-cpufreq..."
 
-    # Clone SecLists repo
-    [ ! -d "/usr/share/payloads/SecLists" ] \
-    && sudo mkdir -p /usr/share/payloads/SecLists \
-    && sudo git clone https://github.com/danielmiessler/SecLists \
-    "/usr/share/payloads/SecLists"
+        git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+        cd auto-cpufreq && sudo ./auto-cpufreq-installer
+        sudo auto-cpufreq --install
+
+        echo "auto-cpufreq installed."
+    else
+        echo "auto-cpufreq is already installed."
+    fi
+
+    # Clone SecLists repo if does not exist
+    payloads_dir="/usr/share/payloads"
+    seclists_dir="$payloads_dir/SecLists"
+
+    if [ ! -d "$payloads_dir" ] || [ ! -d "$seclists_dir" ]; then
+        echo "Creating directories and cloning SecLists repository..."
+
+        sudo mkdir -p "$payloads_dir"
+        sudo git clone https://github.com/danielmiessler/SecLists.git "$seclists_dir"
+
+        echo "SecLists repository cloned to $seclists_dir."
+    else
+        echo "SecLists repository already exists in $seclists_dir."
+    fi
 
     # Zsh as default shell
     default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
@@ -118,6 +142,18 @@ install-packages() {
         echo "Shell changed to Zsh."
     else
         echo "Zsh is already the default shell."
+    fi
+
+    # Export default PATH to zsh config
+    zshenv_file="/etc/zsh/zshenv"
+    line_to_append='export ZDOTDIR="$HOME"/.config/zsh'
+
+    if [ ! -f "$zshenv_file" ]; then
+        echo "Creating $zshenv_file..."
+        echo "$line_to_append" | sudo tee "$zshenv_file" >/dev/null
+        echo "$zshenv_file created."
+    else
+        echo "$zshenv_file already exists."
     fi
     
     # For razer gears
@@ -340,35 +376,38 @@ set-leftovers() {
         echo "hyprland is not installed."
     fi
 
-    # SDDM rice (don't install GDM cuz it installs and logs into GNOME instead)
-    sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
-    # Use autologin if have problems with sddm
-    #[Autologin]
-    #Session=hyprland
-    #User=twilight
+    # SDDM rice (don't install GDM cuz it installs GNOME DE as dependency)
+    if command -v sddm >/dev/null; then
+        echo "Creating /etc/sddm.conf file..."
 
-    [Theme]
-    Current=astronaut
-    CursorSize=24
-    CursorTheme=Numix-Cursor-Light
-    Font=JetBrains Mono
-    ThemeDir=/usr/share/sddm/themes
-    EOF
+        sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
+        # Use autologin if have problems with sddm
+        #[Autologin]
+        #Session=hyprland
+        #User=twilight
+
+        [Theme]
+        Current=astronaut
+        CursorSize=24
+        CursorTheme=Numix-Cursor-Light
+        Font=JetBrains Mono
+        ThemeDir=/usr/share/sddm/themes
+        EOF
+
+        echo "/etc/sddm.conf file created."
+    else
+        echo "sddm is not installed."
+    fi
 
     echo 'Post-Installation:
-    - NOW ISSUE THESE COMMANDS (must be as root)
-        su
-        echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
-        exit
-    - check status of auto-cpufreq with this command
-        sudo systemctl status auto-cpufreq
+    - check auto-cpufreq stats
         auto-cpufreq --stats
-      - to force, override and persist after reboot the use of either "powersave" or "performance" governor use
-          sudo auto-cpufreq --force=performance
-          sudo auto-cpufreq --force=powersave
-          sudo auto-cpufreq --force=reset         # Setting to "reset" will go back to normal mode
+    - to force and override auto-cpufreq governor use of either "powersave" or "performance" governor
+        sudo auto-cpufreq --force=performance
+        sudo auto-cpufreq --force=powersave
+        sudo auto-cpufreq --force=reset         # Setting to "reset" will go back to normal mode
     ------- AFTER REBOOT -------
-    - start Default Network for Networking
+    - start Default Network for virt-manager
         sudo virsh net-start default
         sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
     - add pub key to github: Settings > SSH > New
