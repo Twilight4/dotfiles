@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-# This script assumes that I used cachyos/alis installation with install-tweaks.sh beforewards
+# I recommend utilizing the CachyOS installation of Arch Linux for optimal performance and streamlined setup experience.
+# Prior to executing this script, it is imperative that users have previously run the "install-tweaks.sh" script available in the "alis-iso" repository.
+# This preliminary step ensures the successful application of necessary system tweaks and optimizations, adding additional pacman repositories and 
+# enhancing system security and the overall performance and stability.
+#
+# Title: Package Installer and User System Configuration Bootstrap script.
+# Description: The script automates the installation of user packages and configures system settings and services. 
+# It streamlines the setup process, saving time and effort for system administrators and power users and ensuring
+# a consistent and efficient setup experience across multiple systems.
+
 run() {
     update-system
     download-paclist
