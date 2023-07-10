@@ -38,3 +38,5 @@ filter_rate=100
 ## Keys
 key_expand=Tab
 key_exit=Escape
+key_up=Control_L-p
+key_down=Control_L-n
