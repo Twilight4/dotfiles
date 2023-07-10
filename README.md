@@ -13,14 +13,13 @@
 | :----------------------------: | :--------------------------------------------------------: | 
 |  **Operating System**          | [Arch Linux](https://archlinux.org/)                       |
 |  **Compositor**                | [Hyprland](https://github.com/hyprwm/Hyprland)             |
-|  **Status Bar**                | [Waybar-hyprland](https://github.com/Alexays/Waybar)       |
-|  **App Launcher**              | [eww-wayland](https://github.com/elkowar/eww)              |
+|  **Widget System**             | [eww-wayland](https://github.com/elkowar/eww)              |
 |  **Session Manager**           | [wlogout](https://github.com/ArtsyMacaw/wlogout)           |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
 |  **Web Browser**               | [Cachy-Browser](https://github.com/CachyOS/CachyOS-Browser-Settings)                          |
 |  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)            |
 |  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
-|  **Editor**                    | [Neovim](https://github.com/neovim/neovim) / [Emacs](https://www.gnu.org/software/emacs/)                 |
+|  **Editor**                    | [Neovim](https://github.com/neovim/neovim) / [Emacs](https://www.gnu.org/software/emacs/)     |
 |  **Colorscheme**               | [Nightfly](https://github.com/bluz71/vim-nightfly-colors)  |
 |  **Shell**                     | [Zsh](https://github.com/zsh-users) / [Fzf](https://github.com/junegunn/fzf)                  |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
