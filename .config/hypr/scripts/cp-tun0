@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2) | wl-copy

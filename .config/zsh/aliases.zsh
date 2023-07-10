@@ -107,7 +107,6 @@ alias unhblock="hblock -S none -D none"
 alias probe="sudo -E hw-probe -all -upload"
 alias sysfailed="systemctl list-units --failed"
 alias ncdu="ncdu --color dark"
-alias me='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
 alias hw="hwinfo --short"
 
 # count all files (recursively) in the current folder
@@ -115,6 +114,8 @@ alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  typ
 
 # show current network connections to the server
 alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort  | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
+alias wlo1='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
+alias tun0='echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
  
 # show open ports
 alias openports='netstat -nape --inet'
