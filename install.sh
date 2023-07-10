@@ -202,8 +202,7 @@ sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
 #User=twilight
 
 [Theme]
-#Current=archlinux-soft-grey
-Current=aerial
+Current=astronaut
 CursorSize=24
 CursorTheme=Numix-Cursor-Light
 Font=JetBrains Mono
@@ -236,7 +235,6 @@ echo 'Post-Installation:
       sudo auto-cpufreq --force=performance
       sudo auto-cpufreq --force=powersave
       sudo auto-cpufreq --force=reset         # Setting to "reset" will go back to normal mode
-- if you used yaylist-striped packages then change sddm.conf to archlinux theme
 ------- AFTER REBOOT -------
 - start Default Network for Networking
     sudo virsh net-start default
