@@ -283,72 +283,105 @@ enable-services() {
 }
 
 set-leftovers() {
-    # Disable the systemd-boot startup entry
-    sudo sed -i 's/^timeout/# timeout/' /boot/loader/loader.conf 
-    # Change data locale back to english
-    sudo localectl set-locale LC_TIME=en_US.UTF8
+    # Disable the systemd-boot startup entry if systemd-boot is installed
+    if [ -d "/sys/firmware/efi/efivars" ] && [ -d "/boot/loader" ]; then
+        echo "Disabling systemd-boot startup entry"
+        sudo sed -i 's/^timeout/# timeout/' /boot/loader/loader.conf
+        echo "Disabled systemd-boot startup entry"
+    else
+        echo "systemd-boot is not being used."
+    fi
 
-# Hyprland desktop entry
-#sudo mv /tmp/dotfiles/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop
-sudo bash -c 'cat > /usr/share/wayland-sessions/hyprland.desktop' <<-'EOF'
-[Desktop Entry]
-Name=Hyprland
-Comment=hyprland
-Exec="$HOME/.config/hypr/scripts/starth"  # IF CRASHES TRY: bash -c "$HOME/.config/hypr/scripts/starth"
-Type=Application
-EOF
+    # Set data locale english if it is not set
+    if [[ "$(localectl status)" != *"LC_TIME=en_US.UTF8"* ]]; then
+        echo "Setting LC_TIME to English..."
+        sudo localectl set-locale LC_TIME=en_US.UTF8
+        echo "LC_TIME set to English."
+    else
+        echo "LC_TIME is already set to English."
+    fi
 
-# SDDM rice (don't install GDM cuz it installs and logs into GNOME instead)
-sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
-# Use autologin if have problems with sddm
-#[Autologin]
-#Session=hyprland
-#User=twilight
+    # Install GRUB theme if GRUB is installed
+    if command -v grub-install >/dev/null && ! command -v bootctl >/dev/null; then
+        echo "Installing GRUB theme..."
 
-[Theme]
-Current=astronaut
-CursorSize=24
-CursorTheme=Numix-Cursor-Light
-Font=JetBrains Mono
-ThemeDir=/usr/share/sddm/themes
-EOF
+        # Clone theme repository
+        git clone https://github.com/HenriqueLopes42/themeGrub.CyberEXS
+        mv themeGrub.CyberEXS CyberEXS
 
-# Grub rice - using systemd-boot
-#git clone https://github.com/HenriqueLopes42/themeGrub.CyberEXS
-#mv themeGrub.CyberEXS CyberEXS
-#sudo mv CyberEXS /boot/grub/themes/
-# to finish GRUB rice issue commands:
-## sudo grub-mkconfig -o /boot/grub/grub.cfg
-## echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' >> /etc/default/grub  # works only as root
+        # Move theme directory to GRUB themes directory
+        sudo mv CyberEXS /boot/grub/themes/
 
+        # Update GRUB configuration
+        sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-echo 'Post-Installation:
-- NOW ISSUE THESE COMMANDS (must be as root)
-    su
-    echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
-    exit
-- check status of auto-cpufreq with this command
-    sudo systemctl status auto-cpufreq
-    auto-cpufreq --stats
-  - to force, override and persist after reboot the use of either "powersave" or "performance" governor use
-      sudo auto-cpufreq --force=performance
-      sudo auto-cpufreq --force=powersave
-      sudo auto-cpufreq --force=reset         # Setting to "reset" will go back to normal mode
-------- AFTER REBOOT -------
-- start Default Network for Networking
-    sudo virsh net-start default
-    sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
-- add pub key to github: Settings > SSH > New
-    ssh-keygen -t ed25519 -C "your_email@example.com"
-- clone logseq and dotfiles repos via SSH
-    git clone git@github.com:Twilight4/dotfiles.git ~/workspace/dotfiles
-    git clone git@github.com:Twilight4/cheats.git ~/workspace/cheats
-    git clone git@github.com:Twilight4/logseq-notes.git ~/documents/logseq-notes
-- install more packages
-    sudo npm install git-file-downloader cli-fireplace git-stats
-- check if profile sync daemon is running
-    psd p
-- uncomment last 2 lines in kitty.conf'
+        # Set GRUB theme in GRUB configuration
+        echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' | sudo tee -a /etc/default/grub
+
+        echo "GRUB theme installed."
+    else
+        echo "GRUB bootloader is not installed, using systemd-boot"
+    fi
+
+    # Create Hyprland desktop entry if Hyprland is installed
+    if command -v hyprland >/dev/null; then
+        echo "Creating hyprland desktop entry..."
+
+        sudo bash -c 'cat > /usr/share/wayland-sessions/hyprland.desktop' <<-'EOF'
+        [Desktop Entry]
+        Name=Hyprland
+        Comment=hyprland
+        Exec="$HOME/.config/hypr/scripts/starth"   # IF CRASHES TRY: bash -c "$HOME/.config/hypr/scripts/starth"
+        Type=Application
+        EOF
+
+        echo "hyprland desktop entry created."
+    else
+        echo "hyprland is not installed."
+    fi
+
+    # SDDM rice (don't install GDM cuz it installs and logs into GNOME instead)
+    sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
+    # Use autologin if have problems with sddm
+    #[Autologin]
+    #Session=hyprland
+    #User=twilight
+
+    [Theme]
+    Current=astronaut
+    CursorSize=24
+    CursorTheme=Numix-Cursor-Light
+    Font=JetBrains Mono
+    ThemeDir=/usr/share/sddm/themes
+    EOF
+
+    echo 'Post-Installation:
+    - NOW ISSUE THESE COMMANDS (must be as root)
+        su
+        echo 'export ZDOTDIR="$HOME"/.config/zsh' > /etc/zsh/zshenv
+        exit
+    - check status of auto-cpufreq with this command
+        sudo systemctl status auto-cpufreq
+        auto-cpufreq --stats
+      - to force, override and persist after reboot the use of either "powersave" or "performance" governor use
+          sudo auto-cpufreq --force=performance
+          sudo auto-cpufreq --force=powersave
+          sudo auto-cpufreq --force=reset         # Setting to "reset" will go back to normal mode
+    ------- AFTER REBOOT -------
+    - start Default Network for Networking
+        sudo virsh net-start default
+        sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
+    - add pub key to github: Settings > SSH > New
+        ssh-keygen -t ed25519 -C "your_email@example.com"
+    - clone logseq and dotfiles repos via SSH
+        git clone git@github.com:Twilight4/dotfiles.git ~/workspace/dotfiles
+        git clone git@github.com:Twilight4/cheats.git ~/workspace/cheats
+        git clone git@github.com:Twilight4/logseq-notes.git ~/documents/logseq-notes
+    - install more packages
+        sudo npm install git-file-downloader cli-fireplace git-stats
+    - check if profile sync daemon is running
+        psd p
+    - uncomment last 2 lines in kitty.conf'
 }
 
 run "$@"
