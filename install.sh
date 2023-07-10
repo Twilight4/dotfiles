@@ -16,6 +16,7 @@ main() {
     download-yaylist
     install-yay
     install-packages
+    set-user-groups
     install-dotfiles
     enable-services
     set-leftovers
@@ -164,7 +165,9 @@ install-packages() {
     else
         echo "$zshenv_file already exists."
     fi
+}
     
+set-user-groups() {
     # For razer gears
     sudo groupadd plugdev
     sudo gpasswd -a "$(whoami)" plugdev
