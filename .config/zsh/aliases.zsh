@@ -59,6 +59,11 @@ alias ncmpcpp="ncmpcpp ncmpcpp_directory=$HOME/.config/ncmpcpp/"
 alias h2t="html2text -style pretty"
 alias x2h="xsltproc -o result.html"
 alias emc="emacsclient -c -a emacs"
+alias d="sudo docker"
+alias biggest="du -h --max-depth=1 | sort -h"
+alias norg="gron --ungron"
+alias ungron="gron --ungron"
+alias open='xdg-open'
 
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
@@ -202,6 +207,9 @@ alias nmap_traceroute="sudo nmap -sP -PE -PS22,25,80 -PA21,23,80,3389 -PU -PO --
 alias nmap_full_with_scripts="sudo nmap -sS -sU -T4 -A -v -PE -PP -PS21,22,23,25,80,113,31339 -PA80,113,443,10042 -PO --script all " 
 alias nmap_web_safe_osscan="sudo nmap -p 80,443 -O -v --osscan-guess --fuzzy "
 alias nmap_ping="nmap -n -sP"
+
+# amass config alias
+alias Amass='amass enum -config ~/.config/amass/config.ini -d $1'
 
 # search running processes
 alias psa="ps auxf"
