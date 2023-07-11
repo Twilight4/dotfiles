@@ -53,7 +53,19 @@
 ;;(elpaca-wait)
 
 ;; Expands to: (elpaca evil (use-package evil :demand t))
-(use-package evil :demand t)
+(use-package evil :demand t
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
+  (evil-mode))
+(use-package evil-collection
+  :after evil
+  :config
+  (setq evil-collection-mode-list '(dashboard dired ibuffer))
+  (evil-collection-ini))
+(use-package evil-tutor)
 
 ;;Turns off elpaca-use-package-mode current declartion
 ;;Note this will cause the declaration to be interpreted immediately (not deferred).
