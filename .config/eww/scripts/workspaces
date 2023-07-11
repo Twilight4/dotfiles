@@ -8,7 +8,7 @@ empty='rgba(146,145,145,0.5)' # Empty workspaces
 # get initial focused workspace
 focusedws=$(hyprctl -j monitors | gojq -r '.[] | select(.focused == true) | .activeWorkspace.id')
 
-declare -A o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0)
+declare -A o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0)
 declare -A monitormap
 declare -A workspaces
 
@@ -38,7 +38,7 @@ status_activity() {
 
 # handle workspace create/destroy
 workspace_event() {
-  if (( $1 <= 10 )); then
+  if (( $1 <= 6 )); then
     o[$1]=$2
     while read -r k v; do workspaces[$k]="$v"; done < <(hyprctl -j workspaces | gojq -r '.[]|"\(.id) \(.monitor)"')
   fi
@@ -55,7 +55,7 @@ monitor_event() {
 generate() {
   echo -n '['
 
-  for i in {1..10}; do
+  for i in {1..6}; do
     echo -n ''$([ $i -eq 1 ] || echo ,)'{"num":"'$i'","clr":"'$(status "$i")'"}'
     # echo -n ''$([ $i -eq 1 ] || echo ,) '{ "number": "'"$i"'", "activity": "'"$(status_activity $i)"'", "color": "'$(status "$i")'" }'
   done
@@ -90,7 +90,7 @@ socat -u UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock - |
       ;;
     "createworkspace")
       # workspace_event "${line#*>>}" 1
-      o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0)
+      o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0)
       workspaces=()
       # add workspaces
       while read -r k v; do workspaces[$k]="$v"; done < <(hyprctl -j workspaces | gojq -r '.[]|"\(.id) \(.monitor)"')
@@ -106,7 +106,7 @@ socat -u UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock - |
       ;;
     "destroyworkspace")
       # workspace_event "${line#*>>}" 0
-      o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 [7]=0 [8]=0 [9]=0 [10]=0)
+      o=([1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0)
       workspaces=()
       # add workspaces
       while read -r k v; do workspaces[$k]="$v"; done < <(hyprctl -j workspaces | gojq -r '.[]|"\(.id) \(.monitor)"')
