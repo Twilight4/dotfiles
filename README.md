@@ -13,9 +13,9 @@
 | :----------------------------: | :--------------------------------------------------------: | 
 |  **Operating System**          | [Arch Linux](https://archlinux.org/)                       |
 |  **Compositor**                | [Hyprland](https://github.com/hyprwm/Hyprland)             |
-|  **Widget System**             | [eww-wayland](https://github.com/elkowar/eww)              |
-|  **Menu Launcher**             | [wofi](https://hg.sr.ht/~scoopta/wofi)                     |
-|  **Session Manager**           | [wlogout](https://github.com/ArtsyMacaw/wlogout)           |
+|  **Widget System**             | [Eww-wayland](https://github.com/elkowar/eww)              |
+|  **Menu Launcher**             | [Wofi](https://hg.sr.ht/~scoopta/wofi)                     |
+|  **Session Manager**           | [Wlogout](https://github.com/ArtsyMacaw/wlogout)           |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
 |  **Web Browser**               | [Cachy-Browser](https://github.com/CachyOS/CachyOS-Browser-Settings)                          |
 |  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)            |
