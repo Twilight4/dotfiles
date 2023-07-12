@@ -240,6 +240,8 @@ install-dotfiles() {
     # Copy dotfiles
     rsync -av  /tmp/dotfiles/ ~
     rm ~/README.md
+    # Use the same nvim config for sudo nvim
+    sudo cp -r ~/.config/nvim /root/.config/
     # Change ownerships of logseq and mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
     sudo chmod 755 /opt/logseq-desktop
