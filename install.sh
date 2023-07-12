@@ -447,7 +447,7 @@ set-leftovers() {
 
     # Create Hyprland desktop entry if Hyprland is installed
     if command -v hyprland >/dev/null; then
-        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating hyprland desktop entry..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating Hyprland desktop entry..."
 
         sudo bash -c 'cat > /usr/share/wayland-sessions/hyprland.desktop' <<-'EOF'
         [Desktop Entry]
@@ -457,9 +457,9 @@ set-leftovers() {
         Type=Application
         EOF
 
-        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "hyprland desktop entry created."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Hyprland desktop entry created."
     else
-        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "hyprland is not installed."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Hyprland is not installed."
     fi
 
     # SDDM rice (don't install GDM cuz it installs GNOME DE as dependency)
@@ -482,7 +482,7 @@ set-leftovers() {
 
         printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "/etc/sddm.conf file created."
     else
-        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "sddm is not installed."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "SDDM is not installed."
     fi
 }
 
