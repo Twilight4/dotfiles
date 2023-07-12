@@ -315,7 +315,7 @@ install-dotfiles() {
             printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating directory: $directory..."
             mkdir -p "$directory"
         else
-            printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Directory already exists: $directory."
+            printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Directory already exists:\n" "$directory"
         fi
     done
 
@@ -347,7 +347,7 @@ install-dotfiles() {
 
 
 enable-services() {
-    services=(
+    local services=(
         sddm
         apparmor
         firewalld
@@ -373,10 +373,10 @@ enable-services() {
                 printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Enabling service: $service..."
                 sudo systemctl enable "$service"
             else
-                printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Service already enabled: $service."
+                printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Service already enabled:\n" "$service"
             fi
         else
-            printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Service does not exist: $service."
+            printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Service does not exist:\n" "$service"
         fi
     done
 
@@ -404,6 +404,9 @@ enable-services() {
     #        echo "Service already enabled: mpd.service."
     #    fi
     #fi
+
+    # Call the check_enabled_services function and pass the services array as an argument
+    check-results "${services[@]}"
 
     # Other services
     hblock                               # block ads and malware domains
@@ -448,7 +451,7 @@ set-leftovers() {
 
         printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "GRUB theme installed."
     else
-        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "GRUB bootloader is not installed, using systemd-boot"
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "GRUB bootloader is not installed, using systemd-boot."
     fi
 
     # Create Hyprland desktop entry if Hyprland is installed
@@ -493,40 +496,52 @@ set-leftovers() {
 }
 
 check-results() {
-# Check if all packages from paclist and yayllist has been installed
-package_list_file="paclist-stripped"
-package_list_file_2="yaylist-stripped"
-missing_packages=()
+    # Check if all packages from paclist and yayllist has been installed
+    package_list_file="paclist-stripped"
+    package_list_file_2="yaylist-stripped"
+    missing_packages=()
 
-# Function to check if a package is missing and add it to the missing_packages array
-check_package() {
+    # Function to check if a package is missing and add it to the missing_packages array
     local package="$1"
     if ! pacman -Qs "$package" > /dev/null ; then
         missing_packages+=("$package")
     fi
-}
 
-# Check packages from the paclist
-while IFS= read -r package
-do
-    check_package "$package"
-done < "$package_list_file"
-
-# Check packages from the yaylist
-while IFS= read -r package
-do
-    check_package "$package"
-done < "$package_list_file_2"
-
-if [ ${#missing_packages[@]} -eq 0 ]; then
-    printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "All packages are installed!"
-else
-    printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "The following packages are not installed:"
-    for package in "${missing_packages[@]}"
+    # Check packages from the paclist
+    while IFS= read -r package
     do
-        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "$package"
+        check_package "$package"
+    done < "$package_list_file"
+
+    # Check packages from the yaylist
+    while IFS= read -r package
+    do
+        check_package "$package"
+    done < "$package_list_file_2"
+
+    if [ ${#missing_packages[@]} -eq 0 ]; then
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "All packages are installed!"
+    else
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "The following packages are not installed:"
+        for package in "${missing_packages[@]}"
+        do
+            printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "$package"
+        done
+    fi
+
+    # Check if services are enabled
+    local services=("$@")
+
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Checking service status..."
+
+    for service in "${services[@]}"
+    do
+        if systemctl is-enabled "$service" >/dev/null 2>&1; then
+            printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Service $service is enabled."
+        else
+            printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Service %s is not enabled:\n" "$service"
+        fi
     done
-fi
 }
 
 post-install-message() {
