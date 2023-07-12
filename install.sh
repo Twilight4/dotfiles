@@ -12,6 +12,7 @@
 # a consistent and efficient setup experience across multiple systems.
 
 main() {
+    init_constants
     update-system
     install-yay
     remove-distro-bloat
@@ -23,6 +24,20 @@ main() {
     post-install-message
 }
 
+init_constants() {
+    FX_RESET="\033[0m"
+    FX_BOLD="\033[1m"
+    FX_ITALIC="\033[3m"
+
+    FG_RED="\033[31m"
+    FG_GREEN="\033[32m"
+    FG_YELLOW="\033[33m"
+    FG_CYAN="\033[36m"
+    FG_WHITE="\033[37m"
+
+    BG_MAGENTA="\033[45m"
+}
+
 update-system() {
     sudo pacman --noconfirm -Syu
 }
@@ -30,14 +45,23 @@ update-system() {
 install-yay() {
     # Install required dependencies
     sudo pacman -S --noconfirm git ccache
+
     # Install yay package manager from AUR
     git clone https://aur.archlinux.org/yay-bin.git
     cd yay-bin
     makepkg --noconfirm -si
     cd ..
     rm -rf yay-bin
+
     # Clean up unused dependencies
     sudo pacman -Rns --noconfirm $(pacman -Qdtq)
+
+    # Check if yay is installed
+    if yay --version &>/dev/null; then
+      printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "yay package manager installed successfully"
+    else
+      printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "installation of yay package manager failed"
+    fi
 }
 
 remove-distro-bloat() {
