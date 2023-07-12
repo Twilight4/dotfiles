@@ -14,6 +14,7 @@
 |  **Operating System**          | [Arch Linux](https://archlinux.org/)                       |
 |  **Compositor**                | [Hyprland](https://github.com/hyprwm/Hyprland)             |
 |  **Widget System**             | [eww-wayland](https://github.com/elkowar/eww)              |
+|  **Menu Launcher**             | [wofi](https://hg.sr.ht/~scoopta/wofi)                     |
 |  **Session Manager**           | [wlogout](https://github.com/ArtsyMacaw/wlogout)           |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
 |  **Web Browser**               | [Cachy-Browser](https://github.com/CachyOS/CachyOS-Browser-Settings)                          |
