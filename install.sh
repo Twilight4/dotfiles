@@ -28,12 +28,16 @@ update-system() {
 }
 
 install-yay() {
+    # Install required dependencies
     sudo pacman -S --noconfirm git ccache
-    git clone https://aur.archlinux.org/yay-bin \
-    && cd yay-bin \
-    && makepkg --noconfirm -si \
-    && cd - \
-    && rm -rf yay-bin
+    # Install yay package manager from AUR
+    git clone https://aur.archlinux.org/yay-bin.git
+    cd yay-bin
+    makepkg --noconfirm -si
+    cd ..
+    rm -rf yay-bin
+    # Clean up unused dependencies
+    sudo pacman -Rns --noconfirm $(pacman -Qdtq)
 }
 
 remove-distro-bloat() {
