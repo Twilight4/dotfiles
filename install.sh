@@ -487,28 +487,30 @@ set-leftovers() {
 }
 
 post-install-message () {}
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" 'Post-Installation:
-    - check auto-cpufreq stats
-        auto-cpufreq --stats
-    - to force and override auto-cpufreq governor use of either "powersave" or "performance" governor
-        sudo auto-cpufreq --force=performance
-        sudo auto-cpufreq --force=powersave
-        sudo auto-cpufreq --force=reset         # Setting to "reset" will go back to normal mode
-    ------- AFTER REBOOT -------
-    - start Default Network for virt-manager
-        sudo virsh net-start default
-        sudo virsh net-autostart default     # Check status with: sudo virsh net-list --all
-    - add pub key to github: Settings > SSH > New
-        ssh-keygen -t ed25519 -C "your_email@example.com"
-    - clone logseq and dotfiles repos via SSH
-        git clone git@github.com:Twilight4/dotfiles.git ~/workspace/dotfiles
-        git clone git@github.com:Twilight4/cheats.git ~/workspace/cheats
-        git clone git@github.com:Twilight4/logseq-notes.git ~/documents/logseq-notes
-    - install more packages
-        sudo npm install git-file-downloader cli-fireplace git-stats
-    - check if profile sync daemon is running
-        psd p
-    - uncomment last 2 lines in kitty.conf'
+    printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Post-Installation:"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Check auto-cpufreq stats:"
+    echo 'auto-cpufreq --stats'
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "To force and override auto-cpufreq governor use of either "powersave" or "performance" governor:"
+    echo 'sudo auto-cpufreq --force=performance'
+    echo 'sudo auto-cpufreq --force=powersave'
+    echo 'sudo auto-cpufreq --force=reset'         
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Setting to "reset" will go back to normal mode"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "AFTER REBOOT"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Start Default Network for virt-manager"
+    echo 'sudo virsh net-start default'
+    echo 'sudo virsh net-autostart default'
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Check status with: sudo virsh net-list --all"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Add pub key to github: Settings > SSH > New"
+    echo 'ssh-keygen -t ed25519 -C "your_email@example.com"'
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Clone logseq and dotfiles repos via SSH"
+    echo 'git clone git@github.com:Twilight4/dotfiles.git ~/workspace/dotfiles'
+    echo 'git clone git@github.com:Twilight4/cheats.git ~/workspace/cheats'
+    echo 'git clone git@github.com:Twilight4/logseq-notes.git ~/documents/logseq-notes'
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Install more packages"
+    echo 'sudo npm install git-file-downloader cli-fireplace git-stats'
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Check if profile sync daemon is running"
+    echo 'psd p'
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Uncomment last 2 lines in kitty.conf'"
 }
 
 main "$@"
