@@ -37,6 +37,15 @@ init-constants() {
     FG_WHITE="\033[37m"
 
     BG_MAGENTA="\033[45m"
+
+    # ERROR
+    #printf '%b%s%b\n' "${FX_BOLD}${FG_RED}"
+    # WARN
+    #printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}"
+    # SUCESSFUL
+    #printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}"
+    # INFO
+    #printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}"
 }
 
 update-system() {
