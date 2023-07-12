@@ -58,9 +58,9 @@ install-yay() {
 
     # Check if yay is installed
     if yay --version &>/dev/null; then
-      printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "yay package manager installed successfully"
+      printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "yay package manager installed successfully."
     else
-      printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "installation of yay package manager failed"
+      printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Installation of yay package manager failed."
     fi
 }
 
@@ -151,15 +151,16 @@ install-packages() {
     
     # Install auto-cpufreq if not installed
     if ! command -v auto-cpufreq >/dev/null; then
-        echo "Installing auto-cpufreq..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Installing auto-cpufreq..."
 
         git clone https://github.com/AdnanHodzic/auto-cpufreq.git
         cd auto-cpufreq && sudo ./auto-cpufreq-installer
         sudo auto-cpufreq --install
+        cd -
 
-        echo "auto-cpufreq installed."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "auto-cpufreq installed."
     else
-        echo "auto-cpufreq is already installed."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Installation of auto-cpufreq failed."
     fi
 
     # Clone SecLists repo if does not exist
