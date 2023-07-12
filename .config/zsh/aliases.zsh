@@ -45,17 +45,13 @@ alias sv="sudo nvim"
 alias v="nvim"
 alias tr="trash"
 alias c="cheat"
-alias train="sl | lolcat"
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
-alias mpk='mpv --profile=sw-fast --vo=kitty'
-alias mpvadd='mpv --ytdl'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
 alias cmatrix="cmatrix -a"
 alias asciiquarium="asciiquarium --transparent"
 alias df="df -h"     # human-readable sizes
 alias free="free -m" # show sizes in MB
-alias lynx="lynx -cfg=~/.lynx/lynx.cfg -lss=~/.lynx/lynx.lss -vikeys"
 alias ncmpcpp="ncmpcpp ncmpcpp_directory=$HOME/.config/ncmpcpp/"
 alias h2t="html2text -style pretty"
 alias x2h="xsltproc -o result.html"
@@ -65,6 +61,13 @@ alias biggest="du -h --max-depth=1 | sort -h"
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
 alias open='xdg-open'
+
+# mpv
+alias mpk='mpv --profile=sw-fast --vo=kitty'
+alias mpvadd='mpv --ytdl'
+alias mpvpl='mpv "$(yt-dlp -g --flat-playlist "$1")"'
+alias mpa='mpv --no-video'
+alias mpapl='mpv --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "$1")"'
 
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
