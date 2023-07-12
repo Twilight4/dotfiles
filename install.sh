@@ -21,6 +21,7 @@ main() {
     install-dotfiles
     enable-services
     set-leftovers
+    check-results
     post-install-message
 }
 
@@ -276,13 +277,18 @@ install-dotfiles() {
     rm -rf .config/.gsd-keyboard.settings-ported
 
     # Copy dotfiles
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Copying .config dir from dotfiles repository..."
-    rsync -av  /tmp/dotfiles/ ~
-    rm ~/README.md
-    # Use the same nvim config for sudo nvim
-    sudo cp -r ~/.config/nvim /root/.config/
-    printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Copying .config dir finsished succesfully."
-    printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Copying .config dir finsished failed."
+    if [ -d "$DOTFILES" ]; then 
+        # Copy dotfiles using rsync
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Copying .config dir from dotfiles repository..."
+        rsync -av "$DOTFILES/" ~
+        rm ~/README.md
+
+        # Use the same nvim config for sudo nvim
+        sudo cp -r ~/.config/nvim /root/.config/
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Dotfiles copied succesfully."
+    else
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Directory $DOTFILES does not exist. Dotfiles not copied."
+    fi
 
     # Change ownerships of logseq and mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
@@ -486,7 +492,44 @@ set-leftovers() {
     fi
 }
 
-post-install-message () {}
+check-results() {
+# Check if all packages from paclist and yayllist has been installed
+package_list_file="paclist-stripped"
+package_list_file_2="yaylist-stripped"
+missing_packages=()
+
+# Function to check if a package is missing and add it to the missing_packages array
+check_package() {
+    local package="$1"
+    if ! pacman -Qs "$package" > /dev/null ; then
+        missing_packages+=("$package")
+    fi
+}
+
+# Check packages from the paclist
+while IFS= read -r package
+do
+    check_package "$package"
+done < "$package_list_file"
+
+# Check packages from the yaylist
+while IFS= read -r package
+do
+    check_package "$package"
+done < "$package_list_file_2"
+
+if [ ${#missing_packages[@]} -eq 0 ]; then
+    printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "All packages are installed!"
+else
+    printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "The following packages are not installed:"
+    for package in "${missing_packages[@]}"
+    do
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "$package"
+    done
+fi
+}
+
+post-install-message() {
     printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Post-Installation:"
     printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Check auto-cpufreq stats:"
     echo 'auto-cpufreq --stats'
@@ -494,23 +537,23 @@ post-install-message () {}
     echo 'sudo auto-cpufreq --force=performance'
     echo 'sudo auto-cpufreq --force=powersave'
     echo 'sudo auto-cpufreq --force=reset'         
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Setting to "reset" will go back to normal mode"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Setting to "reset" will go back to normal mode."
     printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "AFTER REBOOT"
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Start Default Network for virt-manager"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Start Default Network for virt-manager:"
     echo 'sudo virsh net-start default'
     echo 'sudo virsh net-autostart default'
     printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Check status with: sudo virsh net-list --all"
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Add pub key to github: Settings > SSH > New"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Add pub key to github: Settings > SSH > New:"
     echo 'ssh-keygen -t ed25519 -C "your_email@example.com"'
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Clone logseq and dotfiles repos via SSH"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Clone logseq and dotfiles repos via SSH:"
     echo 'git clone git@github.com:Twilight4/dotfiles.git ~/workspace/dotfiles'
     echo 'git clone git@github.com:Twilight4/cheats.git ~/workspace/cheats'
     echo 'git clone git@github.com:Twilight4/logseq-notes.git ~/documents/logseq-notes'
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Install more packages"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Install more packages:"
     echo 'sudo npm install git-file-downloader cli-fireplace git-stats'
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Check if profile sync daemon is running"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Check if profile sync daemon is running:"
     echo 'psd p'
-    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Uncomment last 2 lines in kitty.conf'"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Uncomment last 2 lines in kitty.conf."
 }
 
 main "$@"
