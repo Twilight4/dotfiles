@@ -100,10 +100,10 @@ remove-distro-bloat() {
 
     for package in "${cachyos_bloat[@]}"; do
       if pacman -Qs "$package" > /dev/null 2>&1; then
-        echo "Removing $package..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Removing $package..."
         sudo pacman -Rsn --noconfirm "$package"
       else
-        echo "$package is not installed."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "$package is not installed."
       fi
     done
 }
@@ -119,30 +119,36 @@ install-packages() {
     curl "https://raw.githubusercontent.com/Twilight4/arch-install/master/yaylist-stripped" > "$yaylist_path"
     echo $yaylist_path
 
-    # Start packages installation
+    # Start packages installation - paclist
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Starting Packages Installation from paclist..."
     sudo pacman -S --needed $(cat /tmp/paclist-stripped)
+    printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Installation of packages from paclist has finished succesfully."
+    # yaylist
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Starting Packages Installation from yaylist..."
     yay -S --needed $(cat /tmp/yaylist-stripped)
-    
-    # Installing nnn file manager plugins if not installled
-    plugins_dir="$HOME/.config/nnn/plugins"
+    printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Installation of packages from yaylist has finished succesfully."
 
-    if [ -z "$(ls -A "$plugins_dir")" ]; then
-        echo "Fetching nnn plugins..."
-
-        sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
-
-        echo "nnn plugins fetched."
-    else
-        echo "nnn plugins directory is not empty."
-    fi
-    
     # These tools are unavailable in arch repos
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/athena-welcome-2.0.2-2-any.pkg.tar.zst
     
     sudo curl -L https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst -O /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
     sudo pacman -U --noconfirm /tmp/https://raw.githubusercontent.com/Athena-OS/athena-repository/main/aarch64/htb-tools-1.0.6-5-any.pkg.tar.zst
+    
+    # Installing plugins for nnn file manager if not installled
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Installing plugins for nnn file manager..."
+    plugins_dir="$HOME/.config/nnn/plugins"
 
+    if [ -z "$(ls -A "$plugins_dir")" ]; then
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Fetching nnn plugins..."
+
+        sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
+
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Plugins for nnn file manager installed succesfully."
+    else
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "nnn plugins directory is not empty."
+    fi
+    
     # Install auto-cpufreq if not installed
     if ! command -v auto-cpufreq >/dev/null; then
         echo "Installing auto-cpufreq..."
