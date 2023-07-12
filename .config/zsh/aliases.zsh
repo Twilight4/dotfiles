@@ -132,8 +132,8 @@ alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' 
 
 # usefull
 alias cats='highlight -O ansi --force'
-alias cat='bat --paging=never -p --theme OneHalfDark'
-alias bat='bat --paging=never -p --theme OneHalfDark'
+alias cat='bat --paging=never --theme OneHalfDark'
+alias bat='bat --paging=never --theme OneHalfDark'
 alias icat='kitty +kitten icat'
 alias ..="cd ../"
 alias ...="cd ../../"
