@@ -499,8 +499,8 @@ set-leftovers() {
 
 check-results() {
     # Check if all packages from paclist and yayllist has been installed
-    package_list_file="paclist-stripped"
-    package_list_file_2="yaylist-stripped"
+    package_list_file="/tmp/paclist-stripped"
+    package_list_file_2="/tmp/yaylist-stripped"
     missing_packages=()
 
     # Function to check if a package is missing and add it to the missing_packages array
