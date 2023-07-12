@@ -81,7 +81,7 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 # Nnn
 export NNN_BMS="d:~/documents;D:~/downloads;w:~/workspace;h:~/.config/hypr;m:~/music;p:~/pictures;c:~/.config;v:~/videos;s:~/.config/.local/share/navi/cheats/Twilight4;o:/opt;r:/run/media/twilight"
 export NNN_TRASH=1
-export NNN_PLUG='b:bulknew;o:fzopen;c:fzcd;j:autojump;p:preview-tui;t:preview-tabbed;i:imgview;u:upload;f:fixname;d:dragdrop;x:imgur;g:gsconnect:'
+export NNN_PLUG='b:bulknew;o:fzopen;c:fzcd;j:autojump;p:preview-tui;i:imgview;u:upload;f:fixname;d:dragdrop;x:imgur;g:gsconnect:'
 #export NNN_FCOLORS='00000E6310000000000000000'
 export NNN_FIFO='/tmp/nnn.fifo'
 export SPLIT='v'
