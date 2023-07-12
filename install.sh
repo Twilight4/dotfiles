@@ -12,7 +12,7 @@
 # a consistent and efficient setup experience across multiple systems.
 
 main() {
-    init_constants
+    init-constants
     update-system
     install-yay
     remove-distro-bloat
@@ -24,7 +24,7 @@ main() {
     post-install-message
 }
 
-init_constants() {
+init-constants() {
     FX_RESET="\033[0m"
     FX_BOLD="\033[1m"
     FX_ITALIC="\033[3m"
