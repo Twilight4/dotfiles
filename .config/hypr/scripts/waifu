@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Directory where the script is located
+cd "$HOME/.config/eww"
+
+# Name of the Python script
+script_name="waifupics.py"
+
+# Check if the script is already running
+if pgrep -f "$script_name" >/dev/null; then
+    kill -9 $(ps aux | grep waifu-daemon && notify-send -t 3000 "Waifu script stopped")
+else
+    # Notify user that the script is running
+    notify-send -t 3000 "Waifu script running"
+fi
+
+# Run the script for 15 minutes
+runtime=$((SECONDS+900))
+
+while [ $SECONDS -lt $runtime ]; do
+    python waifupics.py
+    sleep 3
+done
+
+# Notify user that the script has finished
+notify-send "Waifu has finished running"
