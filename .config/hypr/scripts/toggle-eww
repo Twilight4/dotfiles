@@ -4,13 +4,13 @@ filename="$HOME/.config/hypr/hyprland.conf"
 line="monitor=eDP-1, addreserved, 61, 0, 0, 0"
 
 if grep -q "^#.*$line$" "$filename"; then
-  pkill eww 
-  # Turn off eww - comment out reserved space line
-  sed -i "s/^#\(.*$line\)$/\1/" "$filename"
-  notify-send -t 3000 "eww disabled"
-else
-  eww daemon && eww open bar && eww open bottomline 
   # Turn on eww - uncomment reserved space line
-  sed -i "s/^\(.*$line\)$/#\1/" "$filename"
+  sed -i "s/^#\(.*$line\)$/\1/" "$filename"
   notify-send -t 3000 "eww enabled"
+  eww daemon && eww open bar && eww open bottomline 
+else
+  # Turn off eww - comment out reserved space line
+  sed -i "s/^\(.*$line\)$/#\1/" "$filename"
+  notify-send -t 3000 "eww disabled"
+  pkill eww 
 fi
