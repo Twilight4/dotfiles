@@ -168,24 +168,24 @@ install-packages() {
     seclists_dir="$payloads_dir/SecLists"
 
     if [ ! -d "$payloads_dir" ] || [ ! -d "$seclists_dir" ]; then
-        echo "Creating directories and cloning SecLists repository..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating directories and cloning SecLists repository..."
 
         sudo mkdir -p "$payloads_dir"
         sudo git clone https://github.com/danielmiessler/SecLists.git "$seclists_dir"
 
-        echo "SecLists repository cloned to $seclists_dir."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "SecLists repository cloned to $seclists_dir."
     else
-        echo "SecLists repository already exists in $seclists_dir."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "SecLists repository already exists in $seclists_dir."
     fi
 
     # Zsh as default shell
     default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
     if [ "$default_shell" != "$(which zsh)" ]; then
-        echo "Zsh is not the default shell. Changing shell..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Zsh is not the default shell. Changing shell..."
         sudo chsh -s "$(which zsh)" "$(whoami)"
-        echo "Shell changed to Zsh."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Shell changed to Zsh."
     else
-        echo "Zsh is already the default shell."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Zsh is already the default shell."
     fi
 
     # Export default PATH to zsh config
@@ -193,11 +193,11 @@ install-packages() {
     line_to_append='export ZDOTDIR="$HOME"/.config/zsh'
 
     if [ ! -f "$zshenv_file" ]; then
-        echo "Creating $zshenv_file..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating $zshenv_file..."
         echo "$line_to_append" | sudo tee "$zshenv_file" >/dev/null
-        echo "$zshenv_file created."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "$zshenv_file created."
     else
-        echo "$zshenv_file already exists."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "$zshenv_file already exists."
     fi
 }
     
@@ -211,10 +211,10 @@ set-user-groups() {
 
     for group in "${add_groups[@]}"; do
       if ! getent group "$group" >/dev/null; then
-        echo "Creating group '$group'..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating group '$group'..."
         sudo groupadd "$group"
       else
-        echo "Group '$group' already exists."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Group '$group' already exists."
       fi
     done
 
@@ -241,21 +241,21 @@ set-user-groups() {
     # Adding user to groups using usermod
     for group in "${usermod_groups[@]}"; do
       if ! groups "$username" | grep -q "\<$group\>"; then
-        echo "Adding user '$username' to group '$group'..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Adding user '$username' to group '$group'..."
         sudo usermod -aG "$group" "$username"
       else
-        echo "User '$username' is already a member of group '$group'."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "User '$username' is already a member of group '$group'."
       fi
     done
 
     # Adding user to groups using gpasswd
     for group in "${gpasswd_groups[@]}"; do
       if ! groups "$username" | grep -q "\<$group\>"; then
-        echo "Adding user '$username' to group '$group'..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Adding user '$username' to group '$group'..."
         sudo gpasswd -a "$username" "$group"
         sudo chmod 710 "/home/$(whoami)"      # needed for mpd group
       else
-        echo "User '$username' is already a member of group '$group'."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "User '$username' is already a member of group '$group'."
       fi
     done
 }
@@ -264,7 +264,9 @@ install-dotfiles() {
     DOTFILES="/tmp/dotfiles"
     if [ ! -d "$DOTFILES" ]
         then
+            printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Cloning dotfiles repository..."
             git clone --recurse-submodules "https://github.com/Twilight4/dotfiles" "$DOTFILES" >/dev/null
+            printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "dotfiles repository cloned."
     fi
     
     # Remove auto-generated bloat
@@ -272,16 +274,21 @@ install-dotfiles() {
     sudo fc-cache -fv
     rm -rf .config/{fish,gtk-3.0,ibus,kitty,micro,nautilus,pulse,yay,user-dirs.dirs,user-dirs,locate,dconf}
     rm -rf .config/.gsd-keyboard.settings-ported
+
     # Copy dotfiles
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Copying .config dir from dotfiles repository..."
     rsync -av  /tmp/dotfiles/ ~
     rm ~/README.md
     # Use the same nvim config for sudo nvim
     sudo cp -r ~/.config/nvim /root/.config/
+    printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Copying .config dir finsished succesfully."
+    printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Copying .config dir finsished failed."
+
     # Change ownerships of logseq and mpd directory
     sudo chown -R twilight:twilight ~/.config/.local
     sudo chmod 755 /opt/logseq-desktop
 
-    # Create needed directories
+    # Create necessary directories
     directories=(
         ~/{documents,desktop,downloads,videos,workspace,music,pictures}
         ~/.config/.local/share/gnupg
@@ -299,10 +306,10 @@ install-dotfiles() {
 
     for directory in "${directories[@]}"; do
         if [ ! -d "$directory" ]; then
-            echo "Creating directory: $directory..."
+            printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating directory: $directory..."
             mkdir -p "$directory"
         else
-            echo "Directory already exists: $directory."
+            printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Directory already exists: $directory."
         fi
     done
 
@@ -357,26 +364,26 @@ enable-services() {
     for service in "${services[@]}"; do
         if systemctl list-unit-files --type=service | grep -q "^$service.service"; then
             if ! systemctl is-enabled --quiet "$service"; then
-                echo "Enabling service: $service..."
+                printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Enabling service: $service..."
                 sudo systemctl enable "$service"
             else
-                echo "Service already enabled: $service."
+                printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Service already enabled: $service."
             fi
         else
-            echo "Service does not exist: $service."
+            printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Service does not exist: $service."
         fi
     done
 
-    # Enable psd service as user if service exists and isn not enabled
+    # Enable psd service as user if service exists and is not enabled
     if systemctl list-unit-files --user --type=service | grep -q "^psd.service"; then
         if ! systemctl --user is-enabled --quiet psd.service; then
-            echo "Enabling service: psd.service..."
+            printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Enabling service: psd.service..."
             systemctl --user enable psd.service                  # profile sync daemon
         else
-            echo "Service already enabled: psd.service."
+            printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "Service already enabled: psd.service."
         fi
     else
-        echo "Service does not exist: psd.service."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "Service does not exist: psd.service."
     fi
 
     # Enable mpd service as user if service exists
@@ -400,25 +407,25 @@ enable-services() {
 set-leftovers() {
     # Disable the systemd-boot startup entry if systemd-boot is installed
     if [ -d "/sys/firmware/efi/efivars" ] && [ -d "/boot/loader" ]; then
-        echo "Disabling systemd-boot startup entry"
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Disabling systemd-boot startup entry"
         sudo sed -i 's/^timeout/# timeout/' /boot/loader/loader.conf
-        echo "Disabled systemd-boot startup entry"
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "Disabled systemd-boot startup entry"
     else
-        echo "systemd-boot is not being used."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "systemd-boot is not being used."
     fi
 
     # Set data locale english if it is not set
     if [[ "$(localectl status)" != *"LC_TIME=en_US.UTF8"* ]]; then
-        echo "Setting LC_TIME to English..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Setting LC_TIME to English..."
         sudo localectl set-locale LC_TIME=en_US.UTF8
-        echo "LC_TIME set to English."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "LC_TIME set to English."
     else
-        echo "LC_TIME is already set to English."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_YELLOW}" "LC_TIME is already set to English."
     fi
 
     # Install GRUB theme if GRUB is installed
     if command -v grub-install >/dev/null && ! command -v bootctl >/dev/null; then
-        echo "Installing GRUB theme..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Installing GRUB theme..."
 
         # Clone theme repository
         git clone https://github.com/HenriqueLopes42/themeGrub.CyberEXS
@@ -433,14 +440,14 @@ set-leftovers() {
         # Set GRUB theme in GRUB configuration
         echo 'GRUB_THEME=/boot/grub/themes/CyberEXS/theme.txt' | sudo tee -a /etc/default/grub
 
-        echo "GRUB theme installed."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "GRUB theme installed."
     else
-        echo "GRUB bootloader is not installed, using systemd-boot"
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "GRUB bootloader is not installed, using systemd-boot"
     fi
 
     # Create Hyprland desktop entry if Hyprland is installed
     if command -v hyprland >/dev/null; then
-        echo "Creating hyprland desktop entry..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating hyprland desktop entry..."
 
         sudo bash -c 'cat > /usr/share/wayland-sessions/hyprland.desktop' <<-'EOF'
         [Desktop Entry]
@@ -450,14 +457,14 @@ set-leftovers() {
         Type=Application
         EOF
 
-        echo "hyprland desktop entry created."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "hyprland desktop entry created."
     else
-        echo "hyprland is not installed."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "hyprland is not installed."
     fi
 
     # SDDM rice (don't install GDM cuz it installs GNOME DE as dependency)
     if command -v sddm >/dev/null; then
-        echo "Creating /etc/sddm.conf file..."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" "Creating /etc/sddm.conf file..."
 
         sudo bash -c 'cat > /etc/sddm.conf' <<-'EOF'
         # Use autologin if have problems with sddm
@@ -473,14 +480,14 @@ set-leftovers() {
         ThemeDir=/usr/share/sddm/themes
         EOF
 
-        echo "/etc/sddm.conf file created."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_GREEN}" "/etc/sddm.conf file created."
     else
-        echo "sddm is not installed."
+        printf '%b%s%b\n' "${FX_BOLD}${FG_RED}" "sddm is not installed."
     fi
 }
 
 post-install-message () {}
-    echo 'Post-Installation:
+    printf '%b%s%b\n' "${FX_BOLD}${FG_CYAN}" 'Post-Installation:
     - check auto-cpufreq stats
         auto-cpufreq --stats
     - to force and override auto-cpufreq governor use of either "powersave" or "performance" governor
