@@ -151,6 +151,7 @@ h() {
 # other
 alias tks='tmux kill-server'                               # tmux
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'   # wget
+alias digs='dig +short'                                    # dig
 
 # git
 alias ga="git add"
