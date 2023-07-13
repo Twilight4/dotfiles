@@ -2,7 +2,7 @@
 
 ## General
 show=drun
-prompt=Apps
+#prompt=Apps
 normal_window=true
 layer=top
 term=kitty
