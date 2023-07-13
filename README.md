@@ -5,7 +5,7 @@
 <img src="https://img.shields.io/github/stars/Twilight4/dotfiles?style=for-the-badge&logo=powerpages&color=cba6f7&logoColor=D9E0EE&labelColor=302D41"/>
 </div>
 
-**Warning**: Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility, and customize responsibly to ensure a stable and secure computing environment. Use at your own risk.
+**Warning**: Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility and customize responsibly to ensure a stable and secure computing environment. Use at your own risk.
 
 ## Contents
 
