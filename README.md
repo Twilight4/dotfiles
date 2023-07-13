@@ -5,7 +5,7 @@
 <img src="https://img.shields.io/github/stars/Twilight4/dotfiles?style=for-the-badge&logo=powerpages&color=cba6f7&logoColor=D9E0EE&labelColor=302D41"/>
 </div>
 
-**Warning**: Don’t blindly use my settings unless you know what that entails. There are no backup system. If you install this on top of your dotfiles, expect a big mess. You should only pick whatever you want and include it in your own config. Use at your own risk!
+**Warning**: Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility, and customize responsibly to ensure a stable and secure computing environment. Use at your own risk.
 
 ## Contents
 
