@@ -9,7 +9,8 @@ if [[ "$XDG_SESSION_DESKTOP" == "Hyprland" ]]; then
     --conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
     --width=350 --height=380 \
     --cache-file=/dev/null \
-    --hide-scroll --no-actions | cliphist decode | wl-copy
+    --hide-scroll --no-actions \
+    --prompt "Search cliphist" | cliphist decode | wl-copy
 else
   return
 fi

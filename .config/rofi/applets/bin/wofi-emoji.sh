@@ -8,9 +8,9 @@ STYLE="$HOME/.config/rofi/style.css"
 # Wofi Command
 if [ $? -eq 0 ]
 then
-    sed '1,/^### DATA ###$/d' $0 | wofi --show dmenu --conf ${CONFIG} --style ${STYLE} --color ${COLORS} --width=350 --height=380 --cache-file=/dev/null --hide-scroll --no-actions --define=matching=fuzzy -i | cut -d ' ' -f 1 | tr -d '\n' | wtype -
+    sed '1,/^### DATA ###$/d' $0 | wofi --show dmenu --conf ${CONFIG} --style ${STYLE} --color ${COLORS} --width=350 --height=380 --prompt "Search emojis" --cache-file=/dev/null --hide-scroll --no-actions --define=matching=fuzzy -i | cut -d ' ' -f 1 | tr -d '\n' | wtype -
 else
-    sed '1,/^### DATA ###$/d' $0 | wofi --show dmenu --conf ${CONFIG} --style ${STYLE} --color ${COLORS} --width=350 --height=380 --cache-file=/dev/null --hide-scroll --no-actions --define=matching=fuzzy -i | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
+    sed '1,/^### DATA ###$/d' $0 | wofi --show dmenu --conf ${CONFIG} --style ${STYLE} --color ${COLORS} --width=350 --height=380 --prompt "Search emojis" --cache-file=/dev/null --hide-scroll --no-actions --define=matching=fuzzy -i | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
 fi
 exit
 
