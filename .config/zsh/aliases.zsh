@@ -73,6 +73,7 @@ alias update-fc='sudo fc-cache -fv'
 # trans
 alias tre='trans en:pl'
 alias trp='trans pl:en'
+alias trd='trans de:en'
 
 # check vulnerabilities microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
