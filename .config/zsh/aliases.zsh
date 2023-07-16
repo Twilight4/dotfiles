@@ -63,6 +63,7 @@ alias mpvadd='mpv --ytdl'
 alias mpvpl='mpv "$(yt-dlp -g --flat-playlist "$1")"'
 alias mpa='mpv --no-video'
 alias mpapl='mpv --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "$1")"'
+alias mpvcwd='mpv ./*.mp4'
 
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
