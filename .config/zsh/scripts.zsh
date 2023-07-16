@@ -257,6 +257,15 @@ compress() {
     tar cvzf "$DATE.tar.gz" "$@"
 }
 
+# Play all videos in current working directory
+mpvcwd() {
+    for file in ./*.mp4; do
+       if [[ -f $file ]]; then
+           mpv "$file"
+        fi
+    done
+}
+
 # List of port opens, fuzzy searchable via fzf - require net-tools
 ports() {
     sudo netstat -tulpn | grep LISTEN | fzf;
