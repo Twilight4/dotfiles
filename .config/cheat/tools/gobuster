@@ -1,5 +1,7 @@
 # Usage
 vhost : Uses VHOST for brute-forcing
+dir   : Content discovery
+dns   : DNS enumeration
 -w    : Path to the wordlist
 -u    : Specify the URL
 
