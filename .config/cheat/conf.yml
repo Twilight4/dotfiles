@@ -35,7 +35,7 @@ cheatpaths:
     tags: [ keys ]
     readonly: false
 
-  - name: new
-    path: /home/twilight/.config/cheat/new
-    tags: [ new ]
-    readonly: false
+      #  - name: new
+      #    path: /home/twilight/.config/cheat/new
+      #    tags: [ new ]
+      #    readonly: false
