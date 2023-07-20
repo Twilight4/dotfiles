@@ -21,4 +21,10 @@ Commands:
   remove                  Remove a task from the list
   clear                   Clear all completed tasks from the list
 
+Other:                    Uppercase: - green color
+  BIG_LETTERS             Purple color
+  -f, --flag              Blue color
+  -f, --flag string       Blue color with purple argument
+  word                    Yellow color
+
 Use "awesometool [command] --help" for more information about a command
