@@ -1,1 +1,2 @@
-# DIG Syntax: dig ns <domain.tld> @<nameserver>
+Usage:
+  dig ns <domain.tld> @<nameserver>

@@ -1,9 +1,8 @@
-# Tool
 FavFreak - a Favicon Hash based asset mapper
 
-# Usage
+Usage:
 favfreak [-o OUTPUT] [--shodan]
 
-# Options
+Options:
   -o OUTPUT, --output OUTPUT
   --shodan              Prints Shodan Dorks

@@ -1,10 +1,9 @@
-# Usage
-asnlookup.py [-h] -o ORG [-n [NMAPSCAN]] [-m [MASSCAN]]
+Usage:
+asnlookup.py -o ORG [-n [NMAPSCAN]] [-m [MASSCAN]]
 
-# Options
-  -h, --help            show this help message and exit
-  -o ORG, --org ORG     Organization to look up.
-  -n [NMAPSCAN], --nmapscan [NMAPSCAN]
-                        Run Nmap port scanning.
-  -m [MASSCAN], --masscan [MASSCAN]
-                        Run Masscan port scanning.
+Options:
+  -o ORG, --org ORG     Organization to look up
+  -n NMAPSCAN, --nmapscan NMAPSCAN
+                        Run Nmap port scanning
+  -m MASSCAN, --masscan MASSCAN
+                        Run Masscan port scanning
