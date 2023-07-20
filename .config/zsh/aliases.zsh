@@ -41,7 +41,6 @@ alias kgnome='killall -3 gnome-shell'
 alias sv="sudo nvim"
 alias v="nvim"
 alias tr="trash"
-alias c="cheat"
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
@@ -142,8 +141,11 @@ alias ..="cd ../"
 alias ...="cd ../../"
 alias ....="cd ../../../"
 
-# prettify help
+# prettify help/cheat pages
 alias bathelp='bat --plain --language=help'
+c() {
+  command cheat "$@" | bat --plain --language=help
+}
 help() {
     "$@" --help 2>&1 | bathelp
 }
