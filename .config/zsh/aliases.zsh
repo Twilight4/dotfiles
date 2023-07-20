@@ -143,6 +143,7 @@ alias ....="cd ../../../"
 
 # prettify help/cheat pages
 alias bathelp='bat --plain --language=help'
+alias ce='cheat --edit'
 c() {
   command cheat "$@" | bat --plain --language=help
 }
