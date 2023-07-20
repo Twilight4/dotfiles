@@ -1,0 +1,20 @@
+Perfect help page for example pattern
+DISCLAIMER: any other strings you add will not be colorized
+
+Usage: 
+  awesometool [options] command [args]
+
+Options:
+  -h, --help string       Show this message and exit.
+  -v, --version stuff     Display the version of AwesomeTool.
+  -f, --file filename     Specify a custom file to store your to-do list. Default is "tasks.json".
+  -c, --completed         Show completed tasks in the list.
+
+Commands:
+  add                     Add a new task to the to-do list.
+  list                    Display the current to-do list.
+  complete                Mark a task as completed.
+  remove                  Remove a task from the list.
+  clear                   Clear all completed tasks from the list.
+
+Use "awesometool [command] --help" for more information about a command.
