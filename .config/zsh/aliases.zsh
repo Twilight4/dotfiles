@@ -12,18 +12,12 @@ alias lc='lsd -ltrh --hyperlink=auto'                # sort by date
 #alias ld='lsd -l --hyperlink=auto| grep '^d''        # directories only
 alias l.='lsd -A $* | grep "^\."'                    # list hidden files
 
-# pentest recon
-alias lpr='lsd --hyperlink=auto ~/workspace/cheats/pentest/recon'
-# pentest enum
-alias lpe='lsd --hyperlink=auto ~/workspace/cheats/pentest/enum'
-# bug bounty recon
-alias lbr='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/info-gathering'
-# bug bounty enum
-alias lbe='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/content-discovery'
-# red team
-alias lbe='lsd --hyperlink=auto ~/workspace/cheats/red-team'
-# other
-alias lo='lsd --hyperlink=auto ~/workspace/cheats/other'
+# list cheatsheets for tools
+alias ltp='lsd --tree --hyperlink=auto ~/workspace/cheats/pentest'    # pentest tools
+alias ltw='lsd --tree --hyperlink=auto ~/workspace/cheats/web-app'    # web app tools
+alias ltr='lsd --tree --hyperlink=auto ~/workspace/cheats/red-team'   # red team tools
+alias ltf='lsd --tree --hyperlink=auto ~/workspace/cheats/forensics'  # forensics tools
+alias lto='lsd --tree --hyperlink=auto ~/workspace/cheats/other'      # other tools
 
 # diff kitten
 alias diff="kitty +kitten diff"
