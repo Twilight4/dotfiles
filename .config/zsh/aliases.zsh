@@ -13,15 +13,15 @@ alias lc='lsd -ltrh --hyperlink=auto'                # sort by date
 alias l.='lsd -A $* | grep "^\."'                    # list hidden files
 
 # pentest recon
-alias lpr='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/pentest/recon'
+alias lpr='lsd --hyperlink=auto ~/workspace/cheats/pentest/recon'
 # pentest enum
-alias lpe='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/pentest/enum'
+alias lpe='lsd --hyperlink=auto ~/workspace/cheats/pentest/enum'
 # bug bounty recon
-alias lbr='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/bug-bounty/info-gathering'
+alias lbr='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/info-gathering'
 # bug bounty enum
-alias lbe='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/bug-bounty/content-discovery'
+alias lbe='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/content-discovery'
 # other
-alias lo='lsd --hyperlink=auto ~/workspace/Twilight4__cheats/other'
+alias lo='lsd --hyperlink=auto ~/workspace/cheats/other'
 
 # diff kitten
 alias diff="kitty +kitten diff"
