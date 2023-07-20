@@ -20,6 +20,8 @@ alias lpe='lsd --hyperlink=auto ~/workspace/cheats/pentest/enum'
 alias lbr='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/info-gathering'
 # bug bounty enum
 alias lbe='lsd --hyperlink=auto ~/workspace/cheats/bug-bounty/content-discovery'
+# red team
+alias lbe='lsd --hyperlink=auto ~/workspace/cheats/red-team'
 # other
 alias lo='lsd --hyperlink=auto ~/workspace/cheats/other'
 
