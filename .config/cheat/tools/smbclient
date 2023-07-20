@@ -1,9 +1,9 @@
-# Usage
+Options:
 -N : No password
 -L : This option allows you to look at what services are available on a server
 
-# Usefull commands in from SMB shell
-get          # download files
-!ls          # local ls
-!cat         # local cat
-smbclient    # see who, from which host, and which share the client is connected. This is especially important once we have entered a subnet (perhaps even an isolated one) that the others can still access.
+Commands in from SMB shell:
+get          download files
+!ls          local ls
+!cat         local cat
+smbclient    see who, from which host, and which share the client is connected. This is especially important once we have entered a subnet (perhaps even an isolated one) that the others can still access.

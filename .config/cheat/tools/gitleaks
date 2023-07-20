@@ -1,4 +1,3 @@
-# Usage
--v              # verbose
--v report.json  # export to file
-
+Options:
+-v              verbose
+-v report.json  export to file

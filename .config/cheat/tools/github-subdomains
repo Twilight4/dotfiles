@@ -1,4 +1,4 @@
-# Usage
+Options:
   -d string
     	domain you are looking for (required)
   -e	extended mode, also look for <dummy>example.<tld>

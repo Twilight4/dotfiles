@@ -1,7 +1,7 @@
-# WafW00f is a web application firewall (WAF) fingerprinting tool that sends
-# requests and analyses responses to determine if a security solution is in place. 
+WafW00f is a web application firewall (WAF) fingerprinting tool that sends
+requests and analyses responses to determine if a security solution is in place. 
 
-# Options
--a     # check all possible WAFs in place instead of stopping scanning at the first match
--i     # read targets from an input file
--p     # proxy the requests
+Options:
+-a     Check all possible WAFs in place instead of stopping scanning at the first match
+-i     Read targets from an input file
+-p     Proxy the requests

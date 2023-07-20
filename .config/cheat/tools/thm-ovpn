@@ -1,9 +1,9 @@
-# Error message by connecting to ovpn config file
-#2023-07-04 21:57:07 OPTIONS ERROR: failed to negotiate cipher with server.  Add the server's cipher ('AES-256-CBC') to --data-ciphers (currently 'AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305') if you want to connect to this server.
-#2023-07-04 21:57:07 ERROR: Failed to apply push options
-#2023-07-04 21:57:07 Failed to open tun/tap interface
-#2023-07-04 21:57:07 SIGUSR1[soft,process-push-msg-failed] received, process restarting
-#2023-07-04 21:57:07 Restart pause, 1 second(s)
+Error message by connecting to ovpn config file:
+  2023-07-04 21:57:07 OPTIONS ERROR: failed to negotiate cipher with server.  Add the server's cipher ('AES-256-CBC') to --data-ciphers (currently 'AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305') if you want to connect to this server.
+  2023-07-04 21:57:07 ERROR: Failed to apply push options
+  2023-07-04 21:57:07 Failed to open tun/tap interface
+  2023-07-04 21:57:07 SIGUSR1[soft,process-push-msg-failed] received, process restarting
+  2023-07-04 21:57:07 Restart pause, 1 second(s)
 
-# Solution: `cipher AES-256-CBC` just change it to - `data-ciphers AES-256-CBC`
+Solution: `cipher AES-256-CBC` just change it to - `data-ciphers AES-256-CBC`
 sed -i 's/cipher AES-256-CBC/data-ciphers AES-256-CBC/' *.ovpn
