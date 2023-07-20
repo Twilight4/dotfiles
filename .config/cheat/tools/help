@@ -7,9 +7,12 @@ Usage:
 Options:
   -h, --help string       Show this message and exit
   -v, --version stuff     Display the version of AwesomeTool
-  -f, --file filename     Specify a custom file to store your to-do list
   -c, --completed, --command   *TAB* if there is no space left
-  -g, --gone              Very simple stuff
+  -g, --gone              Very simple stuff, if a comment description is
+                          too long then write underneath it so it looks
+                          even nicer when you always end in the same
+                          spot
+  -f, --file filename     Specify a custom file to store your to-do list
 
 Commands:
   add                     Add a new task to the to-do list
