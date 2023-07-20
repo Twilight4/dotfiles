@@ -2,7 +2,7 @@ Perfect help page for example pattern
 DISCLAIMER: any other strings you add will not be colorized
 
 Usage: 
-  awesometool [options] command [args]
+  awesometool [options] [command] [args]
 
 Options:
   -h, --help string       Show this message and exit
