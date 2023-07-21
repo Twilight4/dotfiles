@@ -1,7 +1,15 @@
+Red Team terminology sequence - links to cheat notes
+
 Osint:
   osintgram
-  sherlock
+  sherlock         social media pages/job ads
+
+  Search Engines:
   google-dork
+  viewdns-info
+  threat-intel-platform
+  censys
+  shodan
 
 Phishing:
   blackeye

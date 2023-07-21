@@ -1,14 +1,25 @@
 Commands:
-  site      returns results only from the specified website address
-  inurl     returns results that have the specified word in the URL
-  filetype  returns results which are a particular file extension
-  intitle   returns results that contain the specified word in the title
+  site      Returns results only from the specified website address
+  -site     Exclude a specific site from results
+  inurl     Returns results that have the specified word in the URL
+  filetype  Returns results which are a particular file extension
+  intitle   Returns results that contain the specified word in the title
+  ""        Find results with exact search phrase
 
 Examples:
-  site      site:tryhackme.com
+  site      site:example.com
+  -site     -site:example.com 	
 	inurl     inurl:admin
 	filetype  filetype:pdf
 	intitle   intitle:admin
-	
+  ""        "search phrase"  
 
-Google Hacking DB: https://www.exploit-db.com/google-hacking-database
+Examples of confidential information extracted by search engines include:
+	Documents for internal company use
+	Confidential spreadsheets with usernames, email addresses, and even passwords
+	Files containing usernames
+	Sensitive directories
+	Service version number (some of which might be vulnerable and unpatched)
+	Error messages
+
+Google Hacking Data Base (GHDB): https://www.exploit-db.com/google-hacking-database

@@ -1,0 +1,6 @@
+Source: https://threatintelligenceplatform.com/
+Threat Intelligence Platform requires you to provide a domain name or an IP address,
+and it will launch a series of tests from malware checks to WHOIS and DNS queries. 
+For instance, after we look up `thmredteam.com`, we see that Name Server (`NS`)
+records were resolved to their respective IPv4 and IPv6 addresses. When we searched
+for `cafe.thmredteam.com`, we could also get a list of other domains on the same IP address. 
