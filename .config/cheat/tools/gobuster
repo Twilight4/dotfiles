@@ -1,21 +1,21 @@
 Commands:
-vhost  Uses VHOST for brute-forcing
-dir    Content discovery
-dns    DNS enumeration
+  vhost  Uses VHOST for brute-forcing
+  dir    Content discovery
+  dns    DNS enumeration
 
 Options:
--e                     Print the full URLs in your console
--w, --wordlist string  Path to the wordlist
--u                     The target URL
--U, -P                 Username and Password for Basic Auth
--q, --quiet            Do not print the banner and other noise
--r                     Use custom DNS server
--d                     A target domain name
--p, --pattern string   File containing replacement patterns
--c http-cookies        Specify a cookie for simulating your auth
--o, --output string    Output file
+  -e                     Print the full URLs in your console
+  -w, --wordlist string  Path to the wordlist
+  -u                     The target URL
+  -U, -P                 Username and Password for Basic Auth
+  -q, --quiet            Do not print the banner and other noise
+  -r                     Use custom DNS server
+  -d                     A target domain name
+  -p, --pattern string   File containing replacement patterns
+  -c http-cookies        Specify a cookie for simulating your auth
+  -o, --output string    Output file
 
 Content discovery tools examples:
-ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt -u http://10.10.213.189/FUZZ
-dirb http://10.10.213.189/ /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt
-gobuster dir --url http://10.10.213.189/ -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt
+  ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt -u http://10.10.213.189/FUZZ
+  dirb http://10.10.213.189/ /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt
+  gobuster dir --url http://10.10.213.189/ -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt

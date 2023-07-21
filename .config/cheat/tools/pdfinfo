@@ -1,0 +1,8 @@
+PDF file metadata investigation tool
+
+Usage:
+  pdfinfo DOCUMENT.pdf
+
+Interesting output info:
+  creation date
+  author of the file

@@ -1,0 +1,10 @@
+Metadata for image files investigation tool
+
+Usage:
+  exiftool IMAGE.jpg
+
+Interesting output info:
+  Camera model / Smartphone model
+  Date and time of image capture
+  Photo settings such as focal length, aperture, shutter speed, and ISO settings
+  GPS coordinates, i.e., latitude and longitude. If you take the coordinates and search one of the google maps, you will learn more about this location (replacing deg with ° for our search to work)

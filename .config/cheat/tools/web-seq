@@ -1,0 +1,19 @@
+Web App terminology sequence - links to cheat notes
+
+Recon:
+  Content Discovery:
+  view the page source     <!-- and ending with --> are comments
+                           start with <a href - Links to different pages
+                           directory listing feature
+  google dorking
+  wappalyzer
+  wayback machine
+  github
+  s3 buckets               company name followed by common terms such as {name}-assets, {name}-www, {name}-public, {name}-private, etc.
+  gobuster/dirb/ffuf
+
+  Subdomain Enumeration:
+  ssl/tls certs            crt.sh
+  dns bruteforce           dnsrecon, gobuster
+  sublist3r
+  virtual hostsaa          gobuster, ffuf

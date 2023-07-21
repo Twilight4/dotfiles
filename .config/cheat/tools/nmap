@@ -1,63 +1,63 @@
 Host discovery:
-<TARGET_IP>/24 	Target network range
--sn 	          Disables port scanning
--oA tnet 	      Stores the results in all formats starting with the name 'tnet'
--iL             Performs defined scans against targets in provided 'hosts.txt' list
--PE             Performs the ping scan by using 'ICMP Echo requests' against the target
+  <TARGET_IP>/24 	Target network range
+  -sn 	          Disables port scanning
+  -oA tnet 	      Stores the results in all formats starting with the name 'tnet'
+  -iL             Performs defined scans against targets in provided 'hosts.txt' list
+  -PE             Performs the ping scan by using 'ICMP Echo requests' against the target
 
 Host and Port Scanning:
--p x, -p-           Port scan for port <x> or scan all ports
--sU 	              Performs a UDP scan
--Pn 	              Disable host discovery
--n 	                Disables DNS resolution
--sV 	              Performs a service scan
+  -p x, -p-           Port scan for port <x> or scan all ports
+  -sU 	              Performs a UDP scan
+  -Pn 	              Disable host discovery
+  -n 	                Disables DNS resolution
+  -sV 	              Performs a service scan
 
 Nmap Scripting Engine (NSE):
---script category   Specific Scripts Category
--A                  Aggressive scan which includes:
--sV                 Service scan
--O                  OS detection
---traceroute        Traceroute
--sC                 Default NSE scripts
+  --script category   Specific Scripts Category
+  -A                  Aggressive scan which includes:
+  -sV                 Service scan
+  -O                  OS detection
+  --traceroute        Traceroute
+  -sC                 Default NSE scripts
 
 Firewall IDS/IPS Evasion:
--sA                 Performs ACK scan on specified ports (method is much harder to filter for firewalls and IDS/IPS systems than regular SYN -sS)
--Pn               	Disable host discovery
--n 	                Disables DNS resolution
---disable-arp-ping  Disables ARP ping
--sS                 Performs SYN scan on specified ports
--D RND:5 	          Generates five random IP addresses that indicates the source IP the connection comes from
--S source_ip	      Scans the target by using different source IP address
--e tun0 	          Sends all requests through the specified interface
---source-port 53 	  Performs the scans from specified source port (DNS)
+  -sA                 Performs ACK scan on specified ports (method is much harder to filter for firewalls and IDS/IPS systems than regular SYN -sS)
+  -Pn               	Disable host discovery
+  -n 	                Disables DNS resolution
+  --disable-arp-ping  Disables ARP ping
+  -sS                 Performs SYN scan on specified ports
+  -D RND:5 	          Generates five random IP addresses that indicates the source IP the connection comes from
+  -S source_ip	      Scans the target by using different source IP address
+  -e tun0 	          Sends all requests through the specified interface
+  --source-port 53 	  Performs the scans from specified source port (DNS)
 
 Additional:
---packet-trace      Shows all packets sent and received
---reason 	          Displays the reason a port is in a particular state
---stats-every=5s    Defining how periods of time the status should be shown
--v, -vv             Increases the verbosity of the scan, which displays more detailed information
+  --packet-trace      Shows all packets sent and received
+  --reason 	          Displays the reason a port is in a particular state
+  --stats-every=5s    Defining how periods of time the status should be shown
+  -v, -vv             Increases the verbosity of the scan, which displays more detailed information
 
 Speed up your scan:
--T5                   Aggresive scan
---min-parallelism=50  Minimum parrallelism
--n                    Disable reverseDNS
---min-rate=300        Min X packets / sec
--F                    Fast port scan (top 100 ports)
+  -T5                   Aggresive scan
+  --min-parallelism=50  Minimum parrallelism
+  -n                    Disable reverseDNS
+  --min-rate=300        Min X packets / sec
+  -F                    Fast port scan (top 100 ports)
 
 Saving the results:
--oN output.nmap    Normal output - Save to text file
--oG output.gnmap   Grepable output - Save to grepable file 
--oX output.xml     XML output - Save to xml file 
--oA output         Save in all formats
-xsltproc target.xml -o target.html
+  -oN output.nmap    Normal output - Save to text file
+  -oG output.gnmap   Grepable output - Save to grepable file 
+  -oX output.xml     XML output - Save to xml file 
+  -oA output         Save in all formats
+  xsltproc target.xml -o target.html
                      Convert stored results from XML format to HTML
 
 Default settings unless we have definsed otherwise:
--sS                  TCP-SYN scan
--sT                  TCP Connect Scan
---top-ports=1000     1000 TCP ports by default
+  -sS                  TCP-SYN scan
+  -sT                  TCP Connect Scan
+  --top-ports=1000     1000 TCP ports by default
 
 Usefull:
-To view the scan status, we can press the [Space Bar] during the scan, which will cause Nmap to show us the scan status.
-find / -type f -name ftp* 2>/dev/null | grep scripts  Find NSE scripts
+  To view the scan status, we can press the [Space Bar] during the scan, which will cause Nmap to show us the scan status.
+  find / -type f -name ftp* 2>/dev/null | grep scripts  Find NSE scripts
 

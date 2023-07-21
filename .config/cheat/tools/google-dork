@@ -1,0 +1,14 @@
+Commands:
+  site      returns results only from the specified website address
+  inurl     returns results that have the specified word in the URL
+  filetype  returns results which are a particular file extension
+  intitle   returns results that contain the specified word in the title
+
+Examples:
+  site      site:tryhackme.com
+	inurl     inurl:admin
+	filetype  filetype:pdf
+	intitle   intitle:admin
+	
+
+Google Hacking DB: https://www.exploit-db.com/google-hacking-database
