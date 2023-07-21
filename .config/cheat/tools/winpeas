@@ -1,0 +1,27 @@
+WinPEAS - Windows Privilege Escalation Awesome Scripts
+Source:    https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS
+Download:  https://github.com/carlospolop/PEASS-ng/releases/tag/20230702-bc7ce3ac
+           You can download either the precompiled .exe, .bat or .ps1 script
+
+Usage:
+
+Commands:
+winpeas.exe > outputfile.txt   Redirect the output to a file for conciseness
+
+Options:
+
+Informational:
+Local Windows Privilege Escalation checklist:
+                    https://book.hacktricks.xyz/windows-hardening/checklist-windows-privilege-escalation
+Information about how to exploit found misconfigurations:
+                    https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation
+
+Resources:
+PayloadsAllTheThings https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md) - Windows Privilege Escalation
+Priv2Admin           https://github.com/gtworek/Priv2Admin - Abusing Windows Privileges
+RogueWinRM           https://github.com/antonioCoco/RogueWinRM Exploit
+Potatoes             https://jlajara.gitlab.io/Potatoes_Windows_Privesc
+Decoder's Blog       https://decoder.cloud/
+Token Kidnapping     https://dl.packetstormsecurity.net/papers/presentations/TokenKidnapping.pdf
+Hacktricks Windows Local Privilege Escalation
+                     https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation

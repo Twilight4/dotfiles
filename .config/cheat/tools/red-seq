@@ -55,9 +55,11 @@ Enumeration:
 Persistence:
   win-persist
 
-Privilege Escalation:
+Windows Privilege Escalation:
   win-privesc
-  peass
+  winpeas
+  privesccheck
+  wes-ng
 
 Defense Evasion:
 

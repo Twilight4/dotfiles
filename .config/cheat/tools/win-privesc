@@ -61,15 +61,6 @@ AlwaysInstallElevated:
   msiexec /quiet /qn /i C:\Windows\Temp\malicious.msi            As this is a reverse shell, you should also run the Metasploit Handler module configured accordingly. 
                                                                  Once you have transferred the file you have created, you can run the installer this command and receive the reverse shell
 
-Windows Services:                                          
-
-
-
-
-
-
-
-
 Informational:
   Any user with administrative privileges will be part of the Administrators group. Standard users are part of the Users group.
 Special built-in accounts used by the operating system in the context of privilege escalation. These accounts are created and
