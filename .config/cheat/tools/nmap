@@ -6,7 +6,7 @@ Host discovery:
   -PE             Performs the ping scan by using 'ICMP Echo requests' against the target
 
 Host and Port Scanning:
-  -p x, -p-           Port scan for port <x> or scan all ports
+  -p x, -p x-y, -p-   Port scan for port <x> or scan all ports
   -sU 	              Performs a UDP scan
   -Pn 	              Disable host discovery
   -n 	                Disables DNS resolution
