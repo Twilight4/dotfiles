@@ -1,4 +1,4 @@
-Windows Enumeration commands using cmd terminal
+Windows Enumeration commands using cmd terminal for Red Team Operations
 
 System:
    systeminfo           Systeminfo can read: Hostname, OS Version, which hotfixes have been installed

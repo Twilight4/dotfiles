@@ -1,0 +1,58 @@
+Linux Enumeration commands for Red Team Operations
+
+System:
+  ls /etc/*-release      Information about linux distribution and release version
+  hostname               System name
+  cat /etc/passwd
+  cat /etc/group
+  sudo cat /etc/shadow   Requres root privileges to access to users passwords hashes
+  ls -lh /var/mail/      Information about users and might contain sensitive files
+  ls -lh /usr/bin/       Installed applications
+  ls -lh /sbin/          Installed applications
+  rpm -qa                On RPM-based Linux system, you can get a list of all installed packages
+                        -qa indicates that we want to query all packages.
+  dpkg -l                On a Debian-based Linux system, you can get the list of installed packages
+
+Users:
+  who      Show who is logged
+  whoami   Prints your effective user id
+  w        Shows who is logged in and what they are doing
+  id       Print the real and effective user and group IDS
+  last     Displays a listing of the last logged-in users
+  sudo -l  Lists the allowed command for the invoking user on the current system
+
+Networking:
+  ip address show       IP addresses can be shown
+  cat /etc/resolv.conf  The DNS servers can be found
+  netstat -plt          Return Programs Listening on TCP sockets. Note that to get all `PID` (process ID) and 
+                        program names, you need to run sudo netstat
+  netstat -atupn        Show All TCP and UDP listening and established connections and the program names
+                        with addresses and ports in numeric format
+  lsof                  List Open Files. 
+  lsof -i               Display only Internet and network connections. Note that to get the complete list of 
+                        matching programs, you need to run sudo lsof. Because the list can get quite lengthy, 
+                        you can further filter the output by specifying the ports you are interested in, 
+                        such as SMTP port 25
+  lsof -i :25           Limit the output to those related to port 25
+
+Netstat options:
+  -a 	Show both listening and non-listening sockets
+  -l 	Show only listening sockets
+  -n 	Show numeric output instead of resolving the IP address and port number
+  -t 	TCP
+  -u 	UDP
+  -x 	UNIX
+  -p 	Show the PID and name of the program to which the socket belongs
+
+Running Services:
+  ps -ef    List every process on the system 
+  ps axjf   For more “visual” output to print a process tree. The f stands for “forest”,
+            and it creates an ASCII art process hierarchy
+  ps aux    Get a list of all the running processes.
+
+Print Stats Options:
+  -e 	All processes
+  -f 	Full-format listing
+  -j 	Jobs format
+  -l 	Long format
+  -u 	User-oriented format
