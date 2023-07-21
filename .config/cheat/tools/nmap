@@ -27,7 +27,7 @@ Firewall IDS/IPS Evasion:
 --disable-arp-ping  Disables ARP ping
 -sS                 Performs SYN scan on specified ports
 -D RND:5 	          Generates five random IP addresses that indicates the source IP the connection comes from
--S 10.129.2.200	    Scans the target by using different source IP address
+-S source_ip	      Scans the target by using different source IP address
 -e tun0 	          Sends all requests through the specified interface
 --source-port 53 	  Performs the scans from specified source port (DNS)
 
@@ -45,10 +45,10 @@ Speed up your scan:
 -F                    Fast port scan (top 100 ports)
 
 Saving the results:
--oN [output.nmap]    Normal output - Save to text file
--oG [output.gnmap]   Grepable output - Save to grepable file 
--oX [output.xml]     XML output - Save to xml file 
--oA [output]         Save in all formats
+-oN output.nmap    Normal output - Save to text file
+-oG output.gnmap   Grepable output - Save to grepable file 
+-oX output.xml     XML output - Save to xml file 
+-oA output         Save in all formats
 xsltproc target.xml -o target.html
                      Convert stored results from XML format to HTML
 
