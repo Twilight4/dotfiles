@@ -1,0 +1,16 @@
+Domain Name System (DNS):
+  dig -t AXFR DOMAIN_NAME @DNS_SERVER                  If we can get a “copy” of all the records that a DNS server is responsible
+                                                       for answering, we might discover hosts we didn’t know existed.
+                                                       Depending on the DNS server configuration, DNS zone transfer might be restricted.
+                                                       If it is not restricted, it should be achievable using the herein command.
+                                                       
+Options:
+  -t AXFR     Indicates that we are requesting a zone transfer,
+  @           Precedes the `DNS_SERVER` that we want to query regarding the records related to the specified `DOMAIN_NAME`.
+
+Server Message Block (SMB):
+  net share   Check shared folders. For example we could see that `C:\Internal Files` is shared under the name "Internal"
+
+Simple Network Management Protocol (SNMP):
+  ./snmpcheck.rb TARGET_IP -c COMMUNITY_STRING 
+              Simple tool to query servers related to SNMP
