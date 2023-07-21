@@ -22,6 +22,9 @@ Password Profiling/cracking:
   hashcat
   john
   hashid/hash-identifier
+  hydra
+  rdpassspray
+  owa
 
 Phishing:
   blackeye

