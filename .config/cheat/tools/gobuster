@@ -2,21 +2,18 @@ Commands:
 vhost  Uses VHOST for brute-forcing
 dir    Content discovery
 dns    DNS enumeration
--w     Path to the wordlist
--u     Specify the URL
 
 Options:
-export TARGET="facebook.com"
-export NS="d.ns.facebook.com"
-export WORDLIST="numbers.txt"
-gobuster dns -q -r "${NS}" -d "${TARGET}" -w "${WORDLIST}" -p ./patterns.txt -o "gobuster_${TARGET}.txt"
-dns  Launch the DNS module
--q   Do not print the banner and other noise.
--r   Use custom DNS server
--d   A target domain name
--p   Path to the patterns file
--w   Path to the wordlist
--o   Output file
+-e                     Print the full URLs in your console
+-w, --wordlist string  Path to the wordlist
+-u                     The target URL
+-U, -P                 Username and Password for Basic Auth
+-q, --quiet            Do not print the banner and other noise
+-r                     Use custom DNS server
+-d                     A target domain name
+-p, --pattern string   File containing replacement patterns
+-c http-cookies        Specify a cookie for simulating your auth
+-o, --output string    Output file
 
 Content discovery tools examples:
 ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt -u http://10.10.213.189/FUZZ
