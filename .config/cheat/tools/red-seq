@@ -53,8 +53,10 @@ Enumeration:
   lin-enum
 
 Persistence:
+  win-persist
 
 Privilege Escalation:
+  win-privesc
   peass
 
 Defense Evasion:
@@ -62,8 +64,11 @@ Defense Evasion:
 Credential Dumping:
 
 Lateral Movement:
+  lateral
   wmiexec
 
+Exfiltration:
+  data-exfil
 
 ############ Command and Control ############
 C2 Frameworks (RAT):
@@ -75,4 +80,3 @@ C2 Frameworks (RAT):
   Application Layer Protocol:
   Infrastructure:
 
-Exfiltration:
