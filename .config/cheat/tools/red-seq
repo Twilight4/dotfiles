@@ -1,11 +1,16 @@
 Osint:
   osintgram
   sherlock
+  google-dork
 
 Phishing:
   blackeye
   camphish
   storm-breaker
+  beef
+
+Wireless:
+  bettercap
 
 Backdoor generator:
   androrat
