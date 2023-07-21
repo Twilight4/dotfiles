@@ -12,7 +12,6 @@ Host and Port Scanning:
 -sV 	              Performs a service scan
 
 Nmap Scripting Engine (NSE):
--sC                 Default Scripts
 --script category   Specific Scripts Category
 -A                  Aggressive scan which includes:
 -sV                 Service scan
@@ -32,12 +31,12 @@ Firewall IDS/IPS Evasion:
 --source-port 53 	  Performs the scans from specified source port (DNS)
 
 Additional:
---packet-trace  Shows all packets sent and received
---reason 	      Displays the reason a port is in a particular state
+--packet-trace      Shows all packets sent and received
+--reason 	          Displays the reason a port is in a particular state
 
 Other:
---stats-every=5s  Defining how periods of time the status should be shown
--v/-vv            Increases the verbosity of the scan, which displays more detailed information
+--stats-every=5s    Defining how periods of time the status should be shown
+-v/-vv              Increases the verbosity of the scan, which displays more detailed information
 
 Speed up your scan:
 -T5                   Aggresive scan
