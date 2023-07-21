@@ -1,4 +1,4 @@
-Linux Enumeration commands for Red Team Operations
+Linux Enumeration techniques for Red Team Operations
 
 System:
   ls /etc/*-release      Information about linux distribution and release version

