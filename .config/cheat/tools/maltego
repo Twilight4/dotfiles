@@ -1,0 +1,15 @@
+Maltego Transform Hub: https://www.maltego.com/transform-hub/
+Maltego is an application that blends mind-mapping with OSINT. In general, you would
+start with a domain name, company name, person’s name, email address, etc.
+Then you can let this piece of information go through various transforms.
+
+Think of each block on a Maltego graph as an entity. An entity can have values
+to describe it. In Maltego’s terminology, a **transform** is a piece of code that
+would query an API to retrieve information related to a specific entity.
+**Information** related to an entity goes via a **transform** to return zero or more entities.
+
+The only logical thing is to make Maltego more powerful by adding new Transforms.
+Transforms are usually grouped into different categories based on data type, pricing,
+and target audience. Although many transforms can be used using Maltego Community 
+Edition and free transforms, other transforms require a paid subscription. 
+Maltego Transform Hub is like a marketplace for transforms.

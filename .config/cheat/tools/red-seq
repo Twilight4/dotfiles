@@ -4,6 +4,7 @@ Osint:
   osintgram
   sherlock         social media pages/job ads
   recon-ng
+  maltego
 
   Search Engines:
   google-dork
@@ -11,6 +12,15 @@ Osint:
   threat-intel-platform
   censys
   shodan
+
+Password Profiling/cracking:
+  password-wordlists
+  cewl
+  username-gen
+  crunch
+  cupp
+  hashcat
+  hashid/hash-identifier
 
 Phishing:
   blackeye
