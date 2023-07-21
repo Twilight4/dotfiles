@@ -19,9 +19,11 @@ Create a custom wordlist from a pre-existing dictionary
 with custom modification to the original dictionary. 
 Add special characters in format: [symbols]word[0-9]
 ```
-[List.Rules:THM-Password-Attacks]
+[List.Rules:custom-rule]
 Az"[0-9]" ^[!@#$]
 ```
+john --wordlist=/tmp/single.lst --rules=custom-rule --stdout
+                                     Try out the newly created rule
 
 Custom Rules Options:
 [List.Rules:THM-Password-Attacks]    Specify the rule name THM-Password-Attacks
