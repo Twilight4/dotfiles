@@ -1,128 +1,65 @@
-### Host discovery ###
-# Scan network range
-sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
-10.129.2.0/24 	# Target network range
--sn 	          # Disables port scanning
--oA tnet 	      # Stores the results in all formats starting with the name 'tnet'
+Host discovery:
+<TARGET_IP>/24 	Target network range
+-sn 	          Disables port scanning
+-oA tnet 	      Stores the results in all formats starting with the name 'tnet'
+-iL             Performs defined scans against targets in provided 'hosts.txt' list
+-PE             Performs the ping scan by using 'ICMP Echo requests' against the target
 
-# Scan IP List
-sudo nmap -sn -oA tnet -iL hosts.txt | grep for | cut -d" " -f5
--sn 	      # Disables port scanning
--oA tnet 	  # Stores the results in all formats starting with the name 'tnet'
--iL         # Performs defined scans against targets in provided 'hosts.txt' list
-# Scan Multiple IPs
-sudo nmap -sn -oA tnet 10.129.2.18 10.129.2.19 10.129.2.20| grep for | cut -d" " -f5
-# Define the range in the respective octet
-sudo nmap -sn -oA tnet 10.129.2.18-20| grep for | cut -d" " -f5
+Host and Port Scanning:
+-sU 	              Performs a UDP scan
+-Pn 	              Disables ICMP Echo requests
+-n 	                Disables DNS resolution
+-sV 	              Performs a service scan
 
-# Scan Single IP - determine if host is alive or not
-sudo nmap 10.129.2.18 -sn -oA host -PE --reason
-# Disable ARP requests and scan our target with the desired ICMP echo requests
-sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping 
---packet-trace  # Shows all packets sent and received
--sn             #	Disables port scanning
--oA host 	      # Stores the results in all formats starting with the name 'host'
--PE             # Performs the ping scan by using 'ICMP Echo requests' against the target
---reason        # Displays the reason why is target alive isn't
+Nmap Scripting Engine (NSE):
+-sC                 Default Scripts
+--script category   Specific Scripts Category
+-A                  Aggressive scan which includes:
+-sV                 Service scan
+-O                  OS detection
+--traceroute        Traceroute
+-sC                 Default NSE scripts
 
+Firewall IDS/IPS Evasion:
+-sA                 Performs ACK scan on specified ports (method is much harder to filter for firewalls and IDS/IPS systems than regular SYN -sS)
+-Pn               	Disables ICMP Echo requests
+-n 	                Disables DNS resolution
+--disable-arp-ping  Disables ARP ping
+-sS                 Performs SYN scan on specified ports
+-D RND:5 	          Generates five random IP addresses that indicates the source IP the connection comes from
+-S 10.129.2.200	    Scans the target by using different source IP address
+-e tun0 	          Sends all requests through the specified interface
+--source-port 53 	  Performs the scans from specified source port (DNS)
 
-### Host and Port Scanning ###
-# UDP Port Scan
-sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 137 --reason
--sU 	              # Performs a UDP scan
--Pn 	              # Disables ICMP Echo requests
--n 	                # Disables DNS resolution
---disable-arp-ping  #	Disables ARP ping
---packet-trace 	    # Shows all packets sent and received
--p 137              #	Scans only the specified port
---reason 	          # Displays the reason a port is in a particular state
+Additional:
+--packet-trace  Shows all packets sent and received
+--reason 	      Displays the reason a port is in a particular state
 
-# Version Scan
-sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason -sV
--Pn 	              # Disables ICMP Echo requests
--n 	                # Disables DNS resolution
---disable-arp-ping 	# Disables ARP ping
---packet-trace 	    # Shows all packets sent and received
--p 445 	            # Scans only the specified port
---reason 	          # Displays the reason a port is in a particular state
--sV 	              # Performs a service scan
+Other:
+--stats-every=5s  Defining how periods of time the status should be shown
+-v/-vv            Increases the verbosity of the scan, which displays more detailed information
 
-# Nmap Scripting Engine (NSE)
-sudo nmap <target> -sC
--sC                 # Default Scripts
-# Specific Scripts Category
-sudo nmap <target> --script <category>
+Speed up your scan:
+-T5                   Aggresive scan
+--min-parallelism=50  Minimum parrallelism
+-n                    Disable reverseDNS
+--min-rate=300        Min X packets / sec
+-F                    Fast port scan (top 100 ports)
 
-# Aggressive Scan
-sudo nmap 10.129.2.28 -p 80 -A
--A             # Aggressive scan which includes:
--sV            # Service scan
--O             # OS detection
---traceroute   # traceroute
--sC            # default NSE scripts
+Saving the results:
+-oN [output.nmap]    Normal output - Save to text file
+-oG [output.gnmap]   Grepable output - Save to grepable file 
+-oX [output.xml]     XML output - Save to xml file 
+-oA [output]         Save in all formats
+xsltproc target.xml -o target.html
+                     Convert stored results from XML format to HTML
 
+Default settings unless we have definsed otherwise:
+-sS                  TCP-SYN scan
+-sT                  TCP Connect Scan
+--top-ports=1000     1000 TCP ports by default
 
-### Firewall and IDS/IPS Evasion ###
-# ACK-Scan
-sudo nmap 10.129.2.28 -p 21,22,25 -sA -Pn -n --disable-arp-ping --packet-trace
--sA                 # Performs ACK scan on specified ports (method is much harder to filter for firewalls and IDS/IPS systems than regular SYN -sS)
--Pn               	# Disables ICMP Echo requests
--n 	                # Disables DNS resolution
---disable-arp-ping  # Disables ARP ping
---packet-trace 	    # Shows all packets sent and received
-
-# Scan by Using Decoys
-sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
--sS                 # Performs SYN scan on specified ports
--Pn 	              # Disables ICMP Echo requests
--n 	                # Disables DNS resolution
---disable-arp-ping  #	Disables ARP ping
---packet-trace 	    # Shows all packets sent and received
--D RND:5 	          # Generates five random IP addresses that indicates the source IP the connection comes from
-
-# Scan by Using Different Source IP
-sudo nmap 10.129.2.28 -n -Pn -p 445 -O -S 10.129.2.200 -e tun0
--n            #	Disables DNS resolution
--Pn 	        # Disables ICMP Echo requests
--p 445 	      # Scans only the specified ports
--O 	          # Performs operation system detection scan
--S 	          # Scans the target by using different source IP address
-10.129.2.200 	# Specifies the source IP address
--e tun0 	    # Sends all requests through the specified interface
-
-# SYN-Scan From DNS Port
-sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
--sS 	              # Performs SYN scan on specified ports
--Pn                 #	Disables ICMP Echo requests
--n 	                # Disables DNS resolution
---disable-arp-ping 	# Disables ARP ping
---packet-trace 	    # Shows all packets sent and received
---source-port 53 	  # Performs the scans from specified source port
-# Connect To The Filtered Port (example port 53)
-ncat -nv --source-port 53 10.129.2.28 50000
-
-
-### Usefull ###
-# Other
+Usefull:
 To view the scan status, we can press the [Space Bar] during the scan, which will cause Nmap to show us the scan status.
---stats-every=5s  # defining how periods of time the status should be shown
--v/-vv            # increases the verbosity of the scan, which displays more detailed information
-find / -type f -name ftp* 2>/dev/null | grep scripts  # find NSE scripts
+find / -type f -name ftp* 2>/dev/null | grep scripts  Find NSE scripts
 
-# Speedup your scan
-nmap -T5 --min-parallelism=50 -n --min-rate=300 [target]
--n             # disable ReverseDNS
---min-rate=X   # min X packets / sec
--F             # fast port scan (top 100 ports)
-
-# Default settings (unless we have definsed otherwise):
--sS                # TCP-SYN scan
--sT                # TCP Connect Scan
---top-ports=1000   # 1000 TCP ports by default
-
-# Saving the results
--oN [output.nmap]  # Normal output - Save to text file
--oG [output.gnmap] # Grepable output - Save to grepable file 
--oX [output.xml]   # XML output - Save to xml file 
--oA [output]       # Save in all formats
-xsltproc target.xml -o target.html  # Convert stored results from XML format to HTML
