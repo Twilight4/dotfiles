@@ -1,0 +1,11 @@
+Osint:
+  osintgram
+  sherlock
+
+Phishing:
+  blackeye
+  camphish
+  storm-breaker
+
+Backdoor generator:
+  androrat
