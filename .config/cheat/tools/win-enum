@@ -9,25 +9,29 @@ System:
                         If you are only interested in installed apps
 
 Users:
-whoami                  Check who you are 
-whoami /priv            Check what you are capable of, i.e. your privileges
-whoami /groups          Check which groups you belong to i.e. `NT AUTHORITY\Local account and member of Administrators group`
-net user                View user
-net group               discover the available groups if the system is a Windows Domain Controller
-net localgroup          discover the available groups if the system is NOT a Windows Domain Controller
-net localgroup administrators
-                        list the users that belong to the local administrators’ group
-net accounts            see the local settings on a machine
-net accounts /domain    if the machine belongs to a domain
+  whoami                  Check who you are 
+  whoami /priv            Check what you are capable of, i.e. your privileges
+  whoami /groups          Check which groups you belong to i.e. `NT AUTHORITY\Local account and member of Administrators group`
+  net user                View user
+  net group               Discover the available groups if the system is a Windows Domain Controller
+  net localgroup          Discover the available groups if the system is NOT a Windows Domain Controller
+  net localgroup administrators
+                          List the users that belong to the local administrators’ group
+  net accounts            See the local settings on a machine
+  net accounts /domain    If the machine belongs to a domain
 
+Networking:
+  ipconfig                Learn about your system network configuration
+  ipconfig /all           Check all network-related settings
+  netstat -abno           Get various information, such as which ports, which connections, and who is using them
+  arp -a                  Helps you discover other systems on the same LAN that recently communicated with your system
+                        shows the current ARP entries, i.e., the physical addresses of the systems on the same LAN that communicated with your system
 
-
-
-
-
-
-
-
+Netstat options:
+  -a           Display all listening ports and active connections.
+  -b           Find the binary involved in the connection,
+  -n           Avoid resolving IP addresses and port numbers
+  -o           Display the process ID (PID).
 
 
 
