@@ -2,8 +2,8 @@ username_generator - Create a list of possible usernames for bruteforcing
 Source: https://github.com/therodri2/username_generator.git
 
 Commands:
-python3 username_generator.py -h
+  python3 username_generator.py -h
 
 Generate combinations of the given full name:
-echo "John Smith" > users.lst
-python3 username_generator.py -w users.lst
+  echo "John Smith" > users.lst
+  python3 username_generator.py -w users.lst

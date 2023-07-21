@@ -2,15 +2,15 @@ crunch - Generate a dictionary file containing words
 Source: https://www.kali.org/tools/crunch/
 
 Commands:
-crunch 2 2 01234abcd -o crunch.txt   Keyspace technique; Create a wordlist containing all possible
+  crunch 2 2 01234abcd -o crunch.txt   Keyspace technique; Create a wordlist containing all possible
                                      combinations of "2" characters, including "0-4" and "a-d"
-crunch 6 6 -t pass%%                 Generate wordlist that contains "pass" followed by 2 numbers
+  crunch 6 6 -t pass%%                 Generate wordlist that contains "pass" followed by 2 numbers
 
 Specify character set using "-t" option:
-@    Lower case alpha characters
-,    Upper case alpha characters
-%    Numeric characters
-^    Special characters including space
+  @    Lower case alpha characters
+  ,    Upper case alpha characters
+  %    Numeric characters
+  ^    Special characters including space
 
 Informational:
-In key-space technique we specify a range of characters, numbers, and symbols in our wordlist
+  In key-space technique we specify a range of characters, numbers, and symbols in our wordlist

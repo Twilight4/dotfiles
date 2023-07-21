@@ -2,19 +2,19 @@ Hashcat - World's fastest and most advanced password recovery utility
 Source: https://github.com/hashcat/hashcat
 
 Usage:
-hashcat -a 0 -m 0 f806fc5a2a0d5ba2471600758452799c /usr/share/wordlists/rockyou.txt
+  hashcat -a 0 -m 0 f806fc5a2a0d5ba2471600758452799c /usr/share/wordlists/rockyou.txt
 
 Commands:
-hashcat -h                        List of supported hashes
-hashcat --show                    Show the cracked value if the hash has been cracked
+  hashcat -h                        List of supported hashes
+  hashcat --show                    Show the cracked value if the hash has been cracked
 
 Options:
--a 0                              Sets the attack mode to a dictionary attack
--m 0                              Sets the hash mode for cracking MD5 hashes
-f806fc5a2a0d5ba2471600758452799c  This option could be a single hash like our example
+  -a 0                              Sets the attack mode to a dictionary attack
+  -m 0                              Sets the hash mode for cracking MD5 hashes
+  f806fc5a2a0d5ba2471600758452799c  This option could be a single hash like our example
                                   or a file that contains a hash or multiple hashes
-/usr/share/wordlists/rockyou.txt  Wordlist/dictionary file for our attack
--a 3                              Sets the attacking mode as a brute-force attack
-?d?d?d?d                          The "?d" tells hashcat to use a digit. In this case, 
+  /usr/share/wordlists/rockyou.txt  Wordlist/dictionary file for our attack
+  -a 3                              Sets the attacking mode as a brute-force attack
+  ?d?d?d?d                          The "?d" tells hashcat to use a digit. In this case, 
                                   "?d?d?d?d" for four digits starting with "0000" and ending at "9999"
---stdout                          Print the result to the terminal
+  --stdout                          Print the result to the terminal

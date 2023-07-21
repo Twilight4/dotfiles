@@ -20,6 +20,7 @@ Password Profiling/cracking:
   crunch
   cupp
   hashcat
+  john
   hashid/hash-identifier
 
 Phishing:

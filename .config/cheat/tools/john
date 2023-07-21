@@ -1,0 +1,39 @@
+John - advanced offline password cracker
+Source: https://github.com/openwall/john
+
+Commands:
+john --wordlist=/tmp/single-password-list.txt --rules=best64 --stdout | wc -l
+                                                            Rule-Based attack
+
+Options:
+--rules                     Specify which rule or rules to use
+--rules=best64              best64 rule, which contains the best 64 built-in John rules
+--wordlist                  Specify the wordlist or dictionary file.
+--stdout                    Print the output to the terminal
+
+
+Custom Rules:
+sudo vi /etc/john/john.conf
+
+Create a custom wordlist from a pre-existing dictionary 
+with custom modification to the original dictionary. 
+Add special characters in format: [symbols]word[0-9]
+```
+[List.Rules:THM-Password-Attacks]
+Az"[0-9]" ^[!@#$]
+```
+
+Custom Rules Options:
+[List.Rules:THM-Password-Attacks]    Specify the rule name THM-Password-Attacks
+Az                                   Represents a single word from the original wordlist/dictionary using `-p`
+"[0-9]"                              Append a single digit (from `0` to `9`) to the end of the word. For two digits, we can add `"[0-9][0-9]"` and so on
+^[!@#$]                              Add a special character at the beginning of each word. `^` means the beginning of the line/word. Note, changing `^` to `$` will append the special characters to the end of the line/word
+
+Informational:
+Rule-Based attacks aka hybrid attacks assume the attacker knows something about the
+password policy. Rules are applied to create passwords within the guidelines of the
+given password policy and should, in theory, only generate valid passwords.
+Using pre-existing wordlists may be useful when generating passwords that fit 
+a policy — manipulating or 'mangling' a password such as 'password': `p@ssword`, `Pa$$word`, `Passw0rd`, and so on.
+
+"KoreLogic" rule uses various built-in and custom rules to generate complex password lists
