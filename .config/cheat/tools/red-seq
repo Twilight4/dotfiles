@@ -48,7 +48,9 @@ Phishing:
 
 ############ AD Exploitation/Post Compromise ############
 Enumeration:
-  powershell
+  ad-powershell
+  win-enum
+  lin-enum
 
 Persistence:
 
