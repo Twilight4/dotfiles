@@ -1,0 +1,65 @@
+Users and Groups:
+systeminfo | findstr Domain   Check whether the Windows machine is part of the AD environment
+                              if it shows "Domain" in output then yes, if we get "WORKGROUP" 
+                              in the domain section, then it means that this machine is part of a local workgroup
+Get-ADUser  -Filter *         Get all active directory user accounts
+Get-ADUser -Filter * -SearchBase "CN=Users,DC=THMREDTEAM,DC=COM"
+                              List any users that part of Users (CN)
+Get-ADUser -Filter * -SearchBase "OU=THM,DC=THMREDTEAM,DC=COM" 
+                              List all users withing the "THM" OU
+
+Antivirus Software (AV):
+wmic /namespace:\\root\securitycenter2 path antivirusproduct
+                              Enumerate AV software using Windows built-in tools
+Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct
+                              The same result but as wmic using powershell, lists the third-party antiviruses and
+                              windows defender if installed. Note that Windows servers may not have `SecurityCenter2`
+                              namespace. Instead, it works for Windows workstations
+
+Windows Defender:
+Get-Service WinDefend         Check the service state of Windows Defender
+Get-MpComputerStatus | select RealTimeProtectionEnabled
+                              Get the current Windows Defender status, `MpComputerStatus` highlights 
+                              whether Windows Defender is enabled or not
+Get-MpThreat                  Can provide us with threats details that have been detected using MS Defender
+
+Host-Based Firewall:
+Get-NetFirewallProfile | Format-Table Name, Enabled`
+                              Check whether it is enabled
+Get-NetFirewallRule | findstr "Rule-Name" 
+                              Find rule name to enumerate details about the Host-Based Firewall and its rules
+Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False
+Get-NetFirewallProfile | Format-Table Name, Enabled
+                              If we have admin privileges on the current user we logged in with, then we try 
+                              to disable one or more than one firewall profile
+Get-NetFirewallRule | select DisplayName, Enabled, Description
+                              Check the current Firewall rules, whether allowing or denying by the firewall
+Test-NetConnection -ComputerName 127.0.0.1 -Port 80
+                              If the host-based firewall is enabled, we need to test inbound connection without extra tools
+(New-Object System.Net.Sockets.TcpClient("127.0.0.1", "80")).Connected
+                              As a result, we can confirm or deny the inbound connection on port 80 is open and
+                              allowed in the firewall. Note that we can also test for remote targets in the same
+                              network or domain names by specifying in the `-ComputerName` argument for the `Test-NetConnection`
+
+
+
+
+
+
+Informational:
+The Distinguished Name (DN) is a collection of comma-separated key and value pairs used to identify unique
+records within the directory. The DN consists of Domain Component (DC), OrganizationalUnitName (OU), 
+Common Name (CN), and others. An example of DN: "CN=User1,CN=Users,DC=thmredteam,DC=com"
+
+Host Security Solutions:
+- Antivirus software
+- Microsoft Windows Defender
+- Host-based Firewall
+- Security Event Logging and Monitoring 
+- Host-based Intrusion Detection System (HIDS)/ Host-based Intrusion Prevention System (HIPS)
+- Endpoint Detection and Response (EDR)
+
+MS Defender works in three protection modes: Active, Passive, Disable modes:
+  Active mode is used where the MS Defender runs as the primary antivirus software on the machine where provides protection and remediation. 
+  Passive mode is run when a 3rd party antivirus software is installed. Therefore, it works as secondary antivirus software where it scans files and detects threats but does not provide remediation. 
+  Disable mode is when the MS Defender is disabled or uninstalled from the system.
