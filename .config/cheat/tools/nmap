@@ -6,8 +6,9 @@ Host discovery:
 -PE             Performs the ping scan by using 'ICMP Echo requests' against the target
 
 Host and Port Scanning:
+-p x, -p-           Port scan for port <x> or scan all ports
 -sU 	              Performs a UDP scan
--Pn 	              Disables ICMP Echo requests
+-Pn 	              Disable host discovery
 -n 	                Disables DNS resolution
 -sV 	              Performs a service scan
 
@@ -21,7 +22,7 @@ Nmap Scripting Engine (NSE):
 
 Firewall IDS/IPS Evasion:
 -sA                 Performs ACK scan on specified ports (method is much harder to filter for firewalls and IDS/IPS systems than regular SYN -sS)
--Pn               	Disables ICMP Echo requests
+-Pn               	Disable host discovery
 -n 	                Disables DNS resolution
 --disable-arp-ping  Disables ARP ping
 -sS                 Performs SYN scan on specified ports
@@ -33,10 +34,8 @@ Firewall IDS/IPS Evasion:
 Additional:
 --packet-trace      Shows all packets sent and received
 --reason 	          Displays the reason a port is in a particular state
-
-Other:
 --stats-every=5s    Defining how periods of time the status should be shown
--v/-vv              Increases the verbosity of the scan, which displays more detailed information
+-v, -vv             Increases the verbosity of the scan, which displays more detailed information
 
 Speed up your scan:
 -T5                   Aggresive scan
