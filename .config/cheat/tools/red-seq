@@ -6,7 +6,7 @@ Osint:
   recon-ng
   maltego
 
-  Search Engines:
+Search Engines:
   google-dork
   viewdns-info
   threat-intel-platform
@@ -31,9 +31,12 @@ Phishing:
   camphish
   storm-breaker
   beef
+  gophish
+  set
 
 Wireless:
   bettercap
 
 Backdoor generator:
   androrat
+  msfvenom
