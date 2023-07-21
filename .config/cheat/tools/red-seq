@@ -60,6 +60,7 @@ Windows Privilege Escalation:
   winpeas
   privesccheck
   wes-ng
+  local-exploit-suggester
 
 Defense Evasion:
 
