@@ -1,4 +1,5 @@
 Source: https://cli.shodan.io/
+
 To use Shodan from the command-line properly, you need to create an account
 with https://www.shodan.io/, then configure shodan to use your API key using
 the command, `shodan init API_KEY`. Example of looking up information about 
