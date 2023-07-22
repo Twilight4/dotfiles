@@ -46,7 +46,7 @@ Phishing:
   gophish
 
 
-############ AD Exploitation/Post Compromise ############
+############ Post Compromise ############
 Enumeration:
   ad-powershell
   win-enum
@@ -62,24 +62,42 @@ Windows Privilege Escalation:
   wes-ng
   local-exploit-suggester
 
+Exfiltration:
+  win-exfil
+
 Defense Evasion:
 
-Credential Dumping:
 
-Lateral Movement:
-  lateral
+########### Active Directory Exploitation ###########
+Enumeration:
+  ad-enum
+  bloodhound
+  crackmapexec
+
+Lateral Movement and Pivoting:
+  ad-lateral
   wmiexec
 
-Exfiltration:
-  data-exfil
+Exploitation:
+  ad-exploit
+  impacket
+  kekeo
+
+Persistence:
+  ad-persist
+
+Credentials Dumping:
+  ad-dump
+  mimikatz
+  rubeus
+
 
 ############ Command and Control ############
 C2 Frameworks (RAT):
   covenant
 
-  Domain Fronting:
-  Connection Proxy:
-  Web Services:
-  Application Layer Protocol:
-  Infrastructure:
-
+Domain Fronting:
+Connection Proxy:
+Web Services:
+Application Layer Protocol:
+Infrastructure:
