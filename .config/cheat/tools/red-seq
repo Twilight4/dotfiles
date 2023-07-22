@@ -1,4 +1,5 @@
 Red Team terminology sequence - links to cheat notes
+Best tool selections for each stage of Red Team Engagement
 
 ############ Reconnaissance ############
 Osint:
@@ -7,6 +8,7 @@ Osint:
   recon-ng
   maltego
   gitleaks
+  dnsrecon
 
 Search Engines:
   google-dork
@@ -16,38 +18,36 @@ Search Engines:
   shodan
 
 
-############ Weaponization/Initial Access ############
-Email phishing, Web phishing, Physical tools (USB, network implants, SDR, IoT), wifi tools
-
-Password Spraying-Profiling:
+############ Weaponization ############
+Password Profiling:
   password-wordlists
   cewl
   username-gen
   crunch
   cupp
-  hashcat
-  john
-  hashid/hash-identifier
+
+Payload Development (and obfuscators):
+  msfvenom
+  chimera
+  veil
+  ScareCrow
+
+
+############ Delivery/Initial Access ############
+Email phishing, Web phishing, Physical tools (USB, network implants, SDR, IoT), wifi tools
+
+Phishing:
+  gophish
+  set
+
+Password Spraying:
   hydra
   rdpassspray
   owa
 
-Payload Development:
-  msfvenom
-  set
-
-
-############ Delivery ############
-Phishing:
-  blackeye
-  camphish
-  storm-breaker
-  beef
-  gophish
-
 
 ############ Post Compromise ############
-Enumeration:
+Windows Enumeration:
   ad-powershell
   win-enum
   lin-enum
@@ -67,16 +67,18 @@ Exfiltration:
   win-exfil
   neo-regeorg
   iodine
+  dnscat2
 
-Defense Evasion:
+Defense Evasion (no payload obfuscators):
   uacme
   amsi
   nc
   openssl-channel-encryption
 
 
-########### Active Directory Exploitation ###########
+########### Compromising Active Directory ###########
 Enumeration:
+  ad-powershell
   ad-enum
   bloodhound
   crackmapexec
@@ -85,32 +87,28 @@ Lateral Movement and Pivoting:
   ad-lateral
   wmiexec
 
-Exploitation:
+Exploitation/Execution:
   ad-exploit
   impacket
   kekeo
+  powersploit
+  nishang
+  responder
+  evil-winrm
 
 Persistence:
   ad-persist
+  Empire
 
 Credentials Dumping:
   ad-dump
   mimikatz
   rubeus
+  hashcat
+  john
+  hashid/hash-identifier
 
-Other:
-   PowerSploit - A PowerShell Post-Exploitation Framework
-   Responder - A LLMNR, NBT-NS and MDNS poisoner
-   Empire - Empire is a pure PowerShell post-exploitation agent
-
-
-############ Command and Control ############
-C2 Frameworks (RAT):
+C2 Frameworks:
   covenant
+  sliver
   c2-tips
-
-Domain Fronting:
-Connection Proxy:
-Web Services:
-Application Layer Protocol:
-Infrastructure:
