@@ -69,6 +69,7 @@ Exfiltration:
 
 Defense Evasion:
   uacme
+  amsi
 
 
 ########### Active Directory Exploitation ###########

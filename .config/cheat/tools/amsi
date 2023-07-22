@@ -1,0 +1,31 @@
+Microsoft released AMSI (Anti-Malware Scan Interface), a runtime monitoring solution designed to stop and monitor ongoing threats.
+
+amsi.fail will compile and generate a PowerShell bypass from a collection of known bypasses, generates obfuscated
+PowerShell snippets that break or disable AMSI for the current process
+Source: http://amsi.fail/
+
+Usage:
+
+Commands:
+
+Options:
+
+Informational:
+You can attach this obfuscated PowerShell snippet from amsi.fail at the beginning of your malicious code as with
+previous bypasses or run it in the same session before executing malicious code.
+
+
+AMSITrigger allows attackers to automatically identify strings that are flagging signatures to modify and break them.
+This method of bypassing AMSI is more consistent than others because you are making the file itself clean.
+Source: https://github.com/RythmStick/AMSITrigger
+
+Usage:
+AmsiTrigger_x64.exe -i "bypass.ps1" -f 3
+
+Commands:
+
+Options:
+
+Informational:
+Syntax for using amsitrigger is relatively straightforward; you need to specify the file or URL and what format to scan the file
+Signatures are highlighted in red; you can break these signatures by encoding, obfuscating, etc.
