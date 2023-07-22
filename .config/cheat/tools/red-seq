@@ -102,6 +102,7 @@ Credentials Dumping:
 ############ Command and Control ############
 C2 Frameworks (RAT):
   covenant
+  c2-tips
 
 Domain Fronting:
 Connection Proxy:
