@@ -27,14 +27,19 @@ Firewall and IDS/IPS Evasion:
   --disable-arp-ping  Disables ARP ping
   -sS                 Performs SYN scan on specified ports
   -D RND:5 	          Generates five random IP addresses that indicates the source IP the connection comes from
-  -S source_ip	      Scans the target by using different source IP address
+  -D DECOY1_IP1,DECOY_IP2,ME   Hide a scan with decoys
+  -D RND,RND,ME       Hide a scan with random decoys
+  -S SOURCE_IP	      Scans the target by using different source IP address
   -e tun0 	          Sends all requests through the specified interface
   -g 53, --source-port 53
                       Performs the scans from specified source port (DNS)
   -f                  Set the data in the IP packet to 8 bytes
-  -ff                 Limit the data in the IP packet to 16 bytes at most
+  -ff                 Limit the data in the IP packet to 16 bytes
   --mtu SIZE          Provide a custom size for data carried within the IP packet
                       The size should be a multiple of 8
+  --data-length NUM   Specify packet length
+  --ttl VALUE         Set IP time-to-live field
+  --badsum            Send packets with a wrong TCP/UDP checksum
   --ip-options        Loose routing can be specified using L. For instance:
                       --ip-options "L 10.10.10.50 10.10.50.250" requests that
                       your scan packets are routed through the two provided IP addresses.
@@ -42,10 +47,11 @@ Firewall and IDS/IPS Evasion:
                       you to set every hop between your system and the target host. For instance:
                       --ip-options "S 10.10.10.1 10.10.20.2 10.10.30.3" specifies that the packets
                       go via these three hops before reaching the target host.
-  --proxies           Takes a list of a comma-separated list of proxy URLs. 
+  --proxies PROXY_URL Takes a list of a comma-separated list of proxy URLs. 
                       Each URL should be expressed in the format: proto://host:port
                       Finding a reliable proxy requires some trial and error before you can rely on it to hide your Nmap scan source.
                       If you use your web browser to connect to the target, pass your trafic via proxy server.
+  --spoof-mac MAC_ADDRESS   Spoof source MAC address
 
 Additional:
   --packet-trace      Shows all packets sent and received
