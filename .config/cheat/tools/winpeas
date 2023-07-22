@@ -17,8 +17,8 @@ Information about how to exploit found misconfigurations:
                     https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation
 
 Resources:
-PayloadsAllTheThings https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md) - Windows Privilege Escalation
-Priv2Admin           https://github.com/gtworek/Priv2Admin - Abusing Windows Privileges
+PayloadsAllTheThings https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md
+Priv2Admin           https://github.com/gtworek/Priv2Admin
 RogueWinRM           https://github.com/antonioCoco/RogueWinRM Exploit
 Potatoes             https://jlajara.gitlab.io/Potatoes_Windows_Privesc
 Decoder's Blog       https://decoder.cloud/
