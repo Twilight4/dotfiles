@@ -64,6 +64,8 @@ Windows Privilege Escalation:
 
 Exfiltration:
   win-exfil
+  neo-regeorg
+  iodine
 
 Defense Evasion:
 
