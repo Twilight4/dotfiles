@@ -1,0 +1,26 @@
+Ncat - networking utility which reads and writes data across networks
+Source: https://nmap.org/ncat/
+
+Usage:
+  nc -lvnp PORT_NUM       To listen using TCP where port number is the port you want to listen to
+  nc TARGET_IP PORT_NUM   To connect to an Ncat instance listening on a TCP port
+
+Options:
+  -l   Tells ncat to listen for incoming connections
+  -v   Gets more verbose output as ncat binds to a source port and receives a connection
+  -n   Avoids resolving hostnames
+  -p   Specifies the port number that ncat will listen on
+  -u   Listen using UDP
+
+Network Security Evasion via Protocol Manipulation:
+Rely on a Different Protocol
+  nc -ulvnp PORT_NUM        To listen using UDP where port number is the port you want to listen to
+                            Note that unless you add -u, ncat will use TCP by default
+  nc -u TARGET_IP PORT_NUM  To connect to an Ncat instance listening on a UDP port
+
+Informational:
+  Consider the following two examples:
+    Running ncat -lvnp 25 on the attacker system and connecting to it will give the impression that
+    it is a usual TCP connection with an SMTP server, unless the IDS/IPS provides deep packet inspection (DPI).
+    Executing ncat -ulvnp 162 on the attacker machine and connecting to it will give the illusion
+    that it is a regular UDP communication with an SNMP server unless the IDS/IPS supports DPI.
