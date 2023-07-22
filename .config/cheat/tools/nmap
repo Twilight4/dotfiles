@@ -20,7 +20,7 @@ Nmap Scripting Engine (NSE):
   --traceroute        Traceroute
   -sC                 Default NSE scripts
 
-Firewall IDS/IPS Evasion:
+Firewall and IDS/IPS Evasion:
   -sA                 Performs ACK scan on specified ports (method is much harder to filter for firewalls and IDS/IPS systems than regular SYN -sS)
   -Pn               	Disable host discovery
   -n 	                Disables DNS resolution
@@ -29,7 +29,8 @@ Firewall IDS/IPS Evasion:
   -D RND:5 	          Generates five random IP addresses that indicates the source IP the connection comes from
   -S source_ip	      Scans the target by using different source IP address
   -e tun0 	          Sends all requests through the specified interface
-  --source-port 53 	  Performs the scans from specified source port (DNS)
+  -g 53, --source-port 53
+                      Performs the scans from specified source port (DNS)
 
 Additional:
   --packet-trace      Shows all packets sent and received
