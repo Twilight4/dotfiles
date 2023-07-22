@@ -98,6 +98,11 @@ Credentials Dumping:
   mimikatz
   rubeus
 
+Other:
+   PowerSploit - A PowerShell Post-Exploitation Framework
+   Responder - A LLMNR, NBT-NS and MDNS poisoner
+   Empire - Empire is a pure PowerShell post-exploitation agent
+
 
 ############ Command and Control ############
 C2 Frameworks (RAT):
