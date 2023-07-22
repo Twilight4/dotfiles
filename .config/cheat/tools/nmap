@@ -31,6 +31,10 @@ Firewall and IDS/IPS Evasion:
   -e tun0 	          Sends all requests through the specified interface
   -g 53, --source-port 53
                       Performs the scans from specified source port (DNS)
+  -f                  Set the data in the IP packet to 8 bytes
+  -ff                 Limit the data in the IP packet to 16 bytes at most
+  --mtu SIZE          Provide a custom size for data carried within the IP packet
+                      The size should be a multiple of 8
 
 Additional:
   --packet-trace      Shows all packets sent and received

