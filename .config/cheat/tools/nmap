@@ -22,6 +22,8 @@ Scan Types:
 
 Nmap Scripting Engine (NSE):
   --script category   Specific Scripts Category
+  --script-help script-name
+                      Show built-in help menu
   -A                  Aggressive scan which includes:
   -sV                 Service scan
   -O                  OS detection
@@ -82,6 +84,8 @@ Saving the results:
                      Convert stored results from XML format to HTML
 
 Informational:
+  find / -type f -name ftp* 2>/dev/null | grep scripts
+  ls -l /usr/share/nmap/scripts/*ftp*
+                                                Find NSE scripts
   To view the scan status, we can press the [Space Bar] during the scan, which will cause Nmap to show us the scan status.
-  find / -type f -name ftp* 2>/dev/null | grep scripts  Find NSE scripts
   "filtered" port is when nmap receives nothing back. This indicates that the port is being protected by a firewall which is configured to drop incoming packets
