@@ -13,6 +13,7 @@
 | :----------------------------: | :--------------------------------------------------------: | 
 |  **Operating System**          | [Arch Linux](https://archlinux.org/)                       |
 |  **Compositor**                | [Hyprland](https://github.com/hyprwm/Hyprland)             |
+|  **Status Bar**                | [Waybar-hyprland](https://github.com/Alexays/Waybar/)      |
 |  **Widget System**             | [Eww-wayland](https://github.com/elkowar/eww)              |
 |  **Menu Launcher**             | [Wofi](https://hg.sr.ht/~scoopta/wofi)                     |
 |  **Session Manager**           | [Wlogout](https://github.com/ArtsyMacaw/wlogout)           |
