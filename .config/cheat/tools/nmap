@@ -18,6 +18,7 @@ Scan Types:
   -sN                 TCP Null Scan
   -sF                 TCP FIN Scan
   -sX                 TCP Xmas Scan
+  -sA                 ACK Scan (method much harder to filter for firewalls and IDS/IPS systems than SYN [-sS] scan)
 
 Nmap Scripting Engine (NSE):
   --script category   Specific Scripts Category
@@ -28,7 +29,6 @@ Nmap Scripting Engine (NSE):
   -sC                 Default NSE scripts
 
 Firewall and IDS/IPS Evasion:
-  -sA                 Performs ACK scan on specified ports (method is much harder to filter for firewalls and IDS/IPS systems than regular SYN -sS)
   -Pn               	Disable host discovery
   -n 	                Disables DNS resolution
   --disable-arp-ping  Disables ARP ping
