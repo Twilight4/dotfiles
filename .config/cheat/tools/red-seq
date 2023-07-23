@@ -88,6 +88,7 @@ Lateral Movement and Pivoting:
   wmiexec
 
 Exploitation/Execution:
+  metasploit
   ad-exploit
   impacket
   kekeo

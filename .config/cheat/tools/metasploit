@@ -1,0 +1,73 @@
+######### MSFConsole #########
+
+Commands:
+  help set   Help command can be used on its own or for a specific command.
+  history    Show commands you have typed earlier.
+  show options
+             Print options related to the exploit and show what variables are required to be set such as RHOSTS and RPORT (requred: yes)
+             On the other hand, a post-exploitation module (/post) may only need SESSION ID. A session is an existing connection to
+             the target system that the post-exploitation module will use.
+  info       Show further information on any module.
+  info exploit/windows/smb/ms17_010_eternalblue
+             Display detailed information on the module such as its author, relevant sources, etc.
+  show       Can be used in any context followed by a module type (auxiliary, payload, exploit, etc.) to list available modules.
+  back       Leave the context.
+  search     Search the Metasploit Framework database for modules relevant to the given search parameter.
+             You can conduct searches using CVE numbers, exploit names or target system. The “name” column shows the type of module (auxiliary, exploit, etc.)
+             and the category of the module (scanner, admin, windows, Unix, etc.). The “rank” column shows exploits rated based on their reliability.
+  search type:auxiliary telnet
+             Direct the search function using keywords such as type and platform.
+
+Modules:
+  RHOSTS     Remote host: the IP address of the target system. A single IP address or a network range can be set. 
+             (/24, /16, etc.), (10.10.10.x – 10.10.10.y), file:/path/of/the/target_file.txt - file where targets are listed.
+  RPORT      Remote port: the port on the target system the vulnerable application is running on.
+  PAYLOAD    The payload you will use with the exploit.
+  LHOST      Localhost: the attacking machine (your AttackBox) IP address.
+  LPORT      Local port: the port you will use for the reverse shell to connect back to. This is a port on your attacking machine,
+             and you can set it to any port not used by any other application.
+  SESSION    Each connection established to the target system using Metasploit will have a session ID.
+             You will use this with post-exploitation modules that will connect to the target system using an existing connection.
+
+Setting Parameters:
+  set        Override any set parameter
+  unset      Clear any parameter value 
+  unset all  Clear all set parameters
+  setg       Set Globally: set a global value for all different modules that will be used until you exit Metasploit or clear it using the "unsetg" command
+  unsetg     Clear any value set with "setg"
+  exploit -z   Will run the exploit and background the session as soon as it opens
+  check        Some modules support this option which will check if the target system is vulnerable without exploiting it
+
+Sessions:
+  background   Background the session prompt and go back to the msfconsole prompt (or use Ctrl-Z)
+  sessions -i ID   Interact with any session
+  
+
+######### Components of Metasploit #########
+Auxiliary
+  Any supporting module, such as scanners, crawlers and fuzzers, can be found here.
+Encoders
+  Encoders allow you to encode the exploit and payload but other specific obfuscator tools are better
+Evasion
+  Evasion modules directly attempts to evade antivirus software
+Exploits
+  Exploits, neatly organized by target system
+NOPs
+  NOPs (No OPeration) make the CPU will do nothing for one cycle. They are often used as a buffer to achieve consistent payload sizes
+Payloads
+  Payloads are codes that will run on the target system. Payload types:
+    Adapters
+      Wraps single payloads to convert them into different formats. For example, a normal single payload
+      can be wrapped inside a Powershell adapter, which will make a single powershell command that will execute the payload.
+    Singlers
+      Self-contained payloads (add user, launch notepad.exe, etc.) that do not need to download an additional component to run.
+    Stagers
+      Responsible for setting up a connection channel between Metasploit and the target system. Useful when working with staged payloads. 
+      Staged payloads will first upload a stager on the target system then download the rest of the payload (stage). This provides some
+      advantages as the initial size of the payload will be relatively small compared to the full payload sent at once.
+    Stages
+      Downloaded by the stager. This will allow you to use larger sized payloads.
+  shell_reverse_tcp   single payload, as indicated by the “_"
+  shell/reverse_tcp   staged payload, as indicated by the “/”
+Post
+  Post modules will be useful on the final stage of the penetration testing process
