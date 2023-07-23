@@ -7,10 +7,17 @@ Host discovery:
 
 Host and Port Scanning:
   -p x, -p x-y, -p-   Port scan for port <x> or scan all ports
-  -sU 	              Performs a UDP scan
   -Pn 	              Disable host discovery
   -n 	                Disables DNS resolution
   -sV 	              Performs a service scan
+
+Scan Types:
+  -sT                 TCP Connect Scan (default with --top-ports=1000 option - scan 1000 TCP ports)      
+  -sS                 TCP-SYN "Half-Open" scan
+  -sU 	              UDP scan
+  -sN                 TCP Null Scan
+  -sF                 TCP FIN Scan
+  -sX                 TCP Xmas Scan
 
 Nmap Scripting Engine (NSE):
   --script category   Specific Scripts Category
@@ -73,11 +80,6 @@ Saving the results:
   -oA output         Save in all formats
   xsltproc target.xml -o target.html
                      Convert stored results from XML format to HTML
-
-Default settings unless we have definsed otherwise:
-  -sS                  TCP-SYN scan
-  -sT                  TCP Connect Scan
-  --top-ports=1000     1000 TCP ports by default
 
 Usefull:
   To view the scan status, we can press the [Space Bar] during the scan, which will cause Nmap to show us the scan status.
