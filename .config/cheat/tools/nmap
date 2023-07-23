@@ -48,7 +48,8 @@ Firewall and IDS/IPS Evasion:
                       The size should be a multiple of 8
   --data-length NUM   Specify packet length
   --ttl VALUE         Set IP time-to-live field
-  --badsum            Send packets with a wrong TCP/UDP checksum
+  --badsum            Send packets with a wrong TCP/UDP checksum, if firewall may respond without checking checksum, 
+                      so it's good method to check if firewall/IDS is present
   --ip-options        Loose routing can be specified using L. For instance:
                       --ip-options "L 10.10.10.50 10.10.50.250" requests that
                       your scan packets are routed through the two provided IP addresses.
