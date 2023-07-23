@@ -1,6 +1,6 @@
 Host discovery:
   <TARGET_IP>/24 	Target network range
-  -sn 	          Disables port scanning
+  -sn 	          Perform ping sweep ICMP scan in conjunction with IP ranges (CIDR notation) and disable port scanning
   -oA tnet 	      Stores the results in all formats starting with the name 'tnet'
   -iL             Performs defined scans against targets in provided 'hosts.txt' list
   -PE             Performs the ping scan by using 'ICMP Echo requests' against the target
