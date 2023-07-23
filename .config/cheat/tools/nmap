@@ -13,7 +13,7 @@ Host and Port Scanning:
 
 Scan Types:
   -sT                 TCP Connect Scan (default with --top-ports=1000 option - scan 1000 TCP ports)      
-  -sS                 TCP-SYN "Half-Open" scan
+  -sS                 TCP-SYN "Stealth" scan
   -sU 	              UDP scan
   -sN                 TCP Null Scan
   -sF                 TCP FIN Scan
