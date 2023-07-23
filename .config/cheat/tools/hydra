@@ -1,28 +1,40 @@
-Tool - network logon cracker which supports many different services
+Tool - Network logon cracker which supports many different services
 Source: https://github.com/vanhauser-thc/thc-hydra
 
-Usage:
-  hydra -l ftp -P passlist.txt ftp://TARGET_IP
-
-Commands:
-  hydra http-get-form -U
-                 Check hydra options for the http-get-form
-  hydra -l phillips -P ~/john.txt TARGET_IP http-get-form "/login-get/index.php:username=^USER^&password=^PASS^:S=logout.php" -f -v
-                 HTTP login page GET request brute-force
+POST Web Form Brute Force:
+  hydra <USERNAME> <WORDLIST> <TARGET_IP> http-post-form "<PATH>:<LOGIN_CREDENTIALS>:<INVALID_RESPONSE>"
 
 Options:
   -l                       Specify a single username 
   -L                       Use username wordlist
   -p                       Specify a single password
   -P                       Path specifying the full path of wordlist
+  -t                       Sets the number of threads to spawn
+  -v                       Verbose output
+  -V                       Verbose output for every attempt
+  http-post-form           The type of the form is POST
+  <PATH>                   The login page URL, for example: login.php
+  <LOGIN_CREDENTIALS>      The username and password used to log in, for example: username=^USER^&password=^PASS^
+  <INVALID_RESPONSE>       Part of the response when the login fails
+
+FTP Brute Force:
+  hydra -l ftp -P <PASSLIST_TXT> ftp://TARGET_IP
+
+GET Web Form Brute Force Example:
+  hydra -l phillips -P ~/john.txt <TARGET_IP> http-get-form "/login-get/index.php:username=^USER^&password=^PASS^:S=logout.php" -f -v
+
+Options:
   ftp://TARGET_IP          Protocol and the IP address or the fully qualified domain name (FDQN) of the target
   http-get-form            Type of HTTP request, which can be either `http-get-form` or `http-post-form`
   login-get/index.php      Path of the login page on the target webserver
-  username=^USER^&password=^PASS^`  Parameters to brute-force, we inject `^USER^` to brute force
+  username=^USER^&password=^PASS^   Parameters to brute-force, we inject `^USER^` to brute force
                                     usernames and `^PASS^` for passwords from the specified dictionary
-  F=                       This section is important to eliminate false positives by specifying the 'failed' condition
+  F=incorrect              This section is important to eliminate false positives by specifying the 'failed' condition
   S=logout.php             Success condition to identify the valid credentials
   -f                       Stop the brute-forcing attacks after finding a valid username and password
+
+Commands:
+  hydra http-get-form -U   Check hydra options for the http-get-form
 
 Informational:
   What you set for these `S=` and `F=` values depends on the response you receive back from the server for a failed login attempt and a successful login attempt.
