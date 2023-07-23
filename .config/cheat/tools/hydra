@@ -2,7 +2,7 @@ Tool - Network logon cracker which supports many different services
 Source: https://github.com/vanhauser-thc/thc-hydra
 
 POST Web Form Brute Force:
-  hydra <USERNAME> <WORDLIST> <TARGET_IP> http-post-form "<PATH>:<LOGIN_CREDENTIALS>:<INVALID_RESPONSE>"
+  hydra -l <USERNAME> -P <WORDLIST> <TARGET_IP> http-post-form "<PATH>:username=^USER^&password=^PASS^:F=<INVALID_RESPONSE>" -V
 
 Options:
   -l                       Specify a single username 
