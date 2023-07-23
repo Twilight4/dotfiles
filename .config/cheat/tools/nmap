@@ -81,7 +81,7 @@ Saving the results:
   xsltproc target.xml -o target.html
                      Convert stored results from XML format to HTML
 
-Usefull:
+Informational:
   To view the scan status, we can press the [Space Bar] during the scan, which will cause Nmap to show us the scan status.
   find / -type f -name ftp* 2>/dev/null | grep scripts  Find NSE scripts
-
+  "filtered" port is when nmap receives nothing back. This indicates that the port is being protected by a firewall which is configured to drop incoming packets
