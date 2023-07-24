@@ -1,6 +1,16 @@
-the command VRFY can be used to enumerate existing users on the system. 
-However, this does not always work. Depending on how the SMTP server 
+SMTP Service Commands:
+  VRFY    Command can be used to enumerate existing users on the system. 
+  EXPN    Reveals the actual address of user’s aliases and lists of e-mail (mailing lists)
+
+However, these do not always work. Depending on how the SMTP server 
 is configured, the SMTP server may issue code 252 and confirm the existence 
 of a user that does not exist on the system.
 
 If we also print out the output of the scan in detail, we will also be able to see which tests the script is running
+
+Metasploit:
+  smtp_version     Module scans a range of IP addresses and determine the version of any mail servers it encounters
+  smtp_enum        Feed it a host or range of hosts to scan and a wordlist containing usernames to enumerate
+
+Alternatives:
+  smtp-user-enum   Script enumerates OS-level users accounts on Solaris via SMTP

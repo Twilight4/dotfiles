@@ -1,7 +1,7 @@
 Commands:
   help set   Help command can be used on its own or for a specific command.
   history    Show commands you have typed earlier.
-  show options
+  options    (or show options)
              Print options related to the exploit and show what variables are required to be set such as RHOSTS and RPORT (requred: yes)
              On the other hand, a post-exploitation module (/post) may only need SESSION ID. A session is an existing connection to
              the target system that the post-exploitation module will use.
