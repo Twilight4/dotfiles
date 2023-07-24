@@ -18,3 +18,6 @@ I.E it doesn't require authentication to view the files. We can do this easily b
   using the username "Anonymous" (-U Anonymous)
   connecting to the share we found during the enumeration stage
   not supplying a password
+
+Look for .ssh directory once logged in, if you can find id_rsa you can ssh in using this key
+and using username found in id_rsa.pub: ssh -i id_rsa user@IP_ADDRESS
