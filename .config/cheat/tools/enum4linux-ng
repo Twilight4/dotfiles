@@ -1,2 +1,18 @@
 Tool for enumerating Windows and Samba information from remote systems.
-More information: <https://labs.portcullis.co.uk/tools/enum4linux/>.
+More information: https://labs.portcullis.co.uk/tools/enum4linux/
+
+Enum4linux is a tool used to enumerate SMB shares on both Windows and Linux systems.
+It is basically a wrapper around the tools in the Samba package and makes it easy
+to quickly extract information from the target pertaining to SMB.
+
+Usage:
+  enum4linux [options] TARGET_IP
+
+Options:
+  -a   All of the below (full basic enumeration)
+  -U   Get userlist
+  -M   Get machine list
+  -N   Get namelist dump (different from -U and-M)
+  -S   Get sharelist
+  -P   Get password policy information
+  -G   Get group and member list
