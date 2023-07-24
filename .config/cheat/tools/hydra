@@ -2,16 +2,17 @@ Tool - Network logon cracker which supports many different services
 Source: https://github.com/vanhauser-thc/thc-hydra
 
 POST Web Form Brute Force:
-  hydra -l <USERNAME> -P <WORDLIST> <TARGET_IP> http-post-form "<PATH>:username=^USER^&password=^PASS^:F=<INVALID_RESPONSE>" -V
+  hydra -l <USERNAME> -P <WORDLIST> <TARGET_IP> http-post-form "<PATH>:username=^USER^&password=^PASS^:F=<INVALID_RESPONSE>" -vV
 
 Options:
   -l                       Specify a single username 
   -L                       Use username wordlist
   -p                       Specify a single password
   -P                       Path specifying the full path of wordlist
-  -t                       Sets the number of threads to spawn
+  -t                       Number of parallel connections per target
   -v                       Verbose output
   -V                       Verbose output for every attempt
+  -vV                      Sets verbose mode to very verbose, shows the login+pass combination for each attempt
   http-post-form           The type of the form is POST
   <PATH>                   The login page URL, for example: login.php
   <LOGIN_CREDENTIALS>      The username and password used to log in, for example: username=^USER^&password=^PASS^
