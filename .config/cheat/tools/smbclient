@@ -20,4 +20,4 @@ I.E it doesn't require authentication to view the files. We can do this easily b
   not supplying a password
 
 Look for .ssh directory once logged in, if you can find id_rsa you can ssh in using this key
-and using username found in id_rsa.pub: ssh -i id_rsa user@IP_ADDRESS
+and using username found in id_rsa.pub: chmod 600 id_rsa && ssh -i id_rsa <USER>@<IP_ADDRESS>
