@@ -45,6 +45,3 @@ Exploitation:
   sessions -h    List all active sessions
   sessions -h    Show help menu for sessions
   session -i ID  Interact with the supplied session ID
-
-Msfvenom:
-  
