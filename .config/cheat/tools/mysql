@@ -1,0 +1,9 @@
+MySQl Service - 3306
+
+Metasploit:
+mysql_sql      Module tests the service with the "select version()" command
+               Options that need to be set: password/rhosts/username
+mysql_schemadump
+               Module dumps tables and column names of the whole database
+mysql_hashdump
+               Module dumps password hashes
