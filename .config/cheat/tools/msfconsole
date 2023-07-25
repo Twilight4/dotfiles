@@ -1,0 +1,39 @@
+Port Scanning:
+  search portscan      Options to set: 
+                         CONCURRENCY: Number of targets to be scanned simultaneously.
+                         PORTS: Port range to be scanned. Please note that 1-1000 here will not be the same as using Nmap with the default configuration. Nmap will scan the 1000 most used ports, while Metasploit will scan port numbers from 1 to 10000.
+                         RHOSTS: Target or target network to be scanned.
+                         THREADS: Number of threads that will be used simultaneously. More threads will result in faster scans.
+  scanner/discovery/udp_sweep
+                       Module allows you to quickly identify services running over the UDP, it does not conduct an extensive scan of all
+                       possible UDP services but does provide a quick way to identify services such as DNS or NetBIOS. 
+  auxiliary/scanner/smb/smb_enumshares
+                       Usefull for SMB
+  auxiliary/scanner/smb/smb_version
+                       Usefull for SMB
+  auxiliary/scanner/smb/smb_login
+                       Module bruteforces SMB login using defined password wordlist for defined username
+  scanner/netbios/nbname
+                       Scan for NetBIOS name
+
+Metasploit Database:
+  workspace                  List available workspaces
+  workspace -a tryme         Add a workspace
+  workspace -d tryme         Delete a workspace
+  workspace -r               Rename workspace
+  workspace -D               Delete all workspaces
+  workspace workspace_name   Navigate between workspaces
+  help                       Once Metasploit is launched with a database, the help command will show the Database Backends Commands menu
+  db_nmap -sV -p- TARGET_IP  If you run a Nmap scan using the db_nmap shown below, all results will be saved to the database
+  hosts -h/services -h       You can reach information relevant to hosts and services running on target systems from the nmap scan using the hosts and services commands
+  hosts -R                   Once the host information is stored in the database, you can use the hosts -R command to add this value to the RHOSTS parameter (after you select the desired module)
+  services -S netbios        The services command used with the -S parameter allows you to search for specific services in the environment
+You may want to look for low-hanging fruits such as:
+  HTTP: Could potentially host a web application where you can find vulnerabilities like SQL injection or Remote Code Execution (RCE)
+  FTP: Could allow anonymous login and provide access to interesting files
+  SMB: Could be vulnerable to SMB exploits like MS17-010
+  SSH: Could have default or easy to guess credentials
+  RDP: Could be vulnerable to Bluekeep or allow desktop access if weak credentials were used
+
+Vulnerability Scanning:
+

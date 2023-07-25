@@ -88,7 +88,7 @@ Lateral Movement and Pivoting:
   wmiexec
 
 Exploitation/Execution:
-  metasploit
+  msfconsole
   ad-exploit
   impacket
   kekeo
