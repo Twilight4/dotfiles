@@ -6,11 +6,27 @@ Commands:
                                                             Rule-Based attack
 
 Options:
-  --rules                     Specify which rule or rules to use
-  --rules=best64              best64 rule, which contains the best 64 built-in John rules
-  --wordlist                  Specify the wordlist or dictionary file.
-  --stdout                    Print the output to the terminal
+  --rules             Specify which rule or rules to use
+  --rules=best64      best64 rule, which contains the best 64 built-in John rules
+  --wordlist          Specify the wordlist or dictionary file.
+  --stdout            Print the output to the terminal
+  --format            The format the hash is in. if you're dealing with a standard hash type,
+                      e.g. MD5 you have to prefix it with "raw-" to tell john you're just
+                      dealing with a standard hash type
+  --list=formats | grep -iF "md5"
+                      Check if you need "raw-" to add the prefix or not
+  --single            Lets john know you want to use the single hash cracking mode
+                      
 
+Single mode:
+  In this mode, John uses only the information provided in the username,
+  to try and work out possible passwords heuristically, by slightly changing
+  the letters and numbers contained within the username (word mangling).
+  If you're cracking hashes in single crack mode, you need to change the
+  file format that you're feeding john for it to understand what data
+  to create a wordlist from. You do this by prepending the hash with
+  the username that the hash belongs to, so according to the above
+  example- we would change the file hashes.txt 
 
 Custom Rules:
   sudo vi /etc/john/john.conf
@@ -23,7 +39,7 @@ Add special characters in format: [symbols]word[0-9]
 Az"[0-9]" ^[!@#$]
 ```
   john --wordlist=/tmp/single.lst --rules=custom-rule --stdout
-                                     Try out the newly created rule
+                                       Try out the newly created rule
 
 Custom Rules Options:
   [List.Rules:THM-Password-Attacks]    Specify the rule name THM-Password-Attacks
@@ -32,10 +48,10 @@ Custom Rules Options:
   ^[!@#$]                              Add a special character at the beginning of each word. `^` means the beginning of the line/word. Note, changing `^` to `$` will append the special characters to the end of the line/word
 
 Informational:
-Rule-Based attacks aka hybrid attacks assume the attacker knows something about the
-password policy. Rules are applied to create passwords within the guidelines of the
-given password policy and should, in theory, only generate valid passwords.
-Using pre-existing wordlists may be useful when generating passwords that fit 
-a policy — manipulating or 'mangling' a password such as 'password': `p@ssword`, `Pa$$word`, `Passw0rd`, and so on.
+  Rule-Based attacks aka hybrid attacks assume the attacker knows something about the
+  password policy. Rules are applied to create passwords within the guidelines of the
+  given password policy and should, in theory, only generate valid passwords.
+  Using pre-existing wordlists may be useful when generating passwords that fit 
+  a policy — manipulating or 'mangling' a password such as 'password': `p@ssword`, `Pa$$word`, `Passw0rd`, and so on.
 
-"KoreLogic" rule uses various built-in and custom rules to generate complex password lists
+  "KoreLogic" rule uses various built-in and custom rules to generate complex password lists
