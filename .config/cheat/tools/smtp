@@ -8,8 +8,8 @@ of a user that does not exist on the system.
 
 If we also print out the output of the scan in detail, we will also be able to see which tests the script is running
 
-Metasploit:
-  smtp_version     Module scans a range of IP addresses and determine the version of any mail servers it encounters
+Metasploit modules:
+  smtp_version     Scans a range of IP addresses and determine the version of any mail servers it encounters
   smtp_enum        Feed it a host or range of hosts to scan and a wordlist containing usernames to enumerate
 
 Alternatives:
