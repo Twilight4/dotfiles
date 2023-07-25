@@ -25,8 +25,9 @@ Single mode:
   If you're cracking hashes in single crack mode, you need to change the
   file format that you're feeding john for it to understand what data
   to create a wordlist from. You do this by prepending the hash with
-  the username that the hash belongs to, so according to the above
-  example- we would change the file hashes.txt 
+  the username that the hash belongs to:
+    from: 1efee03cdcb96d90ad48ccc7b8666033
+    to: mike:1efee03cdcb96d90ad48ccc7b8666033
 
 Custom Rules:
   sudo vi /etc/john/john.conf
