@@ -6,4 +6,4 @@ mysql_sql      Module tests the service with the "select version()" command
 mysql_schemadump
                Module dumps tables and column names of the whole database
 mysql_hashdump
-               Module dumps password hashes
+               Module dumps password hashes (check for password reuse)
