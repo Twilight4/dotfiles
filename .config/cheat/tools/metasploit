@@ -39,7 +39,6 @@ Setting Parameters:
 Sessions:
   background   Background the session prompt and go back to the msfconsole prompt (or use Ctrl-Z)
   sessions -i ID   Interact with any session
-  
 
 Components of Metasploit:
   auxiliary    Any supporting module, such as scanners, crawlers and fuzzers, can be found here.
