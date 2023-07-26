@@ -1,0 +1,13 @@
+############ Reconnaissance ############
+nmap
+gobuster
+hydra
+
+############ Initial Access ############
+
+
+
+
+
+
+############ Post Compromise ############
