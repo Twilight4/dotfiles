@@ -1,0 +1,9 @@
+Source: https://dnsdumpster.com/
+
+DNSDumpster will return the collected DNS information in easy-to-read
+tables and a graph. DNSDumpster will also provide any collected information
+about listening servers.
+We get a list of DNS servers for the domain we are looking up. 
+DNSDumpster also resolved the domain names to IP addresses and even tried to 
+geolocate them. We can also see the MX records.
+Practically a single query was enough to retrieve all this information.

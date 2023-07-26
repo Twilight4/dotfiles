@@ -6,3 +6,9 @@ the command, `shodan init API_KEY`. Example of looking up information about
 one of the IP addresses we got from `nslookup cafe.thmredteam.com`. 
 Using `shodan host IP_ADDRESS`, we can get the geographical location of the
 IP address and the open ports.
+
+We can learn several things related to our search, such as:
+  IP address 
+  hosting company 
+  geographic location 
+  server type and version
