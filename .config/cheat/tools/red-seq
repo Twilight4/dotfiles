@@ -72,7 +72,7 @@ Exfiltration:
 Defense Evasion (no payload obfuscators):
   uacme
   amsi
-  nc
+  ncat/scat/upgr-nc-lin
   openssl-channel-encryption
 
 

