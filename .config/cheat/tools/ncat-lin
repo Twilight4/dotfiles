@@ -2,6 +2,7 @@ Upgrading ncat shell - Linux
 
 ################ RLWRAP TECHNIQUE ################
 rlwrap nc -lvnp PORT      Gives a much more fully featured shell 
+                          (especially usefull when dealing with Windows shells)
 Ctrl+Z
 stty raw -echo; fg
 stty size                 Check variables on my own properly-working terminal prompt

