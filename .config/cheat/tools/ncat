@@ -2,8 +2,8 @@ Ncat - networking utility which reads and writes data across networks
 Source: https://nmap.org/ncat/
 
 Reverse shell Generators:
-https://www.revshells.com/
-https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+  https://www.revshells.com/
+  https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
 
 Usage:
   nc -lvnp PORT_NUM       To listen using TCP where port number is the port you want to listen to
