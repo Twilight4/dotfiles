@@ -51,6 +51,8 @@ alias biggest="du -h --max-depth=1 | sort -h"
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
 alias open='xdg-open'
+alias sc='socat'
+alias scat='socat'
 
 # mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
