@@ -73,6 +73,7 @@ Defense Evasion (no payload obfuscators):
   uacme
   amsi
   ncat/scat/ncat-lin/ncat-win
+  rev-shells
   openssl-channel-encryption
 
 
