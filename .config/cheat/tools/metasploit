@@ -1,3 +1,9 @@
+Searchspliot:
+  searchsploit <POTENTIAL_SERVICE>
+
+Searchsploit Options:
+  -w         Show links to ExploitDB
+
 Commands:
   help set   Help command can be used on its own or for a specific command.
   history    Show commands you have typed earlier.

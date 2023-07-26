@@ -18,7 +18,7 @@ Post-Exploitation with Meterpreter:
                These passwords are stored in the NTLM (New Technology LAN Manager) format. While it is not mathematically possible to "crack"
                these hashes, you may still discover the cleartext password using online NTLM databases or a rainbow table attack. These hashes
                can also be used in Pass-the-Hash attacks to authenticate to other systems that these users can access the same network.
-  search       Locate files with potentially juicy information. This can be used to quickly find a flag, or search for user-generated files or
+  search -f    Locate files with potentially juicy information. This can be used to quickly find a flag, or search for user-generated files or
                configuration files that may contain password or account information. 
   shell        Launch a regular command-line shell on the target system. Pressing CTRL+Z will help you go back to the Meterpreter shell.
 

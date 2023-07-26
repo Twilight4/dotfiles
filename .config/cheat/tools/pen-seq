@@ -1,13 +1,16 @@
 ############ Reconnaissance ############
 nmap
-gobuster
-hydra
+gobuster (if webserver)
+
+############ Scanning ############
+enumrate running services
+enum4linux 
 
 ############ Initial Access ############
+hydra
+msfconsole
 
+############ Enumeration ############
 
-
-
-
-
-############ Post Compromise ############
+############ Privilege Escalation ############
+linpeas/winpeas
