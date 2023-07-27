@@ -5,6 +5,7 @@ Best tool selections for each stage of Red Team Engagement
 Osint:
   osintgram
   sherlock
+  exiftool
   theharvester
   recon-ng
   maltego
@@ -18,6 +19,7 @@ Search Engines:
   censys
   shodan
   dnsdumpster
+  webarchive
 
 
 ############ Weaponization ############
