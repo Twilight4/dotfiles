@@ -1,0 +1,20 @@
+Nessus - Proprietary vulnerability scanner
+Installation: https://wiki.archlinux.org/title/Nessus
+Pricing: https://www.tenable.com/products/nessus
+
+Installation:
+  yay -S nessus
+  sudo systemctl enable --now nessusd.service
+  https://localhost:8834   Visit this site
+  https://www.tenable.com/products/nessus/activation-code
+                           Register your email and wait for your key to be emailed to you
+  sudo systemctl stop nessusd.service 
+                           Stop the service before doing anything with nessuscli
+  nessuscli fetch --register ACTIVATION_CODE
+                           Activate the license
+  nessuscli fetch --code-in-use
+                           View your current license activation code
+  nessuscli update --plugins-only
+                           Update the plugins
+  sudo systemctl start nessusd.service 
+                           Start the service Log in back to the website
