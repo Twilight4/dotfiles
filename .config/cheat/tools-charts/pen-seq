@@ -1,14 +1,13 @@
 ############ Reconnaissance ############
 nmap
 gobuster (if webserver)
-enumerate running services
-enum4linux 
+network protocols enumeration
 
-############ Initial Access ############
+############ Exploitation ############
 hydra
 msfconsole
 
-############ Enumeration ############
+############ Internal Enumeration ############
 Linux:
   lin-enum
   ncat-lin
