@@ -11,15 +11,8 @@ Osint:
   maltego
   gitleaks
   dnsrecon
-
-Search Engines:
+  search-engines
   google-dork
-  viewdns-info
-  threat-intel-platform
-  censys
-  shodan
-  dnsdumpster
-  webarchive
 
 
 ############ Weaponization ############
