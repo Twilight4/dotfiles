@@ -11,3 +11,9 @@ to exploit them is GTFOBins. GTFOBins is a curated list of Unix binaries that ca
 be exploited by an attacker to bypass local security restrictions. It provides a 
 really useful breakdown of how to exploit a misconfigured binary and is the first 
 place you should look if you find one on a CTF or Pentest. 
+
+SUID:
+  find / -type f -perm -04000 -ls 2>/dev/null
+                List files that have SUID or SGID bits set
+                compare executables on this list with GTFOBins
+                https://gtfobins.github.io/#+suid

