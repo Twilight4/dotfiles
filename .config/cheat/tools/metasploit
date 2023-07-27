@@ -1,3 +1,10 @@
+Vulnerability Research Database websites:
+  https://www.rapid7.com/db/
+             Contains instructions for exploiting applications using Metasploit
+  https://github.com/
+             Security researchers store & share PoC's on github. You can find exploits using tagging and keyword system
+             such as "PoC", "vulnerability", "cve" etc. Also we can find results by programming language.
+
 Searchspliot:
   searchsploit <POTENTIAL_SERVICE>
 
