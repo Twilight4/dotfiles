@@ -1,8 +1,6 @@
 ############ Reconnaissance ############
 nmap
 gobuster (if webserver)
-
-############ Scanning ############
 enumrate running services
 enum4linux 
 
@@ -11,14 +9,16 @@ hydra
 msfconsole
 
 ############ Enumeration ############
-
-
 Linux:
   lin-enum
   ncat-lin
 
-############ Privilege Escalation ############
+Windows:
+  ad-powershell
+  win-enum
+  lolbins
 
+############ Privilege Escalation ############
 Linux:
   linenum
   linpeas
@@ -26,3 +26,7 @@ Linux:
 
 Windows:
   winpeas
+  win-privesc
+  privesccheck
+  wes-ng
+  local-exploit-suggester
