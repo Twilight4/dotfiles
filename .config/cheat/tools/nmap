@@ -12,6 +12,7 @@ Host and Port Scanning:
   -p x, -p x-y, -p-   Port scan for port <x> or scan all ports
   -Pn 	              Disable host discovery (ICMP ping scan)
   -n 	                Disables DNS resolution (hostnames)
+  -R                  Query the DNS server even for offline hosts on a subnet
   -sV 	              Performs a service version scan
   -T5                 Impact speed (T3 is the default)
 
