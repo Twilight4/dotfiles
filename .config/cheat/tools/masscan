@@ -1,0 +1,14 @@
+Masscan - Nmap on Steroids
+Source: https://github.com/robertdavidgraham/masscan
+
+Usage:
+masscan MACHINE_IP -p80,443
+
+Commands:
+
+Options:
+masscan MACHINE_IP/24   Scan network range
+-p x, -p x-y
+‐‐top-ports 100
+
+Informational:
