@@ -3,8 +3,10 @@ Host discovery:
   -sn 	          Perform ping sweep ICMP scan in conjunction with IP ranges (CIDR notation) and disable port scanning
   -oA tnet 	      Stores the results in all formats starting with the name 'tnet'
   -iL             Performs defined scans against targets in provided 'hosts.txt' list
-  -sL             Check the list of hosts that Nmap will scan,
+  -sL             This option will give you a detailed list of the hosts that Nmap will scan without scanning them
+                  however, Nmap will attempt a reverse-DNS resolution on all the targets to obtain their names
   -PE             Performs the ping scan by using 'ICMP Echo requests' against the target
+  -PR             Performs an ARP scan without port-scanning
 
 Host and Port Scanning:
   -p x, -p x-y, -p-   Port scan for port <x> or scan all ports
