@@ -77,7 +77,8 @@ Additional:
 
 Speed up your scan:
   -T5                   Aggresive scan
-  --min-parallelism=50  Minimum parrallelism
+  --min-parallelism=500 Nmap probes the targets to discover which hosts are live and which ports are open; 
+                        probing parallelization specifies the number of such probes that can be run in parallel
   -n                    Disable reverseDNS (hostnames)
   --min-rate=300        Min X packets / sec
   -F                    Fast port scan (top 100 ports)
