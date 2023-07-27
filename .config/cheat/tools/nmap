@@ -37,7 +37,7 @@ Nmap Scripting Engine (NSE):
 
 Firewall and IDS/IPS Evasion:
   -Pn               	Disable host discovery (ICMP ping scan)
-  -n 	                Disables DNS resolution
+  -n 	                Disables DNS resolution (hostnames)
   --disable-arp-ping  Disables ARP ping
   -sS                 Performs SYN scan on specified ports
   -D RND:5 	          Generates five random IP addresses that indicates the source IP the connection comes from
@@ -77,7 +77,7 @@ Additional:
 Speed up your scan:
   -T5                   Aggresive scan
   --min-parallelism=50  Minimum parrallelism
-  -n                    Disable reverseDNS
+  -n                    Disable reverseDNS (hostnames)
   --min-rate=300        Min X packets / sec
   -F                    Fast port scan (top 100 ports)
 
