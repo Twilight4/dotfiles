@@ -96,3 +96,11 @@ Informational:
                                                 Find NSE scripts
   To view the scan status, we can press the [Space Bar] during the scan, which will cause Nmap to show us the scan status.
   "filtered" port is when nmap receives nothing back. This indicates that the port is being protected by a firewall which is configured to drop incoming packets
+
+Nmap considers the following six states of port:
+  Open              Indicates that a service is listening on the specified port.
+  Closed            Indicates that no service is listening on the specified port, although the port is accessible. By accessible, we mean that it is reachable and is not blocked by a firewall or other security appliances/programs.
+  Filtered          Means that Nmap cannot determine if the port is open or closed because the port is not accessible. This state is usually due to a firewall preventing Nmap from reaching that port. Nmap’s packets may be blocked from reaching the port; alternatively, the responses are blocked from reaching Nmap’s host.
+  Unfiltered        Means that Nmap cannot determine if the port is open or closed, although the port is accessible. This state is encountered when using an ACK scan -sA.
+  Open|Filtered     This means that Nmap cannot determine whether the port is open or filtered.
+  Closed|Filtered   This means that Nmap cannot decide whether a port is closed or filtered.
