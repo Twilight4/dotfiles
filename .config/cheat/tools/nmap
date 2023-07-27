@@ -3,6 +3,7 @@ Host discovery:
   -sn 	          Perform ping sweep ICMP scan in conjunction with IP ranges (CIDR notation) and disable port scanning
   -oA tnet 	      Stores the results in all formats starting with the name 'tnet'
   -iL             Performs defined scans against targets in provided 'hosts.txt' list
+  -sL             Check the list of hosts that Nmap will scan,
   -PE             Performs the ping scan by using 'ICMP Echo requests' against the target
 
 Host and Port Scanning:
@@ -11,7 +12,6 @@ Host and Port Scanning:
   -n 	                Disables DNS resolution
   -sV 	              Performs a service version scan
   -T5                 Impact speed (T3 is the default)
-  -IL                 Input from a target file
 
 Scan Types:
   -sT                 TCP Connect Scan (default with --top-ports=1000 option - scan 1000 TCP ports)      
