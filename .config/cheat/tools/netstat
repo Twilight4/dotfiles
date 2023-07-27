@@ -1,0 +1,11 @@
+Usage:
+  netstat [options]
+
+Options:
+  -a 	Show both listening and non-listening sockets
+  -l 	Show only listening sockets
+  -n 	Show numeric output instead of resolving the IP address and port number
+  -t 	TCP
+  -u 	UDP
+  -x 	UNIX
+  -p 	Show the PID and name of the program to which the socket belongs

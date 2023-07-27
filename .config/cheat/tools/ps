@@ -1,0 +1,9 @@
+Usage:
+  ps [options]
+
+Options:
+  -e 	All processes
+  -f 	Full-format listing
+  -j 	Jobs format
+  -l 	Long format
+  -u 	User-oriented format

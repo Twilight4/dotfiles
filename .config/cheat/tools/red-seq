@@ -47,7 +47,6 @@ Password Spraying:
 Windows Enumeration:
   ad-powershell
   win-enum
-  lin-enum
   lolbins
 
 Persistence:
@@ -69,7 +68,7 @@ Exfiltration:
 Defense Evasion (no payload obfuscators):
   uacme
   amsi
-  ncat/scat/ncat-lin
+  ncat/scat
   rev-shells
   openssl-channel-encryption
 

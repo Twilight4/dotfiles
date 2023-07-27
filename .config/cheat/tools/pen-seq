@@ -12,5 +12,17 @@ msfconsole
 
 ############ Enumeration ############
 
+
+Linux:
+  lin-enum
+  ncat-lin
+
 ############ Privilege Escalation ############
-linpeas/winpeas
+
+Linux:
+  linenum
+  linpeas
+  gtfobins
+
+Windows:
+  winpeas

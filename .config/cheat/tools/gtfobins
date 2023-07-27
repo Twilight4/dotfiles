@@ -1,0 +1,9 @@
+GTFOBins - built-in tools used as Living Off the Land techniques
+Source: https://gtfobins.github.io/
+
+If you find a misconfigured binary during your enumeration, or when you check what
+binaries a user account you have access to can access, a good place to look up how
+to exploit them is GTFOBins. GTFOBins is a curated list of Unix binaries that can 
+be exploited by an attacker to bypass local security restrictions. It provides a 
+really useful breakdown of how to exploit a misconfigured binary and is the first 
+place you should look if you find one on a CTF or Pentest. 
