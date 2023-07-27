@@ -54,10 +54,7 @@ Persistence:
 
 Windows Privilege Escalation:
   win-privesc
-  winpeas
-  privesccheck
-  wes-ng
-  local-exploit-suggester
+  win-privesc-scripts
 
 Exfiltration:
   win-exfil

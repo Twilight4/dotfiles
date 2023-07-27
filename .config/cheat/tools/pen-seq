@@ -27,6 +27,3 @@ Linux:
 Windows:
   win-privesc
   win-privesc-scripts
-
-  wes-ng
-  local-exploit-suggester
