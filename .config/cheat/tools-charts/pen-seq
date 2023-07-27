@@ -1,3 +1,7 @@
+Pentest terminology sequence - links to cheat notes
+Best tool selections for each stage of Pentest Engagements and CTFs
+Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
+
 ############ Reconnaissance ############
 nmap
 gobuster (if webserver)
