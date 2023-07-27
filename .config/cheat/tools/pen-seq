@@ -1,7 +1,7 @@
 ############ Reconnaissance ############
 nmap
 gobuster (if webserver)
-enumrate running services
+enumerate running services
 enum4linux 
 
 ############ Initial Access ############
