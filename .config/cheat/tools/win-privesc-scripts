@@ -1,5 +1,10 @@
-WinPEAS - Windows Privilege Escalation Awesome Scripts
-Source:    https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS
+Tools:
+  WinPEAS:  https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS
+  PrivescCheck:   https://github.com/itm4n/PrivescCheck
+  
+
+
+WinPEAS:
 Download:  https://github.com/carlospolop/PEASS-ng/releases/tag/20230702-bc7ce3ac
            You can download either the precompiled .exe, .bat or .ps1 script
 
@@ -25,3 +30,20 @@ Decoder's Blog       https://decoder.cloud/
 Token Kidnapping     https://dl.packetstormsecurity.net/papers/presentations/TokenKidnapping.pdf
 Hacktricks Windows Local Privilege Escalation
                      https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation
+
+
+PrivescCheck -  Privilege Escalation Enumeration Script for Windows 
+
+Usage:
+. .\PrivescCheck.ps1
+Invoke-PrivescCheck
+
+Commands:
+Set-ExecutionPolicy Bypass -Scope process -Force  
+                            To run `PrivescCheck` on the target system, you may need to bypass the execution policy
+                            restrictions. To achieve this, you can use the `Set-ExecutionPolicy` cmdlet
+
+Options:
+
+Informational:
+It provides an alternative to WinPEAS without requiring the execution of a binary file.
