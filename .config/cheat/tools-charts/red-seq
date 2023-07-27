@@ -31,7 +31,7 @@ Payload Development (and obfuscators):
 
 
 ############ Delivery/Initial Access ############
-Email phishing, Web phishing, Physical tools (USB, network implants, SDR, IoT), wifi tools
+Email phishing, Web phishing, Watering hole, Physical tools (USB, network implants, SDR, IoT), wifi tools
 
 Phishing:
   gophish
