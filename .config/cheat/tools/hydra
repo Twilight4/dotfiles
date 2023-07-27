@@ -9,14 +9,15 @@ Options:
   -L                       Use username wordlist
   -p                       Specify a single password
   -P                       Path specifying the full path of wordlist
-  -t                       Number of parallel connections per target
-  -v                       Verbose output
-  -V                       Verbose output for every attempt
-  -vV                      Sets verbose mode to very verbose, shows the login+pass combination for each attempt
+  -t x                     Number of parallel connections per target
+  -V, -vV                  Verbose output for every attempt
   http-post-form           The type of the form is POST
   <PATH>                   The login page URL, for example: login.php
   <LOGIN_CREDENTIALS>      The username and password used to log in, for example: username=^USER^&password=^PASS^
   <INVALID_RESPONSE>       Part of the response when the login fails
+  -s x                     PORT to specify a non-default port for the service in question
+  -d                       Debugging, to get more detailed information about what’s going on.
+                           i.e. if hydra is timing out, -d will reveal this right away.
 
 FTP Brute Force:
   hydra -l ftp -P <PASSLIST_TXT> ftp://TARGET_IP -v
