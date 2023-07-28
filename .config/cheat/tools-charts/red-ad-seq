@@ -79,9 +79,8 @@ Exfiltration:
   dnscat2
 
 
-########### Compromising/Exploitation of Active Directory ###########
+########### Compromising/Exploiting Active Directory ###########
 ########### Action on Objectives - Active Directory ###########
-
 Enumeration:
   ad-powershell
   ad-enum
@@ -106,8 +105,7 @@ Exploitation/Execution:
   evil-winrm
   Empire
 
-###### Actions on Objectives - TODO ######
-C&C/Credentials Dumping:
+Credentials Dumping:
   impacket-secretsdump.py
   ad-dump
   mimikatz
