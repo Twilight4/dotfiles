@@ -5,7 +5,7 @@ Usage:
   kerbrute [command] [options]
 
 Example Usage:
-  kerbrute userenum --dc <target_ip> -d <domain.local> <username_wordlist>
+  kerbrute userenum --dc <TARGET_IP> -d <DOMAIN_LOCAL> <USERNAME_WORDLIST>
 
 Commands:
   bruteforce    Bruteforce username:password combos, from a file or stdin
