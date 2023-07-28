@@ -83,7 +83,6 @@ Exfiltration:
 ########### Action on Objectives - Active Directory ###########
 Enumeration:
   kerbrute (not recommended)
-  impacket-GetNPUsers.py
   ports (network protocols enumeration) (not recommended)
 
   ad-powershell
@@ -94,6 +93,10 @@ Enumeration:
 Lateral Movement and Pivoting:
   ad-lateral
   wmiexec
+
+Privilege Escalation:
+  impacket-GetNPUsers.py
+  
 
 Credentials Dumping:
   impacket-secretsdump.py
