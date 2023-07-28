@@ -91,9 +91,6 @@ Enumeration:
   bloodhound
   crackmapexec
 
-Domain Privelege Escalation:
-  impacket-secretsdump.py
-
 Lateral Movement and Pivoting:
   ad-lateral
   wmiexec
@@ -111,6 +108,7 @@ Exploitation/Execution:
 
 ###### Actions on Objectives - TODO ######
 C&C/Credentials Dumping:
+  impacket-secretsdump.py
   ad-dump
   mimikatz
   rubeus
