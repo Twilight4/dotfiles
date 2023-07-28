@@ -3,9 +3,8 @@ Best tool selections for each stage of Pentest Engagements and CTFs
 Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
 
 ############ Reconnaissance ############
-nmap
+ports (network protocols enumeration)
 gobuster (if webserver)
-network protocols enumeration
 
 ############ Exploitation ############
 hydra

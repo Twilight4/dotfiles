@@ -78,6 +78,13 @@ Exfiltration:
 
 ########### Compromising/Exploitation of Active Directory ###########
 ########### Action on Objectives - Active Directory ###########
+
+TO SORT OUT
+  bloodhound
+  impacket
+
+
+
 Enumeration:
   ad-powershell
   ad-enum
