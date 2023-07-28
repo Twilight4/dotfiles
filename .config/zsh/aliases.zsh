@@ -3,7 +3,7 @@
 # useful vars
 dns=$(ip r | grep dhcp | awk '{print $3}')
 extip=$(curl -s http://ifconfig.me)
-ip=$(hostname -I | awk '{print $1}')
+ip=$(hostname -i | awk '{print $1}')
 mac=$(ip a | grep ether | awk '{print $2}')
 
 # ls to lsd
@@ -24,6 +24,14 @@ alias ltw='lsd --tree --hyperlink=auto ~/workspace/cheats/web-app'    # web app 
 alias ltr='lsd --tree --hyperlink=auto ~/workspace/cheats/red-team'   # red team tools
 alias ltf='lsd --tree --hyperlink=auto ~/workspace/cheats/forensics'  # forensics tools
 alias lto='lsd --tree --hyperlink=auto ~/workspace/cheats/other'      # other tools
+
+# HOME dirs
+alias dw='cd "$HOME/downloads" ; clear'
+alias dt='cd "$HOME/desktop" ; clear'
+alias pc='cd "$HOME/pictures" ; clear'
+alias vd='cd "$HOME/videos" ; clear'
+alias ws='cd "$HOME/workspace" ; clear'
+alias dc='cd "$HOME/documents" ; clear'
 
 # diff kitten
 alias diff="kitty +kitten diff"
@@ -66,8 +74,8 @@ alias e='exit'
 alias m='service postgresql start ; msfdb init ; msfconsole'
 alias r='cd $HOME ; clear'
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
-alias w="echo $ip ; python3 -m http.server 80"
-alias w2="echo $ip ; python3 -m http.server 8000"
+alias w='cd "$HOME/desktop" ; echo "$ip in $PWD" ; sudo python3 -m http.server 80'
+alias w2='cd "$HOME/desktop" ; echo "$ip in $PWD" ; sudo python3 -m http.server 8000'
 
 # mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
