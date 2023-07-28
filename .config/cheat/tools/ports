@@ -1,0 +1,16 @@
+Common Default Ports and Services
+
+Protocol: Port:     Service:                     Encryption:
+FTP       21        File Transfer                No
+SSH       22        Remote Access/File Transfer  Yes
+Telnet    23        Remote Access                No
+SMTP      25        Email (MTA)                  No
+SMB       139/445   Sharing Access
+HTTP      80        WWW                          No
+POP3      110       Email (MDA)                  No
+IMAP      143       Email (MDA)                  No
+HTTPS     443       WWW                          Yes
+SMTPS     465       Email (MTA)                  Yes
+FTPS      990       File Transfer                Yes
+IMAPS     993       Email (MDA)                  Yes
+POP3S     995       Email (MDA)                  Yes
