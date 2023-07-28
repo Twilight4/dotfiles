@@ -1,0 +1,33 @@
+Tool - 
+Usage:
+Options:
+Informational:
+
+########### ASREPRoasting ###########
+GetNPUsers.py tool allows to query ASReproastable accounts from the Key Distribution Center
+
+Usage:
+  python GetNPUsers.py -no-pass -usersfile <USERS_TXT> -dc-ip <TARGET_IP> <DOMAIN>.local/
+                             Query ASReproastable accounts from the Key Distribution Center
+                             Needed valid set of usernames
+Options:
+  -no-pass              Don't ask for password (useful for -k)
+  -usersfile USERSFILE  File with user per line to test
+  -dc-ip IP_ADDRESS     IP Address of the domain controller. If ommited it use the domain
+  -outputfile OUTPUTFILE
+                        Output filename to write ciphers in JtR/hashcat format
+  -format hashcat/john  Format to save the AS_REQ of users without pre-authentication.
+                        Default is hashcat
+
+Informational:
+  ASReproasting occurs when a user account has the privilege 
+  "Does not require Pre-Authentication" set. This means that the account 
+  does not need to provide valid identification before requesting a Kerberos 
+  Ticket on the specified user account.
+
+
+########### ASREPRoasting ###########
+########### ASREPRoasting ###########
+########### ASREPRoasting ###########
+########### ASREPRoasting ###########
+########### ASREPRoasting ###########
