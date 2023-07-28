@@ -202,6 +202,9 @@ alias keybinds="nvim ~/.config/hypr/configs/keybinds.conf"
 alias hyprland="nvim ~/.config/hypr/hyprland.conf"
 alias vmaps="nvim ~/.config/nvim/lua/core/keymaps.lua"
 alias vplugs="nvim ~/.config/nvim/lua/core/plugins.lua"
+alias red="nvim ~/workspace/dotfiles/.config/cheat/tools-charts/red-ad-seq"
+alias pen="nvim ~/workspace/dotfiles/.config/cheat/tools-charts/pen-seq"
+alias osint="nvim ~/workspace/dotfiles/.config/cheat/tools-charts/osint-seq"
 
 # colorize grep output
 alias grep="grep --color=auto"
