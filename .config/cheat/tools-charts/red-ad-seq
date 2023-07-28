@@ -79,9 +79,10 @@ Exfiltration:
 ########### Compromising/Exploitation of Active Directory ###########
 ########### Action on Objectives - Active Directory ###########
 
-TO SORT OUT
+TO SORT OUT:
   bloodhound
   impacket
+  kerbrute (not recommended)
 
 
 
