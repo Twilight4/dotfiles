@@ -5,12 +5,18 @@ FTP       21        File Transfer                No
 SSH       22        Remote Access/File Transfer  Yes
 Telnet    23        Remote Access                No
 SMTP      25        Email (MTA)                  No
-SMB       139/445   Sharing Access
+DNS       53        DNS Resolver                 No
+SMB       139/445   Sharing Access               Yes
 HTTP      80        WWW                          No
 POP3      110       Email (MDA)                  No
+SNMP      161       Network Management           1,2,2c; No - 3; Yes
 IMAP      143       Email (MDA)                  No
 HTTPS     443       WWW                          Yes
 SMTPS     465       Email (MTA)                  Yes
 FTPS      990       File Transfer                Yes
 IMAPS     993       Email (MDA)                  Yes
 POP3S     995       Email (MDA)                  Yes
+MSSQL     1433      MS SQL Server                Yes
+Oracle    1521      Oracle TNS Database          Yes
+NFS       2049      Network File Sharing         No
+MySQL     3306      MySQL Database               No
