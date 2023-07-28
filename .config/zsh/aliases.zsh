@@ -1,5 +1,11 @@
 #!/usr/bin/env zsh
 
+# useful vars
+dns=$(ip r | grep dhcp | awk '{print $3}')
+extip=$(curl -s http://ifconfig.me)
+ip=$(hostname -I | awk '{print $1}')
+mac=$(ip a | grep ether | awk '{print $2}')
+
 # ls to lsd
 alias l='lsd --hyperlink=auto'
 alias ls='lsd -l --hyperlink=auto'
@@ -55,6 +61,13 @@ alias scat='socat'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
+alias cl='clear ; lsd -l --hyperlink=auto'
+alias e='exit'
+alias m='service postgresql start ; msfdb init ; msfconsole'
+alias r='cd $HOME ; clear'
+alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
+alias w="echo $ip ; python3 -m http.server 80"
+alias w2="echo $ip ; python3 -m http.server 8000"
 
 # mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
