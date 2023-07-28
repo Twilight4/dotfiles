@@ -40,9 +40,8 @@ alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.con
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
 alias cmatrix="cmatrix -a"
 alias asciiquarium="asciiquarium --transparent"
-alias df="df -h"     # human-readable sizes
-alias free="free -m" # show sizes in MB
-alias ncmpcpp="ncmpcpp ncmpcpp_directory=$HOME/.config/ncmpcpp/"
+alias df="df -h"
+alias free="free -m"
 alias h2t="html2text -style pretty"
 alias x2h="xsltproc -o result.html"
 alias emc="emacsclient -c -a emacs"
@@ -53,6 +52,9 @@ alias ungron="gron --ungron"
 alias open='xdg-open'
 alias sc='socat'
 alias scat='socat'
+alias da='date "+%Y-%m-%d %A %T %Z"'
+alias update-fc='sudo fc-cache -fv'
+alias jctl="journalctl -p 3 -xb"
 
 # mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
@@ -61,12 +63,6 @@ alias mpvpl='mpv "$(yt-dlp -g --flat-playlist "$1")"'
 alias mpa='mpv --no-video'
 alias mpapl='mpv --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "$1")"'
 alias mpvcwd='mpv ./*.mp4'
-
-# alias to show the date
-alias da='date "+%Y-%m-%d %A %T %Z"'
-
-# add new fonts
-alias update-fc='sudo fc-cache -fv'
 
 # trans
 alias tre='trans en:pl'
@@ -84,9 +80,6 @@ alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
 # blackarch repo packages
 alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # list all available tools
 alias blackcat="sudo pacman -Sg | grep blackarch"                             # see the blackarch categories
-
-# get the error messages from journalctl
-alias jctl="journalctl -p 3 -xb"
 
 # gpg
 # verify signature for isos
