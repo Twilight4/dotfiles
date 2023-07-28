@@ -1,0 +1,12 @@
+evil-winrm - The ultimate WinRM shell for hacking/pentesting 
+
+Usage:
+  evil-winrm -i <TARGET_IP> -u <USER> -H <HASH>
+
+Options:
+  -i, --ip IP                      Remote host IP or hostname. FQDN for Kerberos auth (required)
+  -u, --user USER                  Username (required if not using kerberos)
+  -H, --hash HASH                  NTHash
+
+Informational:
+
