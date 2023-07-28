@@ -1,6 +1,9 @@
-Red Team and AD terminology sequence - links to cheat notes
+Red Team and AD terminology sequence - links to cheat notes 
 Best tool selections for each stage of Red Team Engagement
 Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
+
+Caveat: cheat notes marked as not recommended should not be used in 
+real life scenarios, they provide a reference for CTF-style trainings
 
 ############ Reconnaissance ############
 Osint:
@@ -12,7 +15,7 @@ Osint:
   maltego
   gitleaks
   dnsrecon
-  search-engines
+  red-search-engines
   google-dork
 
 
@@ -79,18 +82,17 @@ Exfiltration:
 ########### Compromising/Exploitation of Active Directory ###########
 ########### Action on Objectives - Active Directory ###########
 
-TO SORT OUT:
-  bloodhound
-  impacket
-  kerbrute (not recommended)
-
-
-
 Enumeration:
   ad-powershell
   ad-enum
+  kerbrute (not recommended)
+  impacket-GetNPUsers.py
+  ports (network protocols enumeration) (not recommended)
   bloodhound
   crackmapexec
+
+Domain Privelege Escalation:
+  impacket-secretsdump.py
 
 Lateral Movement and Pivoting:
   ad-lateral
