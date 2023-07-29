@@ -92,7 +92,8 @@ Credentials Dumping:
 Exploitation/Execution:
   impacket-GetNPUsers.py
   impacket-GetUserSPNs.py
-  win-rubeus (not-recommended)
+  win-rubeus
+  win-mimikatz
   evil-winrm
 
 
