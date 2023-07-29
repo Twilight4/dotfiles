@@ -79,22 +79,18 @@ Exfiltration:
   iodine
   dnscat2
 
-Credentials Dumping:
-  impacket-secretsdump.py
-
-Exploitation/Execution:
-  evil-winrm
 
 ########### Active Directory Exploitation ###########
 ####### KERBEROS #######
 Enumeration:
   kerbrute (not recommended)
-  ports (network protocols enumeration) (not recommended)
+  ports (not recommended)
 
-Privilege Escalation:
-  impacket-GetNPUsers.py
+Credentials Dumping:
+  impacket-secretsdump.py
 
 Exploitation/Execution:
+  impacket-GetNPUsers.py
   win-rubeus (not-recommended)
   impacket-GetUserSPNs.py
   evil-winrm
