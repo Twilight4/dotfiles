@@ -8,9 +8,11 @@ SMTP      25        Email (MTA)                  No
 DNS       53        DNS Resolver                 No
 SMB       139/445   Sharing Access               Yes
 HTTP      80        WWW                          No
+Kerberos  88        Authentication Protocol      Yes
 POP3      110       Email (MDA)                  No
 SNMP      161       Network Management           1,2,2c; No - 3; Yes
 IMAP      143       Email (MDA)                  No
+LDAP      389       Directory Access             No
 HTTPS     443       Secure WWW                   Yes
 SMTPS     465       Email (MTA)                  Yes
 FTPS      990       File Transfer                Yes
