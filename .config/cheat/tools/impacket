@@ -40,7 +40,13 @@ Options:
 Informational:
   
 
-########### ASREPRoasting ###########
+########### GetUserSPNs.py ###########
+Usage:
+  sudo GetUserSPNs.py <DOMAIN>.local/<USER>:<PASSWORD> -dc-ip <TARGET_IP> -request
+                        Kerberoasting - dump the Kerberos hash for all kerberoastable 
+                        accounts it can find on the target domain just like Rubeus does
+
+
 ########### ASREPRoasting ###########
 ########### ASREPRoasting ###########
 ########### ASREPRoasting ###########
