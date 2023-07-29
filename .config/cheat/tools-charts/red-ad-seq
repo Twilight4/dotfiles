@@ -101,7 +101,6 @@ Exploitation/Execution:
 Enumeration:
   win-powerview
   bloodhound
-
   ad-powershell
   ad-enum
   crackmapexec
