@@ -79,13 +79,29 @@ Exfiltration:
   iodine
   dnscat2
 
+Credentials Dumping:
+  impacket-secretsdump.py
 
-########### Compromising/Exploiting Active Directory ###########
-########### Action on Objectives - Active Directory ###########
+Exploitation/Execution:
+  evil-winrm
+
+########### Active Directory Exploitation ###########
+####### KERBEROS #######
 Enumeration:
   kerbrute (not recommended)
   ports (network protocols enumeration) (not recommended)
 
+Privilege Escalation:
+  impacket-GetNPUsers.py
+
+Exploitation/Execution:
+  win-rubeus (not-recommended)
+  impacket-GetUserSPNs.py
+  evil-winrm
+
+
+####### OTHER #######
+Enumeration:
   ad-powershell
   ad-enum
   bloodhound
@@ -95,23 +111,13 @@ Lateral Movement and Pivoting:
   ad-lateral
   wmiexec
 
-Privilege Escalation:
-  impacket-GetNPUsers.py
-  
-
 Credentials Dumping:
-  impacket-secretsdump.py
-  rubeus
-
   ad-dump
   mimikatz
-  hashcat
-  john
+  hashcat/john
   hashid/hash-identifier
 
 Exploitation/Execution:
-  evil-winrm
-
   msfconsole
   ad-exploit
   kekeo
