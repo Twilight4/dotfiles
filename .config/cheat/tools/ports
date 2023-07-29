@@ -1,24 +1,28 @@
-Common Default Ports and Services
+Common Default Ports and Services (the rest is tcp)
 
-Protocol: Port:     Service:                     Encryption:
-FTP       21        File Transfer                No
-SSH       22        Remote Access/File Transfer  Yes
-Telnet    23        Remote Access                No
-SMTP      25        Email (MTA)                  No
-DNS       53        DNS Resolver                 No
-SMB       139/445   Sharing Access               Yes
-HTTP      80        WWW                          No
-Kerberos  88        Authentication Protocol      Yes
-POP3      110       Email (MDA)                  No
-SNMP      161       Network Management           1,2,2c; No - 3; Yes
-IMAP      143       Email (MDA)                  No
-LDAP      389       Directory Access             No
-HTTPS     443       Secure WWW                   Yes
-SMTPS     465       Email (MTA)                  Yes
-FTPS      990       File Transfer                Yes
-IMAPS     993       Email (MDA)                  Yes
-POP3S     995       Email (MDA)                  Yes
-MSSQL     1433      MS SQL Server                Yes
-Oracle    1521      Oracle TNS Database          Yes
-NFS       2049      Network File Sharing         No
-MySQL     3306      MySQL Database               No
+Protocol: Port:      Service:                     Encryption:
+FTP       21         File Transfer                No
+SSH       22         Remote Access/File Transfer  Yes
+Telnet    23         Remote Access                No
+SMTP      25         Email (MTA)                  No
+DNS       53/tcp-udp DNS Resolver                 No
+DHCP      67,68/udp  Network communication        Yes
+TFTP      69/udp     File Transfer                No
+HTTP      80         WWW                          No
+Kerberos  88         Authentication Service       Yes
+POP3      110        Email (MDA)                  No
+NTP       123        Network Time                 Yes
+SMB       139,445    Sharing Access               Yes
+SNMP      161/udp    Network Management           1,2,2c; No - 3; Yes
+IMAP      143        Email (MDA)                  No
+LDAP      389/tcp-udp Directory Access             No
+HTTPS     443        Secure WWW                   Yes
+SMTPS     465        Email (MTA)                  Yes
+FTPS      990        File Transfer                Yes
+IMAPS     993        Email (MDA)                  Yes
+POP3S     995        Email (MDA)                  Yes
+MSSQL     1433       MS SQL Server                Yes
+Oracle    1521       Oracle TNS Database          Yes
+NFS       2049       Network File Sharing         No
+MySQL     3306       MySQL Database               No
+RDP       3389       Remote Access                Yes
