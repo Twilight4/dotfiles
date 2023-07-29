@@ -88,20 +88,22 @@ Enumeration:
 
 Credentials Dumping:
   impacket-secretsdump.py
+  kerberos-win-mimikatz
 
 Exploitation/Execution:
   impacket-GetNPUsers.py
   impacket-GetUserSPNs.py
   win-rubeus
-  win-mimikatz
   evil-winrm
 
 
 ####### OTHER #######
 Enumeration:
+  win-powerview
+  bloodhound
+
   ad-powershell
   ad-enum
-  bloodhound
   crackmapexec
 
 Lateral Movement and Pivoting:
@@ -109,8 +111,7 @@ Lateral Movement and Pivoting:
   wmiexec
 
 Credentials Dumping:
-  ad-dump
-  mimikatz
+  win-mimikatz
   hashcat/john
   hashid/hash-identifier
 
