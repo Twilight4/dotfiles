@@ -1,0 +1,17 @@
+Bloodhound is a graphical interface that allows you to visually map out the network.
+This tool along with SharpHound which similar to PowerView takes the user, groups,
+trusts etc. of the network and collects them into .json files to be used inside of Bloodhound.
+
+##################### Basic Enumeration #####################
+Getting loot with SharpHound:
+  powershell -ep bypass
+  . .\Downloads\SharpHound.ps1
+  Invoke-Bloodhound -CollectionMethod All -Domain <DOAIN>.local -ZipFileName loot.zip
+                   Transfer the loot.zip folder to your Attacker Machine (you can use scp)
+
+Mapping the network with BloodHound:
+  bloodhound       Run bloodhound on your attacker machine
+                   and sign in using the same credentials you set with Neo4j
+                   and Import the loot.zip folder using the import button
+                   To view the graphed network open the menu and select queries
+                   this will give you a list of pre-compiled queries to choose from
