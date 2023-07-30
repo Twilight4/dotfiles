@@ -3,7 +3,7 @@ SMB Client to access resources on SMB servers
 Options:
   -N         No password
   -U name    Specify the user
-  -L         This option allows you to look at what services are available on a server
+  -L         List out file shares
 
 SMB shell commands:
   get         Download files
