@@ -1,0 +1,16 @@
+Usage:
+  sublist3r  -d DOMAIN [-b [BRUTEFORCE]] [-p PORTS] [-v [VERBOSE]]
+             [-t THREADS] [-e ENGINES] [-o OUTPUT] [-n]
+
+Example Usage: 
+  sublist3r -d google.com
+
+Options:
+  -d, --domain          Domain name to enumerate it's subdomains
+  -b, --bruteforce      Enable the subbrute bruteforce module
+  -p, --ports           Scan the found subdomains against specified tcp ports
+  -v, --verbose         Enable Verbosity and display results in realtime
+  -t, --threads         Number of threads to use for subbrute bruteforce
+  -e, --engines         Specify a comma-separated list of search engines
+  -o, --output          Save the results to text file
+  -n, --no-color        Output without color

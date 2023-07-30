@@ -1,0 +1,20 @@
+Usage:
+  amass [commands] [options]
+
+Commands: 
+  amass intel   Discover targets for enumerations
+	amass enum    Perform enumerations and network mapping
+	amass viz     Visualize enumeration results
+	amass track   Track differences between enumerations
+	amass db      Manipulate the Amass graph database
+
+Options:
+  -h	Show the program usage message
+  
+Informational:
+  https://github.com/OWASP/Amass/blob/master/doc/user_guide.md
+                The user's guide
+  https://github.com/OWASP/Amass/blob/master/examples/config.ini
+                An example configuration file
+  https://github.com/OWASP/Amass/blob/master/doc/tutorial.md
+                The Amass tutorial
