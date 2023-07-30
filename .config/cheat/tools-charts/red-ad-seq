@@ -114,7 +114,7 @@ Exfiltration:
 ####### KERBEROS #######
 Enumeration:
   kerbrute (not recommended)
-  ports (not recommended)
+  ports/nmap (not recommended)
 
 Credentials Dumping:
   impacket-secretsdump.py

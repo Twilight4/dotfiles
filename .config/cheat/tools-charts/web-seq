@@ -14,7 +14,7 @@ Subdomain Enumeration:
   httprobe
 
 Content Discovery:
-  masscan
+  ports/masscan
   gitleaks
   s3 buckets
   gobuster/dirb/ffuf
