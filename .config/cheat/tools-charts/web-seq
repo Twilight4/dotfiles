@@ -1,16 +1,9 @@
 Web App terminology sequence - links to cheat notes
 
+############ Reconnaissance ############
 Recon:
-  Content Discovery:
-  view the page source     <!-- and ending with --> are comments
-                           start with <a href - Links to different pages
-                           directory listing feature
-  google dorking
-  wappalyzer
-  wayback machine
-  github
-  s3 buckets               company name followed by common terms such as {name}-assets, {name}-www, {name}-public, {name}-private, etc.
-  gobuster/dirb/ffuf
+  google-dork
+  wayback machine - https://archive.org/web/
 
 Subdomain Enumeration:
   ssl/tls certs - https://crt.sh
@@ -20,10 +13,18 @@ Subdomain Enumeration:
   virtual hosts - gobuster, ffuf
   httprobe
 
+Content Discovery:
+  gitleaks
+  s3 buckets
+  gobuster/dirb/ffuf
+
 Footprinting:
   builtwith - https://builtwith.com
   wappalyzer
   whatweb
+  http
 
 Big tools:
   burp suite
+
+############ Scan & Enumeration ############
