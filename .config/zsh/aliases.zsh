@@ -25,18 +25,6 @@ alias ltr='lsd --tree --hyperlink=auto ~/workspace/cheats/red-team'   # red team
 alias ltf='lsd --tree --hyperlink=auto ~/workspace/cheats/forensics'  # forensics tools
 alias lto='lsd --tree --hyperlink=auto ~/workspace/cheats/other'      # other tools
 
-# HOME dirs
-alias dw='cd "$HOME/downloads" ; clear'
-alias dt='cd "$HOME/desktop" ; clear'
-alias pc='cd "$HOME/pictures" ; clear'
-alias vd='cd "$HOME/videos" ; clear'
-alias ws='cd "$HOME/workspace" ; clear'
-alias dc='cd "$HOME/documents" ; clear'
-
-# diff kitten
-alias diff="kitty +kitten diff"
-alias gdiff="git difftool --no-symlinks --dir-diff"
-
 # aliases to modified commands
 alias mkdir="mkdir -p"
 alias ping="prettyping -c 3"
@@ -65,7 +53,19 @@ alias da='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
-alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'   # wget
+alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
+alias cats='highlight -O ansi --force'
+alias icat='kitty +kitten icat'
+alias diff="kitty +kitten diff"
+alias gdiff="git difftool --no-symlinks --dir-diff"
+
+# HOME dirs
+alias dw='cd "$HOME/downloads" ; clear'
+alias dt='cd "$HOME/desktop" ; clear'
+alias pc='cd "$HOME/pictures" ; clear'
+alias vd='cd "$HOME/videos" ; clear'
+alias ws='cd "$HOME/workspace" ; clear'
+alias dc='cd "$HOME/documents" ; clear'
 
 # common usage
 alias s="kitty +kitten ssh"
@@ -92,14 +92,16 @@ h() {
 }
 
 # rust replacements
-alias xh='http'        # curl replacement
+alias xh='http'                # curl replacement
+alias httpd='http --download'  # uses xh alias first if installed
 alias cat='bat --paging=never --theme OneHalfDark'
 alias dig='dog'
-alias digs='dig +short'
+alias digs='dig +short'        # uses dog alias first if installed
 alias rg='rg --sort path'
 alias du='dust'
 alias ncdu="ncdu --color dark"
 alias df='duf'
+alias bat='bat --paging=never --theme OneHalfDark'
 
 # mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
@@ -165,9 +167,6 @@ alias treed='tree -CAFd'
 alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -  f1 | sed -e's/:\$//g' | grep -v '[0-9]\$' | xargs tail -f"
 
 # usefull
-alias cats='highlight -O ansi --force'
-alias bat='bat --paging=never --theme OneHalfDark'
-alias icat='kitty +kitten icat'
 alias ..="cd ../"
 alias ...="cd ../../"
 alias ....="cd ../../../"
