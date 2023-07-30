@@ -12,8 +12,18 @@ Recon:
   s3 buckets               company name followed by common terms such as {name}-assets, {name}-www, {name}-public, {name}-private, etc.
   gobuster/dirb/ffuf
 
-  Subdomain Enumeration:
-  ssl/tls certs            crt.sh
-  dns bruteforce           dnsrecon, gobuster
-  sublist3r
-  virtual hostsaa          gobuster, ffuf
+Subdomain Enumeration:
+  ssl/tls certs - https://crt.sh
+  dns bruteforce - dnsrecon, gobuster
+  sublist3r (for quick scans/ctfs)
+  amass
+  virtual hosts - gobuster, ffuf
+  httprobe
+
+Footprinting:
+  builtwith - https://builtwith.com
+  wappalyzer
+  whatweb
+
+Big tools:
+  burp suite
