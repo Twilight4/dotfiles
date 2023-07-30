@@ -127,6 +127,7 @@ alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  typ
 alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort  | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
 alias wlo1='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
 alias tun0='echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
+alias xh='http'        # modern curl replacement
  
 # show open ports
 alias openports='netstat -nape --inet'
