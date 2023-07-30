@@ -3,12 +3,8 @@ Best tool selections for each stage of Pentest Engagements and CTFs
 Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
 
 ############ Reconnaissance ############
-Initial Scan;
+Initial Scanning:
   ports/nmap
-
-Web Server:
-  gobuster
-  nikto
 
 ############ Exploitation ############
 hydra

@@ -7,6 +7,7 @@ Vulnerability Research Database websites:
 
 Searchspliot:
   searchsploit <POTENTIAL_SERVICE>
+             Do not be specific with searchsploit because it searches the exact string you are using
 
 Searchsploit Options:
   -w         Show links to ExploitDB
