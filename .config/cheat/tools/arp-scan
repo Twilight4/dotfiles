@@ -1,0 +1,20 @@
+arp-scan - The ARP Scanner 
+Source: https://github.com/royhills/arp-scan
+
+Usage:
+  arp-scan [options]
+
+Example Usage:
+  arp-scan -l -N
+
+Options:
+  -l, --localnet	Generate addresses from interface configuration.
+            			Generates list from interface address and netmask
+            			(network and broadcast included). You cannot use the
+            			--file option or give targets on the command line.
+            			Use --interface to specify the interface.
+-N, --numeric   	Targets must be IP addresses, not hostnames.
+            			Can reduce startup time for large target lists.
+
+Informational:
+
