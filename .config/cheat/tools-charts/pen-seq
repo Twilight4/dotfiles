@@ -5,6 +5,7 @@ Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
 ############ Reconnaissance ############
 Initial Scanning:
   ports/nmap
+  nessus
 
 ############ Exploitation ############
 hydra
