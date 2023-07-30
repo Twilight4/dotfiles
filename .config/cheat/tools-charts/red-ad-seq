@@ -17,6 +17,7 @@ Tools:
 
 Metadata:
   exiftool
+  pdfinfo
 
 Public Records:
   threat-intel-platform - https://threatintelligenceplatform.com/
@@ -34,7 +35,18 @@ Archives:
 
 Email Address:
   hunter.io - https://hunter.io/
+  phonebook.cz - https://phonebook.cz/
+  clearbit connect (extension)
   theharvester
+
+Verify Email Address:
+  https://tools.emailhippo.com/
+  http://email-checker.net/validate
+  google forgot password > try another way
+
+Breached Credentials:
+  breach-parse
+  dehashed.com - https://dehashed.com/pricing
 
 
 ############ Weaponization ############
