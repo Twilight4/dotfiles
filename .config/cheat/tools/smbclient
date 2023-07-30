@@ -1,23 +1,23 @@
 SMB Client to access resources on SMB servers
 
 Options:
--N         No password
--U name    Specify the user
--L         This option allows you to look at what services are available on a server
+  -N         No password
+  -U name    Specify the user
+  -L         This option allows you to look at what services are available on a server
 
 SMB shell commands:
-get         Download files
-!ls         Local ls
-!cat        Local cat
-more "name of file"
-            Cat out the name of the file in quotations so it can involve spaces
+  get         Download files
+  !ls         Local ls
+  !cat        Local cat
+  more "name of file"
+              Cat out the name of the file in quotations so it can involve spaces
 
 SMB Enumeration:
-See if our interesting share has been configured to allow anonymous access,
-I.E it doesn't require authentication to view the files. We can do this easily by:
-  using the username "Anonymous" (-U Anonymous)
-  connecting to the share we found during the enumeration stage
-  not supplying a password
-
-Look for .ssh directory once logged in, if you can find id_rsa you can ssh in using this key
-and using username found in id_rsa.pub: chmod 600 id_rsa && ssh -i id_rsa <USER>@<IP_ADDRESS>
+  See if our interesting share has been configured to allow anonymous access,
+  I.E it doesn't require authentication to view the files. We can do this easily by:
+    using the username "Anonymous" (-U Anonymous)
+    connecting to the share we found during the enumeration stage
+    not supplying a password
+  
+  Look for .ssh directory once logged in, if you can find id_rsa you can ssh in using this key
+  and using username found in id_rsa.pub: chmod 600 id_rsa && ssh -i id_rsa <USER>@<IP_ADDRESS>
