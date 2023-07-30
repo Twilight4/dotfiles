@@ -37,9 +37,6 @@ alias dc='cd "$HOME/documents" ; clear'
 alias diff="kitty +kitten diff"
 alias gdiff="git difftool --no-symlinks --dir-diff"
 
-# ssh kitten
-alias s="kitty +kitten ssh"
-
 # aliases to modified commands
 alias mkdir="mkdir -p"
 alias ping="prettyping -c 3"
@@ -47,19 +44,17 @@ alias less="less -R"
 alias kill='killall -q'
 alias kgnome='killall -3 gnome-shell'
 alias sv="sudo nvim"
-alias v="nvim"
 alias tr="trash"
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
 alias cmatrix="cmatrix -a"
 alias asciiquarium="asciiquarium --transparent"
-alias df="df -h"
 alias free="free -m"
 alias h2t="html2text -style pretty"
 alias x2h="xsltproc -o result.html"
 alias emc="emacsclient -c -a emacs"
-alias d="sudo docker"
+alias docker="sudo docker"
 alias biggest="du -h --max-depth=1 | sort -h"
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
@@ -69,14 +64,42 @@ alias scat='socat'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
-alias cl='clear ; lsd -l --hyperlink=auto'
+alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
+alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'   # wget
+
+# common usage
+alias s="kitty +kitten ssh"
+alias v="nvim"
 alias e='exit'
 alias m='service postgresql start ; msfdb init ; msfconsole'
 alias r='cd $HOME ; clear'
-alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 alias w='cd "$HOME/desktop" ; echo "$ip in $PWD" ; sudo python3 -m http.server 80'
+alias ce='cheat --edit'
+alias cl='clear ; lsd -l --hyperlink=auto'
 alias w2='cd "$HOME/desktop" ; echo "$ip in $PWD" ; sudo python3 -m http.server 8000'
 alias w3='ngrok http 4444'
+
+# prettify help/cheat pages
+alias bathelp='bat --plain --language=help'
+c() {
+  command cheat "$@" | bat --plain --language=help
+}
+help() {
+    "$@" --help 2>&1 | bathelp
+}
+h() {
+    "$@" --help 2>&1 | bathelp
+}
+
+# rust replacements
+alias xh='http'        # curl replacement
+alias cat='bat --paging=never --theme OneHalfDark'
+alias dig='dog'
+alias digs='dig +short'
+alias rg='rg --sort path'
+alias du='dust'
+alias ncdu="ncdu --color dark"
+alias df='duf'
 
 # mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
@@ -118,7 +141,6 @@ alias unhblock="hblock -S none -D none"
 # systeminfo
 alias probe="sudo -E hw-probe -all -upload"
 alias sysfailed="systemctl list-units --failed"
-alias ncdu="ncdu --color dark"
 alias hw="hwinfo --short"
 
 # count all files (recursively) in the current folder
@@ -128,7 +150,6 @@ alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  typ
 alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort  | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
 alias wlo1='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
 alias tun0='echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
-alias xh='http'        # modern curl replacement
  
 # show open ports
 alias openports='netstat -nape --inet'
@@ -139,37 +160,17 @@ alias folders='du -h --max-depth=1'
 alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
 alias tree='tree -CAhF --dirsfirst'
 alias treed='tree -CAFd'
-alias mountedinfo='df -hT'
 
 # show all logs in /var/log
 alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -  f1 | sed -e's/:\$//g' | grep -v '[0-9]\$' | xargs tail -f"
 
 # usefull
 alias cats='highlight -O ansi --force'
-alias cat='bat --paging=never --theme OneHalfDark'
 alias bat='bat --paging=never --theme OneHalfDark'
 alias icat='kitty +kitten icat'
 alias ..="cd ../"
 alias ...="cd ../../"
 alias ....="cd ../../../"
-
-# prettify help/cheat pages
-alias bathelp='bat --plain --language=help'
-alias ce='cheat --edit'
-c() {
-  command cheat "$@" | bat --plain --language=help
-}
-help() {
-    "$@" --help 2>&1 | bathelp
-}
-h() {
-    "$@" --help 2>&1 | bathelp
-}
-
-# other
-alias tks='tmux kill-server'                               # tmux
-alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'   # wget
-alias digs='dig +short'                                    # dig
 
 # git
 alias ga="git add"
@@ -212,25 +213,6 @@ alias osint="nvim ~/workspace/dotfiles/.config/cheat/tools-charts/osint-seq"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
-#search content with ripgrep
-alias rg="rg --sort path"
-
-# nmap
-alias nmap_open="nmap --open"
-alias nmap_list_interfaces="nmap --iflist"
-alias nmap_slow="sudo nmap -sS -v -T1"
-alias nmap_fin="sudo nmap -sF -v"
-alias nmap_full="sudo nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v"
-alias nmap_check_for_firewall="sudo nmap -sA -p1-65535 -v -T4"
-alias nmap_ping_through_firewall="nmap -PS -PA"
-alias nmap_fast="nmap -F -T5 --version-light --top-ports 300"
-alias nmap_detect_versions="sudo nmap -sV -p1-65535 -O --osscan-guess -T4 -Pn"
-alias nmap_check_for_vulns="nmap --script=vuln"
-alias nmap_full_udp="sudo nmap -sS -sU -T4 -A -v -PE -PS22,25,80 -PA21,23,80,443,3389 "
-alias nmap_traceroute="sudo nmap -sP -PE -PS22,25,80 -PA21,23,80,3389 -PU -PO --traceroute "
-alias nmap_full_with_scripts="sudo nmap -sS -sU -T4 -A -v -PE -PP -PS21,22,23,25,80,113,31339 -PA80,113,443,10042 -PO --script all " 
-alias nmap_web_safe_osscan="sudo nmap -p 80,443 -O -v --osscan-guess --fuzzy "
-alias nmap_ping="nmap -n -sP"
 
 # amass config alias
 alias Amass='amass enum -config ~/.config/amass/config.ini -d $1'
