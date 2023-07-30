@@ -76,6 +76,7 @@ alias r='cd $HOME ; clear'
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 alias w='cd "$HOME/desktop" ; echo "$ip in $PWD" ; sudo python3 -m http.server 80'
 alias w2='cd "$HOME/desktop" ; echo "$ip in $PWD" ; sudo python3 -m http.server 8000'
+alias w3='ngrok http 4444'
 
 # mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
