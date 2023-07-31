@@ -8,6 +8,7 @@ Vulnerability Research Database websites:
 Searchspliot:
   searchsploit <POTENTIAL_SERVICE>
              Do not be specific with searchsploit because it searches the exact string you are using
+             You can use searchsploit <PROTOCOL> or search command in metasploit to find automated payloads
 
 Searchsploit Options:
   -w         Show links to ExploitDB
@@ -72,3 +73,4 @@ Payloads types:
   stages       Downloaded by the stager. This will allow you to use larger sized payloads.
   shell_reverse_tcp    Single payload, as indicated by the “_"
   shell/reverse_tcp    Staged payload, as indicated by the “/”
+               If default payload exploit doesn't run try non staged payload
