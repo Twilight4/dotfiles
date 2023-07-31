@@ -1,10 +1,18 @@
 crunch - Generate a dictionary file containing words
 Source: https://www.kali.org/tools/crunch/
 
-Commands:
+Example Usage:
   crunch 2 2 01234abcd -o crunch.txt   Keyspace technique; Create a wordlist containing all possible
                                      combinations of "2" characters, including "0-4" and "a-d"
   crunch 6 6 -t pass%%                 Generate wordlist that contains "pass" followed by 2 numbers
+
+Options Sequence:
+  min         Minimum chars
+  max         Maximum chars
+  characters  Which chars to use
+  pattern     Letter from which the password starts (optional, use it if the min and max are the same)
+  filename    Output file
+  p           Create password without repretetvbe chars
 
 Specify character set using "-t" option:
   @    Lower case alpha characters
