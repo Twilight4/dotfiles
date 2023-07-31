@@ -1,0 +1,14 @@
+fcrackzip - zip password-protected files cracker
+Source: https://www.kali.org/tools/fcrackzip/
+
+Usage:
+  fcrackzip [options] [file.zip]
+
+Example Usage:
+  fcrackzip -v -u -D  -p /usr/share/wordlists/rockyou.txt save.zip
+
+Options:
+  -v   Verbose
+  -u   Unzip
+  -D   Dictionary attack
+  -p   Password-protected file
