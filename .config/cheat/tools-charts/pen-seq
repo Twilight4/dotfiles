@@ -8,8 +8,10 @@ Initial Scanning/Enumeration:
   nessus
 
 ############ Exploitation ############
-hydra
-msfconsole
+
+Gaining Access:
+  hydra
+  msfconsole
 
 ############ Internal Enumeration ############
 Linux:
