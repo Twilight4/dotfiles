@@ -8,7 +8,6 @@ Initial Scanning/Enumeration:
   nessus
 
 ############ Exploitation ############
-
 Gaining Access:
   hydra
   msfconsole

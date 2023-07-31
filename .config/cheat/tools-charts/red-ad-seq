@@ -84,7 +84,7 @@ Password Spraying:
 
 ############ Exploitation/Post Compromise ############
 Windows Enumeration:
-  ad-powershell
+  win-enum-security
   win-enum
   lolbins
 
@@ -131,7 +131,6 @@ Exploitation/Execution:
 Enumeration:
   win-powerview
   bloodhound
-  ad-powershell
   ad-enum
   crackmapexec
 
