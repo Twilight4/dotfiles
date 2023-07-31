@@ -128,6 +128,16 @@ Exploitation/Execution:
 
 
 ####### OTHER #######
+Initial Attack Vectors:
+  llmnr
+  ntmlv2
+  ad-smb
+  mitm
+Post-Compromise Enumeration:
+Post-Compromise Attacks:
+Post Exploitation:
+
+
 Enumeration:
   win-powerview
   bloodhound
