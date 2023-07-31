@@ -92,7 +92,8 @@ h() {
 }
 
 # rust replacements
-alias xh='http'                # curl replacement
+alias cp='xcp'
+alias http='xh'                # curl replacement
 alias httpd='http --download'  # uses xh alias first if installed
 alias cat='bat --paging=never --theme OneHalfDark'
 alias dig='dog'
