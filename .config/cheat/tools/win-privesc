@@ -1,5 +1,9 @@
 Windows Privilege Escalation techniques using CMD for Red Team Operations
 
+Upgrading to meterpreter shell:
+  Once you have a shell connection to the target machine you can generate msfvenom paylaod and start a handler
+  to upgrade the shell to meterpreter (download the payload using certutil/powershell and run it using command: Start-Process "shell-name.exe")
+
 Unattended Windows Installations:
   C:\Unattend.xml                             Administrators may use Windows Deployment Services, which allows for a single operating 
   C:\Windows\Panther\Unattend.xml             system image to be deployed to several hosts through the network. These kinds of
