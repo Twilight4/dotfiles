@@ -3,7 +3,7 @@ Best tool selections for each stage of Pentest Engagements and CTFs
 Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
 
 ############ Reconnaissance ############
-Initial Scanning:
+Initial Scanning/Enumeration:
   ports/nmap
   nessus
 
