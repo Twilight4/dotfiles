@@ -17,7 +17,7 @@ Linux:
   ncat-lin
 
 Windows:
-  ad-powershell
+  meterpreter
   win-enum
   lolbins
 
