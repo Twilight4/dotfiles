@@ -17,3 +17,19 @@ or
   Copy the raw LinEnum code from github and paste into new file
   in the target machine
   chmod +x LinEnum.sh
+
+
+################## pspy ##################
+pspy - Monitor linux processes without root permissions 
+Source: https://github.com/DominicBreuker/pspy
+
+Installation:
+  Download 64bit static version
+Transfer the file to target box and run:
+  chmod +x pspy64
+  ./pspy64
+          Check if the interesting file is listed on a timer
+          if it is then you can change it for reverse shell
+
+Informational:
+  Run it if you found some interesting cron job to validate if it's running on a timer
