@@ -18,7 +18,7 @@
 |  **Menu Launcher**             | [Wofi](https://hg.sr.ht/~scoopta/wofi)                     |
 |  **Session Manager**           | [Wlogout](https://github.com/ArtsyMacaw/wlogout)           |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
-|  **Web Browser**               | [Firefox](https://www.mozilla.org/en-US/firefox/)          |
+|  **Web Browser**               | [Waterfox](https://www.waterfox.net/)          |
 |  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)            |
 |  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
 |  **Editor**                    | [Neovim](https://github.com/neovim/neovim) / [Emacs](https://www.gnu.org/software/emacs/)     |
