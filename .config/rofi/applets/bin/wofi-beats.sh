@@ -11,7 +11,7 @@ wofi_command="wofi --show dmenu \
       --width=350 --height=380 \
       --cache-file=/dev/null \
       --hide-scroll --no-actions \
-      --prompt "Search live streams"
+      --prompt 'Search live streams'
       --define=matching=fuzzy"
 
 
