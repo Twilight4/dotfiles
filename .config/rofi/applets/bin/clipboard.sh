@@ -8,8 +8,5 @@ if [[ "$XDG_SESSION_DESKTOP" == "Hyprland" ]]; then
 		pick -dmenu -i -theme \
 		"$dir/$theme" -lines 10 | cliphist decode | wl-copy
 else
-	rofi -modi "clipboard:greenclip print" \
-		-show clipboard \
-		-run-command '{cmd}' \
-		-theme "$dir/""$theme"
+  return
 fi
