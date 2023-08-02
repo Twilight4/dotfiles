@@ -2,7 +2,7 @@
 
 # Warning:
 # I recommend utilizing the CachyOS installation of Arch Linux for optimal performance and streamlined setup experience.
-# Prior to executing this script, it is imperative that users have previously run the "install-tweaks.sh" script available in the "alis-iso" repository.
+# Prior to executing this script, it is imperative that users have previously run the "install-tweaks.sh" script available in the "arch-setup" repository.
 # This preliminary step ensures the successful application of necessary system tweaks and optimizations, adding additional pacman repositories and 
 # enhancing system security and the overall performance and stability.
 #
@@ -75,9 +75,7 @@ install-yay() {
 }
 
 remove-distro-bloat() {
-    # Remove redundant packages installed by alis script
-    #sudo pacman -Rns --noconfirm sddm linux linux-headers
-    # Remove redundant packages installed by cachyos
+    # Remove redundant packages installed by CachyOS
     #sudo pacman -Rns cachyos-fish-config fish-autopair fisher fish-pure-prompt fish cachyos-zsh-config oh-my-zsh-git cachyos-hello cachyos-kernel-manager exa alacritty micro cachyos-micro-settings btop cachyos-packageinstaller vim
     # Remove redundant packages installed by pacman (on Hyprland)
     #sudo pacman -Rns --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk xdg-desktop-portal-wlr
