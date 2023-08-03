@@ -29,6 +29,7 @@ push() {
 
   echo
   echo "Finished push operation"
+  echo 'Done - Press enter to exit; read _"'
 }
 
 
