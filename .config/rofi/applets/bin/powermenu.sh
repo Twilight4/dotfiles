@@ -24,21 +24,21 @@ fi
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" Lock"
-	option_2=" Logout"
-	option_3=" Suspend"
-	option_4=" Hibernate"
-	option_5=" Reboot"
-	option_6=" Shutdown"
+	option_1=" Shutdown"
+	option_2=" Reboot"
+	option_3=" Logout"
+	option_4=" Suspend"
+	option_5=" Lock"
+	option_6=" Hibernate"
 	yes=' Yes'
 	no=' No'
 else
-	option_1=""
-	option_2=""
-	option_3=""
-	option_4=""
-	option_5=""
-	option_6=""
+	option_1=""
+	option_2=""
+	option_3=""
+	option_4=""
+	option_5=""
+	option_6=""
 	yes=''
 	no=''
 fi
@@ -90,17 +90,17 @@ confirm_run () {
 # Execute Command
 run_cmd() {
 	if [[ "$1" == '--opt1' ]]; then
-		~/.config/hypr/scripts/lock
+		confirm_run 'systemctl shutdown now'
 	elif [[ "$1" == '--opt2' ]]; then
-		confirm_run 'kill -9 -1'
-	elif [[ "$1" == '--opt3' ]]; then
-		confirm_run 'systemctl suspend'
-	elif [[ "$1" == '--opt4' ]]; then
-		confirm_run 'systemctl hibernate'
-	elif [[ "$1" == '--opt5' ]]; then
 		confirm_run 'systemctl reboot'
+	elif [[ "$1" == '--opt3' ]]; then
+		confirm_run 'kill -9 -1'
+	elif [[ "$1" == '--opt4' ]]; then
+		confirm_run 'systemctl suspend'
+  elif [[ "$1" == '--opt5' ]]; then
+		~/.config/hypr/scripts/lock
 	elif [[ "$1" == '--opt6' ]]; then
-		confirm_run 'systemctl poweroff'
+		confirm_run 'systemctl hibernate'
 	fi
 }
 
