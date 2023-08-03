@@ -90,7 +90,7 @@ confirm_run () {
 # Execute Command
 run_cmd() {
 	if [[ "$1" == '--opt1' ]]; then
-		confirm_run 'systemctl shutdown now'
+		confirm_run 'systemctl poweroff'
 	elif [[ "$1" == '--opt2' ]]; then
 		confirm_run 'systemctl reboot'
 	elif [[ "$1" == '--opt3' ]]; then
