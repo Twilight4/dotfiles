@@ -1,0 +1,42 @@
+########### Navi Terminology ###########
+"% tool-name" is always the filename for conciseness
+
+Sequence:
+  PEN/WEB/RED/AD/TTY/WIR/FOR
+  -R/-E/-P/<PROTOCOL>/-S/-U/-W/-D
+  , <tool-name>
+
+Stages:
+  -<PROTOCOL> - Enumeration
+  -R - Recon
+  -W - Weaponization
+  -E - Exploitation
+  -P - Persistence
+  -D - Dumping (and cracking)
+  WEB-S - Scanning/Enumeration ("-S" is only for "WEB" Stage bcs it is Enumeration for web app only)
+  TTY-U - Upgrading TTY
+
+Explanation:
+  PEN - Pentest
+  RED - Red Team
+  WEB - Web App
+  AD - Active Directory
+  WIR - Wireless
+  TTY - Terminal
+
+
+########### Help Page Template ###########
+Tool - 
+Source:
+
+Usage:
+  tool [commands] [options]
+
+Example Usage:
+
+Commands:
+
+Options:
+
+Informational:
+
