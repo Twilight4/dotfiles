@@ -4,10 +4,18 @@
 killall polkit-kde-authentication-agent-1
 killall dunst
 killall gammastep
-killall swayidle
+killall idle-handler
 killall cmst
 killall udiskie
 killall waybar
+killall foot
+killall udev-block-notify
+killall wl-clip-persist
+killall wl-paste
+killall wallpaper-changer
+killall emacs
+killall battery-notif
+killall swaybg
 
-# reload river
+# Reload river
 ~/.config/river/init
