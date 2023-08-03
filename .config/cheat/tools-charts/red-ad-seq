@@ -130,8 +130,7 @@ Exploitation/Execution:
 ####### OTHER #######
 Initial Attack Vectors:
   llmnr
-  ntmlv2
-  ad-smb
+  ad-smb-relay
   mitm
 Post-Compromise Enumeration:
 Post-Compromise Attacks:
