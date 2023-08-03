@@ -16,6 +16,14 @@
     context                 # user@hostname
     dir                     # current directory
     vcs                     # git status
+    # =========================[ Line #2 ]=========================
+    newline                 # \n
+    prompt_char             # prompt symbol
+  )
+
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+    # =========================[ Line #1 ]=========================
+    vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
@@ -57,13 +65,8 @@
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     # =========================[ Line #2 ]=========================
-    newline                 # \n
-    prompt_char             # prompt symbol
-  )
-
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-    # =========================[ Line #1 ]=========================
-    # =========================[ Line #2 ]=========================
+    time                    # current time
+    newline
   )
 
   ########################################[ vi_mode ]############################################
@@ -93,9 +96,9 @@
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%023F┌──'
   typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX='%023F├─'
   typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%023F└─'
-  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX=''
-  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX=''
-  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX=''
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX='%023F──┐'
+  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX='%023F─┤'
+  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX='%023F─┘'
   typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=''
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=' '
   typeset -g POWERLEVEL9K_SHOW_RULER=false
