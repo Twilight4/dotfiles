@@ -13,8 +13,11 @@ Stages:
   -E - Exploitation
   -P - Persistence
   -D - Dumping (and cracking)
+
+Other Stages:
   WEB-S - Scanning/Enumeration ("-S" is only for "WEB" Stage bcs it is Enumeration for web app only)
   TTY-U - Upgrading TTY
+  AD-I - Initial Attack Vectors
 
 Explanation:
   PEN - Pentest

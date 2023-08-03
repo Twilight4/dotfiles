@@ -1,0 +1,22 @@
+Responder - LLMNR, NBT-NS and MDNS poisoner
+Source: https://github.com/SpiderLabs/Responder
+
+Usage:
+  responder [options]
+
+Example Usage:
+  responder -I tun0 -dwP
+
+Options:
+  -I eth0, --interface=eth0
+                        Network interface to use, you can use 'ALL' as a
+                        wildcard for all interfaces
+  -D, --DHCP-DNS        Respond to DHCP broadcast request. Default: False
+  -w, --wpad            Start the WPAD rogue proxy server. Default: False
+  -P, --ProxyAuth       Force NTLM (transparently)/Basic (prompt)
+                        authentication for the proxy. WPAD doesn't need to be
+                        ON. This option is highly effective. Default: False
+  -v, --verbose         Increase verbosity
+
+Informational:
+
