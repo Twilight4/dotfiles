@@ -25,7 +25,7 @@
     "sort-by-number": true,
     "format-icons": {
         "1": " term",
-        "2": "﨩 web",
+        "2": " web",
         "3": " hack",
         "4": " code",
         "5": " media",
