@@ -73,10 +73,10 @@ alias v="nvim"
 alias e='exit'
 alias m='service postgresql start ; msfdb init ; msfconsole'
 alias r='cd $HOME ; clear'
-alias w='cd "$HOME/desktop" ; echo "$ip in $PWD" ; sudo python3 -m http.server 80'
+alias w='cd "$HOME/desktop" ; echo "$(ip) in $PWD" ; sudo python3 -m http.server 80'
 alias ce='cheat --edit'
 alias cl='clear ; lsd -l --hyperlink=auto'
-alias w2='cd "$HOME/desktop" ; echo "$ip in $PWD" ; sudo python3 -m http.server 8000'
+alias w2='cd "$HOME/desktop" ; echo "$(ip) in $PWD" ; sudo python3 -m http.server 8000'
 alias w3='ngrok http 4444'
 
 # prettify help/cheat pages

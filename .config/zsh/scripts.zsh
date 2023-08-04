@@ -6,6 +6,23 @@ then
     mv $HOME/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh $HOME/.config/zsh/plugins/zsh-completions/_zsh-completions.plugin.zsh
 fi
 
+# Commands used by aliases
+dns() {
+  ip r | grep dhcp | awk '{print $3}'
+}
+
+extip() {
+  curl -s http://ifconfig.me
+}
+
+ip() {
+  hostname -i | awk '{print $1}'
+}
+
+mac() {
+  ip a | grep ether | awk '{print $2}'
+}
+
 # Add Vi text-objects for brackets and quotes
 autoload -Uz select-bracketed select-quoted
 zle -N select-quoted
