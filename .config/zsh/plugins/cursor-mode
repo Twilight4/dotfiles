@@ -12,7 +12,7 @@ function zle-keymap-select () {
 }
 zle -N zle-keymap-select
 zle-line-init() {
-    zle -K vicmd # initiate `vi cmd` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    zle -K viins # initiate `vi ins` as keymap (can be removed if `bindkey -V` has been set elsewhere)
     echo -ne "\e[2 q"
 }
 zle -N zle-line-init
