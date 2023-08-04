@@ -1,11 +1,19 @@
-########### Navi Terminology ###########
-"% tool-name" is always the filename for conciseness
+##################### TEMPLATE #####################
+"% tool-name/protocol/phase-name" - title of cheat note is always the same as filename for conciseness.
 
-Sequence:
-  PEN/WEB/RED/AD/TTY/WIR/FOR
-  -R/-E/-P/<PROTOCOL>/-S/-U/-W/-D
-  , <tool/protocol/phase-name>
+Acronyms - Types of Assessment:
+  PEN - Pentest (Internal/External)
+  RED - Red Team
+  AD - Active Directory (Red Team/Internal Pentest)
+  WEB - Web App
+  WIR - Wireless
 
+Sequence Examples:
+  PEN-N, protocol-tool
+  RED-W, tool
+  AD-IN, phase
+
+##################### STAGES #####################
 Pentest Stages: (PEN)
   -R, - Recon
   -N, - eNumeration
@@ -14,51 +22,36 @@ Pentest Stages: (PEN)
 Red-Team Stages: (RED)
   -R, - Recon
   -W, - Weaponization
+
 AD Stages: (AD)
-  -I, - Initial Attack Vectors
-  -IN, - Internal Enumeration
-  -E, - Exploitation/Post-Compromise Attacks
+  -I, - Initial attack vectors
+  -IN, - Internal eNumeration
+  -E, - Exploitation/post-compromise attacks
   -PE, - Post Exploitation (exfiltration, pivoting, persistence)
-      -P - Persistence                - ONGOING
-      -D - Dumping (and cracking)     - ONGOING
-
-Other Stages:
-  WEB-S - Scanning/Enumeration ("-S" is only for "WEB" Stage bcs it is Enumeration for web app only)
-  TTY-U - Upgrading TTY
-Experimental - Stages of AD:
-
-is it possible to create 3 different repos for navi or just 
-seperate them so I can use only cheats for e.g. pentesting
-without touching red teaming so it would be much easier
-to maintain the stages
-
-Explanation:
-  PEN - Pentest
-  RED - Red Team
-  WEB - Web App
-  AD - Active Directory
-  WIR - Wireless
-  TTY - Terminal
+      -P - Persistence                - TODO
+      -D - Dumping (and cracking)     - TODO
 
 
-########### Help Page Template ###########
-Tool - 
-Source:
 
-Usage:
-  tool [commands] [options]
 
-Example Usage:
 
-Commands:
 
-Options:
 
-Informational:
 
-########### Informational Help Page Template ###########
-What is <PROTOCOL>:
 
-Key flaw:
 
-Mitigation:
+
+
+
+##################### TODO STAGES #####################
+Wireless Stages: (WIR)
+  -R, - Recon
+
+Web Stages: (WEB)
+  -R, - Recon
+  -N, - eNumeration
+
+Other Cheats:
+  TTY, - shells/terminal
+  TTY-U, - Upgrading TTY
+  FOR - Forensics
