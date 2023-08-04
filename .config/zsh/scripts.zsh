@@ -15,7 +15,7 @@ extip() {
   curl -s http://ifconfig.me
 }
 
-ip() {
+hip() {
   hostname -i | awk '{print $1}'
 }
 
