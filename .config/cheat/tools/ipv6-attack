@@ -1,6 +1,13 @@
 What is IPv6 Attack:
+  Attacker spoofs DNS server and gets authentication to the DC
+  via LDAP or via SMB (he intercepts a hash). Then he can LDAP
+  relay and log in and create an account.
   
-
 Key flaw:
+  If a machine is utilizing ipv4 and ipv6 is turned on, nobody is 
+  doing DNS.
 
 Mitigation:
+  Disable ipv6 internally
+  Disable WPAD if not used internally
+  Enable LDAP signing and LDAP channel binding
