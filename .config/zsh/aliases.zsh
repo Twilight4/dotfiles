@@ -1,11 +1,5 @@
 #!/usr/bin/env zsh
 
-# useful vars
-dns=$(ip r | grep dhcp | awk '{print $3}')
-extip=$(curl -s http://ifconfig.me)
-ip=$(hostname -i | awk '{print $1}')
-mac=$(ip a | grep ether | awk '{print $2}')
-
 # ls to lsd
 alias l='lsd --hyperlink=auto'
 alias ls='lsd -l --hyperlink=auto'
