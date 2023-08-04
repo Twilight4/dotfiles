@@ -1,0 +1,13 @@
+What is SMB Relay:
+  We can relay gathered hashes with responder to specific machines and gain access
+
+Key flaw:
+  SMB signing must be disabled or not enforced
+  Relayed user credentials must be admin on machines for any real value
+  SAM hashes can be used to log in to machines
+
+Mitigation:
+  Enable SMB signing on all devices
+  Disable NTLM authentication on network
+  Account tiering
+  Local admin restriction

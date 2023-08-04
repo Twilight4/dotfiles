@@ -1,0 +1,10 @@
+What is LLMNR:
+  Used to identify hosts when DNS failts to do so
+
+Key flaw:
+  When intercepting traffic, we can capture username and a hash (NTLMv2) when we respond to the traffic (MiTM attack).
+
+Mitigation:
+  Disable LLMNR and NBT-NS, if can't:
+    require network access control
+    strong user passwords
