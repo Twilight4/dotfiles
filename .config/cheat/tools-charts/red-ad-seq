@@ -135,17 +135,29 @@ Initial Attack Vectors:
   gaining-shell
   ipv6-attack
   passback-attack
-Post-Compromise Enumeration:
-  
-Post-Compromise Attacks:
+Post-Compromise Enumeration: (after we compromised a user)
+  internal-enum
+  pingcastle
+Exploitation/Post-Compromise Attacks:
 Post Exploitation:
 
 
+
+### EXPLOITATION ###
+Exploitation/Execution:
+  msfconsole
+  ad-exploit
+  kekeo
+  powersploit
+  nishang
+  responder
+  Empire
+
+### LAST STAGE ###
 Enumeration:
   win-powerview
-  bloodhound
-  ad-enum
   crackmapexec
+  ad-enum
 
 Lateral Movement and Pivoting:
   ad-lateral
@@ -156,16 +168,8 @@ Credentials Dumping:
   hashcat/john
   hashid/hash-identifier
 
-Exploitation/Execution:
-  msfconsole
-  ad-exploit
-  kekeo
-  powersploit
-  nishang
-  responder
-  Empire
 
-
+### INFORMATIONAL ###
 C2 Frameworks:
   covenant
   sliver

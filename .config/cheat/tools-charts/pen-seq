@@ -12,7 +12,7 @@ Gaining Access:
   hydra
   msfconsole
 
-############ Internal Enumeration ############
+############ Post-Compromise Enumeration ############
 Linux:
   lin-enum
   ncat-lin
