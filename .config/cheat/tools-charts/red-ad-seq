@@ -129,11 +129,14 @@ Exploitation/Execution:
 
 ####### OTHER #######
 Initial Attack Vectors:
+  initial-attack-seq
   llmnr
   smb-relay
   gaining-shell
   ipv6-attack
+  passback-attack
 Post-Compromise Enumeration:
+  
 Post-Compromise Attacks:
 Post Exploitation:
 
