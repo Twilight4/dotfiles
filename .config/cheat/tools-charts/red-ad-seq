@@ -112,20 +112,15 @@ Exfiltration:
 
 ########### Active Directory Exploitation ###########
 ####### KERBEROS #######
-Enumeration:
-  kerbrute (not recommended)
-  ports/nmap (not recommended)
-
-Credentials Dumping:
-  impacket-secretsdump.py
-  kerberos-win-mimikatz
-
 Exploitation/Execution:
-  impacket-GetNPUsers.py
-  impacket-GetUserSPNs.py
+  kerberos
+  ports/nmap (not recommended)
   win-rubeus
   evil-winrm
 
+Credentials Dumping:
+  gaining-shell
+  kerberos-win-mimikatz
 
 ####### OTHER #######
 Initial Attack Vectors:
@@ -135,10 +130,14 @@ Initial Attack Vectors:
   gaining-shell
   ipv6-attack
   passback-attack
+
 Post-Compromise Enumeration: (after we compromised a user)
   internal-enum
   pingcastle
+
 Exploitation/Post-Compromise Attacks:
+  pass-the-hash
+
 Post Exploitation:
 
 
