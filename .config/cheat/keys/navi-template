@@ -4,20 +4,33 @@
 Sequence:
   PEN/WEB/RED/AD/TTY/WIR/FOR
   -R/-E/-P/<PROTOCOL>/-S/-U/-W/-D
-  , <tool-name>
+  , <tool/protocol/phase-name>
 
-Stages:
-  -<PROTOCOL> - Enumeration
-  -R - Recon
-  -W - Weaponization
-  -E - Exploitation
-  -P - Persistence
-  -D - Dumping (and cracking)
+Pentest Stages: (PEN)
+  -R, - Recon
+  -N, - eNumeration
+  -E, - Exploitation
+
+Red-Team Stages: (RED)
+  -R, - Recon
+  -W, - Weaponization
+AD Stages: (AD)
+  -I, - Initial Attack Vectors
+  -IN, - Internal Enumeration
+  -E, - Exploitation/Post-Compromise Attacks
+  -PE, - Post Exploitation (exfiltration, pivoting, persistence)
+      -P - Persistence                - ONGOING
+      -D - Dumping (and cracking)     - ONGOING
 
 Other Stages:
   WEB-S - Scanning/Enumeration ("-S" is only for "WEB" Stage bcs it is Enumeration for web app only)
   TTY-U - Upgrading TTY
-  AD-I - Initial Attack Vectors
+Experimental - Stages of AD:
+
+is it possible to create 3 different repos for navi or just 
+seperate them so I can use only cheats for e.g. pentesting
+without touching red teaming so it would be much easier
+to maintain the stages
 
 Explanation:
   PEN - Pentest
