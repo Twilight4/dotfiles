@@ -119,7 +119,7 @@ Exploitation/Execution:
   evil-winrm
 
 Credentials Dumping:
-  gaining-shell
+  dumping-hashes
   kerberos-win-mimikatz
 
 ####### OTHER #######
@@ -136,7 +136,9 @@ Post-Compromise Enumeration: (after we compromised a user)
   pingcastle
 
 Exploitation/Post-Compromise Attacks:
+  exploitation-seq
   pass-the-hash
+  dumping-hashes
 
 Post Exploitation:
 
