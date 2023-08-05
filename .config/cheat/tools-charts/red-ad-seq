@@ -139,6 +139,9 @@ Exploitation/Post-Compromise Attacks:
   win-mimikatz-attacks/kerberos-win-mimikatz (not recommended)
 
 Post Exploitation: (after we compromised DC)
+  post-exploitation-seq
+  dump-ntds-dit
+  golden-ticket-attack
 
 
 
