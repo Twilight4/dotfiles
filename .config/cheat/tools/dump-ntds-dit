@@ -1,0 +1,6 @@
+What is NTDS:
+  A database used to store AD data. this data includes:
+    User information
+    Group information
+    Security descriptors
+    Password hashes
