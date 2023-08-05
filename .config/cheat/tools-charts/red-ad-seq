@@ -113,7 +113,6 @@ Exfiltration:
 ########### Active Directory Exploitation ###########
 ####### KERBEROS #######
 Exploitation/Execution:
-  kerberos
   ports/nmap (not recommended)
   win-rubeus
   evil-winrm
@@ -139,6 +138,8 @@ Exploitation/Post-Compromise Attacks:
   exploitation-seq
   pass-the-hash
   dumping-hashes
+  kerberoasting
+  token-impersonation
 
 Post Exploitation:
 
