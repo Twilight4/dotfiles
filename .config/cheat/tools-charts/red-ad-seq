@@ -111,15 +111,10 @@ Exfiltration:
 
 
 ########### Active Directory Exploitation ###########
-####### KERBEROS #######
 Exploitation/Execution:
   ports/nmap (not recommended)
   win-rubeus
   evil-winrm
-
-Credentials Dumping:
-  dumping-hashes
-  kerberos-win-mimikatz
 
 ####### OTHER #######
 Initial Attack Vectors:
@@ -140,8 +135,10 @@ Exploitation/Post-Compromise Attacks:
   dumping-hashes
   kerberoasting
   token-impersonation
+  gpp-attack
+  win-mimikatz-attacks/kerberos-win-mimikatz (not recommended)
 
-Post Exploitation:
+Post Exploitation: (after we compromised DC)
 
 
 
