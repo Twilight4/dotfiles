@@ -1,0 +1,7 @@
+What is kerberoasting:
+  Goal of kerberoasting: Get TGS and decrypt server's account
+  hash.
+
+Mitigation:
+  Strong passwords
+  Least privilege
