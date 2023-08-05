@@ -1,4 +1,4 @@
-Initial Internal Attack Strategy
+Initial Internal Attack Strategy:
   Begin day with mitm6 or Responder
   Run scans to generate traffic (early in the morning before users log in)
   If scans are takign too long, look at websites in scope (http_version)

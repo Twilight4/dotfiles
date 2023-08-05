@@ -1,0 +1,10 @@
+What is pass-the-hash:
+  We can leverage SAM hahes for lateral movement in networks.
+
+What is pass-the-password:
+  We can leverage passwords for lateral movement in networks.
+
+Mitigation:
+  Limit account re-use
+  Utilize strong passwords
+  Privilege Access Management (PAM)
