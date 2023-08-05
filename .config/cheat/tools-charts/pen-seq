@@ -1,6 +1,5 @@
 Pentest terminology sequence - links to cheat notes
 Best tool selections for each stage of Pentest Engagements and CTFs
-Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
 
 ############ Reconnaissance ############
 Initial Scanning/Enumeration:
@@ -31,3 +30,5 @@ Linux:
 Windows:
   win-privesc
   win-privesc-scripts
+
+############ Post-Exploitation ############

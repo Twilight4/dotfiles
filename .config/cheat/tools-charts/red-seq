@@ -1,4 +1,4 @@
-Red Team and AD terminology sequence - links to cheat notes 
+Red Team terminology sequence - links to cheat notes 
 Best tool selections for each stage of Red Team Engagement
 Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
 
@@ -82,7 +82,7 @@ Password Spraying:
   owa
 
 
-############ Exploitation/Post Compromise ############
+############ Post Compromise ############
 Windows Enumeration:
   win-enum-security
   win-enum
@@ -94,6 +94,7 @@ Windows Privilege Escalation:
 
 Persistence/Installation:
   win-persist
+  persistence
 
 Defense Evasion (no payload obfuscators):
   uacme
@@ -102,76 +103,12 @@ Defense Evasion (no payload obfuscators):
   rev-shells
   openssl-channel-encryption
 
-###### Actions on Objectives - TODO - AD? ######
-Exfiltration:
+Exfiltration/Actions on Objectives:
   win-exfil
   neo-regeorg
   iodine
   dnscat2
 
-
-########### Active Directory Exploitation ###########
-Exploitation/Execution:
-  ports/nmap (not recommended)
-  win-rubeus
-  evil-winrm
-
-####### OTHER #######
-Initial Attack Vectors:
-  initial-attack-seq
-  llmnr
-  smb-relay
-  gaining-shell
-  ipv6-attack
-  passback-attack
-
-Post-Compromise Enumeration: (after we compromised a user)
-  internal-enum
-  pingcastle
-
-Exploitation/Post-Compromise Attacks:
-  exploitation-seq
-  pass-the-hash
-  dumping-hashes
-  kerberoasting
-  token-impersonation
-  gpp-attack
-  win-mimikatz-attacks/kerberos-win-mimikatz (not recommended)
-
-Post Exploitation: (after we compromised DC)
-  post-exploitation-seq
-  dump-ntds-dit
-  golden-ticket-attack
-
-
-
-### EXPLOITATION ###
-Exploitation/Execution:
-  msfconsole
-  ad-exploit
-  kekeo
-  powersploit
-  nishang
-  responder
-  Empire
-
-### LAST STAGE ###
-Enumeration:
-  win-powerview
-  crackmapexec
-  ad-enum
-
-Lateral Movement and Pivoting:
-  ad-lateral
-  wmiexec
-
-Credentials Dumping:
-  win-mimikatz
-  hashcat/john
-  hashid/hash-identifier
-
-
-### INFORMATIONAL ###
 C2 Frameworks:
   covenant
   sliver
