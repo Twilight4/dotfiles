@@ -28,8 +28,6 @@ AD Stages: (AD)
   -IN, - Internal eNumeration
   -E, - Exploitation/post-compromise attacks
   -PE, - Post Exploitation (exfiltration, pivoting, persistence)
-      -P - Persistence                - TODO
-      -D - Dumping (and cracking)     - TODO
 
 
 
