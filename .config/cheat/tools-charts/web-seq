@@ -3,7 +3,6 @@ Web App terminology sequence - links to cheat notes
 ############ Reconnaissance ############
 Public Records:
   google-dork
-  wayback machine - https://archive.org/web/
 
 Subdomain Enumeration:
   ssl/tls certs - https://crt.sh
@@ -13,6 +12,7 @@ Subdomain Enumeration:
   amass
   virtual hosts - gobuster, ffuf
   httprobe
+  gowitness
 
 Content Discovery:
   ports/masscan
