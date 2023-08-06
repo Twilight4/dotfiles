@@ -1,0 +1,35 @@
+# This is a example session template for kitty
+
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/workspace/dotfiles/.config
+# Create a window (title sets the tab title)
+launch --title nnn sh -c "nnn -Ra"
+# Create second window in the same workind directory
+launch zsh
+# Create third window
+cd ~/.config
+launch sh -c "nnn -Ra"
+
+# Create a new tab
+new_tab dots
+# Set the layout in this tab
+layout tall
+# Create a window
+cd ~/workspace/dotfiles/.config
+launch sh -c "lsd -lA --hyperlink=auto && exec zsh"
+# Create a second window
+cd ~/.config
+launch sh -c "lsd -lA --hyperlink=auto && exec zsh"
+
+# Create a new tab
+new_tab neovim
+# Set the layout in this tab
+layout grid
+# Set the working directory
+cd ~
+# Create a window with nvim (aliases won't work here)
+launch nvim
+# Focus the current tab
+focus
