@@ -1,0 +1,4 @@
+Cleanup - make the system/network as it was when you entered it:
+  Remove executables, scripts, added files
+  Remove malware, rootkits, user accounts
+  Set settings back to original configurations

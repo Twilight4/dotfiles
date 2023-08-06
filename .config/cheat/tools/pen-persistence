@@ -1,0 +1,5 @@
+On the internal pentest typically you're not going to be doing this,
+the most maintaining access/persistence that you will do is adding
+a user (net user hacker password123 /add), because it's a pentest,
+not a red team assessment, being loud usually is not a problem.
+You just don't have a reason to run persistence on a pentest.

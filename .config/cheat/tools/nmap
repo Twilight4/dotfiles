@@ -17,8 +17,8 @@ Host and Port Scanning:
   -T5                 Impact speed (T3 is the default)
 
 Scan Types:
-  -sT                 TCP Connect Scan (default with --top-ports=1000 option - scan 1000 TCP ports)      
-  -sS                 TCP-SYN "Stealth" scan
+  -sT                 TCP Connect Scan
+  -sS                 TCP-SYN "Stealth" scan (default one with --top-ports=1000 option - scan 1000 TCP ports)
   -sU 	              UDP scan
   -sN                 TCP Null Scan
   -sF                 TCP FIN Scan
@@ -94,7 +94,7 @@ Saving the results:
 Informational:
   find / -type f -name ftp* 2>/dev/null | grep scripts
   ls -l /usr/share/nmap/scripts/*ftp*
-                                                Find NSE scripts
+                                        Find NSE scripts
   To view the scan status, we can press the [Space Bar] during the scan, which will cause Nmap to show us the scan status.
   "filtered" port is when nmap receives nothing back. This indicates that the port is being protected by a firewall which is configured to drop incoming packets
 
