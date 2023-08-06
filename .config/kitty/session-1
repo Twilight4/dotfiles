@@ -1,23 +1,34 @@
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
-cd ~/workspace/dotfiles/.config
+cd ~/workspace/dotfiles/.config/cheat/tools-charts/
 # Create a window (title sets the tab title)
 launch --title nnn sh -c "nnn -Ra"
-# Create second window in the same workind directory
-launch zsh
-# Create third window
-cd ~/.config
-launch sh -c "nnn -Ra"
 
 # Create a new tab
-new_tab dots
+new_tab navi
 # Set the layout in this tab
 layout tall
 # Create a window
-cd ~/workspace/dotfiles/.config
-launch sh -c "lsd -lA --hyperlink=auto && exec zsh"
-# Create a second window
-cd ~/.config
-launch sh -c "lsd -lA --hyperlink=auto && exec zsh"
+cd ~/workspace/cheats/active-directory/
+# Create a window (title sets the tab title)
+launch --title nnn sh -c "nnn -Ra"
+
+# Create a new tab
+new_tab cheats
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/workspace/dotfiles/.config/cheat/tools/
+# Create a window (title sets the tab title)
+launch --title nnn sh -c "nnn -Ra"
+
+# Create a new tab
+new_tab templates
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/workspace/dotfiles/.config/cheat/templates/
+# Create a window (title sets the tab title)
+launch --title nnn sh -c "nnn -Ra"
 
