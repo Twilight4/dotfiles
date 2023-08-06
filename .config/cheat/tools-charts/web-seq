@@ -9,6 +9,7 @@ Subdomain Enumeration:
   ssl/tls certs - https://crt.sh
   dns bruteforce - dnsrecon, gobuster
   sublist3r (for quick scans/ctfs)
+  assetfinder
   amass
   virtual hosts - gobuster, ffuf
   httprobe
