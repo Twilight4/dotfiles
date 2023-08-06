@@ -3,7 +3,7 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/workspace/dotfiles/.config/cheat/tools-charts/
 # Create a window (title sets the tab title)
-launch --title nnn sh -c "nnn -Ra"
+launch --title tools-charts sh -c "nnn -Ra"
 
 # Create a new tab
 new_tab navi
