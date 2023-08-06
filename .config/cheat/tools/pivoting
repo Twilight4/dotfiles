@@ -1,0 +1,20 @@
+What is pivoting:
+  When you compromised a machine and that machine has access
+  to 2 network interfaces that was previously unavailable 
+  (dual-homed device).
+
+Set up proxy using proxychains and pivot through that:
+  ssh -f -N -D 9050 -i pivot <USER>@<TARGET_IP>
+
+Options:
+  -f   Background the shell
+  -N   Set up port forwarding
+  -D   Bind the port to 9050
+  -i   Name
+
+Example Usage:
+  proxychains nmap <TARGET_IP>
+
+Informational:
+  shuttle -r <USER>@<TARGET_IP> <NEW_NETWORK>/24 --ssh-cmd "ssh -i pivot"
+                          Sets up a tunnel (no need to prepend proxychains)
