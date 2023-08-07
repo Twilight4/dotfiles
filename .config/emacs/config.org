@@ -196,7 +196,7 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 #+end_src
 
 ** Better Modeline
-NOTE: The first time you load your configuration on a new machine, you'll need to run `M-x all-the-icons-install-fonts` so that mode line icons display correctly.
+*NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
 #+begin_src emacs-lisp
 ;; Modeline
 (use-package all-the-icons)
