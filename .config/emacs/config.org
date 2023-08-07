@@ -89,7 +89,7 @@
 #+begin_src emacs-lisp
 ;; Expands to: (elpaca evil (use-package evil :demand t))
 (use-package evil
-    :init      ;; tweak evil's configuration before loading it
+    :init      ;; Tweak evil's configuration before loading it
     (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
     (setq evil-want-keybinding nil)
     (setq evil-vsplit-window-right t)
@@ -105,23 +105,32 @@
 
 ** General Keybindings
 #+begin_src emacs-lisp
-(use-package general
-  :config
-  (general-evil-setup)
+  (use-package general
+    :config
+    (general-evil-setup)
 
-  ;; set up 'C-x' as the global leader key
-  (general-create-definer tl/leader-keys
-    :states '(normal insert visual emacs)
-    :prefix "C-x") ;; set leader
+    ;; Set up 'C-x' as the global leader key
+    (general-create-definer tl/leader-keys
+      :states '(normal insert visual emacs)
+      :prefix "C-x") ;; Set leader
 
-  (tl/leader-keys
-    "b" '(:ignore t :wk "buffer")
-    "bb" '(switch-to-buffer :wk "Switch buffer")
-    "bk" '(kill-this-buffer :wk "Kill this buffer")
-    "bn" '(next-buffer :wk "Next buffer")
-    "bp" '(previous-buffer :wk "Previous buffer")
-    "br" '(revert-buffer :wk "Reload buffer"))
-)
+    (tl/leader-keys
+      "." '(find-file :wk "Find file")
+      "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit emacs config")
+      "TAB TAB" '(comment-line :wk "Comment lines"))
+
+    (tl/leader-keys
+      "b" '(:ignore t :wk "buffer")
+      "b b" '(switch-to-buffer :wk "Switch buffer")
+      "b i" '(ibuffer :wk "Ibuffer")
+      "b k" '(kill-this-buffer :wk "Kill this buffer")
+      "b n" '(next-buffer :wk "Next buffer")
+      "b p" '(previous-buffer :wk "Previous buffer")
+      "b r" '(revert-buffer :wk "Reload buffer"))
+
+    (tl/leader-keys 
+      "C-e" '(eval-buffer :wk "Evaluate elisp in buffer"))
+  )
 #+end_src
 
 * Fonts
