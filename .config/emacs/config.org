@@ -192,7 +192,7 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 #+begin_src emacs-lisp
 ;; Theme
 (use-package doom-themes
-  :init (load-theme 'doom-ayu-mirage t))
+  :init (load-theme 'doom-vibrant t))
 #+end_src
 
 ** Better Modeline
