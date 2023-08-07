@@ -4,6 +4,20 @@
 #+STARTUP: showeverything
 #+OPTIONS: toc:2
 
+* Table of Contents :toc:
+- [[#programs-to-load-first][Programs to load first]]
+  - [[#package-manager---elpaca][Package Manager - Elpaca]]
+  - [[#load-evil-mode][Load Evil Mode]]
+  - [[#general-keybindings][General Keybindings]]
+- [[#fonts][Fonts]]
+- [[#better-defaults][Better defaults]]
+  - [[#disable-menubar-toolbars-and-scrollbars][Disable Menubar, Toolbars and Scrollbars]]
+  - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
+- [[#org-mode][ORG MODE]]
+  - [[#enabling-table-of-contents][Enabling Table of Contents]]
+  - [[#enabling-org-bullets][Enabling Org Bullets]]
+- [[#which-key][Which-Key]]
+
 * Programs to load first
 ** Package Manager - Elpaca
 #+begin_src emacs-lisp
