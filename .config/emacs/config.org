@@ -11,8 +11,7 @@
   - [[#general-keybindings][General Keybindings]]
 - [[#fonts][Fonts]]
 - [[#better-defaults][Better defaults]]
-  - [[#disable-menubar-toolbars-and-scrollbars][Disable Menubar, Toolbars and Scrollbars]]
-  - [[#display-line-numbers-and-truncated-lines][Display Line Numbers and Truncated Lines]]
+  - [[#simple-settings][Simple settings]]
 - [[#org-mode][ORG MODE]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -150,24 +149,40 @@ Defining the various fonts that Emacs will use.
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
 ;; are not right unless I also add this method of setting the default font.
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-11"))
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono Nerd Font-11"))
 
 ;; Uncomment the following line if line spacing needs adjusting.
 (setq-default line-spacing 0.12)
 #+end_src
 
 * Better defaults
-** Disable Menubar, Toolbars and Scrollbars
+** Simple settings
 #+begin_src emacs-lisp
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-#+end_src
+(menu-bar-mode -1)                                ; Disable menubar
+(tool-bar-mode -1)                                ; Disable tool bar
+(scroll-bar-mode -1)                              ; Disable scroll bar
+(tooltip-mode -1)                                 ; Disable tooltips
+(global-display-line-numbers-mode 1)              ; Display line numbers
+(global-visual-line-mode t)                       ; Display truncated lines
 
-** Display Line Numbers and Truncated Lines
-#+begin_src emacs-lisp
-(global-display-line-numbers-mode 1)
-(global-visual-line-mode t)
+(setq-default
+ delete-by-moving-to-trash t                      ; Delete files to trash
+ window-combination-resize t                      ; take new window space from all other windows (not just current)
+ x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+
+(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
+ evil-want-fine-undo t                            ; By default while in insert all changes are one big blob. Be more granular
+ auto-save-default t                              ; Nobody likes to loose work, I certainly don't
+ truncate-string-elipsis "…"                      ; Unicode ellispis are nicer than "...", and also save /precious/ space
+ scroll-margin 2                                  ; It's nice to maintain a little margin
+ display-time-default-load-average nil)           ; I don't think I've ever found this useful
+
+(display-time-mode 1)                             ; Enable time in the mode-line
+
+(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
+  (display-battery-mode 1))                       ; it's nice to know how much power you have
+
+(global-subword-mode 1)                           ; Iterate through CamelCase words
 #+end_src
 
 * ORG MODE
