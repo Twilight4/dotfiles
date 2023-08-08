@@ -204,6 +204,8 @@
   (global-set-key (kbd "C-x C-c") (lambda () (interactive) (find-file "~/.config/emacs/config.org")))
   ;; Reload emacs
   (global-set-key (kbd "C-x C-r") (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
+  ;; Help
+  (global-set-key (kbd "C-x C-h") 'describe-function)
 
   (use-package general
     :config
@@ -226,6 +228,11 @@
       "b n" '(next-buffer :wk "Next buffer")
       "b p" '(previous-buffer :wk "Previous buffer")
       "b r" '(revert-buffer :wk "Reload buffer"))
+
+    (tl/leader-keys
+      "h" '(:ignote t :wk "Help")
+      "h f" '(describe-function :wk "Describe function")
+      "h v" '(describe-variable :wk "Describe variable"))
   )
 #+end_src
 
