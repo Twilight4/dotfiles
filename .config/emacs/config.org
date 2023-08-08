@@ -8,6 +8,7 @@
 - [[#programs-to-load-first][Programs to load first]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#load-evil-mode][Load Evil Mode]]
+  - [[#global-keybindings][Global Keybindings]]
   - [[#general-keybindings][General Keybindings]]
 - [[#fonts][Fonts]]
 - [[#better-defaults][Better defaults]]
@@ -88,12 +89,12 @@
   (use-package evil-tutor)
 #+end_src
 
-** General Keybindings
+** Global Keybindings
 #+begin_src emacs-lisp
   ;; Make ESC quit prompts
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-  ;; First disable default keybinds (if the same ones are defined later, they are overwritten)
+  ;; Disable default keybindings (if the same ones are defined later, they are overwritten)
   (global-unset-key (kbd "C-x ESC"))
   (global-unset-key (kbd "C-x TAB"))
   (global-unset-key (kbd "C-x DEL"))
@@ -162,13 +163,13 @@
   (global-unset-key (kbd "C-x C-j"))
   (global-unset-key (kbd "C-x C-k"))
   (global-unset-key (kbd "C-x C-l"))
-  (global-unset-key (kbd "C-x C-n"))
+  (global-unset-key (kbd "C-x C-n"))            ;;;;;;;;;;;;;;;;;;;;;;;;
   ;(global-unset-key (kbd "C-x C-f"))
   (global-unset-key (kbd "C-x C-o"))
   (global-unset-key (kbd "C-x C-p"))
   (global-unset-key (kbd "C-x C-q"))
   ;(global-unset-key (kbd "C-x C-r"))
-  (global-unset-key (kbd "C-x C-s"))
+  (global-unset-key (kbd "C-x C-s"))          ; ??????????
   (global-unset-key (kbd "C-x C-d"))
   (global-unset-key (kbd "C-x C-t"))
   (global-unset-key (kbd "C-x C-u"))
@@ -182,20 +183,29 @@
   (global-unset-key (kbd "C-x <right>"))
   (global-unset-key (kbd "C-x <left>"))
 
-  ;; Keybinds without which-key and leader key
+  ;; Custom keybindings without SPC as leader key
   ;; Buffers
   (global-set-key (kbd "M-n") 'next-buffer)
   (global-set-key (kbd "M-p") 'previous-buffer)
-  ;; Open quick configs
-  (global-set-key (kbd "C-x C-c") (lambda () (interactive) (find-file "~/.config/emacs/config.org")))
-  ;; Reload emacs
-  (global-set-key (kbd "C-x C-r") (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
   ;; Help
   (global-set-key (kbd "C-x C-h") 'describe-function)
+#+end_src
 
+** General Keybindings
+#+begin_src emacs-lisp
   (use-package general
     :config
     (general-evil-setup)
+
+  (general-define-key
+   :prefix "C-x"
+   :states '(normal insert visual emacs)
+   "" nil ; Remove default C-x keymap prefix
+   "C-c" (lambda () (interactive) (find-file "~/.config/emacs/config.org"))
+   "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
+
+  (which-key-add-key-based-replacements "C-x C-c" "Edit Config"
+                                        "C-x C-r" "Reload Emacs")
 
   ;; Set up 'SPC' as the global leader key
   (general-create-definer tl/leader-keys
