@@ -1,6 +1,14 @@
 #+title: Doom Emacs Keybinds Cheatsheet
 
-This documentation provides cheat sheet for which presents keybindings for my emacs configuration which is designed for potentiality to achieve enhanced productivity while minimizing the need for excessive and complex key combinations. The primary objective is to streamline the user experience, by minimizing the need for excessive key combinations and utilizing those that are often overlooked or unutilized by default. The philosophy adopted in this configuration prioritizes simplicity and ease of use. The aim is to minimize the number of key combinations required to perform frequently used actions, thereby reducing cognitive load and improving overall efficiency and productivity.
+This documentation provides cheat sheet for which presents keybindings for my emacs configuration which is designed to minimze the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity. I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS (I use arch btw). Nothing says I don't have a life better than a github commit history flex. The philosophy adopted in this configuration prioritizes simplicity and ease of use:
+  - All keys that I *often* use require the user to press 2 keys while holding the Control key, i.e. =C-x C-<key>= or =C-x <key>=.
+  - All other keys that I *rarely* use have its prefix key after the leader key which is =SPC=, effectively requiring the user to press 3 buttons including the =SPC= key.
+  - I also have other leader keys depending on which mode I'm in respectively: =C-x=, =C-c=, =C-h=, =C-u=.
+
+#+begin_quote
+an idiot admires complexity, a genius admires simplicity.
+- The world's greatest programmer
+#+end_quote
 
 * Table of Contents :toc:
 - [[#essential-keybindings][Essential Keybindings]]
