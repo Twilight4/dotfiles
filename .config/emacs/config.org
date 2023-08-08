@@ -18,6 +18,7 @@
 - [[#org-mode][Org Mode]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
+  - [[#disable-electric-indent][Disable Electric Indent]]
 - [[#which-key][Which-Key]]
 
 * Programs to load first
@@ -338,6 +339,12 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 (add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+** Disable Electric Indent
+Org mode source blocks have some really weird and annoying default indentation behavior.
+#+begin_src emacs-lisp
+(electric-indent-mode -1)
 #+end_src
 
 * Which-Key
