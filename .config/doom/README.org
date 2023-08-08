@@ -5,9 +5,9 @@ This documentation provides cheat sheet for which presents keybindings for my em
   - All other keys that I *rarely* use have its prefix key after the leader key which is =SPC=, effectively requiring the user to press 3 buttons including the =SPC= key.
   - I also have other leader keys depending on which mode I'm in respectively: =C-x=, =C-c=, =C-h=, =C-u=.
 
+The world's greatest programmer once said:
 #+begin_quote
-an idiot admires complexity, a genius admires simplicity.
-- The world's greatest programmer
+"an idiot admires complexity, a genius admires simplicity."
 #+end_quote
 
 * Table of Contents :toc:
