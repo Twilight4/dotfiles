@@ -312,7 +312,6 @@ Defining the various fonts that Emacs will use.
 ** Color Theme
 Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][screenshots]] might help you decide which one you like best. You can run =M-x counsel-load-theme= to choose between them easily.
 #+begin_src emacs-lisp
-;; Theme
 (use-package doom-themes
   :init (load-theme 'doom-vibrant t))
 #+end_src
@@ -320,7 +319,6 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 ** Better Modeline
 *NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
 #+begin_src emacs-lisp
-;; Modeline
 (use-package all-the-icons)
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
