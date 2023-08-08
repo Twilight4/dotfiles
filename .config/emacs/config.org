@@ -105,6 +105,16 @@
 
 ** General Keybindings
 #+begin_src emacs-lisp
+  ;; In order to overwrite default keybinds first we need to disable default ones and then load the custom ones
+    (global-unset-key (kbd "C-x C-]"))
+    (global-unset-key (kbd "C-x C-["))
+
+    (global-unset-key (kbd "C-x C-ESC"))
+    (global-unset-key (kbd "C-x C-DEL"))
+    (global-unset-key (kbd "C-x C-SPC"))
+    (global-unset-key (kbd "C-x C-RET"))
+    (global-unset-key (kbd "C-x C-TAB"))
+
   (use-package general
     :config
     (general-evil-setup)
@@ -124,12 +134,14 @@
       "b b" '(switch-to-buffer :wk "Switch buffer")
       "b i" '(ibuffer :wk "Ibuffer")
       "b k" '(kill-this-buffer :wk "Kill this buffer")
-      "b n" '(next-buffer :wk "Next buffer")
-      "b p" '(previous-buffer :wk "Previous buffer")
+      ;"b n" '(next-buffer :wk "Next buffer")
+      ;"b p" '(previous-buffer :wk "Previous buffer")
+      "<escape>" '(next-buffer :wk "Next buffer")
+      "C-]" '(previous-buffer :wk "Previous buffer")
       "b r" '(revert-buffer :wk "Reload buffer"))
 
     (tl/leader-keys 
-      "C-e" '(eval-buffer :wk "Evaluate elisp in buffer"))
+      "C-e" '(eval-region :wk "Evaluate elisp in region"))
   )
 #+end_src
 
