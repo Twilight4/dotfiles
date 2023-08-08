@@ -206,7 +206,7 @@
       "TAB TAB" '(comment-line :wk "Comment lines"))
 
     (tl/leader-keys
-      "b" '(:ignore t :wk "buffer")
+      "b" '(:ignore t :wk "Buffer")
       "b b" '(switch-to-buffer :wk "Switch buffer")
       "b i" '(ibuffer :wk "Ibuffer")
       "b k" '(kill-this-buffer :wk "Kill this buffer")
@@ -218,6 +218,11 @@
       "h" '(:ignote t :wk "Help")
       "h f" '(describe-function :wk "Describe function")
       "h v" '(describe-variable :wk "Describe variable"))
+
+    (tl/leader-keys
+      "t" '(:ignote t :wk "Toggle")
+      "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+      "t t" '(visual-line-mode :wk "Toggle truncated lines"))
   )
 #+end_src
 
