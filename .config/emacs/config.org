@@ -79,10 +79,10 @@
   ;;Turns off elpaca-use-package-mode current declartion
   ;;Note this will cause the declaration to be interpreted immediately (not deferred).
   ;;Useful for configuring built-in emacs features.
-  ;;(use-package emacs :elpaca nil :config (setq ring-bell-function #'ignore))
+  use-package emacs :elpaca nil :config (setq ring-bell-function #'ignore))
 
   ;; Don't install anything. Defer execution of BODY
-  ;;(elpaca nil (message "deferred"))
+  elpaca nil (message "deferred"))
 #+end_src
 
 ** Load Evil Mode
@@ -182,7 +182,7 @@
   (global-unset-key (kbd "C-x C-p"))
   (global-unset-key (kbd "C-x C-q"))
   ;(global-unset-key (kbd "C-x C-r"))
-  ;(global-unset-key (kbd "C-x C-s"))
+  (global-unset-key (kbd "C-x C-s"))
   (global-unset-key (kbd "C-x C-d"))
   (global-unset-key (kbd "C-x C-t"))
   (global-unset-key (kbd "C-x C-u"))
