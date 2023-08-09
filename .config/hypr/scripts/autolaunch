@@ -13,7 +13,7 @@ hyprctl keyword windowrule "workspace 3 silent,kitty-2" && hyprctl dispatch exec
 
 # workspace 4
 hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec "logseq"        # to remove
-hyprctl keyword windowrule "workspace 4 silent,emacs" && sleep 5 && hyprctl dispatch exec "emacsclient -c -a emacs"   # sleep 5 waits for emacs --daemon from autstart.conf to start
+hyprctl keyword windowrule "workspace 4 silent,emacs" && sleep 3 && hyprctl dispatch exec "emacsclient -c -a emacs"   # sleep 3 waits for emacs --daemon from autstart.conf to start
 
 # workspace 6
 hyprctl keyword windowrule "workspace 6 silent,newsboat" && hyprctl dispatch exec "footclient -T newsboat -a newsboat -e newsboat"
