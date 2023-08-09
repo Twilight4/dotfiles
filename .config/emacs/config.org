@@ -12,16 +12,16 @@
   - [[#general-keybindings][General Keybindings]]
 - [[#fonts][Fonts]]
   - [[#setting-the-font-face][Setting the Font Face]]
-- [[#better-defaults][Better defaults]]
-  - [[#simple-settings][Simple settings]]
+- [[#ui-configuration][UI Configuration]]
+  - [[#better-defaults][Better defaults]]
   - [[#color-theme][Color Theme]]
   - [[#better-modeline][Better Modeline]]
+  - [[#which-key][Which-Key]]
 - [[#org-mode][Org Mode]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
-- [[#which-key][Which-Key]]
 
 * Programs to load first
 ** Elpaca Package Manager
@@ -290,8 +290,8 @@
 (setq-default line-spacing 0.12)
 #+end_src
 
-* Better defaults
-** Simple settings
+* UI Configuration
+** Better defaults
 
 #+begin_src emacs-lisp
 (menu-bar-mode -1)                                ; Disable menubar
@@ -339,6 +339,27 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
   :custom ((doom-modeline-height 15)))
 #+end_src
 
+** Which-Key
+
+#+begin_src emacs-lisp
+(use-package which-key
+  :init
+    (which-key-mode 1)
+  :config
+  (setq which-key-side-window-location 'bottom
+	  which-key-sort-order #'which-key-key-order-alpha
+	  which-key-sort-uppercase-first nil
+	  which-key-add-column-padding 1
+	  which-key-max-display-columns nil
+	  which-key-min-display-lines 6
+	  which-key-side-window-slot -10
+	  which-key-side-window-max-height 0.25
+	  which-key-idle-delay 0.5
+	  which-key-max-description-length 25
+	  which-key-allow-imprecise-window-fit t
+	  which-key-separator " → " ))
+#+end_src
+
 * Org Mode
 ** Enabling Table of Contents
 
@@ -368,25 +389,4 @@ Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
 (require 'org-tempo)
-#+end_src
-
-* Which-Key
-
-#+begin_src emacs-lisp
-(use-package which-key
-  :init
-    (which-key-mode 1)
-  :config
-  (setq which-key-side-window-location 'bottom
-	  which-key-sort-order #'which-key-key-order-alpha
-	  which-key-sort-uppercase-first nil
-	  which-key-add-column-padding 1
-	  which-key-max-display-columns nil
-	  which-key-min-display-lines 6
-	  which-key-side-window-slot -10
-	  which-key-side-window-max-height 0.25
-	  which-key-idle-delay 0.5
-	  which-key-max-description-length 25
-	  which-key-allow-imprecise-window-fit t
-	  which-key-separator " → " ))
 #+end_src
