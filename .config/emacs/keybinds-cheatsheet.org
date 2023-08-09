@@ -269,49 +269,37 @@ The world's greatest programmer once said:
 | SPC o p    | Toggle on and off |
 
 * TODO System config and setup on Wayland
-- Reload emacs every time you alter =init.el=, =packages.el= or =config.el= - =SPC h r r=
-
 ** Setup on Hyprland WM
-1. Install bare emacs package: =yay -S emacs-gcc-wayland-devel-bin=
-2. Run the installer script
+1. Run my installer script
    #+begin_src bash
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-    ~/.config/emacs/bin/doom install
+    bash <(curl -s https://raw.githubusercontent.com/Twilight4/arch-setup/main/tool-scripts/emacs.sh)
     #+end_src
-3. Add aliases for doom bins and for launching emacs
-   #+begin_src bash
-    alias doomsync="~/.config/emacs/bin/doom sync"
-    alias doomdoctor="~/.config/emacs/bin/doom doctor"
-    alias doomupgrade="~/.config/emacs/bin/doom upgrade"
-    alias doompurge="~/.config/emacs/bin/doom purge"
-    alias emacs="emacsclient -c -a emacs"
-   #+end_src
-4. Add =blurls= in hyprland.conf
+2. Add =blurls= in hyprland.conf
    #+begin_src bash
     decoration {
         blurls = emacs
     }
    #+end_src
-5. Add opacity and designated workspace in =window-rules.conf= to emacs
+3. Add opacity and designated workspace in =window-rules.conf= to emacs
    #+begin_src
    windowrulev2 = opacity 0.97,class:^(emacs)$
    windowrulev2 = workspace 4, class:^(emacs)$
    #+end_src
-6. Add emacs daemon to =autostart.conf=
+4. Add emacs daemon to =autostart.conf=
    #+begin_src bash
     exec-once=emacs --daemon
    #+end_src
-7. Add emacs client to autostart in =autolaunch= script
+5. Add emacs client to autostart in =autolaunch= script
    #+begin_src
      hyprctl keyword windowrule "workspace 4 silent,emacs" && sleep 4 && hyprctl dispatch exec "emacsclient -c -a emacs"
      hyprctl keyword windowrule "unset,emacs"
    #+end_src
-8. Set vars in =.zshenv=
+6. Set vars in =.zshenv=
    #+begin_src bash
     EDITOR="emacsclient -c -a emacs"
     ALTERNATE_EDITOR=""
    #+end_src
-9. Add a keybinding for launching emacs client in =keybinds.conf=
+7. Add a keybinding for launching emacs client in =keybinds.conf=
    #+begin_src bash
     bind = SUPER, E, exec, pgrep 'emacs' && hyprctl dispatch focuswindow '^emacs$' || hyprctl dispatch exec 'emacsclient -c -a emacs'
    #+end_src
