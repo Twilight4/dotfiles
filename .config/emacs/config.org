@@ -24,6 +24,7 @@
   - [[#enabling-org-bullets][Enabling Org Bullets]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
+- [[#projectile][Projectile]]
 
 * Programs to load first
 ** Elpaca Package Manager
@@ -247,7 +248,7 @@
    "C-j" '(buf-move-down :wk "Buffer move down")
    "C-k" '(buf-move-up :wk "Buffer move up")
    "C-l" '(buf-move-right :wk "Buffer move right"))
-  
+
   ;; Set up 'SPC' as another global leader key
   (general-create-definer tl/leader-keys
     :states '(normal insert visual emacs)
@@ -258,6 +259,9 @@
     (tl/leader-keys
       "." '(find-file :wk "Find file")
       "TAB" '(comment-line :wk "Comment lines"))
+
+    (tl/leader-keys
+      "p" '(projectile-command-map :wk "Projectile"))
 
     (tl/leader-keys
       "b" '(:ignore t :wk "Buffer")
@@ -529,4 +533,12 @@ Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
 (require 'org-tempo)
+#+end_src
+
+* Projectile
+
+#+begin_src emacs-lisp
+(use-package projectile
+  :config
+  (projectile-mode 1))
 #+end_src
