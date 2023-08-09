@@ -126,7 +126,6 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
-;; Org
 
 ;; You can also disable default C-x keybindings individually
 ;;(global-unset-key (kbd "C-x ESC"))
@@ -227,6 +226,7 @@
  :prefix "C-x"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-x keymap prefix
+ ;; Common keybindings
  "C-s" '(save-buffer :wk "Save buffer")
  "c" '(counsel-recentf :wk "Find recent files")
  "C-c" (lambda () (interactive) (find-file "~/.config/emacs/config.org"))
@@ -250,6 +250,12 @@
  "C-j" '(buf-move-down :wk "Buffer move down")
  "C-k" '(buf-move-up :wk "Buffer move up")
  "C-l" '(buf-move-right :wk "Buffer move right"))
+ ;; Org Mode
+ "C-a" '(org-agenda :wk "Org agenda")
+ "C-i" '(org-toggle-item :wk "Org toggle item")
+ "C-o" '(org-todo :wk "Org todo")
+ "C-b" '(org-babel-tangle :wk "Org babel tangle")
+ "o" '(org-todo-list :wk "Org todo list")
 
 ;; Set up 'SPC' as another global leader key
 (general-create-definer tl/leader-keys
@@ -267,31 +273,23 @@
 
   (tl/leader-keys
     "b" '(:ignore t :wk "Buffer")
-    "b b" '(switch-to-buffer :wk "Switch buffer")
     "b i" '(ibuffer :wk "Ibuffer")
     "b k" '(kill-this-buffer :wk "Kill this buffer")
-    "b n" '(next-buffer :wk "Next buffer")
-    "b p" '(previous-buffer :wk "Previous buffer")
     "b r" '(revert-buffer :wk "Reload buffer"))
 
   (tl/leader-keys
-    "h" '(:ignote t :wk "Help")
+    "h" '(:ignore t :wk "Help")
     "h f" '(describe-function :wk "Describe function")
     "h v" '(describe-variable :wk "Describe variable"))
 
   (tl/leader-keys
-    "t" '(:ignote t :wk "Toggle")
+    "t" '(:ignore t :wk "Toggle")
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "t t" '(visual-line-mode :wk "Toggle truncated lines"))
 
   (tl/leader-keys
-    "m" '(:ignore t :wk "Org")
-    "m a" '(org-agenda :wk "Org agenda")
-    "m e" '(org-export-dispatch :wk "Org export dispatch")
-    "m i" '(org-toggle-item :wk "Org toggle item")
-    "m t" '(org-todo :wk "Org todo")
-    "m B" '(org-babel-tangle :wk "Org babel tangle")
-    "m T" '(org-todo-list :wk "Org todo list"))
+    "o" '(:ignore t :wk "Org")
+    "o e" '(org-export-dispatch :wk "Org export dispatch"))
 )
 #+end_src
 
