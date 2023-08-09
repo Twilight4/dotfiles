@@ -18,6 +18,7 @@
   - [[#doom-modeline-and-all-the-icons][Doom-Modeline and All-the-icons]]
   - [[#which-key][Which-Key]]
   - [[#dashboard][Dashboard]]
+  - [[#transparency][Transparency]]
 - [[#buffer-move][Buffer-move]]
 - [[#ivy-counsel][IVY (Counsel)]]
 - [[#org-mode][Org Mode]]
@@ -423,6 +424,12 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
                           (registers . 3)))
   :config
   (dashboard-setup-startup-hook))
+#+end_src
+
+** Transparency
+
+#+begin_src emacs-lisp
+;(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
 #+end_src
 
 * Buffer-move
