@@ -11,6 +11,7 @@
   - [[#global-keybindings][Global Keybindings]]
   - [[#general-keybindings][General Keybindings]]
 - [[#fonts][Fonts]]
+  - [[#setting-the-font-face][Setting the Font Face]]
 - [[#better-defaults][Better defaults]]
   - [[#simple-settings][Simple settings]]
   - [[#color-theme][Color Theme]]
@@ -108,7 +109,12 @@
   ;; Buffers
   (global-set-key (kbd "M-n") 'next-buffer)
   (global-set-key (kbd "M-p") 'previous-buffer)
-
+  ;; Zoom In/Out
+  (global-set-key (kbd "C-=") 'text-scale-increase)
+  (global-set-key (kbd "C--") 'text-scale-decrease)
+  (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+  (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+  
   ;; You can also disable default C-x keybindings individually
   ;;(global-unset-key (kbd "C-x ESC"))
   ;;(global-unset-key (kbd "C-x TAB"))
@@ -249,7 +255,7 @@
 #+end_src
 
 * Fonts
-Defining the various fonts that Emacs will use.
+** Setting the Font Face
 
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
