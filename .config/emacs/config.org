@@ -219,7 +219,6 @@
    "" nil ; Remove default C-x keymap prefix
    "C-h" '(describe-function :wk "Describe function")
    "C-s" '(save-buffer :wk "Save buffer")
-   "C-f" '(find-file :wk "Find file")
    "C-c" (lambda () (interactive) (find-file "~/.config/emacs/config.org"))
    "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
 
