@@ -14,9 +14,8 @@
   - [[#setting-the-font-face][Setting the Font Face]]
 - [[#ui-configuration][UI Configuration]]
   - [[#better-defaults][Better defaults]]
-  - [[#all-the-icons][All-the-icons]]
   - [[#color-theme][Color Theme]]
-  - [[#better-modeline][Better Modeline]]
+  - [[#doom-modeline-and-all-the-icons][Doom-Modeline and All-the-icons]]
   - [[#which-key][Which-Key]]
 - [[#ivy-counsel][IVY (Counsel)]]
 - [[#org-mode][Org Mode]]
@@ -219,8 +218,8 @@
    :prefix "C-x"
    :states '(normal insert visual emacs)
    "" nil ; Remove default C-x keymap prefix
-   "C-h" '(describe-function :wk "Describe function")
    "C-s" '(save-buffer :wk "Save buffer")
+   "c" '(counsel-recentf :wk "Find recent files")
    "C-c" (lambda () (interactive) (find-file "~/.config/emacs/config.org"))
    "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
 
@@ -323,18 +322,6 @@
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 #+end_src
 
-** All-the-icons
-This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
-
-#+begin_src emacs-lisp
-(use-package all-the-icons
-  :ensure t
-  :if (display-graphic-p))
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
-#+end_src
-
 ** Color Theme
 Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][screenshots]] might help you decide which one you like best. You can run =M-x counsel-load-theme= to choose between them easily.
 
@@ -343,11 +330,14 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
   :init (load-theme 'doom-vibrant t))
 #+end_src
 
-** Better Modeline
+** Doom-Modeline and All-the-icons
+This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs. 
 *NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
 
 #+begin_src emacs-lisp
 (use-package all-the-icons)
+  :ensure t
+  :if (display-graphic-p)
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
