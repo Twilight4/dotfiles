@@ -11,22 +11,27 @@ The world's greatest programmer once said:
 #+end_quote
 
 * Table of Contents :toc:
-- [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
-- [[#wip][WIP]]
 - [[#essential-keybindings][Essential Keybindings]]
-  - [[#help-pages][Help pages]]
+  - [[#keybindings-without-prefix-key][Keybindings without prefix key]]
+  - [[#common-keybindings][Common keybindings]]
+- [[#file-search][File Search]]
+  - [[#open-specific-files][Open specific files]]
 - [[#navigation][Navigation]]
+  - [[#window-splits][Window Splits]]
+  - [[#window-movement][Window Movement]]
+- [[#other][Other]]
+  - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
+  - [[#help-pages][Help pages]]
+  - [[#line-settings][Line settings]]
   - [[#buffer-management][Buffer Management]]
-  - [[#window-management][Window Management]]
+- [[#wip][WIP]]
   - [[#workspace-management][Workspace Management]]
   - [[#bookmark-management][Bookmark Management]]
   - [[#ibuffer-mode][Ibuffer mode]]
   - [[#perspective][Perspective]]
   - [[#registers][Registers]]
-- [[#file-search][File Search]]
+- [[#file-search-1][File Search]]
   - [[#general-file-search][General file search]]
-  - [[#open-specific-files][Open specific files]]
-- [[#line-settings][Line settings]]
 - [[#org-mode][Org Mode]]
   - [[#org-mode-basics][Org mode basics]]
   - [[#org-roam][Org-Roam]]
@@ -43,8 +48,47 @@ The world's greatest programmer once said:
   - [[#git-diffs][Git diffs]]
   - [[#literate-programming][Literate programming]]
 
-* Source Code Block Tag Expansion
+* Essential Keybindings
+** Keybindings without prefix key
+| Keybinding | Description          |
+|------------+----------------------|
+| C-h/j/k/l  | Switch window focus  |
+| C-=/-      | Zoom In/Out          |
+| M-p/n      | Buffer Previous/Next |
 
+** Common keybindings
+| KEYBINDING | DESCRIPTION             |
+|------------+-------------------------|
+| SPC .      | Create or find file     |
+| C-x c      | Recently opened files   |
+| C-x C-s    | Save the current buffer |
+| C-x C-r    | Reload emacs            |
+
+* File Search
+** Open specific files
+| KEYBINDING | DESCRIPTION      |
+|------------+------------------|
+| C-x C-c    | Edit config file |
+
+* Navigation
+** Window Splits
+| KEYBINDING | DESCRIPTION             |
+|------------+-------------------------|
+| C-z C-c    | Close window            |
+| C-z C-n    | New window              |
+| C-z C-s    | Horizontal split window |
+| C-z C-v    | Vertical split window   |
+
+** Window Movement
+| KEYBINDING | DESCRIPTION       |
+|------------+-------------------|
+| C-z C-h    | Move window left  |
+| C-z C-j    | Move window down  |
+| C-z C-k    | Move window up    |
+| C-z C-l    | Move window right |
+
+* Other
+** Source Code Block Tag Expansion
 | Typing the below + TAB | Expands to ...                          |
 |------------------------+-----------------------------------------|
 | <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
@@ -58,51 +102,30 @@ The world's greatest programmer once said:
 | <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
 | <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
 
+** Help pages
+| KEYBINDING | DESCRIPTION       |
+|------------+-------------------|
+| SPC h f    | Describe function |
+| SPC h v    | Describe variable |
 
+** Line settings
+| KEYBINDING | DESCRIPTION                |
+|------------+----------------------------|
+| SPC TAB    | Comment or uncomment lines |
+| SPC t l    | Toggle line numbers        |
+| SPC t t    | Toggle truncate lines      |
+
+** Buffer Management
+| KEYBINDING | DESCRIPTION      |
+|------------+------------------|
+| SPC b b    | Switch buffer    |
+| SPC b i    | Ibuffer          |
+| SPC b k    | Kill this buffer |
+| SPC b n    | Buffer next      |
+| SPC b p    | Buffer previous  |
+| SPC b r    | Reload buffer    |
 
 * WIP
-* Essential Keybindings
-| KEYBINDING | DESCRIPTION           |
-|------------+-----------------------|
-| SPC .      | Create or find file   |
-| SPC f s    | Save the current file |
-| SPC f D    | Delete this file      |
-| SPC h r r  | Reload emacs          |
-| SPC q q    | Close emacs           |
-| SPC h t    | Change theme          |
-| SPC h d h  | Open documentation    |
-
-** Help pages
-| KEYBINDING | DESCRIPTION                                                |
-|------------+------------------------------------------------------------|
-| SPC h k    | tells you how key combinations translate to Emacs commands |
-| SPC h w    | helps you find keyboard shortcuts for different commands   |
-| SPC h v    | lets you see what’s inside variables and change them       |
-| SPC h f    | tells you about functions and where they are define        |
-
-* TODO Navigation
-** TODO Buffer Management
-| KEYBINDING | DESCRIPTION                 |
-|------------+-----------------------------|
-| SPC b b    | Open another buffer         |
-| SPC ,      | Switch to buffer            |
-| SPC b B    | See all buffers             |
-| SPC S-,    | Switch and show all buffers |
-| SPC b X    | Create a scratch buffer     |
-| SPC b s    | Save a buffer and name it   |
-| SPC b p    | Buffer previous             |
-| SPC b n    | Buffer next                 |
-
-** TODO Window Management
-| KEYBINDING  | DESCRIPTION                        |
-|-------------+------------------------------------|
-| C-S-n       | Split window vertically            |
-| SPC w s     | Split window horizontally          |
-| C-h/k/l     | Switch to window (C-j is new line) |
-| SPC C-h/k/l | Move window left/down/up/right     |
-| C-S-w       | Close window                       |
-| resize mode | Enter resize mode                  |
-
 ** TODO Workspace Management
 | KEYBINDING | DESCRIPTION                 |
 |------------+-----------------------------|
@@ -167,31 +190,10 @@ The world's greatest programmer once said:
 ** General file search
 | KEYBINDING | DESCRIPTION                         |
 |------------+-------------------------------------|
-| SPC .      | Create or find file                 |
-| SPC f r    | Recently opened files               |
 | SPC p r    | Recently visited files in a project |
 | SPC p p    | Open a project                      |
 | SPC SPC    | Open a file in a project            |
 
-** TODO Open specific files
-| KEYBINDING | DESCRIPTION            |
-|------------+------------------------|
-| SPC f p    | Open config directory  |
-| SPC = r    | Edit repeaters.org     |
-| SPC = a    | Edit agenda file       |
-| SPC = c    | Edit doom config.org   |
-| SPC = s    | Edit emacs cheatsheet  |
-| SPC = i    | Edit inbox.org         |
-| SPC = p    | Edit doom projects.org |
-
-* Line settings
-| KEYBINDING  | DESCRIPTION                               |
-|-------------+-------------------------------------------|
-| SPC TAB TAB | Comment or uncomment lines                |
-| SPC t h     | Toggle line highlighting in current frame |
-| SPC t H     | Toggle line highlighting globally         |
-| SPC t l     | Toggle line numbers                       |
-| SPC t t     | Toggle truncate lines                     |
 
 * TODO Org Mode
 ** Org mode basics
