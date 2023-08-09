@@ -20,6 +20,7 @@
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
 - [[#buffer-move][Buffer-move]]
+- [[#neotree][Neotree]]
 - [[#dired][Dired]]
 - [[#ivy-counsel][IVY (Counsel)]]
 - [[#org-mode][Org Mode]]
@@ -258,6 +259,8 @@
  "C-o" '(org-todo :wk "Org todo")
  "C-b" '(org-babel-tangle :wk "Org babel tangle")
  "o" '(org-todo-list :wk "Org todo list")
+ ;; Neotree
+ "n" '(neotree-toggle :wk "Toggle neotree file viewer")
 
 ;; Set up 'SPC' as another global leader key
 (general-create-definer tl/leader-keys
@@ -287,7 +290,8 @@
   (tl/leader-keys
     "t" '(:ignore t :wk "Toggle")
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines"))
+    "t t" '(visual-line-mode :wk "Toggle truncated lines")
+    "t n" '(neotree-toggle :wk "Toggle neotree file viewer"))
 
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
@@ -517,6 +521,29 @@ one, an error is signaled."
       ;; move this one to top
       (set-window-buffer other-win buf-this-buf)
       (select-window other-win))))
+#+end_src
+
+* Neotree
+When you open neotree, it jumps to the current file thanks to neo-smart-open. The neo-window-fixed-size setting makes the neotree width be adjustable. NeoTree provides following themes: classic, ascii, arrow, icons, and nerd. Theme can be configed by setting “two” themes for neo-theme: one for the GUI and one for the terminal.
+
+#+begin_src emacs-lisp
+(use-package neotree
+  :config
+  (setq neo-smart-open t
+        neo-show-hidden-files t
+        neo-window-width 55
+        neo-window-fixed-size nil
+        inhibit-compacting-font-caches t
+        projectile-switch-project-action 'neotree-projectile-action) 
+        ;; truncate long file names in neotree
+        (add-hook 'neo-after-create-hook
+           #'(lambda (_)
+               (with-current-buffer (get-buffer neo-buffer-name)
+                 (setq truncate-lines t)
+                 (setq word-wrap nil)
+                 (make-local-variable 'auto-hscroll-mode)
+                 (setq auto-hscroll-mode nil)))))
+
 #+end_src
 
 * Dired
