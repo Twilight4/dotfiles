@@ -250,6 +250,8 @@
  "C-o" '(org-todo :wk "Org todo")
  "C-b" '(org-babel-tangle :wk "Org babel tangle")
  "o" '(org-todo-list :wk "Org todo list")
+ "-" '(org-table-insert-hline :wk "Insert hline in table")
+ "t" '(org-time-stamp :wk "Org time stamp")
  ;; Window splits
  "C-c" '(evil-window-delete :wk "Close window")
  "C-n" '(evil-window-new :wk "New window")
