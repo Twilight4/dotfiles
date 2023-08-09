@@ -11,6 +11,8 @@ The world's greatest programmer once said:
 #+end_quote
 
 * Table of Contents :toc:
+- [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
+- [[#wip][WIP]]
 - [[#essential-keybindings][Essential Keybindings]]
   - [[#help-pages][Help pages]]
 - [[#navigation][Navigation]]
@@ -41,6 +43,24 @@ The world's greatest programmer once said:
   - [[#git-diffs][Git diffs]]
   - [[#literate-programming][Literate programming]]
 
+* Source Code Block Tag Expansion
+
+| Typing the below + TAB | Expands to ...                          |
+|------------------------+-----------------------------------------|
+| <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
+| <c                     | '#+BEGIN_CENTER' … '#+END_CENTER'       |
+| <C                     | '#+BEGIN_COMMENT' … '#+END_COMMENT'     |
+| <e                     | '#+BEGIN_EXAMPLE' … '#+END_EXAMPLE'     |
+| <E                     | '#+BEGIN_EXPORT' … '#+END_EXPORT'       |
+| <h                     | '#+BEGIN_EXPORT html' … '#+END_EXPORT'  |
+| <l                     | '#+BEGIN_EXPORT latex' … '#+END_EXPORT' |
+| <q                     | '#+BEGIN_QUOTE' … '#+END_QUOTE'         |
+| <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
+| <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
+
+
+
+* WIP
 * Essential Keybindings
 | KEYBINDING | DESCRIPTION           |
 |------------+-----------------------|
