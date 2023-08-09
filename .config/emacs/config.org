@@ -332,7 +332,9 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 
 ** Doom-Modeline and All-the-icons
 This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs. 
-*NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
+*NOTE*: The first time you load your configuration on a new machine, 
+you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons 
+display correctly.
 
 #+begin_src emacs-lisp
 (use-package all-the-icons)
