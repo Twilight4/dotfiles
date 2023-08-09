@@ -17,6 +17,7 @@
   - [[#color-theme][Color Theme]]
   - [[#better-modeline][Better Modeline]]
   - [[#which-key][Which-Key]]
+- [[#ivy-counsel][IVY (Counsel)]]
 - [[#org-mode][Org Mode]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -358,6 +359,41 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 	  which-key-max-description-length 25
 	  which-key-allow-imprecise-window-fit t
 	  which-key-separator " → " ))
+#+end_src
+
+* IVY (Counsel)
+- Ivy, a generic completion mechanism for Emacs.
+- Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
+- Ivy-rich allows us to add descriptions alongside the commands in =M-x=.
+
+#+begin_src emacs-lisp
+ (use-package counsel
+  :after ivy
+  :config (counsel-mode))
+
+(use-package ivy
+  :custom
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq enable-recursive-minibuffers t)
+  :config
+  (ivy-mode))
+
+(use-package all-the-icons-ivy-rich
+  :ensure t
+  :init (all-the-icons-ivy-rich-mode 1))
+
+(use-package ivy-rich
+  :after ivy
+  :ensure t
+  :init (ivy-rich-mode 1) ;; this gets us descriptions in M-x.
+  :custom
+  (ivy-virtual-abbreviate 'full
+   ivy-rich-switch-buffer-align-virtual-buffer t
+   ivy-rich-path-style 'abbrev)
+  :config
+  (ivy-set-display-transformer 'ivy-switch-buffer
+                               'ivy-rich-switch-buffer-transformer)) 
 #+end_src
 
 * Org Mode
