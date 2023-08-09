@@ -31,52 +31,52 @@
 ** Elpaca Package Manager
 
 #+begin_src emacs-lisp
-  (defvar elpaca-installer-version 0.5)
-  (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
-  (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-  (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
-  (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                                :ref nil
-                                :files (:defaults (:exclude "extensions"))
-                                :build (:not elpaca--activate-package)))
-  (let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
-         (build (expand-file-name "elpaca/" elpaca-builds-directory))
-         (order (cdr elpaca-order))
-         (default-directory repo))
-    (add-to-list 'load-path (if (file-exists-p build) build repo))
-    (unless (file-exists-p repo)
-      (make-directory repo t)
-      (when (< emacs-major-version 28) (require 'subr-x))
-      (condition-case-unless-debug err
-          (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                   ((zerop (call-process "git" nil buffer t "clone"
-                                         (plist-get order :repo) repo)))
-                   ((zerop (call-process "git" nil buffer t "checkout"
-                                         (or (plist-get order :ref) "--"))))
-                   (emacs (concat invocation-directory invocation-name))
-                   ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                         "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                   ((require 'elpaca))
-                   ((elpaca-generate-autoloads "elpaca" repo)))
-              (progn (message "%s" (buffer-string)) (kill-buffer buffer))
-            (error "%s" (with-current-buffer buffer (buffer-string))))
-        ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-    (unless (require 'elpaca-autoloads nil t)
-      (require 'elpaca)
-      (elpaca-generate-autoloads "elpaca" repo)
-      (load "./elpaca-autoloads")))
-  (add-hook 'after-init-hook #'elpaca-process-queues)
-  (elpaca `(,@elpaca-order))
+(defvar elpaca-installer-version 0.5)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil
+                              :files (:defaults (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (< emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                 ((zerop (call-process "git" nil buffer t "clone"
+                                       (plist-get order :repo) repo)))
+                 ((zerop (call-process "git" nil buffer t "checkout"
+                                       (or (plist-get order :ref) "--"))))
+                 (emacs (concat invocation-directory invocation-name))
+                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                 ((require 'elpaca))
+                 ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
 
-  ;; Install use-package support
-  (elpaca elpaca-use-package
-    ;; Enable :elpaca use-package keyword.
-    (elpaca-use-package-mode)
-    ;; Assume :elpaca t unless otherwise specified.
-    (setq elpaca-use-package-by-default t))
+;; Install use-package support
+(elpaca elpaca-use-package
+  ;; Enable :elpaca use-package keyword.
+  (elpaca-use-package-mode)
+  ;; Assume :elpaca t unless otherwise specified.
+  (setq elpaca-use-package-by-default t))
 
-  ;; Block until current queue processed.
-  (elpaca-wait)
+;; Block until current queue processed.
+(elpaca-wait)
 #+end_src
 
 ** Evil Mode
@@ -101,188 +101,198 @@
 ** Global Keybindings
 
 #+begin_src emacs-lisp
-    ;; Make ESC quit prompts
-    (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-    ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
-    ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
-    (define-key global-map (kbd "C-x") (make-sparse-keymap))
-    (define-key global-map (kbd "C-x C-n") (make-sparse-keymap))
-    (define-key global-map (kbd "C-x n") (make-sparse-keymap))
-    (global-unset-key (kbd "C-x n"))
-    (global-unset-key (kbd "C-x C-n"))
+;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
+;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
+(define-key global-map (kbd "C-x") (make-sparse-keymap))
+(define-key global-map (kbd "C-x C-n") (make-sparse-keymap))
+(define-key global-map (kbd "C-x n") (make-sparse-keymap))
+(global-unset-key (kbd "C-x n"))
+(global-unset-key (kbd "C-x C-n"))
 
-    ;; Custom keybindings without leader key
-    ;; Buffer previous/next
-    (global-set-key (kbd "M-n") 'next-buffer)
-    (global-set-key (kbd "M-p") 'previous-buffer)
-    ;; Window motions
-    (global-set-key (kbd "C-h") 'evil-window-left)
-    (global-set-key (kbd "C-j") 'evil-window-down)
-    (global-set-key (kbd "C-k") 'evil-window-up)
-    (global-set-key (kbd "C-l") 'evil-window-right)
-    ;; Zoom In/Out
-    (global-set-key (kbd "C-=") 'text-scale-increase)
-    (global-set-key (kbd "C--") 'text-scale-decrease)
-    (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
-    (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+;; Custom keybindings without leader key
+;; Buffer previous/next
+(global-set-key (kbd "M-n") 'next-buffer)
+(global-set-key (kbd "M-p") 'previous-buffer)
+;; Window motions
+(global-set-key (kbd "C-h") 'evil-window-left)
+(global-set-key (kbd "C-j") 'evil-window-down)
+(global-set-key (kbd "C-k") 'evil-window-up)
+(global-set-key (kbd "C-l") 'evil-window-right)
+;; Zoom In/Out
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+;; Org
 
-    ;; You can also disable default C-x keybindings individually
-    ;;(global-unset-key (kbd "C-x ESC"))
-    ;;(global-unset-key (kbd "C-x TAB"))
-    ;;(global-unset-key (kbd "C-x DEL"))
-    ;;(global-unset-key (kbd "C-x SPC"))
-    ;;(global-unset-key (kbd "C-x RET"))
-    ;;(global-unset-key (kbd "C-x $"))
-    ;;(global-unset-key (kbd "C-x '"))
-    ;;(global-unset-key (kbd "C-x ("))
-    ;;(global-unset-key (kbd "C-x )"))
-    ;;(global-unset-key (kbd "C-x *"))
-    ;;(global-unset-key (kbd "C-x +"))
-    ;;(global-unset-key (kbd "C-x -"))
-    ;;(global-unset-key (kbd "C-x ."))
-    ;;(global-unset-key (kbd "C-x 0"))
-    ;;(global-unset-key (kbd "C-x 1"))
-    ;;(global-unset-key (kbd "C-x 2"))
-    ;;(global-unset-key (kbd "C-x 3"))
-    ;;(global-unset-key (kbd "C-x 4"))
-    ;;(global-unset-key (kbd "C-x 5"))
-    ;;(global-unset-key (kbd "C-x 6"))
-    ;;(global-unset-key (kbd "C-x 8"))
-    ;;(global-unset-key (kbd "C-x ;"))
-    ;;(global-unset-key (kbd "C-x <"))
-    ;;(global-unset-key (kbd "C-x ="))
-    ;;(global-unset-key (kbd "C-x >"))
-    ;;(global-unset-key (kbd "C-x ["))
-    ;;(global-unset-key (kbd "C-x ]"))
-    ;;(global-unset-key (kbd "C-x ^"))
-    ;;(global-unset-key (kbd "C-x `"))
-    ;;(global-unset-key (kbd "C-x a"))
-    ;;(global-unset-key (kbd "C-x d"))
-    ;;(global-unset-key (kbd "C-x e"))
-    ;;(global-unset-key (kbd "C-x f"))
-    ;;(global-unset-key (kbd "C-x h"))
-    ;;(global-unset-key (kbd "C-x i"))
-    ;;(global-unset-key (kbd "C-x k"))
-    ;;(global-unset-key (kbd "C-x l"))
-    ;;(global-unset-key (kbd "C-x o"))
-    ;;(global-unset-key (kbd "C-x p"))
-    ;;(global-unset-key (kbd "C-x q"))
-    ;;(global-unset-key (kbd "C-x f"))
-    ;;(global-unset-key (kbd "C-x b"))
-    ;;(global-unset-key (kbd "C-x m"))
-    ;;(global-unset-key (kbd "C-x z"))
-    ;;(global-unset-key (kbd "C-x r"))
-    ;;(global-unset-key (kbd "C-x s"))
-    ;;(global-unset-key (kbd "C-x t"))
-    ;;(global-unset-key (kbd "C-x u"))
-    ;;(global-unset-key (kbd "C-x v"))
-    ;;(global-unset-key (kbd "C-x w"))
-    ;;(global-unset-key (kbd "C-x x"))
-    ;;(global-unset-key (kbd "C-x \\"))
-    ;;(global-unset-key (kbd "C-x {"))
-    ;;(global-unset-key (kbd "C-x }"))
-    ;;(global-unset-key (kbd "C-x C-SPC"))
-    ;;(global-unset-key (kbd "C-x C-+"))
-    ;;(global-unset-key (kbd "C-x C--"))
-    ;;(global-unset-key (kbd "C-x C-0"))
-    ;;(global-unset-key (kbd "C-x C-;"))
-    ;;(global-unset-key (kbd "C-x C-="))
-    ;;(global-unset-key (kbd "C-x C-@"))
-    ;;(global-unset-key (kbd "C-x C-b"))
-    ;;(global-unset-key (kbd "C-x C-c"))
-    ;;(global-unset-key (kbd "C-x C-j"))
-    ;;(global-unset-key (kbd "C-x C-k"))
-    ;;(global-unset-key (kbd "C-x C-l"))
-    ;;(global-unset-key (kbd "C-x C-f"))
-    ;;(global-unset-key (kbd "C-x C-o"))
-    ;;(global-unset-key (kbd "C-x C-s"))
-    ;;(global-unset-key (kbd "C-x C-p"))
-    ;;(global-unset-key (kbd "C-x C-q"))
-    ;;(global-unset-key (kbd "C-x C-r"))
-    ;;(global-unset-key (kbd "C-x C-d"))
-    ;;(global-unset-key (kbd "C-x C-t"))
-    ;;(global-unset-key (kbd "C-x C-u"))
-    ;;(global-unset-key (kbd "C-x C-v"))
-    ;;(global-unset-key (kbd "C-x C-w"))
-    ;;(global-unset-key (kbd "C-x C-x"))
-    ;;(global-unset-key (kbd "C-x C-z"))
-    ;;(global-unset-key (kbd "C-x C-e"))
-    ;;(global-unset-key (kbd "C-x C-<right>"))
-    ;;(global-unset-key (kbd "C-x C-<left>"))
-    ;;(global-unset-key (kbd "C-x <right>"))
-    ;;(global-unset-key (kbd "C-x <left>"))
+;; You can also disable default C-x keybindings individually
+;;(global-unset-key (kbd "C-x ESC"))
+;;(global-unset-key (kbd "C-x TAB"))
+;;(global-unset-key (kbd "C-x DEL"))
+;;(global-unset-key (kbd "C-x SPC"))
+;;(global-unset-key (kbd "C-x RET"))
+;;(global-unset-key (kbd "C-x $"))
+;;(global-unset-key (kbd "C-x '"))
+;;(global-unset-key (kbd "C-x ("))
+;;(global-unset-key (kbd "C-x )"))
+;;(global-unset-key (kbd "C-x *"))
+;;(global-unset-key (kbd "C-x +"))
+;;(global-unset-key (kbd "C-x -"))
+;;(global-unset-key (kbd "C-x ."))
+;;(global-unset-key (kbd "C-x 0"))
+;;(global-unset-key (kbd "C-x 1"))
+;;(global-unset-key (kbd "C-x 2"))
+;;(global-unset-key (kbd "C-x 3"))
+;;(global-unset-key (kbd "C-x 4"))
+;;(global-unset-key (kbd "C-x 5"))
+;;(global-unset-key (kbd "C-x 6"))
+;;(global-unset-key (kbd "C-x 8"))
+;;(global-unset-key (kbd "C-x ;"))
+;;(global-unset-key (kbd "C-x <"))
+;;(global-unset-key (kbd "C-x ="))
+;;(global-unset-key (kbd "C-x >"))
+;;(global-unset-key (kbd "C-x ["))
+;;(global-unset-key (kbd "C-x ]"))
+;;(global-unset-key (kbd "C-x ^"))
+;;(global-unset-key (kbd "C-x `"))
+;;(global-unset-key (kbd "C-x a"))
+;;(global-unset-key (kbd "C-x d"))
+;;(global-unset-key (kbd "C-x e"))
+;;(global-unset-key (kbd "C-x f"))
+;;(global-unset-key (kbd "C-x h"))
+;;(global-unset-key (kbd "C-x i"))
+;;(global-unset-key (kbd "C-x k"))
+;;(global-unset-key (kbd "C-x l"))
+;;(global-unset-key (kbd "C-x o"))
+;;(global-unset-key (kbd "C-x p"))
+;;(global-unset-key (kbd "C-x q"))
+;;(global-unset-key (kbd "C-x f"))
+;;(global-unset-key (kbd "C-x b"))
+;;(global-unset-key (kbd "C-x m"))
+;;(global-unset-key (kbd "C-x z"))
+;;(global-unset-key (kbd "C-x r"))
+;;(global-unset-key (kbd "C-x s"))
+;;(global-unset-key (kbd "C-x t"))
+;;(global-unset-key (kbd "C-x u"))
+;;(global-unset-key (kbd "C-x v"))
+;;(global-unset-key (kbd "C-x w"))
+;;(global-unset-key (kbd "C-x x"))
+;;(global-unset-key (kbd "C-x \\"))
+;;(global-unset-key (kbd "C-x {"))
+;;(global-unset-key (kbd "C-x }"))
+;;(global-unset-key (kbd "C-x C-SPC"))
+;;(global-unset-key (kbd "C-x C-+"))
+;;(global-unset-key (kbd "C-x C--"))
+;;(global-unset-key (kbd "C-x C-0"))
+;;(global-unset-key (kbd "C-x C-;"))
+;;(global-unset-key (kbd "C-x C-="))
+;;(global-unset-key (kbd "C-x C-@"))
+;;(global-unset-key (kbd "C-x C-b"))
+;;(global-unset-key (kbd "C-x C-c"))
+;;(global-unset-key (kbd "C-x C-j"))
+;;(global-unset-key (kbd "C-x C-k"))
+;;(global-unset-key (kbd "C-x C-l"))
+;;(global-unset-key (kbd "C-x C-f"))
+;;(global-unset-key (kbd "C-x C-o"))
+;;(global-unset-key (kbd "C-x C-s"))
+;;(global-unset-key (kbd "C-x C-p"))
+;;(global-unset-key (kbd "C-x C-q"))
+;;(global-unset-key (kbd "C-x C-r"))
+;;(global-unset-key (kbd "C-x C-d"))
+;;(global-unset-key (kbd "C-x C-t"))
+;;(global-unset-key (kbd "C-x C-u"))
+;;(global-unset-key (kbd "C-x C-v"))
+;;(global-unset-key (kbd "C-x C-w"))
+;;(global-unset-key (kbd "C-x C-x"))
+;;(global-unset-key (kbd "C-x C-z"))
+;;(global-unset-key (kbd "C-x C-e"))
+;;(global-unset-key (kbd "C-x C-<right>"))
+;;(global-unset-key (kbd "C-x C-<left>"))
+;;(global-unset-key (kbd "C-x <right>"))
+;;(global-unset-key (kbd "C-x <left>"))
 #+end_src
 
 ** General Keybindings
 
 #+begin_src emacs-lisp
-  (use-package general
-    :config
-    (general-evil-setup)
+(use-package general
+  :config
+  (general-evil-setup)
 
-  ;; Set up 'C-x' as the global leader key
-  (general-define-key
-   :prefix "C-x"
-   :states '(normal insert visual emacs)
-   "" nil ; Remove default C-x keymap prefix
-   "C-s" '(save-buffer :wk "Save buffer")
-   "c" '(counsel-recentf :wk "Find recent files")
-   "C-c" (lambda () (interactive) (find-file "~/.config/emacs/config.org"))
-   "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
+;; Set up 'C-x' as the global leader key
+(general-define-key
+ :prefix "C-x"
+ :states '(normal insert visual emacs)
+ "" nil ; Remove default C-x keymap prefix
+ "C-s" '(save-buffer :wk "Save buffer")
+ "c" '(counsel-recentf :wk "Find recent files")
+ "C-c" (lambda () (interactive) (find-file "~/.config/emacs/config.org"))
+ "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
 
-  (which-key-add-key-based-replacements "C-x C-c" "Edit Config"
-                                        "C-x C-r" "Reload Emacs")
+(which-key-add-key-based-replacements "C-x C-c" "Edit Config"
+                                      "C-x C-r" "Reload Emacs")
 
-  ;; Set up 'C-z' as another global leader key
-  (general-define-key
-   :prefix "C-z"
-   :states '(normal insert visual emacs)
-   "" nil ; Remove default C-z keymap prefix
-   ;; Window splits
-   "C-c" '(evil-window-delete :wk "Close window")
-   "C-n" '(evil-window-new :wk "New window")
-   "C-s" '(evil-window-split :wk "Horizontal split window")
-   "C-v" '(evil-window-vsplit :wk "Vertical split window")
-   ;; Move Windows
-   "C-h" '(buf-move-left :wk "Buffer move left")
-   "C-j" '(buf-move-down :wk "Buffer move down")
-   "C-k" '(buf-move-up :wk "Buffer move up")
-   "C-l" '(buf-move-right :wk "Buffer move right"))
+;; Set up 'C-z' as another global leader key
+(general-define-key
+ :prefix "C-z"
+ :states '(normal insert visual emacs)
+ "" nil ; Remove default C-z keymap prefix
+ ;; Window splits
+ "C-c" '(evil-window-delete :wk "Close window")
+ "C-n" '(evil-window-new :wk "New window")
+ "C-s" '(evil-window-split :wk "Horizontal split window")
+ "C-v" '(evil-window-vsplit :wk "Vertical split window")
+ ;; Move Windows
+ "C-h" '(buf-move-left :wk "Buffer move left")
+ "C-j" '(buf-move-down :wk "Buffer move down")
+ "C-k" '(buf-move-up :wk "Buffer move up")
+ "C-l" '(buf-move-right :wk "Buffer move right"))
 
-  ;; Set up 'SPC' as another global leader key
-  (general-create-definer tl/leader-keys
-    :states '(normal insert visual emacs)
-    :keymaps 'override
-    :prefix "SPC" ;; Set leader
-    :global-prefix "M-SPC") ;; Access leader in insert mode
+;; Set up 'SPC' as another global leader key
+(general-create-definer tl/leader-keys
+  :states '(normal insert visual emacs)
+  :keymaps 'override
+  :prefix "SPC" ;; Set leader
+  :global-prefix "M-SPC") ;; Access leader in insert mode
 
-    (tl/leader-keys
-      "." '(find-file :wk "Find file")
-      "TAB" '(comment-line :wk "Comment lines"))
+  (tl/leader-keys
+    "." '(find-file :wk "Find file")
+    "TAB" '(comment-line :wk "Comment lines"))
 
-    (tl/leader-keys
-      "p" '(projectile-command-map :wk "Projectile"))
+  (tl/leader-keys
+    "p" '(projectile-command-map :wk "Projectile"))
 
-    (tl/leader-keys
-      "b" '(:ignore t :wk "Buffer")
-      "b b" '(switch-to-buffer :wk "Switch buffer")
-      "b i" '(ibuffer :wk "Ibuffer")
-      "b k" '(kill-this-buffer :wk "Kill this buffer")
-      "b n" '(next-buffer :wk "Next buffer")
-      "b p" '(previous-buffer :wk "Previous buffer")
-      "b r" '(revert-buffer :wk "Reload buffer"))
+  (tl/leader-keys
+    "b" '(:ignore t :wk "Buffer")
+    "b b" '(switch-to-buffer :wk "Switch buffer")
+    "b i" '(ibuffer :wk "Ibuffer")
+    "b k" '(kill-this-buffer :wk "Kill this buffer")
+    "b n" '(next-buffer :wk "Next buffer")
+    "b p" '(previous-buffer :wk "Previous buffer")
+    "b r" '(revert-buffer :wk "Reload buffer"))
 
-    (tl/leader-keys
-      "h" '(:ignote t :wk "Help")
-      "h f" '(describe-function :wk "Describe function")
-      "h v" '(describe-variable :wk "Describe variable"))
+  (tl/leader-keys
+    "h" '(:ignote t :wk "Help")
+    "h f" '(describe-function :wk "Describe function")
+    "h v" '(describe-variable :wk "Describe variable"))
 
-    (tl/leader-keys
-      "t" '(:ignote t :wk "Toggle")
-      "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-      "t t" '(visual-line-mode :wk "Toggle truncated lines"))
-  )
+  (tl/leader-keys
+    "t" '(:ignote t :wk "Toggle")
+    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+    "t t" '(visual-line-mode :wk "Toggle truncated lines"))
+
+  (tl/leader-keys
+    "m" '(:ignore t :wk "Org")
+    "m a" '(org-agenda :wk "Org agenda")
+    "m e" '(org-export-dispatch :wk "Org export dispatch")
+    "m i" '(org-toggle-item :wk "Org toggle item")
+    "m t" '(org-todo :wk "Org todo")
+    "m B" '(org-babel-tangle :wk "Org babel tangle")
+    "m T" '(org-todo-list :wk "Org todo list"))
+)
 #+end_src
 
 * Fonts
@@ -362,16 +372,16 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
 *NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
 
 #+begin_src emacs-lisp
-  (use-package all-the-icons)
-    :ensure t
-    :if (display-graphic-p)
+(use-package all-the-icons)
+  :ensure t
+  :if (display-graphic-p)
 
-  (use-package all-the-icons-dired
-    :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
-  
-  (use-package doom-modeline
-    :init (doom-modeline-mode 1)
-    :custom ((doom-modeline-height 15)))
+(use-package all-the-icons-dired
+  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 15)))
 #+end_src
 
 ** Which-Key
