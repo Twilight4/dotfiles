@@ -622,7 +622,6 @@ When you open neotree, it jumps to the current file thanks to neo-smart-open. Th
 
 ** Disable Electric Indent
 Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior.
-Disabling Org defaults to indenting 2 spaces in source blocks.
 
 #+begin_src emacs-lisp
 (electric-indent-mode -1)
