@@ -232,6 +232,7 @@
  ;; Common keybindings
  "C-s" '(save-buffer :wk "Save buffer")
  "c" '(counsel-recentf :wk "Find recent files")
+ "C-n" '(neotree-toggle :wk "Toggle neotree")
  "C-c" (lambda () (interactive) (find-file "~/.config/emacs/config.org"))
  "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
 
@@ -243,6 +244,12 @@
  :prefix "C-z"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-z keymap prefix
+ ;; Org Mode
+ "C-a" '(org-agenda :wk "Org agenda")
+ "C-i" '(org-toggle-item :wk "Org toggle item")
+ "C-o" '(org-todo :wk "Org todo")
+ "C-b" '(org-babel-tangle :wk "Org babel tangle")
+ "o" '(org-todo-list :wk "Org todo list")
  ;; Window splits
  "C-c" '(evil-window-delete :wk "Close window")
  "C-n" '(evil-window-new :wk "New window")
@@ -253,14 +260,6 @@
  "C-j" '(buf-move-down :wk "Buffer move down")
  "C-k" '(buf-move-up :wk "Buffer move up")
  "C-l" '(buf-move-right :wk "Buffer move right"))
- ;; Org Mode
- "C-a" '(org-agenda :wk "Org agenda")
- "C-i" '(org-toggle-item :wk "Org toggle item")
- "C-o" '(org-todo :wk "Org todo")
- "C-b" '(org-babel-tangle :wk "Org babel tangle")
- "o" '(org-todo-list :wk "Org todo list")
- ;; Neotree
- "n" '(neotree-toggle :wk "Toggle neotree file viewer")
 
 ;; Set up 'SPC' as another global leader key
 (general-create-definer tl/leader-keys
@@ -290,8 +289,7 @@
   (tl/leader-keys
     "t" '(:ignore t :wk "Toggle")
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines")
-    "t n" '(neotree-toggle :wk "Toggle neotree file viewer"))
+    "t t" '(visual-line-mode :wk "Toggle truncated lines"))
 
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
