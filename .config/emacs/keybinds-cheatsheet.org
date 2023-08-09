@@ -57,7 +57,7 @@ The world's greatest programmer once said:
 | M-p/n      | Buffer Previous/Next |
 
 ** Common keybindings
-| KEYBINDING | DESCRIPTION             |
+| Keybinding | Description             |
 |------------+-------------------------|
 | SPC .      | Create or find file     |
 | C-x c      | Recently opened files   |
@@ -66,13 +66,13 @@ The world's greatest programmer once said:
 
 * File Search
 ** Open specific files
-| KEYBINDING | DESCRIPTION      |
+| Keybinding | Description      |
 |------------+------------------|
 | C-x C-c    | Edit config file |
 
 * Navigation
 ** Window Splits
-| KEYBINDING | DESCRIPTION             |
+| Keybinding | Description             |
 |------------+-------------------------|
 | C-z C-c    | Close window            |
 | C-z C-n    | New window              |
@@ -80,7 +80,7 @@ The world's greatest programmer once said:
 | C-z C-v    | Vertical split window   |
 
 ** Window Movement
-| KEYBINDING | DESCRIPTION       |
+| Keybinding | Description       |
 |------------+-------------------|
 | C-z C-h    | Move window left  |
 | C-z C-j    | Move window down  |
@@ -103,20 +103,20 @@ The world's greatest programmer once said:
 | <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
 
 ** Help pages
-| KEYBINDING | DESCRIPTION       |
+| Keybinding | Description       |
 |------------+-------------------|
 | SPC h f    | Describe function |
 | SPC h v    | Describe variable |
 
 ** Line settings
-| KEYBINDING | DESCRIPTION                |
+| Keybinding | Description                |
 |------------+----------------------------|
 | SPC TAB    | Comment or uncomment lines |
 | SPC t l    | Toggle line numbers        |
 | SPC t t    | Toggle truncate lines      |
 
 ** Buffer Management
-| KEYBINDING | DESCRIPTION      |
+| Keybinding | Description      |
 |------------+------------------|
 | SPC b b    | Switch buffer    |
 | SPC b i    | Ibuffer          |
@@ -127,7 +127,7 @@ The world's greatest programmer once said:
 
 * WIP
 ** TODO Workspace Management
-| KEYBINDING | DESCRIPTION                 |
+| Keybinding | Description                 |
 |------------+-----------------------------|
 | C-t        | New workspace               |
 | SPC TAB N  | New workspace and name it   |
@@ -138,7 +138,7 @@ The world's greatest programmer once said:
 | M-1/2/3/4  | Switch to workspace 1/2/3/4 |
 
 ** Bookmark Management
-| KEYBINDING | DESCRIPTION                            |
+| Keybinding | Description                            |
 |------------+----------------------------------------|
 | SPC b L    | List bookmarks                         |
 | SPC b m    | Set bookmark                           |
@@ -146,7 +146,7 @@ The world's greatest programmer once said:
 | SPC b w    | Save current bookmark to bookmark file |
 
 ** Ibuffer mode
-| KEYBINDING | DESCRIPTION                            |
+| Keybinding | Description                            |
 |------------+----------------------------------------|
 | m          | Mark the buffer                        |
 | u          | Unmark the buffer                      |
@@ -161,7 +161,7 @@ The world's greatest programmer once said:
 | g H        | Restore hidden buffers                 |
 
 ** Perspective
-| KEYBINDING | DESCRIPTION                         |
+| Keybinding | Description                         |
 |------------+-------------------------------------|
 | SPC DEL    | Switch to perspective NAME          |
 | SPC ,      | Switch to buffer in perspective     |
@@ -172,7 +172,7 @@ The world's greatest programmer once said:
 | SPC 0-9    | Switch to workspace n               |
 
 ** Registers
-| KEYBINDING | DESCRIPTION                      |
+| Keybinding | Description                      |
 |------------+----------------------------------|
 | SPC r c    | Copy to register                 |
 | SPC r f    | Frameset to register             |
@@ -188,7 +188,7 @@ The world's greatest programmer once said:
 
 * TODO File Search
 ** General file search
-| KEYBINDING | DESCRIPTION                         |
+| Keybinding | Description                         |
 |------------+-------------------------------------|
 | SPC p r    | Recently visited files in a project |
 | SPC p p    | Open a project                      |
@@ -197,7 +197,7 @@ The world's greatest programmer once said:
 
 * TODO Org Mode
 ** Org mode basics
-| KEYBINDING | DESCRIPTION                                        |
+| Keybinding | Description                                        |
 |------------+----------------------------------------------------|
 | SPC n      | Prefix for org keybinding                          |
 | SPC m h    | toggle heading                                     |
@@ -212,7 +212,7 @@ The world's greatest programmer once said:
 | g h/j/k/l  | Backward/forward/up/down heading                   |
 
 ** TODO Org-Roam
-| KEYBINDING | DESCRIPTION                        |
+| Keybinding | Description                        |
 |------------+------------------------------------|
 | SPC n r f  | Create/find new node               |
 | SPC n r i  | Insert link to other node          |
@@ -231,13 +231,13 @@ The world's greatest programmer once said:
 - You can add =::= to specify a heading or a line number
 - You can paste http links as well
 
-| KEYBINDING | DESCRIPTION               |
+| Keybinding | Description               |
 |------------+---------------------------|
 | SPC m l    | Add a link to an org page |
 | SPC m l f  | Insert file link          |
 
 ** Style formatting (visual mode)
-| KEYBINDING | DESCRIPTION |
+| Keybinding | Description |
 |------------+-------------|
 | m          | Bold        |
 | /          | Italic      |
@@ -246,7 +246,7 @@ The world's greatest programmer once said:
 ** Tables
 - To start a table just start typing: =| table | name | description=
 
-| KEYBINDING          | DESCRIPTION                                   |
+| Keybinding          | Description                                   |
 |---------------------+-----------------------------------------------|
 | TAB/S-Tab           | Forward/backward                              |
 | SPC m b -           | Make org table headline                       |
@@ -264,7 +264,7 @@ The world's greatest programmer once said:
 
 *** TODO Long distance navigation
 ** TODO Treemacs
-| KEYBINDING | DESCRIPTION       |
+| Keybinding | Description       |
 |------------+-------------------|
 | SPC o p    | Toggle on and off |
 
