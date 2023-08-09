@@ -7,7 +7,7 @@
 * Table of Contents :toc:
 - [[#programs-to-load-first][Programs to load first]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
-  - [[#load-evil-mode][Load Evil Mode]]
+  - [[#evil-mode][Evil Mode]]
   - [[#global-keybindings][Global Keybindings]]
   - [[#general-keybindings][General Keybindings]]
 - [[#fonts][Fonts]]
@@ -25,6 +25,7 @@
 
 * Programs to load first
 ** Elpaca Package Manager
+
 #+begin_src emacs-lisp
   (defvar elpaca-installer-version 0.5)
   (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -74,7 +75,8 @@
   (elpaca-wait)
 #+end_src
 
-** Load Evil Mode
+** Evil Mode
+
 #+begin_src emacs-lisp
 ;; Expands to: (elpaca evil (use-package evil :demand t))
 (use-package evil
@@ -93,6 +95,7 @@
 #+end_src
 
 ** Global Keybindings
+
 #+begin_src emacs-lisp
   ;; Make ESC quit prompts
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -203,6 +206,7 @@
 #+end_src
 
 ** General Keybindings
+
 #+begin_src emacs-lisp
   (use-package general
     :config
@@ -289,6 +293,7 @@
 
 * Better defaults
 ** Simple settings
+
 #+begin_src emacs-lisp
 (menu-bar-mode -1)                                ; Disable menubar
 (tool-bar-mode -1)                                ; Disable tool bar
@@ -337,6 +342,7 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 
 * Org Mode
 ** Enabling Table of Contents
+
 #+begin_src emacs-lisp
 (use-package toc-org
     :commands toc-org-enable
@@ -344,6 +350,7 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 #+end_src
 
 ** Enabling Org Bullets
+
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
@@ -358,13 +365,14 @@ Org mode source blocks have some really weird and annoying default indentation b
 #+end_src
 
 ** Source Code Block Tag Expansion
- Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
+Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
 (require 'org-tempo)
 #+end_src
 
 * Which-Key
+
 #+begin_src emacs-lisp
 (use-package which-key
   :init
