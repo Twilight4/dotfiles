@@ -101,8 +101,6 @@
 #+begin_src emacs-lisp
     ;; Make ESC quit prompts
     (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-    ;; Disable the default C-z keybind
-    (global-unset-key (kbd "C-z"))
 
     ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
     ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
@@ -121,10 +119,6 @@
     (global-set-key (kbd "C-j") 'evil-window-down)
     (global-set-key (kbd "C-k") 'evil-window-up)
     (global-set-key (kbd "C-l") 'evil-window-right)
-    ;"C-h" '(evil-window-left :wk "Window left")
-    ;"C-j" '(evil-window-down :wk "Window down")
-    ;"C-k" '(evil-window-up :wk "Window up")
-    ;"C-l" '(evil-window-right :wk "Window right")
     ;; Zoom In/Out
     (global-set-key (kbd "C-=") 'text-scale-increase)
     (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -238,7 +232,7 @@
   (which-key-add-key-based-replacements "C-x C-c" "Edit Config"
                                         "C-x C-r" "Reload Emacs")
 
-  ;; Set up 'C-z' as another leader key
+  ;; Set up 'C-z' as another global leader key
   (general-define-key
    :prefix "C-z"
    :states '(normal insert visual emacs)
@@ -254,7 +248,7 @@
    "C-k" '(buf-move-up :wk "Buffer move up")
    "C-l" '(buf-move-right :wk "Buffer move right"))
   
-  ;; Set up 'SPC' as the global leader key
+  ;; Set up 'SPC' as another global leader key
   (general-create-definer tl/leader-keys
     :states '(normal insert visual emacs)
     :keymaps 'override
