@@ -553,10 +553,12 @@ one, an error is signaled."
 #+end_src
 
 ** Disable Electric Indent
-Org mode source blocks have some really weird and annoying default indentation behavior.
+Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior.
+Disabling Org defaults to indenting 2 spaces in source blocks.
 
 #+begin_src emacs-lisp
 (electric-indent-mode -1)
+(setq org-edit-src-content-indentation 0)
 #+end_src
 
 ** Source Code Block Tag Expansion
