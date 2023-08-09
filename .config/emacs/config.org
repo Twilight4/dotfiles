@@ -292,6 +292,13 @@
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
     "o e" '(org-export-dispatch :wk "Org export dispatch"))
+
+  (tl/leader-keys
+    "d" '(:ignore t :wk "Dired")
+    "d ." '(dired :wk "Open dired")
+    "d j" '(dired-jump :wk "Dired jump to current")
+    "d n" '(neotree-dir :wk "Open directory in neotree")
+    "d p" '(peep-dired :wk "Peep-dired"))
 )
 #+end_src
 
