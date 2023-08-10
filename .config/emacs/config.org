@@ -18,6 +18,7 @@
   - [[#which-key][Which-Key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
+  - [[#centaur-tabs][Centaur-tabs]]
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry Delete]]
   - [[#buffer-move][Buffer-move]]
@@ -456,10 +457,26 @@ It's always better to set transparency in optiosn for respective applications th
 ;(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
 #+end_src
 
+** Centaur-tabs
+Centaur Tabs is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. Source: [[https://github.com/ema2159/centaur-tabs][centaur-tabs]]
+
+#+begin_src emacs-lisp
+(use-package centaur-tabs
+  :if window-system
+  :demand
+  :init
+  ;; Set the style to rounded with icons
+  (setq centaur-tabs-style "bar")
+  (setq centaur-tabs-set-icons t)
+
+  :config
+  ;; Enable centaur-tabs
+  (centaur-tabs-mode t))
+#+end_src
+
 * Editing Features
 ** Hungry Delete
-Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Works exactly like c-hungry-delete-mode, which is where the code was from. 
-This just packages it up to be easier to use in other modes. Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
+Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Works exactly like =c-hungry-delete-mode=. Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
 
 #+begin_src emacs-lisp
 (use-package hungry-delete
