@@ -480,8 +480,7 @@ Centaur Tabs is an Emacs package that enhances the tab bar functionality, provid
 
 * Editing Features
 ** Hungry Delete
-Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Works exactly like =c-hungry-delete-mode=. 
-Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
+Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
 
 #+begin_src emacs-lisp
 (use-package hungry-delete
@@ -491,8 +490,7 @@ Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
 #+end_src
 
 ** Buffer-move
-Creating some functions to allow easily moving windows around.
-Source: [[https://www.emacswiki.org/emacs/buffer-move.el][EmacsWiki]]
+Creating some functions to allow easily moving windows around. Source: [[https://www.emacswiki.org/emacs/buffer-move.el][EmacsWiki]]
 
 #+begin_src emacs-lisp
 (require 'windmove)
