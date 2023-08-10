@@ -24,6 +24,7 @@
   - [[#buffer-move][Buffer-move]]
   - [[#splits][Splits]]
   - [[#global-auto-revert][Global Auto Revert]]
+  - [[#evil-mode-1][Evil mode]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -40,6 +41,7 @@
   - [[#org-modern][Org-Modern]]
   - [[#org-buffer-creation][Org buffer creation]]
   - [[#zero-width-spaces][Zero-width spaces]]
+  - [[#importing-with-pandoc][Importing with Pandoc]]
 
 * Programs to load first
 ** Elpaca Package Manager
@@ -523,6 +525,17 @@ Keep buffers synced and up to date with auto revert mode.
 (setq global-auto-revert-non-file-buffers t)
 #+end_src
 
+** Evil mode
+Now, EVIL cares a fair bit about keeping compatibility with Vim’s default behaviour.
+There are some particular settings that I’d rather be something else.
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'evil
+  (setq evil-ex-substitute-global t
+        evil-move-cursor-back nil
+        evil-kill-on-visual-paste nil))
+#+end_src
+
 * Other Packages
 ** Neotree
 A Emacs tree plugin like NerdTree for Vim.
@@ -813,4 +826,14 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 
 (eval-after-load 'ox
   '(add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t))
+#+end_src
+
+** Importing with Pandoc
+Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a way to make that right again, and this package makes that even easier to do.
+
+#+begin_src emacs-lisp
+;(use-package org-pandoc-import
+;  :straight (:host github
+;             :repo "tecosaur/org-pandoc-import"
+;             :files ("*.el" "filters" "preprocessors")))
 #+end_src

@@ -9,8 +9,6 @@
   - [[#easier-file-links][Easier file links]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#transclusion][Transclusion]]
-  - [[#importing-with-pandoc][Importing with Pandoc]]
-  - [[#emojis][Emojis]]
   - [[#org-fonts][Org fonts]]
   - [[#org-export][Org-export]]
   - [[#org-journal][Org-journal]]
@@ -21,12 +19,9 @@
 - [[#better-defaults][Better Defaults]]
   - [[#line-settings][Line settings]]
   - [[#abbrev-mode][Abbrev mode]]
-  - [[#evil-mode][Evil mode]]
   - [[#consult][Consult]]
-  - [[#company][Company]]
   - [[#marginalia][Marginalia]]
 - [[#registers][Registers]]
-- [[#splits][Splits]]
 
 * Org modern
 Fontifying org-mode buffers to be as pretty as possible is of paramount importance, and Minad’s lovely org-modern goes a long way in this regard.
@@ -304,19 +299,6 @@ There’s a really cool package to transclude Org document content.
    :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
 #+end_src
 
-** Importing with Pandoc
-Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a way to make that right again, and this package makes that even easier to do.
-
-#+begin_src emacs-lisp
-(use-package! org-pandoc-import
-  :after org)
-#+end_src
-
-** Emojis
-#+begin_src emacs-lisp
-(use-package emojify
-  :hook (after-init . global-emojify-mode))
-#+end_src
 
 ** Org fonts
 #+begin_src emacs-lisp
@@ -469,16 +451,6 @@ Thanks to [[https://emacs.stackexchange.com/questions/45462/use-a-single-abbrev-
             (setq abbrev-file-name (expand-file-name "abbrev.el" doom-private-dir))))
 #+end_src
 
-** Evil mode
-Now, EVIL cares a fair bit about keeping compatibility with Vim’s default behaviour. I don’t. There are some particular settings that I’d rather be something else.
-
-#+begin_src emacs-lisp
-(after! evil
-  (setq evil-ex-substitute-global t     ; I like my s/../.. to by global by default
-        evil-move-cursor-back nil       ; Don't move the block cursor when toggling insert mode
-        evil-kill-on-visual-paste nil)) ; Don't put overwritten text in the kill ring
-#+end_src
-
 ** Consult
 Since we're using Marginalia too, the separation between buffers and files is
 already clear, and there's no need for a different face.
@@ -487,17 +459,6 @@ already clear, and there's no need for a different face.
 (after! consult
   (set-face-attribute 'consult-file nil :inherit 'consult-buffer)
   (setf (plist-get (alist-get 'perl consult-async-split-styles-alist) :initial) ";"))
-#+end_src
-
-** Company
-It’s nice to have completions almost all the time, in my opinion. Key strokes are just waiting to be saved!
-
-#+begin_src emacs-lisp
-(after! company
-  (setq company-idle-delay 0.5
-        company-minimum-prefix-length 2)
-  (setq company-show-numbers t)
-  (add-hook 'evil-normal-state-entry-hook #'company-abort)) ;; make aborting less annoying.
 #+end_src
 
 ** Marginalia
@@ -566,15 +527,4 @@ Emacs registers are compartments where you can save text, rectangles and positio
        :desc "Window configuration to register" "w" #'window-configuration-to-register
        :desc "Increment register" "+" #'increment-register
        :desc "Point to register" "SPC" #'point-to-register))
-#+end_src
-
-* Splits
-
-#+begin_src emacs-lisp
-(defun prefer-horizontal-split ()
-  (set-variable 'split-height-threshold nil t)
-  (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
-(add-hook 'markdown-mode-hook 'prefer-horizontal-split)
-(map! :leader
-      :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
 #+end_src
