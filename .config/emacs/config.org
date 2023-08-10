@@ -155,11 +155,9 @@
  "C-s" '(save-buffer :wk "Save buffer")
  "c" '(counsel-recentf :wk "Find recent files")
  "C-n" '(neotree-toggle :wk "Toggle neotree")
- "C-c" (lambda () (interactive) (find-file "~/.config/emacs/config.org"))
  "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
 
-(which-key-add-key-based-replacements "C-x C-c" "Edit Config"
-                                      "C-x C-r" "Reload Emacs")
+(which-key-add-key-based-replacements "C-x C-r" "Reload emacs")
 
 ;; Set up 'C-z' as another global leader key
 (general-define-key
@@ -222,6 +220,19 @@
     "d j" '(dired-jump :wk "Dired jump to current")
     "d n" '(neotree-dir :wk "Open directory in neotree")
     "d p" '(peep-dired :wk "Peep-dired"))
+  (tl/leader-keys
+    "e" '(:ignore t :wk "Edit File")
+    "e i" '(lambda () (interactive) (find-file "~/documents/org/inbox.org"))
+    "e a" '(lambda () (interactive) (find-file "~/documents/org/agenda.org"))
+    "e r" '(lambda () (interactive) (find-file "~/documents/org/repeaters.org"))
+    "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
+    "e s" '(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
+
+  (which-key-add-key-based-replacements "SPC e i" "Edit inbox"
+                                        "SPC e a" "Edit agenda"
+                                        "SPC e r" "Edit repeaters"
+                                        "SPC e c" "Edit config"
+                                        "SPC e s" "Edit emacs cheatsheet")
 )
 #+end_src
 
