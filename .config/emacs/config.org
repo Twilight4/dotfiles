@@ -19,12 +19,13 @@
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
   - [[#centaur-tabs][Centaur-Tabs]]
+  - [[#file-encoding][File Encoding]]
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry Delete]]
   - [[#buffer-move][Buffer-move]]
   - [[#splits][Splits]]
   - [[#global-auto-revert][Global Auto Revert]]
-  - [[#evil-mode-1][Evil mode]]
+  - [[#evil-mode-defaults][Evil mode defaults]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -220,7 +221,9 @@
   (tl/leader-keys
     "t" '(:ignore t :wk "Toggle")
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines"))
+    "t t" '(visual-line-mode :wk "Toggle truncated lines")
+    "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
+    "t H" '(global-hl-line-mode :wk "Toggle line highlight globally"))
 
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
@@ -283,13 +286,6 @@
 
 (unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   (display-battery-mode 1))                       ; it's nice to know how much power you have
-
-;; Setting up default locales
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
 #+end_src
 
 ** Setting the Font Face
@@ -424,6 +420,27 @@ Centaur Tabs is an Emacs package that enhances the tab bar functionality, provid
   (centaur-tabs-mode t))
 #+end_src
 
+** File Encoding
+When we have the default file encoding (LF UTF-8), it really isn’t worth noting in the modeline.
+
+#+begin_src emacs-lisp
+;; Setting up default encoding
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+(defun doom-modeline-conditional-buffer-encoding ()
+  "Hide modeline encoding indicator for LF UTF-8."
+  (setq-local doom-modeline-buffer-encoding
+              (and (memq (coding-system-category buffer-file-coding-system) '(undecided utf-8))
+                   (memq (coding-system-eol-type buffer-file-coding-system) '(0)))
+              ))
+
+(add-hook 'after-change-major-mode-hook 'doom-modeline-conditional-buffer-encoding)
+#+end_src
+
 * Editing Features
 ** Hungry Delete
 Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
@@ -525,7 +542,7 @@ Keep buffers synced and up to date with auto revert mode.
 (setq global-auto-revert-non-file-buffers t)
 #+end_src
 
-** Evil mode
+** Evil mode defaults
 Now, EVIL cares a fair bit about keeping compatibility with Vim’s default behaviour.
 There are some particular settings that I’d rather be something else.
 
