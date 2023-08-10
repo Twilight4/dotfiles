@@ -39,6 +39,7 @@
   - [[#enabling-org-journal][Enabling Org journal]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
+  - [[#transclusion][Transclusion]]
   - [[#style-formatting][Style formatting]]
   - [[#style-formatting-automation][Style formatting automation]]
   - [[#org-modern][Org-Modern]]
@@ -148,6 +149,8 @@
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
+;; Org Tansclusion
+(define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Zero-width space
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
@@ -186,6 +189,7 @@
  "o" '(org-todo-list :wk "Org todo list")
  "-" '(org-table-insert-hline :wk "Insert hline in table")
  "t" '(org-time-stamp :wk "Org time stamp")
+ "C-t" '('org-transclusion-mode :wk "Org Tansclusion mode")
  ;; Window splits
  "C-c" '(evil-window-delete :wk "Close window")
  "C-n" '(evil-window-new :wk "New window")
@@ -699,6 +703,7 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
 #+end_src
 
 ** Enabling Org journal
+
 #+begin_src emacs-lisp
 (setq org-journal-dir "~/documents/org/journal/"
       org-journal-date-prefix "* "
@@ -706,7 +711,6 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
       org-journal-date-format "%B %d, %Y (%A) "
       org-journal-file-format "%Y-%m-%d.org")
 #+end_src
-
 
 ** Disable Electric Indent
 Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior.
@@ -721,6 +725,14 @@ Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
 (require 'org-tempo)
+#+end_src
+
+** Transclusion
+There’s a really cool package to transclude Org document content.
+
+#+begin_src emacs-lisp
+(use-package org-transclusion
+  :after org)
 #+end_src
 
 ** Style formatting

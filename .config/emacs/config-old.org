@@ -8,8 +8,6 @@
   - [[#org-agenda][Org agenda]]
   - [[#easier-file-links][Easier file links]]
   - [[#org-auto-tangle][Org-auto-tangle]]
-  - [[#transclusion][Transclusion]]
-  - [[#org-journal][Org-journal]]
   - [[#org-roam][Org-roam]]
 - [[#perspective][Perspective]]
 - [[#rainbow-mode][Rainbow-mode]]
@@ -275,30 +273,6 @@ Now we'll just add that under the Org mode link localleader for convenience.
 
 (map! :leader
       :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
-#+end_src
-
-** Transclusion
-There’s a really cool package to transclude Org document content.
-
-#+begin_src emacs-lisp
-(use-package! org-transclusion
-  :after org
-  :init
-  (map!
-   :map global-map "<f12>" #'org-transclusion-add
-   :leader
-   :prefix "n"
-   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
-#+end_src
-
-
-** Org-journal
-#+begin_src emacs-lisp
-(setq org-journal-dir "~/documents/org/journal/"
-      org-journal-date-prefix "* "
-      org-journal-time-prefix "** "
-      org-journal-date-format "%B %d, %Y (%A) "
-      org-journal-file-format "%Y-%m-%d.org")
 #+end_src
 
 ** Org-roam
