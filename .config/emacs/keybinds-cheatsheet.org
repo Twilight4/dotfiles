@@ -25,6 +25,7 @@ The world's greatest programmer once said:
   - [[#line-settings][Line settings]]
   - [[#buffer-management][Buffer Management]]
   - [[#neotree][Neotree]]
+  - [[#dired][Dired]]
 - [[#wip][WIP]]
   - [[#workspace-management][Workspace Management]]
   - [[#bookmark-management][Bookmark Management]]
@@ -141,6 +142,23 @@ The world's greatest programmer once said:
 | C-c C-r     | Rename a file or a directory                                     |
 | C-c C-c     | Change the root directory                                        |
 | C-c C-p     | Copy a file or a directory                                       |
+
+** Dired
+| Keybinding | Description                                        |
+|------------+----------------------------------------------------|
+| C          | Create a new subdirectory                          |
+| m          | Mark files or directories for operations           |
+| u          | Unmark previously marked files or directories      |
+| U          | Unmark all marked fiels or directories             |
+| d          | Delete marked files or directories                 |
+| R          | Rename or move files                               |
+| C          | Copy marked files                                  |
+| +          | Create an empty file                               |
+| %          | Mark files based on a regular expression           |
+| !          | Run a shell command on marked files                |
+| =          | Compare files with their backups or other versions |
+| z          | Compress or decompress marked files                |
+| Q          | Toggle read-only mode for the current Dired buffer |
 
 * WIP
 ** TODO Workspace Management
