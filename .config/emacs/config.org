@@ -562,14 +562,14 @@ one, an error is signaled."
 
 * Other Packages
 ** Neotree
-When you open neotree, it jumps to the current file thanks to neo-smart-open. The neo-window-fixed-size setting makes the neotree width be adjustable. NeoTree provides following themes: classic, ascii, arrow, icons, and nerd. Theme can be configed by setting “two” themes for neo-theme: one for the GUI and one for the terminal.
+When you open neotree, it jumps to the current file thanks to neo-smart-open. The =neo-window-fixed-size= setting makes the neotree width be adjustable. NeoTree provides following themes: =classic=, =ascii=, =arrow=, =icons=, and =nerd=. Theme can be configed by setting “two” themes for =neo-theme=: one for the GUI and one for the terminal.
 
 #+begin_src emacs-lisp
 (use-package neotree
   :config
   (setq neo-smart-open t
         neo-show-hidden-files t
-        neo-window-width 55
+        neo-window-width 25
         neo-window-fixed-size nil
         inhibit-compacting-font-caches t
         projectile-switch-project-action 'neotree-projectile-action) 
@@ -581,7 +581,6 @@ When you open neotree, it jumps to the current file thanks to neo-smart-open. Th
                  (setq word-wrap nil)
                  (make-local-variable 'auto-hscroll-mode)
                  (setq auto-hscroll-mode nil)))))
-
 #+end_src
 
 ** Dired
