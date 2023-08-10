@@ -11,18 +11,18 @@
   - [[#global-keybindings][Global Keybindings]]
   - [[#general-keybindings][General Keybindings]]
 - [[#ui-configuration][UI Configuration]]
-  - [[#better-defaults][Better defaults]]
+  - [[#better-defaults][Better Defaults]]
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#color-theme][Color Theme]]
   - [[#doom-modeline-and-all-the-icons][Doom-Modeline and All-the-icons]]
-  - [[#which-key][Which-Key]]
+  - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
-  - [[#centaur-tabs][Centaur-tabs]]
+  - [[#centaur-tabs][Centaur-Tabs]]
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry Delete]]
   - [[#buffer-move][Buffer-move]]
-  - [[#global-auto-revert][Global auto revert]]
+  - [[#global-auto-revert][Global Auto Revert]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -226,7 +226,7 @@
 #+end_src
 
 * UI Configuration
-** Better defaults
+** Better Defaults
 
 #+begin_src emacs-lisp
 (menu-bar-mode -1)                                ; Disable menubar
@@ -327,7 +327,7 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
   :custom ((doom-modeline-height 15)))
 #+end_src
 
-** Which-Key
+** Which-key
 
 #+begin_src emacs-lisp
 (use-package which-key
@@ -376,7 +376,7 @@ It's always better to set transparency in optiosn for respective applications th
 ;(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
 #+end_src
 
-** Centaur-tabs
+** Centaur-Tabs
 Centaur Tabs is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. Source: [[https://github.com/ema2159/centaur-tabs][centaur-tabs]]
 
 #+begin_src emacs-lisp
@@ -478,7 +478,7 @@ one, an error is signaled."
       (select-window other-win))))
 #+end_src
 
-** Global auto revert
+** Global Auto Revert
 Keep buffers synced and up to date with auto revert mode.
 
 #+begin_src emacs-lisp

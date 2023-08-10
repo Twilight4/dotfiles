@@ -2,9 +2,6 @@
 #+property: header-args :tangle config.el
 
 * Table Of Contents :toc:
-- [[#bookmarks-and-ibuffer-mode][Bookmarks and Ibuffer mode]]
-  - [[#bookmarks][Bookmarks]]
-  - [[#global-auto-revert][Global auto revert]]
   - [[#ibuffer-mode-keybinds][Ibuffer mode keybinds]]
 - [[#fonts][Fonts]]
 - [[#mardown][Mardown]]
@@ -41,28 +38,6 @@
   - [[#marginalia][Marginalia]]
 - [[#registers][Registers]]
 - [[#splits][Splits]]
-
-* Bookmarks and Ibuffer mode
-** Bookmarks
-Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.
-
-#+begin_src emacs-lisp
-(setq bookmark-default-file "~/.config/doom/bookmarks")
-(map! :leader
-      (:prefix ("b". "buffer")
-       :desc "List bookmarks"                          "L" #'list-bookmarks
-       :desc "Set bookmark"                            "m" #'bookmark-set
-       :desc "Delete bookmark"                         "M" #'bookmark-set
-       :desc "Save current bookmarks to bookmark file" "w" #'bookmark-save))
-#+end_src
-
-** Global auto revert
-Keep buffers synced and up to date with auto revert mode.
-
-#+begin_src emacs-lisp
-(global-auto-revert-mode 1)
-(setq global-auto-revert-non-file-buffers t)
-#+end_src
 
 ** Ibuffer mode keybinds
 #+begin_src emacs-lisp
