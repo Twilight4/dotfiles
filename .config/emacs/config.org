@@ -847,10 +847,10 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
   :hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "◆" "●" "○" "◆" "●")
-        org-modern-list '((45 . "➤")
-                          (43 . "–")
-                          (42 . "•"))
-        org-list-demote-modify-bullet '(("+" . "-") ("-" . "*") ("*" . "+") ("1." . "a."))
+        org-modern-list '((45 . "➤")   ; for first level
+                          (43 . "-")   ; for second level
+                          (42 . "•"))  ; for third level
+        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("➤" . "•") ("•" . "-"))
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
         org-modern-todo-faces
