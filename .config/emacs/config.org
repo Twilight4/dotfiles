@@ -513,7 +513,6 @@ I set a keybinding for =clone-indirect-buffer-other-window= for when I want to h
 (defun prefer-horizontal-split ()
   (setq split-height-threshold nil)
   (setq split-width-threshold 40)) ; make this as low as needed
-(add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 #+end_src
 
 ** Global Auto Revert
