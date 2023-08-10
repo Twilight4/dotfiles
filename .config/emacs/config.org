@@ -10,19 +10,21 @@
   - [[#evil-mode][Evil Mode]]
   - [[#global-keybindings][Global Keybindings]]
   - [[#general-keybindings][General Keybindings]]
-- [[#fonts][Fonts]]
-  - [[#setting-the-font-face][Setting the Font Face]]
 - [[#ui-configuration][UI Configuration]]
   - [[#better-defaults][Better defaults]]
+  - [[#setting-the-font-face][Setting the Font Face]]
   - [[#color-theme][Color Theme]]
   - [[#doom-modeline-and-all-the-icons][Doom-Modeline and All-the-icons]]
   - [[#which-key][Which-Key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
-- [[#buffer-move][Buffer-move]]
-- [[#neotree][Neotree]]
-- [[#dired][Dired]]
-- [[#ivy-counsel][IVY (Counsel)]]
+- [[#editing-features][Editing Features]]
+  - [[#hungry-delete][Hungry Delete]]
+  - [[#buffer-move][Buffer-move]]
+- [[#other-packages][Other Packages]]
+  - [[#neotree][Neotree]]
+  - [[#dired][Dired]]
+  - [[#ivy-counsel][IVY (Counsel)]]
 - [[#org-mode][Org Mode]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
@@ -129,6 +131,9 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+;; Hungry-delete
+(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
+(global-set-key (kbd "<delete>") 'hungry-delete-forward)
 
 ;; You can also disable default C-x keybindings individually
 ;;(global-unset-key (kbd "C-x ESC"))
@@ -306,39 +311,6 @@
 )
 #+end_src
 
-* Fonts
-** Setting the Font Face
-
-#+begin_src emacs-lisp
-(set-face-attribute 'default nil
-  :font "JetBrains Mono Nerd Font"
-  :height 110
-  :weight 'medium)
-(set-face-attribute 'variable-pitch nil
-  :font "Ubuntu Nerd Font"
-  :height 120
-  :weight 'medium)
-(set-face-attribute 'fixed-pitch nil
-  :font "JetBrains Mono Nerd Font"
-  :height 110
-  :weight 'medium)
-;; Makes commented text and keywords italics.
-;; This is working in emacsclient but not emacs.
-;; Your font must have an italic face available.
-(set-face-attribute 'font-lock-comment-face nil
-  :slant 'italic)
-(set-face-attribute 'font-lock-keyword-face nil
-  :slant 'italic)
-
-;; This sets the default font on all graphical frames created after restarting Emacs.
-;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
-;; are not right unless I also add this method of setting the default font.
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono Nerd Font-14"))
-
-;; Uncomment the following line if line spacing needs adjusting.
-(setq-default line-spacing 0.12)
-#+end_src
-
 * UI Configuration
 ** Better defaults
 
@@ -372,6 +344,38 @@
 
 (unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   (display-battery-mode 1))                       ; it's nice to know how much power you have
+#+end_src
+
+** Setting the Font Face
+
+#+begin_src emacs-lisp
+(set-face-attribute 'default nil
+  :font "JetBrains Mono Nerd Font"
+  :height 110
+  :weight 'medium)
+(set-face-attribute 'variable-pitch nil
+  :font "Ubuntu Nerd Font"
+  :height 120
+  :weight 'medium)
+(set-face-attribute 'fixed-pitch nil
+  :font "JetBrains Mono Nerd Font"
+  :height 110
+  :weight 'medium)
+;; Makes commented text and keywords italics.
+;; This is working in emacsclient but not emacs.
+;; Your font must have an italic face available.
+(set-face-attribute 'font-lock-comment-face nil
+  :slant 'italic)
+(set-face-attribute 'font-lock-keyword-face nil
+  :slant 'italic)
+
+;; This sets the default font on all graphical frames created after restarting Emacs.
+;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
+;; are not right unless I also add this method of setting the default font.
+(add-to-list 'default-frame-alist '(font . "JetBrains Mono Nerd Font-12"))
+
+;; Uncomment the following line if line spacing needs adjusting.
+(setq-default line-spacing 0.12)
 #+end_src
 
 ** Color Theme
@@ -452,7 +456,19 @@ It's always better to set transparency in optiosn for respective applications th
 ;(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
 #+end_src
 
-* Buffer-move
+* Editing Features
+** Hungry Delete
+Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Works exactly like c-hungry-delete-mode, which is where the code was from. 
+This just packages it up to be easier to use in other modes. Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
+
+#+begin_src emacs-lisp
+(use-package hungry-delete
+  :ensure t
+  :defer t
+  :config (global-hungry-delete-mode))
+#+end_src
+
+** Buffer-move
 Creating some functions to allow easily moving windows around.
 Source: [[https://www.emacswiki.org/emacs/buffer-move.el][EmacsWiki]]
 
@@ -527,7 +543,8 @@ one, an error is signaled."
       (select-window other-win))))
 #+end_src
 
-* Neotree
+* Other Packages
+** Neotree
 When you open neotree, it jumps to the current file thanks to neo-smart-open. The neo-window-fixed-size setting makes the neotree width be adjustable. NeoTree provides following themes: classic, ascii, arrow, icons, and nerd. Theme can be configed by setting “two” themes for neo-theme: one for the GUI and one for the terminal.
 
 #+begin_src emacs-lisp
@@ -550,7 +567,7 @@ When you open neotree, it jumps to the current file thanks to neo-smart-open. Th
 
 #+end_src
 
-* Dired
+** Dired
 
 #+begin_src emacs-lisp
 (use-package dired-open
@@ -572,7 +589,7 @@ When you open neotree, it jumps to the current file thanks to neo-smart-open. Th
 )
 #+end_src
 
-* IVY (Counsel)
+** IVY (Counsel)
 - Ivy, a generic completion mechanism for Emacs.
 - Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
 - Ivy-rich allows us to add descriptions alongside the commands in =M-x=.
