@@ -24,6 +24,7 @@ The world's greatest programmer once said:
   - [[#help-pages][Help pages]]
   - [[#line-settings][Line settings]]
   - [[#buffer-management][Buffer Management]]
+  - [[#neotree][Neotree]]
 - [[#wip][WIP]]
   - [[#workspace-management][Workspace Management]]
   - [[#bookmark-management][Bookmark Management]]
@@ -124,6 +125,22 @@ The world's greatest programmer once said:
 | SPC b n    | Buffer next      |
 | SPC b p    | Buffer previous  |
 | SPC b r    | Reload buffer    |
+
+** Neotree
+| Keybinding  | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| n/p         | Next/previous line                                               |
+| SPC/RET/TAB | Open current iterm if it's a file. Fold/unfold if it's directory |
+| U           | Go up a directory                                                |
+| g           | Refresh                                                          |
+| A           | Maximize/Minimize the Neotree widno                              |
+| H           | Toggle display hidden files                                      |
+| O           | Recursively open a directory                                     |
+| C-c C-n     | Create a file or create a directory if filename ends with a '/'  |
+| C-c C-d     | Delete a file or a directory                                     |
+| C-c C-r     | Rename a file or a directory                                     |
+| C-c C-c     | Change the root directory                                        |
+| C-c C-p     | Copy a file or a directory                                       |
 
 * WIP
 ** TODO Workspace Management
