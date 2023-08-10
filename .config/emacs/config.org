@@ -38,6 +38,7 @@
   - [[#enabling-org-agenda][Enabling Org Agenda]]
   - [[#enabling-org-journal][Enabling Org journal]]
   - [[#disable-electric-indent][Disable Electric Indent]]
+  - [[#easier-file-links][Easier File Links]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
   - [[#transclusion][Transclusion]]
   - [[#style-formatting][Style formatting]]
@@ -189,7 +190,8 @@
  "o" '(org-todo-list :wk "Org todo list")
  "-" '(org-table-insert-hline :wk "Insert hline in table")
  "t" '(org-time-stamp :wk "Org time stamp")
- "C-t" '('org-transclusion-mode :wk "Org Tansclusion mode")
+ "C-t" '(org-transclusion-mode :wk "Org Tansclusion mode")
+ "C-f" '(+org-insert-file-link :wk "Org insert file link")
  ;; Window splits
  "C-c" '(evil-window-delete :wk "Close window")
  "C-n" '(evil-window-new :wk "New window")
@@ -718,6 +720,21 @@ Electric indent mode makes Org mode source blocks have some really weird and ann
 #+begin_src emacs-lisp
 (electric-indent-mode -1)
 (setq org-edit-src-content-indentation 0)
+#+end_src
+
+** Easier File Links
+While ~org-insert-link~ is all very well and good, a large portion of the time I
+want to insert a file, and so it would be good to have a way to skip straight to
+that and avoid the description prompt. Looking at ~org-link-parameters~, we can
+see that the ="file"= link type uses the completion function
+~org-link-complete-file~, so let's use that to make a little file-link inserting
+function.
+
+#+begin_src emacs-lisp
+(defun +org-insert-file-link ()
+  "Insert a file link.  At the prompt, enter the filename."
+  (interactive)
+  (insert (format "[[%s]]" (org-link-complete-file))))
 #+end_src
 
 ** Source Code Block Tag Expansion
