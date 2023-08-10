@@ -9,8 +9,6 @@
   - [[#easier-file-links][Easier file links]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#transclusion][Transclusion]]
-  - [[#org-fonts][Org fonts]]
-  - [[#org-export][Org-export]]
   - [[#org-journal][Org-journal]]
   - [[#org-roam][Org-roam]]
 - [[#perspective][Perspective]]
@@ -293,34 +291,6 @@ There’s a really cool package to transclude Org document content.
    :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
 #+end_src
 
-
-** Org fonts
-#+begin_src emacs-lisp
-(defun dt/org-colors-oceanic-next ()
-  "Enable Oceanic Next colors for Org headers."
-  (interactive)
-  (dolist
-      (face
-       '((org-level-1 1.2 "#6699cc" ultra-bold)
-         (org-level-2 1.1 "#c594c5" extra-bold)
-         (org-level-3 1.05 "#99c794" bold)
-         (org-level-4 1.0 "#fac863" semi-bold)
-         (org-level-5 1.1 "#5fb3b3" normal)
-         (org-level-6 1.1 "#ec5f67" normal)
-         (org-level-7 1.1 "#6699cc" normal)
-         (org-level-8 1.1 "#c594c5" normal)))
-    (set-face-attribute (nth 0 face) nil :font doom-variable-pitch-font :weight (nth 3 face) :height (nth 1 face) :foreground (nth 2 face)))
-    (set-face-attribute 'org-table nil :font doom-font :weight 'normal :height 1.0 :foreground "#bfafdf"))
-
-;; Load dt/org-colors-* theme on startup
-(dt/org-colors-oceanic-next)
-#+end_src
-
-** Org-export
-#+begin_src emacs-lisp
-;;(use-package ox-man)
-;;(use-package ox-gemini)
-#+end_src
 
 ** Org-journal
 #+begin_src emacs-lisp

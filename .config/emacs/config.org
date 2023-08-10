@@ -36,6 +36,7 @@
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
   - [[#enabling-org-agenda][Enabling Org Agenda]]
+  - [[#enabling-org-journal][Enabling Org journal]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
   - [[#style-formatting][Style formatting]]
@@ -696,6 +697,16 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
 (setq org-agenda-files (append
                         (file-expand-wildcards "~/documents/org/*.org")))
 #+end_src
+
+** Enabling Org journal
+#+begin_src emacs-lisp
+(setq org-journal-dir "~/documents/org/journal/"
+      org-journal-date-prefix "* "
+      org-journal-time-prefix "** "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
+#+end_src
+
 
 ** Disable Electric Indent
 Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior.
