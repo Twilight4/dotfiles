@@ -34,6 +34,8 @@
   - [[#enabling-org-agenda][Enabling Org Agenda]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
+  - [[#style-formatting][Style formatting]]
+  - [[#style-formatting-surround-automation][Style formatting surround automation]]
 
 * Programs to load first
 ** Elpaca Package Manager
@@ -220,6 +222,7 @@
     "d j" '(dired-jump :wk "Dired jump to current")
     "d n" '(neotree-dir :wk "Open directory in neotree")
     "d p" '(peep-dired :wk "Peep-dired"))
+
   (tl/leader-keys
     "e" '(:ignore t :wk "Edit File")
     "e i" '(lambda () (interactive) (find-file "~/documents/org/inbox.org"))
@@ -623,4 +626,66 @@ Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
 (require 'org-tempo)
+#+end_src
+
+** Style formatting
+This controls the color of bold, italic, underline, verbatim, strikethrough in Org mode.
+
+#+begin_src emacs-lisp
+(setq org-emphasis-alist
+'(("*" (bold :slant italic :weight black ))
+  ("/" (italic :foreground "dark salmon" ))
+  ("_" (underline :foreground "cyan" ))
+  ("=" (:foreground "slate blue" ))
+  ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
+  ("+" (:strike-through nil :foreground "PaleGreen1" ))))
+#+end_src
+
+** Style formatting surround automation
+This automates the surround for bold style with "m" key in visual mode.
+
+#+begin_src emacs-lisp
+(defun surround-with-bold (beg end)
+  "Surround the region between BEG and END with asterisks for bold formatting."
+  (interactive "r")
+  (let ((region (buffer-substring-no-properties beg end)))
+    (delete-region beg end)
+    (insert (concat "*" region "*"))))
+
+;; Bind the function to the "m" key in Evil visual mode
+(with-eval-after-load 'evil
+  (define-key evil-visual-state-map "m" 'surround-with-bold))
+
+(defun surround-with-code (beg end)
+  "Surround the region between BEG and END with asterisks for bold formatting."
+  (interactive "r")
+  (let ((region (buffer-substring-no-properties beg end)))
+    (delete-region beg end)
+    (insert (concat "=" region "="))))
+
+;; Bind the function to the "m" key in Evil visual mode
+(with-eval-after-load 'evil
+  (define-key evil-visual-state-map "," 'surround-with-code))
+
+(defun surround-with-green (beg end)
+  "Surround the region between BEG and END with asterisks for bold formatting."
+  (interactive "r")
+  (let ((region (buffer-substring-no-properties beg end)))
+    (delete-region beg end)
+    (insert (concat "+" region "+"))))
+
+;; Bind the function to the "m" key in Evil visual mode
+(with-eval-after-load 'evil
+  (define-key evil-visual-state-map "." 'surround-with-green))
+
+(defun surround-with-underline (beg end)
+  "Surround the region between BEG and END with asterisks for bold formatting."
+  (interactive "r")
+  (let ((region (buffer-substring-no-properties beg end)))
+    (delete-region beg end)
+    (insert (concat "_" region "_"))))
+
+;; Bind the function to the "m" key in Evil visual mode
+(with-eval-after-load 'evil
+  (define-key evil-visual-state-map "/" 'surround-with-underline))
 #+end_src

@@ -2,8 +2,6 @@
 #+property: header-args :tangle config.el
 
 * Table Of Contents :toc:
-- [[#open-specific-file-examples][Open specific file examples]]
-- [[#style-formatting][Style formatting]]
   - [[#bold-surround-automation][Bold surround automation]]
   - [[#italic-surround-automation][Italic surround automation]]
   - [[#green-color-automation][Green color automation]]
@@ -35,33 +33,6 @@
   - [[#marginalia][Marginalia]]
 - [[#registers][Registers]]
 - [[#splits][Splits]]
-
-* Open specific file examples
-The format I use for these bindings is 'SPC e' plus 'key' since Doom Emacs does not use 'SPC e'.
-
-#+begin_src emacs-lisp
-(map! :leader
-      (:prefix ("e" . "open file")
-       :desc "Edit repeaters file"   "r" #'(lambda () (interactive) (find-file "~/documents/Org/repeaters.org"))
-       :desc "Edit agenda file"      "a" #'(lambda () (interactive) (find-file "~/documents/Org/agenda.org"))
-       :desc "Edit doom config.org"  "c" #'(lambda () (interactive) (find-file "~/.config/doom/config.org"))
-       :desc "Edit inbox file"       "i" #'(lambda () (interactive) (find-file "~/documents/Org/inbox.org"))
-       :desc "Edit projects file"    "p" #'(lambda () (interactive) (find-file "~/documents/Org/projects.org"))
-       :desc "Edit emacs cheatsheet" "s" #'(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/doom/README.org"))))
-#+end_src
-
-* Style formatting
-This controls the color of bold, italic, underline, verbatim, strikethrough.
-#+begin_src emacs-lisp
-(after! org
-  (setq org-emphasis-alist
-  '(("*" (bold :slant italic :weight black ))
-    ("/" (italic :foreground "dark salmon" ))
-    ("_" (underline :foreground "cyan" ))
-    ("=" (:foreground "slate blue" ))
-    ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
-    ("+" (:strike-through nil :foreground "PaleGreen1" )))))
-#+end_src
 
 ** Bold surround automation
 This automates the surround for bold style with "m" key in visual mode.
