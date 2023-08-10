@@ -31,7 +31,6 @@
   - [[#enabling-org-bullets][Enabling Org Bullets]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
-- [[#projectile][Projectile]]
 
 * Programs to load first
 ** Elpaca Package Manager
@@ -281,9 +280,6 @@
     "TAB" '(comment-line :wk "Comment lines"))
 
   (tl/leader-keys
-    "p" '(projectile-command-map :wk "Projectile"))
-
-  (tl/leader-keys
     "b" '(:ignore t :wk "Buffer")
     "b i" '(ibuffer :wk "Ibuffer")
     "b k" '(kill-this-buffer :wk "Kill this buffer")
@@ -444,7 +440,6 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
   (setq dashboard-items '((recents . 5)
                           (agenda . 5 )
                           (bookmarks . 3)
-                          (projects . 3)
                           (registers . 3)))
   :config
   (dashboard-setup-startup-hook))
@@ -571,8 +566,7 @@ one, an error is signaled."
         neo-window-width 25
         neo-theme (if (display-graphic-p) 'icons 'arrow)
         neo-window-fixed-size nil
-        inhibit-compacting-font-caches t
-        projectile-switch-project-action 'neotree-projectile-action) 
+        inhibit-compacting-font-caches t)
         ;; truncate long file names in neotree
         (add-hook 'neo-after-create-hook
            #'(lambda (_)
@@ -670,12 +664,4 @@ Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
 (require 'org-tempo)
-#+end_src
-
-* Projectile
-
-#+begin_src emacs-lisp
-(use-package projectile
-  :config
-  (projectile-mode 1))
 #+end_src
