@@ -4,10 +4,8 @@
 * Table Of Contents :toc:
 - [[#org-modern][Org modern]]
   - [[#old][old]]
-  - [[#org-buffer-creation][Org buffer creation]]
   - [[#org-super-agenda][Org Super-agenda]]
   - [[#org-agenda][Org agenda]]
-  - [[#extra-functionality---zero-width-spaces][Extra functionality - zero-width spaces]]
   - [[#easier-file-links][Easier file links]]
   - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#transclusion][Transclusion]]
@@ -19,7 +17,6 @@
   - [[#org-roam][Org-roam]]
 - [[#perspective][Perspective]]
 - [[#rainbow-mode][Rainbow-mode]]
-- [[#modeline][Modeline]]
   - [[#file-encoding][File encoding]]
 - [[#better-defaults][Better Defaults]]
   - [[#line-settings][Line settings]]
@@ -136,28 +133,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 ;             (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))) ; The pipe necessary to separate "active" states and "inactive" states
 #+end_src
 
-** Org buffer creation
-Let’s make creating an Org buffer just that little bit easier.
-
-#+begin_src emacs-lisp
-(evil-define-command +evil-buffer-org-new (count file)
-  "Creates a new ORG buffer replacing the current window, optionally
-   editing a certain FILE"
-  :repeat nil
-  (interactive "P<f>")
-  (if file
-      (evil-edit file)
-    (let ((buffer (generate-new-buffer "*new org*")))
-      (set-window-buffer nil buffer)
-      (with-current-buffer buffer
-        (org-mode)
-        (setq-local doom-real-buffer-p t)))))
-
-(map! :leader
-      (:prefix "b"
-       :desc "New empty Org buffer" "o" #'+evil-buffer-org-new))
-#+end_src
-
 ** Org Super-agenda
 #+begin_src emacs-lisp
 (let ((org-super-agenda-groups
@@ -272,24 +247,6 @@ Let’s make creating an Org buffer just that little bit easier.
           (alltodo "")))))
 #+end_src
 
-** Extra functionality - zero-width spaces
-Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. There is a solution to this, it just sounds slightly hacky — zero width spaces. Because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map.
-#+begin_src emacs-lisp
-(map! :map org-mode-map
-      :nie "M-SPC M-SPC" (cmd! (insert "\u200B")))
-#+end_src
-
-We then want to stop the space from being included in exports, which can be done with a little filter.
-#+begin_src emacs-lisp
-(defun +org-export-remove-zero-width-space (text _backend _info)
-  "Remove zero width spaces from TEXT."
-  (unless (org-export-derived-backend-p 'org)
-    (replace-regexp-in-string "\u200B" "" text)))
-
-(after! ox
-  (add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t))
-#+end_src
-
 ** Easier file links
 While ~org-insert-link~ is all very well and good, a large portion of the time I
 want to insert a file, and so it would be good to have a way to skip straight to
@@ -391,7 +348,7 @@ Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a 
 
 ** Org-journal
 #+begin_src emacs-lisp
-(setq org-journal-dir "~/documents/Org/journal/"
+(setq org-journal-dir "~/documents/org/journal/"
       org-journal-date-prefix "* "
       org-journal-time-prefix "** "
       org-journal-date-format "%B %d, %Y (%A) "
@@ -402,8 +359,8 @@ Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a 
 
 #+begin_src emacs-lisp
 (after! org
-  (setq org-roam-directory "~/documents/Org/roam/"
-        org-roam-graph-viewer "/usr/bin/cachy-browser"))
+  (setq org-roam-directory "~/documents/org/roam/"
+        org-roam-graph-viewer "/usr/bin/waterfox"))
 
 (map! :leader
       (:prefix ("n r" . "org-roam")
@@ -438,15 +395,6 @@ Rainbox mode displays the actual color for any hex value color. The following cr
                 (list 'org-agenda-mode)))
      (rainbow-mode 1))))
 (global-rainbow-mode 1 )
-#+end_src
-
-* Modeline
-#+begin_src emacs-lisp
-(set-face-attribute 'mode-line nil :font "JetBrains Mono-9")
-(setq doom-modeline-height 20     ;; sets modeline height
-      doom-modeline-bar-width 5   ;; sets right bar width
-      doom-modeline-persp-name t  ;; adds perspective name to modeline
-      doom-modeline-persp-icon t) ;; adds folder icon next to persp name
 #+end_src
 
 ** File encoding

@@ -38,6 +38,7 @@
   - [[#style-formatting-automation][Style formatting automation]]
   - [[#org-modern][Org-Modern]]
   - [[#org-buffer-creation][Org buffer creation]]
+  - [[#zero-width-spaces][Zero-width spaces]]
 
 * Programs to load first
 ** Elpaca Package Manager
@@ -141,6 +142,9 @@
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
+;; Zero-width space
+(global-set-key (kbd "C-c C-SPC")
+                (lambda () (interactive) (insert "\u200B")))
 #+end_src
 
 ** General Keybindings
@@ -342,6 +346,12 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
+
+;; Changing font size for doom modeline (default 1.0)
+;(custom-set-faces
+;  '(mode-line ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
+;  '(mode-line-active ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
+;  '(mode-line-inactive ((t (:family "JetBrains Mono Nerd Font" :height 0.95)))))
 #+end_src
 
 ** Which-key
@@ -780,4 +790,17 @@ Let’s make creating an Org buffer just that little bit easier.
     (when file
       (insert-file-contents file))
     (setq buffer-offer-save t)))
+#+end_src​
+
+** Zero-width spaces
+Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. Zero width spaces are hacky but because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map. Add filter to stop the space from being included in exports.
+
+#+begin_src emacs-lisp
+(defun +org-export-remove-zero-width-space (text backend info)
+  "Remove zero width spaces from TEXT."
+  (unless (org-export-derived-backend-p backend 'org)
+    (replace-regexp-in-string "\u200B" "" text)))
+
+(eval-after-load 'ox
+  '(add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t))
 #+end_src
