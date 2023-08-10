@@ -569,7 +569,6 @@ Emacs registers are compartments where you can save text, rectangles and positio
 #+end_src
 
 * Splits
-I set a keybinding for 'clone-indirect-buffer-other-window' for when I want to have the same document in two splits. The text of the indirect buffer is always identical to the text of its base buffer.
 
 #+begin_src emacs-lisp
 (defun prefer-horizontal-split ()

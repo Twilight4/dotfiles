@@ -22,6 +22,7 @@
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry Delete]]
   - [[#buffer-move][Buffer-move]]
+  - [[#splits][Splits]]
   - [[#global-auto-revert][Global Auto Revert]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
@@ -206,7 +207,8 @@
     "b" '(:ignore t :wk "Buffer")
     "b i" '(ibuffer :wk "Ibuffer")
     "b k" '(kill-this-buffer :wk "Kill this buffer")
-    "b r" '(revert-buffer :wk "Reload buffer"))
+    "b r" '(revert-buffer :wk "Reload buffer")
+    "b c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer"))
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
@@ -503,6 +505,15 @@ one, an error is signaled."
       ;; move this one to top
       (set-window-buffer other-win buf-this-buf)
       (select-window other-win))))
+#+end_src
+** Splits
+I set a keybinding for =clone-indirect-buffer-other-window= for when I want to have the same document in two splits. The text of the indirect buffer is always identical to the text of its base buffer.
+
+#+begin_src emacs-lisp
+(defun prefer-horizontal-split ()
+  (setq split-height-threshold nil)
+  (setq split-width-threshold 40)) ; make this as low as needed
+(add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 #+end_src
 
 ** Global Auto Revert
