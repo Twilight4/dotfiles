@@ -6,8 +6,6 @@
   - [[#old][old]]
   - [[#org-super-agenda][Org Super-agenda]]
   - [[#org-agenda][Org agenda]]
-  - [[#easier-file-links][Easier file links]]
-  - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#org-roam][Org-roam]]
 - [[#perspective][Perspective]]
 - [[#rainbow-mode][Rainbow-mode]]
@@ -230,49 +228,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 
           (agenda "")
           (alltodo "")))))
-#+end_src
-
-** Easier file links
-While ~org-insert-link~ is all very well and good, a large portion of the time I
-want to insert a file, and so it would be good to have a way to skip straight to
-that and avoid the description prompt. Looking at ~org-link-parameters~, we can
-see that the ="file"= link type uses the completion function
-~org-link-complete-file~, so let's use that to make a little file-link inserting
-function.
-
-#+begin_src emacs-lisp
-(defun +org-insert-file-link ()
-  "Insert a file link.  At the prompt, enter the filename."
-  (interactive)
-  (insert (format "[[%s]]" (org-link-complete-file))))
-#+end_src
-
-Now we'll just add that under the Org mode link localleader for convenience.
-#+begin_src emacs-lisp
-(map! :after org
-      :map org-mode-map
-      :localleader
-      "l f" #'+org-insert-file-link)
-#+end_src
-
-** Org-auto-tangle
-=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so that it automatically tangles when you save the document. I have made adding this to your file even easier by creating a function 'dt/insert-auto-tangle-tag' and setting it to a keybinding 'SPC i a'.
-#+begin_src emacs-lisp
-(use-package! org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode)
-  :config
-  (setq org-auto-tangle-default t))
-
-(defun dt/insert-auto-tangle-tag ()
-  "Insert auto-tangle tag in a literate config."
-  (interactive)
-  (evil-org-open-below 1)
-  (insert "#+auto_tangle: t ")
-  (evil-force-normal-state))
-
-(map! :leader
-      :desc "Insert auto_tangle tag" "i a" #'dt/insert-auto-tangle-tag)
 #+end_src
 
 ** Org-roam

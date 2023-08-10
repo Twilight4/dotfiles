@@ -43,6 +43,7 @@
   - [[#transclusion][Transclusion]]
   - [[#style-formatting][Style formatting]]
   - [[#style-formatting-automation][Style formatting automation]]
+  - [[#org-auto-tangle][Org-auto-tangle]]
   - [[#org-modern][Org-Modern]]
   - [[#org-buffer-creation][Org buffer creation]]
   - [[#zero-width-spaces][Zero-width spaces]]
@@ -236,7 +237,8 @@
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
     "o e" '(org-export-dispatch :wk "Org export dispatch")
-    "o b" '(tl/create-new-org-buffer :wk "Create new org buffer"))
+    "o b" '(tl/create-new-org-buffer :wk "Create new org buffer")
+    "o t" '(tl/insert-auto-tangle-tag :wk "Insert auto-tangle tag"))
 
   (tl/leader-keys
     "d" '(:ignore t :wk "Dired")
@@ -812,6 +814,26 @@ This automates the surround of word for style formatting with respective keys in
 ;; Bind the function to the "m" key in Evil visual mode
 (with-eval-after-load 'evil
   (define-key evil-visual-state-map "/" 'surround-with-underline))
+#+end_src
+
+** Org-auto-tangle
+=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so 
+that it automatically tangles when you save the document. I have made adding this to
+your file even easier by creating a function =tl/insert-auto-tangle-tag=.
+
+#+begin_src emacs-lisp
+(use-package org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
+
+(defun tl/insert-auto-tangle-tag ()
+  "Insert auto-tangle tag in a literate config."
+  (interactive)
+  (evil-open-below 1)
+  (insert "#+auto_tangle: t ")
+  (evil-normal-state))
 #+end_src
 
 ** Org-Modern
