@@ -1,6 +1,6 @@
 #+title: GNU Emacs Keybindings Cheatsheet
 
-This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimze the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity. I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS (which you can tell by a github commit history). The philosophy adopted in this configuration prioritizes simplicity and ease of use:
+This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimze the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity. I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. The philosophy adopted in this configuration prioritizes simplicity and ease of use:
   - All keys that I *often* use require the user to press 2 keys while holding the Control key, i.e. =C-x C-<key>= or =C-x <key>=.
   - All other keys that I *rarely* use have its prefix key after the leader key which is =SPC=, effectively requiring the user to press 3 buttons including the =SPC= key.
   - I also have other global leader keys depending on which mode I'm in respectively: =C-z=, =C-x=, =C-c=, =C-h=
