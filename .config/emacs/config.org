@@ -37,6 +37,7 @@
   - [[#style-formatting][Style formatting]]
   - [[#style-formatting-automation][Style formatting automation]]
   - [[#org-modern][Org-Modern]]
+  - [[#org-buffer-creation][Org buffer creation]]
 
 * Programs to load first
 ** Elpaca Package Manager
@@ -215,7 +216,8 @@
 
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
-    "o e" '(org-export-dispatch :wk "Org export dispatch"))
+    "o e" '(org-export-dispatch :wk "Org export dispatch")
+    "o b" '(tl/create-new-org-buffer :wk "Create new org buffer"))
 
   (tl/leader-keys
     "d" '(:ignore t :wk "Dired")
@@ -763,4 +765,19 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
             ("ddg" . "https://duckduckgo.com/?q=")
             ("wiki" . "https://en.wikipedia.org/wiki/"))
         org-table-convert-region-max-lines 20000
+#+end_src
+
+** Org buffer creation
+Let’s make creating an Org buffer just that little bit easier.
+
+#+begin_src emacs-lisp
+(defun tl/create-new-org-buffer (&optional file)
+  "Create a new Org mode buffer, optionally opening FILE."
+  (interactive "F") ; Prompt for a file to open, if provided
+  (let ((new-buffer (generate-new-buffer "*New Org Buffer*")))
+    (switch-to-buffer new-buffer)
+    (org-mode)
+    (when file
+      (insert-file-contents file))
+    (setq buffer-offer-save t)))
 #+end_src

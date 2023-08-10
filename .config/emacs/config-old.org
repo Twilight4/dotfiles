@@ -2,8 +2,8 @@
 #+property: header-args :tangle config.el
 
 * Table Of Contents :toc:
-- [[#org-mode][Org mode]]
-  - [[#org-modern][Org modern]]
+- [[#org-modern][Org modern]]
+  - [[#old][old]]
   - [[#org-buffer-creation][Org buffer creation]]
   - [[#org-super-agenda][Org Super-agenda]]
   - [[#org-agenda][Org agenda]]
@@ -31,8 +31,7 @@
 - [[#registers][Registers]]
 - [[#splits][Splits]]
 
-* Org mode
-** Org modern
+* Org modern
 Fontifying org-mode buffers to be as pretty as possible is of paramount importance, and Minad’s lovely org-modern goes a long way in this regard.
 
 #+begin_src emacs-lisp
@@ -107,7 +106,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
   (custom-set-faces! '(org-modern-statistics :inherit org-checkbox-statistics-todo))
 #+end_src
 
-*** old
+** old
 #+begin_src emacs-lisp
 ;(map! :leader
 ;      :desc "Org babel tangle" "m B" #'org-babel-tangle)
