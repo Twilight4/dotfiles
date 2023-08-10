@@ -22,6 +22,7 @@
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry Delete]]
   - [[#buffer-move][Buffer-move]]
+  - [[#global-auto-revert][Global auto revert]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -475,6 +476,14 @@ one, an error is signaled."
       ;; move this one to top
       (set-window-buffer other-win buf-this-buf)
       (select-window other-win))))
+#+end_src
+
+** Global auto revert
+Keep buffers synced and up to date with auto revert mode.
+
+#+begin_src emacs-lisp
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
 #+end_src
 
 * Other Packages
