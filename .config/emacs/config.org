@@ -349,26 +349,29 @@
 (tooltip-mode -1)                                 ; Disable tooltips
 (global-display-line-numbers-mode 1)              ; Display line numbers
 (global-visual-line-mode t)                       ; Display truncated lines
+(fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 
 (setq-default
  delete-by-moving-to-trash t                      ; Delete files to trash
- window-combination-resize t                      ; take new window space from all other windows (not just current)
+ window-combination-resize t                      ; Take new window space from all other windows (not just current)
  x-stretch-cursor t)                              ; Stretch cursor to the glyph width
 
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
  evil-want-fine-undo t                            ; By default while in insert all changes are one big blob. Be more granular
- auto-save-default t                              ; Nobody likes to loose work, I certainly don't
+ auto-save-default nil                            ; I like to lose work, I certainly do
  truncate-string-elipsis "…"                      ; Unicode ellispis are nicer than "...", and also save /precious/ space
  scroll-margin 2                                  ; It's nice to maintain a little margin
  display-time-default-load-average nil            ; I don't think I've ever found this useful
- use-dialog-box nil)                              ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
-
+ use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
+ use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
+ make-backup-files nil)                           ; Don't create backup files to avoid clutterinf the file system with redundant backup copies
+    
 (display-time-mode 1)                             ; Enable time in the mode-line
+(global-subword-mode 1)                           ; Iterate through CamelCase words
+(defalias 'yes-or-no-p 'y-or-n-p)                 ; Use 'y' or 'n' instead of 'yes' or 'no'
 
 (unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   (display-battery-mode 1))                       ; it's nice to know how much power you have
-
-(global-subword-mode 1)                           ; Iterate through CamelCase words
 #+end_src
 
 ** Color Theme
