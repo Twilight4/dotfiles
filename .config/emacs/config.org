@@ -26,9 +26,11 @@
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
   - [[#ivy-counsel][IVY (Counsel)]]
+  - [[#magit][Magit]]
 - [[#org-mode][Org Mode]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
+  - [[#enabling-org-agenda][Enabling Org Agenda]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
 
@@ -341,6 +343,13 @@
 
 (unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   (display-battery-mode 1))                       ; it's nice to know how much power you have
+
+;; Setting up default locales
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 #+end_src
 
 ** Setting the Font Face
@@ -471,7 +480,8 @@ Centaur Tabs is an Emacs package that enhances the tab bar functionality, provid
 
 * Editing Features
 ** Hungry Delete
-Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Works exactly like =c-hungry-delete-mode=. Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
+Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Works exactly like =c-hungry-delete-mode=. 
+Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
 
 #+begin_src emacs-lisp
 (use-package hungry-delete
@@ -557,6 +567,7 @@ one, an error is signaled."
 
 * Other Packages
 ** Neotree
+A Emacs tree plugin like NerdTree for Vim.
 
 #+begin_src emacs-lisp
 (use-package neotree
@@ -578,6 +589,7 @@ one, an error is signaled."
 #+end_src
 
 ** Dired
+Dired (short for "directory editor") is a built-in file management mode in Emacs.
 
 #+begin_src emacs-lisp
 (use-package dired-open
@@ -595,8 +607,7 @@ one, an error is signaled."
     (evil-define-key 'normal dired-mode-map (kbd "h") 'dired-up-directory)
     (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file) ; use dired-find-file instead if not using dired-open package
     (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
-    (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file)
-)
+    (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
 #+end_src
 
 ** IVY (Counsel)
@@ -634,6 +645,15 @@ one, an error is signaled."
                                'ivy-rich-switch-buffer-transformer)) 
 #+end_src
 
+** Magit
+Magit is a complete text-based user interface to =Git=. Source: [[https://magit.vc][magit.vc]]
+
+#+begin_src emacs-lisp
+(use-package magit 
+  :ensure t
+  :defer t)
+#+end_src
+
 * Org Mode
 ** Enabling Table of Contents
 
@@ -649,6 +669,13 @@ one, an error is signaled."
 (add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+** Enabling Org Agenda
+
+#+begin_src emacs-lisp
+(setq org-agenda-files (append
+                        (file-expand-wildcards "~/documents/org/*.org")))
 #+end_src
 
 ** Disable Electric Indent
