@@ -963,6 +963,22 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
   '(add-to-list 'org-export-filter-final-output-functions #'org-export-remove-zero-width-space t))
 #+end_src
 
+*** Emphasis markers
+While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which 
+occur at the border a bit more fiddley. We can improve this situation without
+sacrificing visual amenities with the org-appear package. 
+
+#+begin_src emacs-lisp
+(use-package org-appear
+ :ensure t
+ :hook (org-mode . org-appear-mode)
+ :config
+ (setq org-appear-autoemphasis t
+       org-appear-autosubmarkers t
+       org-appear-autolinks nil)
+ (run-at-time nil nil #'org-appear--set-elements))
+#+end_src
+
 ** Org Configuraion
 *** Better Font Faces
 
@@ -1053,7 +1069,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
         org-modern-footnote
         (cons nil (cadr org-script-display))
         org-modern-block-fringe nil
-                org-modern-block-name
+        org-modern-block-name
         '((t . t)
           ("src" "»" "«")
           ("example" "»–" "–«")
@@ -1118,4 +1134,3 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
       org-agenda-current-time-string
       "⭠ now ─────────────────────────────────────────────────")
 #+end_src
-
