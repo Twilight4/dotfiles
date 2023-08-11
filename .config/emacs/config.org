@@ -33,6 +33,9 @@
   - [[#dired][Dired]]
   - [[#ivy-counsel][IVY (Counsel)]]
   - [[#magit][Magit]]
+- [[#plaintext][Plaintext]]
+  - [[#ansi-colours][Ansi colours]]
+  - [[#margin-without-line-numbers][Margin without line numbers]]
 - [[#org-mode][Org Mode]]
   - [[#better-font-faces][Better Font Faces]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
@@ -727,6 +730,41 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
   :ensure t
   :defer t)
 #+end_src
+
+* Plaintext
+** Ansi colours
+ It’s nice to see ANSI colour codes displayed, however we don’t want to disrupt ANSI codes in Org src blocks. 
+
+#+begin_src emacs-lisp
+(add-hook 'text-mode-hook
+  (lambda ()
+    (unless (derived-mode-p 'org-mode)
+      ;; Apply ANSI color codes
+      (with-silent-modifications
+        (ansi-color-apply-on-region (point-min) (point-max) t)))))
+#+end_src
+
+** Margin without line numbers 
+Display-wise, somehow I don’t mind code buffers without any margin on the left, 
+but it feels a bit off with text buffers once the padding provided by line 
+numbers is stripped away. 
+
+#+begin_src emacs-lisp
+(defvar +text-mode-left-margin-width 1
+  "The `left-margin-width' to be used in `text-mode' buffers.")
+
+(defun +setup-text-mode-left-margin ()
+  (when (and (derived-mode-p 'text-mode)
+             (not (and (bound-and-true-p visual-fill-column-mode)
+                       visual-fill-column-center-text))
+             (eq (current-buffer)
+                 (window-buffer (frame-selected-window))))
+    (setq left-margin-width (if display-line-numbers
+                                0 +text-mode-left-margin-width))
+    (set-window-buffer (get-buffer-window (current-buffer))
+                       (current-buffer))))
+#+end_src
+
 
 * Org Mode
 ** Better Font Faces
