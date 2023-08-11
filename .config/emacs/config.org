@@ -44,6 +44,7 @@
   - [[#style-formatting][Style formatting]]
   - [[#style-formatting-automation][Style formatting automation]]
   - [[#org-auto-tangle][Org-auto-tangle]]
+  - [[#org-mode-settings][Org Mode Settings]]
   - [[#org-modern][Org-Modern]]
   - [[#org-buffer-creation][Org buffer creation]]
   - [[#zero-width-spaces][Zero-width spaces]]
@@ -838,8 +839,38 @@ your file even easier by creating a function =tl/insert-auto-tangle-tag=.
   (evil-normal-state))
 #+end_src
 
+** Org Mode Settings
+
+#+begin_src emacs-lisp
+(setq org-directory "~/documents/org/"
+      org-default-notes-file (expand-file-name "notes.org" org-directory)
+      org-ellipsis " ▼ "
+      org-log-done 'time
+      org-hide-emphasis-markers t
+      ;; ex. of org-link-abbrev-alist in action
+      ;; [[arch-wiki:Name_of_Page][Description]]
+      org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
+        '(("google" . "http://www.google.com/search?q=")
+          ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
+          ("ddg" . "https://duckduckgo.com/?q=")
+          ("wiki" . "https://en.wikipedia.org/wiki/"))
+      org-table-convert-region-max-lines 20000
+      org-auto-align-tags nil
+      org-export-with-sub-superscripts '{}
+      org-export-allow-bind-keywords t
+      org-tags-column 0
+      org-use-property-inheritance t
+      org-catch-invisible-edits 'smart
+      org-image-actual-width '(0.9)
+      org-catch-invisible-edits 'show-and-error
+      org-special-ctrl-a/e t
+      org-insert-heading-respect-content t
+      org-pretty-entities t)
+#+end_src
+
 ** Org-Modern
-Fontifying org-mode buffers to be as pretty as possible is of paramount importance, and Minad’s lovely org-modern goes a long way in this regard.
+Fontifying org-mode buffers to be as pretty as possible is of paramount importance, 
+and Minad’s lovely =org-modern= goes a long way in this regard.
 
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'org-modern-mode)
@@ -874,21 +905,8 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
           ("export" "⏩" "⏪"))
         org-modern-progress nil
         org-modern-horizontal-rule (make-string 36 ?─)
-        ;; Edit org settings
-        org-directory "~/documents/org/"
-        org-auto-align-tags nil
-        org-export-with-sub-superscripts '{}
-        org-export-allow-bind-keywords t
-        org-tags-column 0
-        org-use-property-inheritance t
-        org-catch-invisible-edits 'smart
-        org-image-actual-width '(0.9))
-        org-catch-invisible-edits 'show-and-error
-        org-special-ctrl-a/e t
-        org-insert-heading-respect-content t
-        org-pretty-entities t
 
-        ;; Agenda styling
+        ;; Org Modern Agenda
         org-agenda-tags-column 0
         org-agenda-block-separator ?─
         org-agenda-time-grid
@@ -896,20 +914,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
           (800 1000 1200 1400 1600 1800 2000)
           " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
         org-agenda-current-time-string
-        "⭠ now ─────────────────────────────────────────────────")
-
-        org-default-notes-file (expand-file-name "notes.org" org-directory)
-        org-ellipsis " ▼ "
-        org-log-done 'time
-        org-hide-emphasis-markers t ;; hides the emphasis markers
-        ;; ex. of org-link-abbrev-alist in action
-        ;; [[arch-wiki:Name_of_Page][Description]]
-        org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
-          '(("google" . "http://www.google.com/search?q=")
-            ("arch-wiki" . "https://wiki.archlinux.org/index.php/")
-            ("ddg" . "https://duckduckgo.com/?q=")
-            ("wiki" . "https://en.wikipedia.org/wiki/"))
-        org-table-convert-region-max-lines 20000
+        "⭠ now ─────────────────────────────────────────────────"))
 #+end_src
 
 ** Org buffer creation
