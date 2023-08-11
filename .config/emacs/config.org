@@ -214,7 +214,7 @@
  "-" '(org-table-insert-hline :wk "Insert hline in table")
  "t" '(org-time-stamp :wk "Org time stamp")
  "C-t" '(org-transclusion-mode :wk "Org Tansclusion mode")
- "C-f" '(+org-insert-file-link :wk "Org insert file link")
+ "C-f" '(org-insert-file-link :wk "Org insert file link")
  ;; Window splits
  "C-c" '(evil-window-delete :wk "Close window")
  "C-n" '(evil-window-new :wk "New window")
@@ -733,7 +733,7 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
 
 * Plaintext
 ** Ansi colours
- It’s nice to see ANSI colour codes displayed, however we don’t want to disrupt ANSI codes in Org src blocks. 
+It’s nice to see ANSI colour codes displayed, however we don’t want to disrupt ANSI codes in Org src blocks. 
 
 #+begin_src emacs-lisp
 (add-hook 'text-mode-hook
@@ -753,7 +753,7 @@ numbers is stripped away.
 (defvar +text-mode-left-margin-width 1
   "The `left-margin-width' to be used in `text-mode' buffers.")
 
-(defun +setup-text-mode-left-margin ()
+(defun setup-text-mode-left-margin ()
   (when (and (derived-mode-p 'text-mode)
              (not (and (bound-and-true-p visual-fill-column-mode)
                        visual-fill-column-center-text))
@@ -765,6 +765,14 @@ numbers is stripped away.
                        (current-buffer))))
 #+end_src
 
+Now we just need to hook this up to all the events which could either indicate
+a change in the conditions or require the setup to be re-applied. 
+#+begin_src emacs-lisp
+(add-hook 'window-configuration-change-hook #'setup-text-mode-left-margin)
+(add-hook 'display-line-numbers-mode-hook #'setup-text-mode-left-margin)
+(add-hook 'text-mode-hook #'setup-text-mode-left-margin)
+(remove-hook 'text-mode-hook #'display-line-numbers-mode)     ;; remove line numbers in text mode. 
+#+end_src
 
 * Org Mode
 ** Better Font Faces
@@ -847,7 +855,7 @@ see that the ="file"= link type uses the completion function
 function.
 
 #+begin_src emacs-lisp
-(defun +org-insert-file-link ()
+(defun org-insert-file-link ()
   "Insert a file link.  At the prompt, enter the filename."
   (interactive)
   (insert (format "[[%s]]" (org-link-complete-file))))
