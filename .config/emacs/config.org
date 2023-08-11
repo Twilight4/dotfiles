@@ -436,9 +436,8 @@ Change the icon in the modeline if the buffer is changed/unsaved.
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
-  ;;(setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  (setq dashboard-startup-banner "~/.config/emacs/assets/dashboard.png")  ;; use custom image as banner
-  (setq dashboard-center-content nil) ;; set to 't' for centered content
+  (setq dashboard-startup-banner "~/.config/emacs/assets/dash.png")  ;; use custom image as banner
+  (setq dashboard-center-content t) ;; center the content
   (setq dashboard-items '((recents . 5)
                           (agenda . 5 )
                           (bookmarks . 3)
@@ -914,7 +913,7 @@ This automates the surround of word for style formatting with respective keys in
     (delete-region beg end)
     (insert (concat "=" region "="))))
 
-;; Bind the function to the "m" key in Evil visual mode
+;; Bind the function to the "," key in Evil visual mode
 (with-eval-after-load 'evil
   (define-key evil-visual-state-map "," 'surround-with-code))
 
@@ -925,7 +924,7 @@ This automates the surround of word for style formatting with respective keys in
     (delete-region beg end)
     (insert (concat "+" region "+"))))
 
-;; Bind the function to the "m" key in Evil visual mode
+;; Bind the function to the "." key in Evil visual mode
 (with-eval-after-load 'evil
   (define-key evil-visual-state-map "." 'surround-with-green))
 
@@ -936,7 +935,7 @@ This automates the surround of word for style formatting with respective keys in
     (delete-region beg end)
     (insert (concat "_" region "_"))))
 
-;; Bind the function to the "m" key in Evil visual mode
+;; Bind the function to the "/" key in Evil visual mode
 (with-eval-after-load 'evil
   (define-key evil-visual-state-map "/" 'surround-with-underline))
 #+end_src
