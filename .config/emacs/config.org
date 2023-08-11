@@ -192,7 +192,6 @@
  "" nil ; Remove default C-x keymap prefix
  ;; Common keybindings
  "C-s" '(save-buffer :wk "Save buffer")
- "c" '(counsel-recentf :wk "Find recent files")
  "C-n" '(neotree-toggle :wk "Toggle neotree")
  "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
 
@@ -232,6 +231,7 @@
   :global-prefix "M-SPC") ;; Access leader in insert mode
 
   (tl/leader-keys
+    "," '(counsel-recentf :wk "Find recent files")
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines"))
 
