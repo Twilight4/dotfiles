@@ -448,8 +448,13 @@ Centaur Tabs is an Emacs package that enhances the tab bar functionality, provid
   :demand
   :init
   ;; Set the style to rounded with icons
-  (setq centaur-tabs-style "bar")
-  (setq centaur-tabs-set-icons t)
+  (setq centaur-tabs-style "bar"
+        centaur-tabs-set-icons t
+        centaur-tabs-height 26
+        centaur-tabs-modified-marker "o"
+        centaur-tabs-close-button ""
+        centaur-tabs-set-bar 'above
+        centaur-tabs-gray-out-icons 'buffer)
 
   :config
   ;; Enable centaur-tabs
