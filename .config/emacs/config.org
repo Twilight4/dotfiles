@@ -981,7 +981,6 @@ your file even easier by creating a function =tl/insert-auto-tangle-tag=.
       org-use-property-inheritance t
       org-catch-invisible-edits 'smart
       org-image-actual-width '(0.9)
-      org-catch-invisible-edits 'show-and-error
       org-special-ctrl-a/e t
       org-insert-heading-respect-content t
       org-pretty-entities t)
@@ -996,15 +995,16 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
 (use-package org-modern
+  :ensure t
   :hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "◆" "●" "○" "◆" "●")
-        org-modern-list '((45 . "➤")   ; for first level
-                          (43 . "-")   ; for second level
-                          (42 . "•"))  ; for third level
-        org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("➤" . "•") ("•" . "-"))
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
+        org-modern-list '((45 . "➤")   ; first level
+                          (43 . "-")   ; second level
+                          (42 . "•"))  ; third level
+        ;org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("➤" . "•") ("•" . "-"))
         org-modern-todo-faces
         '(("TODO" :inverse-video t :inherit org-todo)
           ("PROJ" :inverse-video t :inherit +org-todo-project)
@@ -1023,18 +1023,59 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("quote" "❝" "❞")
           ("export" "⏩" "⏪"))
         org-modern-progress nil
+        org-modern-priority nil
         org-modern-horizontal-rule (make-string 36 ?─)
+        org-modern-keyword
+        '((t . t)
+          ("title" . "𝙏")
+          ("subtitle" . "𝙩")
+          ("author" . "𝘼")
+          ("email" . #("" 0 1 (display (raise -0.14))))
+          ("date" . "𝘿")
+          ("property" . "☸")
+          ("options" . "⌥")
+          ("startup" . "⏻")
+          ("macro" . "𝓜")
+          ("bind" . #("" 0 1 (display (raise -0.1))))
+          ("bibliography" . "")
+          ("print_bibliography" . #("" 0 1 (display (raise -0.1))))
+          ("cite_export" . "⮭")
+          ("print_glossary" . #("ᴬᶻ" 0 1 (display (raise -0.1))))
+          ("glossary_sources" . #("" 0 1 (display (raise -0.14))))
+          ("include" . "⇤")
+          ("setupfile" . "⇚")
+          ("html_head" . "🅷")
+          ("html" . "🅗")
+          ("latex_class" . "🄻")
+          ("latex_class_options" . #("🄻" 1 2 (display (raise -0.14))))
+          ("latex_header" . "🅻")
+          ("latex_header_extra" . "🅻⁺")
+          ("latex" . "🅛")
+          ("beamer_theme" . "🄱")
+          ("beamer_color_theme" . #("🄱" 1 2 (display (raise -0.12))))
+          ("beamer_font_theme" . "🄱𝐀")
+          ("beamer_header" . "🅱")
+          ("beamer" . "🅑")
+          ("attr_latex" . "🄛")
+          ("attr_html" . "🄗")
+          ("attr_org" . "⒪")
+          ("call" . #("" 0 1 (display (raise -0.15))))
+          ("name" . "⁍")
+          ("header" . "›")
+          ("caption" . "☰")
+          ("results" . "🠶"))))
 
         ;; Org Modern Agenda
-        org-agenda-tags-column 0
-        org-agenda-block-separator ?─
-        org-agenda-time-grid
-        '((daily today require-timed)
-          (800 1000 1200 1400 1600 1800 2000)
-          " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-        org-agenda-current-time-string
-        "⭠ now ─────────────────────────────────────────────────"))
+        ;org-agenda-tags-column 0
+        ;org-agenda-block-separator ?─
+        ;org-agenda-time-grid
+        ;'((daily today require-timed)
+        ;  (800 1000 1200 1400 1600 1800 2000)
+        ;  " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+        ;org-agenda-current-time-string
+        ;"⭠ now ─────────────────────────────────────────────────")
 #+end_src
+
 
 ** Org buffer creation
 Let’s make creating an Org buffer just that little bit easier.
