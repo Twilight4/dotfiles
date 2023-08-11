@@ -24,6 +24,7 @@
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry Delete]]
   - [[#buffer-move][Buffer-move]]
+  - [[#toggle-split-window-maximization][Toggle Split Window Maximization]]
   - [[#splits][Splits]]
   - [[#global-auto-revert][Global Auto Revert]]
   - [[#evil-mode-defaults][Evil mode defaults]]
@@ -136,32 +137,42 @@
 (global-unset-key (kbd "C-x n"))
 (global-unset-key (kbd "C-x C-n"))
 
+;; Unbinding the default annoying conflicting keybinds (depending on a mode)
+(define-key org-mode-map (kbd "C-j") nil)
+; Example:
+;(define-key global-map (kbd "M-,") nil)
+
 ;; Custom keybindings without leader key
 ;; Window motions
 (global-set-key (kbd "C-h") 'evil-window-left)
 (global-set-key (kbd "C-j") 'evil-window-down)
 (global-set-key (kbd "C-k") 'evil-window-up)
 (global-set-key (kbd "C-l") 'evil-window-right)
-;; Zoom In/Out
-(global-set-key (kbd "C-=") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
-(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 ;; Resize window
 (global-set-key (kbd "M-<") 'evil-window-increase-width)
 (global-set-key (kbd "M->") 'evil-window-decrease-width)
 (global-set-key (kbd "M-=") 'evil-window-increase-height)
 (global-set-key (kbd "M--") 'evil-window-decrease-height)
-;; Hungry-delete
-(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
-(global-set-key (kbd "<delete>") 'hungry-delete-forward)
-;; Org Tansclusion
-(define-key global-map (kbd "<f12>") #'org-transclusion-add)
+(global-set-key (kbd "M-0") 'balance-windows)
+;; Maximize window
+(global-set-key (kbd "M-<return>") 'toggle-maximize-evil-split)
 ;; Centaur Tabs
 (global-set-key (kbd "M-p") 'centaur-tabs-backward)
 (global-set-key (kbd "M-j") 'centaur-tabs-forward-group)
 (global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-n") 'centaur-tabs-forward)
+
+;; Zoom In/Out
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-0") 'text-scale-adjust)
+(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+;; Hungry-delete
+(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
+(global-set-key (kbd "<delete>") 'hungry-delete-forward)
+;; Org Tansclusion
+(define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Zero-width space
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
@@ -234,7 +245,8 @@
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
     "h f" '(describe-function :wk "Describe function")
-    "h v" '(describe-variable :wk "Describe variable"))
+    "h v" '(describe-variable :wk "Describe variable")
+    "h k" '(describe-key :wk "Describe key"))
 
   (tl/leader-keys
     "t" '(:ignore t :wk "Toggle")
@@ -571,6 +583,34 @@ one, an error is signaled."
       (set-window-buffer other-win buf-this-buf)
       (select-window other-win))))
 #+end_src
+
+** Toggle Split Window Maximization
+
+#+begin_src emacs-lisp
+;; Define a variable to keep track of maximized window state
+(defvar maximized-evil-split nil)
+
+;; Define a function to toggle the maximization of an Evil split window
+(defun toggle-maximize-evil-split ()
+  "Toggle the maximization of an Evil split window."
+  (interactive)
+  (if maximized-evil-split
+      (progn
+        (balance-windows)
+        (setq maximized-evil-split nil))
+    (if (= (count-windows) 2)
+        (delete-other-windows)
+      (if (> (window-width) (* 2 (window-height)))
+          (progn
+            (setq maximized-evil-split t)
+            (delete-other-windows)
+            (evil-window-vsplit))
+        (progn
+          (setq maximized-evil-split t)
+          (delete-other-windows)
+          (evil-window-split))))))
+#+end_src
+
 ** Splits
 I set a keybinding for =clone-indirect-buffer-other-window= for when I want to have the same document in two splits. The text of the indirect buffer is always identical to the text of its base buffer.
 
