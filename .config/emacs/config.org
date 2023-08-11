@@ -168,7 +168,7 @@
 
 
 ;; Org Keybindings
-(require 'evil-org)
+;(require 'evil-org)
 
 (global-set-key (kbd "M-S-h") #'org-up-element)                    ; default g h
 (global-set-key (kbd "M-S-j") #'org-forward-heading-same-level)    ; default g j
@@ -852,11 +852,11 @@ sacrificing visual amenities with the org-appear package.
 
 ** Editing Features for Org
 *** File Links automation
-While ~org-insert-link~ is all very well and good, a large portion of the time I
+While =org-insert-link= is all very well and good, a large portion of the time I
 want to insert a file, and so it would be good to have a way to skip straight to
-that and avoid the description prompt. Looking at ~org-link-parameters~, we can
+that and avoid the description prompt. Looking at =org-link-parameters=, we can
 see that the ="file"= link type uses the completion function
-~org-link-complete-file~, so let's use that to make a little file-link inserting
+=org-link-complete-file=, so let's use that to make a little file-link inserting
 function.
 
 #+begin_src emacs-lisp
@@ -985,7 +985,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 #+end_src
 
 ** Org Configuraion
-*** Tweaking Font Faces
+*** Org Font Faces
 
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
@@ -1015,7 +1015,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 (add-hook 'org-mode-hook #'tl/org-font-setup)
 #+end_src
 
-*** Tweaking Defaults
+*** Org Better Defaults
 
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/"
@@ -1045,7 +1045,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 #+end_src
 
 
-*** Org-Modern
+*** Org-modern
 Fontifying org-mode buffers to be as pretty as possible is of paramount importance, 
 and Minad’s lovely =org-modern= goes a long way in this regard.
 
@@ -1124,21 +1124,92 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("results" . "🠶"))))
 #+end_src
 
-*** Org-Agenda
+*** Org-super-agenda
 
 #+begin_src emacs-lisp
-(setq org-agenda-files (append
-                        (file-expand-wildcards "~/documents/org/*.org")))
+(use-package org-super-agenda
+  :ensure t
+  :after org
+  :config
+  (org-super-agenda-mode))
 
-(setq org-agenda-tags-column 0
-      org-agenda-block-separator ?─
-      org-agenda-time-grid
-      '((daily today require-timed)
-        (800 1000 1200 1400 1600 1800 2000)
-        " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-      org-agenda-current-time-string
-      "⭠ now ─────────────────────────────────────────────────")
+(setq org-agenda-files
+      (file-expand-wildcards "~/documents/org/*.org"))
+
+(setq org-agenda-skip-scheduled-if-done t
+      org-agenda-skip-deadline-if-done t
+      org-agenda-include-deadlines t
+      ;org-agenda-block-separator ?─
+      ;org-agenda-tags-column 0
+      org-agenda-block-separator nil
+      org-agenda-tags-column 100 ;; from testing this seems to be a good value
+      org-agenda-compact-blocks t)
+
+(setq org-agenda-custom-commands
+      '(("o" "Overview"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+                       '((:name "Today"
+                          :time-grid t
+                          :date today
+                          :todo "TODAY"
+                          :scheduled today
+                          :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '((:name "Next to do"
+                           :todo "NEXT"
+                           :order 1)
+                          (:name "Important"
+                           :tag "Important"
+                           :priority "A"
+                           :order 6)
+                          (:name "Due Today"
+                           :deadline today
+                           :order 2)
+                          (:name "Due Soon"
+                           :deadline future
+                           :order 8)
+                          (:name "Overdue"
+                           :deadline past
+                           :face error
+                           :order 7)
+                          (:name "Assignments"
+                           :tag "Assignment"
+                           :order 10)
+                          (:name "Issues"
+                           :tag "Issue"
+                           :order 12)
+                          (:name "Emacs"
+                           :tag "Emacs"
+                           :order 13)
+                          (:name "Projects"
+                           :tag "Project"
+                           :order 14)
+                          (:name "Research"
+                           :tag "Research"
+                           :order 15)
+                          (:name "To read"
+                           :tag "Read"
+                           :order 30)
+                          (:name "Waiting"
+                           :todo "WAITING"
+                           :order 20)
+                          (:name "University"
+                           :tag "uni"
+                           :order 32)
+                          (:name "Trivial"
+                           :priority<= "E"
+                           :tag ("Trivial" "Unimportant")
+                           :todo ("SOMEDAY" )
+                           :order 90)
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
 #+end_src
+
+*** Org-capture
+Let’s setup some org-capture templates, and make them visually nice to access. 
+
+*** Org-roam
 
 *** Org-journal
 
