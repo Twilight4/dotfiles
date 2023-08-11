@@ -247,8 +247,8 @@
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
     "o e" '(org-export-dispatch :wk "Org export dispatch")
-    "o b" '(tl/create-new-org-buffer :wk "Create new org buffer")
-    "o t" '(tl/insert-auto-tangle-tag :wk "Insert auto-tangle tag"))
+    "o b" '(create-new-org-buffer :wk "Create new org buffer")
+    "o t" '(insert-auto-tangle-tag :wk "Insert auto-tangle tag"))
 
   (tl/leader-keys
     "d" '(:ignore t :wk "Dired")
@@ -762,7 +762,7 @@ a change in the conditions or require the setup to be re-applied.
 
 * Org Mode
 ** Essential Packages
-*** Table-of-Contents
+*** Org-toc
 
 #+begin_src emacs-lisp
 (use-package toc-org
@@ -778,23 +778,13 @@ a change in the conditions or require the setup to be re-applied.
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
-*** Org-journal
-
-#+begin_src emacs-lisp
-(setq org-journal-dir "~/documents/org/journal/"
-      org-journal-date-prefix "* "
-      org-journal-time-prefix "** "
-      org-journal-date-format "%B %d, %Y (%A) "
-      org-journal-file-format "%Y-%m-%d.org")
-#+end_src
-
 *** Org-export
 We need ox-man for “Org eXporting” to manpage format and ox-gemini for exporting
 to gemtext (for the gemini protocol). I also enable ox-publish for converting
 an Org site into an HTML site.
 
 #+begin_src emacs-lisp
-;; problem downloading the package
+;; Problem installing the package
 ;(use-package ox-man
 ;  :ensure t)
 ;(use-package ox-gemini
@@ -807,10 +797,10 @@ an Org site into an HTML site.
 Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a way to make that right again, and this package makes that even easier to do.
 
 #+begin_src emacs-lisp
+;; Problem installing the package
 ;(use-package org-pandoc-import
-;  :straight (:host github
-;             :repo "tecosaur/org-pandoc-import"
-;             :files ("*.el" "filters" "preprocessors")))
+;  :ensure t
+;  :after org)
 #+end_src
 
 *** Org-transclusion
@@ -818,11 +808,41 @@ There’s a really cool package to transclude Org document content.
 
 #+begin_src emacs-lisp
 (use-package org-transclusion
+  :ensure t
   :after org)
 #+end_src
 
+*** Org-auto-tangle
+=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so 
+that it automatically tangles when you save the document.
+
+#+begin_src emacs-lisp
+(use-package org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
+#+end_src
+
+*** Org-appear
+While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which 
+occur at the border a bit more fiddley. We can improve this situation without
+sacrificing visual amenities with the org-appear package. 
+
+#+begin_src emacs-lisp
+(use-package org-appear
+ :ensure t
+ :hook (org-mode . org-appear-mode)
+ :config
+ (setq org-appear-autoemphasis t
+       org-appear-autosubmarkers t
+       org-appear-autolinks nil)
+ (run-at-time nil nil #'org-appear--set-elements))
+#+end_src
+
+
 ** Editing Features for Org
-*** Easier File Links
+*** File Links automation
 While ~org-insert-link~ is all very well and good, a large portion of the time I
 want to insert a file, and so it would be good to have a way to skip straight to
 that and avoid the description prompt. Looking at ~org-link-parameters~, we can
@@ -837,19 +857,11 @@ function.
   (insert (format "[[%s]]" (org-link-complete-file))))
 #+end_src
 
-*** Org-auto-tangle
-=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so 
-that it automatically tangles when you save the document. I have made adding this to
-your file even easier by creating a function =tl/insert-auto-tangle-tag=.
+*** Auto-tangle automation
+I have made adding =org-auto-tangle= to files easier.
 
 #+begin_src emacs-lisp
-(use-package org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode)
-  :config
-  (setq org-auto-tangle-default t))
-
-(defun tl/insert-auto-tangle-tag ()
+(defun insert-auto-tangle-tag ()
   "Insert auto-tangle tag in a literate config."
   (interactive)
   (evil-open-below 1)
@@ -935,11 +947,11 @@ Electric indent mode makes Org mode source blocks have some really weird and ann
 (setq org-edit-src-content-indentation 0)
 #+end_src
 
-*** Org buffer creation
+*** Org buffer creation automation
 Let’s make creating an Org buffer just that little bit easier.
 
 #+begin_src emacs-lisp
-(defun tl/create-new-org-buffer (&optional file)
+(defun create-new-org-buffer (&optional file)
   "Create a new Org mode buffer, optionally opening FILE."
   (interactive "F") ; Prompt for a file to open, if provided
   (let ((new-buffer (generate-new-buffer "*New Org Buffer*")))
@@ -961,22 +973,6 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 
 (eval-after-load 'ox
   '(add-to-list 'org-export-filter-final-output-functions #'org-export-remove-zero-width-space t))
-#+end_src
-
-*** Emphasis markers
-While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which 
-occur at the border a bit more fiddley. We can improve this situation without
-sacrificing visual amenities with the org-appear package. 
-
-#+begin_src emacs-lisp
-(use-package org-appear
- :ensure t
- :hook (org-mode . org-appear-mode)
- :config
- (setq org-appear-autoemphasis t
-       org-appear-autosubmarkers t
-       org-appear-autolinks nil)
- (run-at-time nil nil #'org-appear--set-elements))
 #+end_src
 
 ** Org Configuraion
@@ -1134,3 +1130,14 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
       org-agenda-current-time-string
       "⭠ now ─────────────────────────────────────────────────")
 #+end_src
+
+*** Org-journal
+
+#+begin_src emacs-lisp
+(setq org-journal-dir "~/documents/org/journal/"
+      org-journal-date-prefix "* "
+      org-journal-time-prefix "** "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
+#+end_src
+
