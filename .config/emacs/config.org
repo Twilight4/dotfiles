@@ -132,12 +132,12 @@
 ;(define-key global-map (kbd "M-,") nil)
 
 ;; Custom keybindings without leader key
-;; Window motions
+;; Evil window motions
 (global-set-key (kbd "C-h") 'evil-window-left)
 (global-set-key (kbd "C-j") 'evil-window-down)
 (global-set-key (kbd "C-k") 'evil-window-up)
 (global-set-key (kbd "C-l") 'evil-window-right)
-;; Resize window
+;; Evil resize window
 (global-set-key (kbd "M-<") 'evil-window-increase-width)
 (global-set-key (kbd "M->") 'evil-window-decrease-width)
 (global-set-key (kbd "M-=") 'evil-window-increase-height)
@@ -165,6 +165,15 @@
 ;; Zero-width space
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
+
+
+;; Org Keybindings
+(require 'evil-org)
+
+(global-set-key (kbd "M-S-h") #'org-up-element)                    ; default g h
+(global-set-key (kbd "M-S-j") #'org-forward-heading-same-level)    ; default g j
+(global-set-key (kbd "M-S-k") #'org-backward-heading-same-level)   ; default g k
+(global-set-key (kbd "M-S-l") #'org-down-element)                  ; default g l
 #+end_src
 
 ** General Keybindings
@@ -976,7 +985,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 #+end_src
 
 ** Org Configuraion
-*** Better Font Faces
+*** Tweaking Font Faces
 
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
@@ -1006,13 +1015,14 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 (add-hook 'org-mode-hook #'tl/org-font-setup)
 #+end_src
 
-*** Org Mode Better Defaults
+*** Tweaking Defaults
 
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/"
       org-default-notes-file (expand-file-name "notes.org" org-directory)
       org-ellipsis " ▼ "                           ; Elipsis character for folding headings
       org-log-done 'time                           ; Having the time a item is done sounds
+      org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))   ; List of bullets that cahnge with depth
       org-hide-emphasis-markers t
       ;; ex. of org-link-abbrev-alist in action
       ;; [[arch-wiki:Name_of_Page][Description]]
@@ -1053,7 +1063,6 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
         org-modern-list '((45 . "➤")   ; first level
                           (43 . "-")   ; second level
                           (42 . "•"))  ; third level
-        ;org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("➤" . "•") ("•" . "-"))
         org-modern-todo-faces
         '(("TODO" :inverse-video t :inherit org-todo)
           ("PROJ" :inverse-video t :inherit +org-todo-project)
