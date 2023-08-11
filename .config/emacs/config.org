@@ -37,11 +37,10 @@
   - [[#ansi-colours][Ansi colours]]
   - [[#margin-without-line-numbers][Margin without line numbers]]
 - [[#org-mode][Org Mode]]
-  - [[#better-font-faces][Better Font Faces]]
-  - [[#enabling-table-of-contents][Enabling Table of Contents]]
-  - [[#enabling-org-bullets][Enabling Org Bullets]]
-  - [[#enabling-org-agenda][Enabling Org Agenda]]
-  - [[#enabling-org-journal][Enabling Org journal]]
+  - [[#essential-configuraion][Essential Configuraion]]
+  - [[#org-agenda][Org-Agenda]]
+  - [[#org-export][Org-export]]
+  - [[#org-journal][Org-journal]]
   - [[#disable-electric-indent][Disable Electric Indent]]
   - [[#easier-file-links][Easier File Links]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
@@ -775,7 +774,8 @@ a change in the conditions or require the setup to be re-applied.
 #+end_src
 
 * Org Mode
-** Better Font Faces
+** Essential Configuraion
+*** Better Font Faces
 
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
@@ -805,7 +805,7 @@ a change in the conditions or require the setup to be re-applied.
 (add-hook 'org-mode-hook #'tl/org-font-setup)
 #+end_src
 
-** Enabling Table of Contents
+*** Enabling Table of Contents
 
 #+begin_src emacs-lisp
 (use-package toc-org
@@ -813,7 +813,7 @@ a change in the conditions or require the setup to be re-applied.
     :init (add-hook 'org-mode-hook 'toc-org-enable))
 #+end_src
 
-** Enabling Org Bullets
+*** Enabling Org Bullets
 
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'org-indent-mode)
@@ -821,14 +821,29 @@ a change in the conditions or require the setup to be re-applied.
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
-** Enabling Org Agenda
+** Org-Agenda
 
 #+begin_src emacs-lisp
 (setq org-agenda-files (append
                         (file-expand-wildcards "~/documents/org/*.org")))
 #+end_src
 
-** Enabling Org journal
+** Org-export
+We need ox-man for “Org eXporting” to manpage format and ox-gemini for exporting
+to gemtext (for the gemini protocol). I also enable ox-publish for converting
+an Org site into an HTML site.
+
+#+begin_src emacs-lisp
+;; problem downloading the package
+;(use-package ox-man
+;  :ensure t)
+;(use-package ox-gemini
+;  :ensure t)
+;(use-package ox-publish
+;  :ensure t)
+#+end_src
+
+** Org-journal
 
 #+begin_src emacs-lisp
 (setq org-journal-dir "~/documents/org/journal/"
@@ -1096,13 +1111,13 @@ Let’s make creating an Org buffer just that little bit easier.
 Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. Zero width spaces are hacky but because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map. Add filter to stop the space from being included in exports.
 
 #+begin_src emacs-lisp
-(defun +org-export-remove-zero-width-space (text backend info)
+(defun org-export-remove-zero-width-space (text backend info)
   "Remove zero width spaces from TEXT."
   (unless (org-export-derived-backend-p backend 'org)
     (replace-regexp-in-string "\u200B" "" text)))
 
 (eval-after-load 'ox
-  '(add-to-list 'org-export-filter-final-output-functions #'+org-export-remove-zero-width-space t))
+  '(add-to-list 'org-export-filter-final-output-functions #'org-export-remove-zero-width-space t))
 #+end_src
 
 ** Importing with Pandoc
