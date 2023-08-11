@@ -135,9 +135,6 @@
 (global-unset-key (kbd "C-x C-n"))
 
 ;; Custom keybindings without leader key
-;; Buffer previous/next
-(global-set-key (kbd "M-n") 'next-buffer)
-(global-set-key (kbd "M-p") 'previous-buffer)
 ;; Window motions
 (global-set-key (kbd "C-h") 'evil-window-left)
 (global-set-key (kbd "C-j") 'evil-window-down)
@@ -153,6 +150,11 @@
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
 ;; Org Tansclusion
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
+;; Centaur Tabs
+(global-set-key (kbd "M-p") 'centaur-tabs-backward)
+(global-set-key (kbd "M-j") 'centaur-tabs-forward-group)
+(global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
+(global-set-key (kbd "M-n") 'centaur-tabs-forward)
 ;; Zero-width space
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
