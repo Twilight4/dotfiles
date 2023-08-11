@@ -835,7 +835,7 @@ that it automatically tangles when you save the document.
 *** Org-appear
 While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which 
 occur at the border a bit more fiddley. We can improve this situation without
-sacrificing visual amenities with the org-appear package. 
+sacrificing visual amenities with the =org-appear= package. 
 
 #+begin_src emacs-lisp
 (use-package org-appear
