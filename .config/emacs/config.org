@@ -291,7 +291,8 @@
  display-time-default-load-average nil            ; I don't think I've ever found this useful
  use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
- make-backup-files nil)                           ; Don't create backup files to avoid clutterinf the file system with redundant backup copies
+ make-backup-files nil                            ; Don't create backup files to avoid clutterinf the file system with redundant backup copies
+ display-line-numbers-type 'relative)             ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
     
 (display-time-mode 1)                             ; Enable time in the mode-line
 (global-subword-mode 1)                           ; Iterate through CamelCase words
