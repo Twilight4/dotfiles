@@ -293,7 +293,8 @@
  use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
  make-backup-files nil                            ; Don't create backup files to avoid clutterinf the file system with redundant backup copies
- display-line-numbers-type 'relative)             ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
+ display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
+ blink-cursor-mode nil)                           ; I hate blinking cursors
     
 (display-time-mode 1)                             ; Enable time in the mode-line
 (global-subword-mode 1)                           ; Iterate through CamelCase words
@@ -371,7 +372,7 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
 
 ** Window Title
 I’d like to have just the buffer name, then if applicable the project folder.
-Change the icon if the buffer is changed/unsaved.
+Change the icon in the modeline if the buffer is changed/unsaved.
 
 #+begin_src emacs-lisp
 (setq frame-title-format
