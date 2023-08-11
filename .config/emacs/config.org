@@ -15,6 +15,7 @@
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#color-theme][Color Theme]]
   - [[#doom-modeline-and-all-the-icons][Doom-Modeline and All-the-icons]]
+  - [[#window-title][Window Title]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
@@ -366,6 +367,26 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
 ;  '(mode-line ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
 ;  '(mode-line-active ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
 ;  '(mode-line-inactive ((t (:family "JetBrains Mono Nerd Font" :height 0.95)))))
+#+end_src
+
+** Window Title
+I’d like to have just the buffer name, then if applicable the project folder.
+Change the icon if the buffer is changed/unsaved.
+
+#+begin_src emacs-lisp
+(setq frame-title-format
+      '(""
+        (:eval
+         (if (string-match-p (regexp-quote (or (bound-and-true-p org-roam-directory) "\u0000"))
+                             (or buffer-file-name ""))
+             (replace-regexp-in-string
+              ".*/[0-9]*-?" "☰ "
+              (subst-char-in-string ?_ ?\s buffer-file-name))
+           "%b"))
+        (:eval
+         (when-let ((project-name (and (featurep 'projectile) (projectile-project-name))))
+           (unless (string= "-" project-name)
+             (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))))
 #+end_src
 
 ** Which-key
