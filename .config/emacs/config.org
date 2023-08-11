@@ -147,6 +147,11 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+;; Resize window
+(global-set-key (kbd "M-<") 'evil-window-increase-width)
+(global-set-key (kbd "M->") 'evil-window-decrease-width)
+(global-set-key (kbd "M-=") 'evil-window-increase-height)
+(global-set-key (kbd "M--") 'evil-window-decrease-height)
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
