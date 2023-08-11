@@ -146,18 +146,19 @@ The world's greatest programmer once said:
 ** Dired
 | Keybinding | Description                                        |
 |------------+----------------------------------------------------|
+| h/j/k/l    | left/down/up/right                                 |
 | C          | Create a new subdirectory                          |
 | m          | Mark files or directories for operations           |
 | u          | Unmark previously marked files or directories      |
 | U          | Unmark all marked fiels or directories             |
 | d          | Delete marked files or directories                 |
-| R          | Rename or move files                               |
-| C          | Copy marked files                                  |
+| R          | Rename/move current or marked files                |
+| C          | Copy current or marked files                       |
 | +          | Create an empty file                               |
-| %          | Mark files based on a regular expression           |
-| !          | Run a shell command on marked files                |
 | =          | Compare files with their backups or other versions |
-| z          | Compress or decompress marked files                |
+| (          | Toggle detailed listing on/off                     |
+| )          | Toggle git information on/off                      |
+| TAB        | Toggle viewing subtree at point                    |
 | Q          | Toggle read-only mode for the current Dired buffer |
 
 * WIP
