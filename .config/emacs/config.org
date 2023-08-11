@@ -37,22 +37,9 @@
   - [[#ansi-colours][Ansi colours]]
   - [[#margin-without-line-numbers][Margin without line numbers]]
 - [[#org-mode][Org Mode]]
-  - [[#essential-configuraion][Essential Configuraion]]
-  - [[#org-agenda][Org-Agenda]]
-  - [[#org-export][Org-export]]
-  - [[#org-journal][Org-journal]]
-  - [[#disable-electric-indent][Disable Electric Indent]]
-  - [[#easier-file-links][Easier File Links]]
-  - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
-  - [[#transclusion][Transclusion]]
-  - [[#style-formatting][Style formatting]]
-  - [[#style-formatting-automation][Style formatting automation]]
-  - [[#org-auto-tangle][Org-auto-tangle]]
-  - [[#org-mode-settings][Org Mode Settings]]
-  - [[#org-modern][Org-Modern]]
-  - [[#org-buffer-creation][Org buffer creation]]
-  - [[#zero-width-spaces][Zero-width spaces]]
-  - [[#importing-with-pandoc][Importing with Pandoc]]
+  - [[#essential-packages][Essential Packages]]
+  - [[#editing-features-for-org][Editing Features for Org]]
+  - [[#org-configuraion][Org Configuraion]]
 
 * Programs to load first
 ** Elpaca Package Manager
@@ -774,38 +761,8 @@ a change in the conditions or require the setup to be re-applied.
 #+end_src
 
 * Org Mode
-** Essential Configuraion
-*** Better Font Faces
-
-#+begin_src emacs-lisp
-(defun tl/org-font-setup ()
-  ;; Replace list hyphen with dot
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
-  ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . 1.25)
-                  (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.0)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "Jetbrains Mono Nerd Font" :weight 'normal :height (cdr face)))
-
-  ;; Fixed-pitch settings
-  (dolist (face '(org-block org-table org-formula org-code
-                  org-verbatim org-special-keyword org-meta-line
-                  org-checkbox line-number line-number-current-line))
-    (set-face-attribute face nil :inherit '(shadow fixed-pitch))))
-
-;; Call efs/org-font-setup when entering org-mode
-(add-hook 'org-mode-hook #'tl/org-font-setup)
-#+end_src
-
-*** Enabling Table of Contents
+** Essential Packages
+*** Table-of-Contents
 
 #+begin_src emacs-lisp
 (use-package toc-org
@@ -813,7 +770,7 @@ a change in the conditions or require the setup to be re-applied.
     :init (add-hook 'org-mode-hook 'toc-org-enable))
 #+end_src
 
-*** Enabling Org Bullets
+*** Org-bullets
 
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'org-indent-mode)
@@ -821,14 +778,17 @@ a change in the conditions or require the setup to be re-applied.
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
-** Org-Agenda
+*** Org-journal
 
 #+begin_src emacs-lisp
-(setq org-agenda-files (append
-                        (file-expand-wildcards "~/documents/org/*.org")))
+(setq org-journal-dir "~/documents/org/journal/"
+      org-journal-date-prefix "* "
+      org-journal-time-prefix "** "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
 #+end_src
 
-** Org-export
+*** Org-export
 We need ox-man for “Org eXporting” to manpage format and ox-gemini for exporting
 to gemtext (for the gemini protocol). I also enable ox-publish for converting
 an Org site into an HTML site.
@@ -843,25 +803,26 @@ an Org site into an HTML site.
 ;  :ensure t)
 #+end_src
 
-** Org-journal
+*** Org-pandoc-import
+Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a way to make that right again, and this package makes that even easier to do.
 
 #+begin_src emacs-lisp
-(setq org-journal-dir "~/documents/org/journal/"
-      org-journal-date-prefix "* "
-      org-journal-time-prefix "** "
-      org-journal-date-format "%B %d, %Y (%A) "
-      org-journal-file-format "%Y-%m-%d.org")
+;(use-package org-pandoc-import
+;  :straight (:host github
+;             :repo "tecosaur/org-pandoc-import"
+;             :files ("*.el" "filters" "preprocessors")))
 #+end_src
 
-** Disable Electric Indent
-Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior.
+*** Org-transclusion
+There’s a really cool package to transclude Org document content.
 
 #+begin_src emacs-lisp
-(electric-indent-mode -1)
-(setq org-edit-src-content-indentation 0)
+(use-package org-transclusion
+  :after org)
 #+end_src
 
-** Easier File Links
+** Editing Features for Org
+*** Easier File Links
 While ~org-insert-link~ is all very well and good, a large portion of the time I
 want to insert a file, and so it would be good to have a way to skip straight to
 that and avoid the description prompt. Looking at ~org-link-parameters~, we can
@@ -876,22 +837,28 @@ function.
   (insert (format "[[%s]]" (org-link-complete-file))))
 #+end_src
 
-** Source Code Block Tag Expansion
-Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
+*** Org-auto-tangle
+=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so 
+that it automatically tangles when you save the document. I have made adding this to
+your file even easier by creating a function =tl/insert-auto-tangle-tag=.
 
 #+begin_src emacs-lisp
-(require 'org-tempo)
+(use-package org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+  :config
+  (setq org-auto-tangle-default t))
+
+(defun tl/insert-auto-tangle-tag ()
+  "Insert auto-tangle tag in a literate config."
+  (interactive)
+  (evil-open-below 1)
+  (insert "#+auto_tangle: t ")
+  (evil-normal-state))
 #+end_src
 
-** Transclusion
-There’s a really cool package to transclude Org document content.
 
-#+begin_src emacs-lisp
-(use-package org-transclusion
-  :after org)
-#+end_src
-
-** Style formatting
+*** Style formatting
 This controls the color of bold, italic, underline, verbatim, strikethrough in Org mode.
 
 #+begin_src emacs-lisp
@@ -904,7 +871,7 @@ This controls the color of bold, italic, underline, verbatim, strikethrough in O
   ("+" (:strike-through nil :foreground "PaleGreen1" ))))
 #+end_src
 
-** Style formatting automation
+*** Style formatting automation
 This automates the surround of word for style formatting with respective keys in evil visual mode.
 
 #+begin_src emacs-lisp
@@ -953,27 +920,81 @@ This automates the surround of word for style formatting with respective keys in
   (define-key evil-visual-state-map "/" 'surround-with-underline))
 #+end_src
 
-** Org-auto-tangle
-=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so 
-that it automatically tangles when you save the document. I have made adding this to
-your file even easier by creating a function =tl/insert-auto-tangle-tag=.
+*** Source Code Block Tag Expansion
+Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
-(use-package org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode)
-  :config
-  (setq org-auto-tangle-default t))
-
-(defun tl/insert-auto-tangle-tag ()
-  "Insert auto-tangle tag in a literate config."
-  (interactive)
-  (evil-open-below 1)
-  (insert "#+auto_tangle: t ")
-  (evil-normal-state))
+(require 'org-tempo)
 #+end_src
 
-** Org Mode Settings
+*** Electric Indent
+Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior.
+
+#+begin_src emacs-lisp
+(electric-indent-mode -1)
+(setq org-edit-src-content-indentation 0)
+#+end_src
+
+*** Org buffer creation
+Let’s make creating an Org buffer just that little bit easier.
+
+#+begin_src emacs-lisp
+(defun tl/create-new-org-buffer (&optional file)
+  "Create a new Org mode buffer, optionally opening FILE."
+  (interactive "F") ; Prompt for a file to open, if provided
+  (let ((new-buffer (generate-new-buffer "*New Org Buffer*")))
+    (switch-to-buffer new-buffer)
+    (org-mode)
+    (when file
+      (insert-file-contents file))
+    (setq buffer-offer-save t)))
+#+end_src​
+
+*** Zero-width spaces
+Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. Zero width spaces are hacky but because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map. Add filter to stop the space from being included in exports.
+
+#+begin_src emacs-lisp
+(defun org-export-remove-zero-width-space (text backend info)
+  "Remove zero width spaces from TEXT."
+  (unless (org-export-derived-backend-p backend 'org)
+    (replace-regexp-in-string "\u200B" "" text)))
+
+(eval-after-load 'ox
+  '(add-to-list 'org-export-filter-final-output-functions #'org-export-remove-zero-width-space t))
+#+end_src
+
+** Org Configuraion
+*** Better Font Faces
+
+#+begin_src emacs-lisp
+(defun tl/org-font-setup ()
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+  ;; Set faces for heading levels
+  (dolist (face '((org-level-1 . 1.25)
+                  (org-level-2 . 1.1)
+                  (org-level-3 . 1.05)
+                  (org-level-4 . 1.0)
+                  (org-level-5 . 1.1)
+                  (org-level-6 . 1.1)
+                  (org-level-7 . 1.1)
+                  (org-level-8 . 1.1)))
+    (set-face-attribute (car face) nil :font "Jetbrains Mono Nerd Font" :weight 'normal :height (cdr face)))
+
+  ;; Fixed-pitch settings
+  (dolist (face '(org-block org-table org-formula org-code
+                  org-verbatim org-special-keyword org-meta-line
+                  org-checkbox line-number line-number-current-line))
+    (set-face-attribute face nil :inherit '(shadow fixed-pitch))))
+
+;; Call efs/org-font-setup when entering org-mode
+(add-hook 'org-mode-hook #'tl/org-font-setup)
+#+end_src
+
+*** Org Mode Basic Settings
 
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/"
@@ -1001,7 +1022,8 @@ your file even easier by creating a function =tl/insert-auto-tangle-tag=.
       org-pretty-entities t)
 #+end_src
 
-** Org-Modern
+
+*** Org-Modern
 Fontifying org-mode buffers to be as pretty as possible is of paramount importance, 
 and Minad’s lovely =org-modern= goes a long way in this regard.
 
@@ -1079,53 +1101,21 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("header" . "›")
           ("caption" . "☰")
           ("results" . "🠶"))))
-
-        ;; Org Modern Agenda
-        ;org-agenda-tags-column 0
-        ;org-agenda-block-separator ?─
-        ;org-agenda-time-grid
-        ;'((daily today require-timed)
-        ;  (800 1000 1200 1400 1600 1800 2000)
-        ;  " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
-        ;org-agenda-current-time-string
-        ;"⭠ now ─────────────────────────────────────────────────")
 #+end_src
 
-
-** Org buffer creation
-Let’s make creating an Org buffer just that little bit easier.
+*** Org-Agenda
 
 #+begin_src emacs-lisp
-(defun tl/create-new-org-buffer (&optional file)
-  "Create a new Org mode buffer, optionally opening FILE."
-  (interactive "F") ; Prompt for a file to open, if provided
-  (let ((new-buffer (generate-new-buffer "*New Org Buffer*")))
-    (switch-to-buffer new-buffer)
-    (org-mode)
-    (when file
-      (insert-file-contents file))
-    (setq buffer-offer-save t)))
-#+end_src​
+(setq org-agenda-files (append
+                        (file-expand-wildcards "~/documents/org/*.org")))
 
-** Zero-width spaces
-Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. Zero width spaces are hacky but because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map. Add filter to stop the space from being included in exports.
-
-#+begin_src emacs-lisp
-(defun org-export-remove-zero-width-space (text backend info)
-  "Remove zero width spaces from TEXT."
-  (unless (org-export-derived-backend-p backend 'org)
-    (replace-regexp-in-string "\u200B" "" text)))
-
-(eval-after-load 'ox
-  '(add-to-list 'org-export-filter-final-output-functions #'org-export-remove-zero-width-space t))
+(setq org-agenda-tags-column 0
+      org-agenda-block-separator ?─
+      org-agenda-time-grid
+      '((daily today require-timed)
+        (800 1000 1200 1400 1600 1800 2000)
+        " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+      org-agenda-current-time-string
+      "⭠ now ─────────────────────────────────────────────────")
 #+end_src
 
-** Importing with Pandoc
-Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a way to make that right again, and this package makes that even easier to do.
-
-#+begin_src emacs-lisp
-;(use-package org-pandoc-import
-;  :straight (:host github
-;             :repo "tecosaur/org-pandoc-import"
-;             :files ("*.el" "filters" "preprocessors")))
-#+end_src
