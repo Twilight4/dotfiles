@@ -128,6 +128,7 @@
 (define-key global-map (kbd "M-d") nil)
 (define-key global-map (kbd "M-f") nil)
 (define-key global-map (kbd "M-b") nil)
+(define-key global-map (kbd "M-,") nil)
 
 ;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
@@ -151,6 +152,9 @@
   (define-key evil-motion-state-map "J" nil)
   (define-key evil-motion-state-map "K" nil)
   (define-key evil-motion-state-map "L" nil)
+  ;; Unbinding the default bindings
+  (define-key evil-normal-state-map (kbd "M-.") nil)
+  (define-key evil-motion-state-map (kbd "M-.") nil)
 )
 #+end_src
 
@@ -204,6 +208,8 @@
 (global-set-key (kbd "M-n") 'centaur-tabs-forward)
 (global-set-key (kbd "M-f") 'centaur-tabs-forward-group)
 (global-set-key (kbd "M-b") 'centaur-tabs-backward-group)
+(global-set-key (kbd "M-,") 'centaur-tabs-move-current-tab-to-left)
+(global-set-key (kbd "M-.") 'centaur-tabs-move-current-tab-to-right)
 (global-set-key (kbd "M-d") 'kill-this-buffer)
 (global-set-key (kbd "M-D") 'centaur-tabs-kill-other-buffers-in-current-group)
 (global-set-key (kbd "M-t")
