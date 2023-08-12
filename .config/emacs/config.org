@@ -119,34 +119,66 @@
 ** Global Keybindings
 *** Disable Conflicting Keybindings
 #+begin_src emacs-lisp
+;; Global Keybindings
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
 (define-key global-map (kbd "C-x") (make-sparse-keymap))
 (define-key global-map (kbd "C-x C-n") (make-sparse-keymap))
 (define-key global-map (kbd "C-x n") (make-sparse-keymap))
-(global-unset-key (kbd "C-x n"))
-(global-unset-key (kbd "C-x C-n"))
 
+;; Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
 ;; It works because first it unbinds the keybind and when I have this keybind set later
 ;; in the config then it binds it to that keybind
 (define-key org-mode-map (kbd "C-j") nil)
 (define-key org-mode-map (kbd "M-h") nil)
 (define-key org-mode-map (kbd "M-t") nil)
-; Example:
-;(define-key global-map (kbd "M-,") nil)
 
+;; Evil Mode Keybindings
 (with-eval-after-load 'evil
-  ;; Unbind the default prefix key "C-w"
+  ;; Unbind the default C-w prefix key
   (define-key evil-normal-state-map (kbd "C-w") nil)
-  (define-key evil-motion-state-map (kbd "C-w") nil))
+  (define-key evil-motion-state-map (kbd "C-w") nil)
+  ;; Unbind the default bindings in normal mode
+  (define-key evil-normal-state-map "H" nil)
+  (define-key evil-normal-state-map "J" nil)
+  (define-key evil-normal-state-map "K" nil)
+  (define-key evil-normal-state-map "L" nil)
+)
 #+end_src
 
 *** Keybindings Without a Leader Key
 #+begin_src emacs-lisp
+;; NOTE: the difference with define-key adn global-set-key is that define-key is specific
+;; for a mode and sometimes only this method works but I believe it's better to use define-key for evil
+;; mode cuz it's more precise
+
+;; Evil Mode Keybindings
+(with-eval-after-load 'evil
+  ;; Map "C-u" to "Page Up" in Evil normal and visual state
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+  (evil-define-key 'visual evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+  ;; Bind S-h/j/k/l to TODOs/priorities
+  (define-key evil-normal-state-map "H" 'org-shiftleft)
+  (define-key evil-normal-state-map "J" 'org-shiftdown)
+  (define-key evil-normal-state-map "K" 'org-shiftup)
+  (define-key evil-normal-state-map "L" 'org-shiftright)
+  ;; Keybindings for increasing and decreasing window width and height
+  (define-key evil-normal-state-map (kbd "M-<") 'evil-window-increase-width)
+  (define-key evil-normal-state-map (kbd "M->") 'evil-window-decrease-width)
+  (define-key evil-normal-state-map (kbd "M-=") 'evil-window-increase-height)
+  (define-key evil-normal-state-map (kbd "M--") 'evil-window-decrease-height)
+  (define-key evil-normal-state-map (kbd "M-0") 'balance-windows)
+  ;; Keybindings for moving between windows
+  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+)
+
+;; Global Keybindings
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
 ;; Zoom In/Out
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -156,49 +188,29 @@
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
-;; Zero-width space (this is an exception keybinding)
-(global-set-key (kbd "C-c C-SPC")
-                (lambda () (interactive) (insert "\u200B")))
-
-;; Evil window motions
-(global-set-key (kbd "C-h") 'evil-window-left)
-(global-set-key (kbd "C-j") 'evil-window-down)
-(global-set-key (kbd "C-k") 'evil-window-up)
-(global-set-key (kbd "C-l") 'evil-window-right)
-;; Evil resize window
-(global-set-key (kbd "M-<") 'evil-window-increase-width)
-(global-set-key (kbd "M->") 'evil-window-decrease-width)
-(global-set-key (kbd "M-=") 'evil-window-increase-height)
-(global-set-key (kbd "M--") 'evil-window-decrease-height)
-(global-set-key (kbd "M-0") 'balance-windows)
-;; Evil PageUp fix
-(with-eval-after-load 'evil
-  ;; Map "C-u" to "Page Up" in Evil normal state
-  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-  ;; Map "C-u" to "Page Up" in Evil visual state
-  (evil-define-key 'visual evil-visual-state-map (kbd "C-u") 'evil-scroll-up))
-
 ;; Centaur tabs
 (global-set-key (kbd "M-p") 'centaur-tabs-backward)
 ;(global-set-key (kbd "M-j") 'centaur-tabs-forward-group)
 ;(global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-n") 'centaur-tabs-forward)
 (global-set-key (kbd "M-t") 'centaur-tabs--create-new-tab)
-
-;; Org heading navigation
-(global-set-key (kbd "M-h") #'org-up-element)                    ; default g h
-(global-set-key (kbd "M-j") #'org-forward-heading-same-level)    ; default g j
-(global-set-key (kbd "M-k") #'org-backward-heading-same-level)   ; default g k
-(global-set-key (kbd "M-l") #'org-down-element)                  ; default g l
-;; Org promote/demote headings
-(global-set-key (kbd "M-H") #'org-metaleft)                      ; default M-<left>
-(global-set-key (kbd "M-J") #'org-metadown)                      ; default M-<down>
-(global-set-key (kbd "M-K") #'org-metaup)                        ; default M-<up>
-(global-set-key (kbd "M-L") #'org-metaright)                     ; default M-<right>
-
-
-;; Org tansclusion
+;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
+;; Zero-width space (this is an exception keybinding)
+(global-set-key (kbd "C-c C-SPC")
+                (lambda () (interactive) (insert "\u200B")))
+
+;; Org Mode Keybindings
+;; Org heading navigation
+(define-key org-mode-map (kbd "M-h") #'org-up-element)                   ; default g h
+(define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)   ; default g j
+(define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)  ; default g k
+(define-key org-mode-map (kbd "M-l") #'org-down-element)                 ; default g l
+;; Org promote/demote headings
+(define-key org-mode-map (kbd "M-H") #'org-metaleft)                     ; default M-<left>
+(define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
+(define-key org-mode-map (kbd "M-K") #'org-metaup)                       ; default M-<up>
+(define-key org-mode-map (kbd "M-L") #'org-metaright)                    ; default M-<right>
 #+end_src
 
 ** General Keybindings
@@ -245,13 +257,15 @@
  "a" '(org-agenda :wk "Org agenda")
  "o" '(org-todo-list :wk "Org todo list")
  "t" '(org-time-stamp :wk "Org time stamp")
+ "T" '(org-transclusion-mode :wk "Org Tansclusion mode")
  ;; Specific Org Mode commands
- "C-o" '(org-todo :wk "Org todo")
+ "C-t" '(org-todo :wk "Org todo")
  "C-i" '(org-toggle-item :wk "Org toggle item")
+ "C-l" '(org-insert-link :wk "Org insert link")
  "C-f" '(org-insert-file-link :wk "Org insert file link")
+ "C-o" '(org-open-at-point :wk "Org open thing at point")
  "C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
- "C-T" '(org-transclusion-mode :wk "Org Tansclusion mode")
 )
 #+end_src
 
