@@ -132,6 +132,7 @@
 ;; in the config then it binds it to that keybind
 (define-key org-mode-map (kbd "C-j") nil)
 (define-key org-mode-map (kbd "M-h") nil)
+(define-key org-mode-map (kbd "M-t") nil)
 ; Example:
 ;(define-key global-map (kbd "M-,") nil)
 
@@ -182,6 +183,7 @@
 ;(global-set-key (kbd "M-j") 'centaur-tabs-forward-group)
 ;(global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-n") 'centaur-tabs-forward)
+(global-set-key (kbd "M-t") 'centaur-tabs--create-new-tab)
 
 ;; Org heading navigation
 (global-set-key (kbd "M-h") #'org-up-element)                    ; default g h
@@ -189,10 +191,10 @@
 (global-set-key (kbd "M-k") #'org-backward-heading-same-level)   ; default g k
 (global-set-key (kbd "M-l") #'org-down-element)                  ; default g l
 ;; Org promote/demote headings
-(global-set-key (kbd "M-H") #'org-metaleft)                        ; default M-<left>
-(global-set-key (kbd "M-J") #'org-metadown)                        ; default M-<down>
-(global-set-key (kbd "M-K") #'org-metaup)                          ; default M-<up>
-(global-set-key (kbd "M-L") #'org-metaright)                       ; default M-<right>
+(global-set-key (kbd "M-H") #'org-metaleft)                      ; default M-<left>
+(global-set-key (kbd "M-J") #'org-metadown)                      ; default M-<down>
+(global-set-key (kbd "M-K") #'org-metaup)                        ; default M-<up>
+(global-set-key (kbd "M-L") #'org-metaright)                     ; default M-<right>
 
 
 ;; Org tansclusion
@@ -220,7 +222,7 @@
  ;; Window splits
  "C-c" '(evil-window-delete :wk "Close window")
  "C-n" '(evil-window-new :wk "New window")
- "C-s" '(evil-window-split :wk "Horizontal split window")
+ "C-h" '(evil-window-split :wk "Horizontal split window")
  "C-v" '(evil-window-vsplit :wk "Vertical split window")
  ;; Move windows
  "C-h" '(buf-move-left :wk "Buffer move left")
