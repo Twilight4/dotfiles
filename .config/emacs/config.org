@@ -22,12 +22,13 @@
   - [[#centaur-tabs][Centaur-Tabs]]
   - [[#file-encoding][File Encoding]]
 - [[#editing-features][Editing Features]]
-  - [[#hungry-delete][Hungry Delete]]
+  - [[#hungry-delete][Hungry-delete]]
+  - [[#no-littering][No-littering]]
   - [[#buffer-move][Buffer-move]]
   - [[#toggle-split-window-maximization][Toggle Split Window Maximization]]
   - [[#splits][Splits]]
   - [[#global-auto-revert][Global Auto Revert]]
-  - [[#evil-mode-defaults][Evil mode defaults]]
+  - [[#evil-mode-defaults][Evil Mode Defaults]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -113,11 +114,8 @@
 #+end_src
 
 ** Global Keybindings
-
+*** Disable Conflicting Keybindings
 #+begin_src emacs-lisp
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
 (define-key global-map (kbd "C-x") (make-sparse-keymap))
@@ -130,8 +128,26 @@
 (define-key org-mode-map (kbd "C-j") nil)
 ; Example:
 ;(define-key global-map (kbd "M-,") nil)
+#+end_src
 
-;; Custom keybindings without leader key
+*** Keybindings Without a Leader Key
+#+begin_src emacs-lisp
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; Zoom In/Out
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-0") 'text-scale-adjust)
+(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+;; Hungry-delete
+(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
+(global-set-key (kbd "<delete>") 'hungry-delete-forward)
+;; Zero-width space (this is an exception keybinding)
+(global-set-key (kbd "C-c C-SPC")
+                (lambda () (interactive) (insert "\u200B")))
+
 ;; Evil window motions
 (global-set-key (kbd "C-h") 'evil-window-left)
 (global-set-key (kbd "C-j") 'evil-window-down)
@@ -143,7 +159,7 @@
 (global-set-key (kbd "M-=") 'evil-window-increase-height)
 (global-set-key (kbd "M--") 'evil-window-decrease-height)
 (global-set-key (kbd "M-0") 'balance-windows)
-;; Maximize window
+;; Evil Maximize window
 (global-set-key (kbd "M-<return>") 'toggle-maximize-evil-split)
 ;; Centaur Tabs
 (global-set-key (kbd "M-p") 'centaur-tabs-backward)
@@ -151,29 +167,13 @@
 (global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-n") 'centaur-tabs-forward)
 
-;; Zoom In/Out
-(global-set-key (kbd "C-=") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "C-0") 'text-scale-adjust)
-(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
-(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
-;; Hungry-delete
-(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
-(global-set-key (kbd "<delete>") 'hungry-delete-forward)
-;; Org Tansclusion
-(define-key global-map (kbd "<f12>") #'org-transclusion-add)
-;; Zero-width space
-(global-set-key (kbd "C-c C-SPC")
-                (lambda () (interactive) (insert "\u200B")))
-
-
 ;; Org Keybindings
-;(require 'evil-org)
-
 (global-set-key (kbd "M-S-h") #'org-up-element)                    ; default g h
 (global-set-key (kbd "M-S-j") #'org-forward-heading-same-level)    ; default g j
 (global-set-key (kbd "M-S-k") #'org-backward-heading-same-level)   ; default g k
 (global-set-key (kbd "M-S-l") #'org-down-element)                  ; default g l
+;; Org Tansclusion
+(define-key global-map (kbd "<f12>") #'org-transclusion-add)
 #+end_src
 
 ** General Keybindings
@@ -497,7 +497,7 @@ When we have the default file encoding (LF UTF-8), it really isn’t worth notin
 #+end_src
 
 * Editing Features
-** Hungry Delete
+** Hungry-delete
 Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. Source: [[https://github.com/nflath/hungry-delete][hungry-delete]]
 
 #+begin_src emacs-lisp
@@ -505,6 +505,18 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   :ensure t
   :defer t
   :config (global-hungry-delete-mode))
+#+end_src
+
+** No-littering
+I use the =no-littering= package to keep folders where I edit files and the Emacs configuration folder clean.
+
+#+begin_src emacs-lisp
+;; NOTE: If you want to move everything out of the ~/.emacs.d folder
+;; reliably, set `user-emacs-directory` before loading no-littering!
+;(setq user-emacs-directory "~/.cache/emacs")
+
+(use-package no-littering
+  :ensure t)
 #+end_src
 
 ** Buffer-move
@@ -625,7 +637,7 @@ Keep buffers synced and up to date with auto revert mode.
 (setq global-auto-revert-non-file-buffers t)
 #+end_src
 
-** Evil mode defaults
+** Evil Mode Defaults
 Now, EVIL cares a fair bit about keeping compatibility with Vim’s default behaviour.
 There are some particular settings that I’d rather be something else.
 
