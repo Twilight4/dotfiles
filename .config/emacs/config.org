@@ -119,14 +119,17 @@
 ** Global Keybindings
 *** Disable Conflicting Keybindings
 #+begin_src emacs-lisp
-;; Global Keybindings
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
 (define-key global-map (kbd "C-x") (make-sparse-keymap))
 (define-key global-map (kbd "C-x C-n") (make-sparse-keymap))
 (define-key global-map (kbd "C-x n") (make-sparse-keymap))
+;; Unbinding Global Keybindings
+(define-key global-map (kbd "M-d") nil)
+(define-key global-map (kbd "M-f") nil)
+(define-key global-map (kbd "M-b") nil)
 
-;; Org Mode Keybindings
+;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
 ;; It works because first it unbinds the keybind and when I have this keybind set later
 ;; in the config then it binds it to that keybind
@@ -134,12 +137,12 @@
 (define-key org-mode-map (kbd "M-h") nil)
 (define-key org-mode-map (kbd "M-t") nil)
 
-;; Evil Mode Keybindings
+;; Unbinding Evil Mode Keybindings
 (with-eval-after-load 'evil
-  ;; Unbind the default C-w prefix key
+  ;; Unbinding the default C-w prefix key
   (define-key evil-normal-state-map (kbd "C-w") nil)
   (define-key evil-motion-state-map (kbd "C-w") nil)
-  ;; Unbind the default bindings in normal mode
+  ;; Unbinding the default bindings in normal mode
   (define-key evil-normal-state-map "H" nil)
   (define-key evil-normal-state-map "J" nil)
   (define-key evil-normal-state-map "K" nil)
@@ -150,30 +153,34 @@
 *** Keybindings Without a Leader Key
 #+begin_src emacs-lisp
 ;; NOTE: the difference with define-key adn global-set-key is that define-key is specific
-;; for a mode and sometimes only this method works but I believe it's better to use define-key for evil
-;; mode cuz it's more precise
+;; for a mode and it's always better to use it for a specific mode to avoid mess
 
 ;; Evil Mode Keybindings
 (with-eval-after-load 'evil
   ;; Map "C-u" to "Page Up" in Evil normal and visual state
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
   (evil-define-key 'visual evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
-  ;; Bind S-h/j/k/l to TODOs/priorities
-  (define-key evil-normal-state-map "H" 'org-shiftleft)
-  (define-key evil-normal-state-map "J" 'org-shiftdown)
-  (define-key evil-normal-state-map "K" 'org-shiftup)
-  (define-key evil-normal-state-map "L" 'org-shiftright)
+  ;; Keybindings for moving between windows
+  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+  ;; Keybindings for moving the windows
+  (define-key evil-normal-state-map (kbd "C-S-H") 'buf-move-left)
+  (define-key evil-normal-state-map (kbd "C-S-J") 'buf-move-down)
+  (define-key evil-normal-state-map (kbd "C-S-K") 'buf-move-up)
+  (define-key evil-normal-state-map (kbd "C-S-L") 'buf-move-right)
   ;; Keybindings for increasing and decreasing window width and height
   (define-key evil-normal-state-map (kbd "M-<") 'evil-window-increase-width)
   (define-key evil-normal-state-map (kbd "M->") 'evil-window-decrease-width)
   (define-key evil-normal-state-map (kbd "M-=") 'evil-window-increase-height)
   (define-key evil-normal-state-map (kbd "M--") 'evil-window-decrease-height)
   (define-key evil-normal-state-map (kbd "M-0") 'balance-windows)
-  ;; Keybindings for moving between windows
-  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+  ;; Keybindings for org mode in evil normal mode for TODOs/priorities
+  (define-key evil-normal-state-map "H" 'org-shiftleft)
+  (define-key evil-normal-state-map "J" 'org-shiftdown)
+  (define-key evil-normal-state-map "K" 'org-shiftup)
+  (define-key evil-normal-state-map "L" 'org-shiftright)
 )
 
 ;; Global Keybindings
@@ -190,10 +197,16 @@
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
 ;; Centaur tabs
 (global-set-key (kbd "M-p") 'centaur-tabs-backward)
-;(global-set-key (kbd "M-j") 'centaur-tabs-forward-group)
-;(global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-n") 'centaur-tabs-forward)
-(global-set-key (kbd "M-t") 'centaur-tabs--create-new-tab)
+(global-set-key (kbd "M-f") 'centaur-tabs-forward-group)
+(global-set-key (kbd "M-b") 'centaur-tabs-backward-group)
+(global-set-key (kbd "M-d") 'kill-this-buffer)
+(global-set-key (kbd "M-D") 'centaur-tabs-kill-other-buffers-in-current-group)
+(global-set-key (kbd "M-t")
+                (lambda ()
+                  (interactive)
+                  (centaur-tabs--create-new-tab)
+                  (dashboard-open)))
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Zero-width space (this is an exception keybinding)
@@ -236,11 +249,6 @@
  "C-n" '(evil-window-new :wk "New window")
  "C-h" '(evil-window-split :wk "Horizontal split window")
  "C-v" '(evil-window-vsplit :wk "Vertical split window")
- ;; Move windows
- "C-h" '(buf-move-left :wk "Buffer move left")
- "C-j" '(buf-move-down :wk "Buffer move down")
- "C-k" '(buf-move-up :wk "Buffer move up")
- "C-l" '(buf-move-right :wk "Buffer move right")
  ;; Maximize window
  "C-m" '(toggle-maximize-evil-split :wk "Maximize buffer")
 )
@@ -288,7 +296,6 @@
   (tl/leader-keys
     "b" '(:ignore t :wk "Buffer")
     "b i" '(ibuffer :wk "Ibuffer")
-    "b k" '(kill-this-buffer :wk "Kill this buffer")
     "b r" '(revert-buffer :wk "Reload buffer")
     "b c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer"))
 
