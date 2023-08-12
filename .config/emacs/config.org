@@ -217,9 +217,19 @@
  ;; Common keybindings
  "C-s" '(save-buffer :wk "Save buffer")
  "C-n" '(neotree-toggle :wk "Toggle neotree")
- "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
-
-(which-key-add-key-based-replacements "C-x C-r" "Reload emacs")
+ ;; Window splits
+ "C-c" '(evil-window-delete :wk "Close window")
+ "C-n" '(evil-window-new :wk "New window")
+ "C-s" '(evil-window-split :wk "Horizontal split window")
+ "C-v" '(evil-window-vsplit :wk "Vertical split window")
+ ;; Move windows
+ "C-h" '(buf-move-left :wk "Buffer move left")
+ "C-j" '(buf-move-down :wk "Buffer move down")
+ "C-k" '(buf-move-up :wk "Buffer move up")
+ "C-l" '(buf-move-right :wk "Buffer move right")
+ ;; Maximize window
+ "C-m" '(toggle-maximize-evil-split :wk "Maximize buffer")
+)
 #+end_src
 
 *** C-z Leader Key
@@ -229,26 +239,18 @@
  :prefix "C-z"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-z keymap prefix
- ;; Org Mode
- "C-a" '(org-agenda :wk "Org agenda")
- "C-i" '(org-toggle-item :wk "Org toggle item")
- "C-o" '(org-todo :wk "Org todo")
- "C-b" '(org-babel-tangle :wk "Org babel tangle")
+ ;; Org Modes navigation
+ "a" '(org-agenda :wk "Org agenda")
  "o" '(org-todo-list :wk "Org todo list")
- "-" '(org-table-insert-hline :wk "Insert hline in table")
  "t" '(org-time-stamp :wk "Org time stamp")
- "C-t" '(org-transclusion-mode :wk "Org Tansclusion mode")
+ ;; Specific Org Mode commands
+ "C-o" '(org-todo :wk "Org todo")
+ "C-i" '(org-toggle-item :wk "Org toggle item")
  "C-f" '(org-insert-file-link :wk "Org insert file link")
- ;; Window splits
- "C-c" '(evil-window-delete :wk "Close window")
- "C-n" '(evil-window-new :wk "New window")
- "C-s" '(evil-window-split :wk "Horizontal split window")
- "C-v" '(evil-window-vsplit :wk "Vertical split window")
- ;; Move Windows
- "C-h" '(buf-move-left :wk "Buffer move left")
- "C-j" '(buf-move-down :wk "Buffer move down")
- "C-k" '(buf-move-up :wk "Buffer move up")
- "C-l" '(buf-move-right :wk "Buffer move right"))
+ "C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
+ "C--" '(org-table-insert-hline :wk "Insert hline in table")
+ "C-T" '(org-transclusion-mode :wk "Org Tansclusion mode")
+)
 #+end_src
 
 *** C-c Leader Key
@@ -272,14 +274,16 @@
     "b i" '(ibuffer :wk "Ibuffer")
     "b k" '(kill-this-buffer :wk "Kill this buffer")
     "b r" '(revert-buffer :wk "Reload buffer")
-    "b c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer")
-    "b m" '(toggle-maximize-evil-split :wk "Maximize buffer"))
+    "b c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer"))
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
     "h f" '(describe-function :wk "Describe function")
     "h v" '(describe-variable :wk "Describe variable")
-    "h k" '(describe-key :wk "Describe key"))
+    "h k" '(describe-key :wk "Describe key")
+    "h r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
+
+  (which-key-add-key-based-replacements "SPC h r" "Reload emacs")
 
   (tl/leader-keys
     "t" '(:ignore t :wk "Toggle")
@@ -292,7 +296,8 @@
     "o" '(:ignore t :wk "Org")
     "o e" '(org-export-dispatch :wk "Org export dispatch")
     "o b" '(create-new-org-buffer :wk "Create new org buffer")
-    "o t" '(insert-auto-tangle-tag :wk "Insert auto-tangle tag"))
+    "o t" '(insert-auto-tangle-tag :wk "Insert auto-tangle tag")
+    "o T" '(org-babel-tangle :wk "Org babel tangle"))
 
   (tl/leader-keys
     "d" '(:ignore t :wk "Dired")
