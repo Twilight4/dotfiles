@@ -284,6 +284,7 @@
  "C-o" '(org-open-at-point :wk "Org open thing at point")
  "C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
+ "C-s" '(org-schedule :wk "Schedule task")
 )
 #+end_src
 
