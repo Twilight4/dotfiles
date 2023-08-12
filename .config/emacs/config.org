@@ -301,7 +301,7 @@
 (tool-bar-mode -1)                                ; Disable tool bar
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
-(global-display-line-numbers-mode 1)              ; Display line numbers
+;(global-display-line-numbers-mode 1)              ; Display line numbers (I prefer to set this setting individually for modes)
 (global-visual-line-mode t)                       ; Display truncated lines
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 
@@ -320,8 +320,12 @@
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
  make-backup-files nil                            ; Don't create backup files to avoid clutterinf the file system with redundant backup copies
  display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
- blink-cursor-mode nil)                           ; I hate blinking cursors
-    
+ blink-cursor-mode nil                            ; I hate blinking cursors
+ inhibit-startup-message t)                       ; Prevent the default initial splash screen from being displayed when you start Emacs
+
+;; Enable line numbers in Org Mode buffers
+(add-hook 'org-mode-hook 'display-line-numbers-mode)
+
 (display-time-mode 1)                             ; Enable time in the mode-line
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 (defalias 'yes-or-no-p 'y-or-n-p)                 ; Use 'y' or 'n' instead of 'yes' or 'no'
@@ -680,6 +684,11 @@ A Emacs tree plugin like NerdTree for Vim.
                  (setq word-wrap nil)
                  (make-local-variable 'auto-hscroll-mode)
                  (setq auto-hscroll-mode nil)))))
+
+;; Disable line numbers in NeoTree buffers
+(add-hook 'neo-after-create-hook
+          (lambda (_)
+            (setq-local display-line-numbers-mode nil)))
 #+end_src
 
 ** Dired
