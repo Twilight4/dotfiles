@@ -28,7 +28,6 @@
   - [[#toggle-split-window-maximization][Toggle Split Window Maximization]]
   - [[#splits][Splits]]
   - [[#global-auto-revert][Global Auto Revert]]
-  - [[#evil-mode-defaults][Evil Mode Defaults]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -104,6 +103,10 @@
     (setq evil-want-keybinding nil)
     (setq evil-vsplit-window-right t)
     (setq evil-split-window-below t)
+    (setq evil-ex-substitute-global t)
+    (setq evil-move-cursor-back nil)
+    (setq evil-kill-on-visual-paste nil)
+    (setq evil-want-C-i-jump nil)
     (evil-mode))
   (use-package evil-collection
     :after evil
@@ -128,6 +131,11 @@
 (define-key org-mode-map (kbd "C-j") nil)
 ; Example:
 ;(define-key global-map (kbd "M-,") nil)
+
+(with-eval-after-load 'evil
+  ;; Unbind the default prefix key "C-w"
+  (define-key evil-normal-state-map (kbd "C-w") nil)
+  (define-key evil-motion-state-map (kbd "C-w") nil))
 #+end_src
 
 *** Keybindings Without a Leader Key
@@ -161,18 +169,25 @@
 (global-set-key (kbd "M-0") 'balance-windows)
 ;; Evil Maximize window
 (global-set-key (kbd "M-<return>") 'toggle-maximize-evil-split)
-;; Centaur Tabs
+;; Evil PageUp fix
+(with-eval-after-load 'evil
+  ;; Map "C-u" to "Page Up" in Evil normal state
+  (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+  ;; Map "C-u" to "Page Up" in Evil visual state
+  (evil-define-key 'visual evil-visual-state-map (kbd "C-u") 'evil-scroll-up))
+
+;; Centaur tabs
 (global-set-key (kbd "M-p") 'centaur-tabs-backward)
 (global-set-key (kbd "M-j") 'centaur-tabs-forward-group)
 (global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-n") 'centaur-tabs-forward)
 
-;; Org Keybindings
+;; Org keybindings
 (global-set-key (kbd "M-S-h") #'org-up-element)                    ; default g h
 (global-set-key (kbd "M-S-j") #'org-forward-heading-same-level)    ; default g j
 (global-set-key (kbd "M-S-k") #'org-backward-heading-same-level)   ; default g k
 (global-set-key (kbd "M-S-l") #'org-down-element)                  ; default g l
-;; Org Tansclusion
+;; Org tansclusion
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 #+end_src
 
@@ -650,17 +665,6 @@ Keep buffers synced and up to date with auto revert mode.
 #+begin_src emacs-lisp
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
-#+end_src
-
-** Evil Mode Defaults
-Now, EVIL cares a fair bit about keeping compatibility with Vim’s default behaviour.
-There are some particular settings that I’d rather be something else.
-
-#+begin_src emacs-lisp
-(with-eval-after-load 'evil
-  (setq evil-ex-substitute-global t
-        evil-move-cursor-back nil
-        evil-kill-on-visual-paste nil))
 #+end_src
 
 * Other Packages
