@@ -128,7 +128,10 @@
 (global-unset-key (kbd "C-x C-n"))
 
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
+;; It works because first it unbinds the keybind and when I have this keybind set later
+;; in the config then it binds it to that keybind
 (define-key org-mode-map (kbd "C-j") nil)
+(define-key org-mode-map (kbd "M-h") nil)
 ; Example:
 ;(define-key global-map (kbd "M-,") nil)
 
@@ -167,8 +170,6 @@
 (global-set-key (kbd "M-=") 'evil-window-increase-height)
 (global-set-key (kbd "M--") 'evil-window-decrease-height)
 (global-set-key (kbd "M-0") 'balance-windows)
-;; Evil Maximize window
-(global-set-key (kbd "M-<return>") 'toggle-maximize-evil-split)
 ;; Evil PageUp fix
 (with-eval-after-load 'evil
   ;; Map "C-u" to "Page Up" in Evil normal state
@@ -178,15 +179,22 @@
 
 ;; Centaur tabs
 (global-set-key (kbd "M-p") 'centaur-tabs-backward)
-(global-set-key (kbd "M-j") 'centaur-tabs-forward-group)
-(global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
+;(global-set-key (kbd "M-j") 'centaur-tabs-forward-group)
+;(global-set-key (kbd "M-k") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-n") 'centaur-tabs-forward)
 
-;; Org keybindings
+;; Org heading navigation
 (global-set-key (kbd "M-S-h") #'org-up-element)                    ; default g h
 (global-set-key (kbd "M-S-j") #'org-forward-heading-same-level)    ; default g j
 (global-set-key (kbd "M-S-k") #'org-backward-heading-same-level)   ; default g k
 (global-set-key (kbd "M-S-l") #'org-down-element)                  ; default g l
+;; Org move headings
+(global-set-key (kbd "M-h") #'org-metaleft)                        ; default M-<left>
+(global-set-key (kbd "M-j") #'org-metadown)                        ; default M-<down>
+(global-set-key (kbd "M-k") #'org-metaup)                          ; default M-<up>
+(global-set-key (kbd "M-l") #'org-metaright)                       ; default M-<right>
+
+
 ;; Org tansclusion
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 #+end_src
@@ -264,7 +272,8 @@
     "b i" '(ibuffer :wk "Ibuffer")
     "b k" '(kill-this-buffer :wk "Kill this buffer")
     "b r" '(revert-buffer :wk "Reload buffer")
-    "b c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer"))
+    "b c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer")
+    "b m" '(toggle-maximize-evil-split :wk "Maximize buffer"))
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
