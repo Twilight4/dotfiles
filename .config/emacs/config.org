@@ -177,12 +177,15 @@
 #+end_src
 
 ** General Keybindings
-
+*** General package
 #+begin_src emacs-lisp
 (use-package general
   :config
   (general-evil-setup)
+#+end_src
 
+*** C-x Leader Key
+#+begin_src emacs-lisp
 ;; Set up 'C-x' as the global leader key
 (general-define-key
  :prefix "C-x"
@@ -194,7 +197,10 @@
  "C-r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
 
 (which-key-add-key-based-replacements "C-x C-r" "Reload emacs")
+#+end_src
 
+*** C-z Leader Key
+#+begin_src emacs-lisp
 ;; Set up 'C-z' as another global leader key
 (general-define-key
  :prefix "C-z"
@@ -220,7 +226,10 @@
  "C-j" '(buf-move-down :wk "Buffer move down")
  "C-k" '(buf-move-up :wk "Buffer move up")
  "C-l" '(buf-move-right :wk "Buffer move right"))
+#+end_src
 
+*** SPC Leader Key
+#+begin_src emacs-lisp
 ;; Set up 'SPC' as another global leader key
 (general-create-definer tl/leader-keys
   :states '(normal insert visual emacs)
