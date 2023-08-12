@@ -314,7 +314,8 @@
     "h" '(:ignore t :wk "Help")
     "h f" '(describe-function :wk "Describe function")
     "h v" '(describe-variable :wk "Describe variable")
-    "h k" '(describe-key :wk "Describe key")
+    "h k" '(describe-key-briefly :wk "Describe key briefly")
+    "h K" '(describe-key :wk "Describe key")
     "h r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
 
   (which-key-add-key-based-replacements "SPC h r" "Reload emacs")
