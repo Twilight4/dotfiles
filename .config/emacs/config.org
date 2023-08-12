@@ -435,8 +435,8 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 (use-package doom-themes
   :init (load-theme 'doom-city-lights t))
   :config
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t)   ; if nil, italics is universally disabled
+  (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
+        doom-themes-enable-italic t)   ; if nil, italics is universally disabled
 #+end_src
 
 ** Doom-Modeline and All-the-icons
@@ -1071,11 +1071,6 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
-  ;; Replace list hyphen with dot
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.25)
                   (org-level-2 . 1.1)
@@ -1142,9 +1137,9 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   (setq org-modern-star '("◉" "○" "◆" "●" "○" "◆" "●")
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
-        org-modern-list '((45 . "➤")   ; first level
-                          (43 . "-")   ; second level
-                          (42 . "•"))  ; third level
+        org-modern-list '((45 . "➤")
+                          (43 . "•")
+                          (42 . "-"))
         org-modern-todo-faces
         '(("TODO" :inverse-video t :inherit org-todo)
           ("PROJ" :inverse-video t :inherit +org-todo-project)
