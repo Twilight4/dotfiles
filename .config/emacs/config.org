@@ -142,11 +142,15 @@
   ;; Unbinding the default C-w prefix key
   (define-key evil-normal-state-map (kbd "C-w") nil)
   (define-key evil-motion-state-map (kbd "C-w") nil)
-  ;; Unbinding the default bindings in normal mode
+  ;; Unbinding the default bindings in normal/visual mode
   (define-key evil-normal-state-map "H" nil)
   (define-key evil-normal-state-map "J" nil)
   (define-key evil-normal-state-map "K" nil)
   (define-key evil-normal-state-map "L" nil)
+  (define-key evil-motion-state-map "H" nil)
+  (define-key evil-motion-state-map "J" nil)
+  (define-key evil-motion-state-map "K" nil)
+  (define-key evil-motion-state-map "L" nil)
 )
 #+end_src
 
