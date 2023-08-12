@@ -228,6 +228,8 @@
  "C-l" '(buf-move-right :wk "Buffer move right"))
 #+end_src
 
+*** C-c Leader Key
+
 *** SPC Leader Key
 #+begin_src emacs-lisp
 ;; Set up 'SPC' as another global leader key
