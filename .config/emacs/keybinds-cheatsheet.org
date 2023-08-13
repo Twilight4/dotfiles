@@ -13,11 +13,16 @@ The world's greatest programmer once said:
 - [[#essential-keybindings][Essential Keybindings]]
   - [[#keybindings-without-prefix-key][Keybindings without prefix key]]
   - [[#common-keybindings][Common keybindings]]
-- [[#file-search][File Search]]
-  - [[#open-specific-files][Open specific files]]
 - [[#navigation][Navigation]]
   - [[#window-splits][Window Splits]]
   - [[#window-movement][Window Movement]]
+- [[#org-mode][Org Mode]]
+  - [[#org-mode-basics][Org mode basics]]
+  - [[#org-roam][Org-Roam]]
+  - [[#task-management][Task Management]]
+  - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
+  - [[#tables][Tables]]
+- [[#spc-for-prefix-keys][SPC for prefix keys]]
 - [[#other][Other]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
   - [[#help-pages][Help pages]]
@@ -31,14 +36,8 @@ The world's greatest programmer once said:
   - [[#ibuffer-mode][Ibuffer mode]]
   - [[#perspective][Perspective]]
   - [[#registers][Registers]]
-- [[#file-search-1][File Search]]
+- [[#file-search][File Search]]
   - [[#general-file-search][General file search]]
-- [[#org-mode][Org Mode]]
-  - [[#org-mode-basics][Org mode basics]]
-  - [[#org-roam][Org-Roam]]
-  - [[#task-management][Task Management]]
-  - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
-  - [[#tables][Tables]]
 - [[#packages][Packages]]
   - [[#magit][Magit]]
   - [[#evil-snipe][Evil-Snipe]]
@@ -61,15 +60,10 @@ The world's greatest programmer once said:
 | Keybinding | Description             |
 |------------+-------------------------|
 | SPC .      | Create or find file     |
+| SPC ,      | Find recent files       |
 | C-x c      | Recently opened files   |
 | C-x C-s    | Save the current buffer |
 | C-x C-r    | Reload emacs            |
-
-* File Search
-** Open specific files
-| Keybinding | Description      |
-|------------+------------------|
-| C-x C-c    | Edit config file |
 
 * Navigation
 ** Window Splits
@@ -87,6 +81,78 @@ The world's greatest programmer once said:
 | C-z C-j    | Move window down  |
 | C-z C-k    | Move window up    |
 | C-z C-l    | Move window right |
+
+* Org Mode
+** Org mode basics
+| Keybinding | Description                                        |
+|------------+----------------------------------------------------|
+| SPC n      | Prefix for org keybinding                          |
+| SPC m h    | toggle heading                                     |
+| SPC m i    | toggle item                                        |
+| C-Ret      | Create a headline of the same type                 |
+| C-S-Ret    | Create a headline of the same type above           |
+| M-Ret      | Create a headline of the same type (from anywhere) |
+| C-M-Ret    | Create another level headline (from anywhere)      |
+| TAB/S-TAB  | Toggle folding/cycle through folded stages         |
+| M-h/j/k/l  | Promotes/demotes/up/down header                    |
+| SPC b o    | Create new empty Org buffer                        |
+| g h/j/k/l  | Backward/forward/up/down heading                   |
+
+** Org-Roam
+| Keybinding | Description                        |
+|------------+------------------------------------|
+| SPC n r f  | Create/find new node               |
+| SPC n r i  | Insert link to other node          |
+| SPC n r r  | Toggle roam buffers                |
+| SPC n r c  | Completion of node-insert at point |
+| SPC n r g  | Show graph of all nodes            |
+| SPC n r n  | Capture to node                    |
+
+** Task Management
+
+*** Lists
+
+*** Checkboxes
+
+*** Links and hyperlinks
+- You can add =::= to specify a heading or a line number
+- You can paste http links as well
+
+| Keybinding | Description               |
+|------------+---------------------------|
+| SPC m l    | Add a link to an org page |
+| SPC m l f  | Insert file link          |
+
+** Style formatting (visual mode)
+| Keybinding | Description |
+|------------+-------------|
+| m          | Bold        |
+| /          | Italic      |
+| .          | Green color |
+
+** Tables
+- To create a table just start typing: =| table | name | description=
+
+| Keybinding          | Description                                   |
+|---------------------+-----------------------------------------------|
+| TAB/S-Tab           | Forward/backward                              |
+| SPC m b -           | Make org table headline                       |
+| S-Ret               | Duplicate a field in the call below           |
+| C-Ret (normal mode) | Create new table below                        |
+| Ret (normal mode)   | Clear the field and enter insert mode         |
+| M-h/j/k/l           | The same essential keybindings for navigation |
+| M-S-j/k             | Insert a new row above/delete current row     |
+| o                   | Insert new roam and move to the beginning     |
+
+* SPC for prefix keys
+| Keybinding | Description |
+|------------+-------------|
+| e          | Edit file   |
+| d          | Dired       |
+| b          | Buffer      |
+| h          | Help        |
+| o          | Org         |
+| t          | Toggle      |
 
 * Other
 ** Source Code Block Tag Expansion
@@ -229,68 +295,6 @@ The world's greatest programmer once said:
 | SPC p p    | Open a project                      |
 | SPC SPC    | Open a file in a project            |
 
-
-* TODO Org Mode
-** Org mode basics
-| Keybinding | Description                                        |
-|------------+----------------------------------------------------|
-| SPC n      | Prefix for org keybinding                          |
-| SPC m h    | toggle heading                                     |
-| SPC m i    | toggle item                                        |
-| C-Ret      | Create a headline of the same type                 |
-| C-S-Ret    | Create a headline of the same type above           |
-| M-Ret      | Create a headline of the same type (from anywhere) |
-| C-M-Ret    | Create another level headline (from anywhere)      |
-| TAB/S-TAB  | Toggle folding/cycle through folded stages         |
-| M-h/j/k/l  | Promotes/demotes/up/down header                    |
-| SPC b o    | Create new empty Org buffer                        |
-| g h/j/k/l  | Backward/forward/up/down heading                   |
-
-** TODO Org-Roam
-| Keybinding | Description                        |
-|------------+------------------------------------|
-| SPC n r f  | Create/find new node               |
-| SPC n r i  | Insert link to other node          |
-| SPC n r r  | Toggle roam buffers                |
-| SPC n r c  | Completion of node-insert at point |
-| SPC n r g  | Show graph of all nodes            |
-| SPC n r n  | Capture to node                    |
-
-** TODO Task Management
-
-*** TODO Lists
-
-*** TODO Checkboxes
-
-*** TODO Links and hyperlinks
-- You can add =::= to specify a heading or a line number
-- You can paste http links as well
-
-| Keybinding | Description               |
-|------------+---------------------------|
-| SPC m l    | Add a link to an org page |
-| SPC m l f  | Insert file link          |
-
-** Style formatting (visual mode)
-| Keybinding | Description |
-|------------+-------------|
-| m          | Bold        |
-| /          | Italic      |
-| .          | Green color |
-
-** Tables
-- To start a table just start typing: =| table | name | description=
-
-| Keybinding          | Description                                   |
-|---------------------+-----------------------------------------------|
-| TAB/S-Tab           | Forward/backward                              |
-| SPC m b -           | Make org table headline                       |
-| S-Ret               | Duplicate a field in the call below           |
-| C-Ret (normal mode) | Create new table below                        |
-| Ret (normal mode)   | Clear the field and enter insert mode         |
-| M-h/j/k/l           | The same essential keybindings for navigation |
-| M-S-j/k             | Insert a new row above/delete current row     |
-| o                   | Insert new roam and move to the beginning     |
 
 * TODO Packages
 ** TODO Magit
