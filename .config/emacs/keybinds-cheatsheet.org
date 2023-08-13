@@ -12,18 +12,17 @@ The world's greatest programmer once said:
 #+end_quote
 
 * Table of Contents :toc:
-- [[#common-keybindings][Common keybindings]]
-- [[#keybindings-without-a-prefix-key][Keybindings without a prefix key]]
+- [[#common-keybinds][Common keybinds]]
+- [[#keybinds-without-a-prefix-key][Keybinds without a prefix key]]
   - [[#evil-mode][Evil Mode]]
   - [[#centaur-tabs][Centaur Tabs]]
   - [[#zoom][Zoom]]
-  - [[#org-mode][Org Mode]]
-- [[#spc-leader-key-for-prefix-keys][SPC Leader Key for prefix keys]]
+- [[#spc-leader-key][SPC Leader Key]]
 - [[#c-z-leader-key][C-z Leader Key]]
-- [[#c-x-leader-key][C-x Leader Key]]
-- [[#c-c-leader-key][C-c Leader Key]]
-  - [[#org-mode-navigation][Org mode Navigation]]
-  - [[#org-mode-common-keys][Org mode Common keys]]
+- [[#org-mode][Org Mode]]
+  - [[#org-keybinds-without-a-prefix-key][Org keybinds without a prefix key]]
+  - [[#c-x-leader-key][C-x Leader Key]]
+  - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-roam][Org-Roam]]
   - [[#task-management][Task Management]]
 - [[#other-packages][Other Packages]]
@@ -40,15 +39,17 @@ The world's greatest programmer once said:
   - [[#git-diffs][Git diffs]]
   - [[#literate-programming][Literate programming]]
 
-* Common keybindings
+* Common keybinds
 | Keybinding | Description         |
 |------------+---------------------|
 | SPC .      | Create or find file |
 | SPC ,      | Find recent files   |
+| SPC a      | Org agenda          |
+| SPC t      | Org todo list       |
 | SPC TAB    | Comment lines       |
 | SPC s      | Save buffer         |
 
-* Keybindings without a prefix key
+* Keybinds without a prefix key
 ** Evil Mode
 | Keybinding  | Description              |
 |-------------+--------------------------|
@@ -88,29 +89,7 @@ The world's greatest programmer once said:
 | C-=/-       | Zoom In/Out                         |
 | C-0         | Adjust zoom                         |
 
-** Org Mode
-| Keybinding  | Description                  |
-|-------------+------------------------------|
-| M-h/j/k/l   | Headings navigation          |
-| M-S-h/j/k/l | Move/Promote/Demote headings |
-| S-h/j/k/l   | Change todo/priority         |
-| f12         | Org transclusion add         |
-
-*** Tables
-To create a table just start typing: =| table | name | description=
-
-| Keybinding          | Description                                   |
-|---------------------+-----------------------------------------------|
-| TAB/S-Tab           | Forward/backward                              |
-| SPC m b -           | Make org table headline                       |
-| S-Ret               | Duplicate a field in the call below           |
-| C-Ret (normal mode) | Create new table below                        |
-| Ret (normal mode)   | Clear the field and enter insert mode         |
-| M-h/j/k/l           | The same essential keybindings for navigation |
-| M-S-j/k             | Insert a new row above/delete current row     |
-| o                   | Insert new roam and move to the beginning     |
-
-* SPC Leader Key for prefix keys
+* SPC Leader Key
 
 | Keybinding | Description      |
 |------------+------------------|
@@ -119,7 +98,7 @@ To create a table just start typing: =| table | name | description=
 | b          | Buffer           |
 | h          | Help             |
 | o          | Org              |
-| t          | Toggle           |
+| T          | Toggle           |
 | C-c C-SPC  | Zero-width space |
 
 * C-z Leader Key
@@ -130,39 +109,58 @@ To create a table just start typing: =| table | name | description=
 | C-n        | Registers      |
 | C-n        | Bookmarks      |
 
-* C-x Leader Key
-* C-c Leader Key
-** Org mode Navigation
+* Org Mode
+** Org keybinds without a prefix key
 
-| Keybinding | Description       |
-|------------+-------------------|
-| a          | Org agenda        |
-| t          | Org todo list     |
-| T          | Transclusion mode |
+| Keybinding  | Description                                        |
+|-------------+----------------------------------------------------|
+| M-h/j/k/l   | Headings navigation                                |
+| M-S-h/j/k/l | Move/Promote/Demote headings                       |
+| S-h/j/k/l   | Change todo/priority                               |
+| C-Ret       | Create a headline of the same type                 |
+| C-S-Ret     | Create a headline of the same type above           |
+| M-Ret       | Create a headline of the same type (from anywhere) |
+| C-M-Ret     | Create another level headline (from anywhere)      |
+| TAB/S-TAB   | Toggle folding/cycle through folded stages         |
+| f12         | Org transclusion add                               |
 
-** Org mode Common keys
+*** Tables
+To create a table just start typing: =| table | name | description=
+
+| Keybinding          | Description                                   |
+|---------------------+-----------------------------------------------|
+| TAB/S-Tab           | Forward/backward                              |
+| S-Ret               | Duplicate a field in the call below           |
+| C-Ret (normal mode) | Create new table below                        |
+| Ret (normal mode)   | Clear the field and enter insert mode         |
+| M-h/j/k/l           | The same essential keybindings for navigation |
+| M-S-j/k             | Insert a new row above/delete current row     |
+| o                   | Insert new roam and move to the beginning     |
+
+** C-x Leader Key
+** C-c Leader Key
 | Keybinding | Description         |
 |------------+---------------------|
 | C-s        | Org schedule        |
 | C-d        | Org deadline        |
-| C-t        | Org TODO            |
-| C-o        | Open link at point  |
+| t          | Org TODO            |
+| T          | Transclusion mode   |
+| C-o        | Org open at point   |
 | C-.        | Org timestamp       |
 | C-,        | Insert source block |
 | C-/        | Org tag             |
 | C-p        | Org property        |
 | C-e        | Org effort          |
 | C-w        | Org refile          |
-
-| SPC m h   | toggle heading                                     |
-| SPC m i   | toggle item                                        |
-| C-Ret     | Create a headline of the same type                 |
-| C-S-Ret   | Create a headline of the same type above           |
-| M-Ret     | Create a headline of the same type (from anywhere) |
-| C-M-Ret   | Create another level headline (from anywhere)      |
-| TAB/S-TAB | Toggle folding/cycle through folded stages         |
+| C-l        | Insert link         |
+| C-h        | Toggle heading      |
+| C-f        | Insert file link    |
+| C-i        | Toggle item         |
+| C-c        | Toggle checkbox     |
+| C--        | Table insert hline  |
 
 ** Org-Roam
+
 | Keybinding | Description                        |
 |------------+------------------------------------|
 | SPC n r f  | Create/find new node               |
@@ -182,7 +180,6 @@ To create a table just start typing: =| table | name | description=
 | Keybinding | Description               |
 |------------+---------------------------|
 | SPC m l    | Add a link to an org page |
-| SPC m l f  | Insert file link          |
 
 * Other Packages
 ** Neotree
