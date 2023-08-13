@@ -24,7 +24,6 @@ The world's greatest programmer once said:
   - [[#c-x-leader-key][C-x Leader Key]]
   - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-roam][Org-Roam]]
-  - [[#task-management][Task Management]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -139,6 +138,7 @@ To create a table just start typing: =| table | name | description=
 
 ** C-x Leader Key
 ** C-c Leader Key
+
 | Keybinding | Description         |
 |------------+---------------------|
 | C-s        | Org schedule        |
@@ -156,7 +156,7 @@ To create a table just start typing: =| table | name | description=
 | C-h        | Toggle heading      |
 | C-f        | Insert file link    |
 | C-i        | Toggle item         |
-| C-c        | Toggle checkbox     |
+| C-m        | Toggle checkbox     |
 | C--        | Table insert hline  |
 
 ** Org-Roam
@@ -169,17 +169,6 @@ To create a table just start typing: =| table | name | description=
 | SPC n r c  | Completion of node-insert at point |
 | SPC n r g  | Show graph of all nodes            |
 | SPC n r n  | Capture to node                    |
-
-** Task Management
-*** Lists
-*** Checkboxes
-*** Links and hyperlinks
-- You can add =::= to specify a heading or a line number
-- You can paste http links as well
-
-| Keybinding | Description               |
-|------------+---------------------------|
-| SPC m l    | Add a link to an org page |
 
 * Other Packages
 ** Neotree
@@ -225,6 +214,7 @@ To create a table just start typing: =| table | name | description=
 
 * WIP
 ** Bookmark Management
+
 | Keybinding | Description                            |
 |------------+----------------------------------------|
 | SPC b L    | List bookmarks                         |
@@ -233,6 +223,7 @@ To create a table just start typing: =| table | name | description=
 | SPC b w    | Save current bookmark to bookmark file |
 
 ** Registers
+
 | Keybinding | Description                      |
 |------------+----------------------------------|
 | SPC r c    | Copy to register                 |

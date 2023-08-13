@@ -1144,7 +1144,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/"
-      org-default-notes-file (expand-file-name "notes.org" org-directory)
+      org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-ellipsis " ▼ "                           ; Elipsis character for folding headings
       org-log-done 'time                           ; Having the time a item is done sounds
       org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))   ; List of bullets that cahnge with depth
