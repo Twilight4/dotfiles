@@ -307,7 +307,9 @@
  "T" '(org-transclusion-mode :wk "Org Transclusion mode")
  ;; Specific Org Mode commands
  "C-." '(org-time-stamp :wk "Org timestamp")
- "C-/" '(org-time-stamp :wk "Org tag")
+ "C-/" '(counsel-org-tag :wk "Org tag")
+ "C-p" '(org-set-property :wk "Org property")
+ "C-e" '(org-set-effort :wk "Org effort")
  ;"C-i" '(org-toggle-item :wk "Org toggle item")
  ;"C-l" '(org-insert-link :wk "Org insert link")
  ;"C-f" '(org-insert-file-link :wk "Org insert file link")

@@ -1,0 +1,326 @@
+#+title: GNU Emacs Keybindings Cheatsheet
+
+This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimze the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity. I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. The philosophy adopted in this configuration prioritizes simplicity and ease of use:
+  - Most commonly used keybinds don't have a prefix key.
+  - =C-z= prefix key is used for emacs management and packages keybinds.
+  - =C-x= and =C-c= prefix keys are used for Org mode keybinds.
+  - =SPC= global leader key is used for all other keybinds that I *rarely* use effectively requiring the user to press 3 buttons.
+
+The world's greatest programmer once said:
+#+begin_quote
+"an idiot admires complexity, a genius admires simplicity."
+#+end_quote
+
+* Table of Contents :toc:
+- [[#common-keybindings][Common keybindings]]
+- [[#keybindings-without-a-prefix-key][Keybindings without a prefix key]]
+  - [[#evil-mode][Evil Mode]]
+  - [[#centaur-tabs][Centaur Tabs]]
+  - [[#zoom][Zoom]]
+  - [[#org-mode][Org Mode]]
+- [[#spc-leader-key-for-prefix-keys][SPC Leader Key for prefix keys]]
+- [[#c-z-leader-key][C-z Leader Key]]
+- [[#c-x-leader-key][C-x Leader Key]]
+- [[#c-c-leader-key][C-c Leader Key]]
+  - [[#org-mode-navigation][Org mode Navigation]]
+  - [[#org-mode-common-keys][Org mode Common keys]]
+  - [[#org-roam][Org-Roam]]
+  - [[#task-management][Task Management]]
+- [[#other-packages][Other Packages]]
+  - [[#neotree][Neotree]]
+  - [[#dired][Dired]]
+  - [[#magit][Magit]]
+  - [[#evil-snipe][Evil-Snipe]]
+- [[#wip][WIP]]
+  - [[#bookmark-management][Bookmark Management]]
+  - [[#registers][Registers]]
+- [[#system-config-and-setup-on-wayland][System config and setup on Wayland]]
+  - [[#setup-on-hyprland-wm][Setup on Hyprland WM]]
+  - [[#mime-types][Mime types]]
+  - [[#git-diffs][Git diffs]]
+  - [[#literate-programming][Literate programming]]
+
+* Common keybindings
+| Keybinding | Description         |
+|------------+---------------------|
+| SPC .      | Create or find file |
+| SPC ,      | Find recent files   |
+| SPC TAB    | Comment lines       |
+| SPC s      | Save buffer         |
+
+* Keybindings without a prefix key
+** Evil Mode
+| Keybinding  | Description              |
+|-------------+--------------------------|
+| C-h/j/k/l   | Switch window focus      |
+| C-S-h/j/k/l | Move window              |
+| M-</>       | Increase/Decrease width  |
+| M-=/-       | Increase/Decrease height |
+| M-0         | Balance windows          |
+| M-c         | Close window             |
+| M-s         | Horizontal split window  |
+| M-v         | Vertical split window    |
+| M-m         | Maximize window          |
+
+*** Style formatting (visual mode)
+
+| Keybinding | Description |
+|------------+-------------|
+| m          | Bold        |
+| ,          | Green color |
+| .          | Code format |
+| /          | Underline   |
+
+** Centaur Tabs
+| Keybinding | Description                         |
+|------------+-------------------------------------|
+| M-p/n      | Tab Previous/Next                   |
+| M-f/b      | Tab group forward/backward          |
+| M-,/.      | Tab Move left/right                 |
+| M-d        | Kill this buffer                    |
+| M-D        | Kill other buffers in current group |
+| M-t        | Create new tab and open dashboard   |
+| M-1/2/3/4  | Switch to tab 1/2/3/4               |
+
+** Zoom
+| Keybinding  | Description                         |
+|-------------+-------------------------------------|
+| C-=/-       | Zoom In/Out                         |
+| C-0         | Adjust zoom                         |
+
+** Org Mode
+| Keybinding  | Description                  |
+|-------------+------------------------------|
+| M-h/j/k/l   | Headings navigation          |
+| M-S-h/j/k/l | Move/Promote/Demote headings |
+| S-h/j/k/l   | Change todo/priority         |
+| f12         | Org transclusion add         |
+
+*** Tables
+To create a table just start typing: =| table | name | description=
+
+| Keybinding          | Description                                   |
+|---------------------+-----------------------------------------------|
+| TAB/S-Tab           | Forward/backward                              |
+| SPC m b -           | Make org table headline                       |
+| S-Ret               | Duplicate a field in the call below           |
+| C-Ret (normal mode) | Create new table below                        |
+| Ret (normal mode)   | Clear the field and enter insert mode         |
+| M-h/j/k/l           | The same essential keybindings for navigation |
+| M-S-j/k             | Insert a new row above/delete current row     |
+| o                   | Insert new roam and move to the beginning     |
+
+* SPC Leader Key for prefix keys
+
+| Keybinding | Description      |
+|------------+------------------|
+| e          | Edit file        |
+| d          | Dired            |
+| b          | Buffer           |
+| h          | Help             |
+| o          | Org              |
+| t          | Toggle           |
+| C-c C-SPC  | Zero-width space |
+
+* C-z Leader Key
+
+| Keybinding | Description    |
+|------------+----------------|
+| C-n        | Toggle neotree |
+| C-n        | Registers      |
+| C-n        | Bookmarks      |
+
+* C-x Leader Key
+* C-c Leader Key
+** Org mode Navigation
+
+| Keybinding | Description       |
+|------------+-------------------|
+| a          | Org agenda        |
+| t          | Org todo list     |
+| T          | Transclusion mode |
+
+** Org mode Common keys
+| Keybinding | Description         |
+|------------+---------------------|
+| C-c        | Org schedule        |
+| C-d        | Org deadline        |
+| C-t        | Org TODO            |
+| C-.        | Org timestamp       |
+| C-o        | Open link at point  |
+| C-,        | Insert source block |
+| C-.        | Org tag             |
+| C-p        | Org property        |
+| C-e        | Org effort          |
+
+| SPC m h   | toggle heading                                     |
+| SPC m i   | toggle item                                        |
+| C-Ret     | Create a headline of the same type                 |
+| C-S-Ret   | Create a headline of the same type above           |
+| M-Ret     | Create a headline of the same type (from anywhere) |
+| C-M-Ret   | Create another level headline (from anywhere)      |
+| TAB/S-TAB | Toggle folding/cycle through folded stages         |
+
+** Org-Roam
+| Keybinding | Description                        |
+|------------+------------------------------------|
+| SPC n r f  | Create/find new node               |
+| SPC n r i  | Insert link to other node          |
+| SPC n r r  | Toggle roam buffers                |
+| SPC n r c  | Completion of node-insert at point |
+| SPC n r g  | Show graph of all nodes            |
+| SPC n r n  | Capture to node                    |
+
+** Task Management
+*** Lists
+*** Checkboxes
+*** Links and hyperlinks
+- You can add =::= to specify a heading or a line number
+- You can paste http links as well
+
+| Keybinding | Description               |
+|------------+---------------------------|
+| SPC m l    | Add a link to an org page |
+| SPC m l f  | Insert file link          |
+
+* Other Packages
+** Neotree
+
+| Keybinding  | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| n/p         | Next/previous line                                               |
+| SPC/RET/TAB | Open current iterm if it's a file. Fold/unfold if it's directory |
+| U           | Go up a directory                                                |
+| g           | Refresh                                                          |
+| A           | Maximize/Minimize the Neotree widno                              |
+| H           | Toggle display hidden files                                      |
+| O           | Recursively open a directory                                     |
+| C-c C-n     | Create a file or create a directory if filename ends with a '/'  |
+| C-c C-d     | Delete a file or a directory                                     |
+| C-c C-r     | Rename a file or a directory                                     |
+| C-c C-c     | Change the root directory                                        |
+| C-c C-p     | Copy a file or a directory                                       |
+
+** Dired
+
+| Keybinding | Description                                        |
+|------------+----------------------------------------------------|
+| h/j/k/l    | left/down/up/right                                 |
+| C          | Create a new subdirectory                          |
+| m          | Mark files or directories for operations           |
+| u          | Unmark previously marked files or directories      |
+| U          | Unmark all marked fiels or directories             |
+| d          | Delete marked files or directories                 |
+| R          | Rename/move current or marked files                |
+| C          | Copy current or marked files                       |
+| +          | Create an empty file                               |
+| =          | Compare files with their backups or other versions |
+| (          | Toggle detailed listing on/off                     |
+| )          | Toggle git information on/off                      |
+| TAB        | Toggle viewing subtree at point                    |
+| Q          | Toggle read-only mode for the current Dired buffer |
+
+** Magit
+** Evil-Snipe
+*** Inline navigation
+*** Long distance navigation
+
+* WIP
+** Bookmark Management
+| Keybinding | Description                            |
+|------------+----------------------------------------|
+| SPC b L    | List bookmarks                         |
+| SPC b m    | Set bookmark                           |
+| SPC b M    | Delete bookmark                        |
+| SPC b w    | Save current bookmark to bookmark file |
+
+** Registers
+| Keybinding | Description                      |
+|------------+----------------------------------|
+| SPC r c    | Copy to register                 |
+| SPC r f    | Frameset to register             |
+| SPC r i    | Insert contents of register      |
+| SPC r j    | Jump to register                 |
+| SPC r l    | List registers                   |
+| SPC r n    | Number to register               |
+| SPC r r    | Interactively choose a register  |
+| SPC r v    | View a register                  |
+| SPC r w    | Window configuration to register |
+| SPC r +    | Increment register               |
+| SPC r SPC  | Point to register                |
+
+* System config and setup on Wayland
+** Setup on Hyprland WM
+1. Run my installer script
+   #+begin_src bash
+    bash <(curl -s https://raw.githubusercontent.com/Twilight4/arch-setup/main/tool-scripts/emacs.sh)
+    #+end_src
+
+2. Add emacs daemon mode to =autostart.conf=
+   #+begin_src bash
+    exec-once=emacs --daemon
+   #+end_src
+
+3. Add emacs client to autostart in =autolaunch= script
+   #+begin_src
+     hyprctl keyword windowrule "workspace 4 silent,emacs" && sleep 3 && hyprctl dispatch exec "emacsclient -c -a emacs"   # sleep 3 waits for emacs --daemon from autstart.conf to start
+     hyprctl keyword windowrule "unset,emacs"
+   #+end_src
+
+4. Set vars in =.zshenv=
+   #+begin_src bash
+    EDITOR="emacsclient -c -a emacs"
+    ALTERNATE_EDITOR=""
+   #+end_src
+
+5. Add a keybinding for launching emacs client in =keybinds.conf=
+   #+begin_src bash
+    bind = SUPER, E, exec, pgrep 'emacs' && hyprctl dispatch focuswindow '^emacs$' || hyprctl dispatch exec 'emacsclient -c -a emacs'
+   #+end_src
+
+** Mime types
+Org mode isn't recognised as it's own mime type by default, but that can easily be changed with the following file. For system-wide changes try ~/usr/share/mime/packages/org.xml~.
+
+#+begin_src xml
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="text/org">
+    <comment>Emacs Org-mode File</comment>
+    <glob pattern="*.org"/>
+    <alias type="text/org"/>
+  </mime-type>
+</mime-info>
+#+end_src
+
+What's nice is that Papirus [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/commit/a10fb7f2423d5e30b9c4477416ccdc93c4f3849d][now]] has an icon for =text/org=. One simply needs to refresh their mime database
+#+begin_src shell
+update-mime-database ~/config/.local/share/mime
+#+end_src
+
+Then set Emacs as the default editor
+#+begin_src shell
+xdg-mime default emacs.desktop text/org
+#+end_src
+
+** Git diffs
+Protesilaos wrote a [[https://protesilaos.com/codelog/2021-01-26-git-diff-hunk-elisp-org/][very helpful article]] in which he explains how to change the git diff chunk heading to something more useful than just the immediate line above the hunk --- like the parent heading.
+
+This can be achieved by first adding a new diff mode to git in =~/.config/git/attributes=
+#+begin_src fundamental
+,*.org   diff=org
+#+end_src
+
+Then adding a regex for it to =~/.config/git/config=
+#+begin_src gitconfig
+[diff "org"]
+  xfuncname = "^(\\*+ +.*)$"
+#+end_src
+
+** Literate programming
+1. =<s *TAB*=
+2. define which file should be it tangled
+   in the beginning
+   - =+property header-args :tangle config.el=
+   or with the code block
+   - =#+begin_src xml :tangle ~/.local/share/mime/packages/org.xml :mkdirp yes :comments no=
+3. Go to the beginning of the line and press: =C-c C-c=
+4. If tangled file hasn't been created use: =org-babel-tangle=
