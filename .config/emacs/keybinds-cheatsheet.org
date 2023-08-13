@@ -1,6 +1,7 @@
 #+title: GNU Emacs Keybindings Cheatsheet
 
 This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimze the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity. I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. The philosophy adopted in this configuration prioritizes simplicity and ease of use:
+  - Most commonly used keybinds don't have a prefix key.
   - I use =C-z=, =C-x= and =C-c= as global leader keys for keybinds that I *often* use which require the user to press 2 keys while holding the Control key, i.e. =C-x C-<key>= or =C-x <key>=.
   - I use =SPC= global leader key for all other keybinds that I *rarely* use effectively requiring the user to press 3 buttons including the =SPC= key.
 
@@ -13,8 +14,8 @@ The world's greatest programmer once said:
 - [[#common-keybindings][Common keybindings]]
 - [[#keybindings-without-a-prefix-key][Keybindings without a prefix key]]
   - [[#evil-mode][Evil Mode]]
-  - [[#zoom][Zoom]]
   - [[#centaur-tabs][Centaur Tabs]]
+  - [[#zoom][Zoom]]
   - [[#org-mode][Org Mode]]
 - [[#windows-navigation][Windows navigation]]
   - [[#window-splits][Window Splits]]
@@ -59,19 +60,17 @@ The world's greatest programmer once said:
 
 * Keybindings without a prefix key
 ** Evil Mode
-| Keybinding  | Description                         |
-|-------------+-------------------------------------|
-| C-h/j/k/l   | Switch window focus                 |
-| C-S-h/j/k/l | Move window                         |
-| M-</>       | Increase/Decrease width             |
-| M-=/-       | Increase/Decrease height            |
-| M-0         | Balance windows                     |
-
-** Zoom
-| Keybinding  | Description                         |
-|-------------+-------------------------------------|
-| C-=/-       | Zoom In/Out                         |
-| C-0         | Adjust zoom                         |
+| Keybinding  | Description              |
+|-------------+--------------------------|
+| C-h/j/k/l   | Switch window focus      |
+| C-S-h/j/k/l | Move window              |
+| M-</>       | Increase/Decrease width  |
+| M-=/-       | Increase/Decrease height |
+| M-0         | Balance windows          |
+| M-c         | Close window             |
+| M-s         | Horizontal split window  |
+| M-v         | Vertical split window    |
+| M-m         | Maximize window          |
 
 ** Centaur Tabs
 | Keybinding  | Description                         |
@@ -82,6 +81,12 @@ The world's greatest programmer once said:
 | M-d         | Kill this buffer                    |
 | M-D         | Kill other buffers in current group |
 | M-t         | Create new tab and open dashboard   |
+
+** Zoom
+| Keybinding  | Description                         |
+|-------------+-------------------------------------|
+| C-=/-       | Zoom In/Out                         |
+| C-0         | Adjust zoom                         |
 
 ** Org Mode
 | Keybinding  | Description                  |
@@ -98,10 +103,6 @@ The world's greatest programmer once said:
 ** Window Splits
 | Keybinding | Description             |
 |------------+-------------------------|
-| C-x C-c    | Close window            |
-| C-x C-n    | New window              |
-| C-x C-s    | Horizontal split window |
-| C-x C-v    | Vertical split window   |
 
 * Org Mode
 ** Org mode basics
