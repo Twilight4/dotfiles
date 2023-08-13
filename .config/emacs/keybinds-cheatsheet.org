@@ -2,8 +2,9 @@
 
 This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimze the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity. I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. The philosophy adopted in this configuration prioritizes simplicity and ease of use:
   - Most commonly used keybinds don't have a prefix key.
-  - I use =C-z=, =C-x= and =C-c= as global leader keys for keybinds that I *often* use which require the user to press 2 keys while holding the Control key, i.e. =C-x C-<key>= or =C-x <key>=.
-  - I use =SPC= global leader key for all other keybinds that I *rarely* use effectively requiring the user to press 3 buttons including the =SPC= key.
+  - =C-z= prefix key is used for emacs management and packages keybinds.
+  - =C-x= and =C-c= prefix keys are used for Org mode keybinds.
+  - =SPC= global leader key is used for all other keybinds that I *rarely* use effectively requiring the user to press 3 buttons.
 
 The world's greatest programmer once said:
 #+begin_quote
@@ -18,8 +19,8 @@ The world's greatest programmer once said:
   - [[#zoom][Zoom]]
   - [[#org-mode][Org Mode]]
 - [[#spc-for-prefix-keys][SPC for prefix keys]]
-- [[#c-x-leader-key-emacs-management][C-x Leader Key (emacs management)]]
-- [[#c-z-leader-key-org-mode][C-z Leader Key (Org Mode)]]
+- [[#c-z-leader-key-emacs-managementpackages][C-z Leader Key (emacs management/packages)]]
+- [[#c-x-leader-key-org-mode][C-x Leader Key (Org Mode)]]
 - [[#c-c-leader-key-org-mode][C-c Leader Key (Org Mode)]]
   - [[#org-mode-basics][Org mode basics]]
   - [[#org-roam][Org-Roam]]
@@ -47,7 +48,7 @@ The world's greatest programmer once said:
 | SPC .      | Create or find file |
 | SPC ,      | Find recent files   |
 | SPC TAB    | Comment lines       |
-| s          | Save buffer         |
+| SPC s      | Save buffer         |
 
 * Keybindings without a prefix key
 ** Evil Mode
@@ -100,7 +101,7 @@ The world's greatest programmer once said:
 | t          | Toggle           |
 | C-c C-SPC  | Zero-width space |
 
-* C-x Leader Key (emacs management)
+* C-z Leader Key (emacs management/packages)
 
 | Keybinding | Description    |
 |------------+----------------|
@@ -108,7 +109,7 @@ The world's greatest programmer once said:
 | C-n        | Registers      |
 | C-n        | Bookmarks      |
 
-* C-z Leader Key (Org Mode)
+* C-x Leader Key (Org Mode)
 * C-c Leader Key (Org Mode)
 
 ** Org mode basics
@@ -157,7 +158,7 @@ The world's greatest programmer once said:
 | .          | Green color |
 
 ** Tables
-- To create a table just start typing: =| table | name | description=
+To create a table just start typing: =| table | name | description=
 
 | Keybinding          | Description                                   |
 |---------------------+-----------------------------------------------|
