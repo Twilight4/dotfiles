@@ -291,11 +291,6 @@
  :prefix "C-x"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-x keymap prefix
- ;; Org Modes navigation
- ;"a" '(org-agenda :wk "Org agenda")
- ;"o" '(org-todo-list :wk "Org todo list")
- ;"t" '(org-time-stamp :wk "Org time stamp")
- ;"T" '(org-transclusion-mode :wk "Org Tansclusion mode")
 )
 #+end_src
 
@@ -306,16 +301,19 @@
  :prefix "C-c"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-c keymap prefix
+ ;; Org Modes navigation
+ "a" '(org-agenda :wk "Org agenda")
+ "t" '(org-todo-list :wk "Org todo list")
+ "T" '(org-transclusion-mode :wk "Org Transclusion mode")
  ;; Specific Org Mode commands
- ;"C-t" '(org-todo :wk "Org todo")
+ "C-." '(org-time-stamp :wk "Org timestamp")
+ "C-/" '(org-time-stamp :wk "Org tag")
  ;"C-i" '(org-toggle-item :wk "Org toggle item")
  ;"C-l" '(org-insert-link :wk "Org insert link")
  ;"C-f" '(org-insert-file-link :wk "Org insert file link")
  ;"C-o" '(org-open-at-point :wk "Org open thing at point")
  ;"C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
  ;"C--" '(org-table-insert-hline :wk "Insert hline in table")
- ;"C-s" '(org-schedule :wk "Schedule task")
- ;"C-d" '(org-deadline :wk "Deadline task")
 )
 #+end_src
 
