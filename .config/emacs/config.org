@@ -373,13 +373,11 @@
   (tl/leader-keys
     "e" '(:ignore t :wk "Edit File")
     "e i" '(lambda () (interactive) (find-file "~/documents/org/inbox.org"))
-    "e a" '(lambda () (interactive) (find-file "~/documents/org/agenda.org"))
     "e r" '(lambda () (interactive) (find-file "~/documents/org/repeaters.org"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
   (which-key-add-key-based-replacements "SPC e i" "Edit inbox"
-                                        "SPC e a" "Edit agenda"
                                         "SPC e r" "Edit repeaters"
                                         "SPC e c" "Edit config"
                                         "SPC e s" "Edit emacs cheatsheet")
@@ -1143,7 +1141,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 *** Org Basic Config
 
 #+begin_src emacs-lisp
-(setq org-directory "~/documents/org/"
+(setq org-directory "~/documents/org/agenda"
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-ellipsis " ▼ "                           ; Elipsis character for folding headings
       org-log-done 'time                           ; Having the time a item is done sounds
@@ -1432,7 +1430,7 @@ Let’s setup some org-capture templates, and make them visually nice to access.
 *** Org-journal
 
 #+begin_src emacs-lisp
-(setq org-journal-dir "~/documents/org/journal/"
+(setq org-journal-dir "~/documents/org/agenda"
       org-journal-date-prefix "* "
       org-journal-time-prefix "** "
       org-journal-date-format "%B %d, %Y (%A) "
