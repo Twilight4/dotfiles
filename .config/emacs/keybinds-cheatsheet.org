@@ -136,7 +136,13 @@ To create a table just start typing: =| table | name | description=
 ** Org mode basics
 | Keybinding | Description                                        |
 |------------+----------------------------------------------------|
-| SPC n      | Prefix for org keybinding                          |
+| C-d        | Insert a Deadline string                           |
+| C-d        | Insert a Deadline string                           |
+| C-d        | Insert a Deadline string                           |
+| C-d        | Insert a Deadline string                           |
+| C-d        | Insert a Deadline string                           |
+| C-d        | Insert a Deadline string                           |
+
 | SPC m h    | toggle heading                                     |
 | SPC m i    | toggle item                                        |
 | C-Ret      | Create a headline of the same type                 |

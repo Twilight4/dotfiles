@@ -271,7 +271,7 @@
 
 *** C-z Leader Key
 #+begin_src emacs-lisp
-;; Set up 'C-z' as another global leader key
+;; Set up 'C-z' as the global leader key
 (general-define-key
  :prefix "C-z"
  :states '(normal insert visual emacs)
@@ -289,23 +289,32 @@
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-x keymap prefix
  ;; Org Modes navigation
- "a" '(org-agenda :wk "Org agenda")
- "o" '(org-todo-list :wk "Org todo list")
- "t" '(org-time-stamp :wk "Org time stamp")
- "T" '(org-transclusion-mode :wk "Org Tansclusion mode")
- ;; Specific Org Mode commands
- "C-t" '(org-todo :wk "Org todo")
- "C-i" '(org-toggle-item :wk "Org toggle item")
- "C-l" '(org-insert-link :wk "Org insert link")
- "C-f" '(org-insert-file-link :wk "Org insert file link")
- "C-o" '(org-open-at-point :wk "Org open thing at point")
- "C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
- "C--" '(org-table-insert-hline :wk "Insert hline in table")
- "C-s" '(org-schedule :wk "Schedule task")
+ ;"a" '(org-agenda :wk "Org agenda")
+ ;"o" '(org-todo-list :wk "Org todo list")
+ ;"t" '(org-time-stamp :wk "Org time stamp")
+ ;"T" '(org-transclusion-mode :wk "Org Tansclusion mode")
 )
 #+end_src
 
 *** C-c Leader Key
+#+begin_src emacs-lisp
+;; Set up 'C-c' as the global leader key
+(general-define-key
+ :prefix "C-c"
+ :states '(normal insert visual emacs)
+ "" nil ; Remove default C-c keymap prefix
+ ;; Specific Org Mode commands
+ ;"C-t" '(org-todo :wk "Org todo")
+ ;"C-i" '(org-toggle-item :wk "Org toggle item")
+ ;"C-l" '(org-insert-link :wk "Org insert link")
+ ;"C-f" '(org-insert-file-link :wk "Org insert file link")
+ ;"C-o" '(org-open-at-point :wk "Org open thing at point")
+ ;"C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
+ ;"C--" '(org-table-insert-hline :wk "Insert hline in table")
+ ;"C-s" '(org-schedule :wk "Schedule task")
+ ;"C-d" '(org-deadline :wk "Deadline task")
+)
+#+end_src
 
 *** SPC Leader Key
 #+begin_src emacs-lisp
