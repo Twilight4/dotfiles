@@ -10,13 +10,15 @@ The world's greatest programmer once said:
 #+end_quote
 
 * Table of Contents :toc:
-- [[#essential-keybindings][Essential Keybindings]]
-  - [[#keybindings-without-prefix-key][Keybindings without prefix key]]
-  - [[#common-keybindings][Common keybindings]]
-- [[#navigation][Navigation]]
+- [[#common-keybindings][Common keybindings]]
+- [[#keybindings-without-a-prefix-key][Keybindings without a prefix key]]
+  - [[#evil-mode][Evil Mode]]
+  - [[#zoom][Zoom]]
+  - [[#centaur-tabs][Centaur Tabs]]
+  - [[#org-mode][Org Mode]]
+- [[#windows-navigation][Windows navigation]]
   - [[#window-splits][Window Splits]]
-  - [[#window-movement][Window Movement]]
-- [[#org-mode][Org Mode]]
+- [[#org-mode-1][Org Mode]]
   - [[#org-mode-basics][Org mode basics]]
   - [[#org-roam][Org-Roam]]
   - [[#task-management][Task Management]]
@@ -48,39 +50,58 @@ The world's greatest programmer once said:
   - [[#git-diffs][Git diffs]]
   - [[#literate-programming][Literate programming]]
 
-* Essential Keybindings
-** Keybindings without prefix key
-| Keybinding | Description          |
-|------------+----------------------|
-| C-h/j/k/l  | Switch window focus  |
-| C-=/-      | Zoom In/Out          |
-| M-p/n      | Buffer Previous/Next |
+* Common keybindings
+| Keybinding | Description         |
+|------------+---------------------|
+| SPC .      | Create or find file |
+| SPC ,      | Find recent files   |
+| SPC TAB    | Comment lines       |
 
-** Common keybindings
-| Keybinding | Description             |
-|------------+-------------------------|
-| SPC .      | Create or find file     |
-| SPC ,      | Find recent files       |
-| C-x c      | Recently opened files   |
-| C-x C-s    | Save the current buffer |
-| C-x C-r    | Reload emacs            |
+* Keybindings without a prefix key
+** Evil Mode
+| Keybinding  | Description                         |
+|-------------+-------------------------------------|
+| C-h/j/k/l   | Switch window focus                 |
+| C-S-h/j/k/l | Move window                         |
+| M-</>       | Increase/Decrease width             |
+| M-=/-       | Increase/Decrease height            |
+| M-0         | Balance windows                     |
 
-* Navigation
+** Zoom
+| Keybinding  | Description                         |
+|-------------+-------------------------------------|
+| C-=/-       | Zoom In/Out                         |
+| C-0         | Adjust zoom                         |
+
+** Centaur Tabs
+| Keybinding  | Description                         |
+|-------------+-------------------------------------|
+| M-p/n       | Tab Previous/Next                   |
+| M-f/b       | Tab group forward/backward          |
+| M-,/.       | Tab Move left/right                 |
+| M-d         | Kill this buffer                    |
+| M-D         | Kill other buffers in current group |
+| M-t         | Create new tab and open dashboard   |
+
+** Org Mode
+| Keybinding  | Description                  |
+|-------------+------------------------------|
+| S-h/j/k/l   | Change todo/priority         |
+| M-h/j/k/l   | Headings navigation          |
+| M-S-h/j/k/l | Move/Promote/Demote headings |
+| f12         | Org transclusion add         |
+
+
+| C-c C-SPC | Zero-width space |
+
+* Windows navigation
 ** Window Splits
 | Keybinding | Description             |
 |------------+-------------------------|
-| C-z C-c    | Close window            |
-| C-z C-n    | New window              |
-| C-z C-s    | Horizontal split window |
-| C-z C-v    | Vertical split window   |
-
-** Window Movement
-| Keybinding | Description       |
-|------------+-------------------|
-| C-z C-h    | Move window left  |
-| C-z C-j    | Move window down  |
-| C-z C-k    | Move window up    |
-| C-z C-l    | Move window right |
+| C-x C-c    | Close window            |
+| C-x C-n    | New window              |
+| C-x C-s    | Horizontal split window |
+| C-x C-v    | Vertical split window   |
 
 * Org Mode
 ** Org mode basics
