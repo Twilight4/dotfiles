@@ -191,6 +191,12 @@
   (define-key evil-normal-state-map (kbd "M-=") 'evil-window-increase-height)
   (define-key evil-normal-state-map (kbd "M--") 'evil-window-decrease-height)
   (define-key evil-normal-state-map (kbd "M-0") 'balance-windows)
+  ;; Window splits
+  (define-key evil-normal-state-map (kbd "M-c") 'evil-window-delete)
+  (define-key evil-normal-state-map (kbd "M-s") 'evil-window-split)
+  (define-key evil-normal-state-map (kbd "M-v") 'evil-window-vsplit)
+  ;; Maximize window
+  (define-key evil-normal-state-map (kbd "M-m") 'toggle-maximize-evil-split)
   ;; Keybindings for org mode in evil normal mode for TODOs/priorities
   (define-key evil-normal-state-map "H" 'org-shiftleft)
   (define-key evil-normal-state-map "J" 'org-shiftdown)
@@ -224,6 +230,10 @@
                   (interactive)
                   (centaur-tabs--create-new-tab)
                   (dashboard-open)))
+;(global-set-key (kbd "M-1") 'centaur-tabs-select-visible-tab)
+;(global-set-key (kbd "M-2") 'centaur-tabs-select-visible-tab)
+;(global-set-key (kbd "M-3") 'centaur-tabs-select-visible-tab)
+;(global-set-key (kbd "M-4") 'centaur-tabs-select-visible-tab)
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Zero-width space (this is an exception keybinding)
@@ -267,15 +277,7 @@
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-x keymap prefix
  ;; Common keybindings
- "C-s" '(save-buffer :wk "Save buffer")
- "C-n" '(neotree-toggle :wk "Toggle neotree")
- ;; Window splits
- "C-c" '(evil-window-delete :wk "Close window")
- "C-n" '(evil-window-new :wk "New window")
- "C-h" '(evil-window-split :wk "Horizontal split window")
- "C-v" '(evil-window-vsplit :wk "Vertical split window")
- ;; Maximize window
- "C-m" '(toggle-maximize-evil-split :wk "Maximize buffer")
+ ;"C-n" '(neotree-toggle :wk "Toggle neotree")
 )
 #+end_src
 
@@ -286,6 +288,8 @@
  :prefix "C-z"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-z keymap prefix
+ ;; Common keybindings
+ "C-n" '(neotree-toggle :wk "Toggle neotree")
  ;; Org Modes navigation
  "a" '(org-agenda :wk "Org agenda")
  "o" '(org-todo-list :wk "Org todo list")
@@ -317,7 +321,8 @@
   (tl/leader-keys
     "," '(counsel-recentf :wk "Find recent files")
     "." '(find-file :wk "Find file")
-    "TAB" '(comment-line :wk "Comment lines"))
+    "TAB" '(comment-line :wk "Comment lines")
+    "s" '(save-buffer :wk "Save buffer"))
 
   (tl/leader-keys
     "b" '(:ignore t :wk "Buffer")
