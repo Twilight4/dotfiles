@@ -1071,7 +1071,11 @@ This automates the surround of word for style formatting with respective keys in
 Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
-(require 'org-tempo)
+(with-eval-after-load 'org
+  (require 'org-tempo)
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python")))
 #+end_src
 
 *** Electric Indent
