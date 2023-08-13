@@ -310,7 +310,7 @@
  "C-h" '(org-set-effort :wk "Org toggle heading")
  "C-i" '(org-toggle-item :wk "Org toggle item")
  "C-f" '(org-insert-file-link :wk "Org insert file link")
- "C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
+ "C-m" '(org-toggle-checkbox :wk "Org toggle checkbox")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
 )
 #+end_src
@@ -330,6 +330,7 @@
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
     "t" '(org-todo-list :wk "Org todo list")
+    "c" '(org-capture :wk "Capture something")
     "s" '(save-buffer :wk "Save buffer"))
 
   (tl/leader-keys
@@ -1393,6 +1394,34 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 
 *** Org-capture
 Let’s setup some org-capture templates, and make them visually nice to access. 
+
+#+begin_src emacs-lisp
+;  (setq org-capture-templates
+;    `(("t" "Tasks / Projects")
+;      ("tt" "Task" entry (file+olp "~/documents/org/inbox.org" "Inbox")
+;           "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+;
+;      ("j" "Journal Entries")
+;      ("jj" "Journal" entry
+;           (file+olp+datetree "~/documents/org/journal.org")
+;           "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+;           ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
+;           :clock-in :clock-resume
+;           :empty-lines 1)
+;      ("jm" "Meeting" entry
+;           (file+olp+datetree "~/documents/org/journal.org")
+;           "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+;           :clock-in :clock-resume
+;           :empty-lines 1)
+;
+;      ("w" "Workflows")
+;      ("we" "Checking Email" entry (file+olp+datetree "~/documents/org/journal.org")
+;           "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+;
+;      ("m" "Metrics Capture")
+;      ("mw" "Weight" table-line (file+headline "~/documents/org/metrics.org" "Weight")
+;       "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+#+end_src
 
 *** Org-roam
 
