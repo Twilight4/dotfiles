@@ -1137,7 +1137,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 (add-hook 'org-mode-hook #'tl/org-font-setup)
 #+end_src
 
-*** Org Better Defaults
+*** Org Basic Config
 
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/"
@@ -1175,6 +1175,27 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
            "WAIT(w)"
            "|"
            "CANC(c)")))
+
+(setq org-refile-targets
+  '(("archive.org" :maxlevel . 1)))
+    ;("tasks.org" :maxlevel . 1)))
+
+;; Save Org buffers after refiling
+(advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+(setq org-tag-alist
+  '((:startgroup)
+     ; Put mutually exclusive tags here
+     (:endgroup)
+     ("@errand" . ?E)
+     ("@home" . ?H)
+     ("@work" . ?W)
+     ("agenda" . ?a)
+     ("planning" . ?p)
+     ("publish" . ?P)
+     ("batch" . ?b)
+     ("note" . ?n)
+     ("idea" . ?i)))
 #+end_src
 
 

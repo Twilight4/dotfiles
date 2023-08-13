@@ -143,15 +143,16 @@ To create a table just start typing: =| table | name | description=
 ** Org mode Common keys
 | Keybinding | Description         |
 |------------+---------------------|
-| C-c        | Org schedule        |
+| C-s        | Org schedule        |
 | C-d        | Org deadline        |
 | C-t        | Org TODO            |
-| C-.        | Org timestamp       |
 | C-o        | Open link at point  |
+| C-.        | Org timestamp       |
 | C-,        | Insert source block |
-| C-.        | Org tag             |
+| C-/        | Org tag             |
 | C-p        | Org property        |
 | C-e        | Org effort          |
+| C-w        | Org refile          |
 
 | SPC m h   | toggle heading                                     |
 | SPC m i   | toggle item                                        |
