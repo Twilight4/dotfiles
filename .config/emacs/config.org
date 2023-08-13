@@ -301,21 +301,17 @@
  :prefix "C-c"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-c keymap prefix
- ;; Org Modes navigation
- "a" '(org-agenda :wk "Org agenda")
- "t" '(org-todo-list :wk "Org todo list")
+ "t" '(org-todo :wk "Org todo")
  "T" '(org-transclusion-mode :wk "Org Transclusion mode")
- ;; Specific Org Mode commands
  "C-." '(org-time-stamp :wk "Org timestamp")
  "C-/" '(counsel-org-tag :wk "Org tag")
  "C-p" '(org-set-property :wk "Org property")
  "C-e" '(org-set-effort :wk "Org effort")
- ;"C-i" '(org-toggle-item :wk "Org toggle item")
- ;"C-l" '(org-insert-link :wk "Org insert link")
- ;"C-f" '(org-insert-file-link :wk "Org insert file link")
- ;"C-o" '(org-open-at-point :wk "Org open thing at point")
- ;"C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
- ;"C--" '(org-table-insert-hline :wk "Insert hline in table")
+ "C-h" '(org-set-effort :wk "Org toggle heading")
+ "C-i" '(org-toggle-item :wk "Org toggle item")
+ "C-f" '(org-insert-file-link :wk "Org insert file link")
+ "C-c" '(org-toggle-checkbox :wk "Org toggle checkbox")
+ "C--" '(org-table-insert-hline :wk "Insert hline in table")
 )
 #+end_src
 
@@ -332,6 +328,8 @@
     "," '(counsel-recentf :wk "Find recent files")
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
+    "a" '(org-agenda :wk "Org agenda")
+    "t" '(org-todo-list :wk "Org todo list")
     "s" '(save-buffer :wk "Save buffer"))
 
   (tl/leader-keys
@@ -351,11 +349,11 @@
   (which-key-add-key-based-replacements "SPC h r" "Reload emacs")
 
   (tl/leader-keys
-    "t" '(:ignore t :wk "Toggle")
-    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines")
-    "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
-    "t H" '(global-hl-line-mode :wk "Toggle line highlight globally"))
+    "T" '(:ignore t :wk "Toggle")
+    "T l" '(display-line-numbers-mode :wk "Toggle line numbers")
+    "T t" '(visual-line-mode :wk "Toggle truncated lines")
+    "T h" '(hl-line-mode :wk "Toggle line highlight in frame")
+    "T H" '(global-hl-line-mode :wk "Toggle line highlight globally"))
 
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
@@ -1167,12 +1165,13 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
       org-todo-keywords
         '((sequence
            "TODO(t)"
+           "DOING(d)"
            "NEXT(n)"
            "|"                 ; The pipe necessary to separate "active" states and "inactive" states
-           "DONE(d)")
+           "DONE(D)")
           (sequence
-           "PROJ(p)"
            "WAIT(w)"
+           "SOMEDAY(s)"
            "|"
            "CANC(c)")))
 
@@ -1187,15 +1186,18 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
   '((:startgroup)
      ; Put mutually exclusive tags here
      (:endgroup)
-     ("@errand" . ?E)
-     ("@home" . ?H)
-     ("@work" . ?W)
-     ("agenda" . ?a)
-     ("planning" . ?p)
-     ("publish" . ?P)
+     ("Important" . ?E)
+     ("Assignment" . ?H)
+     ("Issue" . ?W)
+     ("Emacs" . ?a)
+     ("Project" . ?p)
+     ("Research" . ?P)
      ("batch" . ?b)
-     ("note" . ?n)
-     ("idea" . ?i)))
+     ("Read" . ?n)
+     ("Chore" . ?n)
+     ("Routine" . ?n)
+     ("Daily" . ?n)
+     ("Trivial" . ?i)))
 #+end_src
 
 
@@ -1219,12 +1221,9 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                           (42 . "-"))
         org-modern-todo-faces
         '(("TODO" :inverse-video t :inherit org-todo)
-          ("PROJ" :inverse-video t :inherit +org-todo-project)
-          ("[-]"  :inverse-video t :inherit +org-todo-active)
           ("NEXT" :inverse-video t :inherit +org-todo-active)
           ("DONE" :inverse-video t :inherit +org-todo-cancel)
-          ("WAIT" :inverse-video t :inherit +org-todo-onhold)
-          ("[?]"  :inverse-video t :inherit +org-todo-onhold))
+          ("WAIT" :inverse-video t :inherit +org-todo-onhold))
         org-modern-footnote
         (cons nil (cadr org-script-display))
         org-modern-block-fringe nil
@@ -1293,34 +1292,28 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
       org-agenda-include-deadlines t
-      ;org-agenda-block-separator ?─
-      ;org-agenda-tags-column 0
       org-agenda-block-separator nil
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
 
 (setq org-agenda-custom-commands
       '(("o" "Overview"
-         ((agenda "" ((org-agenda-span 'day)
-                      (org-super-agenda-groups
-                       '((:name "Today"
-                          :time-grid t
-                          :date today
-                          :todo "TODAY"
-                          :scheduled today
-                          :order 1)))))
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
-                        '((:name "Next to do"
-                           :todo "NEXT"
+                        '((:name "Doing now"
+                           :todo "DOING"
                            :order 1)
+                          (:name "Next to do"
+                           :todo "NEXT"
+                           :order 2)
                           (:name "Important"
                            :tag "Important"
                            :priority "A"
                            :order 6)
                           (:name "Due Today"
                            :deadline today
-                           :order 2)
+                           :scheduled today
+                           :order 3)
                           (:name "Due Soon"
                            :deadline future
                            :order 8)
@@ -1347,17 +1340,55 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                            :tag "Read"
                            :order 30)
                           (:name "Waiting"
-                           :todo "WAITING"
+                           :todo "WAIT"
                            :order 20)
-                          (:name "University"
-                           :tag "uni"
-                           :order 32)
                           (:name "Trivial"
                            :priority<= "E"
-                           :tag ("Trivial" "Unimportant")
-                           :todo ("SOMEDAY" )
+                           :tag "Trivial"
+                           :todo "SOMEDAY"
                            :order 90)
-                          (:discard (:tag ("Chore" "Routine" "Daily")))))))))))
+                          (:discard (:tag ("Chore" "Routine" "Daily")))))))
+
+        ("d" "Doing now"
+         ((todo "DOING"
+                ((org-agenda-overriding-header "Doing now")))))
+
+        ("n" "Next Tasks"
+         ((todo "NEXT"
+                ((org-agenda-overriding-header "Next Tasks")))))
+
+        ("e" "Low Effort Tasks" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
+         ((org-agenda-overriding-header "Low Effort Tasks")
+          (org-agenda-max-todos 20)
+          (org-agenda-files org-agenda-files)))
+
+        ("w" "Workflow Status"
+         ((todo "WAIT"
+                ((org-agenda-overriding-header "Waiting on External")
+                 (org-agenda-files org-agenda-files)))
+          (todo "REVIEW"
+                ((org-agenda-overriding-header "In Review")
+                 (org-agenda-files org-agenda-files)))
+          (todo "PLAN"
+                ((org-agenda-overriding-header "In Planning")
+                 (org-agenda-todo-list-sublevels nil)
+                 (org-agenda-files org-agenda-files)))
+          (todo "BACKLOG"
+                ((org-agenda-overriding-header "Project Backlog")
+                 (org-agenda-todo-list-sublevels nil)
+                 (org-agenda-files org-agenda-files)))
+          (todo "READY"
+                ((org-agenda-overriding-header "Ready for Work")
+                 (org-agenda-files org-agenda-files)))
+          (todo "ACTIVE"
+                ((org-agenda-overriding-header "Active Projects")
+                 (org-agenda-files org-agenda-files)))
+          (todo "COMPLETED"
+                ((org-agenda-overriding-header "Completed Projects")
+                 (org-agenda-files org-agenda-files)))
+          (todo "CANC"
+                ((org-agenda-overriding-header "Cancelled Projects")
+                 (org-agenda-files org-agenda-files))))))))
 #+end_src
 
 *** Org-capture
