@@ -17,24 +17,24 @@ The world's greatest programmer once said:
   - [[#centaur-tabs][Centaur Tabs]]
   - [[#zoom][Zoom]]
   - [[#org-mode][Org Mode]]
-- [[#c-x-leader-key][C-x Leader Key]]
-- [[#org-mode-1][Org Mode]]
+- [[#spc-for-prefix-keys][SPC for prefix keys]]
+- [[#c-x-leader-key-emacs-management][C-x Leader Key (emacs management)]]
+- [[#c-z-leader-key-org-mode][C-z Leader Key (Org Mode)]]
+- [[#c-c-leader-key-org-mode][C-c Leader Key (Org Mode)]]
   - [[#org-mode-basics][Org mode basics]]
   - [[#org-roam][Org-Roam]]
   - [[#task-management][Task Management]]
   - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
   - [[#tables][Tables]]
-- [[#spc-for-prefix-keys][SPC for prefix keys]]
 - [[#other-packages][Other Packages]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
+  - [[#magit][Magit]]
+  - [[#evil-snipe][Evil-Snipe]]
 - [[#wip][WIP]]
   - [[#bookmark-management][Bookmark Management]]
   - [[#registers][Registers]]
-- [[#packages][Packages]]
-  - [[#magit][Magit]]
-  - [[#evil-snipe][Evil-Snipe]]
 - [[#system-config-and-setup-on-wayland][System config and setup on Wayland]]
   - [[#setup-on-hyprland-wm][Setup on Hyprland WM]]
   - [[#mime-types][Mime types]]
@@ -88,13 +88,29 @@ The world's greatest programmer once said:
 | S-h/j/k/l   | Change todo/priority         |
 | f12         | Org transclusion add         |
 
-* C-x Leader Key
+* SPC for prefix keys
+
+| Keybinding | Description      |
+|------------+------------------|
+| e          | Edit file        |
+| d          | Dired            |
+| b          | Buffer           |
+| h          | Help             |
+| o          | Org              |
+| t          | Toggle           |
+| C-c C-SPC  | Zero-width space |
+
+* C-x Leader Key (emacs management)
 
 | Keybinding | Description    |
 |------------+----------------|
 | C-n        | Toggle neotree |
+| C-n        | Registers      |
+| C-n        | Bookmarks      |
 
-* Org Mode
+* C-z Leader Key (Org Mode)
+* C-c Leader Key (Org Mode)
+
 ** Org mode basics
 | Keybinding | Description                                        |
 |------------+----------------------------------------------------|
@@ -154,18 +170,6 @@ The world's greatest programmer once said:
 | M-S-j/k             | Insert a new row above/delete current row     |
 | o                   | Insert new roam and move to the beginning     |
 
-* SPC for prefix keys
-
-| Keybinding | Description      |
-|------------+------------------|
-| e          | Edit file        |
-| d          | Dired            |
-| b          | Buffer           |
-| h          | Help             |
-| o          | Org              |
-| t          | Toggle           |
-| C-c C-SPC  | Zero-width space |
-
 * Other Packages
 ** Source Code Block Tag Expansion
 
@@ -218,6 +222,11 @@ The world's greatest programmer once said:
 | TAB        | Toggle viewing subtree at point                    |
 | Q          | Toggle read-only mode for the current Dired buffer |
 
+** Magit
+** Evil-Snipe
+*** Inline navigation
+*** Long distance navigation
+
 * WIP
 ** Bookmark Management
 | Keybinding | Description                            |
@@ -242,33 +251,30 @@ The world's greatest programmer once said:
 | SPC r +    | Increment register               |
 | SPC r SPC  | Point to register                |
 
-
-* TODO Packages
-** TODO Magit
-** TODO Evil-Snipe
-*** TODO Inline navigation
-*** TODO Long distance navigation
-
-* TODO System config and setup on Wayland
+* System config and setup on Wayland
 ** Setup on Hyprland WM
 1. Run my installer script
    #+begin_src bash
     bash <(curl -s https://raw.githubusercontent.com/Twilight4/arch-setup/main/tool-scripts/emacs.sh)
     #+end_src
+
 2. Add emacs daemon mode to =autostart.conf=
    #+begin_src bash
     exec-once=emacs --daemon
    #+end_src
+
 3. Add emacs client to autostart in =autolaunch= script
    #+begin_src
      hyprctl keyword windowrule "workspace 4 silent,emacs" && sleep 3 && hyprctl dispatch exec "emacsclient -c -a emacs"   # sleep 3 waits for emacs --daemon from autstart.conf to start
      hyprctl keyword windowrule "unset,emacs"
    #+end_src
+
 4. Set vars in =.zshenv=
    #+begin_src bash
     EDITOR="emacsclient -c -a emacs"
     ALTERNATE_EDITOR=""
    #+end_src
+
 5. Add a keybinding for launching emacs client in =keybinds.conf=
    #+begin_src bash
     bind = SUPER, E, exec, pgrep 'emacs' && hyprctl dispatch focuswindow '^emacs$' || hyprctl dispatch exec 'emacsclient -c -a emacs'
