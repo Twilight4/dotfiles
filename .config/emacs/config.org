@@ -963,7 +963,7 @@ sacrificing visual amenities with the =org-appear= package.
  (run-at-time nil nil #'org-appear--set-elements))
 #+end_src
 
-*** Center Org Buffers
+*** Org-mode-visual-fill
 I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] to center =org-mode= buffers for centering the contents of the buffer horizontally to seem more like you are editing a document.
 
 #+begin_src emacs-lisp
@@ -1005,7 +1005,6 @@ I have made adding =org-auto-tangle= to files easier.
   (insert "#+auto_tangle: t ")
   (evil-normal-state))
 #+end_src
-
 
 *** Style formatting
 This controls the color of bold, italic, underline, verbatim, strikethrough in Org mode.
@@ -1164,7 +1163,18 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
       org-use-property-inheritance t               ; It's convenient to have properties inherited
       org-catch-invisible-edits 'smart             ; Try not to accidently do weird stuff in invisible regions
       org-image-actual-width '(0.9)                ; Make the in-buffer display closer to the exported result
-      org-pretty-entities t)
+      org-pretty-entities t
+      org-todo-keywords
+        '((sequence
+           "TODO(t)"
+           "NEXT(n)"
+           "|"                 ; The pipe necessary to separate "active" states and "inactive" states
+           "DONE(d)")
+          (sequence
+           "PROJ(p)"
+           "WAIT(w)"
+           "|"
+           "CANC(c)")))
 #+end_src
 
 
