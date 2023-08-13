@@ -17,8 +17,7 @@ The world's greatest programmer once said:
   - [[#centaur-tabs][Centaur Tabs]]
   - [[#zoom][Zoom]]
   - [[#org-mode][Org Mode]]
-- [[#windows-navigation][Windows navigation]]
-  - [[#window-splits][Window Splits]]
+- [[#c-x-leader-key][C-x Leader Key]]
 - [[#org-mode-1][Org Mode]]
   - [[#org-mode-basics][Org mode basics]]
   - [[#org-roam][Org-Roam]]
@@ -26,25 +25,16 @@ The world's greatest programmer once said:
   - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
   - [[#tables][Tables]]
 - [[#spc-for-prefix-keys][SPC for prefix keys]]
-- [[#other][Other]]
+- [[#other-packages][Other Packages]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
-  - [[#help-pages][Help pages]]
-  - [[#line-settings][Line settings]]
-  - [[#buffer-management][Buffer Management]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
 - [[#wip][WIP]]
-  - [[#workspace-management][Workspace Management]]
   - [[#bookmark-management][Bookmark Management]]
-  - [[#ibuffer-mode][Ibuffer mode]]
-  - [[#perspective][Perspective]]
   - [[#registers][Registers]]
-- [[#file-search][File Search]]
-  - [[#general-file-search][General file search]]
 - [[#packages][Packages]]
   - [[#magit][Magit]]
   - [[#evil-snipe][Evil-Snipe]]
-  - [[#treemacs][Treemacs]]
 - [[#system-config-and-setup-on-wayland][System config and setup on Wayland]]
   - [[#setup-on-hyprland-wm][Setup on Hyprland WM]]
   - [[#mime-types][Mime types]]
@@ -57,6 +47,7 @@ The world's greatest programmer once said:
 | SPC .      | Create or find file |
 | SPC ,      | Find recent files   |
 | SPC TAB    | Comment lines       |
+| s          | Save buffer         |
 
 * Keybindings without a prefix key
 ** Evil Mode
@@ -73,14 +64,15 @@ The world's greatest programmer once said:
 | M-m         | Maximize window          |
 
 ** Centaur Tabs
-| Keybinding  | Description                         |
-|-------------+-------------------------------------|
-| M-p/n       | Tab Previous/Next                   |
-| M-f/b       | Tab group forward/backward          |
-| M-,/.       | Tab Move left/right                 |
-| M-d         | Kill this buffer                    |
-| M-D         | Kill other buffers in current group |
-| M-t         | Create new tab and open dashboard   |
+| Keybinding | Description                         |
+|------------+-------------------------------------|
+| M-p/n      | Tab Previous/Next                   |
+| M-f/b      | Tab group forward/backward          |
+| M-,/.      | Tab Move left/right                 |
+| M-d        | Kill this buffer                    |
+| M-D        | Kill other buffers in current group |
+| M-t        | Create new tab and open dashboard   |
+| M-1/2/3/4  | Switch to tab 1/2/3/4               |
 
 ** Zoom
 | Keybinding  | Description                         |
@@ -91,18 +83,16 @@ The world's greatest programmer once said:
 ** Org Mode
 | Keybinding  | Description                  |
 |-------------+------------------------------|
-| S-h/j/k/l   | Change todo/priority         |
 | M-h/j/k/l   | Headings navigation          |
 | M-S-h/j/k/l | Move/Promote/Demote headings |
+| S-h/j/k/l   | Change todo/priority         |
 | f12         | Org transclusion add         |
 
+* C-x Leader Key
 
-| C-c C-SPC | Zero-width space |
-
-* Windows navigation
-** Window Splits
-| Keybinding | Description             |
-|------------+-------------------------|
+| Keybinding | Description    |
+|------------+----------------|
+| C-n        | Toggle neotree |
 
 * Org Mode
 ** Org mode basics
@@ -131,11 +121,8 @@ The world's greatest programmer once said:
 | SPC n r n  | Capture to node                    |
 
 ** Task Management
-
 *** Lists
-
 *** Checkboxes
-
 *** Links and hyperlinks
 - You can add =::= to specify a heading or a line number
 - You can paste http links as well
@@ -146,6 +133,7 @@ The world's greatest programmer once said:
 | SPC m l f  | Insert file link          |
 
 ** Style formatting (visual mode)
+
 | Keybinding | Description |
 |------------+-------------|
 | m          | Bold        |
@@ -167,17 +155,20 @@ The world's greatest programmer once said:
 | o                   | Insert new roam and move to the beginning     |
 
 * SPC for prefix keys
-| Keybinding | Description |
-|------------+-------------|
-| e          | Edit file   |
-| d          | Dired       |
-| b          | Buffer      |
-| h          | Help        |
-| o          | Org         |
-| t          | Toggle      |
 
-* Other
+| Keybinding | Description      |
+|------------+------------------|
+| e          | Edit file        |
+| d          | Dired            |
+| b          | Buffer           |
+| h          | Help             |
+| o          | Org              |
+| t          | Toggle           |
+| C-c C-SPC  | Zero-width space |
+
+* Other Packages
 ** Source Code Block Tag Expansion
+
 | Typing the below + TAB | Expands to ...                          |
 |------------------------+-----------------------------------------|
 | <a                     | '#+BEGIN_EXPORT ascii' … '#+END_EXPORT  |
@@ -191,30 +182,8 @@ The world's greatest programmer once said:
 | <s                     | '#+BEGIN_SRC' … '#+END_SRC'             |
 | <v                     | '#+BEGIN_VERSE' … '#+END_VERSE'         |
 
-** Help pages
-| Keybinding | Description       |
-|------------+-------------------|
-| SPC h f    | Describe function |
-| SPC h v    | Describe variable |
-
-** Line settings
-| Keybinding | Description                |
-|------------+----------------------------|
-| SPC TAB    | Comment or uncomment lines |
-| SPC t l    | Toggle line numbers        |
-| SPC t t    | Toggle truncate lines      |
-
-** Buffer Management
-| Keybinding | Description      |
-|------------+------------------|
-| SPC b b    | Switch buffer    |
-| SPC b i    | Ibuffer          |
-| SPC b k    | Kill this buffer |
-| SPC b n    | Buffer next      |
-| SPC b p    | Buffer previous  |
-| SPC b r    | Reload buffer    |
-
 ** Neotree
+
 | Keybinding  | Description                                                      |
 |-------------+------------------------------------------------------------------|
 | n/p         | Next/previous line                                               |
@@ -231,6 +200,7 @@ The world's greatest programmer once said:
 | C-c C-p     | Copy a file or a directory                                       |
 
 ** Dired
+
 | Keybinding | Description                                        |
 |------------+----------------------------------------------------|
 | h/j/k/l    | left/down/up/right                                 |
@@ -249,17 +219,6 @@ The world's greatest programmer once said:
 | Q          | Toggle read-only mode for the current Dired buffer |
 
 * WIP
-** TODO Workspace Management
-| Keybinding | Description                 |
-|------------+-----------------------------|
-| C-t        | New workspace               |
-| SPC TAB N  | New workspace and name it   |
-| SPC TAB [  | Previous workspace          |
-| SPC TAB ]  | Next workspace              |
-| SPC TAB d  | Remove workspace            |
-| SPC TAB R  | Restore last session        |
-| M-1/2/3/4  | Switch to workspace 1/2/3/4 |
-
 ** Bookmark Management
 | Keybinding | Description                            |
 |------------+----------------------------------------|
@@ -267,32 +226,6 @@ The world's greatest programmer once said:
 | SPC b m    | Set bookmark                           |
 | SPC b M    | Delete bookmark                        |
 | SPC b w    | Save current bookmark to bookmark file |
-
-** Ibuffer mode
-| Keybinding | Description                            |
-|------------+----------------------------------------|
-| m          | Mark the buffer                        |
-| u          | Unmark the buffer                      |
-| x          | Kill the marked buffers                |
-| f c        | Ibuffer filter by content              |
-| f d        | Ibuffer filter by directory            |
-| f f        | Ibuffer filter by filename (full path) |
-| f m        | Ibuffer filter by mode                 |
-| f n        | Ibuffer filter by name                 |
-| f x        | Disable ibuffer filter                 |
-| g h        | Hide marked buffers                    |
-| g H        | Restore hidden buffers                 |
-
-** Perspective
-| Keybinding | Description                         |
-|------------+-------------------------------------|
-| SPC DEL    | Switch to perspective NAME          |
-| SPC ,      | Switch to buffer in perspective     |
-| SPC ]      | Switch to next perspective          |
-| SPC [      | Switch to previous perspective      |
-| SPC +      | Add a buffer to current perspective |
-| SPC -      | Remove perspective by name          |
-| SPC 0-9    | Switch to workspace n               |
 
 ** Registers
 | Keybinding | Description                      |
@@ -309,25 +242,12 @@ The world's greatest programmer once said:
 | SPC r +    | Increment register               |
 | SPC r SPC  | Point to register                |
 
-* TODO File Search
-** General file search
-| Keybinding | Description                         |
-|------------+-------------------------------------|
-| SPC p r    | Recently visited files in a project |
-| SPC p p    | Open a project                      |
-| SPC SPC    | Open a file in a project            |
-
 
 * TODO Packages
 ** TODO Magit
 ** TODO Evil-Snipe
 *** TODO Inline navigation
-
 *** TODO Long distance navigation
-** TODO Treemacs
-| Keybinding | Description       |
-|------------+-------------------|
-| SPC o p    | Toggle on and off |
 
 * TODO System config and setup on Wayland
 ** Setup on Hyprland WM
@@ -366,10 +286,12 @@ Org mode isn't recognised as it's own mime type by default, but that can easily 
   </mime-type>
 </mime-info>
 #+end_src
+
 What's nice is that Papirus [[https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/commit/a10fb7f2423d5e30b9c4477416ccdc93c4f3849d][now]] has an icon for =text/org=. One simply needs to refresh their mime database
 #+begin_src shell
 update-mime-database ~/config/.local/share/mime
 #+end_src
+
 Then set Emacs as the default editor
 #+begin_src shell
 xdg-mime default emacs.desktop text/org
@@ -388,6 +310,7 @@ Then adding a regex for it to =~/.config/git/config=
 [diff "org"]
   xfuncname = "^(\\*+ +.*)$"
 #+end_src
+
 ** Literate programming
 1. =<s *TAB*=
 2. define which file should be it tangled
