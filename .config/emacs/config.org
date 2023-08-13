@@ -963,6 +963,20 @@ sacrificing visual amenities with the =org-appear= package.
  (run-at-time nil nil #'org-appear--set-elements))
 #+end_src
 
+*** Center Org Buffers
+I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] to center =org-mode= buffers for centering the contents of the buffer horizontally to seem more like you are editing a document.
+
+#+begin_src emacs-lisp
+(defun tl/org-mode-visual-fill ()
+  (setq visual-fill-column-width 130
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
+;; Load and configure visual-fill-column package using use-package
+(use-package visual-fill-column
+  :ensure t
+  :hook (org-mode . tl/org-mode-visual-fill))
+#+end_src
 
 ** Editing Features for Org
 *** File Links automation
