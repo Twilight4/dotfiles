@@ -372,8 +372,8 @@
 
   (tl/leader-keys
     "e" '(:ignore t :wk "Edit File")
-    "e i" '(lambda () (interactive) (find-file "~/documents/org/inbox.org"))
-    "e r" '(lambda () (interactive) (find-file "~/documents/org/repeaters.org"))
+    "e i" '(lambda () (interactive) (find-file "~/documents/org/agenda/inbox.org"))
+    "e r" '(lambda () (interactive) (find-file "~/documents/org/agenda/repeaters.org"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
@@ -1290,7 +1290,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   (org-super-agenda-mode))
 
 (setq org-agenda-files
-      (file-expand-wildcards "~/documents/org/*.org"))
+      (file-expand-wildcards "~/documents/org/agenda/*.org"))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -1400,28 +1400,28 @@ Let’s setup some org-capture templates, and make them visually nice to access.
 #+begin_src emacs-lisp
   (setq org-capture-templates
     `(("t" "Tasks / Projects")
-      ("tt" "Task" entry (file+olp "~/documents/org/inbox.org" "Inbox")
+      ("tt" "Task" entry (file+olp "~/documents/org/agenda/inbox.org" "Inbox")
            "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
 
       ("j" "Journal Entries")
       ("jj" "Journal" entry
-           (file+olp+datetree "~/documents/org/journal.org")
+           (file+olp+datetree "~/documents/org/agenda/journal.org")
            "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
            ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
            :clock-in :clock-resume
            :empty-lines 1)
       ("jm" "Meeting" entry
-           (file+olp+datetree "~/documents/org/journal.org")
+           (file+olp+datetree "~/documents/org/agenda/journal.org")
            "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
            :clock-in :clock-resume
            :empty-lines 1)
 
       ("w" "Workflows")
-      ("we" "Checking Email" entry (file+olp+datetree "~/documents/org/journal.org")
+      ("we" "Checking Email" entry (file+olp+datetree "~/documents/org/agenda/journal.org")
            "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
 
       ("m" "Metrics Capture")
-      ("mw" "Weight" table-line (file+headline "~/documents/org/metrics.org" "Weight")
+      ("mw" "Weight" table-line (file+headline "~/documents/org/agenda/metrics.org" "Weight")
        "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 #+end_src
 
