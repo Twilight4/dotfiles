@@ -334,7 +334,7 @@
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
-    "t" '(org-todo-list :wk "Org todo list")
+    "s" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture something")
     "s" '(save-buffer :wk "Save buffer"))
 
@@ -355,11 +355,11 @@
   (which-key-add-key-based-replacements "SPC h r" "Reload emacs")
 
   (tl/leader-keys
-    "T" '(:ignore t :wk "Toggle")
-    "T l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "T t" '(visual-line-mode :wk "Toggle truncated lines")
-    "T h" '(hl-line-mode :wk "Toggle line highlight in frame")
-    "T H" '(global-hl-line-mode :wk "Toggle line highlight globally"))
+    "t" '(:ignore t :wk "Toggle")
+    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+    "t t" '(visual-line-mode :wk "Toggle truncated lines")
+    "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
+    "t H" '(global-hl-line-mode :wk "Toggle line highlight globally"))
 
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
@@ -1494,9 +1494,21 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
    '(("d" "default" plain
       "%?"
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
+      :unnarrowed t)
+     ("n" "note" plain
+      "%?"
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)))
   :config
   (org-roam-setup))
+
+(setq org-capture-templates
+      '(("c" "Characteristics" entry
+         (file+headline "~/documents/org/roam/templates.org" "Characteristics")
+         "* Characteristics\n\n- Family:\n- Inspired by:\n\n* Reference")))
 #+end_src
 
 *** Org-roam-ui
