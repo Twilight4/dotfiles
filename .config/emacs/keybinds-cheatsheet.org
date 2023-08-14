@@ -80,6 +80,7 @@ The world's greatest programmer once said:
 | C-S-Ret     | Create a headline of the same type above           |
 | M-Ret       | Create a headline of the same type (from anywhere) |
 | C-M-Ret     | Create another level headline (from anywhere)      |
+| C-M-\       | Indent region                                      |
 | TAB/S-TAB   | Toggle folding/cycle through folded stages         |
 | f12         | Org transclusion add                               |
 
