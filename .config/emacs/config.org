@@ -1140,13 +1140,13 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 (defun tl/org-font-setup ()
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . 1.25)
-                  (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.0)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
+                  (org-level-2 . 1.15)
+                  (org-level-3 . 1.12)
+                  (org-level-4 . 1.09)
+                  (org-level-5 . 1.06)
+                  (org-level-6 . 1.03)
+                  (org-level-7 . 1.0)
+                  (org-level-8 . 1.0)))
     (set-face-attribute (car face) nil :font "Jetbrains Mono Nerd Font" :weight 'normal :height (cdr face)))
 
   ;; Fixed-pitch settings
@@ -1461,6 +1461,26 @@ Let’s setup some org-capture templates, and make them visually nice to access.
   :config
   (org-roam-setup))
 #+end_src
+
+*** Org-roam-ui
+ Org-roam is nice by itself, but there are so extra nice packages which integrate with it.
+
+ #+begin_src emacs-lisp
+(use-package websocket
+  :after org-roam)
+
+(use-package org-roam-ui
+  :after org-roam
+  :commands org-roam-ui-open
+  :hook (org-roam . org-roam-ui-mode)
+  :config
+  (require 'org-roam) ; in case autoloaded
+  (defun org-roam-ui-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (unless org-roam-ui-mode (org-roam-ui-mode 1))
+    (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
+ #+end_src
 
 *** Org-journal
 
