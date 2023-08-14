@@ -1157,6 +1157,13 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 
 ;; Call efs/org-font-setup when entering org-mode
 (add-hook 'org-mode-hook #'tl/org-font-setup)
+
+;; Increase title size
+(custom-set-faces
+  '(org-document-title ((t (:height 1.2)))))
+
+;; Make quote blocks italic style format
+(setq org-fontify-quote-and-verse-blocks t)
 #+end_src
 
 *** Org Basic Config
@@ -1198,6 +1205,15 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
            "SOMEDAY(s)"
            "|"
            "CANC(c)")))
+
+;; Org symbols/priorities
+(setq org-hide-leading-stars t
+      org-priority-highest ?A
+      org-priority-lowest ?C
+      org-priority-faces
+      '((?A . 'all-the-icons-red)
+        (?B . 'all-the-icons-orange)
+        (?C . 'all-the-icons-yellow)))
 
 (setq org-refile-targets
   '(("archive.org" :maxlevel . 1)))
@@ -1322,6 +1338,13 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
       org-agenda-block-separator nil
       org-agenda-tags-column 100 ;; from testing this seems to be a good value
       org-agenda-compact-blocks t)
+
+;;  It seems reasonable to have deadlines in the error face when they’re passed. 
+(setq org-agenda-deadline-faces
+      '((1.001 . error)
+        (1.0 . org-warning)
+        (0.5 . org-upcoming-deadline)
+        (0.0 . org-upcoming-distant-deadline)))
 
 (setq org-agenda-custom-commands
       '(("o" "Overview"
