@@ -2,8 +2,8 @@
 
 This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimze the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity. I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. The philosophy adopted in this configuration prioritizes simplicity and ease of use:
   - Most commonly used keybinds don't have a prefix key.
-  - =C-z= prefix key is used for emacs management and packages keybinds.
-  - =C-x= and =C-c= prefix keys are used for Org mode keybinds.
+  - =C-x= prefix key is used for emacs and packages keybinds.
+  - =C-c= prefix keys are used for Org mode keybinds.
   - =SPC= global leader key is used for all other keybinds that I *rarely* use effectively requiring the user to press 3 buttons.
 
 The world's greatest programmer once said:
@@ -15,22 +15,18 @@ The world's greatest programmer once said:
 - [[#common-keybinds][Common keybinds]]
 - [[#keybinds-without-a-prefix-key][Keybinds without a prefix key]]
   - [[#evil-mode][Evil Mode]]
+  - [[#org-mode][Org Mode]]
   - [[#centaur-tabs][Centaur Tabs]]
   - [[#zoom][Zoom]]
+- [[#c-x-leader-key][C-x Leader Key]]
+- [[#c-c-leader-key][C-c Leader Key]]
+  - [[#org-roam][Org-Roam]]
 - [[#spc-leader-key][SPC Leader Key]]
-- [[#c-z-leader-key][C-z Leader Key]]
-- [[#org-mode][Org Mode]]
-  - [[#org-keybinds-without-a-prefix-key][Org keybinds without a prefix key]]
-  - [[#c-x-leader-key][C-x Leader Key]]
-  - [[#c-c-leader-key][C-c Leader Key]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
   - [[#magit][Magit]]
   - [[#evil-snipe][Evil-Snipe]]
-- [[#wip][WIP]]
-  - [[#bookmark-management][Bookmark Management]]
-  - [[#registers][Registers]]
 - [[#system-config-and-setup-on-wayland][System config and setup on Wayland]]
   - [[#setup-on-hyprland-wm][Setup on Hyprland WM]]
   - [[#mime-types][Mime types]]
@@ -38,6 +34,7 @@ The world's greatest programmer once said:
   - [[#literate-programming][Literate programming]]
 
 * Common keybinds
+
 | Keybinding | Description         |
 |------------+---------------------|
 | SPC .      | Create or find file |
@@ -50,6 +47,7 @@ The world's greatest programmer once said:
 
 * Keybinds without a prefix key
 ** Evil Mode
+
 | Keybinding  | Description              |
 |-------------+--------------------------|
 | C-h/j/k/l   | Switch window focus      |
@@ -67,49 +65,11 @@ The world's greatest programmer once said:
 | Keybinding | Description |
 |------------+-------------|
 | m          | Bold        |
-| ,          | Green color |
-| .          | Code format |
+| .          | Code        |
+| ,          | Distinguish |
 | /          | Underline   |
 
-** Centaur Tabs
-| Keybinding | Description                         |
-|------------+-------------------------------------|
-| M-p/n      | Tab Previous/Next                   |
-| M-f/b      | Tab group forward/backward          |
-| M-,/.      | Tab Move left/right                 |
-| M-d        | Kill this buffer                    |
-| M-D        | Kill other buffers in current group |
-| M-t        | Create new tab and open dashboard   |
-| M-1/2/3/4  | Switch to tab 1/2/3/4               |
-
-** Zoom
-| Keybinding  | Description                         |
-|-------------+-------------------------------------|
-| C-=/-       | Zoom In/Out                         |
-| C-0         | Adjust zoom                         |
-
-* SPC Leader Key
-
-| Keybinding | Description      |
-|------------+------------------|
-| e          | Edit file        |
-| d          | Dired            |
-| b          | Buffer           |
-| h          | Help             |
-| o          | Org              |
-| T          | Toggle           |
-| C-c C-SPC  | Zero-width space |
-
-* C-z Leader Key
-
-| Keybinding | Description    |
-|------------+----------------|
-| C-n        | Toggle neotree |
-| C-n        | Registers      |
-| C-n        | Bookmarks      |
-
-* Org Mode
-** Org keybinds without a prefix key
+** Org Mode
 
 | Keybinding  | Description                                        |
 |-------------+----------------------------------------------------|
@@ -136,8 +96,35 @@ To create a table just start typing: =| table | name | description=
 | M-S-j/k             | Insert a new row above/delete current row     |
 | o                   | Insert new roam and move to the beginning     |
 
-** C-x Leader Key
-** C-c Leader Key
+** Centaur Tabs
+
+| Keybinding | Description                         |
+|------------+-------------------------------------|
+| M-p/n      | Tab Previous/Next                   |
+| M-f/b      | Tab group forward/backward          |
+| M-,/.      | Tab Move left/right                 |
+| M-d        | Kill this buffer                    |
+| M-D        | Kill other buffers in current group |
+| M-t        | Create new tab and open dashboard   |
+| M-1/2/3/4  | Switch to tab 1/2/3/4               |
+
+** Zoom
+
+| Keybinding  | Description                         |
+|-------------+-------------------------------------|
+| C-=/-       | Zoom In/Out                         |
+| C-0         | Adjust zoom                         |
+
+* C-x Leader Key
+
+| Keybinding | Description                             |
+|------------+-----------------------------------------|
+| C-n        | Toggle neotree                          |
+| C-l        | List bookmarks                          |
+| C-m        | Set/Delete bookmark                     |
+| C-s        | Save current bookmarks to bookmark file |
+
+* C-c Leader Key
 
 | Keybinding | Description         |
 |------------+---------------------|
@@ -159,7 +146,7 @@ To create a table just start typing: =| table | name | description=
 | C-m        | Toggle checkbox     |
 | C--        | Table insert hline  |
 
-*** Org-Roam
+** Org-Roam
 
 | Keybinding | Description                        |
 |------------+------------------------------------|
@@ -170,6 +157,19 @@ To create a table just start typing: =| table | name | description=
 | i          | Insert ID for Org heading          |
 | g          | Show graph of all nodes            |
 | n          | Capture to node                    |
+
+* SPC Leader Key
+
+| Keybinding | Description      |
+|------------+------------------|
+| e          | Edit file        |
+| d          | Dired            |
+| b          | Buffer           |
+| h          | Help             |
+| o          | Org              |
+| T          | Toggle           |
+| r          | Registers        |
+| C-c C-SPC  | Zero-width space |
 
 * Other Packages
 ** Neotree
@@ -212,32 +212,6 @@ To create a table just start typing: =| table | name | description=
 ** Evil-Snipe
 *** Inline navigation
 *** Long distance navigation
-
-* WIP
-** Bookmark Management
-
-| Keybinding | Description                            |
-|------------+----------------------------------------|
-| SPC b L    | List bookmarks                         |
-| SPC b m    | Set bookmark                           |
-| SPC b M    | Delete bookmark                        |
-| SPC b w    | Save current bookmark to bookmark file |
-
-** Registers
-
-| Keybinding | Description                      |
-|------------+----------------------------------|
-| SPC r c    | Copy to register                 |
-| SPC r f    | Frameset to register             |
-| SPC r i    | Insert contents of register      |
-| SPC r j    | Jump to register                 |
-| SPC r l    | List registers                   |
-| SPC r n    | Number to register               |
-| SPC r r    | Interactively choose a register  |
-| SPC r v    | View a register                  |
-| SPC r w    | Window configuration to register |
-| SPC r +    | Increment register               |
-| SPC r SPC  | Point to register                |
 
 * System config and setup on Wayland
 ** Setup on Hyprland WM

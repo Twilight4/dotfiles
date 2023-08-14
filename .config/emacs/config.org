@@ -273,18 +273,6 @@
   (general-evil-setup)
 #+end_src
 
-*** C-z Leader Key
-#+begin_src emacs-lisp
-;; Set up 'C-z' as the global leader key
-(general-define-key
- :prefix "C-z"
- :states '(normal insert visual emacs)
- "" nil ; Remove default C-z keymap prefix
- ;; Common keybindings
- "C-n" '(neotree-toggle :wk "Toggle neotree")
-)
-#+end_src
-
 *** C-x Leader Key
 #+begin_src emacs-lisp
 ;; Set up 'C-x' as the global leader key
@@ -292,7 +280,14 @@
  :prefix "C-x"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-x keymap prefix
-)
+ ;; Common keybindings
+ "C-n" '(neotree-toggle :wk "Toggle neotree")
+ ;; Bookmarks
+ "C-l" '(list-bookmarks :wk "List bookmarks")
+ "C-m" '(bookmark-set :wk "Set/Delete bookmark")
+ "C-s" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
+
+(setq bookmark-default-file "~/.config/emacs/bookmarks")
 #+end_src
 
 *** C-c Leader Key
