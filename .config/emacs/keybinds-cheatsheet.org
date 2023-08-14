@@ -168,8 +168,8 @@ To create a table just start typing: =| table | name | description=
 | r          | Toggle roam buffers                |
 | c          | Completion of node-insert at point |
 | i          | Insert ID for Org heading          |
-| SPC n r g  | Show graph of all nodes            |
-| SPC n r n  | Capture to node                    |
+| g          | Show graph of all nodes            |
+| n          | Capture to node                    |
 
 * Other Packages
 ** Neotree
