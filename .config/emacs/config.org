@@ -381,6 +381,20 @@
     "d p" '(peep-dired :wk "Peep-dired"))
 
   (tl/leader-keys
+    "r" '(:ignore t :wk "Registers")
+    "r c" '(copy-to-register :wk "Copy to register")
+    "r f" '(frameset-to-register :wk "Frameset to register")
+    "r i" '(insert-register :wk "Insert contents of register")
+    "r j" '(jump-to-register :wk "Jump to register")
+    "r l" '(list-registers :wk "List registers")
+    "r n" '(number-to-register :wk "Number to register")
+    "r r" '(counsel-register :wk "Interactively choose a register")
+    "r v" '(view-register :wk "View a register")
+    "r w" '(window-configuration-to-register :wk "Window configuration to register")
+    "r +" '(increment-register :wk "Increment register")
+    "r SPC" '(point-to-register :wk "Point to register"))
+
+  (tl/leader-keys
     "e" '(:ignore t :wk "Edit File")
     "e i" '(lambda () (interactive) (find-file "~/documents/org/agenda/inbox.org"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
@@ -1453,31 +1467,23 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 *** Org-capture
 
 #+begin_src emacs-lisp
-  (setq org-capture-templates
-    `(("t" "Tasks / Projects")
-      ("tt" "Task" entry (file+olp "~/documents/org/agenda/inbox.org" "Inbox")
-           "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+(setq org-capture-templates
+  `(("t" "Todo" entry (file+olp "~/documents/org/agenda/inbox.org" "Inbox")
+         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
 
-      ("j" "Journal Entries")
-      ("jj" "Journal" entry
-           (file+olp+datetree "~/documents/org/agenda/journal.org")
-           "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-           ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
-           :clock-in :clock-resume
-           :empty-lines 1)
-      ("jm" "Meeting" entry
-           (file+olp+datetree "~/documents/org/agenda/journal.org")
-           "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-           :clock-in :clock-resume
-           :empty-lines 1)
+    ("j" "Journal" entry (file+olp+datetree "~/documents/org/agenda/journal.org")
+         "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+         ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
+         :clock-in :clock-resume
+         :empty-lines 1)
 
-      ("w" "Workflows")
-      ("we" "Checking Email" entry (file+olp+datetree "~/documents/org/agenda/journal.org")
-           "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+    ("m" "Meeting" entry (file+olp+datetree "~/documents/org/agenda/journal.org")
+         "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+         :clock-in :clock-resume
+         :empty-lines 1)
 
-      ("m" "Metrics Capture")
-      ("mw" "Weight" table-line (file+headline "~/documents/org/agenda/metrics.org" "Weight")
-       "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+    ("w" "Workflow" entry (file+olp+datetree "~/documents/org/agenda/journal.org")
+         "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)))
 #+end_src
 
 *** Org-roam
