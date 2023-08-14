@@ -312,6 +312,10 @@
  "C-f" '(org-insert-file-link :wk "Org insert file link")
  "C-m" '(org-toggle-checkbox :wk "Org toggle checkbox")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
+ ;; Org Roam
+ "l" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
+ "f" '(org-roam-node-find :wk "Find Org roam node")
+ "i" '(org-roam-node-insert :wk "Insert Org roam node")
 )
 #+end_src
 
@@ -1222,9 +1226,12 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                           (42 . "-"))
         org-modern-todo-faces
         '(("TODO" :inverse-video t :inherit org-todo)
+          ("PROJ" :inverse-video t :inherit +org-todo-project)
+          ("[-]"  :inverse-video t :inherit +org-todo-active)
           ("NEXT" :inverse-video t :inherit +org-todo-active)
           ("DONE" :inverse-video t :inherit +org-todo-cancel)
-          ("WAIT" :inverse-video t :inherit +org-todo-onhold))
+          ("WAIT" :inverse-video t :inherit +org-todo-onhold)
+          ("[?]"  :inverse-video t :inherit +org-todo-onhold))
         org-modern-footnote
         (cons nil (cadr org-script-display))
         org-modern-block-fringe nil
@@ -1424,6 +1431,15 @@ Let’s setup some org-capture templates, and make them visually nice to access.
 #+end_src
 
 *** Org-roam
+
+#+begin_src emacs-lisp
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/documents/org/roam")
+  :config
+  (org-roam-setup))
+#+end_src
 
 *** Org-journal
 
