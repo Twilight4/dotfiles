@@ -1491,17 +1491,17 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/waterfox-g")
   (org-roam-capture-templates
-   '(("d" "default" plain
-      "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+   '(("d" "default" plain "%?"
+      :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
       :unnarrowed t)
-     ("p" "project" plain "* Goals\n\n%?\n\n* Tasks\n\n** TODO Add initial tasks\n\n* Dates\n\n"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: Project")
-      :unnarrowed t)
-     ("n" "note" plain
-      "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+     ("b" "book notes" plain
+      (file "~/documents/org/templates/book.org")
+      :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
       :unnarrowed t)))
+     ;("t" "template name" plain
+     ; (file "~/documents/org/templates/template.org")
+     ; :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+     ; :unnarrowed t)))
   :config
   (org-roam-setup))
 
