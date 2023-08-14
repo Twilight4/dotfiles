@@ -313,9 +313,10 @@
  "C-m" '(org-toggle-checkbox :wk "Org toggle checkbox")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
  ;; Org Roam
- "l" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
+ "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
- "i" '(org-roam-node-insert :wk "Insert Org roam node")
+ "l" '(org-roam-node-insert :wk "Insert Org roam node")
+ "c" '(completion-at-point :wk "Complete node-insert at point")
 )
 #+end_src
 
@@ -1437,6 +1438,7 @@ Let’s setup some org-capture templates, and make them visually nice to access.
   :ensure t
   :custom
   (org-roam-directory "~/documents/org/roam")
+  (org-roam-completion-everywhere t)
   :config
   (org-roam-setup))
 #+end_src

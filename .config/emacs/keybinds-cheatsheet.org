@@ -23,7 +23,6 @@ The world's greatest programmer once said:
   - [[#org-keybinds-without-a-prefix-key][Org keybinds without a prefix key]]
   - [[#c-x-leader-key][C-x Leader Key]]
   - [[#c-c-leader-key][C-c Leader Key]]
-  - [[#org-roam][Org-Roam]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -160,14 +159,14 @@ To create a table just start typing: =| table | name | description=
 | C-m        | Toggle checkbox     |
 | C--        | Table insert hline  |
 
-** Org-Roam
+*** Org-Roam
 
 | Keybinding | Description                        |
 |------------+------------------------------------|
-| SPC n r f  | Create/find new node               |
-| SPC n r i  | Insert link to other node          |
-| SPC n r r  | Toggle roam buffers                |
-| SPC n r c  | Completion of node-insert at point |
+| f          | Create/find new node               |
+| l          | Insert link to other node          |
+| r          | Toggle roam buffers                |
+| c          | Completion of node-insert at point |
 | SPC n r g  | Show graph of all nodes            |
 | SPC n r n  | Capture to node                    |
 
