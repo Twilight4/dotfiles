@@ -302,6 +302,7 @@
  :prefix "C-c"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-c keymap prefix
+ ;; Org mode
  "t" '(org-todo :wk "Org todo")
  "T" '(org-transclusion-mode :wk "Org Transclusion mode")
  "C-." '(org-time-stamp :wk "Org timestamp")
@@ -319,6 +320,8 @@
  "l" '(org-roam-node-insert :wk "Insert Org roam node")
  "c" '(completion-at-point :wk "Complete node-insert at point")
  "i" '(org-id-get-create :wk "Insert id for Org heading")
+ "g" '(org-roam-graph :wk "Show Org roam graph")
+ "n" '(org-roam-capture :wk "Capture to node")
 )
 #+end_src
 
@@ -1336,10 +1339,13 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
       org-agenda-skip-deadline-if-done t
       org-agenda-include-deadlines t
       org-agenda-block-separator nil
-      org-agenda-tags-column 100 ;; from testing this seems to be a good value
+      org-agenda-tags-column 100
+      org-deadline-warning-days 30
+      org-return-follows-link t
+      org-use-speed-commands t
       org-agenda-compact-blocks t)
 
-;;  It seems reasonable to have deadlines in the error face when they’re passed. 
+;; It seems reasonable to have deadlines in the error face when they’re passed.
 (setq org-agenda-deadline-faces
       '((1.001 . error)
         (1.0 . org-warning)
@@ -1388,6 +1394,9 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                            :order 15)
                           (:name "To read"
                            :tag "Read"
+                           :order 30)
+                          (:name "To watch"
+                           :tag "Watch"
                            :order 30)
                           (:name "Waiting"
                            :todo "WAIT"
@@ -1442,7 +1451,6 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 #+end_src
 
 *** Org-capture
-Let’s setup some org-capture templates, and make them visually nice to access. 
 
 #+begin_src emacs-lisp
   (setq org-capture-templates
