@@ -1,3 +1,0 @@
-#+title: Config
-
-* Table Of Contents :toc:
