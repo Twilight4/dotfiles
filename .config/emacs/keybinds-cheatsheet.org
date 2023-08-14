@@ -45,6 +45,7 @@ The world's greatest programmer once said:
 | SPC ,      | Find recent files   |
 | SPC a      | Org agenda          |
 | SPC t      | Org todo list       |
+| SPC c      | Org capture         |
 | SPC TAB    | Comment lines       |
 | SPC s      | Save buffer         |
 
@@ -149,8 +150,8 @@ To create a table just start typing: =| table | name | description=
 | C-.        | Org timestamp       |
 | C-,        | Insert source block |
 | C-/        | Org tag             |
-| C-p        | Org property        |
-| C-e        | Org effort          |
+| C-p        | Org set property    |
+| C-e        | Org set effort      |
 | C-w        | Org refile          |
 | C-l        | Insert link         |
 | C-h        | Toggle heading      |
