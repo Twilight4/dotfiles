@@ -6,7 +6,6 @@
   - [[#old][old]]
   - [[#org-super-agenda][Org Super-agenda]]
   - [[#org-agenda][Org agenda]]
-  - [[#org-roam][Org-roam]]
 - [[#perspective][Perspective]]
 - [[#rainbow-mode][Rainbow-mode]]
 - [[#registers][Registers]]
@@ -228,23 +227,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 
           (agenda "")
           (alltodo "")))))
-#+end_src
-
-** Org-roam
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-roam-directory "~/documents/org/roam/"
-        org-roam-graph-viewer "/usr/bin/waterfox"))
-
-(map! :leader
-      (:prefix ("n r" . "org-roam")
-       :desc "Completion at point" "c" #'completion-at-point
-       :desc "Find node"           "f" #'org-roam-node-find
-       :desc "Show graph"          "g" #'org-roam-graph
-       :desc "Insert node"         "i" #'org-roam-node-insert
-       :desc "Capture to node"     "n" #'org-roam-capture
-       :desc "Toggle roam buffer"  "r" #'org-roam-buffer-toggle))
 #+end_src
 
 * Perspective

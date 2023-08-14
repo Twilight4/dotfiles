@@ -167,6 +167,7 @@ To create a table just start typing: =| table | name | description=
 | l          | Insert link to other node          |
 | r          | Toggle roam buffers                |
 | c          | Completion of node-insert at point |
+| i          | Insert ID for Org heading          |
 | SPC n r g  | Show graph of all nodes            |
 | SPC n r n  | Capture to node                    |
 

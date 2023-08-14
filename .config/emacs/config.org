@@ -16,6 +16,7 @@
   - [[#color-theme][Color Theme]]
   - [[#doom-modeline-and-all-the-icons][Doom-Modeline and All-the-icons]]
   - [[#window-title][Window Title]]
+  - [[#file-names-for-org-roam][File names for Org-roam]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
@@ -317,6 +318,7 @@
  "f" '(org-roam-node-find :wk "Find Org roam node")
  "l" '(org-roam-node-insert :wk "Insert Org roam node")
  "c" '(completion-at-point :wk "Complete node-insert at point")
+ "i" '(org-id-get-create :wk "Insert id for Org heading")
 )
 #+end_src
 
@@ -513,6 +515,22 @@ Change the icon in the modeline if the buffer is changed/unsaved.
            (unless (string= "-" project-name)
              (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))))
 #+end_src
+
+** File names for Org-roam
+Adjust org-roam file names in similary way I have in the window title.
+
+#+begin_src emacs-lisp
+(defadvice doom-modeline-buffer-file-name (around doom-modeline--buffer-file-name-roam-aware-a activate)
+  (if (string-match-p (concat "^" (regexp-quote org-roam-directory))
+                      (or buffer-file-name ""))
+      (setq ad-return-value
+            (replace-regexp-in-string
+             "\\(?:^\\|.*/\\)\\([0-9]\\{4\\}\\)\\([0-9]\\{2\\}\\)\\([0-9]\\{2\\}\\)[0-9]*-"
+             "🢔(\\1-\\2-\\3) "
+             (subst-char-in-string ?_ ?  buffer-file-name)))
+    ad-do-it))
+#+end_src
+
 
 ** Which-key
 
@@ -1439,6 +1457,7 @@ Let’s setup some org-capture templates, and make them visually nice to access.
   :custom
   (org-roam-directory "~/documents/org/roam")
   (org-roam-completion-everywhere t)
+  (org-roam-graph-viewer "/usr/bin/waterfox-g")
   :config
   (org-roam-setup))
 #+end_src
