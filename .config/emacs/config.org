@@ -2,7 +2,7 @@
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
 #+STARTUP: showeverything
-#+OPTIONS: toc:3
+#+OPTIONS: toc:2
 
 * Table of Contents :toc:
 - [[#programs-to-load-first][Programs to load first]]
