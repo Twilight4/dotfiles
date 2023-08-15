@@ -1234,6 +1234,13 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
            "|"
            "CANC(c)")))
 
+;; Org-journal (using org-roam-dailies)
+(setq org-journal-dir "~/documents/org/agenda"
+      org-journal-date-prefix "* "
+      org-journal-time-prefix "** "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
+
 ;; Org symbols/priorities
 (setq org-hide-leading-stars t
       org-priority-highest ?A
@@ -1267,7 +1274,6 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
      ("Daily" . ?n)
      ("Trivial" . ?i)))
 #+end_src
-
 
 *** Org-modern
 Fontifying org-mode buffers to be as pretty as possible is of paramount importance, 
@@ -1482,31 +1488,14 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   `(("t" "Todo" entry (file+olp "~/documents/org/agenda/inbox.org" "Inbox")
          "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
 
-    ("j" "Journal" entry (file+olp+datetree "~/documents/org/agenda/journal.org")
-         "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-         ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
-         :clock-in :clock-resume
-         :empty-lines 1)
-
-    ("m" "Meeting" entry (file+olp+datetree "~/documents/org/agenda/journal.org")
+    ("m" "Meeting" entry (file+olp+datetree "~/documents/org/agenda/inbox.org")
          "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
          :clock-in :clock-resume
          :empty-lines 1)
 
-    ("w" "Workflow" entry (file+olp+datetree "~/documents/org/agenda/journal.org")
+    ("w" "Workflow" entry (file+olp+datetree "~/documents/org/agenda/inbox.org")
          "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)))
 #+end_src
-
-*** Org-journal
-
-#+begin_src emacs-lisp
-(setq org-journal-dir "~/documents/org/agenda"
-      org-journal-date-prefix "* "
-      org-journal-time-prefix "** "
-      org-journal-date-format "%B %d, %Y (%A) "
-      org-journal-file-format "%Y-%m-%d.org")
-#+end_src
-
 
 *** Org-roam
 
