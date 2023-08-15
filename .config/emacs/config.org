@@ -1404,6 +1404,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           (tags-todo "+DEADLINE<\"<today>\""
                      ((org-agenda-overriding-header "Overdue")
                       (org-agenda-files org-agenda-files)))
+
           (:name "Assignments"
            :tag "Assignment"
            :order 10)
@@ -1511,7 +1512,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/documents/org/roam")
+  (org-roam-directory "~/documents/org/roam/seed-notes")
   (org-roam-dailies-directory "~/documents/org/roam/journal")
   (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/waterfox-g")
