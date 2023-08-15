@@ -129,6 +129,9 @@
 (define-key global-map (kbd "M-f") nil)
 (define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "M-,") nil)
+(define-key global-map (kbd "M-C-n") nil)
+(define-key global-map (kbd "M-C-b") nil)
+(define-key global-map (kbd "M-C-f") nil)
 
 ;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
@@ -255,6 +258,10 @@
 (define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
 (define-key org-mode-map (kbd "M-K") #'org-metaup)                       ; default M-<up>
 (define-key org-mode-map (kbd "M-L") #'org-metaright)                    ; default M-<right>
+;; Org-roam
+(define-key org-mode-map (kbd "C-M-n") 'completion-at-point)
+(define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
+(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 
 ;; Calendar Mode Keybindings - does not work
 ;(with-eval-after-load 'calendar
@@ -298,7 +305,6 @@
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-c keymap prefix
  ;; Org mode
- "t" '(org-todo :wk "Org todo")
  "T" '(org-transclusion-mode :wk "Org Transclusion mode")
  "C-." '(org-time-stamp :wk "Org timestamp")
  "C-/" '(counsel-org-tag :wk "Org tag")
@@ -313,10 +319,18 @@
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
  "l" '(org-roam-node-insert :wk "Insert Org roam node")
- "c" '(completion-at-point :wk "Complete node-insert at point")
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
- "n" '(org-roam-capture :wk "Capture to node")
+ "c" '(org-roam-capture :wk "Capture to node")
+ ;; Org Roam dailies
+ "n" '(org-roam-dailies-capture-today :wk "Capture daily today")
+ "N" '(org-roam-dailies-goto-today :wk "Go to daily today")
+ "y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
+ "Y" '(org-roam-dailies-goto-yesterday :wk "Go to daily yesterday")
+ "t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
+ "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
+ "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
+ "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
 )
 #+end_src
 
@@ -1481,6 +1495,17 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
          "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)))
 #+end_src
 
+*** Org-journal
+
+#+begin_src emacs-lisp
+(setq org-journal-dir "~/documents/org/agenda"
+      org-journal-date-prefix "* "
+      org-journal-time-prefix "** "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
+#+end_src
+
+
 *** Org-roam
 
 #+begin_src emacs-lisp
@@ -1488,27 +1513,31 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   :ensure t
   :custom
   (org-roam-directory "~/documents/org/roam")
+  (org-roam-dailies-directory "~/documents/org/roam/journal")
   (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/waterfox-g")
-  (org-roam-capture-templates
-   '(("d" "default" plain "%?"
-      :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-      :unnarrowed t)
-     ("b" "book notes" plain
-      (file "~/documents/org/templates/book.org")
-      :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-      :unnarrowed t)))
-     ;("t" "template name" plain
-     ; (file "~/documents/org/templates/template.org")
-     ; :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-     ; :unnarrowed t)))
   :config
+  (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-setup))
 
-(setq org-capture-templates
-      '(("c" "Characteristics" entry
-         (file+headline "~/documents/org/roam/templates.org" "Characteristics")
-         "* Characteristics\n\n- Family:\n- Inspired by:\n\n* Reference")))
+;; Org-roam templates
+(setq org-roam-capture-templates
+ '(("d" "default" plain "%?"
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)
+   ("b" "book notes" plain
+    (file "~/documents/org/roam/templates/book.org")
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)))
+   ;("t" "template name" plain
+   ; (file "~/documents/org/roam/templates/template.org")
+   ; :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+   ; :unnarrowed t)))
+
+;; Org-roam dailies capture templates
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry "* %<%I:%M %p>: %?"
+         :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
 #+end_src
 
 *** Org-roam-ui
@@ -1530,14 +1559,3 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
  #+end_src
-
-*** Org-journal
-
-#+begin_src emacs-lisp
-(setq org-journal-dir "~/documents/org/agenda"
-      org-journal-date-prefix "* "
-      org-journal-time-prefix "** "
-      org-journal-date-format "%B %d, %Y (%A) "
-      org-journal-file-format "%Y-%m-%d.org")
-#+end_src
-
