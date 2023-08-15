@@ -305,7 +305,6 @@
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-c keymap prefix
  ;; Org mode
- "T" '(org-transclusion-mode :wk "Org Transclusion mode")
  "C-." '(org-time-stamp :wk "Org timestamp")
  "C-/" '(counsel-org-tag :wk "Org tag")
  "C-p" '(org-set-property :wk "Org property")
@@ -348,8 +347,8 @@
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
-    "s" '(org-todo-list :wk "Org todo list")
-    "c" '(org-capture :wk "Capture something")
+    "T" '(org-todo-list :wk "Org todo list")
+    "c" '(org-capture :wk "Capture to inbox")
     "s" '(save-buffer :wk "Save buffer"))
 
   (tl/leader-keys
@@ -373,7 +372,8 @@
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "t t" '(visual-line-mode :wk "Toggle truncated lines")
     "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
-    "t H" '(global-hl-line-mode :wk "Toggle line highlight globally"))
+    "t H" '(global-hl-line-mode :wk "Toggle line highlight globally")
+    "t T" '(org-transclusion-mode :wk "Org Transclusion mode"))
 
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
@@ -406,10 +406,12 @@
   (tl/leader-keys
     "e" '(:ignore t :wk "Edit File")
     "e i" '(lambda () (interactive) (find-file "~/documents/org/agenda/inbox.org"))
+    "e n" '(lambda () (interactive) (counsel-find-file "~/documents/org/roam/permanent-notes"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
   (which-key-add-key-based-replacements "SPC e i" "Edit inbox"
+                                        "SPC e n" "Edit permanent notes"
                                         "SPC e c" "Edit config"
                                         "SPC e s" "Edit emacs cheatsheet")
 )
@@ -1242,8 +1244,8 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
         (?C . 'all-the-icons-yellow)))
 
 (setq org-refile-targets
-  '(("archive.org" :maxlevel . 1)))
-    ;("tasks.org" :maxlevel . 1)))
+  '(("archive.org" :maxlevel . 1)
+    ("inbox.org" :maxlevel . 1)))
 
 ;; Save Org buffers after refiling
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
