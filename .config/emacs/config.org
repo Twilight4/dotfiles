@@ -1516,14 +1516,18 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
  '(("d" "default" plain "%?"
     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
     :unnarrowed t)
-   ("b" "book notes" plain
+   ("n" "note" plain
+    (file "~/documents/org/roam/templates/note.org")
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)
+   ("b" "book note" plain
     (file "~/documents/org/roam/templates/book.org")
     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)
+   ("t" "table of contents" plain
+    (file "~/documents/org/roam/templates/toc.org")
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
     :unnarrowed t)))
-   ;("t" "template name" plain
-   ; (file "~/documents/org/roam/templates/template.org")
-   ; :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-   ; :unnarrowed t)))
 
 ;; Org-roam dailies capture templates
 (setq org-roam-dailies-capture-templates
