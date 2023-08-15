@@ -15,7 +15,9 @@ The world's greatest programmer once said:
 - [[#common-keybinds][Common keybinds]]
 - [[#keybinds-without-a-prefix-key][Keybinds without a prefix key]]
   - [[#evil-mode][Evil Mode]]
+  - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
   - [[#org-mode][Org Mode]]
+  - [[#org-mode-tables][Org Mode Tables]]
   - [[#centaur-tabs][Centaur Tabs]]
   - [[#zoom][Zoom]]
 - [[#c-x-leader-key][C-x Leader Key]]
@@ -61,7 +63,7 @@ The world's greatest programmer once said:
 | M-v         | Vertical split window    |
 | M-m         | Maximize window          |
 
-*** Style formatting (visual mode)
+** Style formatting (visual mode)
 
 | Keybinding | Description |
 |------------+-------------|
@@ -85,7 +87,7 @@ The world's greatest programmer once said:
 | TAB/S-TAB   | Toggle folding/cycle through folded stages         |
 | f12         | Org transclusion add                               |
 
-*** Tables
+** Org Mode Tables
 To create a table just start typing: =| table | name | description=
 
 | Keybinding          | Description                                   |
