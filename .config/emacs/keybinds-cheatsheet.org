@@ -21,6 +21,7 @@ The world's greatest programmer once said:
 - [[#c-x-leader-key][C-x Leader Key]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-roam][Org-Roam]]
+  - [[#org-roam-dailies][Org-Roam dailies]]
 - [[#spc-leader-key][SPC Leader Key]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
@@ -154,10 +155,23 @@ To create a table just start typing: =| table | name | description=
 | f          | Create/find new node               |
 | l          | Insert link to other node          |
 | r          | Toggle roam buffers                |
-| c          | Completion of node-insert at point |
+| C-M-n      | Completion of node-insert at point |
 | i          | Insert ID for Org heading          |
 | g          | Show graph of all nodes            |
-| n          | Capture to node                    |
+| c          | Capture to node                    |
+
+** Org-Roam dailies
+
+| Keybinding | Description               |
+|------------+---------------------------|
+| n          | Capture daily today       |
+| N          | Go to daily today         |
+| y          | Capture daily yesterday   |
+| Y          | Go to daily yesterday     |
+| t          | Capture to daily tomorrow |
+| T          | Go to daily tomorrow      |
+| d          | Capture daily in date     |
+| D          | Go to daily in date       |
 
 * SPC Leader Key
 
