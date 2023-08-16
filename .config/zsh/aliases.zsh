@@ -148,7 +148,7 @@ alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  typ
 
 # Show current network connections to the server
 alias nethog='sudo nethogs'
-alias psnet='lsof -i -n | awk "/ESTABLISHED/ {print $1}" | sort -u'
+alias psnet="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
 alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort  | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
 alias wlo1='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
 alias tun0='echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
