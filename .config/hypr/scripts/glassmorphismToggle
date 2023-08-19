@@ -5,9 +5,9 @@ STATE=$(hyprctl -j getoption decoration:blur_passes | jq ".int")
 if [ "${STATE}" == "4" ]; then
   hyprctl keyword decoration:blur_size 7
 	hyprctl keyword decoration:blur_passes 2
-  notify-send "Normal blur"
+  notify-send -t 3000 "Normal blur"
 else
   hyprctl keyword decoration:blur_size 7
 	hyprctl keyword decoration:blur_passes 4
-  notify-send "Glassy blur"
+  notify-send -t 3000 "Glassy blur"
 fi
