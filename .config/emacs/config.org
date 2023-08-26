@@ -197,8 +197,8 @@
   (define-key evil-normal-state-map (kbd "M-0") 'balance-windows)
   ;; Window splits
   (define-key evil-normal-state-map (kbd "M-c") 'evil-window-delete)
-  (define-key evil-normal-state-map (kbd "M-s") 'evil-window-split)
-  (define-key evil-normal-state-map (kbd "M-v") 'evil-window-vsplit)
+  (define-key evil-normal-state-map (kbd "M-v") 'evil-window-split)
+  (define-key evil-normal-state-map (kbd "M-s") 'evil-window-vsplit)
   ;; Maximize window
   (define-key evil-normal-state-map (kbd "M-m") 'toggle-maximize-evil-split)
   ;; Keybindings for org mode in evil normal mode for TODOs/priorities
@@ -262,6 +262,13 @@
 (define-key org-mode-map (kbd "C-M-n") 'completion-at-point)
 (define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
 (define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
+;; Org agenda
+(define-key org-mode-map "N" 'tl/org-agenda-new)
+(define-key org-mode-map "x" 'tl/org-agenda-done)
+(define-key org-mode-map "X" 'tl/org-agenda-mark-done-and-add-followup)
+;;(define-key org-agenda-mode-map "N" 'tl/org-agenda-new)
+;;(define-key org-agenda-mode-map "x" 'tl/org-agenda-done)
+;;(define-key org-agenda-mode-map "X" 'tl/org-agenda-mark-done-and-add-followup)
 
 ;; Calendar Mode Keybindings - does not work
 ;(with-eval-after-load 'calendar
@@ -1563,3 +1570,45 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
  #+end_src
+
+ 
+*** custom for org-agenda
+- =x=: Mark the current task as done. Same as typing =t x=, but somehow it feels like it has more oomph as a single-character shortcut.
+- =X=: Mark the current task as done and create a new task at the same level, taking advantage of the task template I’d previously created in =org-capture-templates=.
+- =N=: Create a new note or task at the current position.
+
+Make it easy to mark a task as done
+#+begin_src emacs-lisp
+;; Load Org mode
+(require 'org)
+
+(defun tl/org-agenda-done (&optional arg)
+  "Mark current TODO as done.
+This changes the line at point, all other lines in the agenda referring to
+the same tree node, and the headline of the tree node in the Org-mode file."
+  (interactive "P")
+  (org-agenda-todo "DONE"))
+#+end_src
+
+Make it easy to mark a task as done and create a follow-up task
+#+begin_src emacs-lisp
+  (defun tl/org-agenda-mark-done-and-add-followup ()
+    "Mark the current TODO as done and add another task after it.
+Creates it at the same level as the previous task, so it's better to use
+this with to-do items than with projects or headings."
+    (interactive)
+    (org-agenda-todo "DONE")
+    (org-agenda-switch-to)
+    (org-capture 0 "t"))
+#+end_src
+
+Capture something based on the agenda position
+#+begin_src emacs-lisp
+(defun tl/org-agenda-new ()
+  "Create a new note or task at the current agenda item.
+Creates it at the same level as the previous task, so it's better to use
+this with to-do items than with projects or headings."
+  (interactive)
+  (org-agenda-switch-to)
+  (org-capture 0))
+#+end_src
