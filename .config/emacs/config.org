@@ -293,6 +293,7 @@
  "" nil ; Remove default C-x keymap prefix
  ;; Common keybindings
  "C-n" '(neotree-toggle :wk "Toggle neotree")
+ "C-d" '(delete-file :wk "Delete file")
  ;; Bookmarks
  "C-l" '(list-bookmarks :wk "List bookmarks")
  "C-m" '(bookmark-set :wk "Set/Delete bookmark")
