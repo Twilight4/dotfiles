@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-
 # Fix the file name
 if [[ -f "$XDG_CONFIG_HOME/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh" ]]
 then
