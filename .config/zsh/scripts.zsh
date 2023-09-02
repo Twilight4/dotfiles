@@ -339,12 +339,29 @@ back() {
 
 # Move a file or a folder, and create the filepath if it doesn't exist. - mkmv
 mkmv() {
-    local dir="$2"
-    local tmp="$2"; tmp="${tmp: -1}"
-    [ "$tmp" != "/" ] && dir="$(dirname "$2")"
-    [ -d "$dir" ] ||
-        mkdir -p "$dir" &&
-        mv "$@"
+  # Check if the correct number of arguments is provided
+  if [ $# -ne 2 ]; then
+    echo "Usage: mkmv <source> <destination>"
+    exit 1
+  fi
+  
+  source="$1"
+  destination="$2"
+  
+  # Check if the source file exists
+  if [ ! -e "$source" ]; then
+    echo "Error: Source file '$source' does not exist."
+    exit 1
+  fi
+  
+  # Get the source file's basename (filename without path)
+  source_basename="$(basename "$source")"
+  
+  # Create the destination directory (if it doesn't exist)
+  mkdir -p "$destination"
+  
+  # Move the source file to the destination directory
+  mv "$source" "$destination/$source_basename"
 }
 
 # Copy a file or a folder, and create the filepath if it doesn't exist. - mkcp
