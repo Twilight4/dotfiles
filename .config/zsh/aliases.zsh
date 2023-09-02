@@ -171,14 +171,12 @@ alias ...="cd ../../"
 alias ....="cd ../../../"
 
 # Git
-alias ga="git add"
-alias gc="git commit"
-alias gp="git push"
+alias gc="git clone"
+alias gcd="cloneit"
 alias gu='git add . && git commit -m "update" && git push'
 alias rmgitcache="rm -r ~/.cache/git"
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
-alias gcd="cloneit"
 
 # Pacman and yay
 alias pacs="sudo pacman -S"                      # install package faster
