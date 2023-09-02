@@ -345,7 +345,7 @@ mkmv() {
     [ -d "$dir" ] ||
         mkdir -p "$dir" &&
         mv "$@"
-    }
+}
 
 # Copy a file or a folder, and create the filepath if it doesn't exist. - mkcp
 mkcp() {
