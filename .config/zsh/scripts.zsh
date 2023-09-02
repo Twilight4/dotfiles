@@ -326,8 +326,8 @@ ydla() {
 
 # Create a folder like mkdir -p and jump to it. - mkcd
 mkcd() {
-    local dir="$*";
-    local mkdir -p "$dir" && cd "$dir";
+    local dir="$*"
+    mkdir -p "$dir" && cd "$dir"
 }
 
 # Backup all files in cwd
