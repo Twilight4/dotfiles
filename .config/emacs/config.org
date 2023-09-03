@@ -369,9 +369,10 @@
     "h v" '(describe-variable :wk "Describe variable")
     "h k" '(describe-key-briefly :wk "Describe key briefly")
     "h K" '(describe-key :wk "Describe key")
-    "h r" (lambda () (interactive) (load-file "~/.config/emacs/init.el")))
-
-  (which-key-add-key-based-replacements "SPC h r" "Reload emacs")
+    "h r" '((lambda () (interactive)
+                (load-file "~/.config/emacs/init.el")
+                (ignore (elpaca-process-queues)))
+              :wk "Reload emacs"))
 
   (tl/leader-keys
     "t" '(:ignore t :wk "Toggle")
