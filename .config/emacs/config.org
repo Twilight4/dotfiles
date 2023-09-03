@@ -295,12 +295,21 @@
  ;; Common keybindings
  "C-n" '(neotree-toggle :wk "Toggle neotree")
  "C-d" '(delete-file :wk "Delete file")
- ;; Bookmarks
+ ;; Buffers
  "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
  "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
+ "o" '(create-new-org-buffer :wk "Create new org buffer")
+ "i" '(ibuffer :wk "Ibuffer")
+ "k" '(kill-this-buffer :wk "Kill this buffer")
+ "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
+ "r" '(revert-buffer :wk "Reload buffer")
+ "C-r" '(rename-buffer :wk "Rename buffer")
+ "C-s" '(save-some-buffers :wk "Save multiple buffers")
+ ;; Bookmarks
  "C-l" '(list-bookmarks :wk "List bookmarks")
- "C-m" '(bookmark-set :wk "Set/Delete bookmark")
- "C-s" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
+ "C-m" '(bookmark-set :wk "Set bookmark")
+ "C-d" '(bookmark-delete :wk "Delete bookmark")
+ "C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
 
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
 #+end_src
@@ -357,12 +366,7 @@
     "a" '(org-agenda :wk "Org agenda")
     "T" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture to inbox")
-    "s" '(save-buffer :wk "Save buffer"))
-
-  (tl/leader-keys
-    "b" '(:ignore t :wk "Buffer")
-    "b i" '(ibuffer :wk "Ibuffer")
-    "b r" '(revert-buffer :wk "Reload buffer"))
+    "s" '(basic-save-buffer :wk "Save buffer"))
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
@@ -386,7 +390,6 @@
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
     "o e" '(org-export-dispatch :wk "Org export dispatch")
-    "o b" '(create-new-org-buffer :wk "Create new org buffer")
     "o t" '(insert-auto-tangle-tag :wk "Insert auto-tangle tag")
     "o T" '(org-babel-tangle :wk "Org babel tangle"))
 
