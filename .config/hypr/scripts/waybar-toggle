@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+# Define the paths to the CSS files
+style_file=~/.config/waybar/style.css
+style_nord_file=~/.config/waybar/style-nord.css
+
+# Get the currently active CSS file
+current_style=$(readlink -f ~/.config/waybar/style-active.css)
+
+# Check which style is currently active and toggle it
+if [ "$current_style" == "$style_file" ]; then
+    next_style=$style_nord_file
+else
+    next_style=$style_file
+fi
+
+# Terminate already running bar instances
+killall -q waybar
+
+# Wait until the waybar processes have been shut down
+while pgrep -x waybar >/dev/null; do sleep 1; done
+
+# Update the active style file
+ln -sf "$next_style" "$current_style"
+
+# Launch waybar
+#waybar -c ~/.config/waybar/config -s ~/.config/waybar/style.css
+
+# Launch waybar with the updated style
+waybar -c ~/.config/waybar/config -s "$current_style"
