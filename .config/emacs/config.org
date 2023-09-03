@@ -13,8 +13,9 @@
 - [[#ui-configuration][UI Configuration]]
   - [[#better-defaults][Better Defaults]]
   - [[#setting-the-font-face][Setting the Font Face]]
+  - [[#all-the-icons][All-the-icons]]
   - [[#color-theme][Color Theme]]
-  - [[#doom-modeline-and-all-the-icons][Doom-Modeline and All-the-icons]]
+  - [[#modeline][Modeline]]
   - [[#window-title][Window Title]]
   - [[#file-names-for-org-roam][File names for Org-roam]]
   - [[#which-key][Which-key]]
@@ -498,6 +499,19 @@
 (setq-default line-spacing 0.12)
 #+end_src
 
+** All-the-icons
+This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs. 
+*NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
+
+#+begin_src emacs-lisp
+(use-package all-the-icons)
+  :ensure t
+  :if (display-graphic-p)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+#+end_src
+
 ** Color Theme
 Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][screenshots]] might help you decide which one you like best. You can run =M-x counsel-load-theme= to choose between them easily.
 
@@ -509,18 +523,9 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
         doom-themes-enable-italic t)   ; if nil, italics is universally disabled
 #+end_src
 
-** Doom-Modeline and All-the-icons
-This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs. 
-*NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
+** Modeline
 
 #+begin_src emacs-lisp
-(use-package all-the-icons)
-  :ensure t
-  :if (display-graphic-p)
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
-
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
