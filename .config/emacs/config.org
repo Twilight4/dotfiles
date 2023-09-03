@@ -447,10 +447,13 @@
  display-time-default-load-average nil            ; I don't think I've ever found this useful
  use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
- make-backup-files nil                            ; Don't create backup files to avoid clutterinf the file system with redundant backup copies
+ make-backup-files nil                            ; Don't create backup files to avoid cluttering the file system with redundant backup copies
  display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
  blink-cursor-mode nil                            ; I hate blinking cursors
  inhibit-startup-message t)                       ; Prevent the default initial splash screen from being displayed when you start Emacs
+
+; Don't create automatic backup files in their original directories (e.g. file.el~). Put all backups in the Trash directory
+(setq backup-directory-alist '((".*" . "~/.config/.local/share/Trash/files")))
 
 ;; Enable line numbers in Org Mode buffers
 (add-hook 'org-mode-hook 'display-line-numbers-mode)
