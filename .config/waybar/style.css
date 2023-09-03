@@ -34,6 +34,20 @@ window#waybar.hidden {
   margin: 0px 5px;
 }
 
+#tags button {
+  min-width: 40px;
+}
+
+#tags button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+#tags button:hover {
+    background: rgba(26, 27, 38, 0.5);
+    border: none;
+}
+
 #backlight,
 #battery,
 #clock,
