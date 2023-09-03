@@ -1535,6 +1535,46 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                 )))
 #+end_src
 
+*** Custom keys for org-agenda
+- =x=: Mark the current task as done. Same as typing =t x=, but somehow it feels like it has more oomph as a single-character shortcut.
+- =X=: Mark the current task as done and create a new task at the same level, taking advantage of the task template I’d previously created in =org-capture-templates=.
+- =N=: Create a new note or task at the current position.
+
+Make it easy to mark a task as done
+#+begin_src emacs-lisp
+;; Load Org mode
+(require 'org)
+
+(defun tl/org-agenda-done (&optional arg)
+  "Mark current TODO as done.
+This changes the line at point, all other lines in the agenda referring to
+the same tree node, and the headline of the tree node in the Org-mode file."
+  (interactive "P")
+  (org-agenda-todo "DONE"))
+#+end_src
+
+Make it easy to mark a task as done and create a follow-up task
+#+begin_src emacs-lisp
+  (defun tl/org-agenda-mark-done-and-add-followup ()
+    "Mark the current TODO as done and add another task after it.
+Creates it at the same level as the previous task, so it's better to use
+this with to-do items than with projects or headings."
+    (interactive)
+    (org-agenda-todo "DONE")
+    (org-agenda-switch-to)
+    (org-capture 0 "t"))
+#+end_src
+
+Capture something based on the agenda position
+#+begin_src emacs-lisp
+(defun tl/org-agenda-new ()
+  "Create a new note or task at the current agenda item.
+Creates it at the same level as the previous task, so it's better to use
+this with to-do items than with projects or headings."
+  (interactive)
+  (org-agenda-switch-to)
+  (org-capture 0))
+#+end_src
 *** Org-capture
 
 #+begin_src emacs-lisp
@@ -1610,43 +1650,3 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
  #+end_src
 
  
-*** Custom keys for org-agenda
-- =x=: Mark the current task as done. Same as typing =t x=, but somehow it feels like it has more oomph as a single-character shortcut.
-- =X=: Mark the current task as done and create a new task at the same level, taking advantage of the task template I’d previously created in =org-capture-templates=.
-- =N=: Create a new note or task at the current position.
-
-Make it easy to mark a task as done
-#+begin_src emacs-lisp
-;; Load Org mode
-(require 'org)
-
-(defun tl/org-agenda-done (&optional arg)
-  "Mark current TODO as done.
-This changes the line at point, all other lines in the agenda referring to
-the same tree node, and the headline of the tree node in the Org-mode file."
-  (interactive "P")
-  (org-agenda-todo "DONE"))
-#+end_src
-
-Make it easy to mark a task as done and create a follow-up task
-#+begin_src emacs-lisp
-  (defun tl/org-agenda-mark-done-and-add-followup ()
-    "Mark the current TODO as done and add another task after it.
-Creates it at the same level as the previous task, so it's better to use
-this with to-do items than with projects or headings."
-    (interactive)
-    (org-agenda-todo "DONE")
-    (org-agenda-switch-to)
-    (org-capture 0 "t"))
-#+end_src
-
-Capture something based on the agenda position
-#+begin_src emacs-lisp
-(defun tl/org-agenda-new ()
-  "Create a new note or task at the current agenda item.
-Creates it at the same level as the previous task, so it's better to use
-this with to-do items than with projects or headings."
-  (interactive)
-  (org-agenda-switch-to)
-  (org-capture 0))
-#+end_src
