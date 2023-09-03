@@ -298,7 +298,6 @@
  ;; Buffers
  "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
  "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
- "o" '(create-new-org-buffer :wk "Create new org buffer")
  "i" '(ibuffer :wk "Ibuffer")
  "k" '(kill-this-buffer :wk "Kill this buffer")
  "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
@@ -331,6 +330,7 @@
  "C-f" '(org-insert-file-link :wk "Org insert file link")
  "C-m" '(org-toggle-checkbox :wk "Org toggle checkbox")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
+ "n" '(create-new-org-buffer :wk "Create new org buffer")
  ;; Org Roam
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
