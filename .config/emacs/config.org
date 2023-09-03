@@ -142,6 +142,13 @@
 (define-key org-mode-map (kbd "M-h") nil)
 (define-key org-mode-map (kbd "M-t") nil)
 
+;; Unbinding Org-agenda mode Keybindings
+(eval-after-load 'org-agenda
+  '(progn
+     ;; Unbind "j" and "k" keys in org-agenda-mode
+     (define-key org-agenda-mode-map "j" nil)
+     (define-key org-agenda-mode-map "k" nil)))
+
 ;; Unbinding Calendar Mode Keybindings - does not work
 ;(with-eval-after-load 'calendar
 ;  (define-key calendar-mode-map (kbd "M-h") nil)
@@ -266,9 +273,12 @@
 ;; Org-agenda
 (add-hook 'org-agenda-mode-hook
           (lambda ()
+             ;; Set the default keys for tasks in org-agenda-mode
+            (local-set-key (kbd "d") 'tl/org-agenda-doing)
             (local-set-key (kbd "x") 'tl/org-agenda-done)
             (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
             (local-set-key (kbd "N") 'tl/org-agenda-new)
+	           ;; Set the "j" and "k" to default vim motions
             (local-set-key (kbd "j") 'org-agenda-next-line)
             (local-set-key (kbd "k") 'org-agenda-previous-line)))
 
@@ -303,7 +313,6 @@
  "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
  "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
  "i" '(ibuffer :wk "Ibuffer")
- "k" '(kill-this-buffer :wk "Kill this buffer")
  "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
  "r" '(revert-buffer :wk "Reload buffer")
  "C-r" '(rename-buffer :wk "Rename buffer")
@@ -1536,19 +1545,27 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 #+end_src
 
 *** Custom keys for org-agenda
-- =x=: Mark the current task as done. Same as typing =t x=, but somehow it feels like it has more oomph as a single-character shortcut.
+- =d=: Mark the current task as doing.
+- =x=: Mark the current task as done.
 - =X=: Mark the current task as done and create a new task at the same level, taking advantage of the task template I’d previously created in =org-capture-templates=.
 - =N=: Create a new note or task at the current position.
 
-Make it easy to mark a task as done
+Make it easy to mark a task as doing
 #+begin_src emacs-lisp
 ;; Load Org mode
 (require 'org)
 
-(defun tl/org-agenda-done (&optional arg)
-  "Mark current TODO as done.
+(defun tl/org-agenda-doing (&optional arg)
+  "Mark current TODO as doing.
 This changes the line at point, all other lines in the agenda referring to
 the same tree node, and the headline of the tree node in the Org-mode file."
+  (interactive "P")
+  (org-agenda-todo "DOING"))
+#+end_src
+
+Make it easy to mark a task as done
+#+begin_src emacs-lisp
+(defun tl/org-agenda-done (&optional arg)
   (interactive "P")
   (org-agenda-todo "DONE"))
 #+end_src
@@ -1575,6 +1592,7 @@ this with to-do items than with projects or headings."
   (org-agenda-switch-to)
   (org-capture 0))
 #+end_src
+
 *** Org-capture
 
 #+begin_src emacs-lisp
