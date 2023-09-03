@@ -296,6 +296,8 @@
  "C-n" '(neotree-toggle :wk "Toggle neotree")
  "C-d" '(delete-file :wk "Delete file")
  ;; Bookmarks
+ "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
+ "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
  "C-l" '(list-bookmarks :wk "List bookmarks")
  "C-m" '(bookmark-set :wk "Set/Delete bookmark")
  "C-s" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
@@ -360,8 +362,7 @@
   (tl/leader-keys
     "b" '(:ignore t :wk "Buffer")
     "b i" '(ibuffer :wk "Ibuffer")
-    "b r" '(revert-buffer :wk "Reload buffer")
-    "b c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer"))
+    "b r" '(revert-buffer :wk "Reload buffer"))
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
@@ -798,9 +799,9 @@ one, an error is signaled."
 I set a keybinding for =clone-indirect-buffer-other-window= for when I want to have the same document in two splits. The text of the indirect buffer is always identical to the text of its base buffer.
 
 #+begin_src emacs-lisp
-(defun prefer-horizontal-split ()
-  (setq split-height-threshold nil)
-  (setq split-width-threshold 40)) ; make this as low as needed
+(defun prefer-vertical-split ()
+  (setq split-width-threshold nil)
+  (setq split-height-threshold 40)) ; Adjust this value as needed
 #+end_src
 
 ** Global Auto Revert
