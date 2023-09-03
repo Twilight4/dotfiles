@@ -263,10 +263,14 @@
 (define-key org-mode-map (kbd "C-M-n") 'completion-at-point)
 (define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
 (define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
-;; Org agenda
-;;(define-key org-agenda-mode-map "N" 'tl/org-agenda-new)
-;;(define-key org-agenda-mode-map "x" 'tl/org-agenda-done)
-;;(define-key org-agenda-mode-map "X" 'tl/org-agenda-mark-done-and-add-followup)
+;; Org-agenda
+(add-hook 'org-agenda-mode-hook
+          (lambda ()
+            (local-set-key (kbd "x") 'tl/org-agenda-done)
+            (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
+            (local-set-key (kbd "N") 'tl/org-agenda-new)
+            (local-set-key (kbd "j") 'org-agenda-next-line)
+            (local-set-key (kbd "k") 'org-agenda-previous-line)))
 
 ;; Calendar Mode Keybindings - does not work
 ;(with-eval-after-load 'calendar
@@ -1606,7 +1610,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
  #+end_src
 
  
-*** custom for org-agenda
+*** Custom keys for org-agenda
 - =x=: Mark the current task as done. Same as typing =t x=, but somehow it feels like it has more oomph as a single-character shortcut.
 - =X=: Mark the current task as done and create a new task at the same level, taking advantage of the task template I’d previously created in =org-capture-templates=.
 - =N=: Create a new note or task at the current position.
