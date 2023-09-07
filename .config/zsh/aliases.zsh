@@ -32,7 +32,6 @@ alias w2='cd "$HOME/desktop/server" ; echo "$(hip) in $PWD" ; sudo python3 -m ht
 alias w3='ngrok http 4444'
 alias s="kitty +kitten ssh"
 alias v="nvim"
-alias e='exit'
 alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
 
