@@ -111,12 +111,23 @@
     (setq evil-kill-on-visual-paste nil)
     (setq evil-want-C-i-jump nil)
     (evil-mode))
-  (use-package evil-collection
+
+(use-package evil-collection
     :after evil
     :config
     (setq evil-collection-mode-list '(dashboard dired ibuffer))
     (evil-collection-init))
-  (use-package evil-tutor)
+
+(use-package evil-tutor)
+
+;; Using RETURN to follow links in Org/Evil 
+;; Unmap keys in 'evil-maps if not done, (setq org-return-follows-link t) will not work
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "SPC") nil)
+  (define-key evil-motion-state-map (kbd "RET") nil)
+  (define-key evil-motion-state-map (kbd "TAB") nil))
+;; Setting RETURN key in org-mode to follow links
+  (setq org-return-follows-link  t)
 #+end_src
 
 ** Global Keybindings
@@ -378,7 +389,7 @@
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
-    "e" '(elfeed :wk "Elfeed")
+    "f" '(elfeed :wk "Elfeed")
     "T" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture to inbox")
     "s" '(basic-save-buffer :wk "Save buffer"))
