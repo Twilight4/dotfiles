@@ -1154,6 +1154,24 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
   :hook (org-mode . tl/org-mode-visual-fill))
 #+end_src
 
+*** Highlight-todo
+Adding highlights to =TODO= and related words.
+
+#+begin_src emacs-lisp
+(use-package hl-todo
+  :hook ((org-mode . hl-todo-mode)
+         (prog-mode . hl-todo-mode))
+  :config
+  (setq hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(("TODO"       warning bold)
+          ("FIXME"      error bold)
+          ("HACK"       font-lock-constant-face bold)
+          ("REVIEW"     font-lock-keyword-face bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold))))
+#+end_src
+
 ** Editing Features for Org
 *** File Links automation
 While =org-insert-link= is all very well and good, a large portion of the time I
