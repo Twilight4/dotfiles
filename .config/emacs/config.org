@@ -404,7 +404,7 @@
     "f" '(elfeed :wk "Elfeed")
     "T" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture to inbox")
-    "b" '(switch-to-buffer :wk "Switch to buffer")  ; doesn't work
+    "b" '(switch-to-buffer :wk "Switch to buffer")
     "s" '(basic-save-buffer :wk "Save buffer"))
 
   (which-key-add-key-based-replacements "SPC ." "Find file")
@@ -996,7 +996,7 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
   :config
   (ivy-set-display-transformer 'ivy-switch-buffer
                                'ivy-rich-switch-buffer-transformer)
-  (ivy-rich-mode 1))
+  (ivy-rich-mode 1))  ; This gets us descriptions in M-x
 #+end_src
 
 ** Magit
