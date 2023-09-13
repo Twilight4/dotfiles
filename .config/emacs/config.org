@@ -30,7 +30,7 @@
   - [[#rainbow-delimeters][Rainbow-delimeters]]
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
-  - [[#toggle-split-window-maximization][Toggle Split Window Maximization]]
+  - [[#maximize-evil-split][Maximize-evil-split]]
   - [[#splits][Splits]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
@@ -866,7 +866,7 @@ one, an error is signaled."
       (select-window other-win))))
 #+end_src
 
-** Toggle Split Window Maximization
+** Maximize-evil-split
 
 #+begin_src emacs-lisp
 ;; Define a variable to keep track of maximized window state
