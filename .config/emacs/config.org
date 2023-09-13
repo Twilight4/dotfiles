@@ -489,7 +489,7 @@
 ** Better Defaults
 
 #+begin_src emacs-lisp
-(delete-selection-mode 1)                         ; You can select text and delete it by typing
+(delete-selection-mode 1)                         ; You can select text in insert mode (mouse) and delete it by typing
 (electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
 (electric-pair-mode 1)                            ; Turns on automatic parens pairing
 (menu-bar-mode -1)                                ; Disable menu bar
