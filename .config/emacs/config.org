@@ -28,7 +28,7 @@
   - [[#no-littering][No-littering]]
   - [[#rainbow-mode][Rainbow-mode]]
   - [[#rainbow-delimeters][Rainbow-delimeters]]
-  - [[#parenthesis-auto-pairing-fix][Parenthesis auto-pairing fix]]
+  - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
   - [[#toggle-split-window-maximization][Toggle Split Window Maximization]]
   - [[#splits][Splits]]
@@ -781,7 +781,7 @@ Adding rainbow coloring to parentheses.
          (clojure-mode . rainbow-delimiters-mode)))
 #+end_src
 
-** Parenthesis auto-pairing fix
+** Electric-pair-mode
 
 #+begin_src emacs-lisp
 ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
