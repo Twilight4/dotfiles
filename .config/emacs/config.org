@@ -21,7 +21,7 @@
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
-  - [[#centaur-tabs][Centaur-Tabs]]
+  - [[#centaur-tabs][Centaur-tabs]]
   - [[#file-encoding][File Encoding]]
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry-delete]]
@@ -697,7 +697,7 @@ It's always better to set transparency in optiosn for respective applications th
 ;(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
 #+end_src
 
-** Centaur-Tabs
+** Centaur-tabs
 Centaur Tabs is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. Source: [[https://github.com/ema2159/centaur-tabs][centaur-tabs]]
 
 #+begin_src emacs-lisp
