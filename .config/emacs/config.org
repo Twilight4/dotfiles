@@ -31,7 +31,6 @@
   - [[#buffer-move][Buffer-move]]
   - [[#toggle-split-window-maximization][Toggle Split Window Maximization]]
   - [[#splits][Splits]]
-  - [[#global-auto-revert][Global Auto Revert]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -510,7 +509,6 @@
  display-time-default-load-average nil            ; I don't think I've ever found this useful
  use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
- make-backup-files nil                            ; Don't create backup files to avoid cluttering the file system with redundant backup copies
  display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
  blink-cursor-mode nil                            ; I hate blinking cursors
  inhibit-startup-message t)                       ; Prevent the default initial splash screen from being displayed when you start Emacs
@@ -531,6 +529,10 @@
 ;; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
 (electric-indent-mode -1)
 (setq org-edit-src-content-indentation 0)
+
+;; Keep buffers synced and up to date with auto revert mode
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
 #+end_src
 
 ** Setting the Font Face
@@ -884,14 +886,6 @@ I set a keybinding for =clone-indirect-buffer-other-window= for when I want to h
 (defun prefer-vertical-split ()
   (setq split-width-threshold nil)
   (setq split-height-threshold 40)) ; Adjust this value as needed
-#+end_src
-
-** Global Auto Revert
-Keep buffers synced and up to date with auto revert mode.
-
-#+begin_src emacs-lisp
-(global-auto-revert-mode 1)
-(setq global-auto-revert-non-file-buffers t)
 #+end_src
 
 * Other Packages
