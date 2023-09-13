@@ -35,6 +35,7 @@
   - [[#dired][Dired]]
   - [[#ivy-counsel][IVY (Counsel)]]
   - [[#magit][Magit]]
+  - [[#git-timemachine][Git-Timemachine]]
   - [[#elfeed][Elfeed]]
 - [[#plaintext][Plaintext]]
   - [[#ansi-colours][Ansi colours]]
@@ -938,6 +939,19 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
 (use-package magit 
   :ensure t
   :defer t)
+#+end_src
+
+** Git-Timemachine
+=git-timemachine= is a program that allows you to move backwards and forwards through a file’s commits.  ‘SPC g t’ will open the time machine on a file if it is in a git repo.  Then, while in normal mode, you can use ‘CTRL-j’ and ‘CTRL-k’ to move backwards and forwards through the commits.
+
+#+begin_src emacs-lisp
+(use-package git-timemachine
+  :after git-timemachine
+  :hook (evil-normalize-keymaps . git-timemachine-hook)
+  :config
+    (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
+    (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision)
+)
 #+end_src
 
 ** Elfeed
