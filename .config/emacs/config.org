@@ -378,6 +378,7 @@
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
+    "e" '(elfeed :wk "Elfeed")
     "T" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture to inbox")
     "s" '(basic-save-buffer :wk "Save buffer"))
@@ -1701,5 +1702,3 @@ this with to-do items than with projects or headings."
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
  #+end_src
-
- 
