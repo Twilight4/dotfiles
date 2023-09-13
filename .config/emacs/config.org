@@ -28,6 +28,7 @@
   - [[#no-littering][No-littering]]
   - [[#rainbow-mode][Rainbow-mode]]
   - [[#rainbow-delimeters][Rainbow-delimeters]]
+  - [[#parenthesis-auto-pairing-fix][Parenthesis auto-pairing fix]]
   - [[#buffer-move][Buffer-move]]
   - [[#toggle-split-window-maximization][Toggle Split Window Maximization]]
   - [[#splits][Splits]]
@@ -488,6 +489,11 @@
 ** Better Defaults
 
 #+begin_src emacs-lisp
+;; Experimantal
+(delete-selection-mode 1)                         ; You can select text and delete it by typing
+
+(electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
+(electric-pair-mode 1)                            ; Turns on automatic parens pairing
 (menu-bar-mode -1)                                ; Disable menubar
 (tool-bar-mode -1)                                ; Disable tool bar
 (scroll-bar-mode -1)                              ; Disable scroll bar
@@ -526,8 +532,7 @@
 (unless (string-match-p "^Power N/A" (battery))   ; On laptops...
   (display-battery-mode 1))                       ; it's nice to know how much power you have
 
-;; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
-(electric-indent-mode -1)
+;; Set src block automatic indent to 0 instead of 2
 (setq org-edit-src-content-indentation 0)
 
 ;; Keep buffers synced and up to date with auto revert mode
@@ -776,6 +781,17 @@ Adding rainbow coloring to parentheses.
 (use-package rainbow-delimiters
   :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
          (clojure-mode . rainbow-delimiters-mode)))
+#+end_src
+
+** Parenthesis auto-pairing fix
+
+#+begin_src emacs-lisp
+;; The following prevents <> from auto-pairing when electric-pair-mode is on.
+;; Otherwise, org-tempo is broken when you try to <s TAB...
+(add-hook 'org-mode-hook (lambda ()
+           (setq-local electric-pair-inhibit-predicate
+                   `(lambda (c)
+                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 #+end_src
 
 ** Buffer-move
