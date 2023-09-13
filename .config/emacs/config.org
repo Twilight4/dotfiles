@@ -489,17 +489,16 @@
 ** Better Defaults
 
 #+begin_src emacs-lisp
-;; Experimantal
 (delete-selection-mode 1)                         ; You can select text and delete it by typing
-
 (electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
 (electric-pair-mode 1)                            ; Turns on automatic parens pairing
-(menu-bar-mode -1)                                ; Disable menubar
+(menu-bar-mode -1)                                ; Disable menu bar
 (tool-bar-mode -1)                                ; Disable tool bar
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
 ;(global-display-line-numbers-mode 1)              ; Display line numbers (I prefer to set this setting individually for modes)
 (global-visual-line-mode t)                       ; Display truncated lines
+(global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 
 (setq-default
@@ -536,7 +535,6 @@
 (setq org-edit-src-content-indentation 0)
 
 ;; Keep buffers synced and up to date with auto revert mode
-(global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 #+end_src
 
