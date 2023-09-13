@@ -335,9 +335,10 @@
  "C-m" '(bookmark-set :wk "Set bookmark")
  "C-d" '(bookmark-delete :wk "Delete bookmark")
  "C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
- ;; Git
+ ;; Git - TODO keybinds
  ;"C-g" '(magit-displatch :wk "Magit dispatch")
  ;"g" '(magit-file-displatch :wk "Magit file dispatch")
+ ;"g" '(git-timemachine :wk "Git time machine")
  ;"C-/" '(magit-branch-checkout :wk "Switch branch")
 
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
