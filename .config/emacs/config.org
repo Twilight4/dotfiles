@@ -246,9 +246,13 @@
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
-;; Centaur tabs
-(global-set-key (kbd "M-p") 'centaur-tabs-backward)
-(global-set-key (kbd "M-n") 'centaur-tabs-forward)
+;; Centaur tabs - trying to figure out the way to skip default buffers to avoid mess
+;(global-set-key (kbd "M-p") 'centaur-tabs-backward)
+;(global-set-key (kbd "M-n") 'centaur-tabs-forward)
+(global-set-key (kbd "M-p") 'switch-to-prev-buffer)
+(global-set-key (kbd "M-n") 'switch-to-next-buffer)
+
+
 (global-set-key (kbd "M-f") 'centaur-tabs-forward-group)
 (global-set-key (kbd "M-b") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-,") 'centaur-tabs-move-current-tab-to-left)
@@ -394,13 +398,16 @@
 
   (tl/leader-keys
     "," '(counsel-recentf :wk "Find recent files")
-    "." '(find-file :wk "Find file")
+    "." '(lambda () (interactive) (counsel-find-file "~/") :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
     "f" '(elfeed :wk "Elfeed")
     "T" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture to inbox")
+    ;"b" '(switch-to-buffer :wk "Switch to buffer")  ; doesn't work
     "s" '(basic-save-buffer :wk "Save buffer"))
+
+  (which-key-add-key-based-replacements "SPC ." "Find file")
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
