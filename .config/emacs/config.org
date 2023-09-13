@@ -26,6 +26,8 @@
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#no-littering][No-littering]]
+  - [[#rainbow-mode][Rainbow-mode]]
+  - [[#rainbow-delimeters][Rainbow-delimeters]]
   - [[#buffer-move][Buffer-move]]
   - [[#toggle-split-window-maximization][Toggle Split Window Maximization]]
   - [[#splits][Splits]]
@@ -750,6 +752,24 @@ I use the =no-littering= package to keep folders where I edit files and the Emac
 
 (use-package no-littering
   :ensure t)
+#+end_src
+
+** Rainbow-mode
+Display the actual color as a background for any hex color value (ex. #ffffff). The code block below enables =rainbow-mode= in all programming modes (=prog-mode=) as well as =org-mode=, which is why rainbow works in this document.
+
+#+begin_src emacs-lisp
+(use-package rainbow-mode
+  :diminish
+  :hook org-mode prog-mode)
+#+end_src
+
+** Rainbow-delimeters
+Adding rainbow coloring to parentheses.
+
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
+         (clojure-mode . rainbow-delimiters-mode)))
 #+end_src
 
 ** Buffer-move
