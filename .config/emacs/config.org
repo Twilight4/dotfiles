@@ -968,9 +968,11 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 ** Vertico
 Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options. One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top. This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
 
-- Ivy, a generic completion mechanism for Emacs.
-- , a collection of Ivy-enhanced versions of common Emacs commands.
-- Ivy-rich allows us to add descriptions alongside the commands in =M-x=.
+The following configuration will add a few improvements: 
+- Additional key bindings for users that like Vim-style movement keys
+- Cycling selections when you reach the beginning/end of the list
+- Saving completion history, Vertico will sort items based on history!
+- Adding extra metadata for completions in the margins using Marginalia
   
 #+begin_src emacs-lisp
 (use-package vertico
