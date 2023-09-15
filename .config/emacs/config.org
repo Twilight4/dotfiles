@@ -970,7 +970,6 @@ Vertico provides minibuffer completions which doesn’t include any of the other
 
 The following configuration will add a few improvements: 
 - Additional key bindings for users that like Vim-style movement keys
-- Cycling selections when you reach the beginning/end of the list
 - Saving completion history, Vertico will sort items based on history!
 - Adding extra metadata for completions in the margins using Marginalia
   
@@ -983,8 +982,6 @@ The following configuration will add a few improvements:
          ("C-f" . vertico-exit)
          :map minibuffer-local-map
          ("M-h" . backward-kill-word))
-  :custom
-  (vertico-cycle t)
   :init
   (vertico-mode)
   (savehist-mode))
