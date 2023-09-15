@@ -399,7 +399,7 @@
 
   (tl/leader-keys
     "," '(recentf :wk "Find recent files")
-    "." '(lambda () (interactive) (find-file "~/") :wk "Find file")
+    "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
     "f" '(elfeed :wk "Elfeed")
