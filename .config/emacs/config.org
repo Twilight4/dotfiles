@@ -397,7 +397,7 @@
   :global-prefix "M-SPC") ;; Access leader in insert mode
 
   (tl/leader-keys
-    "," '(counsel-recentf :wk "Find recent files")
+    "," '(recentf :wk "Find recent files")
     "." '(lambda () (interactive) (counsel-find-file "~/") :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
@@ -970,33 +970,62 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 - Ivy-rich allows us to add descriptions alongside the commands in =M-x=.
 
 #+begin_src emacs-lisp
- (use-package counsel
-  :after ivy
-  :config (counsel-mode))
-
-(use-package ivy
+(use-package vertico
+  :ensure t
+  :bind (:map vertico-map
+         ("C-j" . vertico-next)
+         ("C-k" . vertico-previous)
+         ("C-f" . vertico-exit)
+         :map minibuffer-local-map
+         ("M-h" . backward-kill-word))
   :custom
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq enable-recursive-minibuffers t)
-  :config
-  (ivy-mode))
-
-(use-package all-the-icons-ivy-rich
-  :ensure t
-  :init (all-the-icons-ivy-rich-mode 1))
-
-(use-package ivy-rich
-  :after ivy
-  :ensure t
+  (vertico-cycle t)
   :init
-  (setq ivy-virtual-abbreviate 'full
-   ivy-rich-switch-buffer-align-virtual-buffer t
-   ivy-rich-path-style 'abbrev)
-  :config
-  (ivy-set-display-transformer 'ivy-switch-buffer
-                               'ivy-rich-switch-buffer-transformer)
-  (ivy-rich-mode 1))  ; This gets us descriptions in M-x
+  (vertico-mode)
+  (savehist-mode))
+
+(use-package marginalia
+  :after vertico
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode)
+
+  (setq marginalia-censor-variables nil)
+
+  (defun +marginalia--annotate-local-file-colorful (cand)
+    "Just a more colourful version of `marginalia--annotate-local-file'."
+    (when-let* ((attrs (file-attributes (substitute-in-file-name
+                                        (marginalia--full-candidate cand)))))
+      (marginalia--fields
+       ((marginalia--file-owner attrs)
+        :width 12 :face 'marginalia-file-owner)
+       ((marginalia--file-modes attrs))
+       ((+marginalia-file-size-colorful (file-attribute-size attrs))
+        :width 7)
+       ((+marginalia--time-colorful (file-attribute-modification-time attrs))
+        :width 12))))
+
+  (defun +marginalia--time-colorful (time)
+    (let* ((seconds (float-time (time-subtract (current-time) time)))
+           (color (doom-blend
+                   (face-attribute 'marginalia-date :foreground nil t)
+                   (face-attribute 'marginalia-documentation :foreground nil t)
+                   (/ 1.0 (log (+ 3 (/ (+ 1 seconds) 345600.0)))))))
+      ;; 1 - log(3 + 1/(days + 1)) % grey
+      (propertize (marginalia--time time) 'face (list :foreground color))))
+
+  (defun +marginalia-file-size-colorful (size)
+    (let* ((size-index (/ (log10 (+ 1 size)) 7.0))
+           (color (if (< size-index 10000000) ; 10m
+                      (doom-blend 'orange 'green size-index)
+                    (doom-blend 'red 'orange (- size-index 1)))))
+      (propertize (file-size-human-readable size) 'face (list :foreground color))))
+
+  (add-function :override (symbol-function 'marginalia--annotate-local-file)
+                #'+marginalia--annotate-local-file-colorful)
+)
 #+end_src
 
 ** Magit
