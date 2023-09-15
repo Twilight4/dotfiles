@@ -35,7 +35,8 @@
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
-  - [[#ivy][IVY]]
+  - [[#vertico][Vertico]]
+  - [[#marginalia][Marginalia]]
   - [[#magit][Magit]]
   - [[#git-timemachine][Git-Timemachine]]
   - [[#elfeed][Elfeed]]
@@ -964,10 +965,22 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 (add-hook 'dired-mode-hook 'dired-setup)
 #+end_src
 
-** IVY
+** Vertico
 - Ivy, a generic completion mechanism for Emacs.
 - , a collection of Ivy-enhanced versions of common Emacs commands.
 - Ivy-rich allows us to add descriptions alongside the commands in =M-x=.
+
+** Marginalia
+Marginalia is nice, but the file metadata annotations are a little too plain. Specifically, I have these gripes
+- File attributes would be nicer if coloured
+- I don’t care about the user/group information if the user/group is me
+- When a file time is recent, a relative age (e.g. 2h ago) is more useful than the date
+- An indication of file fatness would be nice
+
+Thanks to the =marginalia-annotator-registry=, we don’t have to advise, we can just add a new =file= annotator.
+
+Another small thing is the face used for docstrings. At the moment it’s (italic shadow), but I don’t like that. 
+
 
 #+begin_src emacs-lisp
 (use-package vertico
