@@ -35,7 +35,7 @@
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
-  - [[#ivy-counsel][IVY (Counsel)]]
+  - [[#ivy][IVY]]
   - [[#magit][Magit]]
   - [[#git-timemachine][Git-Timemachine]]
   - [[#elfeed][Elfeed]]
@@ -359,7 +359,7 @@
  "" nil ; Remove default C-c keymap prefix
  ;; Org mode
  "C-." '(org-time-stamp :wk "Org timestamp")
- "C-/" '(counsel-org-tag :wk "Org tag")
+ "C-/" '(org-tag :wk "Org tag")
  "C-p" '(org-set-property :wk "Org property")
  "C-e" '(org-set-effort :wk "Org effort")
  "C-h" '(org-toggle-heading :wk "Org toggle heading")
@@ -398,7 +398,7 @@
 
   (tl/leader-keys
     "," '(recentf :wk "Find recent files")
-    "." '(lambda () (interactive) (counsel-find-file "~/") :wk "Find file")
+    "." '(lambda () (interactive) (find-file "~/") :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
     "f" '(elfeed :wk "Elfeed")
@@ -449,7 +449,7 @@
     "r j" '(jump-to-register :wk "Jump to register")
     "r l" '(list-registers :wk "List registers")
     "r n" '(number-to-register :wk "Number to register")
-    "r r" '(counsel-register :wk "Interactively choose a register")
+    "r r" '(register :wk "Interactively choose a register")
     "r v" '(view-register :wk "View a register")
     "r w" '(window-configuration-to-register :wk "Window configuration to register")
     "r +" '(increment-register :wk "Increment register")
@@ -481,7 +481,7 @@
   (tl/leader-keys
     "e" '(:ignore t :wk "Edit File")
     "e i" '(lambda () (interactive) (find-file "~/documents/org/agenda/inbox.org"))
-    "e n" '(lambda () (interactive) (counsel-find-file "~/documents/org/roam/permanent-notes"))
+    "e n" '(lambda () (interactive) (find-file "~/documents/org/roam/permanent-notes"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
@@ -591,7 +591,7 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
 #+end_src
 
 ** Color Theme
-Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][screenshots]] might help you decide which one you like best. You can run =M-x counsel-load-theme= to choose between them easily.
+Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][screenshots]] might help you decide which one you like best. You can run =M-x load-theme= to choose between them easily.
 
 #+begin_src emacs-lisp
 (use-package doom-themes
@@ -964,9 +964,9 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 (add-hook 'dired-mode-hook 'dired-setup)
 #+end_src
 
-** IVY (Counsel)
+** IVY
 - Ivy, a generic completion mechanism for Emacs.
-- Counsel, a collection of Ivy-enhanced versions of common Emacs commands.
+- , a collection of Ivy-enhanced versions of common Emacs commands.
 - Ivy-rich allows us to add descriptions alongside the commands in =M-x=.
 
 #+begin_src emacs-lisp
