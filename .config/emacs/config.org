@@ -1687,7 +1687,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 
 (add-to-list 'org-agenda-custom-commands
              '("e" "Low Effort Tasks"
-               tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
+               tags-todo "+TODO=\"NEXT\"|+TODO=\"DOING\"+Effort<15&+Effort>0"
                (
                 (org-agenda-overriding-header "Low Effort Tasks")
                 (org-agenda-max-todos 20)
@@ -1779,7 +1779,7 @@ this with to-do items than with projects or headings."
 #+begin_src emacs-lisp
 (setq org-capture-templates
   `(("t" "Todo" entry (file+olp "~/documents/org/agenda/inbox.org")
-         "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+         "* TODO %?\n  %U\n  %i" :empty-lines 1)
 
     ("m" "Meeting" entry (file+olp+datetree "~/documents/org/agenda/inbox.org")
          "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
