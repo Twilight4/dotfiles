@@ -1644,7 +1644,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                            :order 30)
                           (:name "To watch"
                            :tag "Watch"
-                           :order 30)
+                           :order 31)
                           (:name "Waiting"
                            :todo "WAITING"
                            :order 20)
