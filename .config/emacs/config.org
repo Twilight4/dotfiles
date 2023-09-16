@@ -171,15 +171,12 @@
   ;; Unbinding the default C-w prefix key
   (define-key evil-normal-state-map (kbd "C-w") nil)
   (define-key evil-motion-state-map (kbd "C-w") nil)
-  ;; Unbinding the default bindings in normal/visual mode
+  ;; Unbinding the default bindings in normal mode
   (define-key evil-normal-state-map "H" nil)
   (define-key evil-normal-state-map "J" nil)
   (define-key evil-normal-state-map "K" nil)
   (define-key evil-normal-state-map "L" nil)
-  (define-key evil-motion-state-map "H" nil)
-  (define-key evil-motion-state-map "J" nil)
-  (define-key evil-motion-state-map "K" nil)
-  (define-key evil-motion-state-map "L" nil)
+  (define-key evil-normal-state-map "M" nil)
   ;; Unbinding the default bindings
   (define-key evil-normal-state-map (kbd "M-.") nil)
   (define-key evil-motion-state-map (kbd "M-.") nil)
@@ -218,11 +215,13 @@
   (define-key evil-normal-state-map (kbd "M-s") 'evil-window-vsplit)
   ;; Maximize window
   (define-key evil-normal-state-map (kbd "M-m") 'toggle-maximize-evil-split)
-  ;; Keybindings for org mode in evil normal mode for TODOs/priorities
+  ;; Keybindings for org mode in evil normal mode for S-motion keys
   (define-key evil-normal-state-map "H" 'org-shiftleft)
-  (define-key evil-normal-state-map "K" 'org-shiftdown)
-  (define-key evil-normal-state-map "J" 'org-shiftup)
+  (define-key evil-normal-state-map "J" 'org-shiftdown)
+  (define-key evil-normal-state-map "K" 'org-shiftup)
   (define-key evil-normal-state-map "L" 'org-shiftright)
+  ;; Rebinding default keybind of "J" for evil normal mode
+  (define-key evil-normal-state-map "M" 'evil-join)
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
