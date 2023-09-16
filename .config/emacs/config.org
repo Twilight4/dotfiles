@@ -1466,19 +1466,19 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
   '((:startgroup)
      ; Put mutually exclusive tags here
      (:endgroup)
-     ("Important" . ?E)
-     ("Assignment" . ?H)
-     ("Issue" . ?W)
-     ("Emacs" . ?a)
+     ("Important" . ?i)
+     ("Assignment" . ?a)
+     ("Issue" . ?I)
+     ("Emacs" . ?e)
      ("Project" . ?p)
      ("Research" . ?P)
      ("Batch" . ?b)
-     ("Read" . ?n)
-     ("Chore" . ?n)
-     ("Routine" . ?n)
-     ("Daily" . ?n)
+     ("Read" . ?r)
+     ("Chore" . ?c)
+     ("Routine" . ?R)
+     ("Daily" . ?d)
      ("Work" . ?w)
-     ("Trivial" . ?i)))
+     ("Trivial" . ?t)))
 #+end_src
 
 *** Org-modern
