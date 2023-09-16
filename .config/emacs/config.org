@@ -1,3 +1,4 @@
+
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
@@ -417,7 +418,6 @@
   (tl/leader-keys
     "o" '(:ignore t :wk "Org")
     "o e" '(org-export-dispatch :wk "Org export dispatch")
-    "o t" '(insert-auto-tangle-tag :wk "Insert auto-tangle tag")
     "o T" '(org-babel-tangle :wk "Org babel tangle"))
 
   (tl/leader-keys
@@ -1176,18 +1176,6 @@ There’s a really cool package to transclude Org document content.
   :after org)
 #+end_src
 
-*** Org-auto-tangle
-=org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file so 
-that it automatically tangles when you save the document.
-
-#+begin_src emacs-lisp
-(use-package org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode)
-  :config
-  (setq org-auto-tangle-default t))
-#+end_src
-
 *** Org-appear
 While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which 
 occur at the border a bit more fiddley. We can improve this situation without
@@ -1251,18 +1239,6 @@ function.
   "Insert a file link.  At the prompt, enter the filename."
   (interactive)
   (insert (format "[[%s]]" (org-link-complete-file))))
-#+end_src
-
-*** Auto-tangle automation
-I have made adding =org-auto-tangle= to files easier.
-
-#+begin_src emacs-lisp
-(defun insert-auto-tangle-tag ()
-  "Insert auto-tangle tag in a literate config."
-  (interactive)
-  (evil-open-below 1)
-  (insert "#+auto_tangle: t ")
-  (evil-normal-state))
 #+end_src
 
 *** Style formatting
