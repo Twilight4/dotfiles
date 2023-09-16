@@ -466,13 +466,11 @@
 
   (tl/leader-keys
     "e" '(:ignore t :wk "Edit File")
-    "e i" '(lambda () (interactive) (find-file "~/documents/org/agenda/inbox.org"))
     "e n" '(lambda () (interactive) (find-file "~/documents/org/roam/permanent-notes"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
-  (which-key-add-key-based-replacements "SPC e i" "Edit inbox"
-                                        "SPC e n" "Edit permanent notes"
+  (which-key-add-key-based-replacements "SPC e n" "Edit permanent notes"
                                         "SPC e c" "Edit config"
                                         "SPC e s" "Edit emacs cheatsheet")
 )
