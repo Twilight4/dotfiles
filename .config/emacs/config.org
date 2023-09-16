@@ -158,13 +158,6 @@
 (define-key org-mode-map (kbd "M-h") nil)
 (define-key org-mode-map (kbd "M-t") nil)
 
-;; Unbinding Org-agenda mode Keybindings
-(eval-after-load 'org-agenda
-  '(progn
-     ;; Unbind "j" and "k" keys in org-agenda-mode
-     (define-key org-agenda-mode-map "j" nil)
-     (define-key org-agenda-mode-map "k" nil)))
-
 ;; Unbinding Calendar Mode Keybindings - does not work
 ;(with-eval-after-load 'calendar
 ;  (define-key calendar-mode-map (kbd "M-h") nil)
@@ -297,10 +290,7 @@
             (local-set-key (kbd "d") 'tl/org-agenda-doing)
             (local-set-key (kbd "x") 'tl/org-agenda-done)
             (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
-            (local-set-key (kbd "N") 'tl/org-agenda-new)
-	           ;; Set the "j" and "k" to default vim motions
-            (local-set-key (kbd "j") 'org-agenda-next-line)
-            (local-set-key (kbd "k") 'org-agenda-previous-line)))
+            (local-set-key (kbd "N") 'tl/org-agenda-new)))
 
 ;; Calendar Mode Keybindings - does not work
 ;(with-eval-after-load 'calendar
@@ -1494,6 +1484,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
      ("Chore" . ?n)
      ("Routine" . ?n)
      ("Daily" . ?n)
+     ("Work" . ?w)
      ("Trivial" . ?i)))
 #+end_src
 
@@ -1623,6 +1614,9 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                           (:name "Next to do"
                            :todo "NEXT"
                            :order 3)
+                          (:name "Work"
+                           :tag "Work"
+                           :order 4)
                           (:name "Important"
                            :tag "Important"
                            :priority "A"
@@ -1665,7 +1659,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                            :tag "uni"
                            :order 32)
                           (:name "Trivial"
-                           :priority<= "E"
+                           :priority<= "C"
                            :tag ("Trivial" "Unimportant")
                            :todo ("SOMEDAY" )
                            :order 90)
