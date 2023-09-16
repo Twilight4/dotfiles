@@ -227,8 +227,8 @@
   (define-key evil-normal-state-map (kbd "M-m") 'toggle-maximize-evil-split)
   ;; Keybindings for org mode in evil normal mode for TODOs/priorities
   (define-key evil-normal-state-map "H" 'org-shiftleft)
-  (define-key evil-normal-state-map "J" 'org-shiftdown)
-  (define-key evil-normal-state-map "K" 'org-shiftup)
+  (define-key evil-normal-state-map "K" 'org-shiftdown)
+  (define-key evil-normal-state-map "J" 'org-shiftup)
   (define-key evil-normal-state-map "L" 'org-shiftright)
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
