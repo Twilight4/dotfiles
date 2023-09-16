@@ -1489,7 +1489,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
      ("Emacs" . ?a)
      ("Project" . ?p)
      ("Research" . ?P)
-     ("batch" . ?b)
+     ("Batch" . ?b)
      ("Read" . ?n)
      ("Chore" . ?n)
      ("Routine" . ?n)
