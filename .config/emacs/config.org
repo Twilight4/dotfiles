@@ -1444,8 +1444,11 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
         (?C . 'all-the-icons-yellow)))
 
 (setq org-refile-targets
-  '(("archive.org" :maxlevel . 1)
-    ("inbox.org" :maxlevel . 1)))
+  '(("archive.org" :maxlevel . 1)))
+
+;; Org-habit config
+(require 'org-habit)
+(setq org-habit-graph-column 60)
 
 ;; Save Org buffers after refiling
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
