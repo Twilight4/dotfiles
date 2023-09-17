@@ -1085,12 +1085,18 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
                         ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
                         ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
  
-
 (use-package elfeed-goodies
   :init
   (elfeed-goodies/setup)
   :config
   (setq elfeed-goodies/entry-pane-size 0.5))
+
+;; Define function to create frame with Elfeed
+(defun run-elfeed-frame ()
+  (interactive)
+  (let ((buf (get-buffer-create "*Elfeed*")))
+    (pop-to-buffer-same-window buf)
+    (elfeed)))
 #+end_src
 
 * Plaintext
