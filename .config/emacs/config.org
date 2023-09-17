@@ -1765,7 +1765,11 @@ this with to-do items than with projects or headings."
          :empty-lines 1)
 
     ("w" "Workflow" entry (file+olp+datetree "~/documents/org/agenda/inbox.org")
-         "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)))
+         "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+
+    ("c" "Metrics Capture")
+    ("cw" "Weight" table-line (file+headline "~/documents/org/agenda/metrics.org" "Weight")
+     "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 #+end_src
 
 *** Org-roam
