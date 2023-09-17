@@ -1,4 +1,3 @@
-
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
