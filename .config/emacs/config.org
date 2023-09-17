@@ -125,14 +125,27 @@
 
 (use-package evil-tutor)
 
+;; Function custom-return checks if the cursor is on a link. If it is, it opens the link with org-open-at-point. If not, it toggles the checkbox with org-toggle-checkbox
+(defun custom-return ()
+  (interactive)
+  (if (org-in-regexp org-link-bracket-re 1)
+      (org-open-at-point)
+    (org-toggle-checkbox)))
+
+;; Bind this function to the RET key in Org mode
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'custom-return)))
+
 ;; Using RETURN to follow links in Org/Evil 
 ;; Unmap keys in 'evil-maps if not done, (setq org-return-follows-link t) will not work
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "SPC") nil)
   (define-key evil-motion-state-map (kbd "RET") nil)
   (define-key evil-motion-state-map (kbd "TAB") nil))
+
 ;; Setting RETURN key in org-mode to follow links
-  (setq org-return-follows-link  t)
+(setq org-return-follows-link  t)
 #+end_src
 
 ** Global Keybindings
