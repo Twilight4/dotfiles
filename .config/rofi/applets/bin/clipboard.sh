@@ -8,5 +8,5 @@ if [[ "$XDG_CURRENT_DESKTOP" == "Hyprland" ]]; then
 		pick -dmenu -i -theme \
 		"$dir/$theme" -lines 10 | cliphist decode | wl-copy
 else
-  return
+  exit
 fi
