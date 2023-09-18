@@ -448,6 +448,10 @@ bm() {
     "$ZDOTDIR/bash-scripts/bm.sh" "$@"
 }
 
+timer() {
+    "$ZDOTDIR/bash-scripts/timer.sh" "$@"
+}
+
 optimize-video() {
     "$ZDOTDIR/bash-scripts/optimize-video.sh" "$@"
 }
