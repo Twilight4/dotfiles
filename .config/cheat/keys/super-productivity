@@ -1,0 +1,26 @@
+##############################################################################
+# SHORTCUTS
+##############################################################################
+
+# New Task example
+"Some task title +projectName 10m/3h #sometag #some other tag"  # 10m spent / 3h estimated
+
+# Adding estimated time at task creation
+"Getting to now Super Productivity 30m"  # 30m estimated
+
+S+A         # Add new task
+a           # Add sub-task (break a task down into smaller tasks)
+y           # Play/Pause hovered task
+d           # Mark as done
+s           # Schedule task for hoevered task
+S           # Open schedule dialog for hovered task
+S           # Open timeline dialog
+n           # Open up a notepad
+Enter       # Edit task/Save changes
+Esc         # Exit
+Backspace   # Delete currently focused task
+Arrow keys  # Navigation
+ArrowRight  # Open up an additional panel for the hovered task, ArrowUp/ArrowDown to select the items and ArrowLeft/ArrowRight to navigate in this panel
+ArrowLeft   # Close the additional panel
+C+S+ArrowUp # Move currently focused task up in list (prioritizing tasks)
+C+S+ArrowDown # Move currently focused task down in list (prioritizing tasks)
