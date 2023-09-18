@@ -7,12 +7,12 @@ alias cl='clear ; lsd -l --hyperlink=auto'
 alias ls='lsd -l --hyperlink=auto'
 alias la='lsd -lA --hyperlink=auto'
 alias lt='lsd --tree --hyperlink=auto'
-alias lx='lsd -lXh --hyperlink=auto'                 # sort by extension
-alias lk='lsd -lSrh --hyperlink=auto'                # sort by size
-alias lc='lsd -ltrh --hyperlink=auto'                # sort by date
-#alias lf='lsd -l --hyperlink=auto| grep -v '^d''     # files only
-#alias ld='lsd -l --hyperlink=auto| grep '^d''        # directories only
-alias l.='lsd -A $* | grep "^\."'                    # list hidden files
+alias lx='lsd -lXh --hyperlink=auto'                 # Sort by extension
+alias lk='lsd -lSrh --hyperlink=auto'                # Sort by size
+alias lc='lsd -ltrh --hyperlink=auto'                # Sort by date
+#alias lf='lsd -l --hyperlink=auto| grep -v '^d''     # Files only
+#alias ld='lsd -l --hyperlink=auto| grep '^d''        # Directories only
+alias l.='lsd -A $* | grep "^\."'                    # List hidden files
 
 # HOME dirs
 alias dw='cd "$HOME/downloads" ; clear'
@@ -37,15 +37,15 @@ alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
 
 # List cheatsheets for tools
-alias ltp='lsd --tree --hyperlink=auto ~/workspace/cheats/pentest'    # pentest tools
-alias ltw='lsd --tree --hyperlink=auto ~/workspace/cheats/web-app'    # web app tools
-alias ltr='lsd --tree --hyperlink=auto ~/workspace/cheats/red-team'   # red team tools
-alias ltf='lsd --tree --hyperlink=auto ~/workspace/cheats/forensics'  # forensics tools
-alias lto='lsd --tree --hyperlink=auto ~/workspace/cheats/other'      # other tools
+alias ltp='lsd --tree --hyperlink=auto ~/workspace/cheats/pentest'    # Pentest tools
+alias ltw='lsd --tree --hyperlink=auto ~/workspace/cheats/web-app'    # Web app tools
+alias ltr='lsd --tree --hyperlink=auto ~/workspace/cheats/red-team'   # Red team tools
+alias ltf='lsd --tree --hyperlink=auto ~/workspace/cheats/forensics'  # Forensics tools
+alias lto='lsd --tree --hyperlink=auto ~/workspace/cheats/other'      # Other tools
 
 # Blackarch repo packages
-alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # list all available tools
-alias blackcat="sudo pacman -Sg | grep blackarch"                             # see the blackarch categories
+alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # List all available tools
+alias blackcat="sudo pacman -Sg | grep blackarch"                             # See the blackarch categories
 
 # Aliases to modified commands
 alias mkdir="mkdir -p"
@@ -95,11 +95,11 @@ h() {
 
 # Rust replacements
 alias cp='xcp'
-alias http='xh'                # curl replacement
-alias httpd='http --download'  # uses xh alias first if installed
+alias http='xh'                # Curl replacement
+alias httpd='http --download'  # Uses xh alias first if installed
 alias cat='bat --paging=never --theme OneHalfDark'
 alias dig='dog'
-alias digs='dig +short'        # uses dog alias first if installed
+alias digs='dig +short'        # Uses dog alias first if installed
 alias rg='rg --sort path'
 alias du='dust'
 alias ncdu="ncdu --color dark"
@@ -178,20 +178,29 @@ alias rmgitcache="rm -r ~/.cache/git"
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
 
-# Pacman and yay
-alias pacs="sudo pacman -S"                      # install package faster
-alias pacr="sudo pacman -Rns"                    # remove package faster
-alias pacf="sudo pacman -F"                      # search binary package faster
-alias yayr="yay -Rns"                            # remove package faster
-alias yays="yay -S"                              # install AUR package faster
-alias yayf="yay -F"                              # search binary package faster
-alias pacsyu="sudo pacman -Syu"                  # update only standard pkgs
-alias pacsyur="sudo pacman -Syu && sleep 5 & reboot"  # update and reboot
-alias pacsyyu="sudo pacman -Syyu"                # refresh pkglist & update standard pkgs
-alias yaysua="yay -Sua --noconfirm"              # update only AUR pkgs (yay)
-alias yaysyu="yay -Syu --noconfirm"              # update standard pkgs and AUR pkgs (yay)
-alias fixpac="sudo rm /var/lib/pacman/db.lck"    # remove pacman lock
-alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # cleanup orphaned packages
+# Pacman
+alias pacs="sudo pacman -S"                      # Install package faster
+alias pacr="sudo pacman -Rns"                    # Remove package faster
+alias pacf="sudo pacman -F"                      # Search binary package faster
+alias pacsyu="sudo pacman -Syu"                  # Update only standard pkgs
+alias pacsyur="sudo pacman -Syu && sleep 5 & reboot"  # Update and reboot
+alias pacsyyu="sudo pacman -Syyu"                # Refresh pkglist & update standard pkgs
+alias fixpac="sudo rm /var/lib/pacman/db.lck"    # Remove pacman lock
+alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # Cleanup orphaned packages
+
+# Paru
+alias parr="paru -Rns"                            # Remove package faster
+alias pars="paru -S"                              # Install AUR package faster
+alias parf="paru -F"                              # Search binary package faster
+alias parsua="paru -Sua --noconfirm"              # Update only AUR pkgs
+alias parsyu="paru -Syu --noconfirm"              # Update standard pkgs and AUR pkgs
+
+# Yay - deprecated
+#alias yayr="yay -Rns"                            # Remove package faster
+#alias yays="yay -S"                              # Install AUR package faster
+#alias yayf="yay -F"                              # Search binary package faster
+#alias yaysua="yay -Sua --noconfirm"              # Update only AUR pkgs
+#alias yaysyu="yay -Syu --noconfirm"              # Update standard pkgs and AUR pkgs
 
 # Quick access to config files
 alias zshrc="nvim ~/.config/zsh/.zshrc"
