@@ -357,6 +357,17 @@ mkcp() {
         cp -r "$@"
 }
 
+# Convert all markdown files in current working directory to org-mode files
+mdtorg() {
+    for file in *.md; do
+        if [ -f "$file" ]; then
+            output="${file%.md}.org"
+            pandoc "$file" -o "$output"
+            echo "Converted $file to $output"
+        fi
+    done
+}
+
 # Display the command more often used in the shell
 historystat() {
     history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
