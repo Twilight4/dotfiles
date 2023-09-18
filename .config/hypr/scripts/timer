@@ -9,17 +9,32 @@ IFS=':' read -r hours minutes seconds <<< "$input_time"
 # Calculate the total seconds
 total_seconds=$((hours*3600 + minutes*60 + seconds))
 
+# Ask the user for notification interval
+read -p "Enter the notification interval in seconds: " notification_interval
+
+# Store the starting time
+start_time=$(date +%s)
+
 # Display initial message
 echo "Counting down $hours hours, $minutes minutes, and $seconds seconds..."
 
 # Loop through the countdown
 for ((i=total_seconds; i>0; i--)); do
     printf "\rTime left: %02d:%02d:%02d" $((i/3600)) $(((i%3600)/60)) $((i%60))
+    
+    # Check if it's time to display a notification
+    current_time=$(date +%s)
+    elapsed_seconds=$((current_time - start_time))
+    if (( elapsed_seconds % notification_interval == 0 )); then
+        elapsed_minutes=$((elapsed_seconds / 60))
+        notify-send "Time Elapsed" "Elapsed Time: $elapsed_minutes minute(s)"
+    fi
+    
     sleep 1
 done
 
-# Display a message when the timer is done
-echo -e "\nTime's up!"
+# Display the specified countdown time in a notification
+notify-send "Countdown Completed" "Countdown Time: $hours hours, $minutes minutes, and $seconds seconds."
 
 # Send a notification
 notify-send "Timer Finished" "The countdown has completed."
