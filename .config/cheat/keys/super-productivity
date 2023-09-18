@@ -10,17 +10,27 @@
 
 S+A         # Add new task
 a           # Add sub-task (break a task down into smaller tasks)
+S+D         # Show/Hide left side tab
+S+N         # Show/Hide notes
+n           # Add new note
+S+V         # Show/Hide bookmark bar
+S+F         # Show search bar
+S+S         # Go to scheduled tasks
+s           # Schedule task for hoevered task
+S+T         # Go to timeline
+t           # Time estimation/time spent
+w           # Go to work view
+j/k         # Previous/Next task
+#S-j/S-k    # Move task up/down in the list (not-default) (prioritizing tasks)
+q           # Open context menu for a task
+g           # Edit tags
 y           # Play/Pause hovered task
 d           # Mark as done
-s           # Schedule task for hoevered task
-S           # Open schedule dialog for hovered task
-S           # Open timeline dialog
-n           # Open up a notepad
+e           # Move task to project menu
 Enter       # Edit task/Save changes
 Esc         # Exit
 Backspace   # Delete currently focused task
-Arrow keys  # Navigation
 ArrowRight  # Open up an additional panel for the hovered task, ArrowUp/ArrowDown to select the items and ArrowLeft/ArrowRight to navigate in this panel
 ArrowLeft   # Close the additional panel
-C+S+ArrowUp # Move currently focused task up in list (prioritizing tasks)
+C+S+ArrowUp # Move task up/down in the list (not-default) (prioritizing tasks)
 C+S+ArrowDown # Move currently focused task down in list (prioritizing tasks)
