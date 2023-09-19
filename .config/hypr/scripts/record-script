@@ -1,13 +1,11 @@
-#!/usr/bin/bash
+#/usr/bin/bash
 
 cd ~/videos
-
-if ! pidof wf-recorder &>/dev/null; then
-    timestamp=$(date +"%Y%m%d_%H%M%S")
-    filename="recording_$timestamp.mkv"
+if ["$(pidof wf-recorder)" -ne ""]; then
+    rm recording.mp4
     notify-send "wf-recorder" "Starting recording"
-    wf-recorder --geometry "$(slurp)" > "$filename" 2>&1 &
+    wf-recorder --geometry "$(slurp)"
 else
-    pkill -INT wf-recorder
+    /usr/bin/kill --signal SIGINT wf-recorder
     notify-send "wf-recorder" "Recording Stopped"
 fi
