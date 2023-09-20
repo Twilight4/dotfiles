@@ -1816,7 +1816,15 @@ this with to-do items than with projects or headings."
       '(("d" "default" entry "* %<%I:%M %p>: %?"
          :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
 
-
+;; Fast note insertion for a smoother writing flow
+;; Define a function that enables you to create a new note and insert a link in the current document without opening the new note’s buffer
+;; This function takes the first capture template in org-roam-capture-templates (usually the “default” template) and adds the :immediate-finish t capture property to prevent the note buffer from being loaded once capture finishes
+(defun org-roam-node-insert-immediate (arg &rest args)
+  (interactive "P")
+  (let ((args (cons arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
 #+end_src
 
 *** Org-roam-ui
