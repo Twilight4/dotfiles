@@ -371,6 +371,7 @@
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
  "l" '(org-roam-node-insert :wk "Insert Org roam node")
+ "L" '(org-roam-insert-immediate :wk "Insert Org roam node immediatelly")
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
  "c" '(org-roam-capture :wk "Capture to node")
@@ -1814,6 +1815,8 @@ this with to-do items than with projects or headings."
 (setq org-roam-dailies-capture-templates
       '(("d" "default" entry "* %<%I:%M %p>: %?"
          :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+
+
 #+end_src
 
 *** Org-roam-ui
