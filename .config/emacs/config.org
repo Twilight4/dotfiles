@@ -1161,16 +1161,6 @@ a change in the conditions or require the setup to be re-applied.
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
-*** Org-pandoc-import
-Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a way to make that right again, and this package makes that even easier to do.
-
-#+begin_src emacs-lisp
-;; Problem installing the package
-;(use-package org-pandoc-import
-;  :ensure t
-;  :after org)
-#+end_src
-
 *** Org-transclusion
 There’s a really cool package to transclude Org document content.
 
