@@ -1161,21 +1161,6 @@ a change in the conditions or require the setup to be re-applied.
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
-*** Org-export
-We need ox-man for “Org eXporting” to manpage format and ox-gemini for exporting
-to gemtext (for the gemini protocol). I also enable ox-publish for converting
-an Org site into an HTML site.
-
-#+begin_src emacs-lisp
-;; Problem installing the package
-;(use-package ox-man
-;  :ensure t)
-;(use-package ox-gemini
-;  :ensure t)
-;(use-package ox-publish
-;  :ensure t)
-#+end_src
-
 *** Org-pandoc-import
 Sometimes I’m given non-org files, that’s very sad. Luckily Pandoc offers a way to make that right again, and this package makes that even easier to do.
 
