@@ -382,6 +382,7 @@
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
  "c" '(org-roam-capture :wk "Capture to node")
+ "u" '(org-roam-ui-open :wk "Open Org roam UI")
  ;; Org Roam dailies
  "n" '(org-roam-dailies-capture-today :wk "Capture daily today")
  "N" '(org-roam-dailies-goto-today :wk "Go to daily today")
