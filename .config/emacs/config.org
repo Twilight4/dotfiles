@@ -297,7 +297,7 @@
 (define-key org-mode-map (kbd "M-K") #'org-metaup)                       ; default M-<up>
 (define-key org-mode-map (kbd "M-L") #'org-metaright)                    ; default M-<right>
 ;; Org-roam
-(define-key org-mode-map (kbd "C-M-n") 'completion-at-point)
+(define-key org-mode-map (kbd "C-M-,") 'completion-at-point)
 (define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
 (define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 ;; Org-agenda
@@ -1766,7 +1766,7 @@ this with to-do items than with projects or headings."
   :ensure t
   :custom
   (org-roam-directory "~/documents/org/roam/")
-  (org-roam-dailies-directory "~/documents/org/roam/journal")
+  (org-roam-dailies-directory "~/documents/org/roam/journal/")
   (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/waterfox-g")
   :config
