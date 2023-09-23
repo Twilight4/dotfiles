@@ -1765,8 +1765,7 @@ this with to-do items than with projects or headings."
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/documents/org/roam/seed-notes"
-                      "~/documents/org/roam/permanent-notes")
+  (org-roam-directory "~/documents/org/roam/")
   (org-roam-dailies-directory "~/documents/org/roam/journal")
   (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/waterfox-g")
