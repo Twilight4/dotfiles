@@ -377,8 +377,8 @@
  ;; Org Roam
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
- "l" '(org-roam-node-insert :wk "Insert Org roam node")
- "L" '(org-roam-insert-immediate :wk "Insert Org roam node immediatelly")
+ "L" '(org-roam-node-insert :wk "Insert Org roam node")
+ "l" '(org-roam-insert-immediate :wk "Insert Org roam node immediatelly")
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
  "c" '(org-roam-capture :wk "Capture to node")
@@ -486,12 +486,10 @@
 
   (tl/leader-keys
     "e" '(:ignore t :wk "Edit File")
-    "e n" '(lambda () (interactive) (find-file "~/documents/org/roam/permanent-notes"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
-  (which-key-add-key-based-replacements "SPC e n" "Edit permanent notes"
-                                        "SPC e c" "Edit config"
+  (which-key-add-key-based-replacements "SPC e c" "Edit config"
                                         "SPC e s" "Edit emacs cheatsheet")
 )
 #+end_src
@@ -1767,7 +1765,8 @@ this with to-do items than with projects or headings."
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/documents/org/roam/seed-notes")
+  (org-roam-directory "~/documents/org/roam/seed-notes"
+                      "~/documents/org/roam/permanent-notes")
   (org-roam-dailies-directory "~/documents/org/roam/journal")
   (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/waterfox-g")
