@@ -262,8 +262,6 @@
 ;(global-set-key (kbd "M-n") 'centaur-tabs-forward)
 (global-set-key (kbd "M-p") 'switch-to-prev-buffer)
 (global-set-key (kbd "M-n") 'switch-to-next-buffer)
-
-
 (global-set-key (kbd "M-f") 'centaur-tabs-forward-group)
 (global-set-key (kbd "M-b") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-,") 'centaur-tabs-move-current-tab-to-left)
@@ -282,6 +280,12 @@
                 (lambda () (interactive) (insert "\u200B")))
 
 ;; Org Mode Keybindings
+;; Org heading structure - M-Ret keys for headings
+(define-key org-mode-map (kbd "M-<return>") 'org-insert-heading-respect-content)
+(define-key org-mode-map (kbd "M-S-<return>") 'org-insert-subheading)
+;; Org bullet lists structure - C-Ret keys for bullet lists
+(define-key org-mode-map (kbd "C-<return>") 'org-meta-return)
+(define-key org-mode-map (kbd "C-S-<return>") 'org-insert-todo-heading)
 ;; Org heading navigation
 (define-key org-mode-map (kbd "M-h") #'org-up-element)                   ; default g h
 (define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)   ; default g j
@@ -369,7 +373,6 @@
  "C-h" '(org-toggle-heading :wk "Org toggle heading")
  "C-i" '(org-toggle-item :wk "Org toggle item")
  "C-f" '(org-insert-file-link :wk "Org insert file link")
- "C-m" '(org-toggle-checkbox :wk "Org toggle checkbox")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
  "n" '(create-new-org-buffer :wk "Create new org buffer")
  ;; Org Roam
