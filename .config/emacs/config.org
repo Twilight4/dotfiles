@@ -1430,8 +1430,9 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
         (?B . 'all-the-icons-orange)
         (?C . 'all-the-icons-yellow)))
 
-(setq org-refile-targets
-  '(("archive.org" :maxlevel . 1)))
+;; Using refiling for org-roam-dailiies
+;(setq org-refile-targets
+;  '(("archive.org" :maxlevel . 1)))
 
 ;; Org-habit config
 (require 'org-habit)
@@ -1805,6 +1806,36 @@ this with to-do items than with projects or headings."
         (org-roam-capture-templates (list (append (car org-roam-capture-templates)
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
+#+end_src
+
+*** Automatically move completed tasks to dailies
+One interesting use for daily files is to keep a log of tasks that were completed on that particular day.
+The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
+
+#+begin_src emacs-lisp
+(defun my/org-roam-copy-todo-to-today ()
+  (interactive)
+  (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
+        (org-roam-dailies-capture-templates
+          '(("t" "tasks" entry "%?"
+             :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+        (org-after-refile-insert-hook #'save-buffer)
+        today-file
+        pos)
+    (save-window-excursion
+      (org-roam-dailies--capture (current-time) t)
+      (setq today-file (buffer-file-name))
+      (setq pos (point)))
+
+    ;; Only refile if the target file is different than the current file
+    (unless (equal (file-truename today-file)
+                   (file-truename (buffer-file-name)))
+      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+(add-to-list 'org-after-todo-state-change-hook
+             (lambda ()
+               (when (equal org-state "DONE")
+                 (my/org-roam-copy-todo-to-today))))
 #+end_src
 
 *** Org-roam-ui
