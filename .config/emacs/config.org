@@ -1430,16 +1430,16 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
         (?B . 'all-the-icons-orange)
         (?C . 'all-the-icons-yellow)))
 
-;; Using refiling for org-roam-dailiies
+;; Using refiling for org-roam-dailiies instead
 ;(setq org-refile-targets
 ;  '(("archive.org" :maxlevel . 1)))
+
+;; Save Org buffers after refiling
+;(advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 ;; Org-habit config
 (require 'org-habit)
 (setq org-habit-graph-column 60)
-
-;; Save Org buffers after refiling
-(advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 (setq org-tag-alist
   '((:startgroup)
@@ -1548,8 +1548,10 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   :config
   (org-super-agenda-mode))
 
-(setq org-agenda-files
-      (file-expand-wildcards "~/documents/org/agenda/*.org"))
+  (setq org-agenda-files
+        '("~/documents/org/agenda/inbox.org"
+          "~/documents/org/agenda/habits.org"
+          "~/documents/org/agenda/metrics.org"))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
