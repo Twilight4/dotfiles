@@ -20,6 +20,8 @@ alias dt='cd "$HOME/desktop" ; clear'
 alias pc='cd "$HOME/pictures" ; clear'
 alias vd='cd "$HOME/videos" ; clear'
 alias dc='cd "$HOME/documents" ; clear'
+alias org='cd "$HOME/documents/org" ; clear ; lsd --tree --hyperlink=auto'
+alias guorg='cd "$HOME/documents/org" ; git add . && git commit -m "update" && git push'
 
 # Work dirs
 alias pt='cd "$HOME/desktop/pentest" ; clear'
