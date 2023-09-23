@@ -283,7 +283,7 @@
 (define-key org-mode-map (kbd "M-S-<return>") 'org-insert-subheading)
 ;; Org bullet lists structure - C-Ret keys for bullet lists
 (eval-after-load 'evil
-  '(define-key evil-normal-state-map (kbd "S-RET") 'org-toggle-item))  ;; Key binding to toggle-item for evil normal mode
+  '(define-key evil-normal-state-map (kbd "S-<return>") 'org-toggle-item))  ;; Key binding to toggle-item for evil normal mode
 (define-key org-mode-map (kbd "C-<return>") 'org-meta-return)
 (define-key org-mode-map (kbd "C-S-<return>") 'org-insert-todo-heading)
 ;; Org heading navigation
@@ -378,7 +378,7 @@
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
  "L" '(org-roam-node-insert :wk "Insert Org roam node")
- "l" '(org-roam-insert-immediate :wk "Insert Org roam node immediatelly")
+ "l" '(org-roam-node-insert-immediate :wk "Insert Org roam node immediatelly")
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
  "c" '(org-roam-capture :wk "Capture to node")
