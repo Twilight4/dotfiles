@@ -124,14 +124,19 @@
 
 (use-package evil-tutor)
 
-;; Function custom-return checks if the cursor is on a link. If it is, it opens the link with org-open-at-point. If not, it toggles the checkbox with org-toggle-checkbox
+;; This code checks if in normal mode, check the cursor is on a link or a checkbox, and act accordingly. If not, it will insert a checkbox. If not in normal mode or if not in an Org mode buffer, it will call the default behavior for RET using call-interactively org-return.
 (defun custom-return ()
   (interactive)
-  (if (org-in-regexp org-link-bracket-re 1)
-      (org-open-at-point)
-    (org-toggle-checkbox)))
+  (if (and (bound-and-true-p evil-mode) (eq evil-state 'normal))
+      (if (org-in-regexp org-link-bracket-re 1)
+          (org-open-at-point)
+        (if (not (org-at-item-p)) ; Check if not at a checkbox item
+            (progn
+              (beginning-of-line)
+              (insert "- [ ] "))
+          (org-toggle-checkbox)))
+    (call-interactively 'org-return)))
 
-;; Bind this function to the RET key in Org mode
 (add-hook 'org-mode-hook
           (lambda ()
             (local-set-key (kbd "RET") 'custom-return)))
