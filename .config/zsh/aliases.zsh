@@ -24,8 +24,8 @@ alias org='cd "$HOME/documents/org" ; clear ; lsd --tree --hyperlink=auto'
 alias guorg='cd "$HOME/documents/org" ; git add . && git commit -m "update" && git push'
 
 # Work dirs
-alias pt='cd "$HOME/desktop/projects" ; clear'
-alias lpt='lsd --tree --hyperlink=auto ~/desktop/projects'
+alias pj='cd "$HOME/desktop/projects" ; clear'
+alias lpj='lsd --tree --hyperlink=auto ~/desktop/projects'
 alias ws='cd "$HOME/desktop/workspace" ; clear'
 
 # Common usage

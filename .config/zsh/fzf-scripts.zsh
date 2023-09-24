@@ -58,8 +58,13 @@ fcd() {
 
 # List projects
 fwork() {
-    result=$(find ~/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/workspace/$result
+    result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$result" ] && cd ~/desktop/workspace/$result
+}
+
+fproj() {
+    result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$result" ] && cd ~/desktop/projects/$result
 }
 
 # List pdfs
