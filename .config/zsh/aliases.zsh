@@ -24,9 +24,9 @@ alias org='cd "$HOME/documents/org" ; clear ; lsd --tree --hyperlink=auto'
 alias guorg='cd "$HOME/documents/org" ; git add . && git commit -m "update" && git push'
 
 # Work dirs
-alias pt='cd "$HOME/desktop/pentest" ; clear'
-alias lpt='lsd --tree --hyperlink=auto ~/desktop/pentest'
-alias ws='cd "$HOME/workspace" ; clear'
+alias pt='cd "$HOME/desktop/projects" ; clear'
+alias lpt='lsd --tree --hyperlink=auto ~/desktop/projects'
+alias ws='cd "$HOME/desktop/workspace" ; clear'
 
 # Common usage
 alias r='cd $HOME ; clear'
@@ -39,11 +39,11 @@ alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
 
 # List cheatsheets for tools
-alias ltp='lsd --tree --hyperlink=auto ~/workspace/cheats/pentest'    # Pentest tools
-alias ltw='lsd --tree --hyperlink=auto ~/workspace/cheats/web-app'    # Web app tools
-alias ltr='lsd --tree --hyperlink=auto ~/workspace/cheats/red-team'   # Red team tools
-alias ltf='lsd --tree --hyperlink=auto ~/workspace/cheats/forensics'  # Forensics tools
-alias lto='lsd --tree --hyperlink=auto ~/workspace/cheats/other'      # Other tools
+alias ltp='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/pentest'    # Pentest tools
+alias ltw='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/web-app'    # Web app tools
+alias ltr='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/red-team'   # Red team tools
+alias ltf='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/forensics'  # Forensics tools
+alias lto='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/other'      # Other tools
 
 # Blackarch repo packages
 alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # List all available tools
@@ -212,9 +212,9 @@ alias zsh-scripts="nvim ~/.config/zsh/zsh-scripts"
 alias aliases="nvim ~/.config/zsh/aliases.zsh"
 alias hyprland="nvim ~/.config/hypr/hyprland.conf"
 alias init="nvim ~/.config/river/init"
-alias red="nvim ~/workspace/dotfiles/.config/cheat/tools-charts/red-ad-seq"
-alias pen="nvim ~/workspace/dotfiles/.config/cheat/tools-charts/pen-seq"
-alias osint="nvim ~/workspace/dotfiles/.config/cheat/tools-charts/osint-seq"
+alias red="nvim ~/desktop/workspace/dotfiles/.config/cheat/tools-charts/red-ad-seq"
+alias pen="nvim ~/desktop/workspace/dotfiles/.config/cheat/tools-charts/pen-seq"
+alias osint="nvim ~/desktop/workspace/dotfiles/.config/cheat/tools-charts/osint-seq"
 
 # Colorize grep output
 alias grep="grep --color=auto"
