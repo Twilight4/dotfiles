@@ -282,7 +282,9 @@
 (define-key org-mode-map (kbd "M-S-<return>") 'org-insert-subheading)
 ;; Org bullet lists structure - C-Ret keys for bullet lists
 (eval-after-load 'evil
-  '(define-key evil-normal-state-map (kbd "S-<return>") 'org-toggle-item))  ;; Key binding to toggle-item for evil normal mode
+  '(progn
+     (define-key evil-normal-state-map (kbd "S-<return>") 'org-toggle-item)   ;; Key binding for normal state
+     (define-key evil-insert-state-map (kbd "S-<return>") 'org-toggle-item))) ;; Key binding for insert state
 (define-key org-mode-map (kbd "C-<return>") 'org-meta-return)
 (define-key org-mode-map (kbd "C-S-<return>") 'org-insert-todo-heading)
 ;; Org heading navigation
