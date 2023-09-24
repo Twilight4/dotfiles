@@ -124,7 +124,7 @@
 
 (use-package evil-tutor)
 
-;; This code checks if in normal mode, check the cursor is on a link or a checkbox, and act accordingly. If not, it will insert a checkbox. If not in normal mode or if not in an Org mode buffer, it will call the default behavior for RET using call-interactively org-return.
+;; This code checks if in normal mode and the cursor is on a link or a checkbox, act accordingly. If not in normal mode or if not in an Org mode buffer, it will call the default behavior for RET using call-interactively org-return.
 (defun custom-return ()
   (interactive)
   (if (and (bound-and-true-p evil-mode) (eq evil-state 'normal))
@@ -132,21 +132,19 @@
           (org-open-at-point)
         (if (org-at-item-p) ; Check if at a checkbox item
             (org-toggle-checkbox)
-          (org-return)))))
+          (org-return)))
+    (call-interactively 'newline-and-indent))) ; Call default behavior in insert mode
 
 (add-hook 'org-mode-hook
           (lambda ()
             (local-set-key (kbd "RET") 'custom-return)))
 
 ;; Using RETURN to follow links in Org/Evil 
-;; Unmap keys in 'evil-maps if not done, (setq org-return-follows-link t) will not work
+;; Unmap keys in 'evil-maps if not done
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "SPC") nil)
   (define-key evil-motion-state-map (kbd "RET") nil)
   (define-key evil-motion-state-map (kbd "TAB") nil))
-
-;; Setting RETURN key in org-mode to follow links
-(setq org-return-follows-link  t)
 #+end_src
 
 ** Global Keybindings
