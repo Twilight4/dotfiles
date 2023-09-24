@@ -1,0 +1,61 @@
+- ## zsh plugins
+  collapsed:: true
+	- `clipcopy` - Copy from the command line
+	- `clippaste` - Paste to the command line
+	- `copydir` - Copy the path of the current directory to the clipboard
+	- `copyfile` - Copy the contents of a file to the clipboard
+	- `copybuffer` - Copy the current command buffer to the clipboard with CTRL-o
+	- `ddg` - type query
+	- `google` - type query
+	- `github` - type query
+	- `youtube` - type query
+	- `wiki` - open result with Wikipedia
+	- `news` - open result with DuckDuckGo News
+	- `map` - open result with Google Maps
+	- `images` - open result with DuckDuckGo Images
+	- `ducky` - open the first result
+- ## aliases
+	- ### zshrc - for available ctrl keys do apps in command line, wypisz available keys
+		- `zprof` - show what's slowing down your zsh
+		- `ctrl + z` - shows jobs in bg/fg
+		- `ctrl + x` - change directory with fzf
+		- `ctrl + d` - when you are typign something it acts like a delete
+		- `alt + b/f` - go to previous/next word in insert mode
+		- `ctrl + v` - clear buffer
+		- `ctrl + v`  in INSERT MODE - edit line in neovim (EDITOR env var musi być ustawiony ne nvim)
+	- ### vim-mode in insert mode
+	  collapsed:: true
+		- `ctrl + y` - yank
+		- `ctrl + d` - delete char forward
+		- `ctrl + h` - backward delete char
+		- `H` - run-help - COMMAND mode
+		- `U` - redo - COMMAND mode
+		- `Y` - yank to the end of the file COMMAND mode (then you can use p to paste it)
+		- `.` - powtorz ostatnia akcje i wroc do COMMAND mode
+		- `ctrl + v` - edit current command line in nvim
+		- #### bash cheat sheet
+			- `C-m` - same as return
+			- `alt+.` - pastes last word from the last command
+			- `C-i` - tab (in nvim)
+	- ### Productivity
+		- `pom <hours> <minutes> <duration=25>` - Calculate number of pomodoro done for a specific time in hour(s) and minute(s).
+	- ### Math
+		- `calcul <operation>` - Calculate a mathematical operation. For example: calcul "2 * 3".
+		- `duckduckgo <search>` - Search on duckduckgo using the text-based browser lynx.
+	- ### Fun
+		- `githeat` - Display a git heatmap
+		- `bm` - Script to quickly switch a CLI bg / fg
+		- `colorblocks` - Display the main terminal colors configured, in nice blocks
+		- `touchproject <name>` - Create a taskell project <name>.
+	- ### Shell
+		- `zshcomp` - Display all autocompleted command in zsh. First column: command name Second column: completion function
+		- `promptspeed` - Display the time for the prompt to appear when opening a new zsh instance
+		- `historystat` - Display the command more often used in the shell
+	- ### Internet
+		- `tiny <url>` - Use tinyurl to shorten the <url>
+	- ### linux - changes not to forget in ZSH
+		- zsh-completiosn (e.g. cp -(tab))
+		- edit line in nvim in NORMAL mode using 'ctrl+v' hotkey
+		- Instead of typing cd ../../.. now you can 'bd' and tab for tab-auto-completion
+		- `ALT + c` - cd into the selected directory
+		- you can fuzzy search for a process you want to kill by typing kill in your terminal followed by TAB

@@ -1,0 +1,42 @@
+- ## Usefull keybinds to remember
+	- ### Hints:
+		- `ctrl+shift+p>f` - select path or filename and then insert it into the terminal (only files)
+		- `ctrl+shift+p>shift + f` - open the file in the default open program (xdg-open - browser)
+		- `ctrl+shift+p>l` - insert selected line into the terminal (the whole line)
+		- `ctrl+shift+p>w` - insert selected word into the terminal
+		- `ctrl+shift+p>h` - insert selected hash into the terminal
+		- `ctrl+shift+p>e` - open links
+		- `ctrl+shift+p>n` - select something that looks like filename:linenum and open it in vim at the specified line number
+	- ### Miscellanoeus:
+		- `ctrl+shift+e` - open hyperlinks (set in open-actions.conf what to do with the files)
+		- `ctrl+sfhit+g` - edit output of last shell command
+		- `ctrl+shift+b` - browse scrollback in pager
+		- `ctrl+shift+m` - edit scrollback in neovim (for visual mode and yanking)
+		- `ctrl+shift+s` - clone in kitty
+	- ### Marks
+		- marks syntax:
+			- `text 1 pierwszy 2 drugi 3 trzeci` - zwykle (zaznacza tylko male litery)
+			- `itext 1 pierwszy 2 drugi 3 trzeci` - case sensitive (zaznacza male i duze litery)
+			- `regex 1 \\bpierwszy\\b 2 \\bdrugi\\b` - match only complete words python expression
+			- `iregex 1 \\bpierwszy\\b 2 \\bdrugi\\b` - case sensitive python expression
+		- `ctrl+shift+a` - add marks
+		- `ctrl+shift+d` - remove marks
+		- `ctrl+shift+alt+a` - scroll to previous marks
+		- `ctrl+shift+alt+d` - scroll to next marks
+	- ### Other
+		- `ctrl+shift+f` - maximized
+		- `ctrl+shift+u` - unicode
+		- `ctrl+shift+del` - clear terminal
+		- `ctrl+alt+del` - clear all windows
+		- `ctrl+shift+alt+b` - broadcast in current tab
+- ## Other
+	- ### Unicode input
+		- `(Code mode)` - type "." to choose a character from the list of recently used characters
+		- `(Name mode)` - type a space followed by a period and the index for the match if you don’t like to use arrow keys.
+		  You can switch between modes using either the keys F1 … F4 or Ctrl+1 … Ctrl+4 or by pressing Ctrl+[ and Ctrl+] or by pressing Ctrl+Tab and Ctrl+Shift+Tab.
+	- ### From aliases
+		- `hg some-search-term`
+		- `diff file1 file2`
+		- `icat picture.png`
+		- `| hg something` - enables hyperlinks in rg, use C-S-e to open something using hyperlink
+

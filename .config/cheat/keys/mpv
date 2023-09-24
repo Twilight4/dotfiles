@@ -1,0 +1,70 @@
+- ## keybinds:
+	- `F` - video formats toggle
+	- `t` - seek to the timestamp you type
+	- `HOME` - previous chapter
+	- `END` - next chapter
+	- `o/P` - show proggression bar
+	- `left-right arrow` - seek 5sec forward/backward
+	- `up-down arrow` - seek forward/backward 1 minute
+	- `scroll wheel` - scroll thrrough the video seek
+	- `[/]` - increase playback speed
+	- `{/}` - halve/double playback speed
+	- `backspace` - reset playback speed
+	- `//*` - inc/dec volume
+	- `9/0` - inc/dec volume
+	- `m` - mute
+	- `enter` - go forward in the playlist
+	- `p/space` - pause
+	- `q` - quit
+	- `f` - fullscreen
+	- `O` - toggle OSD states between normal and playback time/duratio
+	- `s` - take screenshot
+	- `v` - toggle subtitles
+	- `z/Z` - adjust subtitle delay
+	- `Shift + g/Shift + f` - adjust subtitle size
+	- `C-+/C--` - adjust audio delay
+	- `,/.` - step forward/backward (1 klatke do przodu/tyłu)
+	- `Q` - like `q` but store the current playback position
+	- `_` - disable/enable video output
+	- `#` - disable/enable audio foutput
+- ## keybinds from scripts
+	- ### crop.lua
+		- `c` - start-crop and full screen
+		- `alt-c` - start-crop and not full screen
+		- `l` - start-blur blur/delogo something
+		- `d` - remove video filters (blur/delogo)
+		- `0` - remove the zoom
+		- uses config - crop.conf
+	- ### encode.lua
+		- `e` - encode, set the beginning of the extract, press enter to set the end and sstart encoding (use default profile)
+		- `E` - use custom webm profle - encode_webm.conf
+	- ### seek-to.lua
+		- `t` - seek to the timestamp you type
+		- `enter` - seek to the entered position
+		- move the current position with `right-arrow` and `left-arrow`
+		- scroll through history of timestamps that have been previous nagivated with `up-arrow` and `down-arrow`
+	- ### blur-edges.lua
+		- `b` - toggle blur-edges
+		- uses config - blur_edges.conf
+	- ### quality-menu.lua
+		- `F` - video formats toggle
+		- `Alt-f` - audio formats toggle
+		- `Ctrl-r` - restarts quality menu
+	- ### total_playtime.lua
+		- `T` - shows total playtime of current playlist
+		- `alt+d` - sorts playlist by duration. Repeated keypress reverses the order
+		- `shift+alt+d` - sorts playlist by duration and jumps to the first entry. Repeated keypress reverses the order
+	- ### betterchapters.lua
+		- `HOME` - previous chapter
+		- `END` - next chapter
+- ## scripts without keybinds
+	- ### blacklist-extensions.lua
+		- automatically remove playlist entries by extensions according to a black/whitelist. Usefull when opening directories with mpv (e.g. when u do `mpv *`)
+		- uses profile - blacklist_extension.conf
+	- ### misc.lua
+		- the generall appearance script - don't touch
+	- ### speed_os3.lua
+		- shows the time till end when sped up
+	- ### modern.lua
+		- upgrade mpv appearance
+

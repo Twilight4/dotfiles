@@ -2,10 +2,13 @@ tcpdump - command-line packet analyzer
 Source: https://www.tcpdump.org/
 
 Usage:
-
-Commands:
+tcpdump -i <interface> -s <number> -w <file.pcap>
 
 Options:
 -i    interface
+-s    number of packets to intercept
+-w    output filename.pcap
+-n    disable DNS resolution
 
 Informational:
+https://packettotal.com - this tool will analyze .pcap file for you and report for sus activity

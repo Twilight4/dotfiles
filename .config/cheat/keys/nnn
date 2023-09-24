@@ -1,0 +1,46 @@
+- ### leader key
+	- `b` - show bookmarks
+	- `;` - show plugin keys
+- ### from plugins
+	- `j` - jump to
+	- `o` - fzopen - what file to open
+	- `c` - fzcd - open directory in new tab
+	- `t` - preview-tabbed - show preview in new window
+	- `i` - imgview (uses sxiv: `n` - to next, `p` - previous, `=/-` resize and use `hjkl` for navigation,`enter` - show all and use `hjkl` for navigation), `q` to quit, `w` to reset size, `s` to slideshow mode for 5s - s to stop, ss - every 1- secs, [] to next/previous, `enter` to show img from the dir
+	- `u` - upload file up to 1gb
+	- `x` - uplload image to imgur
+	- `d` - drag and drop file link
+	- `f` - fix name to be linux-friendly
+	- `b` - Create multiple files/dirs at once
+- ### navigation
+  To jump back and forth a specific directory during a session, you can _**mark**_ the directory (key ,). Visit it anytime using the Bookmark key followed by ,. If a directory is marked, the Bookmark key lists `,` as well
+	- `t` - sort by `a` - size, `e` - alphabetical order, `r` - reverse order, `d` - idk some useless,
+	- `~` - go to home
+	- `-` - switch to previous dir
+	- `tab` - move towards opened tabs
+	- `S-tab` - move backwards and open new tabs
+	- `/` - search mode (`enter` instead of `tab` to complete)
+	- `g` - top
+	- `G` - end
+	- `B/,` - Book/mark
+	- `1/2/3/4` - tabs (`Tab/S-tab` to cycle, `q` to close context, `2xESC` to quit all)
+	- `'` - jump to the first file
+- ### files
+	- `*` - give executable permission
+	- `C-n` - toggle navigate mode
+	- `C-r` - rename
+	- `r` - rename all in `cwd`
+	- `e` - open file from the env var defualt app
+	- `d` - detailed mode toggle
+	- `a` - select all
+	- `n` - create new file/dir/link
+	- `A` - invert selection
+	- `space` - select files
+	  from selected:
+	- `p` - paste
+	- `v` - move
+	- `x` - del (`s` - selected, `c` - current)
+	- `w` - `c` - copy and rename in same place or `m` - move selected items (just rename)
+	- `.` - show dots
+	- `?` - help menu
+

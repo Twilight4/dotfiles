@@ -1,0 +1,266 @@
+[more patterns](https://github.com/amix/vimrc)
+
+- ### split windows
+	- `sv` - split vertically
+	- `ss` - split horizontally
+	- `sx` - close window
+	- `se` - wyrównaj windows
+- ### tabs
+	- `te` - add new and type name
+	- `to` - add new without name
+	- `tx` - close tab
+	- `tn` - tab next
+	- `tp` - tab previous
+- ### keybindings from plugins - for more keybinds see my keymaps.lua file
+	- `zf` - search through files, fzf actions:
+		- `C-t` - open selected file in a new tab
+		- `C-x` - open selected file in a new split
+		- `C-v` - open selected file in a new vertical split
+- ### other plugins
+	- `sm` - window maximizer (vim-maximizer)
+	- `vim-surround`: first do `ys` and then `w` for word and motion e.g. `"` on surrounded word. You can also delete like: "word" - `ds"` - deletes quotes, `cs"'` - changes surrounded word from `"` to `'`
+	- `replacewithregister`: copy text and replace other text with copied text e.g. `yw`, move to other text, `grw` - replaces text with copied one
+	- `comment`: do `gc` + motion to toggle comments on different things e.g. type `gcc` to toggle a line to comment and type again to uncomment. you can comment 5 more lines with typing `gc4j` and again `gd4j` to untoggle that.
+	- `nvim-tree` - file explorer - `ze`. To navigate only use `j/k` and `enter`. Use `a` to add a file
+	- `git`: `gb` - open blame window, `go` - open file in git repo
+	- `zen-mode`: `zm` - runs zen mode
+- ### telescope default mappigs are same as with fzf:
+	- `C-t` - open selected file in a new tab
+	- `C-x` - open selected file in a new split
+	- `C-v` - open selected file in a new vertical split
+	- `C-c` - close
+	- `C-/` - show all keybinds
+	- `C-k` - cos, `C-j` to cos, `C-q` to cos
+	- `nf` - find files in `cwd`
+	- `ns` - find string in `cwd`
+	- `nc` - find string under cursor in `cwd`
+	- `nb` - list open buffers in current neovim instance
+	- `nt` - list available help tags
+- ### telescope git
+	- `gc` - Telescope git_commits
+	- `gfc` - Telescope git_bcommits
+	- `gb` - Telescope git_branches
+	- `gs` - Telescope git_status
+- ### winresizer
+	- `C-e` - toggle resize mode and navigate using `h/j/k/l`
+	- `enter/esc` - finish
+	- `q` - quit
+	- `e` - change mode (focus/move/resize)
+	- `zm` - toggle undo tree
+	- `zg` - toggle goyo mode
+	- #### vim-illuminate
+		- You'll also get `<a-n>` and `<a-p>` as keymaps to move between references and `<a-i>` as a textobject for the reference illuminated under the cursor.
+- ### git integrations plugins
+	- `gw` - Open blame window
+	- `go` - Open file/folder in git repository
+	  **Fugitive**
+	- `:Git`  - Shows git status, file changes, state for commits etc.
+	  keys:
+	- `-` - if you press it on untracked list than you add it to tracked list (just adds to the commit list)
+	- `=` - git commit change desc with the lines and code, `enter` to add to the next window buffer
+	- `:Gvdiff` - vertical split diff
+	- `:Gwrite` - `git add <filename>` - prepares file to commit
+	- `:Gread` - git reset - read the last changes (opposite to git add)
+	- `:Git log` - history of commits
+	- `:Git blame` - show history commits with date and time
+	- `:Git commit` - Commit changes
+- ### Telescope
+	- `:Telescope git_status` - show untracked and staged for commit files
+	- `:Telescope git_commits` - git log in fzf
+	  my keymaps:
+	- `]c` - jump to next change
+	- `[c` - jump to previous change
+	- `td` - show older change (toggle)
+	- `tb` - show inline git blame - last commit and the time stamp
+	- `leader-gb` - GBrowse
+- ### Neovim standard hotkeys
+	- `H/M/L` - High/Middle/Low
+	- `C-e` - scroll down with cursor in the middle
+	- `%` - Move your cursor to a matching bracket
+	- `dG` - Delete everything from the cursor to the end of the file.
+	- `diw` - `d` elete `i` nside a `w` ord. It will delete the current word under the cursor.
+	- `ciw` - `c` hange `i` nside the `w` ord. It will delete the current word under the cursor and  
+	  switch to INSERT mode.
+	- `ci'` - `c` hange `i` nside the closest single `quote` on the line. Your cursor doesn’t even  
+	  have to be inside the single quote! It also works for parenthesis.
+	  You can try to `change` a word or `delete` a word, it also works and introduces some subtleties.
+	- `gj` - j i k move up and down by logical lines, not by visual lines, if u want to get to that line that has space(visual line), use gj command
+	- `d20G` - delete till 20th line
+	- `d^` - deletes to the beginning of a space
+	- `yw` - yank the next word
+	- `y0` - yanks to the beginning
+	- `yG` - yanks to the end of file
+	- `y^` - yanks to the beginning but after the space
+	- `y20G` - yanks till 20th line
+	- `tb/fb` - till b/forward b - średnik - ; - powtarza ostatnią operacje
+	- `~` - changes to uppercase (can use with visual mode)
+	- `ctp` - change till p
+	- `F` - backward forward to, np. Ft - backward forward to t
+	- `T` - same like t but backwards
+- ### Jump List
+	- `CTRL +o` - Go to the previous cursor positions.
+	- `CTRL +i` - Go to the next cursor positions.
+- ### Change List
+	- `g;` - Jump to the next change.
+	- `g,` - Jump to the previous change.
+- ### Single Repeat
+	- `.` - Repeat the last change
+	- `@:` - Repeat the last command executed.
+- ### Complex Repeat: The Macro
+	- 1. `q< letter >` - Begin recording keystrokes in a register. You can think of a register as a
+	- place in memory.
+	- 2. Every keystrokes you’ll do onward will be saved.
+	- 3. `q` - Stop the recording.
+	- 4. `@< letter >` - Redo the keystrokes you’ve recorded.
+	- #### For example, let’s say that you need to repeat keystrokes on multiple lines:
+		- 1. Hit `qq`
+		- 2. Do what you have to do. For example: `^ cawhello < Esc>`
+		- 3. Hit `q` again
+		- 4. To repeat your series of keystrokes, hit `@q`
+		  If you need to repeat your keystrokes again after the first repeat, you can even use `@@`
+		  which repeats your previous `@` command
+- ### The Command Window
+	- `q: `- Open the command history.
+	- `q/ and q?` - Open the search history.
+	- `CTRL + f` - Open the command history while in COMMAND-LINE mode
+- ### Command mode
+	- `:!pwd` - executes example command
+	- `:w foo1.txt `- zapisz jako foo1.txt (zapisuje plik pod nową nazwą, jeśli będziemy kontynutować edycję, nadal będziemy modyfikować plik stary, a nie foo1.txt)
+	- `/` - search, (n - serach next, N - search backwards), ctrl + 0 - takes me back to where I was, ctrl + i - takes me forward to where Ive been
+	- `:%s/slowo/słowo/gc` - changes word in whole document to given word and asks if sure (without c doesnt ask)
+	- `:3,9s/slowo/słowo/gc` - changes word between line 3 and line 9
+	- `:3,$s/slowo/słowo/g` - changes word between line 3 and the end of the file
+	- #### na powiadomienie:
+		- `y` - `y`es, dokona zmiany
+		- `n` - `n`ext, pomini tę instancję wzorca
+		- `a` - `a`ll, dokona tej i wszystkich kolejnych instancji wzorca
+		- `q or Esc` - zatrzymuje proces
+		- `/` - wykona bieżącą zamianę i zakończy proces (eng. last)
+		- `Ctrl+E, Ctrl+Y` - przewija odpowiednio w dół lub w górę. Przydatne podczas przeglądania proponowanych zamian.
+- ***
+### Neovim Buffers - content of a tab, if you close a window containing a buffer, the buffer is still there but it’s hidden.
+Neovim will complain that you’re hidden buffer is not saved - To get around that, type in neovim config: `set hidden`. You can try it directly in your current session by running the command `:set hidden!` to toggle the option on and off. You can play around with it and see what you prefer.
+- `vim plik1 plik2` - można otworzyc w vimie 2 pliki:
+- `:buffers` or `:ls` to display it
+- `:buffers!` or `:ls!` - display unlisted buffers
+- `:e ja.txt` - dodaje drugi plik lub tworzy go
+- `:r ja.txt` - read - wstawia treść podanego pliku przed miejscem położenia kursora
+- `:pwd`
+- `:cd` <new_path>
+##### To navigate through the buffer list:
+- `:buffer <ID_or_name>` or `:b <ID_or_name>` - Move to the buffer using its ID or its name.
+- `:bnext` or `:bn` - Move to the next buffer.
+- `:bprevious` or `:bp` - Move to the previous buffer.
+- `:bfirst` or `:bf` - Move to the first buffer.
+- `:blast` or `:bl` - Move to the last buffer.
+- `:bufdo` <command> - apply a command to all buffers
+- `:badd < filename >` - Add < filename > to the buffer lis
+- `:bdel < ID_or_name >` - Delete a buffer by ID or name.
+- `:1,10bdel` - Delete buffers from ID 1 to 10 included.
+- `:%bdel` - Delete all buffers
+- To see the value of any option, you can use a question mark. For example: `:set hidden?` or
+  `:set filetype?`
+###### hotkeys for buffers
+- `CTRL +^` - Switch to the alternative buffer. It’s marked in your buffer list with the symbol
+- `ID CTRL +^` - Switch to a specific buffer with ID . For example: `75 CTRL +^` switch
+  to the buffer with ID 75
+- `CTRL +G` - see if a buffer was modified
+  
+  ***
+### Windows - space (or a place) you can use to display the content of a buffer. When you close the window, the buffer is still in the buffer list.
+- `CTRL +W s` - Split the current window horizontally.
+- `CTRL +W v` - Split the current window `v`ertically.
+- `CTRL +W n` - Split the current windows horizontally and edit a new file.
+- `CTRL +W ^` - Split the current window with the alternate file (the buffer marked with a #
+  in your buffer list).
+- `< buffer_ID > CTRL +W ^` - Split windows with the buffer of ID. For example: `75 CTRL -W ^` will open a window with a buffer of ID 75
+###### Move your cursor from one window to another:
+- `CTRL +W < Down >` or `CTRL -W j`
+- `CTRL +W < Up >` or `CTRL -W k`
+- `CTRL +W < Left >` or `CTRL -W h`
+- `CTRL +W < right >` or `CTRL -W l `
+###### Move the windows:
+- `CTRL +W r` - Rotate the windows.
+- `CTRL +W x` - Exchange the focused window with the next window.
+##### Resizing Windows
+- `CTRL +W -` - Decrease window’s height.
+- `CTRL +W +` - Increase window’s height.
+- `CTRL +W <` - Decrease window’s width.
+- `CTRL +W >` - Increase window’s width.
+- `CTRL +W =` - Resize windows for them to fit on the screen with the same size.
+- `:q` - To q uit the current window. People lied to you! :q doesn’t quit Neovim, but a
+  window. Although, if there is only one window open, Neovim will close.
+- `:q!` - To q uit the current window, even if there is only one window open with an un-
+  saved buffer ! .
+- `:qa` - To q uit all the current windows. Add ! if you don’t want to save your changes
+  in unsaved buffers
+-
+- Tabs - a buffer is a document (often an open file), and a window is the container for an active buffer. We can see tabs as a container for a bunch of windows. As a result, Neovim’s tabs are different from the usual tabs you can find in many IDEs!
+##### Here are the commands to create and delete tabs:
+- `:tabnew or :tabe` - Open a new tab.
+- `:tabclose or :tabc` - Close the current tab.
+- `:tabonly or :tabo` - Close every other tab except the current one.
+##### To move from tab to tab, you can use these keystrokes:
+- `gt` - `g`o `t`o the next t ab.
+- `gT` - `g`o `t`o the previous tab.
+  
+  You can also add a count before the last two keystrokes. For example, `1gT` goes to the first
+  tab. Yep, tabs are indexed from 1, not from 0
+  Argument List (arglist) - It’s useful to see it as a stable subset of the buffer list.
+##### As a result, it follows these two rules:  
+1. Every file in the arglist will be in the buffer list.  
+2. Some files in the buffer list might not be in the arglist.
+
+The files you want to open when you run Neovim - such as executing vim file1 file2 file3
+will be automatically added to the arglist and, as we just saw, to the buffer list
+##### Here are some commands you can use to manipulate the arglist:
+- `:args` - Display the arglist
+- `:argadd` - Add file to the arglist.
+- `:argdo` - Execute a command on every file in the arglist.
+##### To edit the files in the arglist, you can use these commands:
+- `:next` - Move to the next file in the arglist.
+- `:prev` - Move to the previous file in the arglist.
+- `:first` - Move to the first file in the arglist.
+
+
+  R: Enter replace mode, allowing you to replace multiple characters at once.
+  *: Search forward for the word under the cursor.
+  #: Search backward for the word under the cursor.
+  >: Indent the current line or selected text.
+  <: Outdent the current line or selected text.
+  zt: Scroll the current line to the top of the window.
+  zz: Scroll the current line to the middle of the window.
+  zb: Scroll the current line to the bottom of the window.
+  CTRL-o: Jump to the previous location in the jump list.
+  CTRL-i: Jump to the next location in the jump list.
+  |: Move the cursor to the specified column on the current line.
+  F: Move the cursor to the previous occurrence of the specified character on the current line.
+  T: Move the cursor up to but not including the previous occurrence of the specified character on the current line.
+  ;: Repeat the last f, F, t, or T command.
+  ,: Repeat the last f, F, t, or T command in the opposite direction.
+  .: Repeat the last change.
+  gf: Open the file under the cursor.
+  gx: Open the URL under the cursor in a web browser.
+  gu: Make the text under the cursor lowercase.
+  gU: Make the text under the cursor uppercase.
+  gs: Open the man page for the word at the cursor.
+  gd: Jump to the definition of the symbol at the cursor.
+  CTRL-k: Kill the text from the cursor to the end of the line.
+  CTRL-y: Yank the text from the kill ring to the cursor.
+  CTRL-a: Increment the number under the cursor.
+  CTRL-x: Decrement the number under the cursor.
+  m: Set a mark at the current cursor position.
+  ': Jump to the mark.
+  C-x C-f: Open a file.
+  CTRL-n: Insert the next completion for the current word.
+  CTRL-p: Insert the previous completion for the current word.
+  CTRL-t: Indent the current line or selected text.
+  CTRL-d: Outdent the current line or selected text.
+  [: Jump to the start of the current block of text.
+  ]: Jump to the end of the current block of text.
+  CTRL-v: Enter visual block mode, allowing you to select blocks of text.
+  gv: Reselect the last visual selection.
+  yiw: Yank the current word.
+  yaw: Yank the current word.
+  dl: Delete the character under the cursor.
+  dh: Delete the character before the cursor.
