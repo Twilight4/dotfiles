@@ -1773,8 +1773,7 @@ this with to-do items than with projects or headings."
   :custom
   (org-roam-directory "~/documents/org/roam/")
   (org-roam-dailies-directory "~/documents/org/roam/journal/")
-  ;(org-roam-completion-everywhere t)
-  (org-roam-completion-system vertico)
+  (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/waterfox-g")
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
