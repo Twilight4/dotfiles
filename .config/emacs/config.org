@@ -317,6 +317,13 @@
 ;  (define-key calendar-mode-map (kbd "M-k") #'org-shiftup)               ; default S-<up>
 ;  (define-key calendar-mode-map (kbd "M-l") #'org-shiftright)            ; default S-<right>
 ;)
+
+(defun kill-to-beginning-of-line ()
+  "Kill text from point to the beginning of the line."
+  (interactive)
+  (kill-line 0))
+
+(global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 #+end_src
 
 ** General Keybindings
