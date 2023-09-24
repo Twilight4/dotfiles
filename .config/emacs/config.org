@@ -155,6 +155,7 @@
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
 (define-key global-map (kbd "C-x") (make-sparse-keymap))
+(define-key global-map (kbd "C-h") (make-sparse-keymap))
 
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "M-d") nil)
@@ -980,8 +981,8 @@ The following configuration will add a few improvements:
 (use-package vertico
   :ensure t
   :bind (:map vertico-map
-         ("C-j" . vertico-next)
-         ("C-k" . vertico-previous)
+         ("C-n" . vertico-next)
+         ("C-p" . vertico-previous)
          ("C-f" . vertico-exit)
          :map minibuffer-local-map
          ("M-h" . backward-kill-word))
@@ -1772,7 +1773,8 @@ this with to-do items than with projects or headings."
   :custom
   (org-roam-directory "~/documents/org/roam/")
   (org-roam-dailies-directory "~/documents/org/roam/journal/")
-  (org-roam-completion-everywhere t)
+  ;(org-roam-completion-everywhere t)
+  (org-roam-completion-system vertico)
   (org-roam-graph-viewer "/usr/bin/waterfox-g")
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
@@ -1812,8 +1814,8 @@ this with to-do items than with projects or headings."
     (apply #'org-roam-node-insert args)))
 #+end_src
 
-*** Automatically move completed tasks to dailies
-One interesting use for daily files is to keep a log of tasks that were completed on that particular day.
+*** Org-roam-dailies config
+Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day.
 The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
 
 #+begin_src emacs-lisp
