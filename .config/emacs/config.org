@@ -1879,10 +1879,6 @@ this with to-do items than with projects or headings."
    ("b" "book note" plain
     (file "~/documents/org/roam/templates/book.org")
     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-    :unnarrowed t)
-   ("t" "table of contents" plain
-    (file "~/documents/org/roam/templates/toc.org")
-    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
     :unnarrowed t)))
 
 ;; Org-roam dailies capture templates
