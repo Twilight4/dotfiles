@@ -56,12 +56,13 @@ fcd() {
     dir=$(find ${1:-.} -type d -not -path '*/\.*' 2> /dev/null | fzf +m) && cd "$dir"
 }
 
-# List projects
+# List workspace projects
 fwork() {
     result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
     [ -n "$result" ] && cd ~/desktop/workspace/$result
 }
 
+# List projects
 fproj() {
     result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
     [ -n "$result" ] && cd ~/desktop/projects/$result
