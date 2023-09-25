@@ -386,6 +386,8 @@
  "C-h" '(org-toggle-heading :wk "Org toggle heading")
  "C-f" '(org-insert-file-link :wk "Org insert file link")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
+ "C-a" '(tl/insert-any-date :wk "Insert any date")
+ "C-t" '(tl/insert-todays-date :wk "Insert today's date")
  "n" '(create-new-org-buffer :wk "Create new org buffer")
  ;; Org Roam
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
@@ -1388,6 +1390,25 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 (eval-after-load 'ox
   '(add-to-list 'org-export-filter-final-output-functions #'org-export-remove-zero-width-space t))
 #+end_src
+
+*** Insert Date
+Some custom functions to insert the date.
+
+ #+begin_src emacs-lisp
+(defun tl/insert-todays-date (prefix)
+  (interactive "P")
+  (let ((format (cond
+                 ((not prefix) "%A, %B %d, %Y")
+                 ((equal prefix '(4)) "%m-%d-%Y")
+                 ((equal prefix '(16)) "%Y-%m-%d"))))
+    (insert (format-time-string format))))
+
+(require 'calendar)
+(defun tl/insert-any-date (date)
+  "Insert DATE using the current locale."
+  (interactive (list (calendar-read-date)))
+  (insert (calendar-date-string date)))
+ #+end_src
 
 ** Org Configuraion
 *** Org Font Faces
