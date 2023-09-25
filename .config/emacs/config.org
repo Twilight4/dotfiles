@@ -1809,17 +1809,17 @@ this with to-do items than with projects or headings."
   `(("t" "Todo" entry (file+olp "~/documents/org/agenda/inbox.org")
          "* TODO %?\n  %U\n  %i" :empty-lines 1)
 
-    ("m" "Meeting" entry (file+olp+datetree "~/documents/org/agenda/inbox.org")
-         "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-         :clock-in :clock-resume
-         :empty-lines 1)
-
-    ("w" "Workflow" entry (file+olp+datetree "~/documents/org/agenda/workflow.org")
-         "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
-
-    ("c" "Metrics Capture")
-     ("cw" "Weight" table-line (file+headline "~/documents/org/agenda/metrics.org" "Weight")
-         "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
+    ("w" "Workflow type") 
+     ("wo" "Open-Source Intelligence" entry (file "~/documents/org/agenda/workflow.org")
+         "* WIP")
+     ("wa" "Web Application" entry (file "~/documents/org/agenda/workflow.org")
+         "* WIP")
+     ("wp" "Penetration Test" entry (file "~/documents/org/agenda/workflow.org")
+         "* WIP")
+     ("wr" "Red Team" entry (file "~/documents/org/agenda/workflow.org")
+         "* NOTE Reminder [0%]\n - [ ] This checklist is supposed to be dynamic and flexible\n - [ ] Write here the goals to meet for specific assessment\n - [ ] The goals should be established on a meeting and Rules of Engagement\n - [ ] Remember that there's only one workflow.org file, which assumes that you're doing one assessment at a time and it will completely empty itself once all the tasks are done\n\n* PLAN Initial Access\n** WAIT Recon [/]\n - [ ] What first thing to do is on my checklist\n - [ ] To gain initial access\n - [ ] Write here your favorite tactics\n - [ ] [[id:24df4c99-217a-452a-bb67-199d58a530af][scanning-targets]]\n\n** WAIT Weaponization [/]\n - [ ] Once my redteam-methodology.org note will be more granular in concepts\n - [ ] I will add links to them like in the methodology\n - [ ] Because methodology and a checklist are almost the same things with the exception that checklists are in different syntax format\n\n** WAIT Delivery [/]\n\n* PLAN Post Compromise\n** WAIT Host Evasion [/]\n** WAIT Network Security Evasion [/]\n** WAIT Exfiltration [/]\n\n* PLAN Compromising Active Directory\n\n* PLAN Physical Pentest\n\n* PLAN Social Engineering")
+     ("ww" "Wireless" entry (file "~/documents/org/agenda/workflow.org")
+         "* WIP")
 
     ("a" "Assessment Type")
      ("ao" "Open-Source Intelligence" entry
@@ -1876,7 +1876,16 @@ this with to-do items than with projects or headings."
                  (insert "#+date: " current-date "\n\n")
                  (write-file full-path)
                  full-path))))
-     "* Wi-fi\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Wardriving")))
+     "* Wi-fi\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Wardriving")
+
+    ("c" "Metrics Capture")
+     ("cw" "Weight" table-line (file+headline "~/documents/org/agenda/metrics.org" "Weight")
+         "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
+
+    ("m" "Meeting" entry (file+olp+datetree "~/documents/org/agenda/inbox.org")
+         "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+         :clock-in :clock-resume
+         :empty-lines 1)))
 #+end_src
 
 *** Org-roam
