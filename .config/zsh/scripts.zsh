@@ -389,6 +389,50 @@ pass() {
     cat /dev/random | tr -dc '[:graph:]' | head -c$size
 }
 
+# Create a new project and go there
+nproj() {
+    # Check if project name is provided
+    if [ -z "$1" ]; then
+        echo "Usage: nproj proj/company-name"
+        return 1
+    fi
+
+    # Create the project directory
+    proj_name="$1"
+    proj_dir="$HOME/desktop/projects/$proj_name"
+    mkdir -p "$proj_dir"
+
+    # Ask for assessment type
+    echo "Assessment types:"
+    echo "1. redteam"
+    echo "2. pentest"
+    echo "3. osint"
+    echo "4. webapp"
+    echo "5. wireless"
+
+    # Read assessment choice
+    echo -n "Enter assessment type number: "
+    read assessment_choice
+
+    case $assessment_choice in
+        1) assessment_type="redteam";;
+        2) assessment_type="pentest";;
+        3) assessment_type="osint";;
+        4) assessment_type="webapp";;
+        5) assessment_type="wireless";;
+        *) echo -e "\nInvalid choice. Aborting."; return 1;;
+    esac
+
+    # Create a directory for assessment type
+    assessment_dir="$proj_dir/$assessment_type"
+    mkdir -p "$assessment_dir"
+
+    # Move to the project directory
+    cd "$proj_dir"
+
+    echo "Project '$proj_name' created with assessment type '$assessment_type'."
+}
+
 # Calculate repo size
 reposize() {
   url=`echo $1 \
