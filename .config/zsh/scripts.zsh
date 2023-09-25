@@ -397,11 +397,6 @@ nproj() {
         return 1
     fi
 
-    # Create the project directory
-    proj_name="$1"
-    proj_dir="$HOME/desktop/projects/$proj_name"
-    mkdir -p "$proj_dir"
-
     # Ask for assessment type
     echo "Assessment types:"
     echo "1. redteam"
@@ -423,9 +418,14 @@ nproj() {
         *) echo -e "\nInvalid choice. Aborting."; return 1;;
     esac
 
-    # Create a directory for assessment type
-    assessment_dir="$proj_dir/$assessment_type"
+    # Create a directory for assessment type if it doesn't exist
+    assessment_dir="$HOME/desktop/projects/$assessment_type"
     mkdir -p "$assessment_dir"
+
+    # Create the project directory
+    proj_name="$1"
+    proj_dir="$assessment_dir/$proj_name"
+    mkdir -p "$proj_dir"
 
     # Move to the project directory
     cd "$proj_dir"
