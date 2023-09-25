@@ -460,6 +460,7 @@
   (tl/leader-keys
     "d" '(:ignore t :wk "Dired")
     "d ." '(dired :wk "Open dired")
+    "d d" '(delete-file :wk "Delete file")
     "d j" '(dired-jump :wk "Dired jump to current")
     "d n" '(neotree-dir :wk "Open directory in neotree")
     "d p" '(peep-dired :wk "Peep-dired"))
