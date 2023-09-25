@@ -1454,7 +1454,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
            "DONE(D)")
           (sequence
            "WAIT(w)"
-           "REVIEW(r)"
+           "REVIEW(R)"
            "PLAN(p)"
            "BACKLOG(b)"
            "READY(r)"
