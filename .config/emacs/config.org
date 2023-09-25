@@ -1792,8 +1792,13 @@ this with to-do items than with projects or headings."
          "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
 
     ("c" "Metrics Capture")
-    ("cw" "Weight" table-line (file+headline "~/documents/org/agenda/metrics.org" "Weight")
-     "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+     ("cw" "Weight" table-line (file+headline "~/documents/org/agenda/metrics.org" "Weight")
+         "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
+
+    ("("a" "Assessment Type")
+     ("("ao" "OSINT" entry
+     (file (lambda () (concat "~/documents/org/projects/osint/" (read-string "Enter filename: ") ".org")))
+     "* OSINT Framework - https://osintframework.com/\n\n* Usernames\n* Email Address\n* Domain Name\n* IP Address\n* Images/Videos/Docs\n* Social Networks\n* Instant Messaging\n* People Search Engines\n* Dating\n* Telephone Numbers\n* Public Records\n* Business Records\n* Transportation\n* Geolocation Tools/Maps\n* Search Engines\n* Forums/Blogs/IRC\n* Archives\n* Language Translation\n* Metadata\n* Mobile Emulation\n* Terrorism\n* Dark Web\n* Digital Currency\n* Classifieds\n* Encoding/Decoding\n* Tools\n* Malicious File Analysis\n* Exploits & Advisories\n* Threat Intelligence\n* OpSec\n* Documentation\n* Training")))
 #+end_src
 
 *** Org-roam

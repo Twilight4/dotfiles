@@ -393,7 +393,7 @@ pass() {
 nproj() {
     # Check if project name is provided
     if [ -z "$1" ]; then
-        echo "Usage: nproj proj/company-name"
+        echo "Usage: nproj company-name"
         return 1
     fi
 
