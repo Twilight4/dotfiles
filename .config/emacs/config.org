@@ -292,6 +292,11 @@
 (define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)   ; default g j
 (define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)  ; default g k
 (define-key org-mode-map (kbd "M-l") #'org-down-element)                 ; default g l
+;; Org TODO navigation
+(keymap-set hl-todo-mode-map "M-P" #'hl-todo-previous)
+(keymap-set hl-todo-mode-map "M-N" #'hl-todo-next)
+(keymap-set hl-todo-mode-map "M-I" #'hl-todo-insert)
+(define-key org-mode-map (kbd "M-T") #'org-todo)
 ;; Org promote/demote headings
 (define-key org-mode-map (kbd "M-H") #'org-metaleft)                     ; default M-<left>
 (define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
