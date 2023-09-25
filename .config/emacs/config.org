@@ -1796,7 +1796,7 @@ this with to-do items than with projects or headings."
          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
 
     ("a" "Assessment Type")
-     ("ao" "OSINT" entry
+     ("ao" "Open-Source Intelligence" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
                     (full-path (concat "~/documents/org/projects/osint/" filename ".org"))
@@ -1807,8 +1807,8 @@ this with to-do items than with projects or headings."
                  (write-file full-path)
                  full-path))))
      "* Usernames\n* Email Address\n* Domain Name\n* IP Address\n* Images/Videos/Docs\n* Social Networks\n* Instant Messaging\n* People Search Engines\n* Dating\n* Telephone Numbers\n* Public Records\n* Business Records\n* Transportation\n* Geolocation Tools/Maps\n* Search Engines\n* Forums/Blogs/IRC\n* Archives\n* Language Translation\n* Metadata\n* Mobile Emulation\n* Terrorism\n* Dark Web\n* Digital Currency\n* Classifieds\n* Encoding/Decoding\n* Tools\n* Malicious File Analysis\n* Exploits & Advisories\n* Threat Intelligence\n* OpSec\n* Documentation\n* Training")
-("aw" "Web Application Assessment" entry
-     (file (lambda ()
+     ("aa" "Web Application" entry
+      (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
                     (full-path (concat "~/documents/org/projects/webapp/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
@@ -1818,7 +1818,138 @@ this with to-do items than with projects or headings."
                  (write-file full-path)
                  full-path))))
      "* Recon\n** Roots/Seeds\n** Subdomain Enumeration\n** Acquisitions\n** ASNs\n** Linked Discovery\n** Reverse WHOIS\n** Port Analysis\n** Logs\n*** Credentials\n*** Data\n*** Screenshots")
-))
+     ("ap" "Penetration Test" entry
+      (file (lambda ()
+             (let* ((filename (read-string "Enter filename: "))
+                    (full-path (concat "~/documents/org/projects/pentest/" filename ".org"))
+                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
+               (with-temp-buffer
+                 (insert "#+title: " filename "\n")
+                 (insert "#+date: " current-date "\n\n")
+                 (write-file full-path)
+                 full-path))))
+     "* EPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools")
+     ("ar" "Red Team" entry
+      (file (lambda ()
+             (let* ((filename (read-string "Enter filename: "))
+                    (full-path (concat "~/documents/org/projects/redteam/" filename ".org"))
+                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
+               (with-temp-buffer
+                 (insert "#+title: " filename "\n")
+                 (insert "#+date: " current-date "\n\n")
+                 (write-file full-path)
+                 full-path))))
+     "* Red Team\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Physical Assessment\n\n* Social-Engineering")
+     ("aw" "Wireless" entry
+      (file (lambda ()
+             (let* ((filename (read-string "Enter filename: "))
+                    (full-path (concat "~/documents/org/projects/wireless/" filename ".org"))
+                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
+               (with-temp-buffer
+                 (insert "#+title: " filename "\n")
+                 (insert "#+date: " current-date "\n\n")
+                 (write-file full-path)
+                 full-path))))
+     "* Wi-fi\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Wardriving")))
+#+end_src
+
+*** Org-roam
+
+#+begin_src emacs-lisp
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/documents/org/roam/")
+  (org-roam-dailies-directory "~/documents/org/roam/journal/")
+  (org-roam-completion-everywhere t)
+  (org-roam-graph-viewer "/usr/bin/waterfox-g")
+  :config
+  (require 'org-roam-dailies) ;; Ensure the keymap is available
+  (org-roam-setup))
+
+;; Org-roam templates
+(setq org-roam-capture-templates
+ '(("d" "default" plain "%?"
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)
+   ("n" "note" plain
+    (file "~/documents/org/roam/templates/note.org")
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)
+   ("b" "book note" plain
+    (file "~/documents/org/roam/templates/book.org")
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)
+   ("t" "table of contents" plain
+    (file "~/documents/org/roam/templates/toc.org")
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)))
+
+;; Org-roam dailies capture templates
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry "* %<%I:%M %p>: %?"
+         :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+
+;; Fast note insertion for a smoother writing flow
+;; Define a function that enables you to create a new note and insert a link in the current document without opening the new note’s buffer
+;; This function takes the first capture template in org-roam-capture-templates (usually the “default” template) and adds the :immediate-finish t capture property to prevent the note buffer from being loaded once capture finishes
+(defun org-roam-node-insert-immediate (arg &rest args)
+  (interactive "P")
+  (let ((args (cons arg args))
+        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                  '(:immediate-finish t)))))
+    (apply #'org-roam-node-insert args)))
+#+end_src
+
+*** Org-roam-dailies config
+Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day.
+The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
+
+#+begin_src emacs-lisp
+(defun my/org-roam-copy-todo-to-today ()
+  (interactive)
+  (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
+        (org-roam-dailies-capture-templates
+          '(("t" "tasks" entry "%?"
+             :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+        (org-after-refile-insert-hook #'save-buffer)
+        today-file
+        pos)
+    (save-window-excursion
+      (org-roam-dailies--capture (current-time) t)
+      (setq today-file (buffer-file-name))
+      (setq pos (point)))
+
+    ;; Only refile if the target file is different than the current file
+    (unless (equal (file-truename today-file)
+                   (file-truename (buffer-file-name)))
+      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+(add-to-list 'org-after-todo-state-change-hook
+             (lambda ()
+               (when (equal org-state "DONE")
+                 (my/org-roam-copy-todo-to-today))))
+#+end_src
+
+*** Org-roam-ui
+ Org-roam is nice by itself, but there are so extra nice packages which integrate with it.
+
+ #+begin_src emacs-lisp
+(use-package websocket
+  :after org-roam)
+
+(use-package org-roam-ui
+  :after org-roam
+  :commands org-roam-ui-open
+  :hook (org-roam . org-roam-ui-mode)
+  :config
+  (require 'org-roam) ; in case autoloaded
+  (defun org-roam-ui-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (unless org-roam-ui-mode (org-roam-ui-mode 1))
+    (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
+ #+end_src
 #+end_src
 
 *** Org-roam
