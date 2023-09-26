@@ -279,6 +279,15 @@ ports() {
     sudo netstat -tulpn | grep LISTEN | fzf;
 }
 
+# Download all videos in mp3 from a youtube channel - ytdlall <channel_URL>
+ytdlall() {
+    if [ ! -z $1 ]; then
+        yt-dlp --extract-audio --audio-format mp3 --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
+    else
+        echo "You need to specify a video url as argument"
+    fi
+}
+
 # Download a playlist from Youtube - ydlp <playlist_url> 
 ydlp() {
     if ; then
@@ -289,7 +298,7 @@ ydlp() {
 }
 
 # Download a playlist from Youtube only audio with best quality - ydlp <playlist_url> 
-ydlpa() {
+ydlap() {
     if ; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
