@@ -282,7 +282,7 @@ ports() {
 # Download all videos in mp3 from a youtube channel - ytdlall <channel_URL>
 ytdlall() {
     if [ ! -z $1 ]; then
-        yt-dlp --extract-audio --audio-format mp3 --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
+        yt-dlp -x --audio-format mp3 --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
         echo "You need to specify a video url as argument"
     fi
