@@ -265,7 +265,7 @@
 (global-set-key (kbd "M-.") 'centaur-tabs-move-current-tab-to-right)
 (global-set-key (kbd "M-d") 'kill-this-buffer)
 (global-set-key (kbd "M-D") 'centaur-tabs-kill-other-buffers-in-current-group)
-(global-set-key (kbd "M-t") 'dashboard-open)
+(global-set-key (kbd "M-o") 'dashboard-open)
 ;(global-set-key (kbd "M-1") 'centaur-tabs-select-visible-tab)
 ;(global-set-key (kbd "M-2") 'centaur-tabs-select-visible-tab)
 ;(global-set-key (kbd "M-3") 'centaur-tabs-select-visible-tab)
@@ -298,7 +298,8 @@
      (define-key hl-todo-mode-map (kbd "M-P") #'hl-todo-previous)
      (define-key hl-todo-mode-map (kbd "M-N") #'hl-todo-next)
      (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
-(define-key org-mode-map (kbd "M-T") #'org-todo)
+(define-key org-mode-map (kbd "M-t") #'org-todo)
+(define-key org-mode-map (kbd "M-T") 'tl-org-insert-tag)
 ;; Org promote/demote headings
 (define-key org-mode-map (kbd "M-H") #'org-metaleft)                     ; default M-<left>
 (define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
@@ -1534,7 +1535,7 @@ Some custom functions to insert the date.
      ("Research" . ?R)
      ("Read" . ?r)
      ("Watch" . ?w)
-     ("Purchase" . ?p)
+     ("Purchase" . ?P)
      ("Trivial" . ?t)))
 #+end_src
 
@@ -2116,3 +2117,15 @@ The following snippet sets up a hook for all Org task state changes and then mov
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
  #+end_src
+
+*** taglist
+
+#+begin_src emacs-lisp
+(defun tl-org-insert-tag ()
+  "Insert a tag from org-tag-alist."
+  (interactive)
+  (let* ((tag-alist (cl-remove-if (lambda (x) (or (eq x :startgroup) (eq x :endgroup))) (mapcar (lambda (x) (car x)) org-tag-alist)))
+         (selected-tag (completing-read "Select tag: " tag-alist nil t)))
+    (when (not (string= selected-tag ""))
+      (org-set-tags-to (list selected-tag)))))
+#+end_src
