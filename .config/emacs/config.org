@@ -505,7 +505,9 @@
     "g u" '(magit-stage-file :wk "Git unstage file"))
 
   (tl/leader-keys
-    "e" '(:ignore t :wk "Edit File")
+    "e" '(:ignore t :wk "Eval/Edit File")
+    "e r" '(eval-region :wk "Evaluate a region")
+    "e b" '(eval-buffer :wk "Evaluate a buffer")
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
