@@ -5,50 +5,6 @@ Cyber Kill Chain: https://tryhackme.com/room/cyberkillchainzmt
 Caveat: cheat notes marked as not recommended should not be used in 
 real life scenarios, they provide a reference for CTF-style trainings
 
-############ OSINT - Reconnaissance ############
-Username:
-  osintgram
-  sherlock
-
-Tools:
-  recon-ng
-  maltego
-  gitleaks
-
-Metadata:
-  exiftool
-  pdfinfo
-
-Public Records:
-  threat-intel-platform - https://threatintelligenceplatform.com/
-  censys - https://search.censys.io/
-  shodan - https://cli.shodan.io/
-  google-dork
-
-Domain Name:
-  viewdns-info - https://viewdns.info/
-  dnsdumpster - https://dnsdumpster.com/
-  dnsrecon
-
-Archives:
-  webarchive - https://archive.org/
-
-Email Address:
-  hunter.io - https://hunter.io/
-  phonebook.cz - https://phonebook.cz/
-  clearbit connect (extension)
-  theharvester
-
-Verify Email Address:
-  https://tools.emailhippo.com/
-  http://email-checker.net/validate
-  google forgot password > try another way
-
-Breached Credentials:
-  breach-parse
-  dehashed.com - https://dehashed.com/pricing
-
-
 ############ Weaponization ############
 Password Profiling:
   password-wordlists
