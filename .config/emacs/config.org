@@ -1480,8 +1480,8 @@ Some custom functions to insert the date.
            "TODO(t)"
            "DOING(d)"
            "NEXT(n)"
-           "|"                 ; The pipe necessary to separate "active" states and "inactive" states
            "SOMEDAY(s)"
+           "|"                 ; The pipe necessary to separate "active" states and "inactive" states
            "DONE(D)")
           (sequence
            "WAIT(w)"
@@ -1490,8 +1490,8 @@ Some custom functions to insert the date.
            "BACKLOG(b)"
            "READY(r)"
            "NOW(N)"
-           "FINISHED(f)"
            "|"
+           "FINISHED(f)"
            "CANC(c)")))
 
 ;; Org-journal (using org-roam-dailies)
@@ -1531,7 +1531,7 @@ Some custom functions to insert the date.
      ("Issue" . ?I)
      ("Emacs" . ?e)
      ("Project" . ?p)
-     ("Research" . ?P)
+     ("Research" . ?R)
      ("Read" . ?r)
      ("Watch" . ?w)
      ("Purchase" . ?p)
