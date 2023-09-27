@@ -1,4 +1,0 @@
-############ Reconnaissance ############
-Host discovery:
-  arp-scan/netdiscover
-  nmap
