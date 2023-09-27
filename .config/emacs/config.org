@@ -1274,6 +1274,19 @@ function.
   (insert (format "[[%s]]" (org-link-complete-file))))
 #+end_src
 
+*** Insert tag automation
+Function to for =org-insert-tag= to insert a tag from a list.
+
+#+begin_src emacs-lisp
+(defun tl-org-insert-tag ()
+  "Insert a tag from org-tag-alist."
+  (interactive)
+  (let* ((tag-alist (cl-remove-if (lambda (x) (or (eq x :startgroup) (eq x :endgroup))) (mapcar (lambda (x) (car x)) org-tag-alist)))
+         (selected-tag (completing-read "Select tag: " tag-alist nil t)))
+    (when (not (string= selected-tag ""))
+      (org-set-tags-to (list selected-tag)))))
+#+end_src
+
 *** Style formatting
 This controls the color of bold, italic, underline, verbatim, strikethrough in Org mode.
 
@@ -2118,14 +2131,3 @@ The following snippet sets up a hook for all Org task state changes and then mov
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
  #+end_src
 
-*** taglist
-
-#+begin_src emacs-lisp
-(defun tl-org-insert-tag ()
-  "Insert a tag from org-tag-alist."
-  (interactive)
-  (let* ((tag-alist (cl-remove-if (lambda (x) (or (eq x :startgroup) (eq x :endgroup))) (mapcar (lambda (x) (car x)) org-tag-alist)))
-         (selected-tag (completing-read "Select tag: " tag-alist nil t)))
-    (when (not (string= selected-tag ""))
-      (org-set-tags-to (list selected-tag)))))
-#+end_src
