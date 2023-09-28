@@ -1724,9 +1724,6 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                           (:name "To buy"
                            :tag "Purchase"
                            :order 32)
-                          (:name "Waiting"
-                           :todo "WAITING"
-                           :order 20)
                           (:name "Trivial"
                            :priority<= "C"
                            :tag "Trivial"
