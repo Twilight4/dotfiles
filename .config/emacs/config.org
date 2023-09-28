@@ -1678,7 +1678,6 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                        '((:name "Today"
                           :time-grid t
                           :date today
-                          :todo "TODAY"
                           :scheduled today
                           :order 1)))))
           (alltodo "" ((org-agenda-overriding-header "")
@@ -1727,22 +1726,15 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                           (:name "Trivial"
                            :priority<= "C"
                            :tag "Trivial"
-                           :todo ("SOMEDAY" )
+                           :todo ("SOMEDAY")
                            :order 90)))))))))
 
 (add-to-list 'org-agenda-custom-commands
-             '("d" "Doing now"
+             '("t" "Today"
                (
-                (todo "DOING"
-                      ((org-agenda-overriding-header "Doing now")
-                       (org-agenda-files org-agenda-files))))))
-
-(add-to-list 'org-agenda-custom-commands
-             '("n" "Next Tasks"
-               (
-                (todo "NEXT"
-                      ((org-agenda-overriding-header "Next Tasks")
-                       (org-agenda-files org-agenda-files))))))
+                (tags-todo "+SCHEDULED<=\"<today>\""
+                           ((org-agenda-overriding-header "Today")
+                            (org-agenda-files org-agenda-files))))))
 
 (add-to-list 'org-agenda-custom-commands
              '("e" "Low Effort Tasks"
