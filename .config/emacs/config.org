@@ -391,6 +391,7 @@
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
+ "C-y" '(insert-current-time :wk "Insert current time")
  "n" '(create-new-org-buffer :wk "Create new org buffer")
  ;; Org Roam
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
@@ -1427,7 +1428,7 @@ Some custom functions to insert the date.
   "Insert DATE using the current locale."
   (interactive (list (calendar-read-date)))
   (insert (calendar-date-string date)))
- #+end_src
+#+end_src
 
 ** Org Configuraion
 *** Org Font Faces
