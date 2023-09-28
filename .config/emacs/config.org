@@ -1683,13 +1683,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                           :order 1)))))
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
-                        '((:name "Doing now"
-                           :todo "DOING"
-                           :order 2)
-                          (:name "Next to do"
-                           :todo "NEXT"
-                           :order 3)
-                          (:name "Work"
+                        '((:name "Work"
                            :tag "Work"
                            :order 4)
                           (:name "Important"
