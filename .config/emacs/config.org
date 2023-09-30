@@ -1248,15 +1248,12 @@ Adding highlights to =TODO= and related words.
           ("DONE"       font-lock-doc-face bold)
           ("WAIT"     . "#fac863")
           ("REVIEW"   . "#51afef")
-          ("PLAN"     . "#51afef")
+          ("PLAN"     . "#46d9ff")
           ("BACKLOG"    font-lock-constant-face bold)
           ("READY"    . "#2aa198")
-          ("NOW"      . "#70c0ba")
+          ("NOW"      . "#5af78e")
           ("FINISHED"   font-lock-doc-face bold)
           ("CANC"       error bold))))
-
-;; Example colors
-;#51afef #c678dd #98be65 #da8548 #5699af #a9a1e1 #46d9ff #ff6c6b #8be9fd #bd93f9 #50fa7b #ff79c6 #9aedfe #caa9fa ;#5af78e #ff92d0 #458588 #b16286 #98971a #fb4934 #83a598 #d3869b #d79921 #8ec07c #78dce8 #ab9df2 #a9dc76 #fc9867 ;#ff6188 #ffd866 #78dce8 #ab9df2 #81a1c1 #b48ead #a3be8c #ebcb8b #bf616a #88c0d0 #81a1c1 #b48ead #6699cc #c594c5 ;#99c794 #fac863 #5fb3b3 #ec5f67 #6699cc #c594c5 #82aaff #c792ea #c3e88d #ffcb6b #a3f7ff #e1acff #f07178 #ddffa7 ;#268bd2 #d33682 #859900 #b58900 #cb4b16 #6c71c4 #2aa198 #657b83 #268bd2 #d33682 #859900 #b58900 #cb4b16 #6c71c4 ;#2aa198 #657b83 #81a2be #b294bb #b5bd68 #e6c547 #cc6666 #70c0ba #b77ee0 #9ec400
 #+end_src
 
 ** Editing Features for Org
