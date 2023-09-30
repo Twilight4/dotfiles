@@ -2070,7 +2070,7 @@ Automatically move completed tasks to dailies - one interesting use for daily fi
 The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
 
 #+begin_src emacs-lisp
-(defun my/org-roam-copy-todo-to-today ()
+(defun tl/org-roam-copy-todo-to-today ()
   (interactive)
   (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
         (org-roam-dailies-capture-templates
@@ -2092,7 +2092,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
 (add-to-list 'org-after-todo-state-change-hook
              (lambda ()
                (when (equal org-state "DONE")
-                 (my/org-roam-copy-todo-to-today))))
+                 (tl/org-roam-copy-todo-to-today))))
 #+end_src
 
 *** Org-roam-ui
