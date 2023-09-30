@@ -1243,8 +1243,6 @@ Adding highlights to =TODO= and related words.
           ("DOING"      success bold)
           ("NEXT"     . "#ffcb6b")
           ("SOMEDAY"  . "#81a2be")
-          ;("NEXT"       warning bold)
-          ;("SOMEDAY"    font-lock-doc-face bold)
           ("DONE"       font-lock-doc-face bold)
           ("WAIT"     . "#fac863")
           ("REVIEW"   . "#51afef")
