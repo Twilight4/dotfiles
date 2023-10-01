@@ -299,7 +299,7 @@
      (define-key hl-todo-mode-map (kbd "M-N") #'hl-todo-next)
      (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
 (define-key org-mode-map (kbd "M-t") #'org-todo)
-(define-key org-mode-map (kbd "M-T") 'tl-org-insert-tag)
+(define-key org-mode-map (kbd "M-T") 'tl/org-insert-tag)
 ;; Org promote/demote headings
 (define-key org-mode-map (kbd "M-H") #'org-metaleft)                     ; default M-<left>
 (define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
@@ -392,7 +392,6 @@
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
  "C-y" '(insert-current-time :wk "Insert current time")
- "n" '(create-new-org-buffer :wk "Create new org buffer")
  ;; Org Roam
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
@@ -416,6 +415,7 @@
 #+end_src
 
 *** SPC Leader Key
+
 #+begin_src emacs-lisp
 ;; Set up 'SPC' as another global leader key
 (general-create-definer tl/leader-keys
@@ -433,6 +433,7 @@
     "T" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture to inbox")
     "b" '(switch-to-buffer :wk "Switch to buffer")
+    "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "s" '(basic-save-buffer :wk "Save buffer"))
 
   (which-key-add-key-based-replacements "SPC ." "Find file")
@@ -1274,7 +1275,7 @@ function.
 Function to for =org-insert-tag= to insert a tag from a list.
 
 #+begin_src emacs-lisp
-(defun tl-org-insert-tag ()
+(defun tl/org-insert-tag ()
   "Insert a tag from org-tag-alist."
   (interactive)
   (let* ((tag-alist (cl-remove-if (lambda (x) (or (eq x :startgroup) (eq x :endgroup))) (mapcar (lambda (x) (car x)) org-tag-alist)))
@@ -1378,21 +1379,6 @@ Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
   (add-to-list 'org-structure-template-alist '("py" . "src python")))
 #+end_src
 
-*** Org buffer creation automation
-Let’s make creating an Org buffer just that little bit easier.
-
-#+begin_src emacs-lisp
-(defun create-new-org-buffer (&optional file)
-  "Create a new Org mode buffer, optionally opening FILE."
-  (interactive "F") ; Prompt for a file to open, if provided
-  (let ((new-buffer (generate-new-buffer "*New Org Buffer*")))
-    (switch-to-buffer new-buffer)
-    (org-mode)
-    (when file
-      (insert-file-contents file))
-    (setq buffer-offer-save t)))
-#+end_src​
-
 *** Zero-width spaces
 Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. Zero width spaces are hacky but because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map. Add filter to stop the space from being included in exports.
 
@@ -1423,6 +1409,23 @@ Some custom functions to insert the date.
   "Insert DATE using the current locale."
   (interactive (list (calendar-read-date)))
   (insert (calendar-date-string date)))
+#+end_src
+
+*** Org buffer creation automation
+Let’s make creating an Org buffer just that little bit easier.
+
+#+begin_src emacs-lisp
+(defun tl/buffer-org-new (file)
+  "Creates a new ORG buffer replacing the current window, optionally
+   editing a certain FILE"
+  (interactive "P<f>")
+  (if file
+      (find-file file)
+    (let ((buffer (generate-new-buffer "*new org*")))
+      (set-window-buffer nil buffer)
+      (with-current-buffer buffer
+        (org-mode)
+        (setq-local doom-real-buffer-p t)))))
 #+end_src
 
 ** Org Configuraion
@@ -2109,4 +2112,26 @@ The following snippet sets up a hook for all Org task state changes and then mov
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
  #+end_src
+
+*** Org-gtd
+
+#+begin_src emacs-lisp
+(use-package org-gtd
+  :after org
+  ;:quelpa (org-gtd :fetcher github :repo "trevoke/org-gtd.el"
+  ;                 :commit "3.0.0" :upgrade t)
+  :demand t
+  :custom
+  (org-gtd-directory "~/documents/org-gtd")
+  (org-edna-use-inheritance t)
+  (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command))
+  :config
+  (org-edna-mode)
+  :bind
+  (("C-c d c" . org-gtd-capture)
+   ("C-c d e" . org-gtd-engage)
+   ("C-c d p" . org-gtd-process-inbox)
+   :map org-gtd-clarify-map
+   ("C-c c c" . org-gtd-organize)))
+#+end_src
 
