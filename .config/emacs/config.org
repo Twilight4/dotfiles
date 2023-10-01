@@ -298,8 +298,8 @@
      (define-key hl-todo-mode-map (kbd "M-P") #'hl-todo-previous)
      (define-key hl-todo-mode-map (kbd "M-N") #'hl-todo-next)
      (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
-(define-key org-mode-map (kbd "M-t") #'org-todo)
-(define-key org-mode-map (kbd "M-T") 'tl/org-insert-tag)
+(define-key org-mode-map (kbd "M-t") 'org-todo)
+(define-key org-mode-map (kbd "M-T") 'org-ctrl-c-ctrl-c)
 ;; Org promote/demote headings
 (define-key org-mode-map (kbd "M-H") #'org-metaleft)                     ; default M-<left>
 (define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
@@ -428,20 +428,25 @@
     "," '(recentf :wk "Find recent files")
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
-    "a" '(org-agenda :wk "Org agenda")
-    "A" '(org-gtd-engage-grouped-by-context :wk "Org GTD agenda organized")
-    "E" '(org-gtd-engage :wk "Org GTD agenda")
-    "T" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture to workflow") ;; for workflows in workflow.org (checklists in agenda)/assessments (report templates)
     "C" '(org-gtd-capture :wk "Capture to inbox") ;; for tasks in inbox.org
-    "p" '(org-gtd-process-inbox :wk "Process inbox") ;; process GTD inbox.org
+    "p" '(org-gtd-process-inbox :wk "Process inbox") ;; process inbox.org
     "b" '(switch-to-buffer :wk "Switch to buffer")
-    "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to Clarify buffer")
+    "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "f" '(elfeed :wk "Elfeed")
     "s" '(basic-save-buffer :wk "Save buffer"))
 
   (which-key-add-key-based-replacements "SPC ." "Find file")
+
+  (tl/leader-keys
+    "a" '(:ignore t :wk "Agenda")
+    "a a" '(org-agenda :wk "General agenda")
+    "a o" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
+    "a g" '(org-gtd-engage :wk "GTD agenda")
+    "a m" '(org-gtd-oops :wk "Missed appointments")
+    "a f" '(org-gtd-review-area-of-focus :wk "Area of focus")
+    "a t" '(org-gtd-review-stuck-* :wk "Any action types"))
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
@@ -1276,19 +1281,6 @@ function.
   (insert (format "[[%s]]" (org-link-complete-file))))
 #+end_src
 
-*** Insert tag automation
-Function to for =org-insert-tag= to insert a tag from a list.
-
-#+begin_src emacs-lisp
-(defun tl/org-insert-tag ()
-  "Insert a tag from org-tag-alist."
-  (interactive)
-  (let* ((tag-alist (cl-remove-if (lambda (x) (or (eq x :startgroup) (eq x :endgroup))) (mapcar (lambda (x) (car x)) org-tag-alist)))
-         (selected-tag (completing-read "Select tag: " tag-alist nil t)))
-    (when (not (string= selected-tag ""))
-      (org-set-tags-to (list selected-tag)))))
-#+end_src
-
 *** Style formatting
 This controls the color of bold, italic, underline, verbatim, strikethrough in Org mode.
 
@@ -1656,7 +1648,8 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
         '("~/documents/org/agenda/inbox.org"
           "~/documents/org/agenda/workflow.org"
           "~/documents/org/agenda/habits.org"
-          "~/documents/org/agenda/metrics.org"))
+          "~/documents/org/agenda/goals.org"   ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
+          "~/documents/org/agenda/diet.org"))  ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -1675,6 +1668,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline)))
 
+;; Caveat: tags with config like "@Work" won't show up, but I'm using Org-gtd for task management anyways
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
@@ -1687,10 +1681,10 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
                         '((:name "Work"
-                           :tag "@Work"
+                           :tag "Work"
                            :order 4)
                           (:name "Important"
-                           :tag "@Important"
+                           :tag "Important"
                            :priority "A"
                            :order 6)
                           (:name "Due Today"
@@ -1704,32 +1698,32 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                            :face error
                            :order 7)
                           (:name "Assignments"
-                           :tag "@Assignment"
+                           :tag "Assignment"
                            :order 10)
                           (:name "Issues"
-                           :tag "@Issue"
+                           :tag "Issue"
                            :order 12)
                           (:name "Emacs"
-                           :tag "@Emacs"
+                           :tag "Emacs"
                            :order 13)
                           (:name "Projects"
-                           :tag "@Project"
+                           :tag "Project"
                            :order 14)
                           (:name "Research"
-                           :tag "@Research"
+                           :tag "Research"
                            :order 15)
                           (:name "To read"
-                           :tag "@Read"
+                           :tag "Read"
                            :order 30)
                           (:name "To watch"
-                           :tag "@Watch"
+                           :tag "Watch"
                            :order 31)
                           (:name "To buy"
-                           :tag "@Purchase"
+                           :tag "Purchase"
                            :order 32)
                           (:name "Trivial"
                            :priority<= "C"
-                           :tag "@Trivial"
+                           :tag "Trivial"
                            :todo ("SOMEDAY")
                            :order 90)))))))))
 
@@ -1916,13 +1910,13 @@ this with to-do items than with projects or headings."
   `(("t" "Todo" entry (file "~/documents/org-gtd/inbox.org")
          "* TODO %?\n  %U\n  %i" :empty-lines 1)
 
-    ("m" "Meeting" entry (file "~/documents/org-gtd/inbox.org")
-         "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+    ("a" "Appointment" entry (file "~/documents/org-gtd/inbox.org")
+         "* %<%I:%M %p> - %a :appointments:\n\n%?\n\n"
          :clock-in :clock-resume
          :empty-lines 1)
 
-    ("c" "Metrics Capture")
-     ("cw" "Weight" table-line (file+headline "~/documents/org-gtd/metrics.org" "Weight")
+    ("m" "Metrics Capture")
+     ("cw" "Weight" table-line (file+headline "~/documents/org-gtd/diet.org" "Weight")
          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
      ("cg" "Goals" table-line (file+headline "~/documents/org-gtd/goals.org" "Goals")
          "| %U | %^{Goal} | %^{Notes} |" :kill-buffer t)))
@@ -2140,6 +2134,6 @@ The following snippet sets up a hook for all Org task state changes and then mov
   (("C-x i" . org-gtd-clarify-item)    ;; Mostly used when I'm in org-gtd-capture buffer to omit processing the task from inbox.org
    ("C-c a" . org-gtd-clarify-agenda-item) ;; Used only in agenda-view
    :map org-gtd-clarify-map
-   ("C-x o" . org-gtd-organize)))
+   ("C-x c" . org-gtd-organize)))
 #+end_src
 
