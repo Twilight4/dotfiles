@@ -381,7 +381,7 @@
  :prefix "C-c"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-c keymap prefix
- ;; Org mode
+ ;; Org-mode
  "C-." '(org-time-stamp :wk "Org timestamp")
  "C-/" '(org-tag :wk "Org tag")
  "C-p" '(org-set-property :wk "Org property")
@@ -392,7 +392,7 @@
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
  "C-y" '(insert-current-time :wk "Insert current time")
- ;; Org Roam
+ ;; Org-Roam
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
  "L" '(org-roam-node-insert :wk "Insert Org roam node")
@@ -402,7 +402,7 @@
  "c" '(org-roam-capture :wk "Capture to node")
  "u" '(org-roam-ui-open :wk "Open Org roam UI")
  "s" '(org-roam-db-sync :wk "Sync Org roam db")
- ;; Org Roam dailies
+ ;; Org-Roam dailies
  "n" '(org-roam-dailies-capture-today :wk "Capture daily today")
  "N" '(org-roam-dailies-goto-today :wk "Go to daily today")
  "y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
@@ -2128,10 +2128,12 @@ The following snippet sets up a hook for all Org task state changes and then mov
   :config
   (org-edna-mode)
   :bind
-  (("C-c d c" . org-gtd-capture)
-   ("C-c d e" . org-gtd-engage)
-   ("C-c d p" . org-gtd-process-inbox)
+  (("C-x c" . org-gtd-capture)
+   ("C-x p" . org-gtd-process-inbox)
+   ("C-x e" . org-gtd-engage)
+   ("C-x i" . org-gtd-clarify-item)
+   ("C-x s" . org-gtd-clarify-switch-to-buffer)
    :map org-gtd-clarify-map
-   ("C-c c c" . org-gtd-organize)))
+   ("C-x c" . org-gtd-organize)))
 #+end_src
 
