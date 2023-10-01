@@ -696,7 +696,6 @@ Adjust org-roam file names in similary way I have in the window title.
     ad-do-it))
 #+end_src
 
-
 ** Which-key
 
 #+begin_src emacs-lisp
