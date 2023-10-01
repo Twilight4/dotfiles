@@ -262,8 +262,8 @@
 ;; Centaur tabs - trying to figure out the way to skip default buffers to avoid mess
 ;(global-set-key (kbd "M-p") 'centaur-tabs-backward)
 ;(global-set-key (kbd "M-n") 'centaur-tabs-forward)
-(global-set-key (kbd "M-p") 'switch-to-prev-buffer)
-(global-set-key (kbd "M-n") 'switch-to-next-buffer)
+(global-set-key (kbd "M-p") 'tl/better-next-buffer)
+(global-set-key (kbd "M-n") 'tl/better-previous-buffer)
 (global-set-key (kbd "M-f") 'centaur-tabs-forward-group)
 (global-set-key (kbd "M-b") 'centaur-tabs-backward-group)
 (global-set-key (kbd "M-,") 'centaur-tabs-move-current-tab-to-left)
@@ -1367,6 +1367,25 @@ This automates the surround of word for style formatting with respective keys in
 ;; Bind the function to the """ key in Evil visual mode
 (with-eval-after-load 'evil
   (define-key evil-visual-state-map "\"" 'surround-with-double-quote))
+#+end_src
+
+*** Better buffer-switching
+Skip default buffers like **Messages** when using =buffer-prev=/=next=
+
+#+begin_src emacs-lisp
+(defun tl/better-next-buffer ()
+  "Switch to the next buffer, skipping those with names starting with an asterisk."
+  (interactive)
+  (next-buffer)
+  (while (string-prefix-p "*" (buffer-name (current-buffer)))
+    (next-buffer)))
+
+(defun tl/better-previous-buffer ()
+  "Switch to the previous buffer, skipping those with names starting with an asterisk."
+  (interactive)
+  (previous-buffer)
+  (while (string-prefix-p "*" (buffer-name (current-buffer)))
+    (previous-buffer)))
 #+end_src
 
 *** Source Code Block Tag Expansion
