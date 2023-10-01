@@ -26,6 +26,7 @@ The world's greatest programmer once said:
   - [[#org-roam-dailies][Org-Roam dailies]]
 - [[#spc-leader-key][SPC Leader Key]]
 - [[#other-packages][Other Packages]]
+  - [[#org-agenda][Org-agenda]]
   - [[#org-tempo][Org-tempo]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -190,6 +191,19 @@ To create a table just start typing: =| table | name | description=
 | C-c C-SPC  | Zero-width space |
 
 * Other Packages
+** Org-agenda
+
+| Keybinding | Description                   |
+|------------+-------------------------------|
+| g          | Refresh agenda view           |
+| e          | Set effort                    |
+| t          | Change TODO state             |
+| TAB        | Show a preview, exit with "q" |
+| j          | Journal schedule              |
+| t          | Set tag                       |
+| J/K        | Change priority               |
+| o          | show on full screen           |
+
 ** Org-tempo
 
 | Keybinding | Description                             |
