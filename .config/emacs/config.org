@@ -1842,10 +1842,7 @@ this with to-do items than with projects or headings."
 
 #+begin_src emacs-lisp
 (setq org-capture-templates
-  `(("t" "Todo" entry (file+olp "~/documents/org/agenda/inbox.org")
-         "* TODO %?\n  %U\n  %i" :empty-lines 1)
-
-    ("w" "Workflow type") 
+  `(("w" "Workflow type") 
      ("wo" "Open-Source Intelligence" entry (file "~/documents/org/agenda/workflow.org")
          "* PLAN Usernames [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Email Address [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Domain Name [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN IP Address [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Images/Videos/Docs [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Social Networks [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Instant Messaging [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN People Search Engines [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Dating [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Telephone Numbers [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Public Records [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Business Records [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Transportation [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Geolocation Tools/Maps [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Search Engines [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Forums/Blogs/IRC [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Archives [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Language Translation [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Metadata [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Mobile Emulation [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Terrorism [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Dark Web [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Digital Currency [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Classifieds [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Encoding/Decoding [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Tools [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Malicious File Analysis [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Exploits & Advisories [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Threat Intelligence [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN OpSec [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Documentation [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool\n\n* PLAN Training [/]\n- [ ] link-to-methodology\n  - [ ] cheat-tool")
      ("wa" "Web Application" entry (file "~/documents/org/agenda/workflow.org")
@@ -1912,16 +1909,23 @@ this with to-do items than with projects or headings."
                  (insert "#+date: " current-date "\n\n")
                  (write-file full-path)
                  full-path))))
-     "* Wi-fi\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Wardriving")
+     "* Wi-fi\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Wardriving")))
 
-    ("c" "Metrics Capture")
-     ("cw" "Weight" table-line (file+headline "~/documents/org/agenda/metrics.org" "Weight")
-         "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
+(setq org-gtd-capture-templates
+  `(("t" "Todo" entry (file "~/documents/org-gtd/inbox.org")
+         "* TODO %?\n  %U\n  %i" :empty-lines 1)
 
-    ("m" "Meeting" entry (file+olp+datetree "~/documents/org/agenda/inbox.org")
+    ("m" "Meeting" entry (file "~/documents/org-gtd/inbox.org")
          "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
          :clock-in :clock-resume
-         :empty-lines 1)))
+         :empty-lines 1)
+
+    ("c" "Metrics Capture")
+     ("cw" "Weight" table-line (file+headline "~/documents/org-gtd/metrics.org" "Weight")
+         "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
+     ("cg" "Goals" table-line (file+headline "~/documents/org-gtd/goals.org" "Goals")
+         "| %U | %^{Goal} | %^{Notes} |" :kill-buffer t)))
+
 #+end_src
 
 *** Org-roam
@@ -2126,7 +2130,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
   ;                 :commit "3.0.0" :upgrade t)
   :demand t
   :custom
-  (org-gtd-directory "~/documents/org-gtd")
+  (org-gtd-directory "~/documents/org-gtd")      ;; TO CHANGE TO org/agenda ONCE CONVERTED ALL TASKS AND CORRECT org-gtd-capture-templates DIRECTORY
   (org-edna-use-inheritance t)
   (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command))
   :config
