@@ -1644,13 +1644,15 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   :config
   (org-super-agenda-mode))
 
+;; TODO REPLACE IT
 (setq org-agenda-files
       '("~/documents/org/agenda/inbox.org"   ;; REMOVE IT CUZ I USE org-gtd-tasks.org instead
-        ;"~/documents/org/agenda/org-gtd-tasks.org"
-        "~/documents/org/agenda/workflow.org"
+        "~/documents/org/agenda/workflow.org" ;; DO NOTHING WITH IT
         "~/documents/org/agenda/habits.org"  ;; MOVE TO inbox.org instead
         "~/documents/org/agenda/goals.org"   ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
         "~/documents/org/agenda/diet.org"))  ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
+
+;(setq org-agenda-files `(,org-gtd-directory))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -1909,12 +1911,16 @@ this with to-do items than with projects or headings."
 
 (setq org-gtd-capture-templates
   `(("t" "Todo" entry (file "~/documents/org-gtd/inbox.org")
-         "* TODO %?\n  %U\n  %i" :empty-lines 1)
+         "* TODO %?\n  %U\n\n  %i" :empty-lines 1 :kill-buffer t)
+
+    ("l" "Todo with link" entry (file "~/documents/org-gtd/inbox.org")
+         "* TODO %?\n  %U\n  %i\n %a" :empty-lines 1 :kill-buffer t)
 
     ("a" "Appointment" entry (file "~/documents/org-gtd/inbox.org")
          "* %<%I:%M %p> - %a :appointments:\n\n%?\n\n"
          :clock-in :clock-resume
-         :empty-lines 1)
+         :empty-lines 1
+	       :kill-buffer t)
 
     ("m" "Metrics Capture")
      ("cw" "Weight" table-line (file+headline "~/documents/org-gtd/diet.org" "Weight")
