@@ -429,7 +429,8 @@
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
-    "A" '(org-gtd-engage :wk "Org GTD agenda")
+    "A" '(org-gtd-engage-grouped-by-context :wk "Org GTD agenda organized")
+    "E" '(org-gtd-engage :wk "Org GTD agenda")
     "T" '(org-todo-list :wk "Org todo list")
     "c" '(org-capture :wk "Capture to workflow") ;; for workflows in workflow.org (checklists in agenda)/assessments (report templates)
     "C" '(org-gtd-capture :wk "Capture to inbox") ;; for tasks in inbox.org
@@ -1542,17 +1543,17 @@ Let’s make creating an Org buffer just that little bit easier.
   '((:startgroup)
      ; Put mutually exclusive tags here
      (:endgroup)
-     ("Work" . ?w)
-     ("Important" . ?i)
-     ("Assignment" . ?a)
-     ("Issue" . ?I)
-     ("Emacs" . ?e)
-     ("Project" . ?p)
-     ("Research" . ?R)
-     ("Read" . ?r)
-     ("Watch" . ?w)
-     ("Purchase" . ?P)
-     ("Trivial" . ?t)))
+     ("@Work" . ?w)
+     ("@Important" . ?i)
+     ("@Assignment" . ?a)
+     ("@Issue" . ?I)
+     ("@Emacs" . ?e)
+     ("@Project" . ?p)
+     ("@Research" . ?R)
+     ("@Read" . ?r)
+     ("@Watch" . ?w)
+     ("@Purchase" . ?P)
+     ("@Trivial" . ?t)))
 #+end_src
 
 *** Org-modern
@@ -1686,10 +1687,10 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
                         '((:name "Work"
-                           :tag "Work"
+                           :tag "@Work"
                            :order 4)
                           (:name "Important"
-                           :tag "Important"
+                           :tag "@Important"
                            :priority "A"
                            :order 6)
                           (:name "Due Today"
@@ -1703,32 +1704,32 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                            :face error
                            :order 7)
                           (:name "Assignments"
-                           :tag "Assignment"
+                           :tag "@Assignment"
                            :order 10)
                           (:name "Issues"
-                           :tag "Issue"
+                           :tag "@Issue"
                            :order 12)
                           (:name "Emacs"
-                           :tag "Emacs"
+                           :tag "@Emacs"
                            :order 13)
                           (:name "Projects"
-                           :tag "Project"
+                           :tag "@Project"
                            :order 14)
                           (:name "Research"
-                           :tag "Research"
+                           :tag "@Research"
                            :order 15)
                           (:name "To read"
-                           :tag "Read"
+                           :tag "@Read"
                            :order 30)
                           (:name "To watch"
-                           :tag "Watch"
+                           :tag "@Watch"
                            :order 31)
                           (:name "To buy"
-                           :tag "Purchase"
+                           :tag "@Purchase"
                            :order 32)
                           (:name "Trivial"
                            :priority<= "C"
-                           :tag "Trivial"
+                           :tag "@Trivial"
                            :todo ("SOMEDAY")
                            :order 90)))))))))
 
@@ -2136,10 +2137,8 @@ The following snippet sets up a hook for all Org task state changes and then mov
   :config
   (org-edna-mode)
   :bind
-  (;("C-x p" . org-gtd-process-inbox)  ;; BOUND TO SPC p
-   ;("C-x e" . org-gtd-engage)         ;; BOUND TO SPC E
-   ("C-x i" . org-gtd-clarify-item)    ;; Mostly used when I'm in org-gtd-capture buffer to omit processint the task in inbox.org
-   ;("C-x s" . org-gtd-clarify-switch-to-buffer) ;; BOUND TO SPC-B
+  (("C-x i" . org-gtd-clarify-item)    ;; Mostly used when I'm in org-gtd-capture buffer to omit processing the task from inbox.org
+   ("C-c a" . org-gtd-clarify-agenda-item) ;; Used only in agenda-view
    :map org-gtd-clarify-map
    ("C-x o" . org-gtd-organize)))
 #+end_src
