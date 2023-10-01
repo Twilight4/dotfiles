@@ -1644,12 +1644,13 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   :config
   (org-super-agenda-mode))
 
-  (setq org-agenda-files
-        '("~/documents/org/agenda/inbox.org"
-          "~/documents/org/agenda/workflow.org"
-          "~/documents/org/agenda/habits.org"
-          "~/documents/org/agenda/goals.org"   ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
-          "~/documents/org/agenda/diet.org"))  ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
+(setq org-agenda-files
+      '("~/documents/org/agenda/inbox.org"   ;; REMOVE IT CUZ I USE org-gtd-tasks.org instead
+        ;"~/documents/org/agenda/org-gtd-tasks.org"
+        "~/documents/org/agenda/workflow.org"
+        "~/documents/org/agenda/habits.org"  ;; MOVE TO inbox.org instead
+        "~/documents/org/agenda/goals.org"   ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
+        "~/documents/org/agenda/diet.org"))  ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -2125,7 +2126,9 @@ The following snippet sets up a hook for all Org task state changes and then mov
   ;                 :commit "3.0.0" :upgrade t)
   :demand t
   :custom
-  (org-gtd-directory "~/documents/org-gtd")      ;; TO CHANGE TO org/agenda ONCE CONVERTED ALL TASKS AND CORRECT org-gtd-capture-templates DIRECTORY
+  (org-gtd-directory "~/documents/org-gtd")      ;; CHANGE TO org/agenda ONCE CONVERTED ALL TASKS AND CORRECT org-gtd-capture-templates DIRECTORY
+  ;(org-gtd-areas-of-focus )                     ;; TO SET UP SOME OF AREAS OF FOCUS
+  ;(org-gtd-organize-hooks )                     ;; TO ADD EFFORT HOOK 
   (org-edna-use-inheritance t)
   (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command))
   :config
