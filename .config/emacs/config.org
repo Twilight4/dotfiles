@@ -195,6 +195,8 @@
   ;; Unbinding the default bindings
   (define-key evil-normal-state-map (kbd "M-.") nil)
   (define-key evil-motion-state-map (kbd "M-.") nil)
+  (define-key evil-normal-state-map (kbd "C-E") nil)
+  (define-key evil-motion-state-map (kbd "C-E") nil)
 )
 #+end_src
 
@@ -237,6 +239,9 @@
   (define-key evil-normal-state-map "L" 'org-shiftright)
   ;; Rebinding default keybind of "J" for evil normal mode
   (define-key evil-normal-state-map "M" 'evil-join)
+  ;; Rebinding default keybind of "C-E" for evil scroll-down
+  (define-key evil-normal-state-map (kbd "C-R") 'evil-scroll-line-down)
+  (define-key evil-motion-state-map (kbd "C-R") 'evil-scroll-line-down)
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
@@ -1647,11 +1652,12 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 ;; TODO REPLACE IT
 (setq org-agenda-files
       '("~/documents/org/agenda/inbox.org"   ;; REMOVE IT CUZ I USE org-gtd-tasks.org instead
-        "~/documents/org/agenda/workflow.org" ;; DO NOTHING WITH IT
-        "~/documents/org/agenda/habits.org"  ;; MOVE TO inbox.org instead
-        "~/documents/org/agenda/goals.org"   ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
-        "~/documents/org/agenda/diet.org"))  ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
+        "~/documents/org/agenda/workflow.org")) ;; DO NOT TOUCH IT
+        ;"~/documents/org/agenda/habits.org"  ;; MOVE TO inbox.org instead
+        ;"~/documents/org/agenda/goals.org"   ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
+        ;"~/documents/org/agenda/diet.org"))  ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
 
+;; TODO WITH IT
 ;(setq org-agenda-files `(,org-gtd-directory))
 
 (setq org-agenda-skip-scheduled-if-done t
