@@ -355,7 +355,7 @@
  ;; Buffers
  "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
  "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
- "i" '(ibuffer :wk "Ibuffer")
+ ;"i" '(ibuffer :wk "Ibuffer")    ; I don't use it
  "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
  "r" '(revert-buffer :wk "Reload buffer")
  "C-r" '(rename-buffer :wk "Rename buffer")
@@ -429,11 +429,15 @@
     "." '(find-file :wk "Find file")
     "TAB" '(comment-line :wk "Comment lines")
     "a" '(org-agenda :wk "Org agenda")
-    "f" '(elfeed :wk "Elfeed")
+    "A" '(org-gtd-engage :wk "Org GTD agenda")
     "T" '(org-todo-list :wk "Org todo list")
-    "c" '(org-capture :wk "Capture to inbox")
+    "c" '(org-capture :wk "Capture to workflow") ;; for workflows in workflow.org (checklists in agenda)/assessments (report templates)
+    "C" '(org-gtd-capture :wk "Capture to inbox") ;; for tasks in inbox.org
+    "p" '(org-gtd-process-inbox :wk "Process inbox") ;; process GTD inbox.org
     "b" '(switch-to-buffer :wk "Switch to buffer")
+    "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to Clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
+    "f" '(elfeed :wk "Elfeed")
     "s" '(basic-save-buffer :wk "Save buffer"))
 
   (which-key-add-key-based-replacements "SPC ." "Find file")
@@ -2128,12 +2132,11 @@ The following snippet sets up a hook for all Org task state changes and then mov
   :config
   (org-edna-mode)
   :bind
-  (("C-x c" . org-gtd-capture)
-   ("C-x p" . org-gtd-process-inbox)
-   ("C-x e" . org-gtd-engage)
-   ("C-x i" . org-gtd-clarify-item)
-   ("C-x s" . org-gtd-clarify-switch-to-buffer)
+  (;("C-x p" . org-gtd-process-inbox)  ;; BOUND TO SPC p
+   ;("C-x e" . org-gtd-engage)         ;; BOUND TO SPC E
+   ("C-x i" . org-gtd-clarify-item)    ;; Mostly used when I'm in org-gtd-capture buffer to omit processint the task in inbox.org
+   ;("C-x s" . org-gtd-clarify-switch-to-buffer) ;; BOUND TO SPC-B
    :map org-gtd-clarify-map
-   ("C-x c" . org-gtd-organize)))
+   ("C-x o" . org-gtd-organize)))
 #+end_src
 
