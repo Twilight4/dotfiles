@@ -1802,13 +1802,13 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 
 ;; Function to open Org Agenda frame
 (defun open-org-agenda-frame ()
-  "Open a new frame with a custom Org Super Agenda overview."
+  "Open a new frame with org-gtd-engage-grouped-by-context command."
   (interactive)
   (let ((agenda-frame (make-frame)))
     (select-frame-set-input-focus agenda-frame)
     (with-selected-frame agenda-frame
-      (require 'org-super-agenda) ; Make sure org-super-agenda is loaded
-      (org-agenda nil "o")))) ; Use "o" to directly select your custom command
+      (require 'org-gtd) ; Make sure org-gtd is loaded
+      (org-gtd-engage-grouped-by-context)))) ; Use the new command
 #+end_src
 
 *** Custom keys for org-agenda
