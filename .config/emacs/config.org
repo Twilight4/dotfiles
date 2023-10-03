@@ -148,7 +148,8 @@
 #+end_src
 
 ** Global Keybindings
-*** Disable Conflicting Keybindings
+*** Disable 
+Conflicting Keybindings
 #+begin_src emacs-lisp
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
@@ -201,6 +202,8 @@
   (define-key evil-normal-state-map (kbd "C-b") nil)
   (define-key evil-motion-state-map (kbd "C-f") nil)
   (define-key evil-normal-state-map (kbd "C-f") nil)
+  (define-key evil-normal-state-map (kbd "C-n") nil)
+  (define-key evil-motion-state-map (kbd "C-n") nil)
 )
 #+end_src
 
@@ -209,43 +212,76 @@
 ;; NOTE: the difference with define-key adn global-set-key is that define-key is specific
 ;; for a mode and it's always better to use it for a specific mode to avoid mess
 
+
+  ;; Keybindings for moving between windows
+  ;(define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+  ;(define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+  ;(define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+  ;(define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+
+;; Keybindings for moving between windows
+(global-set-key (kbd "C-k") 'windmove-up)
+(global-set-key (kbd "C-j") 'windmove-down)
+(global-set-key (kbd "C-h") 'windmove-left)
+(global-set-key (kbd "C-l") 'windmove-right)
+;; Keybindings for resizing windows
+(global-set-key (kbd "M-<") 'enlarge-window-horizontally)
+(global-set-key (kbd "M->") 'shrink-window-horizontally)
+(global-set-key (kbd "M-=") 'enlarge-window)
+(global-set-key (kbd "M--") 'shrink-window)
+(global-set-key (kbd "M-0") 'balance-windows)
+;; Window splits
+(global-set-key (kbd "M-s") 'split-window-right)
+(global-set-key (kbd "M-v") 'split-window-below)
+(global-set-key (kbd "M-c") 'delete-window)
+;; Scrolling
+(global-set-key (kbd "C-u") 'scroll-up)
+(global-set-key (kbd "C-d") 'scroll-down)
+(global-set-key (kbd "C-S-y") 'scroll-up-line)
+(global-set-key (kbd "C-S-e") 'scroll-down-line)
+;; Maximize window
+(global-set-key (kbd "M-m") 'toggle-window-maximize)
+;; Rebinding join-line
+(global-set-key (kbd "C-n") 'join-line)
+
+
+
+
 ;; Evil Mode Keybindings
 (with-eval-after-load 'evil
   ;; Map "C-u" to "Page Up" in Evil normal and visual state
   (define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
   (evil-define-key 'visual evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
   ;; Keybindings for moving between windows
-  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
-  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
-  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
-  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+  ;(define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+  ;(define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+  ;(define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+  ;(define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
   ;; Keybindings for moving the windows
   (define-key evil-normal-state-map (kbd "C-S-H") 'buf-move-left)
   (define-key evil-normal-state-map (kbd "C-S-J") 'buf-move-down)
   (define-key evil-normal-state-map (kbd "C-S-K") 'buf-move-up)
   (define-key evil-normal-state-map (kbd "C-S-L") 'buf-move-right)
   ;; Keybindings for increasing and decreasing window width and height
-  (define-key evil-normal-state-map (kbd "M-<") 'evil-window-increase-width)
-  (define-key evil-normal-state-map (kbd "M->") 'evil-window-decrease-width)
-  (define-key evil-normal-state-map (kbd "M-=") 'evil-window-increase-height)
-  (define-key evil-normal-state-map (kbd "M--") 'evil-window-decrease-height)
-  (define-key evil-normal-state-map (kbd "M-0") 'balance-windows)
+  ;(define-key evil-normal-state-map (kbd "M-<") 'evil-window-increase-width)
+  ;(define-key evil-normal-state-map (kbd "M->") 'evil-window-decrease-width)
+  ;(define-key evil-normal-state-map (kbd "M-=") 'evil-window-increase-height)
+  ;(define-key evil-normal-state-map (kbd "M--") 'evil-window-decrease-height)
+  ;(define-key evil-normal-state-map (kbd "M-0") 'balance-windows)
   ;; Window splits
-  (define-key evil-normal-state-map (kbd "M-c") 'evil-window-delete)
-  (define-key evil-normal-state-map (kbd "M-v") 'evil-window-split)
-  (define-key evil-normal-state-map (kbd "M-s") 'evil-window-vsplit)
-  ;; Maximize window
-  (define-key evil-normal-state-map (kbd "M-m") 'toggle-evil-split-maximize)
+  ;(define-key evil-normal-state-map (kbd "M-c") 'evil-window-delete)
+  ;(define-key evil-normal-state-map (kbd "M-v") 'evil-window-split)
+  ;(define-key evil-normal-state-map (kbd "M-s") 'evil-window-vsplit)
   ;; Keybindings for org mode in evil normal mode for S-motion keys
   (define-key evil-normal-state-map "H" 'org-shiftleft)
   (define-key evil-normal-state-map "J" 'org-shiftdown)
   (define-key evil-normal-state-map "K" 'org-shiftup)
   (define-key evil-normal-state-map "L" 'org-shiftright)
   ;; Rebinding default keybind of "J" for evil normal mode
-  (define-key evil-normal-state-map "M" 'evil-join)
+  ;(define-key evil-normal-state-map "M" 'evil-join)
   ;; Rebinding default keybind of "C-E" for evil scroll-down
-  (define-key evil-normal-state-map (kbd "C-R") 'evil-scroll-line-down)
-  (define-key evil-motion-state-map (kbd "C-R") 'evil-scroll-line-down)
+  ;(define-key evil-normal-state-map (kbd "C-R") 'evil-scroll-line-down)
+  ;(define-key evil-motion-state-map (kbd "C-R") 'evil-scroll-line-down)
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
@@ -921,7 +957,7 @@ Function for toggling maximization of evil split.
 (defvar previous-window-config nil
   "Variable to store the previous window configuration.")
 
-(defun toggle-evil-split-maximize ()
+(defun toggle-window-maximize ()
   "Toggle maximization of the current evil split window."
   (interactive)
   (if (and previous-window-config (eq (window-configuration-p previous-window-config) t))
