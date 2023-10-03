@@ -914,6 +914,7 @@ one, an error is signaled."
 #+end_src
 
 ** Maximize-evil-split
+Function for toggling maximization of evil split.
 
 #+begin_src emacs-lisp
 (defvar previous-window-config nil
