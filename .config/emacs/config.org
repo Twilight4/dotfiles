@@ -220,8 +220,8 @@
 (global-set-key (kbd "C-S-k") 'buf-move-up)
 (global-set-key (kbd "C-S-l") 'buf-move-right)
 ;; Resizing windows
-(global-set-key (kbd "M-<") 'enlarge-window-horizontally)
-(global-set-key (kbd "M->") 'shrink-window-horizontally)
+(global-set-key (kbd "M-_") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-+") 'shrink-window-horizontally)
 (global-set-key (kbd "M-=") 'enlarge-window)
 (global-set-key (kbd "M--") 'shrink-window)
 (global-set-key (kbd "M-0") 'balance-windows)
@@ -234,6 +234,8 @@
 (global-set-key (kbd "C-d") 'scroll-down)
 (global-set-key (kbd "C-S-y") 'scroll-up-line)
 (global-set-key (kbd "C-S-e") 'scroll-down-line)
+(global-set-key (kbd "M-<") 'beginning-of-buffer)
+(global-set-key (kbd "M->") 'end-of-buffer)
 ;; Maximize window
 (global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Rebinding join-line
