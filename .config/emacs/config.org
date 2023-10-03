@@ -26,6 +26,7 @@
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#no-littering][No-littering]]
+  - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
   - [[#rainbow-delimeters][Rainbow-delimeters]]
   - [[#electric-pair-mode][Electric-pair-mode]]
@@ -240,6 +241,10 @@
 (global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Rebinding join-line
 (global-set-key (kbd "C-n") 'join-line)
+;; Yanking
+(global-set-key (kbd "C-y") 'yank)
+;; Redo
+(global-set-key (kbd "M-/") 'undo-tree-redo)
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
@@ -813,6 +818,18 @@ I use the =no-littering= package to keep folders where I edit files and the Emac
 
 (use-package no-littering
   :ensure t)
+#+end_src
+
+** Undo-tree
+I'd like to also have the =redo= functionality. The default key are:
+- =C-/= - undo
+- =M-/= - redo
+- =C-x u= - undo-tree-visualise
+
+#+begin_src emacs-lisp
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
 #+end_src
 
 ** Rainbow-mode
