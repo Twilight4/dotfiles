@@ -759,10 +759,10 @@ Centaur Tabs is an Emacs package that enhances the tab bar functionality, provid
         centaur-tabs-close-button ""
         centaur-tabs-set-bar 'above
         centaur-tabs-gray-out-icons 'buffer)
-
   :config
   ;; Enable centaur-tabs
   (centaur-tabs-mode t))
+;; (setq x-underline-at-descent-line t)
 #+end_src
 
 ** File Encoding
