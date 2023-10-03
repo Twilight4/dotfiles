@@ -231,8 +231,7 @@
   (define-key evil-normal-state-map (kbd "M-v") 'evil-window-split)
   (define-key evil-normal-state-map (kbd "M-s") 'evil-window-vsplit)
   ;; Maximize window
-  (define-key evil-normal-state-map (kbd "M-m") 'toggle-maximize-evil-split)
-  (global-set-key (kbd "M-m") 'toggle-evil-split-maximize)
+  (define-key evil-normal-state-map (kbd "M-m") 'toggle-evil-split-maximize)
   ;; Keybindings for org mode in evil normal mode for S-motion keys
   (define-key evil-normal-state-map "H" 'org-shiftleft)
   (define-key evil-normal-state-map "J" 'org-shiftdown)
