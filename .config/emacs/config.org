@@ -255,8 +255,8 @@
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
 ;; Centaur tabs/buffers
-(global-set-key (kbd "M-p") 'tl/better-next-buffer)
-(global-set-key (kbd "M-n") 'tl/better-previous-buffer)
+(global-set-key (kbd "M-n") 'tl/better-next-buffer)
+(global-set-key (kbd "M-p") 'tl/better-previous-buffer)
 (global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
 (global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
 (global-set-key (kbd "M-d") 'kill-this-buffer)
