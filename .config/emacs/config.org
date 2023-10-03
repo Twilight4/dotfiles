@@ -366,9 +366,6 @@
  :prefix "C-x"
  :states '(normal insert visual emacs)
  "" nil ; Remove default C-x keymap prefix
- ;; Common keybindings
- "C-n" '(neotree-toggle :wk "Toggle neotree")
- "C-d" '(delete-file :wk "Delete file")
  ;; Buffers
  "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
  "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
@@ -452,6 +449,7 @@
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "f" '(elfeed :wk "Elfeed")
+    "n" '(neotree-toggle :wk "Toggle neotree")
     "s" '(basic-save-buffer :wk "Save buffer"))
 
   (which-key-add-key-based-replacements "SPC ." "Find file")
@@ -829,6 +827,7 @@ I'd like to also have the =redo= functionality. The default key are:
 - =M-/= - redo
 - =C-x u= - undo-tree-visualise
 - =C-p/n= - navigate through the =undo-tree-visualise=
+- =q= - quit
 
 #+begin_src emacs-lisp
 (use-package undo-tree
