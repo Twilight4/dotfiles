@@ -232,6 +232,7 @@
   (define-key evil-normal-state-map (kbd "M-s") 'evil-window-vsplit)
   ;; Maximize window
   (define-key evil-normal-state-map (kbd "M-m") 'toggle-maximize-evil-split)
+  (global-set-key (kbd "M-m") 'toggle-evil-split-maximize)
   ;; Keybindings for org mode in evil normal mode for S-motion keys
   (define-key evil-normal-state-map "H" 'org-shiftleft)
   (define-key evil-normal-state-map "J" 'org-shiftdown)
@@ -916,28 +917,18 @@ one, an error is signaled."
 ** Maximize-evil-split
 
 #+begin_src emacs-lisp
-;; Define a variable to keep track of maximized window state
-(defvar maximized-evil-split nil)
+(defvar previous-window-config nil
+  "Variable to store the previous window configuration.")
 
-;; Define a function to toggle the maximization of an Evil split window
-(defun toggle-maximize-evil-split ()
-  "Toggle the maximization of an Evil split window."
+(defun toggle-evil-split-maximize ()
+  "Toggle maximization of the current evil split window."
   (interactive)
-  (if maximized-evil-split
+  (if (and previous-window-config (eq (window-configuration-p previous-window-config) t))
       (progn
-        (balance-windows)
-        (setq maximized-evil-split nil))
-    (if (= (count-windows) 2)
-        (delete-other-windows)
-      (if (> (window-width) (* 2 (window-height)))
-          (progn
-            (setq maximized-evil-split t)
-            (delete-other-windows)
-            (evil-window-vsplit))
-        (progn
-          (setq maximized-evil-split t)
-          (delete-other-windows)
-          (evil-window-split))))))
+        (set-window-configuration previous-window-config)
+        (setq previous-window-config nil))
+    (setq previous-window-config (current-window-configuration))
+    (delete-other-windows)))
 #+end_src
 
 ** Splits
