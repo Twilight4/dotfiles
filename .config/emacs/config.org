@@ -204,6 +204,7 @@
   (define-key evil-normal-state-map (kbd "C-f") nil)
   (define-key evil-normal-state-map (kbd "C-n") nil)
   (define-key evil-motion-state-map (kbd "C-n") nil)
+  (define-key evil-motion-state-map (kbd "C-.") nil)
 )
 #+end_src
 
@@ -240,7 +241,7 @@
 ;; Maximize window
 (global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Rebinding join-line
-(global-set-key (kbd "C-n") 'join-line)
+(global-set-key (kbd "C-.") 'join-line)
 ;; Yanking
 (global-set-key (kbd "C-y") 'yank)
 ;; Redo
@@ -248,6 +249,8 @@
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
+(global-set-key (kbd "C-p") 'previous-line)
+(global-set-key (kbd "C-n") 'next-line)
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-,") 'org-forward-paragraph)
@@ -825,6 +828,7 @@ I'd like to also have the =redo= functionality. The default key are:
 - =C-/= - undo
 - =M-/= - redo
 - =C-x u= - undo-tree-visualise
+- =C-p/n= - navigate through the =undo-tree-visualise=
 
 #+begin_src emacs-lisp
 (use-package undo-tree
