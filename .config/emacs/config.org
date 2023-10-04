@@ -7,7 +7,6 @@
 * Table of Contents :toc:
 - [[#programs-to-load-first][Programs to load first]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
-  - [[#evil-mode---custom-return][Evil Mode - Custom return]]
   - [[#global-keybindings][Global Keybindings]]
   - [[#general-keybindings][General Keybindings]]
 - [[#ui-configuration][UI Configuration]]
@@ -16,6 +15,7 @@
   - [[#all-the-icons][All-the-icons]]
   - [[#color-theme][Color Theme]]
   - [[#modeline][Modeline]]
+  - [[#custom-return][Custom return]]
   - [[#window-title][Window Title]]
   - [[#file-names-for-org-roam][File names for Org-roam]]
   - [[#which-key][Which-key]]
@@ -101,33 +101,6 @@
 (elpaca-wait)
 #+end_src
 
-** Evil Mode - Custom return
-
-#+begin_src emacs-lisp
-;; This code checks if in normal mode and the cursor is on a link or a checkbox, act accordingly. If not in normal mode or if not in an Org mode buffer, it will call the default behavior for RET using call-interactively org-return.
-;; (defun custom-return ()
-;;   (interactive)
-;;   (if (and (bound-and-true-p evil-mode) (eq evil-state 'normal))
-;;       (if (org-in-regexp org-link-bracket-re 1)
-;;           (org-open-at-point)
-;;         (if (org-at-item-p) ; Check if at a checkbox item
-;;             (org-toggle-checkbox)
-;;           (org-return)))
-;;     (call-interactively 'newline-and-indent))) ; Call default behavior in insert mode
-
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (local-set-key (kbd "RET") 'custom-return)))
-
-;; Using RETURN to follow links in Org/Evil 
-;; Unmap keys in 'evil-maps if not done
-
-;; (with-eval-after-load 'evil-maps
-;;   (define-key evil-motion-state-map (kbd "SPC") nil)
-;;   (define-key evil-motion-state-map (kbd "RET") nil)
-;;   (define-key evil-motion-state-map (kbd "TAB") nil))
-#+end_src
-
 ** Global Keybindings
 *** Disable Conflicting Keybindings
 #+begin_src emacs-lisp
@@ -137,9 +110,6 @@
 (define-key global-map (kbd "C-h") (make-sparse-keymap))
 
 ;; Unbinding Global Keybindings
-(define-key global-map (kbd "M-d") nil)
-(define-key global-map (kbd "M-f") nil)
-(define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "M-,") nil)
 (define-key global-map (kbd "M-C-n") nil)
 (define-key global-map (kbd "M-C-b") nil)
@@ -162,45 +132,6 @@
 ;  (define-key calendar-mode-map (kbd "M-j") nil)
 ;  (define-key calendar-mode-map (kbd "M-k") nil)
 ;  (define-key calendar-mode-map (kbd "M-l") nil)
-;)
-
-;; Unbinding Evil Mode Keybindings
-;(with-eval-after-load 'evil
-;  ;; Unbinding the default C-w prefix key
-;  (define-key evil-normal-state-map (kbd "C-w") nil)
-;  (define-key evil-motion-state-map (kbd "C-w") nil)
-;  ;; Unbinding the default bindings in normal mode
-;  (define-key evil-normal-state-map "H" nil)
-;  (define-key evil-normal-state-map "J" nil)
-;  (define-key evil-normal-state-map "K" nil)
-;  (define-key evil-normal-state-map "L" nil)
-;  (define-key evil-normal-state-map "M" nil)
-;  (define-key evil-normal-state-map (kbd "RET") nil)
-;  ;; Unbinding the default bindings
-;  (define-key evil-normal-state-map (kbd "M-.") nil)
-;  (define-key evil-motion-state-map (kbd "M-.") nil)
-;  (define-key evil-normal-state-map (kbd "C-E") nil)
-;  (define-key evil-motion-state-map (kbd "C-E") nil)
-;  (define-key evil-motion-state-map (kbd "C-b") nil)
-;  (define-key evil-normal-state-map (kbd "C-b") nil)
-;  (define-key evil-motion-state-map (kbd "C-f") nil)
-;  (define-key evil-normal-state-map (kbd "C-f") nil)
-;  (define-key evil-normal-state-map (kbd "C-n") nil)
-;  (define-key evil-motion-state-map (kbd "C-n") nil)
-;  (define-key evil-motion-state-map (kbd "C-.") nil)
-;  (define-key evil-normal-state-map (kbd "C-r") nil)
-;  (define-key evil-normal-state-map (kbd "C-.") nil)
-;  (define-key evil-normal-state-map (kbd "C-p") nil)
-;  (define-key evil-normal-state-map (kbd "C-y") nil)
-;  (define-key evil-normal-state-map (kbd "C-d") nil)
-;  (define-key evil-motion-state-map (kbd "C-d") nil)
-;  (define-key evil-motion-state-map (kbd "C-q") nil)
-;  (define-key evil-motion-state-map (kbd "C-y") nil)
-;  (define-key evil-motion-state-map (kbd "C-w") nil)
-;  (define-key evil-motion-state-map (kbd "M-y") nil)
-;  (define-key evil-normal-state-map (kbd "M-y") nil)
-;  (define-key evil-normal-state-map (kbd "C-o") nil)
-;  (define-key evil-motion-state-map (kbd "C-o") nil)
 ;)
 #+end_src
 
@@ -243,15 +174,12 @@
 ;; Movement keys
 (global-set-key (kbd "C-p") 'previous-line)
 (global-set-key (kbd "C-n") 'next-line)
-(global-set-key (kbd "M-f") 'forward-word)
-(global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-a") 'org-backward-paragraph)
 (global-set-key (kbd "M-e") 'org-forward-paragraph)
 (global-set-key (kbd "M-.") 'org-forward-sentence)
 (global-set-key (kbd "M-,") 'org-backward-sentence)
 (global-set-key (kbd "C-S-e") 'org-end-of-line)  ;; correct it to have selection like C-S-a
 ;; Deleting keys
-(global-set-key (kbd "M-d") 'kill-word)
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 (global-set-key (kbd "C-w") 'delete-backward-char)
@@ -354,7 +282,6 @@
 #+begin_src emacs-lisp
 (use-package general
   :config
-  ;; (general-evil-setup)
 #+end_src
 
 *** C-x Leader Key
@@ -664,6 +591,33 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 ;  '(mode-line ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
 ;  '(mode-line-active ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
 ;  '(mode-line-inactive ((t (:family "JetBrains Mono Nerd Font" :height 0.95)))))
+#+end_src
+
+** Custom return
+
+#+begin_src emacs-lisp
+;; This code checks if in normal mode and the cursor is on a link or a checkbox, act accordingly. If not in normal mode or if not in an Org mode buffer, it will call the default behavior for RET using call-interactively org-return.
+;; (defun custom-return ()
+;;   (interactive)
+;;   (if (and (bound-and-true-p evil-mode) (eq evil-state 'normal))
+;;       (if (org-in-regexp org-link-bracket-re 1)
+;;           (org-open-at-point)
+;;         (if (org-at-item-p) ; Check if at a checkbox item
+;;             (org-toggle-checkbox)
+;;           (org-return)))
+;;     (call-interactively 'newline-and-indent))) ; Call default behavior in insert mode
+
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (local-set-key (kbd "RET") 'custom-return)))
+
+;; Using RETURN to follow links in Org/Evil 
+;; Unmap keys in 'evil-maps if not done
+
+;; (with-eval-after-load 'evil-maps
+;;   (define-key evil-motion-state-map (kbd "SPC") nil)
+;;   (define-key evil-motion-state-map (kbd "RET") nil)
+;;   (define-key evil-motion-state-map (kbd "TAB") nil))
 #+end_src
 
 ** Window Title
