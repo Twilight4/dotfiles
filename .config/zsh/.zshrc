@@ -78,6 +78,9 @@ bindkey '^Z' fg-bg
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + g
 bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
+# Having the same bindings everywhere
+bindkey '^w' backward-delete-char
+bindkey '^[w' backward-kill-word
 
 # Improved backward kill word
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
