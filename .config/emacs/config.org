@@ -256,7 +256,7 @@
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 ;; Copying to clipboard
 (global-set-key (kbd "M-i") 'kill-ring-save)
-;; Make ESC (C-g) quit prompts
+;; Make escape (C-g) quit prompts
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 ;; Movement keys
 (global-set-key (kbd "C-p") 'previous-line)
