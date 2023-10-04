@@ -217,6 +217,8 @@
   (define-key evil-motion-state-map (kbd "C-w") nil)
   (define-key evil-motion-state-map (kbd "M-y") nil)
   (define-key evil-normal-state-map (kbd "M-y") nil)
+  (define-key evil-normal-state-map (kbd "C-o") nil)
+  (define-key evil-motion-state-map (kbd "C-o") nil)
 )
 #+end_src
 
@@ -254,8 +256,8 @@
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 ;; Copying to clipboard
 (global-set-key (kbd "M-i") 'kill-ring-save)
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;; Make ESC (C-g) quit prompts
+(global-set-key (kbd "C-g") 'keyboard-escape-quit)
 ;; Movement keys
 (global-set-key (kbd "C-p") 'previous-line)
 (global-set-key (kbd "C-n") 'next-line)
@@ -268,6 +270,8 @@
 (global-set-key (kbd "C-S-e") 'org-end-of-line)  ;; correct it to have selection like C-S-a
 ;; Deleting keys
 (global-set-key (kbd "M-d") 'kill-word)
+(global-set-key (kbd "C-o") 'kill-line)
+(global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 (global-set-key (kbd "C-w") 'delete-backward-char)
 (global-set-key (kbd "M-w") 'backward-kill-word)
 (global-set-key (kbd "C-,") 'backward-kill-sentence)
@@ -361,8 +365,6 @@
   "Kill text from point to the beginning of the line."
   (interactive)
   (kill-line 0))
-
-(global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 #+end_src
 
 ** General Keybindings
@@ -1050,7 +1052,7 @@ The following configuration will add a few improvements:
          ("C-p" . vertico-previous)
          ("C-f" . vertico-exit)
          :map minibuffer-local-map
-         ("M-h" . backward-kill-word))
+         ("M-w" . backward-kill-word))
   :init
   (vertico-mode)
   (savehist-mode))
