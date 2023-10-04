@@ -205,6 +205,7 @@
   (define-key evil-normal-state-map (kbd "C-n") nil)
   (define-key evil-motion-state-map (kbd "C-n") nil)
   (define-key evil-motion-state-map (kbd "C-.") nil)
+  (define-key evil-normal-state-map (kbd "C-r") nil)
 )
 #+end_src
 
@@ -255,6 +256,7 @@
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-,") 'org-forward-paragraph)
 (global-set-key (kbd "M-.") 'org-backward-paragraph)
+(global-set-key (kbd "M-d") 'kill-word)
 ;; Zoom In/Out
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -269,7 +271,7 @@
 (global-set-key (kbd "M-p") 'tl/better-previous-buffer)
 (global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
 (global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
-(global-set-key (kbd "M-d") 'kill-this-buffer)
+(global-set-key (kbd "M-u") 'kill-this-buffer)
 (global-set-key (kbd "M-D") 'centaur-tabs-kill-other-buffers-in-current-group)
 (global-set-key (kbd "M-o") 'dashboard-open)
 ;; Org tansclusion package
