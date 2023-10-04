@@ -183,6 +183,7 @@
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 (global-set-key (kbd "C-w") 'delete-backward-char)
+(global-set-key (kbd "C-S-w") 'kill-whole-line)
 (global-set-key (kbd "M-w") 'backward-kill-word)
 (global-set-key (kbd "C-,") 'backward-kill-sentence)
 (global-set-key (kbd "C-.") 'kill-sentence)
@@ -278,14 +279,11 @@
 #+end_src
 
 ** General Keybindings
-*** General package
+*** C-x Leader Key
 #+begin_src emacs-lisp
 (use-package general
   :config
-#+end_src
 
-*** C-x Leader Key
-#+begin_src emacs-lisp
 ;; Set up 'C-x' as the global leader key
 (general-define-key
  :prefix "C-x"
@@ -363,7 +361,6 @@
   (tl/leader-keys
     "," '(recentf :wk "Find recent files")
     "." '(find-file :wk "Find file")
-    "TAB" '(comment-line :wk "Comment lines")
     "c" '(org-capture :wk "Capture to workflow") ;; for workflows in workflow.org (checklists in agenda)/assessments (report templates)
     "C" '(org-gtd-capture :wk "Capture to inbox") ;; for tasks in inbox.org
     "p" '(org-gtd-process-inbox :wk "Process inbox") ;; process inbox.org
