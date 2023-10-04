@@ -214,6 +214,9 @@
   (define-key evil-motion-state-map (kbd "C-d") nil)
   (define-key evil-motion-state-map (kbd "C-q") nil)
   (define-key evil-motion-state-map (kbd "C-y") nil)
+  (define-key evil-motion-state-map (kbd "C-w") nil)
+  (define-key evil-motion-state-map (kbd "M-y") nil)
+  (define-key evil-normal-state-map (kbd "M-y") nil)
 )
 #+end_src
 
@@ -249,6 +252,8 @@
 (global-set-key (kbd "C-;") 'join-line)
 ;; Redo
 (global-set-key (kbd "M-/") 'undo-tree-redo)
+;; Copying to clipboard
+(global-set-key (kbd "M-i") 'kill-ring-save)
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
