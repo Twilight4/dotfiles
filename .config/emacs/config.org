@@ -172,6 +172,7 @@
 (define-key org-mode-map (kbd "C-j") nil)
 (define-key org-mode-map (kbd "M-h") nil)
 (define-key org-mode-map (kbd "M-t") nil)
+(define-key org-mode-map (kbd "C-,") nil)
 
 ;; Unbinding Calendar Mode Keybindings - does not work
 ;(with-eval-after-load 'calendar
@@ -206,6 +207,13 @@
   (define-key evil-motion-state-map (kbd "C-n") nil)
   (define-key evil-motion-state-map (kbd "C-.") nil)
   (define-key evil-normal-state-map (kbd "C-r") nil)
+  (define-key evil-normal-state-map (kbd "C-.") nil)
+  (define-key evil-normal-state-map (kbd "C-p") nil)
+  (define-key evil-normal-state-map (kbd "C-y") nil)
+  (define-key evil-normal-state-map (kbd "C-d") nil)
+  (define-key evil-motion-state-map (kbd "C-d") nil)
+  (define-key evil-motion-state-map (kbd "C-q") nil)
+  (define-key evil-motion-state-map (kbd "C-y") nil)
 )
 #+end_src
 
@@ -233,18 +241,12 @@
 (global-set-key (kbd "M-v") 'split-window-below)
 (global-set-key (kbd "M-c") 'delete-window)
 ;; Scrolling
-;(global-set-key (kbd "C-u") 'scroll-up)   ;; Mapped to kill-to-beginning
-(global-set-key (kbd "C-d") 'scroll-down)
-(global-set-key (kbd "C-S-y") 'scroll-up-line)
-(global-set-key (kbd "C-S-e") 'scroll-down-line)
 (global-set-key (kbd "M-<") 'beginning-of-buffer)
 (global-set-key (kbd "M->") 'end-of-buffer)
 ;; Maximize window
 (global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Rebinding join-line
-(global-set-key (kbd "C-.") 'join-line)
-;; Yanking
-(global-set-key (kbd "C-y") 'yank)
+(global-set-key (kbd "C-;") 'join-line)
 ;; Redo
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 ;; Make ESC quit prompts
@@ -254,10 +256,18 @@
 (global-set-key (kbd "C-n") 'next-line)
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
-(global-set-key (kbd "M-,") 'org-forward-paragraph)
-(global-set-key (kbd "M-.") 'org-backward-paragraph)
+(global-set-key (kbd "M-a") 'org-backward-paragraph)
+(global-set-key (kbd "M-e") 'org-forward-paragraph)
+(global-set-key (kbd "M-,") 'org-forward-sentence)
+(global-set-key (kbd "M-.") 'org-backward-sentence)
+(global-set-key (kbd "C-S-e") 'org-end-of-line)  ;; correct it to have selection like C-S-a
+;; Deleting keys
 (global-set-key (kbd "M-d") 'kill-word)
-;; Zoom In/Out
+(global-set-key (kbd "C-w") 'delete-backward-char)
+(global-set-key (kbd "M-w") 'backward-kill-word)
+(global-set-key (kbd "C-,") 'backward-kill-sentence)
+(global-set-key (kbd "C-.") 'kill-sentence)
+;; Zooming keys
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "C-0") 'text-scale-adjust)
@@ -282,9 +292,6 @@
 
 ;; Evil Mode Keybindings
 (with-eval-after-load 'evil
-  ;; Map "C-u" to "Page Up" in Evil normal and visual state
-  ;(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
-  ;(evil-define-key 'visual evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
   ;; Keybindings for org mode in evil normal mode for S-motion keys
   (define-key evil-normal-state-map "H" 'org-shiftleft)
   (define-key evil-normal-state-map "J" 'org-shiftdown)
