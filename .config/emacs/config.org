@@ -161,6 +161,7 @@
 ;; Scrolling
 (global-set-key (kbd "M-<") 'beginning-of-buffer)
 (global-set-key (kbd "M->") 'end-of-buffer)
+(global-set-key (kbd "C-S-v") 'scroll-down-command)
 ;; Maximize window
 (global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Rebinding join-line
