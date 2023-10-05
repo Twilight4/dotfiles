@@ -301,7 +301,7 @@
     "f" '(elfeed :wk "Elfeed")
     "s" '(basic-save-buffer :wk "Save buffer")
     ;; Buffers
-    "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
+    "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     ;"i" '(ibuffer :wk "Ibuffer")    ; I don't use it
     "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
