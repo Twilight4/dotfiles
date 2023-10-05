@@ -5,7 +5,7 @@
 #+OPTIONS: toc:2
 
 * Table of Contents :toc:
-- [[#programs-to-load-first][Programs to load first]]
+- [[#packages-to-load-first][Packages to load first]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#global-keybindings][Global Keybindings]]
   - [[#general-keybindings][General Keybindings]]
@@ -47,7 +47,7 @@
   - [[#editing-features-for-org][Editing Features for Org]]
   - [[#org-configuraion][Org Configuraion]]
 
-* Programs to load first
+* Packages to load first
 ** Elpaca Package Manager
 
 #+begin_src emacs-lisp
@@ -1724,7 +1724,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
     (delete-other-windows))) ; Close the initial window
 #+end_src
 
-*** Custom keys for org-agenda
+*** Org-agenda setup
 - =d=: Mark the current task as doing.
 - =x=: Mark the current task as done.
 - =X=: Mark the current task as done and create a new task at the same level, taking advantage of the task template I’d previously created in =org-capture-templates=.
@@ -1911,7 +1911,7 @@ this with to-do items than with projects or headings."
     (apply #'org-roam-node-insert args)))
 #+end_src
 
-*** Org-roam-dailies config
+*** Org-roam-dailies setup
 Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day.
 The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
 
