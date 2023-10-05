@@ -305,7 +305,7 @@
     "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     ;"i" '(ibuffer :wk "Ibuffer")    ; I don't use it
     "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
-    "r" '(revert-buffer :wk "Reload buffer")
+    ;; "r" '(revert-buffer :wk "Reload buffer") ;; Key unavailable
     "C-r" '(rename-buffer :wk "Rename buffer")
     "C-s" '(save-some-buffers :wk "Save multiple buffers")
     ;; Bookmarks
@@ -374,28 +374,28 @@
     "r +" '(increment-register :wk "Increment register")
     "r SPC" '(point-to-register :wk "Point to register"))
 
-  (tl/leader-keys
-    "g" '(:ignore t :wk "Git")    
-    "g /" '(magit-displatch :wk "Magit dispatch")
-    "g ." '(magit-file-displatch :wk "Magit file dispatch")
-    "g b" '(magit-branch-checkout :wk "Switch branch")
-    "g c" '(:ignore t :wk "Create") 
-    "g c b" '(magit-branch-and-checkout :wk "Create branch and checkout")
-    "g c c" '(magit-commit-create :wk "Create commit")
-    "g c f" '(magit-commit-fixup :wk "Create fixup commit")
-    "g C" '(magit-clone :wk "Clone repo")
-    "g f" '(:ignore t :wk "Find") 
-    "g f c" '(magit-show-commit :wk "Show commit")
-    "g f f" '(magit-find-file :wk "Magit find file")
-    "g f g" '(magit-find-git-config-file :wk "Find gitconfig file")
-    "g F" '(magit-fetch :wk "Git fetch")
-    "g g" '(magit-status :wk "Magit status")
-    "g i" '(magit-init :wk "Initialize git repo")
-    "g l" '(magit-log-buffer-file :wk "Magit buffer log")
-    "g r" '(vc-revert :wk "Git revert file")
-    "g s" '(magit-stage-file :wk "Git stage file")
-    "g t" '(git-timemachine :wk "Git time machine")
-    "g u" '(magit-stage-file :wk "Git unstage file"))
+  ;; (tl/leader-keys
+  ;;   "g" '(:ignore t :wk "Git")    
+  ;;   "g /" '(magit-displatch :wk "Magit dispatch")
+  ;;   "g ." '(magit-file-displatch :wk "Magit file dispatch")
+  ;;   "g b" '(magit-branch-checkout :wk "Switch branch")
+  ;;   "g c" '(:ignore t :wk "Create") 
+  ;;   "g c b" '(magit-branch-and-checkout :wk "Create branch and checkout")
+  ;;   "g c c" '(magit-commit-create :wk "Create commit")
+  ;;   "g c f" '(magit-commit-fixup :wk "Create fixup commit")
+  ;;   "g C" '(magit-clone :wk "Clone repo")
+  ;;   "g f" '(:ignore t :wk "Find") 
+  ;;   "g f c" '(magit-show-commit :wk "Show commit")
+  ;;   "g f f" '(magit-find-file :wk "Magit find file")
+  ;;   "g f g" '(magit-find-git-config-file :wk "Find gitconfig file")
+  ;;   "g F" '(magit-fetch :wk "Git fetch")
+  ;;   "g g" '(magit-status :wk "Magit status")
+  ;;   "g i" '(magit-init :wk "Initialize git repo")
+  ;;   "g l" '(magit-log-buffer-file :wk "Magit buffer log")
+  ;;   "g r" '(vc-revert :wk "Git revert file")
+  ;;   "g s" '(magit-stage-file :wk "Git stage file")
+  ;;   "g t" '(git-timemachine :wk "Git time machine")
+  ;;   "g u" '(magit-stage-file :wk "Git unstage file"))
 
   (tl/leader-keys
     "e" '(:ignore t :wk "Eval/Edit File")
@@ -407,8 +407,6 @@
   (which-key-add-key-based-replacements 
     "C-x e c" "Edit config"
     "C-x e s" "Edit emacs cheatsheet")
-
-(setq bookmark-default-file "~/.config/emacs/bookmarks")
 #+end_src
 
 *** C-c Leader Key
@@ -416,8 +414,7 @@
 ;; Set up 'C-c' as the global leader key
 (general-define-key
  :prefix "C-c"
- :states '(normal insert visual emacs)
- "" nil ; Remove default C-c keymap prefix
+ :keymaps 'org-mode-map
  ;; Org-mode
  "C-." '(org-time-stamp :wk "Org timestamp")
  "C-/" '(org-tag :wk "Org tag")
@@ -498,6 +495,9 @@
 
 ;; Keep buffers synced and up to date with auto revert mode
 (setq global-auto-revert-non-file-buffers t)
+
+;; Bookmarks location
+(setq bookmark-default-file "~/.config/emacs/bookmarks")
 #+end_src
 
 ** Setting the Font Face
@@ -656,6 +656,9 @@ Adjust org-roam file names in similary way I have in the window title.
 	  which-key-max-description-length 25
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
+
+;; Disable line-numbers in *which-key* buffers
+(add-hook 'which-key-mode-hook (lambda () (display-line-numbers-mode -1)))
 #+end_src
 
 ** Dashboard
