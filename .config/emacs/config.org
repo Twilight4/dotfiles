@@ -168,6 +168,8 @@
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 ;; Copying to clipboard
 (global-set-key (kbd "M-i") 'kill-ring-save)
+;; Rectangular selection
+(global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
 ;; Make escape (C-g) quit prompts
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 ;; Movement keys
@@ -578,28 +580,18 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 ** Custom return
 
 #+begin_src emacs-lisp
-;; This code checks if in normal mode and the cursor is on a link or a checkbox, act accordingly. If not in normal mode or if not in an Org mode buffer, it will call the default behavior for RET using call-interactively org-return.
-;; (defun custom-return ()
-;;   (interactive)
-;;   (if (and (bound-and-true-p evil-mode) (eq evil-state 'normal))
-;;       (if (org-in-regexp org-link-bracket-re 1)
-;;           (org-open-at-point)
-;;         (if (org-at-item-p) ; Check if at a checkbox item
-;;             (org-toggle-checkbox)
-;;           (org-return)))
-;;     (call-interactively 'newline-and-indent))) ; Call default behavior in insert mode
+;; This code checks if the cursor is on a link or a checkbox and acts accordingly. If not in an Org mode buffer, it will call the default behavior for RET using call-interactively org-return.
+(defun custom-return ()
+  (interactive)
+  (if (org-in-regexp org-link-bracket-re 1)
+      (org-open-at-point)
+    (if (org-at-item-p) ; Check if at a checkbox item
+        (org-toggle-checkbox)
+      (call-interactively 'newline-and-indent)))) ; Call default behavior in insert mode
 
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (local-set-key (kbd "RET") 'custom-return)))
-
-;; Using RETURN to follow links in Org/Evil 
-;; Unmap keys in 'evil-maps if not done
-
-;; (with-eval-after-load 'evil-maps
-;;   (define-key evil-motion-state-map (kbd "SPC") nil)
-;;   (define-key evil-motion-state-map (kbd "RET") nil)
-;;   (define-key evil-motion-state-map (kbd "TAB") nil))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'custom-return)))
 #+end_src
 
 ** Window Title
