@@ -204,7 +204,8 @@
 (global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
 (global-set-key (kbd "M-u") 'kill-this-buffer)
 (global-set-key (kbd "M-D") 'centaur-tabs-kill-other-buffers-in-current-group)
-(global-set-key (kbd "M-o") 'dashboard-open)
+(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
+(global-set-key (kbd "M-O") 'dashboard-open)  ;; Wanted to open dashboard buffer in a new centaur-tab but didn't manage to do so
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Neotree
