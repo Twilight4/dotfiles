@@ -50,8 +50,8 @@ zsh_add_file "completion.zsh"
 zsh_add_file "bindings.zsh"
 # Source additional files from plugins directory
 #zsh_add_file "vim-mode"
+#zsh_add_file "cursor-mode"
 zsh_add_file "emacs-mode"
-zsh_add_file "cursor-mode"
 zsh_add_file "bd.zsh"
 # Source plugins that are not sourced automatically
 zsh_add_file "web-search/web_search.plugin.zsh"
@@ -100,9 +100,6 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-
-# Tmuxp
-#ftmuxp
 
 source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $XDG_CONFIG_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
