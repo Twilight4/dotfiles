@@ -49,7 +49,8 @@ zsh_add_file "fzf-scripts.zsh"
 zsh_add_file "completion.zsh"
 zsh_add_file "bindings.zsh"
 # Source additional files from plugins directory
-zsh_add_file "vim-mode"
+#zsh_add_file "vim-mode"
+zsh_add_file "emacs-mode"
 zsh_add_file "cursor-mode"
 zsh_add_file "bd.zsh"
 # Source plugins that are not sourced automatically
@@ -69,7 +70,7 @@ zsh_add_completion "zsh-users/zsh-completions"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
 
-# Bindings
+# Keybindings
 zle -N _new_command
 bindkey '^V' _new_command
 source "$ZDOTDIR/plugins/fg-bg.sh"
@@ -78,9 +79,15 @@ bindkey '^Z' fg-bg
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + g
 bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
-# Having the same bindings everywhere
-bindkey '^w' backward-delete-char
-bindkey '^[w' backward-kill-word
+
+# Keybind to open help page
+custom-run-help() {
+    LBUFFER="help $LBUFFER"
+    zle accept-line
+}
+
+zle -N custom-run-help
+bindkey '^[h' custom-run-help
 
 # Improved backward kill word
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
