@@ -156,18 +156,16 @@
 (global-set-key (kbd "M-s") 'split-window-right)
 (global-set-key (kbd "M-v") 'split-window-below)
 (global-set-key (kbd "M-c") 'delete-window)
+(global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Scrolling
 (global-set-key (kbd "M-<") 'beginning-of-buffer)
 (global-set-key (kbd "M->") 'end-of-buffer)
 (global-set-key (kbd "C-S-v") 'scroll-down-command)
-;; Maximize window
-(global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Rebinding join-line
 (global-set-key (kbd "C-;") 'join-line)
+;;(global-set-key (kbd "C-key") 'newline)
 ;; Redo
 (global-set-key (kbd "M-/") 'undo-tree-redo)
-;; Copying to clipboard
-(global-set-key (kbd "M-i") 'kill-ring-save)
 ;; Rectangular selection
 (global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
 ;; Make escape (C-g) quit prompts
@@ -183,9 +181,6 @@
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-(global-set-key (kbd "C-w") 'delete-backward-char)
-(global-set-key (kbd "C-S-w") 'kill-whole-line)
-(global-set-key (kbd "M-w") 'backward-kill-word)
 (global-set-key (kbd "C-,") 'backward-kill-sentence)
 (global-set-key (kbd "C-.") 'kill-sentence)
 ;; Zooming keys
@@ -358,6 +353,7 @@
     "d" '(:ignore t :wk "Dired")
     "d ." '(dired :wk "Open dired")
     "d d" '(delete-file :wk "Delete file")
+    "d r" '(rename-file :wk "Rename file")
     "d j" '(dired-jump :wk "Dired jump to current")
     "d n" '(neotree-dir :wk "Open directory in neotree")
     "d p" '(peep-dired :wk "Peep-dired"))
@@ -960,9 +956,7 @@ The following configuration will add a few improvements:
   :bind (:map vertico-map
          ("C-n" . vertico-next)
          ("C-p" . vertico-previous)
-         ("C-f" . vertico-exit)
-         :map minibuffer-local-map
-         ("M-w" . backward-kill-word))
+         ("C-f" . vertico-exit))
   :init
   (vertico-mode)
   (savehist-mode))
