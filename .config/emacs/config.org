@@ -285,79 +285,8 @@
 (use-package general
   :config
 
-;; Set up 'C-x' as the global leader key
-(general-define-key
- :prefix "C-x"
- :states '(normal insert visual emacs)
- "" nil ; Remove default C-x keymap prefix
- ;; Buffers
- "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
- "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
- ;"i" '(ibuffer :wk "Ibuffer")    ; I don't use it
- "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
- "r" '(revert-buffer :wk "Reload buffer")
- "C-r" '(rename-buffer :wk "Rename buffer")
- "C-s" '(save-some-buffers :wk "Save multiple buffers")
- ;; Bookmarks
- "C-l" '(list-bookmarks :wk "List bookmarks")
- "C-m" '(bookmark-set :wk "Set bookmark")
- "C-d" '(bookmark-delete :wk "Delete bookmark")
- "C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
- ;; Git - TODO keybinds
- ;"C-g" '(magit-displatch :wk "Magit dispatch")
- ;"g" '(magit-file-displatch :wk "Magit file dispatch")
- ;"g" '(git-timemachine :wk "Git time machine")
- ;"C-/" '(magit-branch-checkout :wk "Switch branch")
-
-(setq bookmark-default-file "~/.config/emacs/bookmarks")
-#+end_src
-
-*** C-c Leader Key
-#+begin_src emacs-lisp
-;; Set up 'C-c' as the global leader key
-(general-define-key
- :prefix "C-c"
- :states '(normal insert visual emacs)
- "" nil ; Remove default C-c keymap prefix
- ;; Org-mode
- "C-." '(org-time-stamp :wk "Org timestamp")
- "C-/" '(org-tag :wk "Org tag")
- "C-p" '(org-set-property :wk "Org property")
- "C-e" '(org-set-effort :wk "Org effort")
- "C-h" '(org-toggle-heading :wk "Org toggle heading")
- "C-f" '(org-insert-file-link :wk "Org insert file link")
- "C--" '(org-table-insert-hline :wk "Insert hline in table")
- "C-a" '(tl/insert-any-date :wk "Insert any date")
- "C-t" '(tl/insert-todays-date :wk "Insert today's date")
- "C-y" '(insert-current-time :wk "Insert current time")
- ;; Org-Roam
- "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
- "f" '(org-roam-node-find :wk "Find Org roam node")
- "L" '(org-roam-node-insert :wk "Insert Org roam node")
- "l" '(org-roam-node-insert-immediate :wk "Insert Org roam node immediatelly")
- "i" '(org-id-get-create :wk "Insert id for Org heading")
- "g" '(org-roam-graph :wk "Show Org roam graph")
- "c" '(org-roam-capture :wk "Capture to node")
- "u" '(org-roam-ui-open :wk "Open Org roam UI")
- "s" '(org-roam-db-sync :wk "Sync Org roam db")
- ;; Org-Roam dailies
- "n" '(org-roam-dailies-capture-today :wk "Capture daily today")
- "N" '(org-roam-dailies-goto-today :wk "Go to daily today")
- "y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
- "Y" '(org-roam-dailies-goto-yesterday :wk "Go to daily yesterday")
- "t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
- "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
- "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
- "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
-)
-#+end_src
-
-*** M-SPC Leader Key
-
-#+begin_src emacs-lisp
-;; Set up 'M-SPC' as another global leader key
 (general-create-definer tl/leader-keys
-  :prefix "M-SPC") ;; Set leader key
+  :prefix "C-x") ;; Set leader key
 
   (tl/leader-keys
     "," '(recentf :wk "Find recent files")
@@ -369,10 +298,26 @@
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "f" '(elfeed :wk "Elfeed")
-    "n" '(neotree-toggle :wk "Toggle neotree")
-    "s" '(basic-save-buffer :wk "Save buffer"))
-
-  (which-key-add-key-based-replacements "M-SPC ." "Find file")
+    ;; "n" '(neotree-toggle :wk "Toggle neotree")  ;; Conflicting keybinds
+    "s" '(basic-save-buffer :wk "Save buffer")
+    ;; Buffers
+    "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
+    "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
+    ;"i" '(ibuffer :wk "Ibuffer")    ; I don't use it
+    "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
+    "r" '(revert-buffer :wk "Reload buffer")
+    "C-r" '(rename-buffer :wk "Rename buffer")
+    "C-s" '(save-some-buffers :wk "Save multiple buffers")
+    ;; Bookmarks
+    "C-l" '(list-bookmarks :wk "List bookmarks")
+    "C-m" '(bookmark-set :wk "Set bookmark")
+    "C-d" '(bookmark-delete :wk "Delete bookmark")
+    "C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
+    ;; Git - TODO keybinds
+    ;"C-g" '(magit-displatch :wk "Magit dispatch")
+	  ;"g" '(magit-file-displatch :wk "Magit file dispatch")
+	  ;"g" '(git-timemachine :wk "Git time machine")
+	  ;"C-/" '(magit-branch-checkout :wk "Switch branch")
 
   (tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
@@ -390,9 +335,9 @@
     "h k" '(describe-key-briefly :wk "Describe key briefly")
     "h K" '(describe-key :wk "Describe key")
     "h r" '((lambda () (interactive)
-                (load-file "~/.config/emacs/init.el")
-                (ignore (elpaca-process-queues)))
-              :wk "Reload emacs"))
+              (load-file "~/.config/emacs/init.el")
+              (ignore (elpaca-process-queues)))
+            :wk "Reload emacs"))
 
   (tl/leader-keys
     "t" '(:ignore t :wk "Toggle")
@@ -459,8 +404,50 @@
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
-  (which-key-add-key-based-replacements "M-SPC e c" "Edit config"
-                                        "M-SPC e s" "Edit emacs cheatsheet")
+  (which-key-add-key-based-replacements 
+    "C-x e c" "Edit config"
+    "C-x e s" "Edit emacs cheatsheet")
+
+(setq bookmark-default-file "~/.config/emacs/bookmarks")
+#+end_src
+
+*** C-c Leader Key
+#+begin_src emacs-lisp
+;; Set up 'C-c' as the global leader key
+(general-define-key
+ :prefix "C-c"
+ :states '(normal insert visual emacs)
+ "" nil ; Remove default C-c keymap prefix
+ ;; Org-mode
+ "C-." '(org-time-stamp :wk "Org timestamp")
+ "C-/" '(org-tag :wk "Org tag")
+ "C-p" '(org-set-property :wk "Org property")
+ "C-e" '(org-set-effort :wk "Org effort")
+ "C-h" '(org-toggle-heading :wk "Org toggle heading")
+ "C-f" '(org-insert-file-link :wk "Org insert file link")
+ "C--" '(org-table-insert-hline :wk "Insert hline in table")
+ "C-a" '(tl/insert-any-date :wk "Insert any date")
+ "C-t" '(tl/insert-todays-date :wk "Insert today's date")
+ "C-y" '(insert-current-time :wk "Insert current time")
+ ;; Org-Roam
+ "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
+ "f" '(org-roam-node-find :wk "Find Org roam node")
+ "L" '(org-roam-node-insert :wk "Insert Org roam node")
+ "l" '(org-roam-node-insert-immediate :wk "Insert Org roam node immediatelly")
+ "i" '(org-id-get-create :wk "Insert id for Org heading")
+ "g" '(org-roam-graph :wk "Show Org roam graph")
+ "c" '(org-roam-capture :wk "Capture to node")
+ "u" '(org-roam-ui-open :wk "Open Org roam UI")
+ "s" '(org-roam-db-sync :wk "Sync Org roam db")
+ ;; Org-Roam dailies
+ "n" '(org-roam-dailies-capture-today :wk "Capture daily today")
+ "N" '(org-roam-dailies-goto-today :wk "Go to daily today")
+ "y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
+ "Y" '(org-roam-dailies-goto-yesterday :wk "Go to daily yesterday")
+ "t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
+ "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
+ "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
+ "D" '(org-roam-dailies-goto-date :wk "Go to daily in date"))
 )
 #+end_src
 
