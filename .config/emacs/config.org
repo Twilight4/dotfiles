@@ -41,9 +41,7 @@
   - [[#magit][Magit]]
   - [[#git-timemachine][Git-Timemachine]]
   - [[#elfeed][Elfeed]]
-- [[#plaintext][Plaintext]]
   - [[#ansi-colours][Ansi colours]]
-  - [[#margin-without-line-numbers][Margin without line numbers]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential Packages]]
   - [[#editing-features-for-org][Editing Features for Org]]
@@ -464,7 +462,7 @@
 (tool-bar-mode -1)                                ; Disable tool bar
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
-;(global-display-line-numbers-mode 1)              ; Display line numbers (I prefer to set this setting individually for modes)
+(global-display-line-numbers-mode 1)              ; Display line numbers
 (global-visual-line-mode t)                       ; Display truncated lines
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
@@ -487,9 +485,6 @@
 
 ;; Don't create automatic backup files in their original directories (e.g. file.el~). Put all backups in the Trash directory
 (setq backup-directory-alist '((".*" . "~/.config/.local/share/Trash/files")))
-
-;; Enable line numbers in Org Mode buffers
-(add-hook 'org-mode-hook 'display-line-numbers-mode)
 
 (display-time-mode 1)                             ; Enable time in the mode-line
 (global-subword-mode 1)                           ; Iterate through CamelCase words
@@ -923,10 +918,10 @@ A Emacs tree plugin like NerdTree for Vim.
                  (make-local-variable 'auto-hscroll-mode)
                  (setq auto-hscroll-mode nil)))))
 
-;; Disable line numbers in NeoTree buffers
-(add-hook 'neo-after-create-hook
-          (lambda (_)
-            (setq-local display-line-numbers-mode nil)))
+;; Disable line numbers in neotree buffer
+(add-hook 'neotree-mode-hook
+           (lambda ()
+             (display-line-numbers-mode 0)))
 #+end_src
 
 ** Dired
@@ -1095,7 +1090,6 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
     (elfeed)))
 #+end_src
 
-* Plaintext
 ** Ansi colours
 It’s nice to see ANSI colour codes displayed, however we don’t want to disrupt ANSI codes in Org src blocks. 
 
@@ -1106,36 +1100,6 @@ It’s nice to see ANSI colour codes displayed, however we don’t want to disru
       ;; Apply ANSI color codes
       (with-silent-modifications
         (ansi-color-apply-on-region (point-min) (point-max) t)))))
-#+end_src
-
-** Margin without line numbers 
-Display-wise, somehow I don’t mind code buffers without any margin on the left, 
-but it feels a bit off with text buffers once the padding provided by line 
-numbers is stripped away. 
-
-#+begin_src emacs-lisp
-(defvar +text-mode-left-margin-width 1
-  "The `left-margin-width' to be used in `text-mode' buffers.")
-
-(defun setup-text-mode-left-margin ()
-  (when (and (derived-mode-p 'text-mode)
-             (not (and (bound-and-true-p visual-fill-column-mode)
-                       visual-fill-column-center-text))
-             (eq (current-buffer)
-                 (window-buffer (frame-selected-window))))
-    (setq left-margin-width (if display-line-numbers
-                                0 +text-mode-left-margin-width))
-    (set-window-buffer (get-buffer-window (current-buffer))
-                       (current-buffer))))
-#+end_src
-
-Now we just need to hook this up to all the events which could either indicate
-a change in the conditions or require the setup to be re-applied. 
-#+begin_src emacs-lisp
-(add-hook 'window-configuration-change-hook #'setup-text-mode-left-margin)
-(add-hook 'display-line-numbers-mode-hook #'setup-text-mode-left-margin)
-(add-hook 'text-mode-hook #'setup-text-mode-left-margin)
-(remove-hook 'text-mode-hook #'display-line-numbers-mode)     ;; remove line numbers in text mode. 
 #+end_src
 
 * Org Mode
@@ -1185,15 +1149,15 @@ sacrificing visual amenities with the =org-appear= package.
 I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] to center =org-mode= buffers for centering the contents of the buffer horizontally to seem more like you are editing a document.
 
 #+begin_src emacs-lisp
-(defun tl/org-mode-visual-fill ()
+(defun tl/visual-fill-column ()
   (setq visual-fill-column-width 130
         visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
+    (visual-fill-column-mode 1))
 
-;; Load and configure visual-fill-column package using use-package
+;; Load and configure visual-fill-column package
 (use-package visual-fill-column
   :ensure t
-  :hook (org-mode . tl/org-mode-visual-fill))
+  :hook ((org-mode text-mode) . tl/visual-fill-column))
 #+end_src
 
 *** Highlight-todo
