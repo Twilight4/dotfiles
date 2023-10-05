@@ -1999,4 +1999,3 @@ The following snippet sets up a hook for all Org task state changes and then mov
    :map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src
-
