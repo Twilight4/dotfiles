@@ -207,6 +207,9 @@
 (global-set-key (kbd "M-o") 'dashboard-open)
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
+;; Neotree
+(global-set-key (kbd "M-N") 'neotree-toggle)
+;; "n" '(neotree-toggle :wk "Toggle neotree")
 ;; Zero-width space (this is an exception keybinding)
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
@@ -242,8 +245,8 @@
 ;; Org TODO navigation
 (eval-after-load 'hl-todo
   '(progn
-     (define-key hl-todo-mode-map (kbd "M-P") #'hl-todo-previous)
-     (define-key hl-todo-mode-map (kbd "M-N") #'hl-todo-next)
+     (define-key hl-todo-mode-map (kbd "M-A") #'hl-todo-previous)
+     (define-key hl-todo-mode-map (kbd "M-E") #'hl-todo-next)
      (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
 (define-key org-mode-map (kbd "M-t") 'org-todo)
 (define-key org-mode-map (kbd "M-T") 'org-set-tags-command)
@@ -298,7 +301,6 @@
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "f" '(elfeed :wk "Elfeed")
-    ;; "n" '(neotree-toggle :wk "Toggle neotree")  ;; Conflicting keybinds
     "s" '(basic-save-buffer :wk "Save buffer")
     ;; Buffers
     "b" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
