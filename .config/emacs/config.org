@@ -25,6 +25,7 @@
   - [[#file-encoding][File Encoding]]
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry-delete]]
+  - [[#select-until-beginningend-of-buffer][Select until beginning/end of buffer]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
@@ -158,8 +159,6 @@
 (global-set-key (kbd "M-c") 'delete-window)
 (global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Scrolling
-(global-set-key (kbd "M-<") 'beginning-of-buffer)
-(global-set-key (kbd "M->") 'end-of-buffer)
 (global-set-key (kbd "C-S-v") 'scroll-down-command)
 ;; Rebinding join-line
 (global-set-key (kbd "C-;") 'join-line)
@@ -170,14 +169,20 @@
 (global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
 ;; Make escape (C-g) quit prompts
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
 (global-set-key (kbd "C-p") 'previous-line)
 (global-set-key (kbd "C-n") 'next-line)
-(global-set-key (kbd "M-a") 'org-backward-paragraph)
-(global-set-key (kbd "M-e") 'org-forward-paragraph)
-(global-set-key (kbd "M-.") 'org-forward-sentence)
-(global-set-key (kbd "M-,") 'org-backward-sentence)
-(global-set-key (kbd "C-S-e") 'org-end-of-line)  ;; correct it to have selection like C-S-a
+(global-set-key (kbd "M-a") 'org-backward-sentence)
+(global-set-key (kbd "M-e") 'org-forward-sentence)
+(global-set-key (kbd "M-,") 'beginning-of-buffer)
+(global-set-key (kbd "M-.") 'end-of-buffer)
+(global-set-key (kbd "M-<") 'select-until-beginning)
+(global-set-key (kbd "M->") 'select-until-end)
+;; Non-essential keys
+;;(global-set-key (kbd "M-.") 'org-forward-paragraph)
+;;(global-set-key (kbd "M-,") 'org-backward-paragraph)
+;;(global-set-key (kbd "C-S-e") 'org-end-of-line)  ;; correct it to have selection like C-S-a
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
@@ -729,6 +734,22 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   :ensure t
   :defer t
   :config (global-hungry-delete-mode))
+#+end_src
+
+** Select until beginning/end of buffer
+
+#+begin_src emacs-lisp
+(defun select-until-beginning ()
+  "Select text from current point until the beginning of the buffer."
+  (interactive)
+  (push-mark (point) t t)
+  (goto-char (point-min)))
+
+(defun select-until-end ()
+  "Select text from current point until the end of the buffer."
+  (interactive)
+  (push-mark (point) t t)
+  (goto-char (point-max)))
 #+end_src
 
 ** No-littering
