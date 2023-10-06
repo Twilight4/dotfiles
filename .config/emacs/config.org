@@ -220,17 +220,13 @@
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
 
-;; Evil Mode Keybindings
-;(with-eval-after-load 'evil
-;  ;; Keybindings for org mode in evil normal mode for S-motion keys
-;  (define-key evil-normal-state-map "H" 'org-shiftleft)
-;  (define-key evil-normal-state-map "J" 'org-shiftdown)
-;  (define-key evil-normal-state-map "K" 'org-shiftup)
-;  (define-key evil-normal-state-map "L" 'org-shiftright)
-;  ;; Use visual line motions even outside of visual-line-mode buffers
-;  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-;  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-;)
+;; Style formatting automation
+(global-set-key (kbd "m") 'surround-with-bold)
+(global-set-key (kbd ",") 'surround-with-code)
+(global-set-key (kbd ".") 'surround-with-green)
+(global-set-key (kbd "/") 'surround-with-underline)
+(global-set-key (kbd "'") 'surround-with-quote)
+(global-set-key (kbd "\"") 'surround-with-double-quote)
 
 ;; Org Mode Keybindings
 ;; Org heading structure - M-Ret keys for headings
@@ -280,6 +276,18 @@
 ;  (define-key calendar-mode-map (kbd "M-j") #'org-shiftdown)             ; default S-<down>
 ;  (define-key calendar-mode-map (kbd "M-k") #'org-shiftup)               ; default S-<up>
 ;  (define-key calendar-mode-map (kbd "M-l") #'org-shiftright)            ; default S-<right>
+;)
+
+;; Evil Mode Keybindings
+;(with-eval-after-load 'evil
+;  ;; Keybindings for org mode in evil normal mode for S-motion keys
+;  (define-key evil-normal-state-map "H" 'org-shiftleft)
+;  (define-key evil-normal-state-map "J" 'org-shiftdown)
+;  (define-key evil-normal-state-map "K" 'org-shiftup)
+;  (define-key evil-normal-state-map "L" 'org-shiftright)
+;  ;; Use visual line motions even outside of visual-line-mode buffers
+;  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+;  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 ;)
 
 (defun kill-to-beginning-of-line ()
@@ -1361,19 +1369,12 @@ This automates the surround of word for style formatting with respective keys in
     (delete-region beg end)
     (insert (concat "*" region "*"))))
 
-;; Bind the function to the "m" key in visual mode
-;; (define-key evil-visual-state-map "m" 'surround-with-bold)
-
 (defun surround-with-code (beg end)
   "Surround the region between BEG and END with asterisks for bold formatting."
   (interactive "r")
   (let ((region (buffer-substring-no-properties beg end)))
     (delete-region beg end)
     (insert (concat "=" region "="))))
-
-;; Bind the function to the "," key in Evil visual mode
-;; (with-eval-after-load 'evil
-;;   (define-key evil-visual-state-map "," 'surround-with-code))
 
 (defun surround-with-green (beg end)
   "Surround the region between BEG and END with asterisks for bold formatting."
@@ -1382,20 +1383,12 @@ This automates the surround of word for style formatting with respective keys in
     (delete-region beg end)
     (insert (concat "+" region "+"))))
 
-;; Bind the function to the "." key in Evil visual mode
-;; (with-eval-after-load 'evil
-;;   (define-key evil-visual-state-map "." 'surround-with-green))
-
 (defun surround-with-underline (beg end)
   "Surround the region between BEG and END with asterisks for bold formatting."
   (interactive "r")
   (let ((region (buffer-substring-no-properties beg end)))
     (delete-region beg end)
     (insert (concat "_" region "_"))))
-
-;; Bind the function to the "/" key in Evil visual mode
-;; (with-eval-after-load 'evil
-;;   (define-key evil-visual-state-map "/" 'surround-with-underline))
 
 (defun surround-with-quote (beg end)
   "Surround the region between BEG and END with asterisks for bold formatting."
@@ -1404,20 +1397,12 @@ This automates the surround of word for style formatting with respective keys in
     (delete-region beg end)
     (insert (concat "'" region "'"))))
 
-;; Bind the function to the "'" key in Evil visual mode
-;; (with-eval-after-load 'evil
-;;   (define-key evil-visual-state-map "'" 'surround-with-quote))
-
 (defun surround-with-double-quote (beg end)
   "Surround the region between BEG and END with double quotes."
   (interactive "r")
   (let ((region (buffer-substring-no-properties beg end)))
     (delete-region beg end)
     (insert (concat "\"" region "\""))))
-
-;; Bind the function to the """ key in Evil visual mode
-;; (with-eval-after-load 'evil
-;;   (define-key evil-visual-state-map "\"" 'surround-with-double-quote))
 #+end_src
 
 *** Better buffer-switching
