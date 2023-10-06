@@ -42,13 +42,13 @@ The world's greatest programmer once said:
 
 | Keybinding | Description         |
 |------------+---------------------|
-| SPC .      | Create or find file |
-| SPC ,      | Find recent files   |
-| SPC a      | Org agenda          |
-| SPC t      | Org todo list       |
-| SPC c      | Org capture         |
-| SPC TAB    | Comment lines       |
-| SPC s      | Save buffer         |
+| C-x .      | Create or find file |
+| C-x ,      | Find recent files   |
+| C-x a      | Org agenda          |
+| C-x t      | Org todo list       |
+| C-x c      | Org capture         |
+| C-x TAB    | Comment lines       |
+| C-x s      | Save buffer         |
 
 * Keybinds without a prefix key
 ** Evil Mode
