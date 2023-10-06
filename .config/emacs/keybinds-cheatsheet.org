@@ -13,18 +13,20 @@ The world's greatest programmer once said:
 
 * Table of Contents :toc:
 - [[#common-keybinds][Common keybinds]]
-- [[#keybinds-without-a-prefix-key][Keybinds without a prefix key]]
+- [[#keybinds-without-a-leader-key][Keybinds without a Leader Key]]
   - [[#splits-navigation][Splits navigation]]
   - [[#style-formatting-surround-automation-selection-mode][Style formatting surround automation (selection-mode)]]
   - [[#org-mode-common-keys][Org Mode common keys]]
   - [[#org-mode-tables][Org Mode Tables]]
   - [[#centaur-tabsbuffers][Centaur Tabs/buffers]]
   - [[#zoom][Zoom]]
+  - [[#other][Other]]
 - [[#c-x-leader-key][C-x Leader Key]]
+  - [[#common-keys][Common keys]]
+  - [[#another-prefix-keys][Another prefix-keys]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-roam][Org-Roam]]
   - [[#org-roam-dailies][Org-Roam dailies]]
-- [[#spc-leader-key][SPC Leader Key]]
 - [[#other-packages][Other Packages]]
   - [[#org-agenda][Org-agenda]]
   - [[#org-tempo][Org-tempo]]
@@ -50,7 +52,7 @@ The world's greatest programmer once said:
 | C-x TAB    | Comment lines       |
 | C-x s      | Save buffer         |
 
-* Keybinds without a prefix key
+* Keybinds without a Leader Key
 ** Splits navigation
 
 | Keybinding  | Description              |
@@ -123,14 +125,33 @@ To create a table just start typing: =| table | name | description=
 | C-=/-       | Zoom In/Out                         |
 | C-0         | Adjust zoom                         |
 
+** Other
+
+| Keybinding | Description    |
+|------------+----------------|
+| M-S-n      | Toggle neotree |
+
+
 * C-x Leader Key
+** Common keys
 
 | Keybinding | Description                             |
 |------------+-----------------------------------------|
-| C-n        | Toggle neotree                          |
 | C-l        | List bookmarks                          |
 | C-m        | Set/Delete bookmark                     |
 | C-s        | Save current bookmarks to bookmark file |
+
+** Another prefix-keys
+
+| Keybinding | Description    |
+|------------+----------------|
+| e          | Eval/Edit file |
+| d          | Dired          |
+| b          | Buffer         |
+| h          | Help           |
+| o          | Org            |
+| T          | Toggle         |
+| r          | Registers      |
 
 * C-c Leader Key
 
@@ -153,6 +174,7 @@ To create a table just start typing: =| table | name | description=
 | C-i        | Toggle item         |
 | C-m        | Toggle checkbox     |
 | C--        | Table insert hline  |
+| C-c C-SPC  | Zero-width space    |
 
 ** Org-Roam
 
@@ -178,19 +200,6 @@ To create a table just start typing: =| table | name | description=
 | T          | Go to daily tomorrow      |
 | d          | Capture daily in date     |
 | D          | Go to daily in date       |
-
-* SPC Leader Key
-
-| Keybinding | Description      |
-|------------+------------------|
-| e          | Edit file        |
-| d          | Dired            |
-| b          | Buffer           |
-| h          | Help             |
-| o          | Org              |
-| T          | Toggle           |
-| r          | Registers        |
-| C-c C-SPC  | Zero-width space |
 
 * Other Packages
 ** Org-agenda
