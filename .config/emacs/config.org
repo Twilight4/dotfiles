@@ -481,9 +481,9 @@
  ;; Avy navigation
  "n" '(avy-next :wk "Next occurance")
  "p" '(avy-prev :wk "Previous occurance")
- "r" '(avy-resume :wk "Resume Avy")
- "/" '(avy-pop-mark :wk "Jump to last location of Avy")
- "i" '(avy-isearch :wk "iSearch")
+ "r" '(avy-resume :wk "Resume last Avy action")
+ "/" '(avy-pop-mark :wk "Jump to previous Avy location")
+ "i" '(avy-isearch :wk "iSearch with Avy")
  "t" '(avy-transpose-lines-in-region :wk "Transpose lines in region"))
 )
 #+end_src
