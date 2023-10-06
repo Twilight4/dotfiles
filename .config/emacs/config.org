@@ -458,9 +458,29 @@
 #+begin_src emacs-lisp
 (general-define-key
  :prefix "C-;"
-;; Org-mode
-"C-." '(org-time-stamp :wk "Org timestamp")
-"C-/" '(org-tag :wk "Org tag")
+ ;; Org-mode
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+ "." '(avy-goto-stamp :wk "Org timestamp")
+
+
 
 ;; AVY COMMANDS
 avy-goto-char
