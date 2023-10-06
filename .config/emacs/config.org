@@ -44,6 +44,8 @@
   - [[#git-timemachine][Git-Timemachine]]
   - [[#elfeed][Elfeed]]
   - [[#ansi-colours][Ansi colours]]
+  - [[#desktop-mode][Desktop-mode]]
+  - [[#desktop-override-stale-locks][Desktop-override-stale-locks]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential Packages]]
   - [[#editing-features-for-org][Editing Features for Org]]
