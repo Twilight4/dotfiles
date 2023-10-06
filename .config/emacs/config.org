@@ -34,6 +34,7 @@
   - [[#buffer-move][Buffer-move]]
   - [[#maximize-window-split][Maximize-window-split]]
   - [[#splits][Splits]]
+  - [[#avy][Avy]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
@@ -137,6 +138,7 @@
 *** Keybindings Without a Leader Key
 #+begin_src emacs-lisp
 ;; Global Keybindings
+;; Optionally available keybinds: M-q M-r M-i C-q C-v C-z C-t
 ;; Moving between windows
 (global-set-key (kbd "C-k") 'windmove-up)
 (global-set-key (kbd "C-j") 'windmove-down)
@@ -161,7 +163,7 @@
 ;; Scrolling
 (global-set-key (kbd "C-S-v") 'scroll-down-command)
 ;; Rebinding join-line
-(global-set-key (kbd "C-;") 'join-line)
+;;(global-set-key (kbd "C-;") 'join-line)
 ;;(global-set-key (kbd "C-key") 'newline)
 ;; Redo
 (global-set-key (kbd "M-/") 'undo-tree-redo)
@@ -449,8 +451,35 @@
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
  "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
  "D" '(org-roam-dailies-goto-date :wk "Go to daily in date"))
+#+end_src
+
+*** C-; Leader Key
+
+#+begin_src emacs-lisp
+(general-define-key
+ :prefix "C-;"
+;; Org-mode
+"C-." '(org-time-stamp :wk "Org timestamp")
+"C-/" '(org-tag :wk "Org tag")
+
+;; AVY COMMANDS
+avy-goto-char
+avy-goto-char-2
+avy-goto-line
+avy-goto-word-1
+avy-goto-word-0
+avy-goto-subdorw-1
+avy-goto-subword-0
+avy-goto-line-above
+avy-goto-below
+avy-pop-mark
+avy-resume
+avy-isearch
+avy-org-goto-heading-timer
+avy-org-refile-as-child
 )
 #+end_src
+
 
 * UI Configuration
 ** Better Defaults
@@ -907,6 +936,13 @@ I set a keybinding for =clone-indirect-buffer-other-window= for when I want to h
 (defun prefer-vertical-split ()
   (setq split-width-threshold nil)
   (setq split-height-threshold 40)) ; Adjust this value as needed
+#+end_src
+
+** Avy
+
+#+begin_src emacs-lisp
+(use-package avy
+  :ensure t)
 #+end_src
 
 * Other Packages
@@ -2000,3 +2036,4 @@ The following snippet sets up a hook for all Org task state changes and then mov
    :map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src
+
