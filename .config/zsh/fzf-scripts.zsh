@@ -42,6 +42,35 @@ fgb() {
 # Other #
 #########
 
+# Browser quicklinks menu
+fql() {
+    local options=(
+        "Google"
+        "Google (Private Tab)"
+        "YouTube"
+    )
+
+    local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}")
+
+    case $choice in
+        "Google")
+            read -p "Search Google: " query
+            xdg-open "https://www.google.com/search?q=$query"
+            ;;
+        "Google (Private Tab)")
+            read -p "Search Google (Private Tab): " query
+            xdg-open "https://www.google.com/search?q=$query" --private
+            ;;
+        "YouTube")
+            read -p "Search YouTube: " query
+            xdg-open "https://www.youtube.com/results?search_query=$query"
+            ;;
+        *)
+            echo "Invalid option. Exiting..."
+            ;;
+    esac
+}
+
 # Display the directory stack with fzf. Jump to the directory when one selected
 fpop() {
     # Only work with alias d (in zsh-aliases) defined as:
