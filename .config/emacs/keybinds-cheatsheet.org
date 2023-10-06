@@ -15,10 +15,10 @@ The world's greatest programmer once said:
 - [[#common-keybinds][Common keybinds]]
 - [[#keybinds-without-a-prefix-key][Keybinds without a prefix key]]
   - [[#splits-navigation][Splits navigation]]
-  - [[#style-formatting-visual-mode][Style formatting (visual mode)]]
-  - [[#org-mode][Org Mode]]
+  - [[#style-formatting-surround-automation-selection-mode][Style formatting surround automation (selection-mode)]]
+  - [[#org-mode-common-keys][Org Mode common keys]]
   - [[#org-mode-tables][Org Mode Tables]]
-  - [[#centaur-tabs][Centaur Tabs]]
+  - [[#centaur-tabsbuffers][Centaur Tabs/buffers]]
   - [[#zoom][Zoom]]
 - [[#c-x-leader-key][C-x Leader Key]]
 - [[#c-c-leader-key][C-c Leader Key]]
@@ -55,8 +55,8 @@ The world's greatest programmer once said:
 
 | Keybinding  | Description              |
 |-------------+--------------------------|
-| C-h/j/k/l   | Switch window focus      |
-| C-S-h/j/k/l | Move window              |
+| C-h/j/k/l   | Switch split focus       |
+| C-S-h/j/k/l | Move split               |
 | M-</>       | Increase/Decrease width  |
 | M-=/-       | Increase/Decrease height |
 | M-0         | Balance splits           |
@@ -65,16 +65,18 @@ The world's greatest programmer once said:
 | M-v         | Vertical split window    |
 | M-m         | Maximize split           |
 
-** Style formatting (visual mode)
+** Style formatting surround automation (selection-mode)
 
-| Keybinding | Description |
-|------------+-------------|
-| m          | Bold        |
-| .          | Code        |
-| ,          | Distinguish |
-| /          | Underline   |
+| Keybinding | Description      |
+|------------+------------------|
+| m          | Bold             |
+| .          | Code             |
+| ,          | Distinguish      |
+| /          | Underline        |
+| '          | quotation        |
+| "          | double-quotation |
 
-** Org Mode
+** Org Mode common keys
 
 | Keybinding  | Description                                        |
 |-------------+----------------------------------------------------|
@@ -102,16 +104,16 @@ To create a table just start typing: =| table | name | description=
 | M-S-j/k             | Insert a new row above/delete current row     |
 | o                   | Insert new roam and move to the beginning     |
 
-** Centaur Tabs
+** Centaur Tabs/buffers
 
 | Keybinding | Description                         |
 |------------+-------------------------------------|
 | M-p/n      | Tab Previous/Next                   |
-| M-f/b      | Tab group forward/backward          |
-| M-,/.      | Tab Move left/right                 |
-| M-d        | Kill this buffer                    |
-| M-D        | Kill other buffers in current group |
-| M-t        | Create new tab and open dashboard   |
+| M-F/B      | Move tab forward/backward           |
+| M-u        | Kill this buffer                    |
+| M-U        | Kill other buffers in current group |
+| M-o        | Create new tab                      |
+| M-O        | Open dashbord                       |
 | M-1/2/3/4  | Switch to tab 1/2/3/4               |
 
 ** Zoom
