@@ -24,6 +24,7 @@ The world's greatest programmer once said:
 - [[#c-x-leader-key][C-x Leader Key]]
   - [[#common-keys][Common keys]]
   - [[#another-prefix-keys][Another prefix-keys]]
+- [[#c--leader-key][C-; Leader Key]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-roam][Org-Roam]]
   - [[#org-roam-dailies][Org-Roam dailies]]
@@ -33,7 +34,6 @@ The world's greatest programmer once said:
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
   - [[#magit][Magit]]
-  - [[#evil-snipe][Evil-Snipe]]
 - [[#system-config-and-setup-on-wayland][System config and setup on Wayland]]
   - [[#setup-on-hyprland-wm][Setup on Hyprland WM]]
   - [[#mime-types][Mime types]]
@@ -153,6 +153,8 @@ To create a table just start typing: =| table | name | description=
 | T          | Toggle         |
 | r          | Registers      |
 
+* C-; Leader Key
+
 * C-c Leader Key
 
 | Keybinding | Description         |
@@ -265,9 +267,6 @@ To create a table just start typing: =| table | name | description=
 | Q          | Toggle read-only mode for the current Dired buffer |
 
 ** Magit
-** Evil-Snipe
-*** Inline navigation
-*** Long distance navigation
 
 * System config and setup on Wayland
 ** Setup on Hyprland WM
@@ -337,8 +336,7 @@ Then adding a regex for it to =~/.config/git/config=
 
 ** Literate programming
 1. =<s *TAB*=
-2. define which file should be it tangled
-   in the beginning
+2. define which file should be tangled in the beginning
    - =+property header-args :tangle config.el=
    or with the code block
    - =#+begin_src xml :tangle ~/.local/share/mime/packages/org.xml :mkdirp yes :comments no=
