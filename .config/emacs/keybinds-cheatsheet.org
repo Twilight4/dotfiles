@@ -24,10 +24,10 @@ The world's greatest programmer once said:
 - [[#c-x-leader-key][C-x Leader Key]]
   - [[#common-keybinds][Common keybinds]]
   - [[#another-prefix-keys][Another prefix-keys]]
-- [[#c--leader-key][C-; Leader Key]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-roam][Org-Roam]]
   - [[#org-roam-dailies][Org-Roam dailies]]
+- [[#c--leader-key][C-; Leader Key]]
 - [[#other-packages][Other Packages]]
   - [[#org-agenda][Org-agenda]]
   - [[#org-tempo][Org-tempo]]
@@ -146,8 +146,6 @@ To create a table just start typing: =| table | name | description=
 | T          | Toggle         |
 | r          | Registers      |
 
-* C-; Leader Key
-
 * C-c Leader Key
 
 | Keybinding | Description         |
@@ -193,6 +191,8 @@ To create a table just start typing: =| table | name | description=
 | T          | Go to daily tomorrow      |
 | d          | Capture daily in date     |
 | D          | Go to daily in date       |
+
+* C-; Leader Key
 
 * Other Packages
 ** Org-agenda
