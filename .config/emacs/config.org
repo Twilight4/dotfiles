@@ -459,44 +459,28 @@
 (general-define-key
  :prefix "C-;"
  ;; Org-mode
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
- "." '(avy-goto-stamp :wk "Org timestamp")
-
-
-
-;; AVY COMMANDS
-avy-goto-char
-avy-goto-char-2
-avy-goto-line
-avy-goto-word-1
-avy-goto-word-0
-avy-goto-subdorw-1
-avy-goto-subword-0
-avy-goto-line-above
-avy-goto-below
-avy-pop-mark
-avy-resume
-avy-isearch
-avy-org-goto-heading-timer
-avy-org-refile-as-child
+ "c" '(avy-goto-char :wk "Org timestamp")
+ "C" '(avy-goto-char-2 :wk "Org timestamp")
+ "l" '(avy-goto-line :wk "Org timestamp")
+ "w" '(avy-goto-word-1 :wk "Org timestamp")
+ "W" '(avy-goto-word-2 :wk "Org timestamp")
+ "W" '(avy-goto-subword-1 :wk "Org timestamp")
+ "W" '(avy-goto-subword-0 :wk "Org timestamp")
+ "a" '(avy-goto-line-above :wk "Org timestamp")
+ "b" '(avy-goto-line-below :wk "Org timestamp")
+ "p" '(avy-pop-mark :wk "Org timestamp")
+ "r" '(avy-resume :wk "Org timestamp")
+ "i" '(avy-isearch :wk "Org timestamp")
+ "a" '(avy-avy-org-refile-as-child :wk "Org timestamp")
+ "o" '(avy-org-goto-heading-timer :wk "Org timestamp"))
+ ;; "." '(avy-goto-stamp :wk "Org timestamp")
+ ;; "." '(avy-goto-stamp :wk "Org timestamp")
+ ;; "." '(avy-goto-stamp :wk "Org timestamp")
+ ;; "." '(avy-goto-stamp :wk "Org timestamp")
+ ;; "." '(avy-goto-stamp :wk "Org timestamp")
+ ;; "." '(avy-goto-stamp :wk "Org timestamp")
+ ;; "." '(avy-goto-stamp :wk "Org timestamp")
+ ;; "." '(avy-goto-stamp :wk "Org timestamp")
 )
 #+end_src
 
