@@ -13,7 +13,6 @@ The world's greatest programmer once said:
 #+end_quote
 
 * Table of Contents :toc:
-- [[#common-keybinds][Common keybinds]]
 - [[#keybinds-without-a-leader-key][Keybinds without a Leader Key]]
   - [[#splits-navigation][Splits navigation]]
   - [[#style-formatting-surround-automation-selection-mode][Style formatting surround automation (selection-mode)]]
@@ -23,7 +22,7 @@ The world's greatest programmer once said:
   - [[#zoom][Zoom]]
   - [[#other][Other]]
 - [[#c-x-leader-key][C-x Leader Key]]
-  - [[#common-keys][Common keys]]
+  - [[#common-keybinds][Common keybinds]]
   - [[#another-prefix-keys][Another prefix-keys]]
 - [[#c--leader-key][C-; Leader Key]]
 - [[#c-c-leader-key][C-c Leader Key]]
@@ -40,18 +39,6 @@ The world's greatest programmer once said:
   - [[#mime-types][Mime types]]
   - [[#git-diffs][Git diffs]]
   - [[#literate-programming][Literate programming]]
-
-* Common keybinds
-
-| Keybinding | Description         |
-|------------+---------------------|
-| C-x .      | Create or find file |
-| C-x ,      | Find recent files   |
-| C-x a      | Org agenda          |
-| C-x t      | Org todo list       |
-| C-x c      | Org capture         |
-| C-x TAB    | Comment lines       |
-| C-x s      | Save buffer         |
 
 * Keybinds without a Leader Key
 ** Splits navigation
@@ -133,10 +120,15 @@ To create a table just start typing: =| table | name | description=
 | M-S-n      | Toggle neotree |
 
 * C-x Leader Key
-** Common keys
+** Common keybinds
 
 | Keybinding | Description                             |
 |------------+-----------------------------------------|
+| .          | Create or find file                     |
+| ,          | Find recent files                       |
+| t          | Org todo list                           |
+| c          | Org capture                             |
+| s          | Save buffer                             |
 | C-l        | List bookmarks                          |
 | C-m        | Set/Delete bookmark                     |
 | C-s        | Save current bookmarks to bookmark file |
@@ -146,6 +138,7 @@ To create a table just start typing: =| table | name | description=
 | Keybinding | Description    |
 |------------+----------------|
 | e          | Eval/Edit file |
+| a          | Org agenda     |
 | d          | Dired          |
 | b          | Buffer         |
 | h          | Help           |
