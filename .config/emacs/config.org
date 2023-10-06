@@ -459,31 +459,30 @@
 #+begin_src emacs-lisp
 (general-define-key
  :prefix "C-;"
- ;; Avy jump
+ ;; Avy jumping
  "c" '(avy-goto-char :wk "Jump to a character")
  "C" '(avy-goto-char-2 :wk "Jump to a two-character char")
  "i" '(avy-goto-char-in-line :wk "Jump to a character in line")	; UNSURE
+ "I" '(avy-goto-subword-1 :wk "Jump to a subword") ; UNSURE
  "l" '(avy-goto-line-below :wk "Jump to line below")
  "L" '(avy-goto-line-above :wk "Jump to line above")
  "w" '(avy-goto-word-1-below :wk "Jump to a word below")
  "W" '(avy-goto-word-1-above :wk "Jump to a word above")
- "s" '(avy-goto-subword-1 :wk "Jump to a subword") ; UNSURE
- "." '(avy-goto-stamp :wk "Jump to stamp")	   ; UNSURE
  "o" '(avy-org-goto-heading-timer :wk "Jump to org heading") ; UNSURE
  "p" '(avy-pop-mark :wk "Pop a fucking mark")		     ;UNSURE
  "i" '(avy-isearch :wk "iSearch")			     ;UNSURE
  ;; Avy yanking/killing/moving
  "k" '(avy-kill-region :wk "Kill region")
- "s" '(avy-kill-ring-save-region :wk "Save region")
  "K" '(avy-kill-whole-line :wk "Kill whole line")
+ "s" '(avy-kill-ring-save-region :wk "Save region")
  "S" '(avy-kill-ring-save-whole-line :wk "Save whole line")
  "y" '(avy-copy-region :wk "Copy region")
  "Y" '(avy-copy-line :wk "Copy line")
- "m" '(avy-move-line :wk "Move line")
  "m" '(avy-move-region :wk "Move region")
+ "M" '(avy-move-line :wk "Move line")
  "n" '(avy-next :wk "Next occurance")
  "p" '(avy-prev :wk "Previous occurance")
- "r" '(avy-resume :wk "Resume a fucking mark")
+ "r" '(avy-resume :wk "Resume Avy")
  "t" '(avy-transpose-lines-in-region :wk "Transpose lines in region"))
 )
 #+end_src
