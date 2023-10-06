@@ -466,9 +466,10 @@
  "a" '(avy-goto-subword-1 :wk "Jump to a subword")
  "l" '(avy-goto-line-below :wk "Jump to line below")
  "L" '(avy-goto-line-above :wk "Jump to line above")
+ "o" '(avy-open-line :wk "Jump to line and insert new one above")
  "w" '(avy-goto-word-1-below :wk "Jump to a word below")
  "W" '(avy-goto-word-1-above :wk "Jump to a word above")
- "o" '(avy-org-goto-heading-timer :wk "Jump to org heading")
+ "h" '(avy-org-goto-heading-timer :wk "Jump to org heading")
  ;; Avy yanking/killing/moving
  "k" '(avy-kill-region :wk "Kill region")
  "K" '(avy-kill-whole-line :wk "Kill whole line")
@@ -951,6 +952,12 @@ I set a keybinding for =clone-indirect-buffer-other-window= for when I want to h
 #+begin_src emacs-lisp
 (use-package avy
   :ensure t)
+
+;; Make newline to were avy say and hold cursor there. You can quit avy and then normal open-line
+(defun avy-open-line ()
+  (interactive)
+  (command-execute 'avy-goto-line)
+  (command-execute 'open-line))
 #+end_src
 
 * Other Packages
