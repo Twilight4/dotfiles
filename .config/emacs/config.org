@@ -1217,7 +1217,7 @@ It’s nice to see ANSI colour codes displayed, however we don’t want to disru
 (add-to-list 'desktop-modes-not-to-save 'fundamental-mode)
 #+end_src
 
-** Desktop-override-stale-locks
+*** Desktop override stale-locks
 
 #+begin_src emacs-lisp
 ;;; If emacs doesn't exit properly, the desktop package will leave a
