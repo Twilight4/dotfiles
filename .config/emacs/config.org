@@ -462,15 +462,13 @@
  ;; Avy jumping
  "c" '(avy-goto-char :wk "Jump to a character")
  "C" '(avy-goto-char-2 :wk "Jump to a two-character char")
- "i" '(avy-goto-char-in-line :wk "Jump to a character in line")	; UNSURE
- "I" '(avy-goto-subword-1 :wk "Jump to a subword") ; UNSURE
+ "e" '(avy-goto-char-in-line :wk "Jump to a character in line")
+ "a" '(avy-goto-subword-1 :wk "Jump to a subword")
  "l" '(avy-goto-line-below :wk "Jump to line below")
  "L" '(avy-goto-line-above :wk "Jump to line above")
  "w" '(avy-goto-word-1-below :wk "Jump to a word below")
  "W" '(avy-goto-word-1-above :wk "Jump to a word above")
- "o" '(avy-org-goto-heading-timer :wk "Jump to org heading") ; UNSURE
- "p" '(avy-pop-mark :wk "Pop a fucking mark")		     ;UNSURE
- "i" '(avy-isearch :wk "iSearch")			     ;UNSURE
+ "o" '(avy-org-goto-heading-timer :wk "Jump to org heading")
  ;; Avy yanking/killing/moving
  "k" '(avy-kill-region :wk "Kill region")
  "K" '(avy-kill-whole-line :wk "Kill whole line")
@@ -480,9 +478,12 @@
  "Y" '(avy-copy-line :wk "Copy line")
  "m" '(avy-move-region :wk "Move region")
  "M" '(avy-move-line :wk "Move line")
+ ;; Avy navigation
  "n" '(avy-next :wk "Next occurance")
  "p" '(avy-prev :wk "Previous occurance")
  "r" '(avy-resume :wk "Resume Avy")
+ "/" '(avy-pop-mark :wk "Jump to last location of Avy")
+ "i" '(avy-isearch :wk "iSearch")
  "t" '(avy-transpose-lines-in-region :wk "Transpose lines in region"))
 )
 #+end_src
