@@ -159,8 +159,6 @@ To create a table just start typing: =| table | name | description=
 |------------+---------------------|
 | C-s        | Org schedule        |
 | C-d        | Org deadline        |
-| t          | Org TODO            |
-| T          | Transclusion mode   |
 | C-o        | Org open at point   |
 | C-.        | Org timestamp       |
 | C-,        | Insert source block |
@@ -174,7 +172,7 @@ To create a table just start typing: =| table | name | description=
 | C-i        | Toggle item         |
 | C-m        | Toggle checkbox     |
 | C--        | Table insert hline  |
-| C-c C-SPC  | Zero-width space    |
+| C-SPC      | Zero-width space    |
 
 ** Org-Roam
 
