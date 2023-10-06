@@ -1199,7 +1199,7 @@ It’s nice to see ANSI colour codes displayed, however we don’t want to disru
 (add-to-list 'desktop-globals-to-save 'file-name-history)
 (add-to-list 'desktop-globals-to-save 'custom-enabled-themes)
 
-;; Don't save spefcified buffers
+;; Don't save specified buffers
 (setq desktop-buffers-not-to-save
       (concat "\\("
           "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
