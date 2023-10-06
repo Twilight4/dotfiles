@@ -2,9 +2,9 @@
 
 This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimze the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity. I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. The philosophy adopted in this configuration prioritizes simplicity and ease of use:
   - Most commonly used keybinds don't have a prefix key.
-  - =C-x= prefix key is used particularly for emacs GTD workflow and other packages.
-  - =C-c= prefix key is used particularly for ZK note-taking system and all other org-mode keybinds.
-  - =SPC= global leader key is used for general common and uncommon keybinds.
+  - =C-x= prefix key is used for another prefix-keys and non-prefix keys which are particularly used for emacs GTD system.
+  - =C-c= prefix key is used particularly for ZK note-taking system in =org-mode=.
+  - =C-;= prefix key is used only for =avy= navigation.
 
 The world's greatest programmer once said:
 #+begin_quote
