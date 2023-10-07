@@ -2,12 +2,8 @@
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
 #+STARTUP: showeverything
- #+OPTIONS: toc :include all
 
 * Table of Contents :toc:
-:PROPERTIES:
-:TOC:    :include all
-:END:
 - [[#packages-to-load-first][Packages to load first]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#global-keybindings][Global Keybindings]]
@@ -561,6 +557,9 @@
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
+
+;; Generate TOC with all headings by default
+(setq org-export-with-toc t)
 #+end_src
 
 ** Setting the Font Face
