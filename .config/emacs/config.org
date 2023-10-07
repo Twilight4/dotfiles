@@ -45,7 +45,6 @@
   - [[#elfeed][Elfeed]]
   - [[#ansi-colours][Ansi colours]]
   - [[#desktop-mode][Desktop-mode]]
-  - [[#desktop-override-stale-locks][Desktop-override-stale-locks]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential Packages]]
   - [[#editing-features-for-org][Editing Features for Org]]
@@ -118,6 +117,7 @@
 (define-key global-map (kbd "M-C-f") nil)
 (define-key global-map (kbd "C-z") nil)
 (define-key global-map (kbd "M-SPC") nil)
+(define-key global-map (kbd "M-q") nil)
 
 ;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
