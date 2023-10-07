@@ -176,7 +176,7 @@
 ;;(global-set-key (kbd "C-key") 'join-line)
 ;;(global-set-key (kbd "C-key") 'newline)
 ;; Redo
-(global-set-key (kbd "M-/") 'undo-tree-redo)
+(global-set-key (kbd "M-/") 'undo-redo)
 ;; Rectangular selection
 (global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
 ;; Make escape (C-g) quit prompts
@@ -860,12 +860,12 @@ I use the =no-littering= package to keep folders where I edit files and the Emac
 #+end_src
 
 ** Undo-tree
-I'd like to also have the =redo= functionality but I don't wanna save the undo history lists files like =.keybinds-cheatsheet.org.~undo-tree~=.
+I like to have a view of undo changes but I don't wanna save the undo history lists files like =.keybinds-cheatsheet.org.~undo-tree~=.
 
 #+begin_src emacs-lisp
-;; (use-package undo-tree
-;;   :config
-;;   (global-undo-tree-mode))
+;;(use-package undo-tree
+;;  :config
+;;  (global-undo-tree-mode))
 #+end_src
 
 ** Rainbow-mode
