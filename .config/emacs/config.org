@@ -2,7 +2,7 @@
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
 #+STARTUP: showeverything
-# #+OPTIONS: toc:2
+ #+OPTIONS: toc :include all
 
 * Table of Contents :toc:
 :PROPERTIES:
