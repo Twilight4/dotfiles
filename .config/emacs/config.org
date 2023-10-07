@@ -2,9 +2,12 @@
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
 #+STARTUP: showeverything
-#+OPTIONS: toc:2
+# #+OPTIONS: toc:2
 
 * Table of Contents :toc:
+:PROPERTIES:
+:TOC:    :include all
+:END:
 - [[#packages-to-load-first][Packages to load first]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#global-keybindings][Global Keybindings]]
