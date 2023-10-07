@@ -107,8 +107,11 @@
 #+begin_src emacs-lisp
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
-(define-key global-map (kbd "C-x") (make-sparse-keymap))
-(define-key global-map (kbd "C-h") (make-sparse-keymap))
+;(define-key global-map (kbd "C-x") (make-sparse-keymap))
+;(define-key global-map (kbd "C-h") (make-sparse-keymap))
+(global-unset-key (kbd "M-g"))
+(global-unset-key (kbd "C-x"))
+(global-unset-key (kbd "C-h"))
 
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "M-,") nil)
@@ -193,6 +196,46 @@
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 (global-set-key (kbd "C-,") 'backward-kill-sentence)
 (global-set-key (kbd "C-.") 'kill-sentence)
+;; Upgrade clipboard functions
+(global-set-key (kbd "C-w") 'kill-region-or-backward-delete)
+(global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
+(global-set-key (kbd "M-w") 'kill-ring-save-or-backward-kill-word)
+
+
+
+
+
+(defun kill-region-or-backward-delete ()
+  "Kill the region if active, otherwise delete backward."
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (kill-ring-save (region-beginning) (region-end))
+        (delete-region (region-beginning) (region-end)))
+    (call-interactively 'backward-delete-char-untabify)))
+
+(defun kill-region-or-forward-delete ()
+  "Kill the region if active, otherwise delete forward."
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (kill-ring-save (region-beginning) (region-end))
+        (delete-region (region-beginning) (region-end)))
+    (delete-char 1)))
+
+(defun kill-ring-save-or-backward-kill-word ()
+  "Wrapper for `kill-ring-save' or `backward-kill-word' depending on whether a region is active."
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'kill-ring-save)
+    (call-interactively 'backward-kill-word)))
+
+
+
+
+
+
+
 ;; Zooming keys
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
