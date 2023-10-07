@@ -9,10 +9,9 @@ export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 # User-specific environment variables (system-wide are located in /etc/environment)
 export EDITOR="emacsclient -c -a emacs"
 export ALTERNATE_EDITOR=""
-#export EDITOR="nvim"
-export VISUAL="nvim"
+export VISUAL="emacs -nw"
 export TERMINAL="kitty -1"
-export BROWSER="cachy-browser"
+export BROWSER="firefox"
 
 # Zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                		 # Zsh config files
