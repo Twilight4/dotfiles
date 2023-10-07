@@ -196,13 +196,10 @@
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 (global-set-key (kbd "C-,") 'backward-kill-sentence)
 (global-set-key (kbd "C-.") 'kill-sentence)
-;; Upgrade clipboard functions
+;; Upgraded clipboard functions
 (global-set-key (kbd "C-w") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
 (global-set-key (kbd "M-w") 'kill-ring-save-or-backward-kill-word)
-
-
-
 
 
 (defun kill-region-or-backward-delete ()
@@ -212,7 +209,7 @@
       (progn
         (kill-ring-save (region-beginning) (region-end))
         (delete-region (region-beginning) (region-end)))
-    (call-interactively 'backward-delete-char-untabify)))
+    (hungry-delete-backward 1)))
 
 (defun kill-region-or-forward-delete ()
   "Kill the region if active, otherwise delete forward."
@@ -221,7 +218,7 @@
       (progn
         (kill-ring-save (region-beginning) (region-end))
         (delete-region (region-beginning) (region-end)))
-    (delete-char 1)))
+    (hungry-delete-forward 1)))
 
 (defun kill-ring-save-or-backward-kill-word ()
   "Wrapper for `kill-ring-save' or `backward-kill-word' depending on whether a region is active."
