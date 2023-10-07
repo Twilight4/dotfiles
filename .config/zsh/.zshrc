@@ -73,9 +73,9 @@ zsh_add_completion "zsh-users/zsh-completions"
 # Keybindings
 zle -N _new_command
 bindkey '^V' _new_command
-source "$ZDOTDIR/plugins/fg-bg.sh"
-zle -N fg-bg
-bindkey '^Z' fg-bg
+#source "$ZDOTDIR/plugins/fg-bg.sh"
+#zle -N fg-bg
+#bindkey '^Z' fg-bg           # have bound Open in emacs in emacs-mode
 bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + g
 bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
 bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
