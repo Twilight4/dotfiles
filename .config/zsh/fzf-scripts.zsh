@@ -45,30 +45,31 @@ fgb() {
 # Browser quicklinks menu
 fql() {
     local options=(
-        "Google"
-        "Google (Private Tab)"
-        "YouTube"
-        "Github"
-        "Github (Twilight4 Profile)"
-        "Gmail"
-        "Amazon (US)"
-        "Amazon (PL)"
-        "Allegro"
-        "OLX"
-        "HTB"
-        "OffSec"
-        "TCM"
-        "THM"
-        "Root-me"
-        "PentesterLab"
-        "ChatGBT"
-        "PWNX"
+        " Google"
+        " Google (Private Tab)"
+        " YouTube"
+        " Github"
+        " Github (Twilight4 Profile)"
+        " Gmail"
+        " Open Shopping Websites"
+        " Amazon (US)"
+        " Amazon (PL)"
+        "󰒚 Allegro"
+        "󰒚 OLX"
+        " HTB"
+        " THM"
+        " TCM"
+        " OffSec"
+        " Root-me"
+        " PentesterLab"
+        " PWNX"
+        " ChatGBT"
     )
 
     local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}")
 
     case $choice in
-        "Google")
+        " Google")
             echo -n "Search Google: "
             read query
             if [ -z "$query" ]; then
@@ -77,7 +78,7 @@ fql() {
                 xdg-open "https://www.google.com/search?q=$query"
             fi
             ;;
-        "Google (Private Tab)")
+        " Google (Private Tab)")
             echo -n "Search Google (Private Tab): "
             read query
             if [ -z "$query" ]; then
@@ -86,7 +87,7 @@ fql() {
                 firefox --private-window "https://www.google.com/search?q=$query"
             fi
             ;;
-        "YouTube")
+        " YouTube")
             echo -n "Search YouTube: "
             read query
             if [ -z "$query" ]; then
@@ -95,7 +96,7 @@ fql() {
                 xdg-open "https://www.youtube.com/results?search_query=$query"
             fi
             ;;
-        "Github")
+        " Github")
             echo -n "Search Github: "
             read query
             if [ -z "$query" ]; then
@@ -104,13 +105,25 @@ fql() {
                 xdg-open "https://github.com/search?q=$query"
             fi
             ;;
-        "Github (Twilight4 Profile)")
+        " Github (Twilight4 Profile)")
             xdg-open "https://github.com/Twilight4"
             ;;
-        "Gmail")
+        " Gmail")
             xdg-open "https://mail.google.com"
             ;;
-        "Amazon (US)")
+        " Open Shopping Websites")
+            echo -n "Search Shopping Websites: "
+            read query
+            if [ -z "$query" ]; then
+                echo "Search query is empty."
+            else
+                xdg-open "https://www.amazon.com/s?k=$query"
+                xdg-open "https://www.amazon.pl/s?k=$query"
+                xdg-open "https://allegro.pl/listing?string=$query"
+                xdg-open "https://www.olx.pl/oferty/q-$query/"
+            fi
+            ;;
+        " Amazon (US)")
             echo -n "Search Amazon (US): "
             read query
             if [ -z "$query" ]; then
@@ -119,7 +132,7 @@ fql() {
                 xdg-open "https://www.amazon.com/s?k=$query"
             fi
             ;;
-        "Amazon (PL)")
+        " Amazon (PL)")
             echo -n "Search Amazon (PL): "
             read query
             if [ -z "$query" ]; then
@@ -128,7 +141,7 @@ fql() {
                 xdg-open "https://www.amazon.pl/s?k=$query"
             fi
             ;;
-        "Allegro")
+        "󰒚 Allegro")
             echo -n "Search Allegro: "
             read query
             if [ -z "$query" ]; then
@@ -137,7 +150,7 @@ fql() {
                 xdg-open "https://allegro.pl/listing?string=$query"
             fi
             ;;
-        "OLX")
+        " OLX")
             echo -n "Search OLX: "
             read query
             if [ -z "$query" ]; then
@@ -146,28 +159,28 @@ fql() {
                 xdg-open "https://www.olx.pl/oferty/q-$query/"
             fi
             ;;
-        "HTB")
+        " HTB")
             xdg-open "https://www.hackthebox.eu"
             ;;
-        "THM")
+        " THM")
             xdg-open "https://tryhackme.com"
             ;;
-        "TCM")
+        " TCM")
             xdg-open "https://academy.tcm-sec.com"
             ;;
-        "OffSec")
+        " OffSec")
             xdg-open "https://www.offensive-security.com"
             ;;
-        "Root-me")
+        " Root-me")
             xdg-open "https://www.root-me.org"
             ;;
-        "PentesterLab")
+        " PentesterLab")
             xdg-open "https://www.pentesterlab.com"
             ;;
-        "PWNX")
+        " PWNX")
             xdg-open "https://www.pwnx.io"
             ;;
-        "ChatGBT")
+        " ChatGBT")
             xdg-open "https://www.chat.openai.com"
             ;;
     esac
