@@ -11,6 +11,8 @@ bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 bindkey '^[b' backward-word
 bindkey '^[f' forward-word
+bindkey '^P' up-line-or-history
+bindkey '^N' down-line-or-history
 # Killing and yanking
 bindkey '^U' backward-kill-line
 bindkey '^O' kill-line
@@ -28,8 +30,6 @@ bindkey '^W' backward-delete-char   # (todo - backspace) upgrade to cut to clipb
 # Full keyboard keys
 bindkey 'Home' beginning-of-line
 bindkey 'End' end-of-line
-bindkey '^[u' up-case-word
-bindkey '^[l' down-case-word
 bindkey '^[[1~' beginning-of-line
 bindkey '^[[4~' end-of-line
 bindkey '^[[1;5C' forward-word
@@ -44,42 +44,17 @@ bindkey '^[[Z' reverse-menu-complete
 bindkey -M vicmd '^[.' insert-last-word  # M-.
 bindkey -M vicmd '^[g' get-line          # M-g
 bindkey -M vicmd '^Q' push-line          # C-q
-bindkey '^X^E' edit-command-line         # Open in emacs
-bindkey '^V' edit-command-line           # Open in emacs
+bindkey '^Z' edit-command-line           # Open in emacs
 bindkey -M visual '^[' '^[v'             # selection-mode
 bindkey -M visual '^[x' '^[x'            # selection-mode
 
-# Visual mode on Ctrl+SPC
+# Visual mode on C-SPC
 function visual-mode {
     zle set-mark-command
     zle vi-match-bracket
 }
 zle -N visual-mode
 bindkey '^ ' visual-mode
-
-autoload -Uz surround
-zle -N delete-surround surround
-zle -N change-surround surround
-zle -N add-surround surround
-
-# Escape shortcut
-bindkey '^[D' vi-cmd-mode
-function vim-mode-accept-or-eof() {
-    if [[ $#BUFFER = 0 ]]; then
-        exit
-    else
-        zle accept-line
-    fi
-}
-zle -N vim-mode-accept-or-eof
-bindkey '^Q' vim-mode-accept-or-eof
-
-# Identify editing mode
-VIM_MODE_KEYMAP=viins
-
-function vim-mode-set-keymap () {
-    # This function is intentionally left empty
-}
 
 # Restore shell option 'aliases'
 set -o aliases
