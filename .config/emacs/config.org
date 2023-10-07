@@ -159,14 +159,14 @@
 (global-set-key (kbd "M-0") 'balance-windows)
 ;; Window splits
 (global-set-key (kbd "M-s") 'split-window-right)
-(global-set-key (kbd "M-v") 'split-window-below)
+(global-set-key (kbd "M-S") 'split-window-below)
 (global-set-key (kbd "M-c") 'delete-window)
 (global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Scrolling
 (global-set-key (kbd "M-q") 'scroll-down-line)
 (global-set-key (kbd "C-q") 'scroll-up-line)
 ;; Rebinding join/new line
-;;(global-set-key (kbd "C-;") 'join-line)
+;;(global-set-key (kbd "C-key") 'join-line)
 ;;(global-set-key (kbd "C-key") 'newline)
 ;; Redo
 (global-set-key (kbd "M-/") 'undo-tree-redo)
