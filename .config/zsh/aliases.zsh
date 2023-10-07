@@ -185,8 +185,8 @@ alias pacs="sudo pacman -S"                      # Install package faster
 alias pacr="sudo pacman -Rns"                    # Remove package faster
 alias pacf="sudo pacman -F"                      # Search binary package faster
 alias pacsyu="sudo pacman -Syu"                  # Update only standard pkgs
-alias pacsyur="sudo pacman -Syu && sleep 5 & reboot"        # Update and reboot
-alias pacsyus="sudo pacman -Syu && sleep 5 & shutdown now"  # Update and shutdown
+alias pacsyur="sudo pacman -Syu && sleep 5 && reboot"        # Update and reboot
+alias pacsyus="sudo pacman -Syu && sleep 5 && shutdown now"  # Update and shutdown
 alias pacsyyu="sudo pacman -Syyu"                # Refresh pkglist & update standard pkgs
 alias fixpac="sudo rm /var/lib/pacman/db.lck"    # Remove pacman lock
 alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # Cleanup orphaned packages
@@ -195,15 +195,7 @@ alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # Cleanup orphaned packages
 alias parr="paru -Rns"                            # Remove package faster
 alias pars="paru -S"                              # Install AUR package faster
 alias parf="paru -F"                              # Search binary package faster
-alias parsua="paru -Sua --noconfirm"              # Update only AUR pkgs
 alias parsyu="paru -Syu --noconfirm"              # Update standard pkgs and AUR pkgs
-
-# Yay - deprecated
-#alias yayr="yay -Rns"                            # Remove package faster
-#alias yays="yay -S"                              # Install AUR package faster
-#alias yayf="yay -F"                              # Search binary package faster
-#alias yaysua="yay -Sua --noconfirm"              # Update only AUR pkgs
-#alias yaysyu="yay -Syu --noconfirm"              # Update standard pkgs and AUR pkgs
 
 # Quick access to config files
 alias zshrc="nvim ~/.config/zsh/.zshrc"
