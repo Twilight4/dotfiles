@@ -690,13 +690,6 @@ Adjust org-roam file names in similary way I have in the window title.
 ** Smooth-scrolling
 
 #+begin_src emacs-lisp
-;; Package for conciceness when using C-p/n
-(use-package smooth-scrolling
-  :ensure t
-  :config
-  (smooth-scrolling-mode 1))
-
-;; Actual smooth scroll
 (use-package good-scroll
   :ensure t
   :config
