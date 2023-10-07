@@ -207,14 +207,8 @@ alias parsyu="paru -Syu --noconfirm"              # Update standard pkgs and AUR
 
 # Quick access to config files
 alias zshrc="nvim ~/.config/zsh/.zshrc"
-alias zshenv="nvim ~/.config/zsh/.zshenv"
-alias zsh-scripts="nvim ~/.config/zsh/zsh-scripts"
 alias aliases="nvim ~/.config/zsh/aliases.zsh"
-alias hyprland="nvim ~/.config/hypr/hyprland.conf"
 alias init="nvim ~/.config/river/init"
-alias red="nvim ~/desktop/workspace/dotfiles/.config/cheat/tools-charts/red-ad-seq"
-alias pen="nvim ~/desktop/workspace/dotfiles/.config/cheat/tools-charts/pen-seq"
-alias osint="nvim ~/desktop/workspace/dotfiles/.config/cheat/tools-charts/osint-seq"
 
 # Colorize grep output
 alias grep="grep --color=auto"
