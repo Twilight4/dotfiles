@@ -18,7 +18,7 @@
   - [[#custom-return][Custom return]]
   - [[#window-title][Window Title]]
   - [[#file-names-for-org-roam][File names for Org-roam]]
-  - [[#smooth-scrolling][Smooth-scrolling]]
+  - [[#good-scroll][Good-scroll]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
@@ -26,8 +26,8 @@
   - [[#file-encoding][File Encoding]]
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry-delete]]
-  - [[#upgraded-clipboard][Upgraded clipboard]]
-  - [[#select-until-beginningend-of-buffer][Select until beginning/end of buffer]]
+  - [[#clipboard-automation][Clipboard automation]]
+  - [[#selection-automation][Selection automation]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
@@ -687,9 +687,10 @@ Adjust org-roam file names in similary way I have in the window title.
     ad-do-it))
 #+end_src
 
-** Smooth-scrolling
+** Good-scroll
 
 #+begin_src emacs-lisp
+;; Actual smooth scrolling experience in emacs
 (use-package good-scroll
   :ensure t
   :config
@@ -802,7 +803,7 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   :config (global-hungry-delete-mode))
 #+end_src
 
-** Upgraded clipboard
+** Clipboard automation
 
 #+begin_src emacs-lisp
 (defun kill-region-or-backward-delete ()
@@ -831,15 +832,17 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
     (call-interactively 'backward-kill-word)))
 #+end_src
 
-** Select until beginning/end of buffer
+** Selection automation
 
 #+begin_src emacs-lisp
+;; Select until beginning of the buffer
 (defun select-until-beginning ()
   "Select text from current point until the beginning of the buffer."
   (interactive)
   (push-mark (point) t t)
   (goto-char (point-min)))
 
+;; Select until end of the buffer
 (defun select-until-end ()
   "Select text from current point until the end of the buffer."
   (interactive)
@@ -851,9 +854,9 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
 I use the =no-littering= package to keep folders where I edit files and the Emacs configuration folder clean.
 
 #+begin_src emacs-lisp
-;; NOTE: If you want to move everything out of the ~/.emacs.d folder
-;; reliably, set `user-emacs-directory` before loading no-littering!
-;(setq user-emacs-directory "~/.cache/emacs")
+;; Change the user-emacs-directory to keep unwanted things out of ~/config/emacs
+(setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
+      url-history-file (expand-file-name "url/history" user-emacs-directory))
 
 (use-package no-littering
   :ensure t)
