@@ -2,6 +2,7 @@
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
 #+STARTUP: show3levels
+#+TOC: :include all :ignore this
 
 * Table of Contents :toc:
 - [[#packages-to-load-first][Packages to load first]]
@@ -558,8 +559,9 @@
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
 
-;; Generate TOC with all headings by default
+;; Generate TOC with 4 headlines by default
 (setq org-export-with-toc t)
+(setq org-export-with-toc-depth 4)
 
 ;; Show only 3 levels of TOC on startup
 (setq org-startup-folded 'show3levels)
