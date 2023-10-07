@@ -25,6 +25,7 @@
   - [[#file-encoding][File Encoding]]
 - [[#editing-features][Editing Features]]
   - [[#hungry-delete][Hungry-delete]]
+  - [[#upgraded-clipboard][Upgraded clipboard]]
   - [[#select-until-beginningend-of-buffer][Select until beginning/end of buffer]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
@@ -200,39 +201,6 @@
 (global-set-key (kbd "C-w") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
 (global-set-key (kbd "M-w") 'kill-ring-save-or-backward-kill-word)
-
-
-(defun kill-region-or-backward-delete ()
-  "Kill the region if active, otherwise delete backward."
-  (interactive)
-  (if (region-active-p)
-      (progn
-        (kill-ring-save (region-beginning) (region-end))
-        (delete-region (region-beginning) (region-end)))
-    (hungry-delete-backward 1)))
-
-(defun kill-region-or-forward-delete ()
-  "Kill the region if active, otherwise delete forward."
-  (interactive)
-  (if (region-active-p)
-      (progn
-        (kill-ring-save (region-beginning) (region-end))
-        (delete-region (region-beginning) (region-end)))
-    (hungry-delete-forward 1)))
-
-(defun kill-ring-save-or-backward-kill-word ()
-  "Wrapper for `kill-ring-save' or `backward-kill-word' depending on whether a region is active."
-  (interactive)
-  (if (region-active-p)
-      (call-interactively 'kill-ring-save)
-    (call-interactively 'backward-kill-word)))
-
-
-
-
-
-
-
 ;; Zooming keys
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -820,6 +788,35 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   :ensure t
   :defer t
   :config (global-hungry-delete-mode))
+#+end_src
+
+** Upgraded clipboard
+
+#+begin_src emacs-lisp
+(defun kill-region-or-backward-delete ()
+  "Kill the region if active, otherwise delete backward."
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (kill-ring-save (region-beginning) (region-end))
+        (delete-region (region-beginning) (region-end)))
+    (hungry-delete-backward 1)))
+
+(defun kill-region-or-forward-delete ()
+  "Kill the region if active, otherwise delete forward."
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (kill-ring-save (region-beginning) (region-end))
+        (delete-region (region-beginning) (region-end)))
+    (hungry-delete-forward 1)))
+
+(defun kill-ring-save-or-backward-kill-word ()
+  "Wrapper for `kill-ring-save' or `backward-kill-word' depending on whether a region is active."
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'kill-ring-save)
+    (call-interactively 'backward-kill-word)))
 #+end_src
 
 ** Select until beginning/end of buffer
