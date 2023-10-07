@@ -34,6 +34,7 @@ The world's greatest programmer once said:
   - [[#neotree][Neotree]]
   - [[#dired][Dired]]
   - [[#magit][Magit]]
+  - [[#undo-tree][Undo-tree]]
 - [[#system-config-and-setup-on-wayland][System config and setup on Wayland]]
   - [[#setup-on-hyprland-wm][Setup on Hyprland WM]]
   - [[#mime-types][Mime types]]
@@ -132,6 +133,7 @@ To create a table just start typing: =| table | name | description=
 | C-l        | List bookmarks                          |
 | C-m        | Set/Delete bookmark                     |
 | C-s        | Save current bookmarks to bookmark file |
+| u          | =undo-tree-visualise=                     |
 
 ** Another prefix-keys
 
@@ -260,6 +262,16 @@ To create a table just start typing: =| table | name | description=
 | Q          | Toggle read-only mode for the current Dired buffer |
 
 ** Magit
+
+** Undo-tree
+
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| C-/        | undo                                 |
+| M-/        | redo                                 |
+| C-p/n      | navigate through =undo-tree-visualise= |
+| q          | quit                                 |
+
 
 * System config and setup on Wayland
 ** Setup on Hyprland WM
