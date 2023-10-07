@@ -18,6 +18,7 @@
   - [[#custom-return][Custom return]]
   - [[#window-title][Window Title]]
   - [[#file-names-for-org-roam][File names for Org-roam]]
+  - [[#smooth-scrolling][Smooth-scrolling]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
@@ -682,6 +683,15 @@ Adjust org-roam file names in similary way I have in the window title.
              "🢔(\\1-\\2-\\3) "
              (subst-char-in-string ?_ ?  buffer-file-name)))
     ad-do-it))
+#+end_src
+
+** Smooth-scrolling
+
+#+begin_src emacs-lisp
+(use-package smooth-scrolling
+  :ensure t
+  :config
+  (smooth-scrolling-mode 1))
 #+end_src
 
 ** Which-key
@@ -2185,4 +2195,3 @@ The following snippet sets up a hook for all Org task state changes and then mov
    :map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src
-
