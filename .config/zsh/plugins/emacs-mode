@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
 
-# Always be in insert mode
-bindkey -v
-
 # Emacs-like bindings
 # Movement
 bindkey '^B' backward-char
@@ -23,9 +20,7 @@ bindkey '^?' backward-delete-char   # (backspace) upgrade to cut to clipbaord wh
 bindkey '^H' backward-kill-word     # (C-backspace)
 bindkey '^W' backward-delete-char   # (todo - backspace) upgrade to cut to clipbaord when in selection mode
 
-#bindkey '^R' history-incremental-search-backward  # have bound fzf
-#bindkey '^S' history-incremental-search-forward   # not sure of implementation yet
-#bindkey '^Y' yank    # ugprade to paste from clipboard in terminal config
+#bindkey '^Y' yank    # remove and ugprade to paste from clipboard in terminal config
 
 # Full keyboard keys
 bindkey 'Home' beginning-of-line
@@ -40,7 +35,7 @@ bindkey '^[[5~' beginning-of-buffer-or-history
 bindkey '^[[6~' end-of-buffer-or-history
 bindkey '^[[3~' delete-char
 bindkey '^[[Z' reverse-menu-complete
-# EXPERIMENTAL
+# EXPERIMENTAL - REMOVE VIM MODE AND ONLY ADD SELECTION-MODE
 bindkey -M vicmd '^[.' insert-last-word  # M-.
 bindkey -M vicmd '^[g' get-line          # M-g
 bindkey -M vicmd '^Q' push-line          # C-q

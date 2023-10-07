@@ -67,24 +67,10 @@ zsh_add_completion "zsh-users/zsh-completions"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
 
-# Keybindings
-zle -N _new_command
-bindkey '^V' _new_command
+# Keybindings - check functions.zsh and emacs-mode for more
 #source "$ZDOTDIR/plugins/fg-bg.sh"
 #zle -N fg-bg
-#bindkey '^Z' fg-bg           # have bound Open in emacs in emacs-mode
-bindkey -r '^l'              #rebinding clear from ctrl + l to ctrl + g
-bindkey -r '^g'              #rebinding clear from ctrl + l to ctrl + g
-bindkey '^g' .clear-screen   #rebinding clear from ctrl + l to ctrl + g
-
-# Keybind to open help page
-custom-run-help() {
-    LBUFFER="help $LBUFFER"
-    zle accept-line
-}
-
-zle -N custom-run-help
-bindkey '^[h' custom-run-help
+#bindkey '^Z' fg-bg        # have it bound "open in emacs" in emacs-mode
 
 # Improved backward kill word
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
