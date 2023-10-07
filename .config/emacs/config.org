@@ -1,7 +1,7 @@
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
-#+STARTUP: showeverything
+#+STARTUP: show3levels
 
 * Table of Contents :toc:
 - [[#packages-to-load-first][Packages to load first]]
@@ -560,6 +560,9 @@
 
 ;; Generate TOC with all headings by default
 (setq org-export-with-toc t)
+
+;; Show only 3 levels of TOC on startup
+(setq org-startup-folded 'show3levels)
 #+end_src
 
 ** Setting the Font Face
