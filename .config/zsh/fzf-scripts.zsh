@@ -43,145 +43,104 @@ fgb() {
 #########
 
 # Browser quicklinks menu
-fql() {
-    local options=(
-        " Google"
-        " Google (Private Tab)"
-        " YouTube"
-        " Github"
-        " Github (Twilight4 Profile)"
-        " Gmail"
-        " Open Shopping Websites"
-        " Amazon (US)"
-        " Amazon (PL)"
-        "󰒚 Allegro"
-        "󰒚 OLX"
-        " HTB"
-        " THM"
-        " TCM"
-        " OffSec"
-        " Root-me"
-        " PentesterLab"
-        " PWNX"
-        " ChatGBT"
-    )
-
-    local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}")
-
+fql () {
+    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github (Twilight4 Profile)" " Gmail" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " HTB" " THM" " TCM" " OffSec" " Root-me" " PentesterLab" " PWNX" " ChatGBT") 
+    local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}") 
     case $choice in
-        " Google")
-            echo -n "Search Google: "
+        (" Google") echo -n "Search Google: "
             read query
-            if [ -z "$query" ]; then
-                xdg-open "https://www.google.com"
+            if [ -z "$query" ]
+            then
+                xdg-open "https://www.google.com" &
             else
-                xdg-open "https://www.google.com/search?q=$query"
-            fi
-            ;;
-        " Google (Private Tab)")
-            echo -n "Search Google (Private Tab): "
+                xdg-open "https://www.google.com/search?q=$query" &
+            fi ;;
+        (" Google (Private Tab)") echo -n "Search Google (Private Tab): "
             read query
-            if [ -z "$query" ]; then
-                firefox --private-window "https://www.google.com"
+            if [ -z "$query" ]
+            then
+                firefox --private-window "https://www.google.com" &
             else
-                firefox --private-window "https://www.google.com/search?q=$query"
-            fi
-            ;;
-        " YouTube")
-            echo -n "Search YouTube: "
+                firefox --private-window "https://www.google.com/search?q=$query" &
+            fi ;;
+        (" YouTube") echo -n "Search YouTube: "
             read query
-            if [ -z "$query" ]; then
-                xdg-open "https://www.youtube.com"
+            if [ -z "$query" ]
+            then
+                xdg-open "https://www.youtube.com" &
             else
-                xdg-open "https://www.youtube.com/results?search_query=$query"
-            fi
-            ;;
-        " Github")
-            echo -n "Search Github: "
+                xdg-open "https://www.youtube.com/results?search_query=$query" &
+            fi ;;
+        (" Github") echo -n "Search Github: "
             read query
-            if [ -z "$query" ]; then
-                xdg-open "https://github.com"
+            if [ -z "$query" ]
+            then
+                xdg-open "https://github.com" &
             else
-                xdg-open "https://github.com/search?q=$query"
-            fi
+                xdg-open "https://github.com/search?q=$query" &
+            fi ;;
+        (" Github (Twilight4 Profile)") xdg-open "https://github.com/Twilight4" &
             ;;
-        " Github (Twilight4 Profile)")
-            xdg-open "https://github.com/Twilight4"
+        (" Gmail") xdg-open "https://mail.google.com" &
             ;;
-        " Gmail")
-            xdg-open "https://mail.google.com"
-            ;;
-        " Open Shopping Websites")
-            echo -n "Search Shopping Websites: "
+        (" Open Shopping Websites") echo -n "Search Shopping Websites: "
             read query
-            if [ -z "$query" ]; then
+            if [ -z "$query" ]
+            then
                 echo "Search query is empty."
             else
-                xdg-open "https://www.amazon.com/s?k=$query"
-                xdg-open "https://www.amazon.pl/s?k=$query"
-                xdg-open "https://allegro.pl/listing?string=$query"
-                xdg-open "https://www.olx.pl/oferty/q-$query/"
-            fi
-            ;;
-        " Amazon (US)")
-            echo -n "Search Amazon (US): "
+                xdg-open "https://www.amazon.com/s?k=$query" &
+                xdg-open "https://www.amazon.pl/s?k=$query" &
+                xdg-open "https://allegro.pl/listing?string=$query" &
+                xdg-open "https://www.olx.pl/oferty/q-$query/" &
+            fi ;;
+        (" Amazon (US)") echo -n "Search Amazon (US): "
             read query
-            if [ -z "$query" ]; then
-                xdg-open "https://www.amazon.com"
+            if [ -z "$query" ]
+            then
+                xdg-open "https://www.amazon.com" &
             else
-                xdg-open "https://www.amazon.com/s?k=$query"
-            fi
-            ;;
-        " Amazon (PL)")
-            echo -n "Search Amazon (PL): "
+                xdg-open "https://www.amazon.com/s?k=$query" &
+            fi ;;
+        (" Amazon (PL)") echo -n "Search Amazon (PL): "
             read query
-            if [ -z "$query" ]; then
-                xdg-open "https://www.amazon.pl"
+            if [ -z "$query" ]
+            then
+                xdg-open "https://www.amazon.pl" &
             else
-                xdg-open "https://www.amazon.pl/s?k=$query"
-            fi
-            ;;
-        "󰒚 Allegro")
-            echo -n "Search Allegro: "
+                xdg-open "https://www.amazon.pl/s?k=$query" &
+            fi ;;
+        ("󰒚 Allegro") echo -n "Search Allegro: "
             read query
-            if [ -z "$query" ]; then
-                xdg-open "https://www.allegro.pl"
+            if [ -z "$query" ]
+            then
+                xdg-open "https://www.allegro.pl" &
             else
-                xdg-open "https://allegro.pl/listing?string=$query"
-            fi
-            ;;
-        " OLX")
-            echo -n "Search OLX: "
+                xdg-open "https://allegro.pl/listing?string=$query" &
+            fi ;;
+        (" OLX") echo -n "Search OLX: "
             read query
-            if [ -z "$query" ]; then
-                xdg-open "https://www.olx.pl"
+            if [ -z "$query" ]
+            then
+                xdg-open "https://www.olx.pl" &
             else
-                xdg-open "https://www.olx.pl/oferty/q-$query/"
-            fi
+                xdg-open "https://www.olx.pl/oferty/q-$query/" &
+            fi ;;
+        (" HTB") xdg-open "https://www.hackthebox.eu" &
             ;;
-        " HTB")
-            xdg-open "https://www.hackthebox.eu"
+        (" THM") xdg-open "https://tryhackme.com" &
             ;;
-        " THM")
-            xdg-open "https://tryhackme.com"
+        (" TCM") xdg-open "https://academy.tcm-sec.com" &
             ;;
-        " TCM")
-            xdg-open "https://academy.tcm-sec.com"
+        (" OffSec") xdg-open "https://www.offensive-security.com" &
             ;;
-        " OffSec")
-            xdg-open "https://www.offensive-security.com"
+        (" Root-me") xdg-open "https://www.root-me.org" &
             ;;
-        " Root-me")
-            xdg-open "https://www.root-me.org"
+        (" PentesterLab") xdg-open "https://www.pentesterlab.com" &
             ;;
-        " PentesterLab")
-            xdg-open "https://www.pentesterlab.com"
+        (" PWNX") xdg-open "https://www.pwnx.io" &
             ;;
-        " PWNX")
-            xdg-open "https://www.pwnx.io"
-            ;;
-        " ChatGBT")
-            xdg-open "https://www.chat.openai.com"
+        (" ChatGBT") xdg-open "https://www.chat.openai.com" &
             ;;
     esac
 }
