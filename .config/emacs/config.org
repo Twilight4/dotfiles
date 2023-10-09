@@ -250,6 +250,11 @@
 (define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)   ; default g j
 (define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)  ; default g k
 (define-key org-mode-map (kbd "M-l") #'org-down-element)                 ; default g l
+;; Org bullet list navigation
+(define-key org-mode-map (kbd "C-S-f") 'org-shiftright)
+(define-key org-mode-map (kbd "C-S-b") 'org-shiftleft)
+(define-key org-mode-map (kbd "C-S-p") 'org-shiftup)
+(define-key org-mode-map (kbd "C-S-n") 'org-shiftdown)
 ;; Org TODO navigation
 (eval-after-load 'hl-todo
   '(progn
@@ -283,11 +288,6 @@
 ;  (define-key calendar-mode-map (kbd "M-k") #'org-shiftup)               ; default S-<up>
 ;  (define-key calendar-mode-map (kbd "M-l") #'org-shiftright)            ; default S-<right>
 ;)
-
-(define-key org-mode-map (kbd "C-S-f") 'org-shiftright)
-(define-key org-mode-map (kbd "C-S-b") 'org-shiftleft)
-(define-key org-mode-map (kbd "C-S-p") 'org-shiftup)
-(define-key org-mode-map (kbd "C-S-n") 'org-shiftdown)
 
 (defun kill-to-beginning-of-line ()
   "Kill text from point to the beginning of the line."
