@@ -841,7 +841,7 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   (push-mark (point) t t)
   (goto-char (point-max)))
 
-;; By
+;; By default there's no command to kill to beginning of line
 (defun kill-to-beginning-of-line ()
   "Kill text from point to the beginning of the line."
   (interactive)
