@@ -145,7 +145,7 @@
 *** Keybindings Without a Leader Key
 #+begin_src emacs-lisp
 ;; Global Keybindings
-;; Optionally available keybinds: M-r M-i C-v C-z C-t
+;; Optionally available keybinds: M-r M-i C-z C-t
 ;; Moving between windows
 (global-set-key (kbd "C-k") 'windmove-up)
 (global-set-key (kbd "C-j") 'windmove-down)
@@ -194,7 +194,6 @@
 ;; Non-essential keys
 ;;(global-set-key (kbd "M-.") 'org-forward-paragraph)
 ;;(global-set-key (kbd "M-,") 'org-backward-paragraph)
-;;(global-set-key (kbd "C-S-e") 'org-end-of-line)  ;; correct it to have selection like C-S-a
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
@@ -202,6 +201,7 @@
 (global-set-key (kbd "C-.") 'kill-sentence)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "C-w") 'kill-region-or-backward-delete)
+(global-set-key (kbd "C-S-w") 'kill-whole-line)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
 (global-set-key (kbd "M-w") 'kill-ring-save-or-backward-kill-word)
 ;; Zooming keys
