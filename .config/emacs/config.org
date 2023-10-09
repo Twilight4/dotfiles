@@ -284,17 +284,10 @@
 ;  (define-key calendar-mode-map (kbd "M-l") #'org-shiftright)            ; default S-<right>
 ;)
 
-;; Evil Mode Keybindings
-;(with-eval-after-load 'evil
-;  ;; Keybindings for org mode in evil normal mode for S-motion keys
-;  (define-key evil-normal-state-map "H" 'org-shiftleft)
-;  (define-key evil-normal-state-map "J" 'org-shiftdown)
-;  (define-key evil-normal-state-map "K" 'org-shiftup)
-;  (define-key evil-normal-state-map "L" 'org-shiftright)
-;  ;; Use visual line motions even outside of visual-line-mode buffers
-;  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-;  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-;)
+(define-key org-mode-map (kbd "C-S-f") 'org-shiftright)
+(define-key org-mode-map (kbd "C-S-b") 'org-shiftleft)
+(define-key org-mode-map (kbd "C-S-p") 'org-shiftup)
+(define-key org-mode-map (kbd "C-S-n") 'org-shiftdown)
 
 (defun kill-to-beginning-of-line ()
   "Kill text from point to the beginning of the line."
