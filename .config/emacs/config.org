@@ -1053,17 +1053,6 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 
 (use-package peep-dired
   :after dired)
-;  :hook (peep-dired-mode . evil-normalize-keymaps) ; Bind keys after entering peep-dired mode
-;  :config
-;  (evil-define-key 'normal peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
-;  (evil-define-key 'normal peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
-;
-;;; Add additional bindings to dired-mode-map if needed
-;(defun dired-setup ()
-;  (evil-define-key 'normal dired-mode-map (kbd "h") 'dired-up-directory)
-;  (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file))
-
-;(add-hook 'dired-mode-hook 'dired-setup)
 #+end_src
 
 ** Vertico
@@ -1156,10 +1145,6 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
 #+begin_src emacs-lisp
 (use-package git-timemachine
   :after git-timemachine
-  ;; :hook (evil-normalize-keymaps . git-timemachine-hook)
-  ;; :config
-  ;;   (evil-define-key 'normal git-timemachine-mode-map (kbd "C-j") 'git-timemachine-show-previous-revision)
-  ;;   (evil-define-key 'normal git-timemachine-mode-map (kbd "C-k") 'git-timemachine-show-next-revision)
 )
 #+end_src
 
