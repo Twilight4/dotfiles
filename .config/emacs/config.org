@@ -288,11 +288,6 @@
 ;  (define-key calendar-mode-map (kbd "M-k") #'org-shiftup)               ; default S-<up>
 ;  (define-key calendar-mode-map (kbd "M-l") #'org-shiftright)            ; default S-<right>
 ;)
-
-(defun kill-to-beginning-of-line ()
-  "Kill text from point to the beginning of the line."
-  (interactive)
-  (kill-line 0))
 #+end_src
 
 ** General Keybindings
@@ -845,6 +840,12 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   (interactive)
   (push-mark (point) t t)
   (goto-char (point-max)))
+
+;; By
+(defun kill-to-beginning-of-line ()
+  "Kill text from point to the beginning of the line."
+  (interactive)
+  (kill-line 0))
 #+end_src
 
 ** No-littering
@@ -1143,9 +1144,7 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
 =git-timemachine= is a program that allows you to move backwards and forwards through a file’s commits. =M-SPC g t= will open the time machine on a file if it is in a git repo. Then, while in normal mode, you can use =CTRL-j= and =CTRL-k= to move backwards and forwards through the commits.
 
 #+begin_src emacs-lisp
-(use-package git-timemachine
-  :after git-timemachine
-)
+(use-package git-timemachine)
 #+end_src
 
 ** Elfeed
