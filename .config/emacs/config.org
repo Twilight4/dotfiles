@@ -113,7 +113,6 @@
 ;(define-key global-map (kbd "C-h") (make-sparse-keymap))
 (global-unset-key (kbd "M-g"))
 (global-unset-key (kbd "C-x"))
-(global-unset-key (kbd "C-h"))
 
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "M-,") nil)
@@ -147,10 +146,8 @@
 ;; Global Keybindings
 ;; Optionally available keybinds: M-r M-i C-z C-t
 ;; Moving between windows
-(global-set-key (kbd "C-k") 'windmove-up)
-(global-set-key (kbd "C-j") 'windmove-down)
-(global-set-key (kbd "C-h") 'windmove-left)
-(global-set-key (kbd "C-l") 'windmove-right)
+(global-set-key (kbd "C-k") 'other-window)
+(global-set-key (kbd "C-j") 'previous-multiframe-window)
 ;; Moving the windows
 (global-set-key (kbd "C-S-h") 'buf-move-left)
 (global-set-key (kbd "C-S-j") 'buf-move-down)
@@ -200,7 +197,8 @@
 (global-set-key (kbd "C-,") 'backward-kill-sentence)
 (global-set-key (kbd "C-.") 'kill-sentence)
 ;; Upgraded clipboard functions
-(global-set-key (kbd "C-w") 'kill-region-or-backward-delete)
+;;(global-set-key (kbd "C-h") 'delete-backward-char)
+(global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-S-w") 'kill-whole-line)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
 (global-set-key (kbd "M-w") 'kill-ring-save-or-backward-kill-word)
