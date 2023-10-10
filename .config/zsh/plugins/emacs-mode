@@ -15,14 +15,15 @@ bindkey '^U' backward-kill-line
 bindkey '^O' kill-line
 bindkey '^D' delete-char-or-list    # upgrade to cut to clipbaord when in selection mode
 bindkey '^[d' kill-word
-bindkey '^W' backward-delete-char   # upgrade to cut to clipbaord when in selection mode
-bindkey '^[w' backward-kill-word    # upgrade to copy to clipboard if in selection mode
-bindkey '^?' backward-delete-char
-bindkey '^H' backward-kill-word     # (C-backspace)
+bindkey '^H' backward-delete-char   # upgrade to cut to clipbaord when in selection mode
+bindkey '^W' backward-kill-word
 
 #bindkey '^Y' yank    # remove and ugprade to paste from clipboard in terminal config
+# bind M-y to copy to clipboard in terminal config
 
 # Full keyboard keys
+bindkey '^?' backward-delete-char
+bindkey '^H' backward-kill-word
 bindkey 'Home' beginning-of-line
 bindkey 'End' end-of-line
 bindkey '^[[1~' beginning-of-line
