@@ -1207,6 +1207,18 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
     (elfeed)))
 #+end_src
 
+*** Elfeed Visual enhancments
+
+#+begin_src emacs-lisp
+
+#+end_src
+
+*** Elfeed functionality enhancemnts
+
+#+begin_src emacs-lisp
+
+#+end_src
+
 ** Ansi colours
 It’s nice to see ANSI colour codes displayed, however we don’t want to disrupt ANSI codes in Org src blocks. 
 
