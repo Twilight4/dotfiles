@@ -2,7 +2,7 @@
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
 #+STARTUP: show3levels
-#+TOC: :include all :ignore this
+#+TOC: :include all
 
 * Table of Contents :toc:
 - [[#packages-to-load-first][Packages to load first]]
