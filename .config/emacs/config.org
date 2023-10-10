@@ -305,7 +305,6 @@
     "b" '(switch-to-buffer :wk "Switch to buffer")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
-    "f" '(elfeed :wk "Elfeed")
     "s" '(basic-save-buffer :wk "Save buffer")
     ;; Buffers
     "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -325,6 +324,36 @@
 	  ;"g" '(magit-file-displatch :wk "Magit file dispatch")
 	  ;"g" '(git-timemachine :wk "Git time machine")
 	  ;"C-/" '(magit-branch-checkout :wk "Switch branch")
+
+  ;; TODO KEYBINDS
+  ;; (map! :map elfeed-search-mode-map
+  ; (tl/leader-keys
+  ;   :after elfeed-search elfeed-show
+  ;   "f" '(:ignore t :wk "Elfeed")
+  ;   "f" '(elfeed :wk "Elfeed")
+  ;   "f q" #'+rss/quit
+  ;   "f e" #'elfeed-update
+  ;   "f r" #'elfeed-search-untag-all-unread
+  ;   "f u" #'elfeed-search-tag-all-unread
+  ;   "f s" #'elfeed-search-live-filter
+  ;   "f RET" #'elfeed-search-show-entry
+  ;   "f p" #'elfeed-show-pdf
+  ;   "f +" #'elfeed-search-tag-all
+  ;   "f -" #'elfeed-search-untag-all
+  ;   "f S" #'elfeed-search-set-filter
+  ;   "f b" #'elfeed-search-browse-url
+  ;   "f y" #'elfeed-search-yank)
+  ;   ;; (map! :map elfeed-show-mode-map
+  ;   "f q" #'+rss/delete-pane
+  ;   "f o" #'ace-link-elfeed
+  ;   "f RET" #'org-ref-elfeed-add
+  ;   "f n" #'elfeed-show-next
+  ;   "f N" #'elfeed-show-prev
+  ;   "f p" #'elfeed-show-pdf
+  ;   "f +" #'elfeed-show-tag
+  ;   "f -" #'elfeed-show-untag
+  ;   "f s" #'elfeed-show-new-live-search
+  ;   "f y" #'elfeed-show-yank)
 
   (tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
