@@ -197,11 +197,11 @@
 (global-set-key (kbd "C-,") 'backward-kill-sentence)
 (global-set-key (kbd "C-.") 'kill-sentence)
 ;; Upgraded clipboard functions
-;;(global-set-key (kbd "C-h") 'delete-backward-char)
+;;(global-set-key (kbd "M-w") 'kill-ring-save)        ; set by default
+(global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
-(global-set-key (kbd "C-S-w") 'kill-whole-line)
+(global-set-key (kbd "C-S-h") 'kill-whole-line)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
-(global-set-key (kbd "M-w") 'kill-ring-save-or-backward-kill-word)
 ;; Zooming keys
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -813,13 +813,6 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
         (kill-ring-save (region-beginning) (region-end))
         (delete-region (region-beginning) (region-end)))
     (hungry-delete-forward 1)))
-
-(defun kill-ring-save-or-backward-kill-word ()
-  "Wrapper for `kill-ring-save' or `backward-kill-word' depending on whether a region is active."
-  (interactive)
-  (if (region-active-p)
-      (call-interactively 'kill-ring-save)
-    (call-interactively 'backward-kill-word)))
 #+end_src
 
 ** Selection automation
