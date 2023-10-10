@@ -76,9 +76,9 @@ The world's greatest programmer once said:
 |-------------+----------------------------------------------------|
 | M-h/j/k/l   | Headings navigation                                |
 | M-S-h/j/k/l | Move/Promote/Demote headings                       |
-| S-h/j/k/l   | Change todo/priority                               |
+| C-S-f/b/p/n | Change todo state/priority                         |
 | C-Ret       | Create a headline of the same type                 |
-| C-S-Ret     | Create a headline of the same type above           |
+| C-S-Ret     | Create a TODO headline of the same type            |
 | M-Ret       | Create a headline of the same type (from anywhere) |
 | C-M-Ret     | Create another level headline (from anywhere)      |
 | C-M-\       | Indent region                                      |
