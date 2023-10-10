@@ -7,7 +7,6 @@ and utilizing those that are often overlooked or unutilized by default
 thereby reducing cognitive load and improving overall efficiency and productivity.
 I'm obsessed with optimizing my time and automating my workflow
 and I spend countless hours configuring my OS.
-
 The philosophy adopted in this configuration prioritizes simplicity and ease of use:
   - Most commonly used keybinds don't have a prefix key.
   - =C-x= prefix key is used for another prefix-keys and non-prefix keys which are particularly used for GTD system.
