@@ -72,18 +72,18 @@ The world's greatest programmer once said:
 
 ** Org Mode common keys
 
-| Keybinding  | Description                                        |
-|-------------+----------------------------------------------------|
-| M-h/j/k/l   | Headings navigation                                |
-| M-S-h/j/k/l | Move/Promote/Demote headings                       |
-| C-S-f/b/p/n | Change todo state/priority                         |
-| C-Ret       | Create a headline of the same type                 |
-| C-S-Ret     | Create a TODO headline of the same type            |
-| M-Ret       | Create a headline of the same type (from anywhere) |
-| C-M-Ret     | Create another level headline (from anywhere)      |
-| C-M-\       | Indent region                                      |
-| TAB/S-TAB   | Toggle folding/cycle through folded stages         |
-| f12         | Org transclusion add                               |
+| Keybinding  | Description                                |
+|-------------+--------------------------------------------|
+| M-h/j/k/l   | Headings navigation                        |
+| M-S-h/j/k/l | Move/Promote/Demote headings               |
+| C-S-f/b/p/n | Change todo state/priority                 |
+| C-Ret       | Create a headline of the same type         |
+| C-S-Ret     | Create a TODO headline of the same type    |
+| M-Ret       | Create a headline of the same type         |
+| M-S-Ret     | Create another level headline              |
+| C-M-\       | Indent region                              |
+| TAB/S-TAB   | Toggle folding/cycle through folded stages |
+| f12         | Org transclusion add                       |
 
 ** Org Mode Tables
 To create a table just start typing: =| table | name | description=
