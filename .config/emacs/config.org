@@ -298,15 +298,15 @@
 (use-package general
   :config
 
-(general-create-definer tl/leader-keys
-  :prefix "C-x") ;; Set leader key
+  (general-create-definer tl/leader-keys
+    :prefix "C-x") ;; Set leader key
 
   (tl/leader-keys
     "," '(recentf :wk "Find recent files")
     "." '(find-file :wk "Find file")
-    "c" '(org-capture :wk "Capture to workflow") ;; for workflows in workflow.org (checklists in agenda)/assessments (report templates)
-    "C" '(org-gtd-capture :wk "Capture to inbox") ;; for tasks in inbox.org
-    "p" '(org-gtd-process-inbox :wk "Process inbox") ;; process inbox.org
+    "c" '(org-capture :wk "Capture to workflow")      ;; for workflows in workflow.org (checklists in agenda)/assessments (report templates)
+    "C" '(org-gtd-capture :wk "Capture to inbox")     ;; for tasks in inbox.org
+    "p" '(org-gtd-process-inbox :wk "Process inbox")  ;; process inbox.org
     "b" '(switch-to-buffer :wk "Switch to buffer")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
@@ -314,9 +314,9 @@
     ;; Buffers
     "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
-    ;"i" '(ibuffer :wk "Ibuffer")    ; I don't use it
+	  ;"i" '(ibuffer :wk "Ibuffer")                 ; I don't use it
     "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
-    ;; "r" '(revert-buffer :wk "Reload buffer") ;; Key unavailable
+    ;; "r" '(revert-buffer :wk "Reload buffer")   ;; Key unavailable
     "C-r" '(rename-buffer :wk "Rename buffer")
     "C-s" '(save-some-buffers :wk "Save multiple buffers")
     ;; Bookmarks
@@ -324,41 +324,41 @@
     "C-m" '(bookmark-set :wk "Set bookmark")
     "C-d" '(bookmark-delete :wk "Delete bookmark")
     "C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
-    ;; Git - TODO keybinds
-    ;"C-g" '(magit-displatch :wk "Magit dispatch")
-	  ;"g" '(magit-file-displatch :wk "Magit file dispatch")
-	  ;"g" '(git-timemachine :wk "Git time machine")
-	  ;"C-/" '(magit-branch-checkout :wk "Switch branch")
+  ;; Git - TODO keybinds
+	;"C-g" '(magit-displatch :wk "Magit dispatch")
+	;"g" '(magit-file-displatch :wk "Magit file dispatch")
+	;"g" '(git-timemachine :wk "Git time machine")
+	;"C-/" '(magit-branch-checkout :wk "Switch branch")
 
   ;; TODO KEYBINDS
   ;; (map! :map elfeed-search-mode-map
-  ; (tl/leader-keys
-  ;   :after elfeed-search elfeed-show
-  ;   "f" '(:ignore t :wk "Elfeed")
-  ;   "f" '(elfeed :wk "Elfeed")
-  ;   "f q" #'+rss/quit
-  ;   "f e" #'elfeed-update
-  ;   "f r" #'elfeed-search-untag-all-unread
-  ;   "f u" #'elfeed-search-tag-all-unread
-  ;   "f s" #'elfeed-search-live-filter
-  ;   "f RET" #'elfeed-search-show-entry
-  ;   "f p" #'elfeed-show-pdf
-  ;   "f +" #'elfeed-search-tag-all
-  ;   "f -" #'elfeed-search-untag-all
-  ;   "f S" #'elfeed-search-set-filter
-  ;   "f b" #'elfeed-search-browse-url
-  ;   "f y" #'elfeed-search-yank)
-  ;   ;; (map! :map elfeed-show-mode-map
-  ;   "f q" #'+rss/delete-pane
-  ;   "f o" #'ace-link-elfeed
-  ;   "f RET" #'org-ref-elfeed-add
-  ;   "f n" #'elfeed-show-next
-  ;   "f N" #'elfeed-show-prev
-  ;   "f p" #'elfeed-show-pdf
-  ;   "f +" #'elfeed-show-tag
-  ;   "f -" #'elfeed-show-untag
-  ;   "f s" #'elfeed-show-new-live-search
-  ;   "f y" #'elfeed-show-yank)
+	; (tl/leader-keys
+	;   :after elfeed-search elfeed-show
+	;   "f" '(:ignore t :wk "Elfeed")
+	;   "f" '(elfeed :wk "Elfeed")
+	;   "f q" #'+rss/quit
+	;   "f e" #'elfeed-update
+	;   "f r" #'elfeed-search-untag-all-unread
+	;   "f u" #'elfeed-search-tag-all-unread
+	;   "f s" #'elfeed-search-live-filter
+	;   "f RET" #'elfeed-search-show-entry
+	;   "f p" #'elfeed-show-pdf
+	;   "f +" #'elfeed-search-tag-all
+	;   "f -" #'elfeed-search-untag-all
+	;   "f S" #'elfeed-search-set-filter
+	;   "f b" #'elfeed-search-browse-url
+	;   "f y" #'elfeed-search-yank)
+	;   ;; (map! :map elfeed-show-mode-map
+	;   "f q" #'+rss/delete-pane
+	;   "f o" #'ace-link-elfeed
+	;   "f RET" #'org-ref-elfeed-add
+	;   "f n" #'elfeed-show-next
+	;   "f N" #'elfeed-show-prev
+	;   "f p" #'elfeed-show-pdf
+	;   "f +" #'elfeed-show-tag
+	;   "f -" #'elfeed-show-untag
+	;   "f s" #'elfeed-show-new-live-search
+	;   "f y" #'elfeed-show-yank)
 
   (tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
@@ -400,9 +400,16 @@
     "d r" '(rename-file :wk "Rename file")
     "d j" '(dired-jump :wk "Dired jump to current")
     "d n" '(neotree-dir :wk "Open directory in neotree")
-    "d p" '(peep-dired :wk "Peep-dired"))
+    "d p" '(peep-dired :wk "Peep-dired")
+    ;; Dired bookmarks
+    "d H"  `(,(tl/dired-link "~") :which-key "Home")
+    "d R"  `(,(tl/dired-link "~/documents/org/roam") :which-key "Org Roam")
+    "d D"  `(,(tl/dired-link "~/downloads") :which-key "Downloads")
+    "d P"  `(,(tl/dired-link "~/pictures") :which-key "Pictures")
+    "d V"  `(,(tl/dired-link "~/videos") :which-key "Videos")
+    "d C"  `(,(tl/dired-link "~/.config") :which-key ".config")) 
 
-  (tl/leader-keys
+(tl/leader-keys
     "r" '(:ignore t :wk "Registers")
     "r c" '(copy-to-register :wk "Copy to register")
     "r f" '(frameset-to-register :wk "Frameset to register")
@@ -1238,19 +1245,9 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
   (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
 
-;; (defun tl/dired-link (path)
-;;   (lexical-let ((target path))
-;;     (lambda () (interactive) (message "Path: %s" target) (dired target))))
-
-;; (tl/leader-keys
-;;   "d"   '(:ignore t :which-key "dired")
-;;   "dd"  '(dired :which-key "Here")
-;;   "dh"  `(,(tl/dired-link "~") :which-key "Home")
-;;   "dn"  `(,(tl/dired-link "~/documents/org") :which-key "Notes")
-;;   "do"  `(,(tl/dired-link "~/downloads") :which-key "Downloads")
-;;   "dp"  `(,(tl/dired-link "~/pictures") :which-key "Pictures")
-;;   "dv"  `(,(tl/dired-link "~/videos") :which-key "Videos")
-;;   "d."  `(,(tl/dired-link "~/.config") :which-key ".config")
+(defun tl/dired-link (path)
+  (lexical-let ((target path))
+    (lambda () (interactive) (message "Path: %s" target) (dired target))))
 #+end_src
 
 ** Vertico
