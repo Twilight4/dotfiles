@@ -138,13 +138,17 @@
 (define-key org-mode-map (kbd "M-t") nil)
 (define-key org-mode-map (kbd "C-,") nil)
 
-;; Unbinding Calendar Mode Keybindings - does not work
-;(with-eval-after-load 'calendar
-;  (define-key calendar-mode-map (kbd "M-h") nil)
-;  (define-key calendar-mode-map (kbd "M-j") nil)
-;  (define-key calendar-mode-map (kbd "M-k") nil)
-;  (define-key calendar-mode-map (kbd "M-l") nil)
-;)
+;; Tried my best but couldn't make it work
+;; (add-hook 'calendar-mode-hook
+;;           (lambda ()
+;;             (local-unset-key (kbd "M-h"))
+;;             (local-unset-key (kbd "M-j"))
+;;             (local-unset-key (kbd "M-k"))
+;;             (local-unset-key (kbd "M-l"))
+;;             (local-set-key (kbd "M-h") 'calendar-backward-day)
+;;             (local-set-key (kbd "M-j") 'calendar-forward-week)
+;;             (local-set-key (kbd "M-k") 'calendar-backward-week)
+;;             (local-set-key (kbd "M-l") 'calendar-forward-day)))
 #+end_src
 
 *** Keybindings Without a Leader Key
