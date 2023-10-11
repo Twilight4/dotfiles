@@ -400,28 +400,21 @@
     "d r" '(rename-file :wk "Rename file")
     "d j" '(dired-jump :wk "Dired jump to current")
     "d n" '(neotree-dir :wk "Open directory in neotree")
-    "d p" '(peep-dired :wk "Peep-dired")
-    ;; Dired bookmarks
-    "d H"  `(,(tl/dired-link "~") :which-key "Home")
-    "d R"  `(,(tl/dired-link "~/documents/org/roam") :which-key "Org Roam")
-    "d D"  `(,(tl/dired-link "~/downloads") :which-key "Downloads")
-    "d P"  `(,(tl/dired-link "~/pictures") :which-key "Pictures")
-    "d V"  `(,(tl/dired-link "~/videos") :which-key "Videos")
-    "d C"  `(,(tl/dired-link "~/.config") :which-key ".config")) 
+    "d p" '(peep-dired :wk "Peep-dired"))
 
-(tl/leader-keys
-    "r" '(:ignore t :wk "Registers")
-    "r c" '(copy-to-register :wk "Copy to register")
-    "r f" '(frameset-to-register :wk "Frameset to register")
-    "r i" '(insert-register :wk "Insert contents of register")
-    "r j" '(jump-to-register :wk "Jump to register")
-    "r l" '(list-registers :wk "List registers")
-    "r n" '(number-to-register :wk "Number to register")
-    "r r" '(register :wk "Interactively choose a register")
-    "r v" '(view-register :wk "View a register")
-    "r w" '(window-configuration-to-register :wk "Window configuration to register")
-    "r +" '(increment-register :wk "Increment register")
-    "r SPC" '(point-to-register :wk "Point to register"))
+  (tl/leader-keys
+      "r" '(:ignore t :wk "Registers")
+      "r c" '(copy-to-register :wk "Copy to register")
+      "r f" '(frameset-to-register :wk "Frameset to register")
+      "r i" '(insert-register :wk "Insert contents of register")
+      "r j" '(jump-to-register :wk "Jump to register")
+      "r l" '(list-registers :wk "List registers")
+      "r n" '(number-to-register :wk "Number to register")
+      "r r" '(register :wk "Interactively choose a register")
+      "r v" '(view-register :wk "View a register")
+      "r w" '(window-configuration-to-register :wk "Window configuration to register")
+      "r +" '(increment-register :wk "Increment register")
+      "r SPC" '(point-to-register :wk "Point to register"))
 
   ;; (tl/leader-keys
   ;;   "g" '(:ignore t :wk "Git")    
@@ -1245,9 +1238,18 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
   (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
 
-(defun tl/dired-link (path)
-  (lexical-let ((target path))
-    (lambda () (interactive) (message "Path: %s" target) (dired target))))
+;(defun tl/dired-link (path)
+;  (let ((target path))
+;    (lambda () (interactive) (message "Path: %s" target) (dired path))))
+
+;  (tl/leader-keys
+;    ;; Dired bookmarks
+;    "d H"  `(,(tl/dired-link "~") :wk "Home")
+;    "d R"  `(,(tl/dired-link "~/documents/org/roam") :wk "Org Roam")
+;    "d D"  `(,(tl/dired-link "~/downloads") :wk "Downloads")
+;    "d P"  `(,(tl/dired-link "~/pictures") :wk "Pictures")
+;    "d V"  `(,(tl/dired-link "~/videos") :wk "Videos")
+;    "d C"  `(,(tl/dired-link "~/.config") :wk ".config"))
 #+end_src
 
 ** Vertico
