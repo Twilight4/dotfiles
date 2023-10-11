@@ -1180,6 +1180,7 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
                                 ("jpg" . "nsxiv")
                                 ("png" . "nsxiv")
                                 ("mkv" . "mpv")
+                                ("pdf" . "zathura")
                                 ("mp4" . "mpv"))))
 
 (use-package dired-single
