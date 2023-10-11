@@ -1190,25 +1190,17 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
   :ensure t)
 (use-package dired-ranger
   :ensure t)
-(use-package dired-collapse
-  :ensure t)
 (use-package peep-dired
   :after dired)
 
-(use-package dired
-  :config
-  (setq dired-listing-switches "-agho --group-directories-first"
-        dired-omit-files "^\\.[^.].*"
-        dired-omit-verbose nil
-        dired-hide-details-hide-symlink-targets nil
-        delete-by-moving-to-trash t)
+;; Dired config
+(setq dired-listing-switches "-agho --group-directories-first"
+       dired-omit-files "^\\.[^.].*"
+       dired-omit-verbose nil
+       dired-hide-details-hide-symlink-targets nil
+       delete-by-moving-to-trash t)
 
 (autoload 'dired-omit-mode "dired-x")
-
-(add-hook 'dired-load-hook
-          (lambda ()
-            (interactive)
-            (dired-collapse)))
 
 (defun tl-dired-mode-setup ()
   (define-key dired-mode-map (kbd "h") 'dired-single-up-directory)
