@@ -286,14 +286,6 @@
             (local-set-key (kbd "x") 'tl/org-agenda-done)
             (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
             (local-set-key (kbd "N") 'tl/org-agenda-new)))
-
-;; Calendar Mode Keybindings - does not work
-;(with-eval-after-load 'calendar
-;  (define-key calendar-mode-map (kbd "M-h") #'org-shiftleft)             ; default S-<left>
-;  (define-key calendar-mode-map (kbd "M-j") #'org-shiftdown)             ; default S-<down>
-;  (define-key calendar-mode-map (kbd "M-k") #'org-shiftup)               ; default S-<up>
-;  (define-key calendar-mode-map (kbd "M-l") #'org-shiftright)            ; default S-<right>
-;)
 #+end_src
 
 ** General Keybindings
