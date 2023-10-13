@@ -491,11 +491,11 @@
 (general-define-key
  :prefix "C-;"
  ;; Avy jumping
- "c" '(avy-goto-char :wk "Jump to a character")
- "C" '(avy-goto-char-2 :wk "Jump to a two-character char")
- "e" '(avy-goto-char-in-line :wk "Jump to a character in line")
- "a" '(avy-goto-subword-1 :wk "Jump to a subword")
- "l" '(avy-goto-line-below :wk "Jump to line below")
+ "C-c" '(avy-goto-char :wk "Jump to a character")
+ "C-C" '(avy-goto-char-2 :wk "Jump to a two-character char")
+ "C-e" '(avy-goto-char-in-line :wk "Jump to a character in line")
+ "C-a" '(avy-goto-subword-1 :wk "Jump to a subword")
+ "C-l" '(avy-goto-line-below :wk "Jump to line below")
  "L" '(avy-goto-line-above :wk "Jump to line above")
  "o" '(avy-open-line :wk "Jump to line and insert new one above")
  "w" '(avy-goto-word-1-below :wk "Jump to a word below")
