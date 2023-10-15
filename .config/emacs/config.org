@@ -207,6 +207,7 @@
 ;; Upgraded clipboard functions
 ;;(global-set-key (kbd "M-w") 'kill-ring-save)        ; set by default
 (global-set-key (kbd "C-w") 'backward-kill-word)
+(global-set-key (kbd "C-S-w") 'kill-whole-line)
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-S-h") 'kill-whole-line)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
