@@ -1524,23 +1524,23 @@ With a prefix ARG, remove start location."
 ;;; running.  This bit of code checks to see if there is another emacs
 ;;; running, and if there isn't, clean up the lockfile automatically.
 
-;; (defun emacs-process-p (pid)
-;;   "If PID is the process ID of an emacs process, return t, else nil.
-;; Also returns nil if pid is nil."
-;;   (when pid
-;;     (let ((attributes (process-attributes pid)) (cmd))
-;;       (dolist (attr attributes)
-;;     (if (string= "comm" (car attr))
-;;         (setq cmd (cdr attr))))
-;;       (if (and cmd
-;;            (or (string= "emacs" cmd)
-;;            (string= "emacs.exe" cmd)))
-;;       t))))
+(defun emacs-process-p (pid)
+  "If PID is the process ID of an emacs process, return t, else nil.
+Also returns nil if pid is nil."
+  (when pid
+    (let ((attributes (process-attributes pid)) (cmd))
+      (dolist (attr attributes)
+    (if (string= "comm" (car attr))
+        (setq cmd (cdr attr))))
+      (if (and cmd
+           (or (string= "emacs" cmd)
+           (string= "emacs.exe" cmd)))
+      t))))
 
-;; (defadvice desktop-owner (after pry-from-cold-dead-hands activate)
-;;   "Don't allow dead emacsen to own the desktop file."
-;;   (when (not (emacs-process-p ad-return-value))
-;;     (setq ad-return-value nil)))
+(defadvice desktop-owner (after pry-from-cold-dead-hands activate)
+  "Don't allow dead emacsen to own the desktop file."
+  (when (not (emacs-process-p ad-return-value))
+    (setq ad-return-value nil)))
 #+end_src
 
 * Org Mode
