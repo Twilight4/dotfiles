@@ -1487,7 +1487,7 @@ With a prefix ARG, remove start location."
 (setq desktop-save 1)                             ; Enable desktop-save mode
 (setq desktop-path '("~/.config/emacs/desktop"))  ; Set the directory where desktop files will be saved
 (setq desktop-desktop-auto-save-timeout 3600)     ; Save every 60 minutes for sanity check
-(setq desktop-restore-eager 1)                    ; Restore 1 buffer eagerly (immediatelly), this can impact startup performance
+(setq desktop-restore-eager 5)                    ; Restore 1 buffer eagerly (immediatelly), this can impact startup performance
 (setq desktop-globals-to-save '(kill-ring search-ring))  ; Save kill-ring and search-ring history lists
 (setq history-length 250)                         ; Maximum number of entries stored in history lists
 (setq desktop-restore-frames t)                   ; Restore the frame configuration (window sizes annd positions)
