@@ -257,10 +257,10 @@
 (define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)  ; default g k
 (define-key org-mode-map (kbd "M-l") #'org-down-element)                 ; default g l
 ;; Org bullet list navigation
-(define-key org-mode-map (kbd "C-S-f") 'org-shiftright)
-(define-key org-mode-map (kbd "C-S-b") 'org-shiftleft)
-(define-key org-mode-map (kbd "C-S-p") 'org-shiftup)
-(define-key org-mode-map (kbd "C-S-n") 'org-shiftdown)
+(define-key org-mode-map (kbd "C-M-f") 'org-shiftright)
+(define-key org-mode-map (kbd "C-M-b") 'org-shiftleft)
+(define-key org-mode-map (kbd "C-M-p") 'org-shiftup)
+(define-key org-mode-map (kbd "C-M-n") 'org-shiftdown)
 ;; Org TODO navigation
 (eval-after-load 'hl-todo
   '(progn
@@ -276,8 +276,8 @@
 (define-key org-mode-map (kbd "M-L") #'org-metaright)                    ; default M-<right>
 ;; Org-roam
 (define-key org-mode-map (kbd "C-M-,") 'completion-at-point)
-(define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
-(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
+;;(define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
+;;(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 ;; Org-agenda
 (add-hook 'org-agenda-mode-hook
           (lambda ()
