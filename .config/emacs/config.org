@@ -2413,7 +2413,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
 *** Org-roam-ui
  Org-roam is nice by itself, but there are so extra nice packages which integrate with it.
 
- #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (use-package websocket
   :after org-roam)
 
@@ -2428,7 +2428,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
     (interactive)
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
- #+end_src
+#+end_src
 
 *** Org-gtd
 
