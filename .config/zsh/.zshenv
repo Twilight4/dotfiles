@@ -9,7 +9,8 @@ export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 # User-specific environment variables (system-wide are located in /etc/environment)
 export EDITOR="emacsclient -c -a emacs"
 export ALTERNATE_EDITOR=""
-export VISUAL="kitty -1 -c ~/.config/kitty/kitty-emacs.conf --class kitty-emacs -T kitty-emacs -e 'emacs -nw'"
+export VISUAL="emacsclient -nw"
+#export VISUAL="kitty -1 -c ~/.config/kitty/kitty-emacs.conf --class kitty-emacs -T kitty-emacs -e 'emacs -nw'"
 export TERMINAL="kitty -1"
 export BROWSER="firefox"
 
