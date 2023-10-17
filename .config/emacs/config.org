@@ -572,6 +572,9 @@
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
+
+;; Use only system clipboard - I wish it worked but I'm on wayland
+;(setq x-select-enable-clipboard t)
 #+end_src
 
 ** Setting the Font Face
