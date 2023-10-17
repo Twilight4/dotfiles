@@ -213,11 +213,11 @@
 (global-set-key (kbd "C-S-h") 'kill-whole-line)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
 ;; Zooming keys
-(global-set-key (kbd "C-=") 'text-scale-increase)
-(global-set-key (kbd "C--") 'text-scale-decrease)
-(global-set-key (kbd "C-0") 'text-scale-adjust)
-(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
-(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+;(global-set-key (kbd "C-=") 'text-scale-increase)
+;(global-set-key (kbd "C--") 'text-scale-decrease)
+;(global-set-key (kbd "C-0") 'text-scale-adjust)
+;(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+;(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
