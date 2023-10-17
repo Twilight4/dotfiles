@@ -13,13 +13,11 @@ bindkey '^N' down-line-or-history
 # Killing and yanking
 bindkey '^U' backward-kill-line
 bindkey '^O' kill-line
-bindkey '^D' delete-char-or-list    # upgrade to cut to clipbaord when in selection mode
+bindkey '^D' delete-char-or-list    # TODO upgrade to cut to clipbaord when in selection mode like in my emacs config
 bindkey '^[d' kill-word
-bindkey '^H' backward-delete-char   # upgrade to cut to clipbaord when in selection mode
+bindkey '^H' backward-delete-char   # TODO upgrade to cut to clipbaord when in selection mode like in my emacs config
 bindkey '^W' backward-kill-word
-
-#bindkey '^Y' yank    # remove and ugprade to paste from clipboard in terminal config
-# bind M-y to copy to clipboard in terminal config
+bindkey '^Y' yank                   # paste from system clipboard - works fine
 
 # Full keyboard keys
 bindkey '^?' backward-delete-char
@@ -36,21 +34,35 @@ bindkey '^[[5~' beginning-of-buffer-or-history
 bindkey '^[[6~' end-of-buffer-or-history
 bindkey '^[[3~' delete-char
 bindkey '^[[Z' reverse-menu-complete
-# EXPERIMENTAL - REMOVE VIM MODE AND ONLY ADD SELECTION-MODE
-bindkey -M vicmd '^[.' insert-last-word  # M-.
-bindkey -M vicmd '^[g' get-line          # M-g
-bindkey -M vicmd '^Q' push-line          # C-q
-bindkey '^Z' edit-command-line           # Open in emacs
-bindkey -M visual '^[' '^[v'             # selection-mode
-bindkey -M visual '^[x' '^[x'            # selection-mode
 
-# Visual mode on C-SPC
-function visual-mode {
-    zle set-mark-command
-    zle vi-match-bracket
+# Emacs has it's own clipboard buffer which to normally the text is copied, same with zsh
+# By default keys M-w for copy and C-y for paste are set in emacs and zsh
+# thanks to to my functions I can copy text to system clipboard using M-w and M-W, and paste using C-y
+
+# Copy selected text to clipboard, works fine - bound by default to alt+w
+copy-region-as-kill() {
+  zle copy-region-as-kill
+  print -n $CUTBUFFER | wl-copy           # wl-copy -p -n    # Just suggestion command alternative
 }
-zle -N visual-mode
-bindkey '^ ' visual-mode
+zle -N copy-region-as-kill
 
-# Restore shell option 'aliases'
-set -o aliases
+# Copy current line to clipboard
+cmd_to_clip () { wl-copy <<< $BUFFER }
+zle -N cmd_to_clip
+bindkey '^[[W' cmd_to_clip     # Alt+Shift+w
+
+# TODO - EXPERIMENTAL - convert to normal from vi mode (vicmd)
+#bindkey -M vicmd '^[.' insert-last-word  # M-.
+#bindkey -M vicmd '^[g' get-line          # M-g
+#bindkey -M vicmd '^Q' push-line          # C-q
+#bindkey '^Z' edit-command-line           # Open in emacs
+#bindkey -M visual '^[' '^[v'             # selection-mode
+#bindkey -M visual '^[x' '^[x'            # selection-mode
+
+# Selection mode on C-SPC - set by default
+#function selection-mode {
+#    zle set-mark-command
+#    zle vi-match-bracket
+#}
+#zle -N selection-mode
+#bindkey '^ ' selection-mode
