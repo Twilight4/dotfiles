@@ -33,7 +33,8 @@ DISABLE_MAGIC_FUNCTIONS="true"
 autoload -Uz colors && colors
 
 # Jump plugin
-eval "$(jump shell --bind=j)"
+#eval "$(jump shell --bind=j)"  # Idk why but it breaks
+eval $(thefuck --alias)
 
 # Profiling
 zmodload zsh/zprof
