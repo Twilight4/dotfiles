@@ -575,6 +575,19 @@
 
 ;; Use only system clipboard - I wish it worked but I'm on wayland
 ;(setq x-select-enable-clipboard t)
+
+;; An attempt to always copy to the system clipboard using wl-copy
+;;(defun copy-kill-ring-to-system-clipboard ()
+;;  "Copy the contents of the last kill to the system clipboard using wl-copy."
+;;  (interactive)
+;;  (let ((text (substring-no-properties (car kill-ring))))
+;;    (if (not (string= text ""))
+;;        (progn
+;;          (shell-command-on-region (point) (point) "wl-copy" nil nil nil)
+;;          (message "Copied to system clipboard: %s" text))
+;;      (message "Kill ring is empty"))))
+
+;;(global-set-key (kbd "M-w") 'copy-kill-ring-to-system-clipboard)
 #+end_src
 
 ** Setting the Font Face
@@ -2354,7 +2367,7 @@ this with to-do items than with projects or headings."
   (org-roam-directory "~/documents/org/roam/")
   (org-roam-dailies-directory "~/documents/org/roam/journal/")
   (org-roam-completion-everywhere t)
-  (org-roam-graph-viewer "/usr/bin/waterfox-g")
+  (org-roam-graph-viewer "/usr/bin/firefox")
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-setup))
