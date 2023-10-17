@@ -17,7 +17,7 @@ bindkey '^D' delete-char-or-list    # TODO upgrade to cut to clipbaord when in s
 bindkey '^[d' kill-word
 bindkey '^H' backward-delete-char   # TODO upgrade to cut to clipbaord when in selection mode like in my emacs config
 bindkey '^W' backward-kill-word
-bindkey '^Y' yank                   # paste from system clipboard - works fine
+#bindkey '^Y' yank                  # I have bound paste from system clipboard in kitty.conf
 
 # Full keyboard keys
 bindkey '^?' backward-delete-char
@@ -37,7 +37,7 @@ bindkey '^[[Z' reverse-menu-complete
 
 # Emacs has it's own clipboard buffer which to normally the text is copied, same with zsh
 # By default keys M-w for copy and C-y for paste are set in emacs and zsh
-# thanks to to my functions I can copy text to system clipboard using M-w and M-W, and paste using C-y
+# thanks to to my functions I can copy text to system clipboard using M-w and M-W, and paste from system clipboard using C-y
 
 # Copy selected text to clipboard, works fine - bound by default to alt+w
 copy-region-as-kill() {
