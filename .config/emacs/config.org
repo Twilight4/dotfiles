@@ -156,34 +156,34 @@
 ;; Global Keybindings
 ;; Optionally available keybinds: M-r M-i C-z C-t
 ;; Moving between windows
-(global-set-key (kbd "C-k") 'other-window)
-(global-set-key (kbd "C-j") 'previous-multiframe-window)
+;(global-set-key (kbd "C-k") 'other-window)
+;(global-set-key (kbd "C-j") 'previous-multiframe-window)
 ;; Moving the windows
-(global-set-key (kbd "C-S-k") 'buf-move-next)
-(global-set-key (kbd "C-S-j") 'buf-move-prev)
+;(global-set-key (kbd "C-S-k") 'buf-move-next)
+;(global-set-key (kbd "C-S-j") 'buf-move-prev)
 ;; Resizing windows
-(global-set-key (kbd "M-_") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-+") 'shrink-window-horizontally)
-(global-set-key (kbd "M-=") 'enlarge-window)
-(global-set-key (kbd "M--") 'shrink-window)
-(global-set-key (kbd "M-0") 'balance-windows)
+;(global-set-key (kbd "M-_") 'enlarge-window-horizontally)
+;(global-set-key (kbd "M-+") 'shrink-window-horizontally)
+;(global-set-key (kbd "M-=") 'enlarge-window)
+;(global-set-key (kbd "M--") 'shrink-window)
+;(global-set-key (kbd "M-0") 'balance-windows)
 ;; Window splits
-(global-set-key (kbd "M-s") 'split-window-right)
-(global-set-key (kbd "M-S") 'split-window-below)
-(global-set-key (kbd "M-c") 'delete-window)
-(global-set-key (kbd "M-m") 'toggle-window-maximize)
+;(global-set-key (kbd "M-s") 'split-window-right)
+;(global-set-key (kbd "M-S") 'split-window-below)
+;(global-set-key (kbd "M-c") 'delete-window)
+;(global-set-key (kbd "M-m") 'toggle-window-maximize)
 ;; Scrolling
-(global-set-key (kbd "C-q") 'good-scroll-up)
-(global-set-key (kbd "M-q") 'good-scroll-down)
-(global-set-key (kbd "C-v") 'good-scroll-up-full-screen)
-(global-set-key (kbd "M-v") 'good-scroll-down-full-screen)
+;(global-set-key (kbd "C-q") 'good-scroll-up)
+;(global-set-key (kbd "M-q") 'good-scroll-down)
+;(global-set-key (kbd "C-v") 'good-scroll-up-full-screen)
+;(global-set-key (kbd "M-v") 'good-scroll-down-full-screen)
 ;; Rebinding join/new line
 ;;(global-set-key (kbd "C-key") 'join-line)
 ;;(global-set-key (kbd "C-key") 'newline)
 ;; Redo
 (global-set-key (kbd "M-/") 'undo-redo)
 ;; Indent region
-;;(global-set-key (kbd "C-M-\\") 'indent-region)
+;;(global-set-key (kbd "C-M-\\") 'indent-region)   ; set by default
 ;; Rectangular selection
 (global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
 ;; Make escape (C-g) quit prompts
