@@ -224,16 +224,16 @@
 ;; Centaur tabs/buffers
 (global-set-key (kbd "M-n") 'tl/better-next-buffer)
 (global-set-key (kbd "M-p") 'tl/better-previous-buffer)
-(global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
-(global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
+;(global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
+;(global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
 (global-set-key (kbd "M-u") 'kill-this-buffer)
-(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
+;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
 (global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
 (global-set-key (kbd "M-O") 'dashboard-open)  ;; Wanted to open dashboard buffer in a new centaur-tab but didn't manage to do so
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Neotree
-(global-set-key (kbd "M-N") 'neotree-toggle)
+(global-set-key (kbd "M-M") 'neotree-toggle)
 ;; "n" '(neotree-toggle :wk "Toggle neotree")
 ;; Zero-width space (this is an exception keybinding)
 (global-set-key (kbd "C-c C-SPC")
