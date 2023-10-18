@@ -210,9 +210,8 @@
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
-(global-set-key (kbd "C-S-h") 'kill-whole-line)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
-
+(global-set-key (kbd "C-S-h") 'kill-whole-line)
 ;; Zooming keys
 ;(global-set-key (kbd "C-=") 'text-scale-increase)
 ;(global-set-key (kbd "C--") 'text-scale-decrease)
@@ -996,6 +995,11 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   (if (region-active-p)
       (progn
         (kill-ring-save (region-beginning) (region-end))
+	    (let ((process-connection-type nil))
+          (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
+          (process-send-string "wl-copy" (current-kill 0))
+          (process-send-eof "wl-copy"))
+	    (message "Copied to clipboard")
         (delete-region (region-beginning) (region-end)))
     (hungry-delete-backward 1)))
 
@@ -1018,7 +1022,7 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
           (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
           (process-send-string "wl-copy" (current-kill 0))
           (process-send-eof "wl-copy"))
-        (message ""))
+        (message "Copied to clipboard"))
     (message "No active region")))
 #+end_src
 
