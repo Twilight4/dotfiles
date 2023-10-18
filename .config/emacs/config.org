@@ -212,12 +212,14 @@
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-S-h") 'kill-whole-line)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
+
 ;; Zooming keys
 ;(global-set-key (kbd "C-=") 'text-scale-increase)
 ;(global-set-key (kbd "C--") 'text-scale-decrease)
 ;(global-set-key (kbd "C-0") 'text-scale-adjust)
 ;(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 ;(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+(global-set-key (kbd "C-q") 'recenter-top-bottom)
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
@@ -492,7 +494,7 @@
 
 #+begin_src emacs-lisp
 (general-define-key
- :prefix "C-;"
+ :prefix "C-l"
  ;; Avy jumping
  "C-c" '(avy-goto-char :wk "Jump to a character")
  "C-C" '(avy-goto-char-2 :wk "Jump to a two-character char")
