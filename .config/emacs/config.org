@@ -576,18 +576,15 @@
 ;; Use only system clipboard - I wish it worked but I'm on wayland
 ;(setq x-select-enable-clipboard t)
 
-;; An attempt to always copy to the system clipboard using wl-copy
-;;(defun copy-kill-ring-to-system-clipboard ()
-;;  "Copy the contents of the last kill to the system clipboard using wl-copy."
-;;  (interactive)
-;;  (let ((text (substring-no-properties (car kill-ring))))
-;;    (if (not (string= text ""))
-;;        (progn
-;;          (shell-command-on-region (point) (point) "wl-copy" nil nil nil)
-;;          (message "Copied to system clipboard: %s" text))
-;;      (message "Kill ring is empty"))))
+(defun copy-to-system-clipboard ()
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (kill-ring-save (region-beginning) (region-end))
+        (shell-command-on-region (region-beginning) (region-end) "xclip -i -selection clipboard")))
+    (message "No active region"))
 
-;;(global-set-key (kbd "M-w") 'copy-kill-ring-to-system-clipboard)
+(global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 #+end_src
 
 ** Setting the Font Face

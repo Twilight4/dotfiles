@@ -14,4 +14,3 @@
 	- `nmcli r wifi`
 - Turn off WiFi
 	- `nmcli r wifi off`
-
