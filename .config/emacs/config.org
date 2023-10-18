@@ -251,9 +251,13 @@
 (define-key org-mode-map (kbd "M-<return>") 'org-insert-heading-respect-content)
 (define-key org-mode-map (kbd "M-S-<return>") 'org-insert-subheading)
 (define-key org-mode-map (kbd "S-<return>") 'org-toggle-item)
-(define-key org-mode-map (kbd "S-RET") 'org-toggle-item)
 (define-key org-mode-map (kbd "C-<return>") 'org-meta-return)
 (define-key org-mode-map (kbd "C-S-<return>") 'org-insert-todo-heading)
+(define-key org-mode-map (kbd "M-RET") 'org-insert-heading-respect-content)
+(define-key org-mode-map (kbd "M-S-RET") 'org-insert-subheading)
+(define-key org-mode-map (kbd "S-RET") 'org-toggle-item)
+(define-key org-mode-map (kbd "C-RET") 'org-meta-return)
+(define-key org-mode-map (kbd "C-S-RET") 'org-insert-todo-heading)
 ;; Org heading navigation
 (define-key org-mode-map (kbd "M-h") #'org-up-element)                   ; default g h
 (define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)   ; default g j
@@ -704,7 +708,7 @@ Then I'll redefine two functions used to generate the modeline.
 ** Custom return
 
 #+begin_src emacs-lisp
-;; This code checks if the cursor is on a link or a checkbox and acts accordingly. If not in an Org mode buffer, it will call the default behavior for RET using call-interactively org-return.
+;; Function to toggle a checkbox bound to Return
 (defun custom-return ()
   (interactive)
   (if (org-in-regexp org-link-bracket-re 1)
@@ -713,9 +717,17 @@ Then I'll redefine two functions used to generate the modeline.
         (org-toggle-checkbox)
       (call-interactively 'newline-and-indent)))) ; Call default behavior in insert mode
 
+;; Funtion to not toggle a checkbox bound to C-m
+(defun toggle-checkbox-return ()
+  (interactive)
+  (if (org-at-item-p) ; Check if at a checkbox item
+      (org-toggle-checkbox)
+    (call-interactively 'newline)))
+
 (add-hook 'org-mode-hook
           (lambda ()
-            (local-set-key (kbd "RET") 'custom-return)))
+            (local-set-key (kbd "RET") 'custom-return)
+            (local-set-key (kbd "C-m") 'toggle-checkbox-return)))
 #+end_src
 
 ** Window Title
