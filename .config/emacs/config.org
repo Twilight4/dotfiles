@@ -1009,6 +1009,11 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   (if (region-active-p)
       (progn
         (kill-ring-save (region-beginning) (region-end))
+	    (let ((process-connection-type nil))
+          (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
+          (process-send-string "wl-copy" (current-kill 0))
+          (process-send-eof "wl-copy"))
+	    (message "Copied to clipboard")
         (delete-region (region-beginning) (region-end)))
     (hungry-delete-forward 1)))
 
