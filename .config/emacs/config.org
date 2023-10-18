@@ -724,10 +724,10 @@ Then I'll redefine two functions used to generate the modeline.
       (org-toggle-checkbox)
     (call-interactively 'newline)))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "RET") 'custom-return)
-            (local-set-key (kbd "C-m") 'toggle-checkbox-return)))
+;;(add-hook 'org-mode-hook
+;;          (lambda ()
+;;            (local-set-key (kbd "RET") 'custom-return)
+;;            (local-set-key (kbd "C-m") 'toggle-checkbox-return)))
 #+end_src
 
 ** Window Title
