@@ -29,7 +29,7 @@
 - [[#editing-features][Editing Features]]
   - [[#nicer-org-return][Nicer =Org-Return=]]
   - [[#hungry-delete][Hungry-delete]]
-  - [[#clipboard-automation][Clipboard automation]]
+  - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-automation][Selection automation]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
@@ -207,7 +207,7 @@
 (global-set-key (kbd "C-,") 'backward-kill-sentence)
 (global-set-key (kbd "C-.") 'kill-sentence)
 ;; Upgraded clipboard functions
-;;(global-set-key (kbd "M-w") 'kill-ring-save)        ; set by default
+(global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-S-h") 'kill-whole-line)
@@ -575,21 +575,6 @@
 
 ;; Use only system clipboard - I wish it worked but I'm on wayland
 ;(setq x-select-enable-clipboard t)
-
-; 
-(defun copy-to-system-clipboard ()
-  (interactive)
-  (if (region-active-p)
-      (progn
-        (kill-ring-save (region-beginning) (region-end))
-        (let ((process-connection-type nil))
-          (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
-          (process-send-string "wl-copy" (current-kill 0))
-          (process-send-eof "wl-copy"))
-        (message ""))
-    (message "No active region")))
-
-(global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 #+end_src
 
 ** Setting the Font Face
@@ -1000,7 +985,7 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   :config (global-hungry-delete-mode))
 #+end_src
 
-** Clipboard automation
+** Clipboard Adjustments
 
 #+begin_src emacs-lisp
 (defun kill-region-or-backward-delete ()
@@ -1020,6 +1005,19 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
         (kill-ring-save (region-beginning) (region-end))
         (delete-region (region-beginning) (region-end)))
     (hungry-delete-forward 1)))
+
+;; Function to always copy to the system clipboard
+(defun copy-to-system-clipboard ()
+  (interactive)
+  (if (region-active-p)
+      (progn
+        (kill-ring-save (region-beginning) (region-end))
+        (let ((process-connection-type nil))
+          (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
+          (process-send-string "wl-copy" (current-kill 0))
+          (process-send-eof "wl-copy"))
+        (message ""))
+    (message "No active region")))
 #+end_src
 
 ** Selection automation
