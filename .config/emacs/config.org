@@ -50,13 +50,11 @@
   - [[#elfeed][Elfeed]]
   - [[#ansi-colours][Ansi colours]]
   - [[#pdf-tools][Pdf-tools]]
-  - [[#org-noter][Org-noter]]
-  - [[#org-pdftools-and-org-noter-pdftools][Org-pdftools and org-noter-pdftools]]
-  - [[#desktop-mode][Desktop-mode]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential Packages]]
   - [[#editing-features-for-org][Editing Features for Org]]
   - [[#org-configuraion][Org Configuraion]]
+  - [[#desktop-mode][Desktop-mode]]
 
 * Packages to load first
 ** Elpaca Package Manager
@@ -213,7 +211,7 @@
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
-(global-set-key (kbd "C-S-h") 'kill-whole-line)
+;(global-set-key (kbd "C-S-h") 'kill-whole-line)
 ;; Zooming keys
 ;(global-set-key (kbd "C-=") 'text-scale-increase)
 ;(global-set-key (kbd "C--") 'text-scale-decrease)
@@ -1470,133 +1468,6 @@ Source: https://github.com/vedang/pdf-tools
   (pdf-tools-install))
 #+end_src
 
-** Org-noter
-Emacs document annotator compatible with =pdf-tools=, using Org-mode.
-Source: https://github.com/weirdNox/org-noter
-
-#+begin_src emacs-lisp
-;;  A custom org link type for pdf-tools 
-(use-package org-noter
-  :config
-  ;; Your org-noter config ........
-  (require 'org-noter-pdftools))
-#+end_src
-
-** Org-pdftools and org-noter-pdftools
-A custom org link type for =pdf-tools=. Integration with =org-noter=.
-Source: https://github.com/fuxialexander/org-pdftools
-
-#+begin_src emacs-lisp
-(use-package org-pdftools
-  :hook (org-mode . org-pdftools-setup-link))
-
-(use-package org-noter-pdftools
-  :after org-noter
-  :config
-  ;; Add a function to ensure precise note is inserted
-  (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
-    (interactive "P")
-    (org-noter--with-valid-session
-     (let ((org-noter-insert-note-no-questions (if toggle-no-questions
-                                                   (not org-noter-insert-note-no-questions)
-                                                 org-noter-insert-note-no-questions))
-           (org-pdftools-use-isearch-link t)
-           (org-pdftools-use-freepointer-annot t))
-       (org-noter-insert-note (org-noter--get-precise-info)))))
-
-  ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
-  (defun org-noter-set-start-location (&optional arg)
-    "When opening a session with this document, go to the current location.
-With a prefix ARG, remove start location."
-    (interactive "P")
-    (org-noter--with-valid-session
-     (let ((inhibit-read-only t)
-           (ast (org-noter--parse-root))
-           (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
-       (with-current-buffer (org-noter--session-notes-buffer session)
-         (org-with-wide-buffer
-          (goto-char (org-element-property :begin ast))
-          (if arg
-              (org-entry-delete nil org-noter-property-note-location)
-            (org-entry-put nil org-noter-property-note-location
-                           (org-noter--pretty-print-location location))))))))
-  (with-eval-after-load 'pdf-annot
-    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
-#+end_src
-
-** Desktop-mode
-
-#+begin_src emacs-lisp
-;;; start of plain desktop
-(defvar desktop-save)
-(defvar desktop-globals-to-save)
-(defvar desktop-buffers-not-to-save)
-(defvar desktop-modes-not-to-save)
-(defvar desktop-restore-frames)
-(defvar desktop-restore-eager)
-
-;; Enable desktop-mode
-(desktop-save-mode 1)
-
-(setq desktop-save 1)                             ; Enable desktop-save mode
-(setq desktop-path '("~/.config/emacs/desktop"))  ; Set the directory where desktop files will be saved
-(setq desktop-desktop-auto-save-timeout 3600)     ; Save every 60 minutes for sanity check
-(setq desktop-restore-eager 5)                    ; Restore 1 buffer eagerly (immediatelly), this can impact startup performance
-(setq desktop-globals-to-save '(kill-ring search-ring))  ; Save kill-ring and search-ring history lists
-(setq history-length 250)                         ; Maximum number of entries stored in history lists
-(setq desktop-restore-frames t)                   ; Restore the frame configuration (window sizes annd positions)
-
-;; Add entries to history lists
-(add-to-list 'desktop-globals-to-save 'file-name-history)
-(add-to-list 'desktop-globals-to-save 'custom-enabled-themes)
-
-;; Don't save specified buffers
-(setq desktop-buffers-not-to-save
-      (concat "\\("
-          "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
-          "\\|\\*scratch*"
-          "\\|\\*Messages*"
-          "\\|\\.emacs.*"
-          "\\|\\.diary"
-          "\\|\\.newsrc-dribble"
-          "\\|\\.bbdb"
-          "\\)$"))
-
-(add-to-list 'desktop-modes-not-to-save 'dired-mode)
-(add-to-list 'desktop-modes-not-to-save 'Info-mode)
-(add-to-list 'desktop-modes-not-to-save 'info-lookup-mode)
-(add-to-list 'desktop-modes-not-to-save 'fundamental-mode)
-#+end_src
-
-*** Desktop override stale-locks
-
-#+begin_src emacs-lisp
-;;; If emacs doesn't exit properly, the desktop package will leave a
-;;; stale lockfile that we don't want.  However, upon next emacs
-;;; start, desktop won't start because of the lockfile.  Then we have
-;;; to say 'y' to clean up the lock and move forward, if emacs isn't
-;;; running.  This bit of code checks to see if there is another emacs
-;;; running, and if there isn't, clean up the lockfile automatically.
-
-(defun emacs-process-p (pid)
-  "If PID is the process ID of an emacs process, return t, else nil.
-Also returns nil if pid is nil."
-  (when pid
-    (let ((attributes (process-attributes pid)) (cmd))
-      (dolist (attr attributes)
-    (if (string= "comm" (car attr))
-        (setq cmd (cdr attr))))
-      (if (and cmd
-           (or (string= "emacs" cmd)
-           (string= "emacs.exe" cmd)))
-      t))))
-
-(defadvice desktop-owner (after pry-from-cold-dead-hands activate)
-  "Don't allow dead emacsen to own the desktop file."
-  (when (not (emacs-process-p ad-return-value))
-    (setq ad-return-value nil)))
-#+end_src
-
 * Org Mode
 ** Essential Packages
 *** Org-toc
@@ -1683,6 +1554,60 @@ Adding highlights to =TODO= and related words.
           ("NOW"      . "#5af78e")
           ("FINISHED"   font-lock-doc-face bold)
           ("CANC"       error bold))))
+#+end_src
+
+*** Org-noter
+Emacs document annotator compatible with =pdf-tools=, using Org-mode.
+Source: https://github.com/weirdNox/org-noter
+
+#+begin_src emacs-lisp
+;;  A custom org link type for pdf-tools 
+(use-package org-noter
+  :config
+  ;; Your org-noter config ........
+  (require 'org-noter-pdftools))
+#+end_src
+
+*** Org-pdftools and org-noter-pdftools
+A custom org link type for =pdf-tools=. Integration with =org-noter=.
+Source: https://github.com/fuxialexander/org-pdftools
+
+#+begin_src emacs-lisp
+(use-package org-pdftools
+  :hook (org-mode . org-pdftools-setup-link))
+
+(use-package org-noter-pdftools
+  :after org-noter
+  :config
+  ;; Add a function to ensure precise note is inserted
+  (defun org-noter-pdftools-insert-precise-note (&optional toggle-no-questions)
+    (interactive "P")
+    (org-noter--with-valid-session
+     (let ((org-noter-insert-note-no-questions (if toggle-no-questions
+                                                   (not org-noter-insert-note-no-questions)
+                                                 org-noter-insert-note-no-questions))
+           (org-pdftools-use-isearch-link t)
+           (org-pdftools-use-freepointer-annot t))
+       (org-noter-insert-note (org-noter--get-precise-info)))))
+
+  ;; fix https://github.com/weirdNox/org-noter/pull/93/commits/f8349ae7575e599f375de1be6be2d0d5de4e6cbf
+  (defun org-noter-set-start-location (&optional arg)
+    "When opening a session with this document, go to the current location.
+With a prefix ARG, remove start location."
+    (interactive "P")
+    (org-noter--with-valid-session
+     (let ((inhibit-read-only t)
+           (ast (org-noter--parse-root))
+           (location (org-noter--doc-approx-location (when (called-interactively-p 'any) 'interactive))))
+       (with-current-buffer (org-noter--session-notes-buffer session)
+         (org-with-wide-buffer
+          (goto-char (org-element-property :begin ast))
+          (if arg
+              (org-entry-delete nil org-noter-property-note-location)
+            (org-entry-put nil org-noter-property-note-location
+                           (org-noter--pretty-print-location location))))))))
+  (with-eval-after-load 'pdf-annot
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 #+end_src
 
 ** Editing Features for Org
@@ -2506,3 +2431,76 @@ The following snippet sets up a hook for all Org task state changes and then mov
    :map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src
+** Desktop-mode
+
+#+begin_src emacs-lisp
+;;; start of plain desktop
+(defvar desktop-save)
+(defvar desktop-globals-to-save)
+(defvar desktop-buffers-not-to-save)
+(defvar desktop-modes-not-to-save)
+(defvar desktop-restore-frames)
+(defvar desktop-restore-eager)
+
+;; Enable desktop-mode
+(desktop-save-mode 1)
+
+(setq desktop-save 1)                             ; Enable desktop-save mode
+(setq desktop-path '("~/.config/emacs/desktop"))  ; Set the directory where desktop files will be saved
+(setq desktop-desktop-auto-save-timeout 3600)     ; Save every 60 minutes for sanity check
+(setq desktop-restore-eager 5)                    ; Restore 1 buffer eagerly (immediatelly), this can impact startup performance
+(setq desktop-globals-to-save '(kill-ring search-ring))  ; Save kill-ring and search-ring history lists
+(setq history-length 250)                         ; Maximum number of entries stored in history lists
+(setq desktop-restore-frames t)                   ; Restore the frame configuration (window sizes annd positions)
+
+;; Add entries to history lists
+(add-to-list 'desktop-globals-to-save 'file-name-history)
+(add-to-list 'desktop-globals-to-save 'custom-enabled-themes)
+
+;; Don't save specified buffers
+(setq desktop-buffers-not-to-save
+      (concat "\\("
+          "^nn\\.a[0-9]+\\|\\.log\\|(ftp)\\|^tags\\|^TAGS"
+          "\\|\\*scratch*"
+          "\\|\\*Messages*"
+          "\\|\\.emacs.*"
+          "\\|\\.diary"
+          "\\|\\.newsrc-dribble"
+          "\\|\\.bbdb"
+          "\\)$"))
+
+(add-to-list 'desktop-modes-not-to-save 'dired-mode)
+(add-to-list 'desktop-modes-not-to-save 'Info-mode)
+(add-to-list 'desktop-modes-not-to-save 'info-lookup-mode)
+(add-to-list 'desktop-modes-not-to-save 'fundamental-mode)
+#+end_src
+
+*** Desktop override stale-locks
+
+#+begin_src emacs-lisp
+;;; If emacs doesn't exit properly, the desktop package will leave a
+;;; stale lockfile that we don't want.  However, upon next emacs
+;;; start, desktop won't start because of the lockfile.  Then we have
+;;; to say 'y' to clean up the lock and move forward, if emacs isn't
+;;; running.  This bit of code checks to see if there is another emacs
+;;; running, and if there isn't, clean up the lockfile automatically.
+
+(defun emacs-process-p (pid)
+  "If PID is the process ID of an emacs process, return t, else nil.
+Also returns nil if pid is nil."
+  (when pid
+    (let ((attributes (process-attributes pid)) (cmd))
+      (dolist (attr attributes)
+    (if (string= "comm" (car attr))
+        (setq cmd (cdr attr))))
+      (if (and cmd
+           (or (string= "emacs" cmd)
+           (string= "emacs.exe" cmd)))
+      t))))
+
+(defadvice desktop-owner (after pry-from-cold-dead-hands activate)
+  "Don't allow dead emacsen to own the desktop file."
+  (when (not (emacs-process-p ad-return-value))
+    (setq ad-return-value nil)))
+#+end_src
+
