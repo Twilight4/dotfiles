@@ -206,8 +206,8 @@
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-;(global-set-key (kbd "C-,") 'backward-kill-sentence)
-;(global-set-key (kbd "C-.") 'kill-sentence)
+(global-set-key (kbd "C-M-a") 'backward-kill-sentence)
+(global-set-key (kbd "C-M-e") 'kill-sentence)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
