@@ -178,13 +178,14 @@
 ;(global-set-key (kbd "M-q") 'good-scroll-down)
 ;(global-set-key (kbd "C-v") 'good-scroll-up-full-screen)
 ;(global-set-key (kbd "M-v") 'good-scroll-down-full-screen)
+(global-set-key (kbd "C-q") 'scroll-up-line)
+(global-set-key (kbd "M-q") 'scroll-down-line)
 ;; Rebinding join/new line
 ;;(global-set-key (kbd "C-key") 'join-line)
-;;(global-set-key (kbd "C-key") 'newline)
 ;; Redo
 (global-set-key (kbd "M-/") 'undo-redo)
 ;; Indent region
-;;(global-set-key (kbd "C-M-\\") 'indent-region)   ; set by default
+(global-set-key (kbd "C-\\") 'indent-region)
 ;; Rectangular selection
 (global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
 ;; Make escape (C-g) quit prompts
@@ -195,18 +196,18 @@
 (global-set-key (kbd "C-n") 'next-line)
 (global-set-key (kbd "M-a") 'org-backward-sentence)
 (global-set-key (kbd "M-e") 'org-forward-sentence)
-(global-set-key (kbd "M-,") 'beginning-of-buffer)
-(global-set-key (kbd "M-.") 'end-of-buffer)
-(global-set-key (kbd "M-<") 'select-until-beginning)
-(global-set-key (kbd "M->") 'select-until-end)
+(global-set-key (kbd "M-<") 'beginning-of-buffer)
+(global-set-key (kbd "M->") 'end-of-buffer)
+;(global-set-key (kbd "M-<") 'select-until-beginning)
+;(global-set-key (kbd "M->") 'select-until-end)
 ;; Non-essential keys
-;;(global-set-key (kbd "M-.") 'org-forward-paragraph)
-;;(global-set-key (kbd "M-,") 'org-backward-paragraph)
+(global-set-key (kbd "M-.") 'org-forward-paragraph)
+(global-set-key (kbd "M-,") 'org-backward-paragraph)
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-(global-set-key (kbd "C-,") 'backward-kill-sentence)
-(global-set-key (kbd "C-.") 'kill-sentence)
+;(global-set-key (kbd "C-,") 'backward-kill-sentence)
+;(global-set-key (kbd "C-.") 'kill-sentence)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -219,7 +220,7 @@
 ;(global-set-key (kbd "C-0") 'text-scale-adjust)
 ;(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 ;(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
-(global-set-key (kbd "C-q") 'recenter-top-bottom)
+;(global-set-key (kbd "C-q") 'recenter-top-bottom)
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
