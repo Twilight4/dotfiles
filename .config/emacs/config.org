@@ -478,6 +478,7 @@
  "C-m" '(org-meta-return :wk "Insert another heading/bullet")
  "C-s" '(org-insert-subheading :wk "Insert subheading")
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
+ "I" '(org-toggle-inline-images :wk "Display inline images")
  ;; Org-Roam
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
