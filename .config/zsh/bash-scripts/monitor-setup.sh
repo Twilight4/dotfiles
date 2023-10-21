@@ -8,8 +8,10 @@ if [ -f "/tmp/toggle-gamemode" ]; then
     riverctl unmap normal Shift D
     riverctl unmap normal Shift W
     riverctl unmap normal Shift E
-    #riverctl hide-cursor timeout 5000    # For some reason this command doesn't have any affect whatsoever, so if you don't want to hide cursor, uncomment this line in river init file
-    riverctl hide-cursor when-typing enabled
+    # For some reason these commands don't have any affect whatsoever, 
+    # so if you don't want to hide cursor, uncomment these lines in river init file
+    #riverctl hide-cursor timeout 5000    
+    #riverctl hide-cursor when-typing enabled
 else
     touch "/tmp/toggle-gamemode"
     notify-send -t 3000 "Gamemode Enabled"
@@ -17,7 +19,7 @@ else
     riverctl map normal Shift W spawn '~/.config/zsh/bash-scripts/s-w.sh'
     riverctl map normal Shift E spawn '~/.config/zsh/bash-scripts/s-e.sh'
     #riverctl hide-cursor timeout 0
-    riverctl hide-cursor when-typing disabled
+    #riverctl hide-cursor when-typing disabled
     if (wlr-randr | grep -q "eDP-1" ); then
         enabled_line=$(wlr-randr | grep -n "eDP-1" | head -n 1 | cut -d ':' -f 1)
         enabled_status=$(wlr-randr | awk -v line=$((enabled_line + 5)) 'NR==line {print $0}')
