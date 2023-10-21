@@ -117,8 +117,12 @@ alias mpapl='mpv --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "
 alias tre='trans en:pl'
 alias trp='trans pl:en'
 
-# Check vulnerabilities microcode
+# Check CPU mitigations vulnerabilities in microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
+
+# Using AMD P-State EPP Driver
+alias powersave='sudo cpupower frequency-set -g powersave'
+alias performance='sudo cpupower frequency-set -g performance'
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
