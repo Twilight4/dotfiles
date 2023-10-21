@@ -13,7 +13,7 @@ layout tall
 cd ~/desktop/workspace/cheats/active-directory/
 launch sh -c "emacsclient -nw -e '(dired \"./\")' && exec zsh"
 # Create second window
-cd ~/desktop/workspace/.config/cheat/tools/
+cd ~/desktop/workspace/dotfiles/.config/cheat/tools/
 launch sh -c "emacsclient -nw -e '(dired \"./\")' && exec zsh"
 
 # Create a new tab
@@ -23,4 +23,4 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/desktop/workspace/dotfiles/.config/cheat/templates/
 # Create a window (title sets the tab title)
-launch --title templates sh -c "lsd -lA --hyperlink=auto && exec zsh"
+launch --title templates sh -c "lsd --hyperlink=auto && exec zsh"
