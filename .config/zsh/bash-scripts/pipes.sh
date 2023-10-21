@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 # pipes.sh: Animated pipes terminal screensaver.
 # Copyleft (ↄ) 2015 - Acidhub <acidhub@craft.net.br>
 #              2015 - Pipeseroni - http://github.com/pipeseroni
