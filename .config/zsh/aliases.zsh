@@ -183,7 +183,7 @@ alias pacs="sudo pacman -S"                      # Install package faster
 alias pacr="sudo pacman -Rns"                    # Remove package faster
 alias pacf="sudo pacman -F"                      # Search binary package faster
 alias pacu="sudo pacman -U"                      # Install the needed package
-alias pacsyu="sudo pacman --noconfirm -Syu"      # Update only standard pkgs
+alias pacsyu="sudo pacman --noconfirm -Syuu"     # Update only standard pkgs
 alias pacsyyu="sudo pacman -Syyu"                # Refresh pkglist & update standard pkgs
 alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # Cleanup orphaned packages
 
@@ -195,9 +195,9 @@ alias fix-keys="sudo pacman-key --init; sudo pacman-key --populate; sudo pacman-
 alias pars="paru -S"                              # Install AUR package faster
 alias parr="paru -Rns"                            # Remove package faster
 alias parf="paru -F"                              # Search binary package faster
-alias parsyu="paru -Syu --noconfirm"              # Update standard pkgs and AUR pkgs
-alias parsyur="sudo pacman --noconfirm -Syu && sleep 5 && reboot"        # Update and reboot
-alias parsyus="sudo pacman --noconfirm -Syu && sleep 5 && shutdown now"  # Update and shutdown
+alias parsyu="paru -Syuu --noconfirm"              # Update standard pkgs and AUR pkgs
+alias parsyur="sudo pacman --noconfirm -Syuu && sleep 5 && reboot"        # Update and reboot
+alias parsyus="sudo pacman --noconfirm -Syuu && sleep 5 && shutdown now"  # Update and shutdown
 
 # Revert to an older version of the package
 alias pkgver="cd /var/cache/pacman/pkg && lsd -l --hyperlink=auto"     # Go into the pacman cache and find the needed package.
