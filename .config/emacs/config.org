@@ -38,7 +38,6 @@
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
   - [[#maximize-window-split][Maximize-window-split]]
-  - [[#splits][Splits]]
   - [[#avy][Avy]]
 - [[#other-packages][Other Packages]]
   - [[#neotree][Neotree]]
@@ -566,6 +565,13 @@
  display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
  blink-cursor-mode nil                            ; I hate blinking cursors
  inhibit-startup-message t)                       ; Prevent the default initial splash screen from being displayed when you start Emacs
+
+;; Prefer vertical splits - does not work
+;(setq split-width-threshold nil)
+;(setq split-height-threshold 40) ; Adjust this value as needed
+
+;; Prevent Emacs from splitting windows, using kitty for splits instead
+;(setq split-window-preferred-function nil)
 
 ;; Don't create automatic backup files in their original directories (e.g. file.el~). Put all backups in the Trash directory
 (setq backup-directory-alist '((".*" . "~/.config/.local/share/Trash/files")))
@@ -1172,15 +1178,6 @@ Function for toggling maximization of window split.
         (setq previous-window-config nil))
     (setq previous-window-config (current-window-configuration))
     (delete-other-windows)))
-#+end_src
-
-** Splits
-I set a keybinding for =clone-indirect-buffer-other-window= for when I want to have the same document in two splits. The text of the indirect buffer is always identical to the text of its base buffer.
-
-#+begin_src emacs-lisp
-(defun prefer-vertical-split ()
-  (setq split-width-threshold nil)
-  (setq split-height-threshold 40)) ; Adjust this value as needed
 #+end_src
 
 ** Avy
