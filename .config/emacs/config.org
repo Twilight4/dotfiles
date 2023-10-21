@@ -218,7 +218,7 @@
 ;(global-set-key (kbd "C-0") 'text-scale-adjust)
 ;(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 ;(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
-;(global-set-key (kbd "C-q") 'recenter-top-bottom)
+(global-set-key (kbd "C-t") 'recenter-top-bottom)
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
@@ -229,8 +229,8 @@
 ;(global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
 (global-set-key (kbd "M-u") 'kill-this-buffer)
 ;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
-(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
-(global-set-key (kbd "M-O") 'dashboard-open)  ;; Wanted to open dashboard buffer in a new centaur-tab but didn't manage to do so
+;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
+(global-set-key (kbd "C-z") 'dashboard-open)
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Neotree
@@ -2158,18 +2158,20 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
                        (org-agenda-files org-agenda-files)))
                 )))
 
-;; Function to open Org Agenda frame
-(defun open-org-agenda-frame ()
-  "Open Org Agenda in a split window and maximize it."
-  (interactive)
-  (let ((agenda-buffer (get-buffer-create "*Org Agenda*")))
-    (with-current-buffer agenda-buffer
-      (org-gtd-engage-grouped-by-context))
-    (delete-other-windows) ; Close other windows
-    (split-window-horizontally) ; Split the window horizontally
-    (other-window 1) ; Move to the newly created window
-    (switch-to-buffer agenda-buffer) ; Open Org Agenda in the new window
-    (delete-other-windows))) ; Close the initial window
+;; Function to open Org Agenda buffer - using command-line eval code in session-agenda
+;(defun open-org-agenda-frame ()
+;  "Open Org Agenda in a split window and maximize it."
+;  (interactive)
+;  (let ((agenda-buffer (get-buffer-create "*Org Agenda*")))
+;n    (with-current-buffer agenda-buffer
+;      (org-gtd-engage-grouped-by-context))
+;    (delete-other-windows))) ; Close the initial window
+
+;; I had problems with getting the agenda work on full-sized split
+;    (delete-other-windows) ; Close other windows
+;    (split-window-horizontally) ; Split the window horizontally
+;    (other-window 1) ; Move to the newly created window
+;    (switch-to-buffer agenda-buffer) ; Open Org Agenda in the new window
 #+end_src
 
 *** Org-agenda setup
