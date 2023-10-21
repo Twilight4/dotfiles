@@ -127,6 +127,7 @@
 (define-key global-map (kbd "M-SPC") nil)
 (define-key global-map (kbd "M-q") nil)
 (define-key global-map (kbd "C-l") nil)
+(define-key global-map (kbd "M-t") nil)
 
 ;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
