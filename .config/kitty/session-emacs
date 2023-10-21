@@ -1,0 +1,26 @@
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/documents/org/agenda/
+# Create a window (title sets the tab title)
+launch --title workflow sh -c "emacsclient -nw ~/documents/org/agenda/workflow.org && exec zsh"
+
+# Create a new tab for file manger
+new_tab dired
+# Set the layout in this tab
+layout tall
+# Create a window (title sets the tab title)
+cd ~/desktop/workspace/cheats/active-directory/
+launch --title dired sh -c "emacsclient -nw -e '(open-dired-in-terminal)' && exec zsh"
+# Create second window
+cd ~/desktop/workspace/.config/cheat/tools/
+launch sh -c "emacsclient -nw -e '(open-dired-in-terminal)' && exec zsh"
+
+# Create a new tab
+new_tab templates
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/desktop/workspace/dotfiles/.config/cheat/templates/
+# Create a window (title sets the tab title)
+launch --title templates sh -c "lsd -lA --hyperlink=auto && exec zsh"
