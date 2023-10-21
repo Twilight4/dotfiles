@@ -3,4 +3,4 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title agenda sh -c "emacsclient -nw --eval '(open-org-agenda-frame)' && exec zsh"
+launch --title agenda sh -c "emacsclient -nw --eval '(progn (org-gtd-engage-grouped-by-context) (delete-other-windows))' && exec zsh"
