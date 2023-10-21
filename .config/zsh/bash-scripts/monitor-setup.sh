@@ -1,5 +1,7 @@
 #!bin/bash
 
+riverctl map normal Super+Alt G spawn '~/.config/zsh/bash-scripts/monitor-setup.sh'
+
 if [ -f "/tmp/toggle-gamemode" ]; then
     rm "/tmp/toggle-gamemode"
     notify-send -t 3000 "Gamemode Disabled"
