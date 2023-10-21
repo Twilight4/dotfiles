@@ -1,4 +1,4 @@
-#!/bin/bash
+#!bin/bash
 
 if [ -f "/tmp/toggle-gamemode" ]; then
     rm "/tmp/toggle-gamemode"
@@ -9,9 +9,9 @@ if [ -f "/tmp/toggle-gamemode" ]; then
 else
     touch "/tmp/toggle-gamemode"
     notify-send -t 3000 "Gamemode Enabled"
-    riverctl map normal Shift D spawn '~/.config/river/scripts/s-d.sh'
-    riverctl map normal Shift W spawn '~/.config/river/scripts/s-w.sh'
-    riverctl map normal Shift E spawn '~/.config/river/scripts/s-e.sh'
+    riverctl map normal Shift D spawn '~/.config/zsh/bash-scripts/s-d.sh'
+    riverctl map normal Shift W spawn '~/.config/zsh/bash-scripts/s-w.sh'
+    riverctl map normal Shift E spawn '~/.config/zsh/bash-scripts/s-e.sh'
     if (wlr-randr | grep -q "eDP-1" ); then
         enabled_line=$(wlr-randr | grep -n "eDP-1" | head -n 1 | cut -d ':' -f 1)
         enabled_status=$(wlr-randr | awk -v line=$((enabled_line + 5)) 'NR==line {print $0}')
