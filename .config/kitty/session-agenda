@@ -1,0 +1,6 @@
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title agenda sh -c "emacsclient -nw --eval '(open-org-agenda-frame)' && exec zsh"
