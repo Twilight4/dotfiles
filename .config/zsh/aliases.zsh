@@ -34,7 +34,6 @@ alias w='cd "$HOME/desktop/server" ; echo "$(hip) in $PWD" ; sudo python3 -m htt
 alias w2='cd "$HOME/desktop/server" ; echo "$(hip) in $PWD" ; sudo python3 -m http.server 8000'
 alias w3='ngrok http 4444'
 alias s="kitty +kitten ssh"
-alias v="nvim"
 alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
 
@@ -55,7 +54,6 @@ alias ping="prettyping -c 3"
 alias less="less -R"
 alias kill='killall -q'
 alias kgnome='killall -3 gnome-shell'
-alias sv="sudo nvim"
 alias tr="trash"
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
@@ -197,10 +195,10 @@ alias pars="paru -S"                              # Install AUR package faster
 alias parf="paru -F"                              # Search binary package faster
 alias parsyu="paru -Syu --noconfirm"              # Update standard pkgs and AUR pkgs
 
-# Quick access to config files
-alias zshrc="nvim ~/.config/zsh/.zshrc"
-alias aliases="nvim ~/.config/zsh/aliases.zsh"
-alias init="nvim ~/.config/river/init"
+# Quick access to config files - have these aliases bound keybinds in dired
+#alias zshrc="nvim ~/.config/zsh/.zshrc"
+#alias aliases="nvim ~/.config/zsh/aliases.zsh"
+#alias init="nvim ~/.config/river/init"
 
 # Colorize grep output
 alias grep="grep --color=auto"
