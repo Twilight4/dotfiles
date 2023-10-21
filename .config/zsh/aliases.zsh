@@ -186,7 +186,7 @@ alias pacsyu="sudo pacman -Syu"                  # Update only standard pkgs
 alias pacsyur="sudo pacman -Syu && sleep 5 && reboot"        # Update and reboot
 alias pacsyus="sudo pacman -Syu && sleep 5 && shutdown now"  # Update and shutdown
 alias pacsyyu="sudo pacman -Syyu"                # Refresh pkglist & update standard pkgs
-alias rmdblock="sudo rm /var/lib/pacman/db.lck"  # Remove pacman lock
+alias rmdblock="sudo rm /var/lib/pacman/db.lck"  # Fix “unable to lock database” Error
 alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # Cleanup orphaned packages
 alias fix-keys="sudo pacman-key --init; sudo pacman-key --populate; sudo pacman-key --lsign cachyos"
 
