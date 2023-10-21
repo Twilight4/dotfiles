@@ -182,24 +182,31 @@ alias gcs="git checkout stable"
 alias pacs="sudo pacman -S"                      # Install package faster
 alias pacr="sudo pacman -Rns"                    # Remove package faster
 alias pacf="sudo pacman -F"                      # Search binary package faster
-alias pacsyu="sudo pacman -Syu"                  # Update only standard pkgs
-alias pacsyur="sudo pacman -Syu && sleep 5 && reboot"        # Update and reboot
-alias pacsyus="sudo pacman -Syu && sleep 5 && shutdown now"  # Update and shutdown
+alias pacu="sudo pacman -U"                      # Install the needed package
+alias pacsyu="sudo pacman --noconfirm -Syu"      # Update only standard pkgs
 alias pacsyyu="sudo pacman -Syyu"                # Refresh pkglist & update standard pkgs
-alias rmdblock="sudo rm /var/lib/pacman/db.lck"  # Fix “unable to lock database” Error
 alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # Cleanup orphaned packages
+
+# Pacman issues
+alias rmdblock="sudo rm /var/lib/pacman/db.lck"  # Fix “unable to lock database” Error
 alias fix-keys="sudo pacman-key --init; sudo pacman-key --populate; sudo pacman-key --lsign cachyos"
 
 # Paru
-alias parr="paru -Rns"                            # Remove package faster
 alias pars="paru -S"                              # Install AUR package faster
+alias parr="paru -Rns"                            # Remove package faster
 alias parf="paru -F"                              # Search binary package faster
 alias parsyu="paru -Syu --noconfirm"              # Update standard pkgs and AUR pkgs
+alias parsyur="sudo pacman --noconfirm -Syu && sleep 5 && reboot"        # Update and reboot
+alias parsyus="sudo pacman --noconfirm -Syu && sleep 5 && shutdown now"  # Update and shutdown
+
+# Revert to an older version of the package
+alias pkgver="cd /var/cache/pacman/pkg && lsd -l --hyperlink=auto"     # Go into the pacman cache and find the needed package.
+alias paruu="sudo pacman -U package"
 
 # Quick access to config files - have these aliases bound keybinds in dired
-#alias zshrc="nvim ~/.config/zsh/.zshrc"
-#alias aliases="nvim ~/.config/zsh/aliases.zsh"
-#alias init="nvim ~/.config/river/init"
+alias zshrc="emacsclient -nw ~/.config/zsh/.zshrc"
+alias aliases="emacsclient -nw ~/.config/zsh/aliases.zsh"
+alias init="emacsclient -nw ~/.config/river/init"
 
 # Colorize grep output
 alias grep="grep --color=auto"
