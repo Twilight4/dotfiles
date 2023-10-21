@@ -61,7 +61,7 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
-zsh_add_plugin "kutsan/zsh-system-clipboard"
+#zsh_add_plugin "kutsan/zsh-system-clipboard"  # for vim-mode
 zsh_add_plugin "unixorn/prettyping"
 #zsh_add_plugin "zshzoo/copier"
 zsh_add_completion "zsh-users/zsh-completions"
