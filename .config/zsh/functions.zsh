@@ -32,13 +32,14 @@ n ()
     fi
 }
 
-# Make C-g scroll the current content up and clear the screen
+# Make C-g scroll the current content up and clear the screen and unbind the C-l default keybind
 scroll-and-clear-screen() {
     printf '\n%.0s' {1..$LINES}
     zle clear-screen
 }
 zle -N scroll-and-clear-screen
 bindkey '^g' scroll-and-clear-screen
+bindkey -r "^L"
 
 # Function for new command
 function _new_command {
