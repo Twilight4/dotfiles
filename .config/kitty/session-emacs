@@ -11,10 +11,10 @@ new_tab dired
 layout tall
 # Create a window (title sets the tab title)
 cd ~/desktop/workspace/cheats/active-directory/
-launch --title dired sh -c "emacsclient -nw -e '(open-dired-in-terminal)' && exec zsh"
+launch sh -c "emacsclient -nw -e "(dired \"./\")" && exec zsh"
 # Create second window
 cd ~/desktop/workspace/.config/cheat/tools/
-launch sh -c "emacsclient -nw -e '(open-dired-in-terminal)' && exec zsh"
+launch sh -c "emacsclient -nw -e "(dired \"./\")" && exec zsh"
 
 # Create a new tab
 new_tab templates
