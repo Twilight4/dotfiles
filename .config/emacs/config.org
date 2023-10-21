@@ -1288,14 +1288,6 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
   (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
 
-(defun open-dired-in-terminal ()
-  "Open a Dired buffer in Emacs inside a terminal."
-  (interactive)
-  (let ((default-directory (if (derived-mode-p 'dired-mode)
-                              (dired-get-file-for-visit)
-                            default-directory)))
-    (start-process "emacsclient" nil "emacsclient" "-t" "-e" (concat "(dired \"" default-directory "\")"))))
-
 ;(defun tl/dired-link (path)
 ;  (let ((target path))
 ;    (lambda () (interactive) (message "Path: %s" target) (dired path))))
