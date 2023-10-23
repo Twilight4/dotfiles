@@ -32,10 +32,6 @@ n ()
     fi
 }
 
-clip() {
-    cliphist list | fzf | cliphist decode | wl-copy
-}
-
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
