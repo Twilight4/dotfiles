@@ -95,7 +95,7 @@ function _new_command {
     BUFFER=""
 }
 zle -N _new_command
-bindkey '^.' _new_command
+bindkey '^V' _new_command
 
 # Function to open help page
 custom-run-help() {
