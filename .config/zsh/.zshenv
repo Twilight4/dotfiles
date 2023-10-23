@@ -7,7 +7,7 @@ export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
 export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 
 # User-specific environment variables (system-wide are located in /etc/environment)
-export EDITOR="emacsclient -c -a emacs"
+export EDITOR="emacsclient -nw"
 export ALTERNATE_EDITOR=""
 export VISUAL="emacsclient -nw"
 export TERMINAL="kitty -1"
