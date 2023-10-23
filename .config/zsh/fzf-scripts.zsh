@@ -43,7 +43,7 @@ fgb() {
 #########
 
 # Browser quicklinks menu
-fql () {
+fqli () {
     local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github (Twilight4 Profile)" " Gmail" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " HTB" " THM" " TCM" " OffSec" " Root-me" " PentesterLab" " PWNX" " ChatGBT") 
     local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}") 
     case $choice in
