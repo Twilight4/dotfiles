@@ -13,8 +13,6 @@ bindkey '^N' down-line-or-history
 # Killing and yanking
 bindkey '^U' backward-kill-line
 bindkey '^O' kill-line
-bindkey '^D' cut-to-clipboard
-bindkey '^H' cut-to-clipboard
 bindkey '^[d' kill-word
 bindkey '^L' insert-last-word
 bindkey '^W' backward-kill-word
@@ -60,7 +58,31 @@ cut-to-clipboard() {
   print -n $CUTBUFFER | wl-copy
 }
 zle -N cut-to-clipboard
+bindkey '^D' cut-to-clipboard
+bindkey '^H' cut-to-clipboard
 
+scroll-and-clear-screen() {
+    printf '\n%.0s' {1..$LINES}
+    zle clear-screen
+}
+zle -N scroll-and-clear-screen
+bindkey '^G' scroll-and-clear-screen
+
+# Function for new command
+function _new_command {
+    zle push-input
+    BUFFER=""
+}
+zle -N _new_command
+bindkey '^.' _new_command
+
+# Function to open help page
+custom-run-help() {
+    LBUFFER="help $LBUFFER"
+    zle accept-line
+}
+zle -N custom-run-help
+bindkey '^[h' custom-run-help
 
 # Open in external editor command - not working 
 #bindkey '^[g' get-line            # M-g
