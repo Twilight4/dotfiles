@@ -32,32 +32,6 @@ n ()
     fi
 }
 
-# Make C-g scroll the current content up and clear the screen and unbind the C-l default keybind
-scroll-and-clear-screen() {
-    printf '\n%.0s' {1..$LINES}
-    zle clear-screen
-}
-zle -N scroll-and-clear-screen
-bindkey '^g' scroll-and-clear-screen
-bindkey -r "^L"
-
-# Function for new command
-function _new_command {
-    zle push-input
-    BUFFER=""
-}
-zle -N _new_command
-bindkey '^V' _new_command
-
-# Function to open help page
-custom-run-help() {
-    LBUFFER="help $LBUFFER"
-    zle accept-line
-}
-zle -N custom-run-help
-bindkey '^[h' custom-run-help
-
-
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
