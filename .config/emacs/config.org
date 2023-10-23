@@ -153,7 +153,6 @@
 *** Keybindings Without a Leader Key
 #+begin_src emacs-lisp
 ;; Global Keybindings
-;; Optionally available keybinds: M-r M-i C-z C-t
 ;; Moving between windows
 ;(global-set-key (kbd "C-k") 'other-window)
 ;(global-set-key (kbd "C-j") 'previous-multiframe-window)
@@ -218,7 +217,8 @@
 ;(global-set-key (kbd "C-0") 'text-scale-adjust)
 ;(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 ;(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
-(global-set-key (kbd "C-t") 'recenter-top-bottom)
+(global-set-key (kbd "C-z") 'recenter-top-bottom)
+(global-set-key (kbd "M-z") 'move-to-window-line-top-bottom)
 ;; Hungry-delete
 (global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 (global-set-key (kbd "<delete>") 'hungry-delete-forward)
@@ -230,12 +230,11 @@
 (global-set-key (kbd "M-u") 'kill-this-buffer)
 ;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
 ;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
-(global-set-key (kbd "C-z") 'dashboard-open)
+(global-set-key (kbd "C-t") 'dashboard-open)
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Neotree
-(global-set-key (kbd "M-M") 'neotree-toggle)
-;; "n" '(neotree-toggle :wk "Toggle neotree")
+(global-set-key (kbd "M-i") 'neotree-toggle)
 ;; Zero-width space (this is an exception keybinding)
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
@@ -500,7 +499,7 @@
  "D" '(org-roam-dailies-goto-date :wk "Go to daily in date"))
 #+end_src
 
-*** C-; Leader Key
+*** C-l Leader Key
 
 #+begin_src emacs-lisp
 (general-define-key
@@ -531,7 +530,10 @@
  "C-r" '(avy-resume :wk "Resume last Avy action")
  "C-/" '(avy-pop-mark :wk "Jump to previous Avy location")
  "C-i" '(avy-isearch :wk "iSearch with Avy")
- "C-t" '(avy-transpose-lines-in-region :wk "Transpose lines in region"))
+ "C-t" '(avy-transpose-lines-in-region :wk "Transpose lines in region")
+ ;; Zap to char
+ "C-z" '(zap-up-to-char :wk "Kill up to char")
+ "C-x" '(zap-to-char :wk "Kill up to, but not including char"))
 )
 #+end_src
 
