@@ -38,21 +38,27 @@ bindkey '^[[Z' reverse-menu-complete
 # By default keys M-w for copy and C-y for paste are set in emacs and zsh
 # thanks to to my functions I can copy text to system clipboard using M-w and M-W, and paste using C-y
 
-# Copy selected text to clipboard, works fine - bound by default to alt+w
+
+# Open in external editor command - not working 
+#bindkey '^[g' get-line            # M-g
+#bindkey '^X^E' edit-command-line  # Open in emacs
+
+# Function to copy selected text to system clipboard
 copy-region-and-kill() {
   zle copy-region-as-kill
   print -n $CUTBUFFER | wl-copy
 }
 zle -N copy-region-and-kill
-bindkey '^[w' copy-region-and-kill
+#bindkey '^[w' copy-region-and-kill  # bound by default to alt+w
 
-# Copy current line to clipboard
+# Function to copy current line to system clipboard
 copy-current-line() {
   print -n "$BUFFER" | wl-copy
 }
 zle -N copy-current-line
 bindkey '^[W' copy-current-line     # Alt+Shift+w
 
+# Function to delete char or cut to system clipboard if region is selected
 cut-to-clipboard() {
   zle kill-region
   print -n $CUTBUFFER | wl-copy
@@ -61,6 +67,7 @@ zle -N cut-to-clipboard
 bindkey '^D' cut-to-clipboard
 bindkey '^H' cut-to-clipboard
 
+# Function to Clear the screen
 scroll-and-clear-screen() {
     printf '\n%.0s' {1..$LINES}
     zle clear-screen
@@ -83,7 +90,3 @@ custom-run-help() {
 }
 zle -N custom-run-help
 bindkey '^[h' custom-run-help
-
-# Open in external editor command - not working 
-#bindkey '^[g' get-line            # M-g
-#bindkey '^X^E' edit-command-line  # Open in emacs
