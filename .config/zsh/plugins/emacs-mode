@@ -57,14 +57,6 @@ copy-current-line() {
 zle -N copy-current-line
 bindkey '^[W' copy-current-line     # Alt+Shift+w
 
-cut-to-clipboard() {
-  zle kill-region
-  print -n $CUTBUFFER | wl-copy
-}
-zle -N cut-to-clipboard
-#bindkey '^D' cut-to-clipboard
-#bindkey '^H' cut-to-clipboard
-
 # Function to delete char or cut to system clipboard if region is selected
 delete-or-cut() {
   if [[ $REGION_ACTIVE -eq 1 ]]; then
