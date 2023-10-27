@@ -114,7 +114,6 @@ configuration {
     kb-accept-entry: "Control+m,Return,KP_Enter";
     kb-row-up: "Up,Control+p";
     kb-row-down: "Down,Control+n";
-    kb-row-right: "Control+l";
     kb-mode-next: "Tab";
     kb-mode-previous: "ISO_Left_Tab";
     kb-remove-char-back: "BackSpace,Control+h";
