@@ -1093,6 +1093,19 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   "Kill text from point to the beginning of the line."
   (interactive)
   (kill-line 0))
+
+;; By default when you want to paste over the selected region, it doesn't replace it
+;; I have bound pasting from system clipboard on C-y in kitty terminal, which invokes xterm-paste command in emacs
+(defun my-paste-and-replace ()
+  "Paste from clipboard and replace selected region, or call xterm-paste if no region is selected."
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (delete-region (region-beginning) (region-end))
+        (yank))
+    (call-interactively 'xterm-paste)))
+
+(global-set-key (kbd "C-y") 'my-paste-and-replace)
 #+end_src
 
 ** No-littering
