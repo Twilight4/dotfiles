@@ -4,13 +4,17 @@
 # Package Managers #
 ####################
 
-# install packages
+# Package management
 fpac() {
     pacman -Slq | fzf --multi --reverse --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
 }
 
 fpar() {
     paru -Slq | fzf --multi --reverse --preview 'paru -Si {1}' | xargs -ro paru -S
+}
+
+fparr() {
+    paru -Qq | fzf --multi --reverse --preview 'paru -Si {1}' | xargs -ro paru -Rns
 }
 
 
