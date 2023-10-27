@@ -117,4 +117,6 @@ configuration {
     kb-mode-next: "Tab";
     kb-mode-previous: "ISO_Left_Tab";
     kb-remove-char-back: "BackSpace,Control+h";
+    kb-primary-paste: "Control+y";
+    /*kb-remove-word-back: "Control+w";      # Control+w is already bound to something which I need to unbind first to rebind but idk how*/
 }
