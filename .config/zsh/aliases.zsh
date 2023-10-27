@@ -124,6 +124,11 @@ alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 alias check-pstate='cat /sys/devices/system/cpu/amd_pstate/status'   # Check if the p-state driver is active
 alias powersave='sudo cpupower frequency-set -g powersave'
 alias performance='sudo cpupower frequency-set -g performance'
+# Managing GPU switching functionality on hybrid laptops
+alias gpu-modes='supergfxctl -s'       # Display all the modes your laptop supports
+alias gpu-active='supergfxctl -g'      # Query the current GPU mode
+alias hybrid='supergfxctl -m hybrid'   # Switch the current GPU mode to hybrid
+alias hybrid='supergfxctl -m integrated'   # Switch the current GPU mode to integrated
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
