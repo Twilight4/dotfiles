@@ -1,6 +1,7 @@
 #!/bin/bash
 
-THEME='cachyos-nord'
+THEME='Tokyonight-Dark-BL-LB'
+#THEME='cachyos-nord'
 ICONS='Papirus'
 FONT='Sans 10'
 CURSOR='Numix-Cursor-Light'
