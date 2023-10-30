@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "~/.config/hypr/scripts/lock",
+    "action" : "gtklock",
     "text" : "Lock",
     "keybind" : "y"
 }
