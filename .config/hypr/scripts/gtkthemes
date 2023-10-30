@@ -1,10 +1,15 @@
 #!/bin/bash
 
 THEME='Tokyonight-Dark-BL-LB'
-#THEME='cachyos-nord'
-ICONS='Papirus'
+ICONS='Sweet-Blue'
+CURSOR='Bibata-Modern-Classic'
 FONT='Sans 10'
-CURSOR='Numix-Cursor-Light'
+
+# Alternative theme
+#THEME="Sweet-Dark-v40"'   # athena-sweetdark-theme
+#ICONS='Papirus'
+#CURSOR='Numix-Cursor-Light'
+
 
 SCHEMA='gsettings set org.gnome.desktop.interface'
 
