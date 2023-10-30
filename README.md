@@ -19,14 +19,14 @@
 |  **Session Manager**           | [Wlogout](https://github.com/ArtsyMacaw/wlogout)           |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
 |  **Web Browser**               | [Mercury](https://thorium.rocks/mercury)                   |
-|  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)            |
+|  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)    |
 |  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
 |  **Editor**                    | [Emacs](https://www.gnu.org/software/emacs/)               |
-|  **Colorscheme**               | [Nightfly](https://github.com/bluz71/vim-nightfly-colors)  |
-|  **Shell**                     | [Zsh](https://github.com/zsh-users) / [Fzf](https://github.com/junegunn/fzf)                  |
+|  **GTK Theme**                 | [Tokyonight-Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)          |
+|  **Shell**                     | [Zsh](https://github.com/zsh-users)                        |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
 |  **Fonts**                     | [MesloLGM Nerd Font](https://www.nerdfonts.com/)           |
 |  **Media Player**              | [Mpv](https://mpv.io/)                                     | 
 |  **Fetch script**              | [Nitch](https://github.com/unxsh/nitch)                    |
 |  **Wallpaper Loader**          | [Swaybg](https://github.com/swaywm/swaybg)                 |
-|  **Wallpaper**                 | `~/.config/hypr/wallpapers`                                |
+|  **Wallpapers**                | `~/.config/hypr/wallpapers`                                |
