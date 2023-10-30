@@ -26,7 +26,7 @@
 |  **Shell**                     | [Zsh](https://github.com/zsh-users) / [Fzf](https://github.com/junegunn/fzf)                  |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
 |  **Fonts**                     | [MesloLGM Nerd Font](https://www.nerdfonts.com/)           |
-|  **Media Player**              | [Mpv](https://mpv.io/) / [Lua Scripts](https://github.com/mpv-player/mpv/wiki/User-Scripts)   |
+|  **Media Player**              | [Mpv](https://mpv.io/)                                     | 
 |  **Fetch script**              | [Nitch](https://github.com/unxsh/nitch)                    |
 |  **Wallpaper Loader**          | [Swaybg](https://github.com/swaywm/swaybg)                 |
 |  **Wallpaper**                 | `~/.config/hypr/wallpapers`                                |
