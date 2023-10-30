@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+gtklock & 
+sleep 0.1 
+systemctl suspend
