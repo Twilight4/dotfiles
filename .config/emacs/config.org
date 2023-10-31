@@ -287,9 +287,8 @@
 ;; Org-agenda
 (add-hook 'org-agenda-mode-hook
           (lambda ()
-             ;; Set the default keys for tasks in org-agenda-mode
-            (local-set-key (kbd "d") 'tl/org-agenda-doing)
-            (local-set-key (kbd "x") 'tl/org-agenda-done)
+            ;; Set the default keys for tasks in org-agenda-mode
+	          (local-set-key (kbd "x") 'tl/org-agenda-done)
             (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
             (local-set-key (kbd "N") 'tl/org-agenda-new)))
 #+end_src
@@ -2262,32 +2261,29 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 #+end_src
 
 *** Org-agenda setup
-- =d=: Mark the current task as doing.
 - =x=: Mark the current task as done.
 - =X=: Mark the current task as done and create a new task at the same level, taking advantage of the task template I’d previously created in =org-capture-templates=.
 - =N=: Create a new note or task at the current position.
 
-Make it easy to mark a task as doing
+Make it easy to mark a task as done.
 #+begin_src emacs-lisp
 ;; Load Org mode
 (require 'org)
 
-(defun tl/org-agenda-doing (&optional arg)
-  "Mark current TODO as doing.
-This changes the line at point, all other lines in the agenda referring to
-the same tree node, and the headline of the tree node in the Org-mode file."
-  (interactive "P")
-  (org-agenda-todo "DOING"))
-#+end_src
-
-Make it easy to mark a task as done
-#+begin_src emacs-lisp
 (defun tl/org-agenda-done (&optional arg)
   (interactive "P")
-  (org-agenda-todo "DONE"))
+  (org-agenda-todo "DONE")
+  (org-agenda-redo-all))
+
+;; Macro for finishing tasks
+(fset 'do-habit-move
+  (kmacro-lambda-form [?x ?\C-n] 0 "%d"))
+
+;; Check the first morning routine habbits as done
+(global-set-key (kbd "C-c m") (lambda () (interactive) (dotimes (_ 10) (do-habit-move))))
 #+end_src
 
-Make it easy to mark a task as done and create a follow-up task
+Make it easy to mark a task as done and create a follow-up task.
 #+begin_src emacs-lisp
   (defun tl/org-agenda-mark-done-and-add-followup ()
     "Mark the current TODO as done and add another task after it.
@@ -2295,11 +2291,12 @@ Creates it at the same level as the previous task, so it's better to use
 this with to-do items than with projects or headings."
     (interactive)
     (org-agenda-todo "DONE")
+    (org-agenda-redo-all)
     (org-agenda-switch-to)
     (org-capture 0 "t"))
 #+end_src
 
-Capture something based on the agenda position
+Capture something based on the agenda position.
 #+begin_src emacs-lisp
 (defun tl/org-agenda-new ()
   "Create a new note or task at the current agenda item.
