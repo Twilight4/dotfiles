@@ -11,7 +11,7 @@ export EDITOR="emacsclient -nw"
 export ALTERNATE_EDITOR=""
 export VISUAL="emacsclient -nw"
 export TERMINAL="kitty -1"
-export BROWSER="firefox"
+export BROWSER="mercury-browser"
 
 # Zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                		 # Zsh config files
