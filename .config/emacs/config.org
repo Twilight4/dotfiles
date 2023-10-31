@@ -271,7 +271,7 @@
 (eval-after-load 'hl-todo
   '(progn
      (define-key hl-todo-mode-map (kbd "M-A") #'hl-todo-previous)
-     (define-key hl-todo-mode-map (kbd "M-E") #'hl-todo-next)
+     (define-key hl-todo-mode-map (kbd "M-W") #'hl-todo-next)
      (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
 (define-key org-mode-map (kbd "M-t") 'org-todo)
 (define-key org-mode-map (kbd "M-T") 'org-set-tags-command)
@@ -506,24 +506,24 @@
  :prefix "C-l"
  ;; Avy jumping
  "C-c" '(avy-goto-char :wk "Jump to a character")
- "C-C" '(avy-goto-char-2 :wk "Jump to a two-character char")
+ "c"   '(avy-goto-char-2 :wk "Jump to a two-character char")
  "C-e" '(avy-goto-char-in-line :wk "Jump to a character in line")
  "C-a" '(avy-goto-subword-1 :wk "Jump to a subword")
  "C-l" '(avy-goto-line-below :wk "Jump to line below")
- "C-L" '(avy-goto-line-above :wk "Jump to line above")
+ "l"   '(avy-goto-line-above :wk "Jump to line above")
  "C-o" '(avy-open-line :wk "Jump to line and insert new one above")
  "C-w" '(avy-goto-word-1-below :wk "Jump to a word below")
- "C-W" '(avy-goto-word-1-above :wk "Jump to a word above")
+ "w"   '(avy-goto-word-1-above :wk "Jump to a word above")
  "C-h" '(avy-org-goto-heading-timer :wk "Jump to org heading")
  ;; Avy yanking/killing/moving
  "C-k" '(avy-kill-region :wk "Kill region")
- "C-K" '(avy-kill-whole-line :wk "Kill whole line")
+ "k"   '(avy-kill-whole-line :wk "Kill whole line")
  "C-s" '(avy-kill-ring-save-region :wk "Save region")
- "C-S" '(avy-kill-ring-save-whole-line :wk "Save whole line")
+ "s"   '(avy-kill-ring-save-whole-line :wk "Save whole line")
  "C-y" '(avy-copy-region :wk "Copy region")
- "C-Y" '(avy-copy-line :wk "Copy line")
+ "y"   '(avy-copy-line :wk "Copy line")
  "C-m" '(avy-move-region :wk "Move region")
- "C-M" '(avy-move-line :wk "Move line")
+ "m"   '(avy-move-line :wk "Move line")
  ;; Avy navigation
  "C-n" '(avy-next :wk "Next occurance")
  "C-p" '(avy-prev :wk "Previous occurance")
