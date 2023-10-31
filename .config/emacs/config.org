@@ -270,8 +270,8 @@
 ;; Org todo navigation
 (eval-after-load 'hl-todo
   '(progn
-     (define-key hl-todo-mode-map (kbd "C-S-j") #'hl-todo-previous)
-     (define-key hl-todo-mode-map (kbd "C-S-k") #'hl-todo-next)
+     (define-key hl-todo-mode-map (kbd "C-M-j") #'hl-todo-next)
+     (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)
      (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
 (define-key org-mode-map (kbd "M-t") 'org-todo)
 (define-key org-mode-map (kbd "M-T") 'org-set-tags-command)
@@ -2508,15 +2508,15 @@ The following snippet sets up a hook for all Org task state changes and then mov
   :demand t
   :custom
   (org-gtd-directory "~/documents/org/agenda")
-  (org-gtd-areas-of-focus '("Work" "Career" "Privacy" "Social Life" "Other"))
+  (org-gtd-areas-of-focus '("Work" "Career" "Privacy" "Social Life" "Habit"))
   (org-edna-use-inheritance t)
   (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command org-set-effort))
   :config
   (org-edna-mode)
   :bind
-  (("C-x i" . org-gtd-clarify-item)
-   ("C-c a" . org-gtd-clarify-agenda-item)  ;; Used only in agenda-view
-   ("C-c A" . org-gtd-area-of-focus-set-on-agenda-item)  ;; Used only in agenda-view
+  (("C-x i" . org-gtd-clarify-item)  ;; Used in org-gtd-tasks.org buffer for quick changes
+   ("C-c a" . org-gtd-clarify-agenda-item)  ;; Used in agenda-view
+   ("C-c A" . org-gtd-area-of-focus-set-on-agenda-item)  ;; Used in agenda-view
    :map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src
