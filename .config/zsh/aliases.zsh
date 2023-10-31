@@ -53,7 +53,6 @@ alias mkdir="mkdir -p"
 alias ping="prettyping -c 3"
 alias less="less -R"
 alias kill='killall -q'
-alias kgnome='killall -3 gnome-shell'
 alias tr="trash"
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
@@ -180,8 +179,8 @@ alias ...="cd ../../"
 alias ....="cd ../../../"
 
 # Git
-alias gc="git clone"
-alias gcd="cloneit"
+alias gc="git clone --depth 1"
+alias gci="cloneit"
 alias gu='git add . && git commit -m "update" && git push'
 alias rmgitcache="rm -r ~/.cache/git"
 alias gcm="git checkout master"
