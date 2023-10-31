@@ -2106,6 +2106,16 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("header" . "›")
           ("caption" . "☰")
           ("results" . "🠶"))))
+
+;; Function to disable org-modern-mode for specific files
+(defun disable-org-modern-for-specific-files ()
+  (when (or (string-match-p "diet.org$" buffer-file-name)
+            (string-match-p "goals.org$" buffer-file-name)
+            (string-match-p "reading.org$" buffer-file-name)
+            (string-match-p "metrics.org$" buffer-file-name))
+    (org-modern-mode -1)))
+
+(add-hook 'org-mode-hook 'disable-org-modern-for-specific-files)
 #+end_src
 
 *** Org-super-agenda
