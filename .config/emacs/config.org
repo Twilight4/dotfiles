@@ -267,11 +267,11 @@
 (define-key org-mode-map (kbd "C-M-b") 'org-shiftleft)
 (define-key org-mode-map (kbd "C-M-p") 'org-shiftup)
 (define-key org-mode-map (kbd "C-M-n") 'org-shiftdown)
-;; Org TODO navigation
+;; Org todo navigation
 (eval-after-load 'hl-todo
   '(progn
-     (define-key hl-todo-mode-map (kbd "M-A") #'hl-todo-previous)
-     (define-key hl-todo-mode-map (kbd "M-W") #'hl-todo-next)
+     (define-key hl-todo-mode-map (kbd "C-S-j") #'hl-todo-previous)
+     (define-key hl-todo-mode-map (kbd "C-S-k") #'hl-todo-next)
      (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
 (define-key org-mode-map (kbd "M-t") 'org-todo)
 (define-key org-mode-map (kbd "M-T") 'org-set-tags-command)
@@ -843,25 +843,26 @@ It's always better to set transparency in option for respective applications tha
 #+end_src
 
 ** Centaur-tabs
-Centaur Tabs is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. Source: [[https://github.com/ema2159/centaur-tabs][centaur-tabs]]
+Centaur Tabs is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. 
+Source: [[https://github.com/ema2159/centaur-tabs][centaur-tabs]]. They are causing many problems for now so I had to disable them.
 
 #+begin_src emacs-lisp
-(use-package centaur-tabs
-  :if window-system
-  :ensure t
-  :demand
-  :init
-  ;; Set the style to rounded with icons
-  (setq centaur-tabs-style "bar"
-        centaur-tabs-set-icons t
-        centaur-tabs-height 26
-        centaur-tabs-modified-marker "o"
-        centaur-tabs-close-button ""
-        centaur-tabs-set-bar 'above
-        centaur-tabs-gray-out-icons 'buffer)
-  :config
-  ;; Enable centaur-tabs
-  (centaur-tabs-mode t))
+;(use-package centaur-tabs
+;  :if window-system
+;  :ensure t
+;  :demand
+;  :init
+;  ;; Set the style to rounded with icons
+;  (setq centaur-tabs-style "bar"
+;        centaur-tabs-set-icons t
+;        centaur-tabs-height 26
+;        centaur-tabs-modified-marker "o"
+;        centaur-tabs-close-button ""
+;        centaur-tabs-set-bar 'above
+;        centaur-tabs-gray-out-icons 'buffer)
+;  :config
+;  ;; Enable centaur-tabs
+;  (centaur-tabs-mode t))
 ;; (setq x-underline-at-descent-line t)
 #+end_src
 
@@ -2004,16 +2005,20 @@ Let’s make creating an Org buffer just that little bit easier.
   '((:startgroup)
      ; Put mutually exclusive tags here
      (:endgroup)
-     ("@Work" . ?w)
+     ("@Pentest" . ?P)
+     ("@RedTeam" . ?R)
+     ("@Osint" . ?O)
+     ("@Wireless" . ?W)
+     ("@Emacs" . ?e)
+     ("@Linux" . ?l)
      ("@Important" . ?i)
      ("@Assignment" . ?a)
      ("@Issue" . ?I)
-     ("@Emacs" . ?e)
-     ("@Project" . ?p)
-     ("@Research" . ?R)
-     ("@Read" . ?r)
+     ("@Research" . ?r)
      ("@Watch" . ?w)
-     ("@Purchase" . ?P)
+     ("@Purchase" . ?p)
+     ;("@Project" . ?p)    ; conflicts with org-gtd
+     ;("@Read" . ?r)       ; unnecessary
      ("@Trivial" . ?t)))
 #+end_src
 
@@ -2113,16 +2118,10 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   :config
   (org-super-agenda-mode))
 
-;; TODO REPLACE IT
+;; Doesn't affect anything since I use org-gtd package
 (setq org-agenda-files
-      '("~/documents/org/agenda/inbox.org"   ;; REMOVE IT CUZ I USE org-gtd-tasks.org instead
-        "~/documents/org/agenda/workflow.org")) ;; DO NOT TOUCH IT
-        ;"~/documents/org/agenda/habits.org"  ;; MOVE TO inbox.org instead
-        ;"~/documents/org/agenda/goals.org"   ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
-        ;"~/documents/org/agenda/diet.org"))  ;; MOVE TO ORG-ROAM NOTE AND CREATE ORG-ROAM-CAPTURE TEMPLATE
-
-;; TODO WITH IT
-;(setq org-agenda-files `(,org-gtd-directory))
+      '("~/documents/org/agenda/org-gtd-tasks.org"
+        "~/documents/org/agenda/workflow.org"))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -2385,22 +2384,22 @@ this with to-do items than with projects or headings."
      "* Wi-fi\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Wardriving")))
 
 (setq org-gtd-capture-templates
-  `(("t" "Todo" entry (file "~/documents/org-gtd/inbox.org")
+  `(("t" "Todo" entry (file "~/documents/org/agenda/inbox.org")
          "* TODO %?\n  %U\n\n  %i" :empty-lines 1 :kill-buffer t)
 
-    ("l" "Todo with link" entry (file "~/documents/org-gtd/inbox.org")
+    ("l" "Todo with link" entry (file "~/documents/org/agenda/inbox.org")
          "* TODO %?\n  %U\n  %i\n %a" :empty-lines 1 :kill-buffer t)
 
-    ("a" "Appointment" entry (file "~/documents/org-gtd/inbox.org")
+    ("a" "Appointment" entry (file "~/documents/org/agenda/inbox.org")
          "* %<%I:%M %p> - %a :appointments:\n\n%?\n\n"
          :clock-in :clock-resume
          :empty-lines 1
 	       :kill-buffer t)
 
     ("m" "Metrics Capture")
-     ("cw" "Weight" table-line (file+headline "~/documents/org-gtd/diet.org" "Weight")
+     ("cw" "Weight" table-line (file+headline "~/documents/org/agenda/diet.org" "Weight")
          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
-     ("cg" "Goals" table-line (file+headline "~/documents/org-gtd/goals.org" "Goals")
+     ("cg" "Goals" table-line (file+headline "~/documents/org/agenda/goals.org" "Goals")
          "| %U | %^{Goal} | %^{Notes} |" :kill-buffer t)))
 
 #+end_src
@@ -2414,7 +2413,7 @@ this with to-do items than with projects or headings."
   (org-roam-directory "~/documents/org/roam/")
   (org-roam-dailies-directory "~/documents/org/roam/journal/")
   (org-roam-completion-everywhere t)
-  (org-roam-graph-viewer "/usr/bin/firefox")
+  (org-roam-graph-viewer "/usr/bin/mercury-browser")
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-setup))
@@ -2508,17 +2507,16 @@ The following snippet sets up a hook for all Org task state changes and then mov
   ;                 :commit "3.0.0" :upgrade t)
   :demand t
   :custom
-  (org-gtd-directory "~/documents/org-gtd")
-  ;(org-gtd-directory "~/documents/org/agenda")  ;; Once converted and organized the tasks with ORG-GTD ID, correct the org-gtd-capture-templates DIRECTORY
-  (org-gtd-areas-of-focus '("Home" "Health" "Family" "Career"))
+  (org-gtd-directory "~/documents/org/agenda")
+  (org-gtd-areas-of-focus '("Work" "Career" "Privacy" "Social Life" "Other"))
   (org-edna-use-inheritance t)
   (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command org-set-effort))
   :config
   (org-edna-mode)
   :bind
-  (("C-x i" . org-gtd-clarify-item)    ;; Mostly used when I'm in org-gtd-capture buffer to omit processing the task from inbox.org
-   ("C-c a" . org-gtd-clarify-agenda-item) ;; Used only in agenda-view
-   ("C-c A" . org-gtd-area-of-focus-set-on-agenda-item) ;; Used only in agenda-view
+  (("C-x i" . org-gtd-clarify-item)
+   ("C-c a" . org-gtd-clarify-agenda-item)  ;; Used only in agenda-view
+   ("C-c A" . org-gtd-area-of-focus-set-on-agenda-item)  ;; Used only in agenda-view
    :map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src
