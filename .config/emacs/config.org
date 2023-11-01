@@ -2112,8 +2112,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   (when (or (string-match-p "diet.org$" buffer-file-name)
             (string-match-p "goals.org$" buffer-file-name)
             (string-match-p "reading.org$" buffer-file-name)
-            (string-match-p "metrics.org$" buffer-file-name))
-    (org-modern-mode -1)))
+    (org-modern-mode -1))))
 
 (add-hook 'org-mode-hook 'disable-org-modern-for-specific-files)
 #+end_src
@@ -2404,11 +2403,12 @@ this with to-do items than with projects or headings."
 	       :kill-buffer t)
 
     ("m" "Metrics Capture")
-     ("cw" "Weight" table-line (file+headline "~/documents/org/agenda/diet.org" "Weight")
+     ("md" "Diet" table-line (file+headline "~/documents/org/roam/metrics/diet.org" "Weight")
          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
-     ("cg" "Goals" table-line (file+headline "~/documents/org/agenda/goals.org" "Goals")
-         "| %U | %^{Goal} | %^{Notes} |" :kill-buffer t)))
-
+     ("mg" "Goals" table-line (file+headline "~/documents/org/roam/metrics/goals.org" "Goals")
+         "| %U | %^{Goal} | %^{Notes} |" :kill-buffer t)
+     ("mr" "Reading" table-line (file+headline "~/documents/org/roam/metrics/reading.org" "Reading")
+         "| %U | %^{Page} | %^{Notes} |" :kill-buffer t)))
 #+end_src
 
 *** Org-roam
