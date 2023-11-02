@@ -33,6 +33,7 @@
   - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-automation][Selection automation]]
   - [[#screenshot-automation][Screenshot automation]]
+  - [[#pdf-links-automation][Pdf links automation]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
@@ -1121,6 +1122,26 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png= t
     (insert (format "[[%s]]" name))))
 
 (global-set-key (kbd "C-M-y") 'tl/org-insert-screenshot)
+#+end_src
+
+** Pdf links automation
+#+begin_src emacs-lisp
+(defun open-pdf (path)
+  "open pdf: links in org mode using zathura"
+  (save-window-excursion
+    (let* ((split (split-string path ":"))
+	       (cmd
+		(cl-ecase (length split)
+		  (1
+		   (concat "zathura " path))
+		  (2
+		   (concat "zathura -P "
+			   (cadr split)
+			   " "
+			   (car split))))))
+      (async-shell-command cmd))))
+
+(org-add-link-type "pdf" #'open-pdf)
 #+end_src
 
 ** No-littering
