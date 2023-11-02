@@ -32,6 +32,7 @@
   - [[#hungry-delete][Hungry-delete]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-automation][Selection automation]]
+  - [[#screenshot-automation][Screenshot automation]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
@@ -1108,6 +1109,20 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
 (global-set-key (kbd "C-y") 'my-paste-and-replace)
 #+end_src
 
+** Screenshot automation
+Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png= to random name of file in =cwd= and insert link to it at point. It's like a workaround to paste images to org-mode buffer. Don't change your emacs =cwd= if you want your screenshots to be in one place.
+
+#+begin_src emacs-lisp
+(defun tl/org-insert-screenshot ()
+  "copy a screenshot from /tmp/screenshot.png to current directory and insert an org-mode link to it at point"
+  (interactive)
+  (let ((name (concat default-directory (make-temp-name "img") ".png")))
+    (copy-file "/tmp/screenshot.png" name)
+    (insert (format "[[%s]]" name))))
+
+(global-set-key (kbd "C-M-y") 'tl/org-insert-screenshot)
+#+end_src
+
 ** No-littering
 I use the =no-littering= package to keep folders where I edit files and the Emacs configuration folder clean.
 
@@ -2004,19 +2019,19 @@ Let’s make creating an Org buffer just that little bit easier.
   '((:startgroup)
      ; Put mutually exclusive tags here
      (:endgroup)
-     ("@Pentest" . ?P)
+     ("@Pentest" . ?T)
      ("@RedTeam" . ?R)
      ("@Osint" . ?O)
      ("@Wireless" . ?W)
-     ("@Emacs" . ?e)
      ("@Linux" . ?l)
      ("@Important" . ?i)
      ("@Assignment" . ?a)
      ("@Issue" . ?I)
      ("@Research" . ?r)
      ("@Watch" . ?w)
-     ("@Purchase" . ?p)
-     ;("@Project" . ?p)    ; conflicts with org-gtd
+     ("@Purchase" . ?P)
+     ("@Project" . ?p)
+     ("@Someday" . ?s)
      ;("@Read" . ?r)       ; unnecessary
      ("@Trivial" . ?t)))
 #+end_src
