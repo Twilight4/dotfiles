@@ -48,7 +48,7 @@ copy-region-and-kill() {
   print -n $CUTBUFFER | wl-copy
 }
 zle -N copy-region-and-kill
-#bindkey '^[w' copy-region-and-kill  # bound by default to alt+w
+bindkey '^[w' copy-region-and-kill
 
 # Function to copy current line to system clipboard
 copy-current-line() {
