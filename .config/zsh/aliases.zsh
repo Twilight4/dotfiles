@@ -36,6 +36,7 @@ alias w3='ngrok http 4444'
 alias s="kitty +kitten ssh"
 alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
+alias ai='tgpt'
 
 # List cheatsheets for tools
 alias ltp='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/pentest'    # Pentest tools
