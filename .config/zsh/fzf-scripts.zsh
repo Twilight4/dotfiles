@@ -130,7 +130,7 @@ fqli () {
             else
                 xdg-open "https://www.olx.pl/oferty/q-$query/" &
             fi ;;
-        (" Helion") xdg-open "https://helion.pl/hacking#" &
+        (" Helion") xdg-open "https://helion.pl/kategorie/ksiazki/hacking" &
             ;;
         (" HTB") xdg-open "https://www.hackthebox.eu" &
             ;;
