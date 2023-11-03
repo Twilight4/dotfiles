@@ -9,7 +9,7 @@ The philosophy adopted in this configuration prioritizes simplicity and ease of 
   - =C-x= prefix key is used for another prefix-keys and non-prefix keys which are particularly used for GTD system.
   - =C-c= prefix key is used particularly for ZK note-taking system in =org-mode=.
   - =C-l= prefix key is used only for =avy= package.
-  - =M-C= prefix key is used only for =expand-region= package.
+  - =M-C= prefix key is used only for =expand-region= and =symbol-overlay= packages.
 
 The world's greatest programmer once said:
 #+begin_quote

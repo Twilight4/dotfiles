@@ -31,6 +31,7 @@
   - [[#improved-file-management][Improved File Management]]
   - [[#nicer-org-return][Nicer =Org-Return=]]
   - [[#expand-region][Expand-region]]
+  - [[#symbol-overlay][Symbol-overlay]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#i-search][I-Search]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
@@ -134,6 +135,7 @@
 (define-key global-map (kbd "M-q") nil)
 (define-key global-map (kbd "C-l") nil)
 (define-key global-map (kbd "M-t") nil)
+(define-key global-map (kbd "M-i") nil)
 
 ;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
@@ -242,7 +244,7 @@
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Neotree
-(global-set-key (kbd "M-i") 'neotree-toggle)
+;(global-set-key (kbd "M-i") 'neotree-toggle)    ; Prefix key
 ;; Zero-width space (this is an exception keybinding)
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
@@ -279,8 +281,7 @@
 (eval-after-load 'hl-todo
   '(progn
      (define-key hl-todo-mode-map (kbd "C-M-j") #'hl-todo-next)
-     (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)
-     (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
+     (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)))
 ;; Org promote/demote headings
 (define-key org-mode-map (kbd "M-H") #'org-metaleft)                     ; default M-<left>
 (define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
@@ -543,6 +544,43 @@
  ;; Zap to char
  "C-z" '(zap-up-to-char :wk "Kill up to char")
  "C-x" '(zap-to-char :wk "Kill up to, but not including char"))
+#+end_src
+
+*** M-i Leader Key
+
+#+begin_src emacs-lisp
+(general-define-key
+ :prefix "M-i"
+ ;; Expand-region
+ "M-w" '(er/mark-word :wk "Mark word")
+ "M-h" '(er/mark-symbol :wk "Mark symbol")
+ "M-H" '(er/mark-symbol-with-prefix :wk "Mark symbol with prefix")
+ "M-a" '(er/mark-next-accessor :wk "Mark next accessor")
+ "M-c" '(er/mark-method-call :wk "Mark method call")
+ "M-q" '(er/mark-inside-quotes :wk "Mark inside quotes")
+ "M-Q" '(er/mark-outside-quotes :wk "Mark outside quotes")
+ "M-j" '(er/mark-inside-pairs :wk "Mark inside pairs")
+ "M-J" '(er/mark-outside-pairs :wk "Mark outside pairs")
+ "M-k" '(er/mark-comment :wk "Mark comment")
+ "M-u" '(er/mark-url :wk "Mark URL")
+ "M-e" '(er/mark-email :wk "Mark email")
+ "M-d" '(er/mark-defun :wk "Mark defun")
+ "M-l" '(er/mark-sentence :wk "Mark defun")
+ "M-L" '(er/mark-paragraph :wk "Mark defun")
+ ;; Symbol-overlay
+ "P" '(symbol-overlay-put :wk "Symbol put")
+ "n" '(symbol-overlay-jump-next :wk "Symbol jump next")
+ "p" '(symbol-overlay-jump-prev :wk "Symbol jump prev")
+ "f" '(symbol-overlay-switch-forward :wk "Symbol switch forward")
+ "b" '(symbol-overlay-switch-backward :wk "Symbol switch backward")
+ "R" '(symbol-overlay-remove-all :wk "Symbol remove all")
+ "s" '(symbol-overlay-save-symbol :wk "Symbol save")
+ "t" '(symbol-overlay-toggle-in-scope :wk "Symbol toggle in scope")
+ "e" '(symbol-overlay-echo-mark :wk "Symbol echo mark")
+ "d" '(symbol-overlay-jump-to-definition :wk "Symbol jump to definition")
+ "i" '(symbol-overlay-query-isearch-literally :wk "Symbol isearch")
+ "r" '(symbol-overlay-query-replace :wk "Symbol query replace")
+ "N" '(symbol-overlay-rename :wk "Symbol rename"))
 )
 #+end_src
 
@@ -1080,19 +1118,16 @@ appropriate.  In tables, insert a new row or end the table."
 
 #+begin_src emacs-lisp
 (use-package expand-region
-  :bind (("M-C w" . er/mark-word)
-		 ("M-C s" . er/mark-symbol)
-		 ("M-C S" . er/mark-symbol-with-prefix)
-		 ("M-C a" . er/mark-next-accessor)
-		 ("M-C c" . er/mark-method-call)
-		 ("M-C q" . er/mark-inside-quotes)
-		 ("M-C Q" . er/mark-outside-quotes)
-		 ("M-C p" . er/mark-inside-pairs)
-		 ("M-C P" . er/mark-outside-pairs)
-		 ("M-C c" . er/mark-comment)
-		 ("M-C u" . er/mark-url)
-		 ("M-C e" . er/mark-email)
-		 ("M-C d" . er/mark-defun)))
+  :ensure t)
+#+end_src
+
+** Symbol-overlay
+
+#+begin_src emacs-lisp
+(use-package symbol-overlay
+  :hook ((prog-mode html-mode yaml-mode conf-mode) . symbol-overlay-mode)
+  :delight symbol-overlay-mode
+  :ensure t)
 #+end_src
 
 ** Hungry-delete
