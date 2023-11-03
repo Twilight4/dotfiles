@@ -16,7 +16,6 @@ bindkey '^O' kill-line
 bindkey '^[d' kill-word
 bindkey '^L' insert-last-word
 bindkey '^W' backward-kill-word
-bindkey '^Y' yank
 
 # Full keyboard keys
 bindkey '^?' backward-delete-char
@@ -41,6 +40,13 @@ bindkey '^[[Z' reverse-menu-complete
 # Open in external editor command - not working 
 #bindkey '^[g' get-line            # M-g
 #bindkey '^X^E' edit-command-line  # Open in emacs
+
+# Function to paste from system clipboard so I don't have to bind it in kitty config and affect other terminal tools keybinds
+function paste_from_clipboard() {
+    wl-paste
+}
+zle -N paste_from_clipboard
+bindkey '^Y' paste_from_clipboard
 
 # Function to copy selected text to system clipboard
 copy-region-and-kill() {
