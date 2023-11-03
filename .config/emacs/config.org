@@ -589,6 +589,7 @@
  use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
  display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
+ display-line-numbers-width 3                     ; Line numbers width
  blink-cursor-mode nil                            ; I hate blinking cursors
  inhibit-startup-message t)                       ; Prevent the default initial splash screen from being displayed when you start Emacs
 
@@ -757,7 +758,6 @@ Then I'll redefine two functions used to generate the modeline.
 ;  '(bar window-number pdf-pages pdf-icon buffer-name)
 ;  '(misc-info matches major-mode process vcs))
 #+end_src
-
 
 ** Window Title
 I’d like to have just the buffer name, then if applicable the project folder.
@@ -1057,11 +1057,10 @@ appropriate.  In tables, insert a new row or end the table."
              (org-return t))))
      (t
       ;; All other cases: call `org-return-indent'.
-      (org-return t)))))
+	  (org-return t)))))
 #+end_src
 
 ** Newline Behavior
-set-org-tag, priority on C-c C-,/. and TODO tag from M-t and delete M-S-t
 
 #+begin_src emacs-lisp
 (setq ad-redefinition-action 'accept)
@@ -1072,15 +1071,7 @@ set-org-tag, priority on C-c C-,/. and TODO tag from M-t and delete M-S-t
   (move-end-of-line 1)
   (newline-and-indent))
 
-(global-set-key (kbd "RET") 'newline-and-indent)
-(global-set-key (kbd "C-RET") 'tl/newline-at-end-of-line)
-
-(use-package display-line-numbers
-  :if (fboundp 'display-line-numbers-mode)
-  :init
-  (setq-default display-line-numbers-width 3)
-  (setq-default display-line-numbers-type 'relative)
-  :hook (prog-mode . display-line-numbers-mode))
+(global-set-key (kbd "C-x m") 'tl/newline-at-end-of-line)
 #+end_src
 
 ** Hungry-delete
