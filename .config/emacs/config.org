@@ -14,27 +14,28 @@
   - [[#setting-the-font-face][Setting the Font Face]]
   - [[#all-the-icons][All-the-icons]]
   - [[#color-theme][Color Theme]]
-  - [[#modeline][Modeline]]
-  - [[#pdf-modeline][PDF Modeline]]
-  - [[#custom-return][Custom return]]
+  - [[#mode-line][Mode Line]]
+  - [[#toggle-mode-line][Toggle Mode Line]]
+  - [[#pdf-mode-line][PDF Mode Line]]
+  - [[#custom-return][Custom Return]]
   - [[#window-title][Window Title]]
-  - [[#file-names-for-org-roam][File names for Org-roam]]
+  - [[#file-names-for-org-roam][File Names for Org-roam]]
   - [[#good-scroll][Good-scroll]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
   - [[#centaur-tabs][Centaur-tabs]]
   - [[#file-encoding][File Encoding]]
-  - [[#ansi-colours][Ansi colours]]
+  - [[#ansi-colours][Ansi Colours]]
   - [[#youtube-link-export][YouTube link export]]
 - [[#editing-features][Editing Features]]
-  - [[#improved-file-management][Improved file management]]
+  - [[#improved-file-management][Improved File Management]]
   - [[#nicer-org-return][Nicer =Org-Return=]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
-  - [[#selection-automation][Selection automation]]
-  - [[#screenshot-automation][Screenshot automation]]
-  - [[#pdf-links-automation][Pdf links automation]]
+  - [[#selection-automation][Selection Automation]]
+  - [[#screenshot-automation][Screenshot Automation]]
+  - [[#pdf-links-automation][Pdf links Automation]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
@@ -401,8 +402,8 @@
   (tl/leader-keys
     "d" '(:ignore t :wk "Dired")
     "d ." '(dired :wk "Open dired")
-    "d d" '(delete-file :wk "Delete file")
-    "d r" '(rename-file :wk "Rename file")
+    "d d" '(delete-this-file :wk "Delete file")
+    "d r" '(rename-this-file-and-buffer :wk "Rename file")
     "d j" '(dired-jump :wk "Dired jump to current")
     "d n" '(neotree-dir :wk "Open directory in neotree")
     "d p" '(peep-dired :wk "Peep-dired"))
@@ -660,7 +661,7 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
         doom-themes-enable-italic t)   ; if nil, italics is universally disabled
 #+end_src
 
-** Modeline
+** Mode Line
 
 #+begin_src emacs-lisp
 (use-package doom-modeline
@@ -679,7 +680,20 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 ;  '(mode-line-inactive ((t (:family "JetBrains Mono Nerd Font" :height 0.95)))))
 #+end_src
 
-** PDF Modeline
+** Toggle Mode Line
+Function =toggle-mode-line= toggles the display of the mode line on and off. When called interactively, it checks if the mode line is currently visible by comparing it to nil. If it is visible, it sets the mode-line-format to the default value, effectively hiding the mode line. If it is not visible, it sets the mode-line-format to nil, showing the mode line. Finally, it redraws the display to reflect the changes.
+
+#+begin_src emacs-lisp
+(defun toggle-mode-line ()
+  "toggles the modeline on and off"
+       (interactive)
+       (setq mode-line-format
+             (if (equal mode-line-format nil)
+                 (default-value 'mode-line-format)))
+       (redraw-display))
+#+end_src
+
+** PDF Mode Line
 I think the PDF modeline could do with tweaking.
 First up I'm going to want a segment for just the buffer file name, and a PDF icon.
 Then I'll redefine two functions used to generate the modeline.
@@ -723,7 +737,7 @@ Then I'll redefine two functions used to generate the modeline.
 ;  '(misc-info matches major-mode process vcs))
 #+end_src
 
-** Custom return
+** Custom Return
 
 #+begin_src emacs-lisp
 ;; Function to toggle a checkbox bound to Return
@@ -768,7 +782,7 @@ Change the icon in the modeline if the buffer is changed/unsaved.
              (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))))
 #+end_src
 
-** File names for Org-roam
+** File Names for Org-roam
 Adjust org-roam file names in similary way I have in the window title.
 
 #+begin_src emacs-lisp
@@ -889,7 +903,7 @@ When we have the default file encoding (LF UTF-8), it really isn’t worth notin
 (add-hook 'after-change-major-mode-hook 'doom-modeline-conditional-buffer-encoding)
 #+end_src
 
-** Ansi colours
+** Ansi Colours
 It’s nice to see ANSI colour codes displayed, however we don’t want to disrupt ANSI codes in Org src blocks. 
 
 #+begin_src emacs-lisp
@@ -919,7 +933,7 @@ allowfullscreen>%s</iframe>" path (or "" desc)))
 #+end_src
 
 * Editing Features
-** Improved file management
+** Improved File Management
 Function =delete-this-file= deletes the current file and kills the buffer associated with it. It first checks if there is a file being edited in the buffer. If not, it throws an error. Then, it prompts the user for confirmation to delete the file. If the user confirms, it proceeds to delete the file using delete-file and kills the buffer using =kill-this-buffer=.
 
 Function =rename-this-file-and-buffer= renames both the current buffer and the file it’s visiting to a new name specified by the user. It takes user input for the new name using the interactive keyword, checks if the buffer is visiting a file, renames the file if it exists, updates the visited file name, and renames the buffer accordingly.
@@ -930,7 +944,7 @@ Function =rename-this-file-and-buffer= renames both the current buffer and the f
   (interactive)
   (unless (buffer-file-name)
     (error "No file is currently being edited"))
-  (when (yes-or-no-p (format "Really delete '%s'?"
+  (when (yes-or-no-p (format "Delete file '%s'?"
                              (file-name-nondirectory buffer-file-name)))
     (delete-file (buffer-file-name))
     (kill-this-buffer)))
@@ -1104,7 +1118,7 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
     (message "No active region")))
 #+end_src
 
-** Selection automation
+** Selection Automation
 
 #+begin_src emacs-lisp
 ;; Select until beginning of the buffer
@@ -1141,7 +1155,7 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
 (global-set-key (kbd "C-y") 'my-paste-and-replace)
 #+end_src
 
-** Screenshot automation
+** Screenshot Automation
 Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png= to random name of file in =cwd= and insert link to it at point. It's like a workaround to paste images to org-mode buffer. Don't change your emacs =cwd= if you want your screenshots to be in one place.
 
 #+begin_src emacs-lisp
@@ -1155,7 +1169,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png= t
 (global-set-key (kbd "C-M-y") 'tl/org-insert-screenshot)
 #+end_src
 
-** Pdf links automation
+** Pdf links Automation
 #+begin_src emacs-lisp
 (defun open-pdf (path)
   "open pdf: links in org mode using zathura"
