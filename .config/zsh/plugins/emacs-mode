@@ -43,7 +43,7 @@ bindkey '^[[Z' reverse-menu-complete
 
 # Function to paste from system clipboard so I don't have to bind it in kitty config and affect other terminal tools keybinds
 function paste_from_clipboard() {
-    wl-paste
+    wl-paste -n
 }
 zle -N paste_from_clipboard
 bindkey '^Y' paste_from_clipboard
