@@ -33,6 +33,7 @@
   - [[#expand-region][Expand-region]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#hungry-delete][Hungry-delete]]
+  - [[#multiple-cursors][Multiple-cursors]]
   - [[#i-search][I-Search]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-adjustments][Selection Adjustments]]
@@ -638,11 +639,7 @@
 ;(setq split-height-threshold 40) ; Adjust this value as needed
 
 ;; Prevent Emacs from splitting windows, using kitty for splits instead
-;(setq split-window-preferred-function nil)
-
-;; Emacs will not create new window splits either horizontally or vertically. Instead, it will reuse existing windows as much as possible
-(setq split-height-threshold nil)
-(setq split-width-threshold nil)
+(setq split-window-preferred-function nil)
 
 ;; Don't create automatic backup files in their original directories (e.g. file.el~). Put all backups in the Trash directory
 (setq backup-directory-alist '((".*" . "~/.config/.local/share/Trash/files")))
@@ -1140,6 +1137,21 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   :ensure t
   :defer t
   :config (global-hungry-delete-mode))
+#+end_src
+
+** Multiple-cursors
+
+#+begin_src emacs-lisp
+(use-package multiple-cursors
+  :bind (("C-<" . mc/mark-previous-like-this)
+         ("C->" . mc/mark-next-like-this)
+         ("C-+" . mc/mark-next-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
+         ;; From active region to multiple cursors:
+         ;("C-c m r" . set-rectangular-region-anchor)
+         ;("C-c m c" . mc/edit-lines)
+         ;("C-c m e" . mc/edit-ends-of-lines)
+         ;("C-c m a" . mc/edit-beginnings-of-lines)))
 #+end_src
 
 ** I-Search
