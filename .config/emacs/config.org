@@ -98,6 +98,7 @@
     (elpaca-generate-autoloads "elpaca" repo)
     (load "./elpaca-autoloads")))
 (add-hook 'after-init-hook #'elpaca-process-queues)
+(add-hook 'after-init-hook 'transient-mark-mode) ;; standard highlighting
 (elpaca `(,@elpaca-order))
 
 ;; Install use-package support
@@ -316,6 +317,7 @@
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "s" '(basic-save-buffer :wk "Save buffer")
+	  "C-p" '(find-file-at-point :wk "Find file at point")
     ;; Buffers
     "C-q" '(delete-frame :wk "Delete frame")
     "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -545,6 +547,20 @@
 ** Better Defaults
 
 #+begin_src emacs-lisp
+(setq-default
+ fill-column 120
+ buffers-menu-max-size 30
+ case-fold-search t
+ column-number-mode t
+ tab-width 4
+ mouse-yank-at-point t
+ save-interprogram-paste-before-kill t
+ set-mark-command-repeat-pop t
+ tooltip-delay .8
+ ring-bell-function 'ignore)
+(global-goto-address-mode t)
+(setq browse-url-browser-function #'browse-url-xdg-open)
+
 (delete-selection-mode 1)                         ; You can select text in insert mode (mouse) and delete it by typing
 (electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
 (electric-pair-mode 1)                            ; Turns on automatic parens pairing
