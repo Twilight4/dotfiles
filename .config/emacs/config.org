@@ -32,6 +32,7 @@
   - [[#improved-file-management][Improved File Management]]
   - [[#nicer-org-return][Nicer =Org-Return=]]
   - [[#hungry-delete][Hungry-delete]]
+  - [[#i-search][I-Search]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-adjustments][Selection Adjustments]]
   - [[#screenshot-automation][Screenshot Automation]]
@@ -572,6 +573,7 @@
 (global-visual-line-mode t)                       ; Display truncated lines
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
+(save-place-mode 1)                               ; Open files back up at same position
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
@@ -1088,6 +1090,40 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   :ensure t
   :defer t
   :config (global-hungry-delete-mode))
+#+end_src
+
+** I-Search
+Show number of matches while searching
+
+#+begin_src emacs-lisp
+(use-package anzu
+  :bind (([remap query-replace-regexp] . anzu-query-replace-regexp)
+         ([remap query-replace] . anzu-query-replace)
+         ("C-M-w". isearch-yank-symbol))
+  :custom
+  (anzu-mode-lighter "")
+  :config
+  (defun sanityinc/isearch-exit-other-end ()
+    "Exit isearch, but at the other end of the search string.
+This is useful when followed by an immediate kill."
+    (interactive)
+    (isearch-exit)
+    (goto-char isearch-other-end))
+  (define-key isearch-mode-map [(control return)] 'sanityinc/isearch-exit-other-end)
+  ;; Search back/forth for the symbol at point
+  ;; See http://www.emacswiki.org/emacs/SearchAtPoint
+  (defun isearch-yank-symbol ()
+    "*Put symbol at current point into search string."
+    (interactive)
+    (let ((sym (thing-at-point 'symbol)))
+      (if sym
+          (progn
+            (setq isearch-regexp t
+                  isearch-string (concat "\\_<" (regexp-quote sym) "\\_>")
+                  isearch-message (mapconcat 'isearch-text-char-description isearch-string "")
+                  isearch-yank-flag t))
+        (ding)))
+    (isearch-search-and-update)))
 #+end_src
 
 ** Clipboard Adjustments
