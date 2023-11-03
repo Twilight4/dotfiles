@@ -48,7 +48,7 @@ fgb() {
 
 # Browser quicklinks menu
 fqli () {
-    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
+    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Proton Drive" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
     local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}") 
     case $choice in
         (" Google") echo -n "Search Google: "
@@ -87,7 +87,9 @@ fqli () {
             ;;
         (" Gmail") xdg-open "https://mail.google.com" &
             ;;
-        (" Open Shopping Websites") echo -n "Search Shopping Websites: "
+        (" Proton Drive") xdg-open "https://proton.me/pl/drive" &
+            ;;
+		(" Open Shopping Websites") echo -n "Search Shopping Websites: "
             read query
             if [ -z "$query" ]
             then
