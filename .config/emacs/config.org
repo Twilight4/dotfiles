@@ -30,7 +30,7 @@
 - [[#editing-features][Editing Features]]
   - [[#improved-file-management][Improved File Management]]
   - [[#nicer-org-return][Nicer =Org-Return=]]
-  - [[#newline-behavior][Newline Behavior]]
+  - [[#expand-region][Expand-region]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#i-search][I-Search]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
@@ -600,6 +600,10 @@
 ;; Prevent Emacs from splitting windows, using kitty for splits instead
 ;(setq split-window-preferred-function nil)
 
+;; Emacs will not create new window splits either horizontally or vertically. Instead, it will reuse existing windows as much as possible
+(setq split-height-threshold nil)
+(setq split-width-threshold nil)
+
 ;; Don't create automatic backup files in their original directories (e.g. file.el~). Put all backups in the Trash directory
 (setq backup-directory-alist '((".*" . "~/.config/.local/share/Trash/files")))
 
@@ -1058,11 +1062,9 @@ appropriate.  In tables, insert a new row or end the table."
      (t
       ;; All other cases: call `org-return-indent'.
 	  (org-return t)))))
-#+end_src
 
-** Newline Behavior
 
-#+begin_src emacs-lisp
+;; Newline Behavior
 (setq ad-redefinition-action 'accept)
 
 (defun tl/newline-at-end-of-line ()
@@ -1072,6 +1074,25 @@ appropriate.  In tables, insert a new row or end the table."
   (newline-and-indent))
 
 (global-set-key (kbd "C-x m") 'tl/newline-at-end-of-line)
+#+end_src
+
+** Expand-region
+
+#+begin_src emacs-lisp
+(use-package expand-region
+  :bind (("M-C w" . er/mark-word)
+		 ("M-C s" . er/mark-symbol)
+		 ("M-C S" . er/mark-symbol-with-prefix)
+		 ("M-C a" . er/mark-next-accessor)
+		 ("M-C c" . er/mark-method-call)
+		 ("M-C q" . er/mark-inside-quotes)
+		 ("M-C Q" . er/mark-outside-quotes)
+		 ("M-C p" . er/mark-inside-pairs)
+		 ("M-C P" . er/mark-outside-pairs)
+		 ("M-C c" . er/mark-comment)
+		 ("M-C u" . er/mark-url)
+		 ("M-C e" . er/mark-email)
+		 ("M-C d" . er/mark-defun)))
 #+end_src
 
 ** Hungry-delete
