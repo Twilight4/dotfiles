@@ -28,6 +28,7 @@
   - [[#ansi-colours][Ansi colours]]
   - [[#youtube-link-export][YouTube link export]]
 - [[#editing-features][Editing Features]]
+  - [[#improved-file-management][Improved file management]]
   - [[#nicer-org-return][Nicer =Org-Return=]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
@@ -918,6 +919,36 @@ allowfullscreen>%s</iframe>" path (or "" desc)))
 #+end_src
 
 * Editing Features
+** Improved file management
+Function =delete-this-file= deletes the current file and kills the buffer associated with it. It first checks if there is a file being edited in the buffer. If not, it throws an error. Then, it prompts the user for confirmation to delete the file. If the user confirms, it proceeds to delete the file using delete-file and kills the buffer using =kill-this-buffer=.
+
+Function =rename-this-file-and-buffer= renames both the current buffer and the file it’s visiting to a new name specified by the user. It takes user input for the new name using the interactive keyword, checks if the buffer is visiting a file, renames the file if it exists, updates the visited file name, and renames the buffer accordingly.
+
+#+begin_src emacs-lisp
+(defun delete-this-file ()
+  "Delete the current file, and kill the buffer."
+  (interactive)
+  (unless (buffer-file-name)
+    (error "No file is currently being edited"))
+  (when (yes-or-no-p (format "Really delete '%s'?"
+                             (file-name-nondirectory buffer-file-name)))
+    (delete-file (buffer-file-name))
+    (kill-this-buffer)))
+
+(defun rename-this-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (unless filename
+      (error "Buffer '%s' is not visiting a file!" name))
+    (progn
+      (when (file-exists-p filename)
+        (rename-file filename new-name 1))
+      (set-visited-file-name new-name)
+      (rename-buffer new-name))))
+#+end_src
+
 ** Nicer =Org-Return=
 
 #+begin_src emacs-lisp
