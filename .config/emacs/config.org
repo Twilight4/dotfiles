@@ -921,7 +921,6 @@ allowfullscreen>%s</iframe>" path (or "" desc)))
 * Editing Features
 ** Improved file management
 Function =delete-this-file= deletes the current file and kills the buffer associated with it. It first checks if there is a file being edited in the buffer. If not, it throws an error. Then, it prompts the user for confirmation to delete the file. If the user confirms, it proceeds to delete the file using delete-file and kills the buffer using =kill-this-buffer=.
-
 Function =rename-this-file-and-buffer= renames both the current buffer and the file it’s visiting to a new name specified by the user. It takes user input for the new name using the interactive keyword, checks if the buffer is visiting a file, renames the file if it exists, updates the visited file name, and renames the buffer accordingly.
 
 #+begin_src emacs-lisp
