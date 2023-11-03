@@ -288,8 +288,6 @@
 (define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
 (define-key org-mode-map (kbd "M-K") #'org-metaup)                       ; default M-<up>
 (define-key org-mode-map (kbd "M-L") #'org-metaright)                    ; default M-<right>
-;; Org-roam
-(define-key org-mode-map (kbd "C-M-,") 'completion-at-point)
 ;;(define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
 ;;(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 ;; Org-agenda
@@ -490,6 +488,7 @@
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
  "I" '(org-toggle-inline-images :wk "Display inline images")
  ;; Org-Roam
+ "p" '(completion-at-point :wk "Complete at point")
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
  "L" '(org-roam-node-insert :wk "Insert Org roam node")
@@ -1143,15 +1142,16 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
 
 #+begin_src emacs-lisp
 (use-package multiple-cursors
-  :bind (("C-<" . mc/mark-previous-like-this)
-         ("C->" . mc/mark-next-like-this)
-         ("C-+" . mc/mark-next-like-this)
-         ("C-c C-<" . mc/mark-all-like-this)))
-         ;; From active region to multiple cursors:
-         ;("C-c m r" . set-rectangular-region-anchor)
-         ;("C-c m c" . mc/edit-lines)
-         ;("C-c m e" . mc/edit-ends-of-lines)
-         ;("C-c m a" . mc/edit-beginnings-of-lines)))
+  :bind ;; Mark one more occurrence
+        (("M-Q" . mc/mark-previous-like-this)
+         ("M-A" . mc/mark-next-like-this)
+		 ("C-x C-a" . mc/mark-all-like-this)
+		 ;; From active region to multiple cursors
+         ("C-x x c" . mc/edit-lines)
+		 ("C-x x a" . mc/edit-beginnings-of-lines)
+		 ("C-x x e" . mc/edit-ends-of-lines)
+         ("C-x x e" . mc/mark-all-in-region)
+		 ("C-x x r" . set-rectangular-region-anchor)))
 #+end_src
 
 ** I-Search
