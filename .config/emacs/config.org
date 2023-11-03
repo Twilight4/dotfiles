@@ -391,6 +391,7 @@
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "t t" '(visual-line-mode :wk "Toggle truncated lines")
     "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
+    "t m" '(hl-mode-mode :wk "Toggle mode line")
     "t H" '(global-hl-line-mode :wk "Toggle line highlight globally")
     "t T" '(org-transclusion-mode :wk "Org Transclusion mode"))
 
@@ -1142,17 +1143,18 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   (kill-line 0))
 
 ;; By default when you want to paste over the selected region, it doesn't replace it
-;; I have bound pasting from system clipboard on C-y in kitty terminal, which invokes xterm-paste command in emacs
-(defun my-paste-and-replace ()
-  "Paste from clipboard and replace selected region, or call xterm-paste if no region is selected."
+;; I have bound pasting from system clipboard in terminal in zhs shell by using wl-clipboard on C-y in emacs-mode file
+;; Don't bind pasting in terminal config cuz it will affect other TUI tools like emacs and the keys won't be modifiable
+(defun paste-from-system-clipboard ()
+  "Paste from system clipboard, either replacing the selected region or inserting at point."
   (interactive)
   (if (use-region-p)
       (progn
         (delete-region (region-beginning) (region-end))
-        (yank))
-    (call-interactively 'xterm-paste)))
+        (insert (shell-command-to-string "wl-paste -n")))
+    (insert (shell-command-to-string "wl-paste -n"))))
 
-(global-set-key (kbd "C-y") 'my-paste-and-replace)
+(global-set-key (kbd "C-y") 'paste-from-system-clipboard)
 #+end_src
 
 ** Screenshot Automation
