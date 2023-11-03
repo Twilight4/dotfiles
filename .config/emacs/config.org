@@ -33,7 +33,7 @@
   - [[#nicer-org-return][Nicer =Org-Return=]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
-  - [[#selection-automation][Selection Automation]]
+  - [[#selection-adjustments][Selection Adjustments]]
   - [[#screenshot-automation][Screenshot Automation]]
   - [[#pdf-links-automation][Pdf links Automation]]
   - [[#no-littering][No-littering]]
@@ -1117,11 +1117,53 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
           (process-send-eof "wl-copy"))
         (message "Copied to clipboard"))
     (message "No active region")))
+
+;; By default when you want to paste over the selected region, it doesn't replace it
+;; I have bound pasting from system clipboard in terminal in zhs shell by using wl-clipboard on C-y in emacs-mode file
+;; Don't bind pasting in terminal config cuz it will affect other TUI tools like emacs and the keys won't be modifiable
+(defun paste-from-system-clipboard ()
+  "Paste from system clipboard, either replacing the selected region or inserting at point."
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (delete-region (region-beginning) (region-end))
+        (insert (shell-command-to-string "wl-paste -n")))
+    (insert (shell-command-to-string "wl-paste -n"))))
+
+(global-set-key (kbd "C-y") 'paste-from-system-clipboard)
 #+end_src
 
-** Selection Automation
+** Selection Adjustments
+Function =smarter-move-beginning-of-line= moves the cursor to the indentation of the beginning of the current line. If the cursor is already at the indentation, it moves to the actual beginning of the line. The function also accepts an argument =ARG= which, if non-nil or non-zero, moves the cursor forward =ARG= - 1 lines before executing the main logic.
+This configuration also remaps =C-a= the =smarter-move-beginning-of-line= function using the =global-set-key= function.
 
 #+begin_src emacs-lisp
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+;; Bind C-a to 'smarter-move-beginning-of-line'
+(global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
+
 ;; Select until beginning of the buffer
 (defun select-until-beginning ()
   "Select text from current point until the beginning of the buffer."
@@ -1141,20 +1183,6 @@ Hungry Delete is a minor-mode that causes deletion to delete all whitespace in t
   "Kill text from point to the beginning of the line."
   (interactive)
   (kill-line 0))
-
-;; By default when you want to paste over the selected region, it doesn't replace it
-;; I have bound pasting from system clipboard in terminal in zhs shell by using wl-clipboard on C-y in emacs-mode file
-;; Don't bind pasting in terminal config cuz it will affect other TUI tools like emacs and the keys won't be modifiable
-(defun paste-from-system-clipboard ()
-  "Paste from system clipboard, either replacing the selected region or inserting at point."
-  (interactive)
-  (if (use-region-p)
-      (progn
-        (delete-region (region-beginning) (region-end))
-        (insert (shell-command-to-string "wl-paste -n")))
-    (insert (shell-command-to-string "wl-paste -n"))))
-
-(global-set-key (kbd "C-y") 'paste-from-system-clipboard)
 #+end_src
 
 ** Screenshot Automation
