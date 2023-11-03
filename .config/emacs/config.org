@@ -17,7 +17,6 @@
   - [[#mode-line][Mode Line]]
   - [[#toggle-mode-line][Toggle Mode Line]]
   - [[#pdf-mode-line][PDF Mode Line]]
-  - [[#custom-return][Custom Return]]
   - [[#window-title][Window Title]]
   - [[#file-names-for-org-roam][File Names for Org-roam]]
   - [[#good-scroll][Good-scroll]]
@@ -31,6 +30,7 @@
 - [[#editing-features][Editing Features]]
   - [[#improved-file-management][Improved File Management]]
   - [[#nicer-org-return][Nicer =Org-Return=]]
+  - [[#newline-behavior][Newline Behavior]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#i-search][I-Search]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
@@ -115,6 +115,7 @@
 
 ** Global Keybindings
 *** Disable Conflicting Keybindings
+
 #+begin_src emacs-lisp
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
@@ -157,6 +158,7 @@
 #+end_src
 
 *** Keybindings Without a Leader Key
+
 #+begin_src emacs-lisp
 ;; Global Keybindings
 ;; Moving between windows
@@ -279,8 +281,6 @@
      (define-key hl-todo-mode-map (kbd "C-M-j") #'hl-todo-next)
      (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)
      (define-key hl-todo-mode-map (kbd "M-I") #'hl-todo-insert)))
-(define-key org-mode-map (kbd "M-t") 'org-todo)
-(define-key org-mode-map (kbd "M-T") 'org-set-tags-command)
 ;; Org promote/demote headings
 (define-key org-mode-map (kbd "M-H") #'org-metaleft)                     ; default M-<left>
 (define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
@@ -468,14 +468,16 @@
  :prefix "C-c"
  :keymaps 'org-mode-map
  ;; Org-mode
- "C-." '(org-time-stamp :wk "Org timestamp")
- "C-/" '(org-tag :wk "Org tag")
- "C-p" '(org-set-property :wk "Org property")
- "C-e" '(org-set-effort :wk "Org effort")
+ "," '(org-todo :wk "Org set todo")          ; Can't do C-, in terminal
+ "." '(org-priority :wk "Org set priority")  ; Can't do C-. in terminal
+ "C-_" '(org-set-tags-command :wk "Org set tag")
+ "C-p" '(org-set-property :wk "Org set property")
+ "C-e" '(org-set-effort :wk "Org set effort")
  "C-f" '(org-insert-file-link :wk "Org insert file link")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
+ "/" '(org-time-stamp :wk "Org timestamp")
  "C-y" '(insert-current-time :wk "Insert current time")
  "C-h" '(org-toggle-heading :wk "Toggle heading")
  "C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
@@ -756,30 +758,6 @@ Then I'll redefine two functions used to generate the modeline.
 ;  '(misc-info matches major-mode process vcs))
 #+end_src
 
-** Custom Return
-
-#+begin_src emacs-lisp
-;; Function to toggle a checkbox bound to Return
-(defun custom-return ()
-  (interactive)
-  (if (org-in-regexp org-link-bracket-re 1)
-      (org-open-at-point)
-    (if (org-at-item-p) ; Check if at a checkbox item
-        (org-toggle-checkbox)
-      (call-interactively 'newline-and-indent)))) ; Call default behavior in insert mode
-
-;; Funtion to not toggle a checkbox bound to C-m
-(defun toggle-checkbox-return ()
-  (interactive)
-  (if (org-at-item-p) ; Check if at a checkbox item
-      (org-toggle-checkbox)
-    (call-interactively 'newline)))
-
-;;(add-hook 'org-mode-hook
-;;          (lambda ()
-;;            (local-set-key (kbd "RET") 'custom-return)
-;;            (local-set-key (kbd "C-m") 'toggle-checkbox-return)))
-#+end_src
 
 ** Window Title
 I’d like to have just the buffer name, then if applicable the project folder.
@@ -1080,6 +1058,29 @@ appropriate.  In tables, insert a new row or end the table."
      (t
       ;; All other cases: call `org-return-indent'.
       (org-return t)))))
+#+end_src
+
+** Newline Behavior
+set-org-tag, priority on C-c C-,/. and TODO tag from M-t and delete M-S-t
+
+#+begin_src emacs-lisp
+(setq ad-redefinition-action 'accept)
+
+(defun tl/newline-at-end-of-line ()
+  "Move to end of line, enter a newline, and reindent."
+  (interactive)
+  (move-end-of-line 1)
+  (newline-and-indent))
+
+(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "C-RET") 'tl/newline-at-end-of-line)
+
+(use-package display-line-numbers
+  :if (fboundp 'display-line-numbers-mode)
+  :init
+  (setq-default display-line-numbers-width 3)
+  (setq-default display-line-numbers-type 'relative)
+  :hook (prog-mode . display-line-numbers-mode))
 #+end_src
 
 ** Hungry-delete
