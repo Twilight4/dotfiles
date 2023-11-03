@@ -220,7 +220,7 @@
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
-;(global-set-key (kbd "C-S-h") 'kill-whole-line)
+(global-set-key (kbd "C-M-h") 'kill-whole-line)
 ;; Zooming keys
 ;(global-set-key (kbd "C-=") 'text-scale-increase)
 ;(global-set-key (kbd "C--") 'text-scale-decrease)
