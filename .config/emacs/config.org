@@ -17,7 +17,6 @@
   - [[#mode-line][Mode Line]]
   - [[#toggle-mode-line][Toggle Mode Line]]
   - [[#pdf-mode-line][PDF Mode Line]]
-  - [[#window-title][Window Title]]
   - [[#file-names-for-org-roam][File Names for Org-roam]]
   - [[#good-scroll][Good-scroll]]
   - [[#which-key][Which-key]]
@@ -797,26 +796,6 @@ Then I'll redefine two functions used to generate the modeline.
 ;(doom-modeline-def-modeline 'pdf
 ;  '(bar window-number pdf-pages pdf-icon buffer-name)
 ;  '(misc-info matches major-mode process vcs))
-#+end_src
-
-** Window Title
-I’d like to have just the buffer name, then if applicable the project folder.
-Change the icon in the modeline if the buffer is changed/unsaved.
-
-#+begin_src emacs-lisp
-(setq frame-title-format
-      '(""
-        (:eval
-         (if (string-match-p (regexp-quote (or (bound-and-true-p org-roam-directory) "\u0000"))
-                             (or buffer-file-name ""))
-             (replace-regexp-in-string
-              ".*/[0-9]*-?" "☰ "
-              (subst-char-in-string ?_ ?\s buffer-file-name))
-           "%b"))
-        (:eval
-         (when-let ((project-name (and (featurep 'projectile) (projectile-project-name))))
-           (unless (string= "-" project-name)
-             (format (if (buffer-modified-p)  " ◉ %s" "  ●  %s") project-name))))))
 #+end_src
 
 ** File Names for Org-roam
