@@ -485,7 +485,7 @@
  "C-i" '(org-toggle-item :wk "Toggle item")
  "C-m" '(org-meta-return :wk "Insert another heading/bullet")
  "C-n" '(org-insert-todo-heading :wk "Insert todo heading")
- "C-o" '(tl/open-images-external-from-org :wk "Narrow to block")   ; Check if doesn't conflict with org-open-at-point
+ "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")  ; Check if doesn't conflict with org-open-at-point
  "C-h" '(widen :wk "Widen")
  "C-j" '(tl/org-narrow-forward :wk "Narrow forward")
  "C-k" '(tl/org-narrow-backward :wk "Narrow backward")
@@ -2051,12 +2051,12 @@ If you want to see other headings while you are edit the current one, I found a 
 *** Open images in external editor
 
 #+begin_src emacs-lisp
-;; Open images in external editor such as nsxiv
+;; Open images in external editor such as swappy
 (defun tl/open-image-external-from-org ()
-  "Open the image at point in an external viewer like nsxiv."
+  "Open the image at point in an external viewer like swappy."
   (interactive)
   (let ((file (org-element-property :path (org-element-context))))
-    (start-process "nsxiv" nil "nsxiv" file)))
+    (start-process "swappy" nil "swappy" "-f" file)))
 #+end_src
 
 *** Narrow to subtree
