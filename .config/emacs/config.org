@@ -423,12 +423,12 @@
     :prefix "C-x") ;; Set leader key
 
   (tl/leader-keys
-    "," '(recentf :wk "Find recent files")
+    "," '(consult-recent-file :wk "Find recent files")
     "." '(find-file :wk "Find file")
-    "c" '(org-capture :wk "Capture to workflow")      ;; for workflows in workflow.org (checklists in agenda)/assessments (report templates)
+    "v" '(org-capture :wk "Capture to workflow")      ;; for workflows in workflow.org (checklists in agenda)/assessments (report templates)
     "C" '(org-gtd-capture :wk "Capture to inbox")     ;; for tasks in inbox.org
     "p" '(org-gtd-process-inbox :wk "Process inbox")  ;; process inbox.org
-    "b" '(switch-to-buffer :wk "Switch to buffer")
+    "b" '(consult-buffer :wk "Switch to buffer")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "s" '(basic-save-buffer :wk "Save buffer")
@@ -441,8 +441,7 @@
 	  ;"i" '(ibuffer :wk "Ibuffer")                 ; I don't use it
     "K" '(kill-some-buffers :wk "Kill multiple buffers")
     ;; "r" '(revert-buffer :wk "Reload buffer")   ;; Key unavailable
-    "C-r" '(rename-buffer :wk "Rename buffer")
-    "C-s" '(save-some-buffers :wk "Save multiple buffers")
+	  "C-s" '(save-some-buffers :wk "Save multiple buffers")
     ;; Bookmarks
     "C-l" '(list-bookmarks :wk "List bookmarks")
     "C-m" '(bookmark-set :wk "Set bookmark")
@@ -483,6 +482,25 @@
 	;   "f -" #'elfeed-show-untag
 	;   "f s" #'elfeed-show-new-live-search
 	;   "f y" #'elfeed-show-yank)
+
+  (tl/leader-keys
+    "c" '(:ignore t :wk "Consult")
+    "c f" '(consult-fd :wk "Find")
+    "c r" '(consult-ripgrep :wk "Ripgrep")
+    "c l" '(consult-line :wk "Search for line")
+    "c L" '(consult-line-multi :wk "Search for line in multiple buffers")
+    "c m" '(consult-mark :wk "Jump to marker")
+	  "c M" '(consult-global-mark :wk "Jump to global marker")
+    "c o" '(consult-outline :wk "Outline heading")
+    "c b" '(consult-bookmark :wk "Bookmark")
+	  "c g" '(consult-goto-line :wk "Go to line")
+	  "c G" '(consult-git-grep :wk "Search with git grep")
+    "c a" '(consult-org-agenda :wk "Go to org agenda heading")
+    "c f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
+    "c h" '(consult-org-heading :wk "Go to org heading")
+    "c y" '(consult-yank-from-kill-ring :wk "Yank from kill ring history")
+    "c Y" '(consult-yank-replace :wk "Yank replace from kill ring history")
+	  "c p" '(consult-yank-pop :wk "Yank pop from kill ring history"))
 
   (tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
