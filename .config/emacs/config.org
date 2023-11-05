@@ -52,6 +52,7 @@
   - [[#vertico][Vertico]]
   - [[#marginalia][Marginalia]]
   - [[#orderless][Orderless]]
+  - [[#consult][Consult]]
   - [[#magit][Magit]]
   - [[#git-timemachine][Git-Timemachine]]
   - [[#elfeed][Elfeed]]
@@ -1806,6 +1807,14 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 		read-buffer-completion-ignore-case t
 		completion-category-defaults nil
 		completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
+** Consult
+
+#+begin_src emacs-lisp
+(use-package consult
+  :ensure t
+  :config)
 #+end_src
 
 ** Magit
