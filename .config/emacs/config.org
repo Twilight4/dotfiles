@@ -269,10 +269,10 @@
 (define-key org-mode-map (kbd "C-RET") 'org-meta-return)
 (define-key org-mode-map (kbd "C-S-RET") 'org-insert-todo-heading)
 ;; Org heading navigation
-(define-key org-mode-map (kbd "M-h") #'org-up-element)                   ; default g h
-(define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)   ; default g j
-(define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)  ; default g k
-(define-key org-mode-map (kbd "M-l") #'org-down-element)                 ; default g l
+(define-key org-mode-map (kbd "M-h") #'org-previous-visible-heading)
+(define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)
+(define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)
+(define-key org-mode-map (kbd "M-l") #'org-next-visible-heading)
 ;; Org bullet list navigation
 (define-key org-mode-map (kbd "C-M-f") 'org-shiftright)
 (define-key org-mode-map (kbd "C-M-b") 'org-shiftleft)
@@ -474,7 +474,7 @@
  "C-_" '(org-set-tags-command :wk "Org set tag")
  "C-p" '(org-set-property :wk "Org set property")
  "C-e" '(org-set-effort :wk "Org set effort")
- "C-f" '(org-insert-file-link :wk "Org insert file link")
+ "C-j" '(org-insert-file-link :wk "Org insert file link")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
@@ -484,9 +484,15 @@
  "C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
  "C-i" '(org-toggle-item :wk "Toggle item")
  "C-n" '(org-insert-todo-heading :wk "Insert todo heading")
+ "C-v" '(org-narrow-to-subtree :wk "Narrow to subtree")
+ ;"C-" '(org-narrow-to-block :wk "Narrow to block")
+ "C-f" '(tl/org-narrow-forward :wk "Narrow forward")
+ "C-b" '(tl/org-narrow-backward :wk "Narrow backward")
+ "C-g" '(widen :wk "Widen")
  "C-m" '(org-meta-return :wk "Insert another heading/bullet")
  "C-s" '(org-insert-subheading :wk "Insert subheading")
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
+ "C-q" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
  "I" '(org-toggle-inline-images :wk "Display inline images")
  ;; Org-Roam
  "p" '(completion-at-point :wk "Complete at point")
@@ -2019,6 +2025,45 @@ This automates the surround of word for style formatting with respective keys in
   (if (use-region-p)
       (surround-with-underline (region-beginning) (region-end))
     (insert "/")))
+#+end_src
+
+*** Heading Focus
+If you want to see other headings while you are edit the current one, I found a [[https://stackoverflow.com/questions/25161792/emacs-org-mode-how-can-i-fold-everything-but-the-current-headline/28031539#28031539][StackOverflow]] answer and adapted for my need.
+
+#+begin_src emacs-lisp
+(defun org-show-current-heading-tidily ()
+  (interactive)  ;Inteactive
+  "Show next entry, keeping other entries closed."
+  (if (save-excursion (end-of-line) (outline-invisible-p))
+      (progn (org-show-entry) (show-children))
+    (outline-back-to-heading)
+    (unless (and (bolp) (org-on-heading-p))
+      (org-up-heading-safe)
+      (hide-subtree)
+      (error "Boundary reached"))
+    (org-overview)
+    (org-reveal t)
+    (org-show-entry)
+    (show-children)))
+#+end_src
+
+*** Narrow to subtree
+After executing =org-narrow-to-subtree= I want to be ableto move the narrowing along with point to the next subtree.
+
+#+begin_src emacs-lisp
+(defun tl/org-narrow-forward ()
+  "Move to the next subtree at same level, and narrow to it."
+  (interactive)
+  (widen)
+  (org-forward-heading-same-level 1)
+  (org-narrow-to-subtree))
+
+(defun tl/org-narrow-backward ()
+  "Move to the next subtree at same level, and narrow to it."
+  (interactive)
+  (widen)
+  (org-backward-heading-same-level 1)
+  (org-narrow-to-subtree))
 #+end_src
 
 *** Better buffer-switching
