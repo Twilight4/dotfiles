@@ -47,7 +47,7 @@
   - [[#maximize-window-split][Maximize-window-split]]
   - [[#avy][Avy]]
 - [[#other-packages][Other Packages]]
-  - [[#neotree][Neotree]]
+  - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#vertico][Vertico]]
   - [[#marginalia][Marginalia]]
@@ -244,8 +244,8 @@
 (global-set-key (kbd "C-t") 'dashboard-open)
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
-;; Neotree
-;(global-set-key (kbd "M-i") 'neotree-toggle)    ; Prefix key
+;; Treemacs
+(global-set-key (kbd "M-I") 'treemacs)
 ;; Zero-width space (this is an exception keybinding)
 (global-set-key (kbd "C-c C-SPC")
                 (lambda () (interactive) (insert "\u200B")))
@@ -410,7 +410,6 @@
     "d d" '(delete-this-file :wk "Delete file")
     "d r" '(rename-this-file-and-buffer :wk "Rename file")
     "d j" '(dired-jump :wk "Dired jump to current")
-    "d n" '(neotree-dir :wk "Open directory in neotree")
     "d p" '(peep-dired :wk "Peep-dired"))
 
   (tl/leader-keys
@@ -1434,31 +1433,153 @@ Function for toggling maximization of window split.
 #+end_src
 
 * Other Packages
-** Neotree
-A Emacs tree plugin like NerdTree for Vim.
-
+** Treemacs
+ 
 #+begin_src emacs-lisp
-(use-package neotree
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
   :config
-  (setq neo-smart-open t
-        neo-show-hidden-files t
-        neo-window-width 25
-        neo-theme (if (display-graphic-p) 'icons 'arrow)
-        neo-window-fixed-size nil
-        inhibit-compacting-font-caches t)
-        ;; truncate long file names in neotree
-        (add-hook 'neo-after-create-hook
-           #'(lambda (_)
-               (with-current-buffer (get-buffer neo-buffer-name)
-                 (setq truncate-lines t)
-                 (setq word-wrap nil)
-                 (make-local-variable 'auto-hscroll-mode)
-                 (setq auto-hscroll-mode nil)))))
+  (progn
+    (setq treemacs-collapse-dirs                   (if treemacs-python-executable 3 0)
+          treemacs-deferred-git-apply-delay        0.5
+          treemacs-directory-name-transformer      #'identity
+          treemacs-display-in-side-window          t
+          treemacs-eldoc-display                   'simple
+          treemacs-file-event-delay                2000
+          treemacs-file-extension-regex            treemacs-last-period-regex-value
+          treemacs-file-follow-delay               0.2
+          treemacs-file-name-transformer           #'identity
+          treemacs-follow-after-init               t
+          treemacs-expand-after-init               t
+          treemacs-find-workspace-method           'find-for-file-or-pick-first
+          treemacs-git-command-pipe                ""
+          treemacs-goto-tag-strategy               'refetch-index
+          treemacs-header-scroll-indicators        '(nil . "^^^^^^")
+          treemacs-hide-dot-git-directory          t
+          treemacs-indentation                     2
+          treemacs-indentation-string              " "
+          treemacs-is-never-other-window           nil
+          treemacs-max-git-entries                 5000
+          treemacs-missing-project-action          'ask
+          treemacs-move-forward-on-expand          nil
+          treemacs-no-png-images                   nil
+          treemacs-no-delete-other-windows         t
+          treemacs-project-follow-cleanup          nil
+          treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-position                        'left
+          treemacs-read-string-input               'from-child-frame
+          treemacs-recenter-distance               0.1
+          treemacs-recenter-after-file-follow      nil
+          treemacs-recenter-after-tag-follow       nil
+          treemacs-recenter-after-project-jump     'always
+          treemacs-recenter-after-project-expand   'on-distance
+          treemacs-litter-directories              '("/node_modules" "/.venv" "/.cask")
+          treemacs-project-follow-into-home        nil
+          treemacs-show-cursor                     nil
+          treemacs-show-hidden-files               t
+          treemacs-silent-filewatch                nil
+          treemacs-silent-refresh                  nil
+          treemacs-sorting                         'alphabetic-asc
+          treemacs-select-when-already-in-treemacs 'move-back
+          treemacs-space-between-root-nodes        t
+          treemacs-tag-follow-cleanup              t
+          treemacs-tag-follow-delay                1.5
+          treemacs-text-scale                      nil
+          treemacs-user-mode-line-format           nil
+          treemacs-user-header-line-format         nil
+          treemacs-wide-toggle-width               70
+          treemacs-width                           35
+          treemacs-width-increment                 1
+          treemacs-width-is-initially-locked       t
+          treemacs-workspace-switch-cleanup        nil)
 
-;; Disable line numbers in neotree buffer
-(add-hook 'neotree-mode-hook
-           (lambda ()
-             (display-line-numbers-mode 0)))
+    ;; The default width and height of the icons is 22 pixels. If you are
+    ;; using a Hi-DPI display, uncomment this to double the icon size.
+    ;;(treemacs-resize-icons 44)
+
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode 'always)
+    (when treemacs-python-executable
+      (treemacs-git-commit-diff-mode t))
+
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null treemacs-python-executable)))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple)))
+
+    (treemacs-hide-gitignored-files-mode nil))
+  :bind
+  (:map treemacs
+      ("?"           . treemacs-common-helpful-hydra)
+      ("C-?"         . treemacs-advanced-helpful-hydra)
+      ("j"           . treemacs-next-line)
+	  ("k"           . treemacs-previous-line)
+	  ("M-j"         . treemacs-next-line-other-window)
+      ("M-n"         . treemacs-next-line-other-window)
+      ("M-k"         . treemacs-previous-line-other-window)
+      ("M-p"         . treemacs-previous-line-other-window)
+      ("<next>"      . treemacs-next-page-other-window)
+      ("<prior>"     . treemacs-previous-page-other-window)
+      ("M-j"         . treemacs-next-neighbour)
+      ("M-n"         . treemacs-next-neighbour)
+      ("M-k"         . treemacs-previous-neighbour)
+      ("M-p"         . treemacs-previous-neighbour)
+      ("u"           . treemacs-goto-parent-node)
+      ("<M-up>"      . treemacs-move-project-up)
+      ("<M-down>"    . treemacs-move-project-down)
+      ("w"           . treemacs-set-width)
+      ("<"           . treemacs-decrement-width)
+      (">"           . treemacs-increment-width)
+      ("RET"         . treemacs-RET-action)
+      ("TAB"         . treemacs-TAB-action)
+      ("g"           . treemacs-refresh)
+      ("r"           . treemacs-refresh)
+      ("gr"          . treemacs-refresh)
+      ("d"           . treemacs-delete-file)
+      ("R"           . treemacs-rename-file)
+      ("cf"          . treemacs-create-file)
+      ("cd"          . treemacs-create-dir)
+      ("q"           . treemacs-quit)
+      ("Q"           . treemacs-kill-buffer)
+      ("P"           . treemacs-peek-mode)
+      ("ya"          . treemacs-copy-absolute-path-at-point)
+      ("yr"          . treemacs-copy-relative-path-at-point)
+      ("yp"          . treemacs-copy-project-path-at-point)
+      ("yf"          . treemacs-copy-file)
+      ("m"           . treemacs-move-file)
+      ("s"           . treemacs-resort)
+      ("b"           . treemacs-add-bookmark)
+      ("h"           . treemacs-COLLAPSE-action)
+      ("M-h"         . treemacs-COLLAPSE-action)
+      ("l"           . treemacs-RET-action)
+      ("M-l"         . treemacs-RET-action)
+      ("M-H"         . treemacs-root-up)
+      ("M-L"         . treemacs-root-down)
+      ("H"           . treemacs-collapse-parent-node)
+      ("\\!"         . treemacs-run-shell-command-for-current-node)
+      ("M-!"         . treemacs-run-shell-command-in-project-root)
+      ("C"           . treemacs-cleanup-litter)
+      ("="           . treemacs-fit-window-width)
+      ("W"           . treemacs-extra-wide-toggle)))
+
+;(use-package treemacs-projectile
+;  :after (treemacs projectile)
+;  :ensure t)
+
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
+
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
 #+end_src
 
 ** Dired
