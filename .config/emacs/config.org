@@ -53,6 +53,8 @@
   - [[#marginalia][Marginalia]]
   - [[#orderless][Orderless]]
   - [[#consult][Consult]]
+  - [[#embark][Embark]]
+  - [[#embark-consult][Embark-consult]]
   - [[#magit][Magit]]
   - [[#git-timemachine][Git-Timemachine]]
   - [[#elfeed][Elfeed]]
@@ -608,13 +610,14 @@
 (general-define-key
  :prefix "C-c"
  :keymaps 'org-mode-map
- ;; Org-mode - left keys are: C-q, C-w, C-d, C-z, C-x, C-b, C-;
+ ;; Org-mode - left keys are: C-q, C-d, C-z, C-x, C-b
  "," '(org-todo :wk "Org set todo")          ; Can't do C-, in terminal
  "." '(org-priority :wk "Org set priority")  ; Can't do C-. in terminal
  "C-_" '(org-set-tags-command :wk "Org set tag")
  "C-p" '(org-set-property :wk "Org set property")
  "C-e" '(org-set-effort :wk "Org set effort")
  "C-f" '(org-insert-file-link :wk "Org insert file link")
+ "C-w" '(org-insert-link :wk "Org insert link")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
@@ -1842,6 +1845,41 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (use-package consult
   :ensure t
   :config)
+#+end_src
+
+** Embark
+[[https://github.com/oantolin/embark][Embark]] is a emacs Mini-Buffer Actions Rooted in Keymaps.
+
+#+begin_src emacs-lisp
+(use-package embark
+  :ensure t
+  :bind
+  ;(("C-." . embark-act)         ;; pick some comfortable binding
+  ; ("C-;" . embark-dwim)        ;; good alternative: M-.
+  ; ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
+  ;; strategy, if you want to see the documentation from multiple providers.
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+#+end_src
+
+** Embark-consult
+
+#+begin_src emacs-lisp
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 #+end_src
 
 ** Magit
