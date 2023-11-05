@@ -45,10 +45,10 @@
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
   - [[#maximize-window-split][Maximize-window-split]]
-  - [[#avy][Avy]]
 - [[#other-packages][Other Packages]]
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
+  - [[#avy][Avy]]
   - [[#vertico][Vertico]]
   - [[#marginalia][Marginalia]]
   - [[#magit][Magit]]
@@ -1531,19 +1531,6 @@ Function for toggling maximization of window split.
     (delete-other-windows)))
 #+end_src
 
-** Avy
-
-#+begin_src emacs-lisp
-(use-package avy
-  :ensure t)
-
-;; Make newline to were avy say and hold cursor there. You can quit avy and then normal open-line
-(defun avy-open-line ()
-  (interactive)
-  (command-execute 'avy-goto-line)
-  (command-execute 'open-line))
-#+end_src
-
 * Other Packages
 ** Treemacs
  
@@ -1718,6 +1705,19 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 ;    "d P"  `(,(tl/dired-link "~/pictures") :wk "Pictures")
 ;    "d V"  `(,(tl/dired-link "~/videos") :wk "Videos")
 ;    "d C"  `(,(tl/dired-link "~/.config") :wk ".config"))
+#+end_src
+
+** Avy
+
+#+begin_src emacs-lisp
+(use-package avy
+  :ensure t)
+
+;; Make newline to were avy say and hold cursor there. You can quit avy and then normal open-line
+(defun avy-open-line ()
+  (interactive)
+  (command-execute 'avy-goto-line)
+  (command-execute 'open-line))
 #+end_src
 
 ** Vertico
