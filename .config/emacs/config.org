@@ -437,7 +437,7 @@
     "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
 	  ;"i" '(ibuffer :wk "Ibuffer")                 ; I don't use it
-    "C-k" '(kill-some-buffers :wk "Kill multiple buffers")
+    "K" '(kill-some-buffers :wk "Kill multiple buffers")
     ;; "r" '(revert-buffer :wk "Reload buffer")   ;; Key unavailable
     "C-r" '(rename-buffer :wk "Rename buffer")
     "C-s" '(save-some-buffers :wk "Save multiple buffers")
@@ -598,8 +598,8 @@
  "C-n" '(org-insert-todo-heading :wk "Insert todo heading")
  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")  ; Check if doesn't conflict with org-open-at-point
  "C-h" '(widen :wk "Widen")
- "C-j" '(tl/org-narrow-forward :wk "Narrow forward")
- "C-k" '(tl/org-narrow-backward :wk "Narrow backward")
+ "j" '(tl/org-narrow-forward :wk "Narrow forward")
+ "k" '(tl/org-narrow-backward :wk "Narrow backward")
  "C-l" '(org-narrow-to-subtree :wk "Narrow to subtree")
  "C-u" '(org-narrow-to-block :wk "Narrow to block")
  "C-g" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
@@ -645,8 +645,8 @@
  "w"   '(avy-goto-word-1-above :wk "Jump to a word above")
  "C-h" '(avy-org-goto-heading-timer :wk "Jump to org heading")
  ;; Avy yanking/killing/moving
- "C-k" '(avy-kill-region :wk "Kill region")
- "k"   '(avy-kill-whole-line :wk "Kill whole line")
+ "k"   '(avy-kill-region :wk "Kill region")
+ "K"   '(avy-kill-whole-line :wk "Kill whole line")
  "C-s" '(avy-kill-ring-save-region :wk "Save region")
  "s"   '(avy-kill-ring-save-whole-line :wk "Save whole line")
  "C-y" '(avy-copy-region :wk "Copy region")
