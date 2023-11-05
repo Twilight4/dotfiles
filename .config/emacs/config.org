@@ -136,6 +136,7 @@
 (define-key global-map (kbd "C-l") nil)
 (define-key global-map (kbd "M-t") nil)
 (define-key global-map (kbd "M-i") nil)
+(define-key global-map (kbd "C-c TAB") nil)
 
 ;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
@@ -318,6 +319,7 @@
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "s" '(basic-save-buffer :wk "Save buffer")
 	  "C-p" '(find-file-at-point :wk "Find file at point")
+	  "TAB" '(comment-dwim :wk "Comment lines")
     ;; Buffers
     "C-q" '(delete-frame :wk "Delete frame")
     "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -856,7 +858,7 @@ Adjust org-roam file names in similary way I have in the window title.
   (setq initial-buffer-choice 'dashboard-open)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-  (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
+  (setq dashboard-banner-logo-title nil)
   (setq dashboard-startup-banner "~/.config/emacs/assets/dash.png")  ;; use custom image as banner
   (setq dashboard-center-content t) ;; center the content
   (setq dashboard-items '((recents . 5)
