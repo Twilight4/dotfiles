@@ -28,6 +28,7 @@ The world's greatest programmer once said:
 - [[#c-x-leader-key][C-x Leader Key]]
   - [[#common-keybinds][Common keybinds]]
   - [[#another-prefix-keys][Another prefix-keys]]
+  - [[#consult-buffer][Consult-buffer]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-roam][Org-Roam]]
   - [[#org-roam-dailies][Org-Roam dailies]]
@@ -151,6 +152,18 @@ To create a table just start typing: =| table | name | description=
 | o          | Org            |
 | T          | Toggle         |
 | r          | Registers      |
+
+** Consult-buffer
+
+| Keybinding | Description      |
+|------------+------------------|
+| b          | Buffers          |
+| SPC        | Hidden buffers   |
+| * SPC      | Modified buffers |
+| f SPC      | Files            |
+| r SPC      | File registers   |
+| m SPC      | Bookmarks        |
+| p SPC      | Project          |
 
 * C-c Leader Key
 
