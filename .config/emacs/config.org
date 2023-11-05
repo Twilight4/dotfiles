@@ -486,21 +486,30 @@
 
   (tl/leader-keys
     "c" '(:ignore t :wk "Consult")
+	  ;; Navigation
     "c f" '(consult-fd :wk "Find")
     "c r" '(consult-ripgrep :wk "Ripgrep")
-    "c l" '(consult-line :wk "Search for line")
-    "c L" '(consult-line-multi :wk "Search for line in multiple buffers")
     "c m" '(consult-mark :wk "Jump to marker")
 	  "c M" '(consult-global-mark :wk "Jump to global marker")
     "c o" '(consult-outline :wk "Outline heading")
-    "c b" '(consult-bookmark :wk "Bookmark")
 	  "c g" '(consult-goto-line :wk "Go to line")
 	  "c G" '(consult-git-grep :wk "Search with git grep")
     "c a" '(consult-org-agenda :wk "Go to org agenda heading")
-    "c f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
     "c h" '(consult-org-heading :wk "Go to org heading")
+	  ;; Search 
+    "c l" '(consult-line :wk "Search for line")
+    "c L" '(consult-line-multi :wk "Search for line in multiple buffers")
+    "c k" '(consult-keep-lines :wk "Select lines with a live preview")
+    "c f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
+	  ;; Editing
     "c y" '(consult-yank-from-kill-ring :wk "Yank from kill ring history")
-    "c Y" '(consult-yank-replace :wk "Yank replace from kill ring history"))
+    "c Y" '(consult-yank-replace :wk "Yank replace from kill ring history")
+	  ;; Virtual Buffers
+    "c b" '(consult-bookmark :wk "Bookmark")
+	  ;; Register
+    "c Y" '(consult-register :wk "Load register and jump to location or insert the stored text")
+    "c Y" '(consult-register-load :wk "Load a register")
+    "c Y" '(consult-register-store :wk "Store a register"))
 
 	(tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
