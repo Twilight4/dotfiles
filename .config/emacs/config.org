@@ -284,10 +284,10 @@
      (define-key hl-todo-mode-map (kbd "C-M-j") #'hl-todo-next)
      (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)))
 ;; Org promote/demote headings
-(define-key org-mode-map (kbd "M-H") #'org-metaleft)                     ; default M-<left>
-(define-key org-mode-map (kbd "M-J") #'org-metadown)                     ; default M-<down>
-(define-key org-mode-map (kbd "M-K") #'org-metaup)                       ; default M-<up>
-(define-key org-mode-map (kbd "M-L") #'org-metaright)                    ; default M-<right>
+(define-key org-mode-map (kbd "M-H") #'org-metaleft)
+(define-key org-mode-map (kbd "M-J") #'org-metadown)
+(define-key org-mode-map (kbd "M-K") #'org-metaup)
+(define-key org-mode-map (kbd "M-L") #'org-metaright)
 ;;(define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
 ;;(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 ;; Org-agenda
@@ -468,32 +468,33 @@
 (general-define-key
  :prefix "C-c"
  :keymaps 'org-mode-map
- ;; Org-mode
+ ;; Org-mode - left keys are: C-q, C-w, C-d, C-z, C-x, C-b, C-;
  "," '(org-todo :wk "Org set todo")          ; Can't do C-, in terminal
  "." '(org-priority :wk "Org set priority")  ; Can't do C-. in terminal
  "C-_" '(org-set-tags-command :wk "Org set tag")
  "C-p" '(org-set-property :wk "Org set property")
  "C-e" '(org-set-effort :wk "Org set effort")
- "C-j" '(org-insert-file-link :wk "Org insert file link")
+ "C-f" '(org-insert-file-link :wk "Org insert file link")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
  "/" '(org-time-stamp :wk "Org timestamp")
  "C-y" '(insert-current-time :wk "Insert current time")
- "C-h" '(org-toggle-heading :wk "Toggle heading")
+ "C-v" '(org-toggle-heading :wk "Toggle heading")
  "C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
  "C-i" '(org-toggle-item :wk "Toggle item")
- "C-n" '(org-insert-todo-heading :wk "Insert todo heading")
- "C-v" '(org-narrow-to-subtree :wk "Narrow to subtree")
- ;"C-" '(org-narrow-to-block :wk "Narrow to block")
- "C-f" '(tl/org-narrow-forward :wk "Narrow forward")
- "C-b" '(tl/org-narrow-backward :wk "Narrow backward")
- "C-g" '(widen :wk "Widen")
  "C-m" '(org-meta-return :wk "Insert another heading/bullet")
+ "C-n" '(org-insert-todo-heading :wk "Insert todo heading")
+ "C-o" '(tl/open-images-external-from-org :wk "Narrow to block")   ; Check if doesn't conflict with org-open-at-point
+ "C-h" '(widen :wk "Widen")
+ "C-j" '(tl/org-narrow-forward :wk "Narrow forward")
+ "C-k" '(tl/org-narrow-backward :wk "Narrow backward")
+ "C-l" '(org-narrow-to-subtree :wk "Narrow to subtree")
+ "C-u" '(org-narrow-to-block :wk "Narrow to block")
+ "C-g" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
  "C-s" '(org-insert-subheading :wk "Insert subheading")
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
- "C-q" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
- "I" '(org-toggle-inline-images :wk "Display inline images")
+ ;"I" '(org-toggle-inline-images :wk "Display inline images")    ; Emacs GUI
  ;; Org-Roam
  "p" '(completion-at-point :wk "Complete at point")
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
@@ -2045,6 +2046,17 @@ If you want to see other headings while you are edit the current one, I found a 
     (org-reveal t)
     (org-show-entry)
     (show-children)))
+#+end_src
+
+*** Open images in external editor
+
+#+begin_src emacs-lisp
+;; Open images in external editor such as nsxiv
+(defun tl/open-image-external-from-org ()
+  "Open the image at point in an external viewer like nsxiv."
+  (interactive)
+  (let ((file (org-element-property :path (org-element-context))))
+    (start-process "nsxiv" nil "nsxiv" file)))
 #+end_src
 
 *** Narrow to subtree
