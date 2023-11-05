@@ -224,6 +224,7 @@
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
 (global-set-key (kbd "C-M-h") 'kill-whole-line)
+(global-set-key (kbd "M-y") 'consult-yank-pop)
 ;; Zooming keys
 ;(global-set-key (kbd "C-=") 'text-scale-increase)
 ;(global-set-key (kbd "C--") 'text-scale-decrease)
@@ -499,10 +500,9 @@
     "c f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
     "c h" '(consult-org-heading :wk "Go to org heading")
     "c y" '(consult-yank-from-kill-ring :wk "Yank from kill ring history")
-    "c Y" '(consult-yank-replace :wk "Yank replace from kill ring history")
-	  "c p" '(consult-yank-pop :wk "Yank pop from kill ring history"))
+    "c Y" '(consult-yank-replace :wk "Yank replace from kill ring history"))
 
-  (tl/leader-keys
+	(tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
     "a a" '(org-agenda :wk "General agenda")
     "a o" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
