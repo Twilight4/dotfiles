@@ -2153,6 +2153,14 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
 (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
 #+end_src>
 
+*** Citar
+
+#+begin_src emacs-lisp
+(use-package citar
+  :custom
+  (citar-bibliography '("~/documents/bibliography/references.bib")))
+#+end_src
+
 ** Editing Features for Org
 *** File Links automation
 While =org-insert-link= is all very well and good, a large portion of the time I
