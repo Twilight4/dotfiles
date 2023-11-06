@@ -2105,6 +2105,16 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
 #+begin_src emacs-lisp
 
 #+end_src
+*** Elfeed-score
+
+#+begin_src emacs-lisp
+(use-package elfeed-score
+  :ensure t
+  :config
+  (progn
+    (elfeed-score-enable)
+    (define-key elfeed-search-mode-map "=" elfeed-score-map)))
+#+end_src
 
 *** Org-ref
 
