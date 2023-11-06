@@ -2154,6 +2154,8 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
 #+end_src>
 
 *** Citar
+Emacs package to quickly find and act on bibliographic references, and edit org, markdown, 
+and latex academic documents. 
 
 #+begin_src emacs-lisp
 (use-package citar
@@ -2195,6 +2197,15 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
   :after citar embark
   :no-require
   :config (citar-embark-mode))
+#+end_src
+
+*** Org-roam-bibtex
+
+#+begin_src emacs-lisp
+(use-package org-roam-bibtex
+  :after org-roam
+  :config
+  (require 'org-ref)) ; optional: if using Org-ref v2 or v3 citation links
 #+end_src
 
 ** Editing Features for Org
