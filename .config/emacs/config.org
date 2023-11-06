@@ -2172,6 +2172,20 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
 
 ;; If you prefer to have the Embark menu open with org-open-at-point, you should set this variable
 ;(setq citar-at-point-function 'embark-act)
+
+;; The citar-templates variable configures formatting for these sections, 
+;; as well as the default note function. Here’s the default value:
+(setq citar-templates
+      '((main . "${author editor:30%sn}     ${date year issued:4}     ${title:48}")
+        (suffix . "          ${=key= id:15}    ${=type=:12}    ${tags keywords:*}")
+        (preview . "${author editor:%etal} (${year issued date}) ${title}, ${journal journaltitle publisher container-title collection-title}.\n")
+        (note . "Notes on ${author editor:%etal}, ${title}")))
+
+;; Here’s a screenshot using this configuration, which removes the links indicator, 
+;; and mixes plain text and an icon indicator using all-the-icons.
+(setq citar-indicators
+  (list citar-indicator-files ; plain text
+        citar-indicator-notes-icons)) ; icon
 #+end_src
 
 *** Citar-embark
