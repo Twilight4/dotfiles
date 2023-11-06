@@ -2169,6 +2169,9 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
   (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
   :hook
   (org-mode . citar-capf-setup))
+
+;; If you prefer to have the Embark menu open with org-open-at-point, you should set this variable
+;(setq citar-at-point-function 'embark-act)
 #+end_src
 
 *** Citar-embark
