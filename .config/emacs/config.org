@@ -2246,7 +2246,26 @@ and latex academic documents.
 *** Helm-bibtex
 
 #+begin_src emacs-lisp
+(autoload 'ivy-bibtex "ivy-bibtex" "" t)
+;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
+;; ignores the order of regexp tokens when searching for matching candidates.
+;; Add something like this to your init file:
+(setq ivy-re-builders-alist
+      '((ivy-bibtex . ivy--regex-ignore-order)
+        (t . ivy--regex-plus)))
 
+;; Minimal configuration
+(setq bibtex-completion-bibliography
+      '("~/documents/bibliography/bibtex-file-1.bib"
+        "~/documents/bibliography/bibtex-file-2.bib"))
+
+;; Basic configuration
+;; PDF files
+(setq bibtex-completion-library-path '("~/documents/bibliography/pdfs" "~/documents/bibliography/pdfs"))
+(setq bibtex-completion-pdf-field "File")
+
+;; Notes
+(setq bibtex-completion-notes-path "~/documents/bibliography/notes.org")
 #+end_src
 
 *** Org-noter
