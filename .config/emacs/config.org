@@ -2246,6 +2246,8 @@ and latex academic documents.
 *** Helm-bibtex
 
 #+begin_src emacs-lisp
+(autoload 'helm-bibtex "helm-bibtex" "" t)
+
 ;; Minimal configuration
 (setq bibtex-completion-bibliography
       '("~/documents/bibliography/bibtex-file-1.bib"
