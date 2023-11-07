@@ -2216,9 +2216,9 @@ and latex academic documents.
 *** Citar-org-roam
 
 #+begin_src emacs-lisp
-(use-package citar-org-roam
-  :after (citar org-roam)
-  :config (citar-org-roam-mode))
+;(use-package citar-org-roam
+;  :after (citar org-roam)
+;  :config (citar-org-roam-mode))
 #+end_src
 
 *** Org-roam-bibtex
@@ -2230,15 +2230,15 @@ and latex academic documents.
   (require 'org-ref)) ; optional: if using Org-ref v2 or v3 citation links
 
 ;; Use citar-org-roam to plugin to org-roam-bibtex
-(require 'citar-org-roam)
-(citar-register-notes-source
- 'orb-citar-source (list :name "Org-Roam Notes"
-        :category 'org-roam-node
-        :items #'citar-org-roam--get-candidates
-        :hasitems #'citar-org-roam-has-notes
-        :open #'citar-org-roam-open-note
-        :create #'orb-citar-edit-note
-        :annotate #'citar-org-roam--annotate))
+;(require 'citar-org-roam)
+;(citar-register-notes-source
+; 'orb-citar-source (list :name "Org-Roam Notes"
+;        :category 'org-roam-node
+;        :items #'citar-org-roam--get-candidates
+;        :hasitems #'citar-org-roam-has-notes
+;        :open #'citar-org-roam-open-note
+;        :create #'orb-citar-edit-note
+;        :annotate #'citar-org-roam--annotate))
 
 (setq citar-notes-source 'orb-citar-source)
 #+end_src
@@ -2246,14 +2246,6 @@ and latex academic documents.
 *** Helm-bibtex
 
 #+begin_src emacs-lisp
-(autoload 'ivy-bibtex "ivy-bibtex" "" t)
-;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
-;; ignores the order of regexp tokens when searching for matching candidates.
-;; Add something like this to your init file:
-(setq ivy-re-builders-alist
-      '((ivy-bibtex . ivy--regex-ignore-order)
-        (t . ivy--regex-plus)))
-
 ;; Minimal configuration
 (setq bibtex-completion-bibliography
       '("~/documents/bibliography/bibtex-file-1.bib"
