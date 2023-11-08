@@ -57,6 +57,7 @@
   - [[#embark-consult][Embark-consult]]
   - [[#magit][Magit]]
   - [[#git-timemachine][Git-Timemachine]]
+  - [[#drag-stuff][Drag-stuff]]
   - [[#pdf-tools][Pdf-tools]]
   - [[#desktop-mode][Desktop-mode]]
 - [[#org-mode][Org Mode]]
@@ -1896,6 +1897,13 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
 
 #+begin_src emacs-lisp
 (use-package git-timemachine)
+#+end_src
+
+** Drag-stuff
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "/path/to/drag-stuff")
+(require 'drag-stuff)
 #+end_src
 
 ** Pdf-tools
