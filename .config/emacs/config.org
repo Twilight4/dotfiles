@@ -1902,8 +1902,9 @@ Magit is a complete text-based user interface to =Git=. Source: [[https://magit.
 ** Drag-stuff
 
 #+begin_src emacs-lisp
-(add-to-list 'load-path "/path/to/drag-stuff")
-(require 'drag-stuff)
+(use-package drag-stuff
+  :init
+  (drag-stuff-global-mode 1))
 #+end_src
 
 ** Pdf-tools
