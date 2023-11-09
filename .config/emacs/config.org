@@ -2057,6 +2057,13 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
   :hook ((org-mode text-mode) . tl/visual-fill-column))
 #+end_src
 
+*** Org-alert
+
+#+begin_src emacs-lisp
+(use-package org-alert
+  :ensure t)
+#+end_src
+
 *** Highlight-todo
 Adding highlights to =TODO= and related words.
 
@@ -2192,7 +2199,7 @@ and latex academic documents.
 (use-package citar
   :no-require
   :custom
-  (org-cite-global-bibliography '("~/documents/bibliography/references.bib"))
+  (org-cite-global-bibliography '("~/documents/org/bibliography/references.bib"))
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
@@ -2270,7 +2277,7 @@ and latex academic documents.
 (setq bibtex-completion-pdf-field "File")
 
 ;; Notes
-(setq bibtex-completion-notes-path "~/documents/bibliography/notes.org")
+(setq bibtex-completion-notes-path "~/documents/org/bibliography/notes.org")
 #+end_src
 
 *** Org-noter
