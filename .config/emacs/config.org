@@ -623,7 +623,8 @@
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
  "/" '(org-time-stamp :wk "Org timestamp")
- "C-y" '(insert-current-time :wk "Insert current time")
+ "C-y" '(tl/org-insert-screenshot :wk "Insert current screenshot")
+ ;"C-y" '(insert-current-time :wk "Insert current time")
  "C-v" '(org-toggle-heading :wk "Toggle heading")
  "C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
  "C-i" '(org-toggle-item :wk "Toggle item")
@@ -1432,17 +1433,22 @@ point reaches the beginning or end of the buffer, stop there."
 #+end_src
 
 ** Screenshot Automation
-Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png= to random name of file in =cwd= and insert link to it at point. It's like a workaround to paste images to org-mode buffer. Don't change your emacs =cwd= if you want your screenshots to be in one place.
+Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, prompt for filename, location of the screenshot and insert link to it at point.
 
 #+begin_src emacs-lisp
 (defun tl/org-insert-screenshot ()
-  "copy a screenshot from /tmp/screenshot.png to current directory and insert an org-mode link to it at point"
+  "Copy a screenshot from /tmp/screenshot.png to a specified directory and insert an org-mode link to it at point"
   (interactive)
-  (let ((name (concat default-directory (make-temp-name "img") ".png")))
-    (copy-file "/tmp/screenshot.png" name)
-    (insert (format "[[%s]]" name))))
-
-(global-set-key (kbd "C-M-y") 'tl/org-insert-screenshot)
+  (let* ((filename (read-string "Enter filename: "))
+         (category (read-string "Category (p/n for project/notes): "))
+         (category (if (string= category "p") "project" "notes"))
+         (save-path (if (string= category "project")
+                         "~/desktop/projects/screenshots/"
+                       "~/documents/org/roam/screenshots/"))
+         (full-path (expand-file-name (concat save-path filename ".png"))))
+    (make-directory (file-name-directory full-path) t) ; Ensure the directory exists
+    (copy-file "/tmp/screenshot.png" full-path)
+    (insert (format "[[%s]]" full-path))))
 #+end_src
 
 ** Pdf links Automation
