@@ -3209,7 +3209,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
   (org-gtd-directory "~/documents/org/agenda")
   (org-gtd-areas-of-focus '("Work" "Career" "Privacy" "Social Life" "Habit"))
   (org-edna-use-inheritance t)
-  (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command org-set-effort))
+  (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command org-set-effort org-schedule org-deadline))
   :config
   (org-edna-mode)
   :bind
