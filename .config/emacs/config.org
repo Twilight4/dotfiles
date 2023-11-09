@@ -62,7 +62,7 @@
   - [[#desktop-mode][Desktop-mode]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential Packages]]
-  - [[#bibliography][Bibliography]]
+  - [[#bibliography-management][Bibliography Management]]
   - [[#editing-features-for-org][Editing Features for Org]]
   - [[#org-configuraion][Org Configuraion]]
 
@@ -2156,7 +2156,7 @@ With a prefix ARG, remove start location."
     (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 #+end_src
 
-** Bibliography
+** Bibliography Management
 *** Elfeed
 **** Elfeed Configuration
 An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move through the stories with =C-j/k= when in other frame.
