@@ -2261,12 +2261,12 @@ and latex academic documents.
 
 ;; Minimal configuration
 (setq bibtex-completion-bibliography
-      '("~/documents/bibliography/bibtex-file-1.bib"
-        "~/documents/bibliography/bibtex-file-2.bib"))
+      '("~/documents/org/bibliography/bibtex-file-1.bib"
+        "~/documents/org/bibliography/bibtex-file-2.bib"))
 
 ;; Basic configuration
 ;; PDF files
-(setq bibtex-completion-library-path '("~/documents/bibliography/pdfs" "~/documents/bibliography/pdfs"))
+(setq bibtex-completion-library-path '("~/documents/org/bibliography/pdfs"))
 (setq bibtex-completion-pdf-field "File")
 
 ;; Notes
@@ -2278,7 +2278,7 @@ Emacs document annotator compatible with =pdf-tools=, using Org-mode.
 Source: https://github.com/weirdNox/org-noter
 
 #+begin_src emacs-lisp
-;;  A custom org link type for pdf-tools 
+;; A custom org link type for pdf-tools 
 (use-package org-noter
   :config
   ;; Your org-noter config ........
