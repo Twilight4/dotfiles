@@ -2061,18 +2061,14 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
 
 #+begin_src emacs-lisp
 (use-package org-alert
-  :ensure t)
-
-;; Get system notifications
-(setq alert-default-style 'libnotify)
-
-;; Alert interval
-(setq org-alert-interval 300              ;; how often org-alert checks your agenda file (300 seconds)
-      org-alert-notify-cutoff 10          ;; how long before a scheduled event a notification should be sent - 10 minutes
-      org-alert-notify-after-event-cutoff 10)  ;; controls how long after a scheduled event to continue sending notifications - 10 minutes
-
-;; Custom titles
-(setq org-alert-notification-title "Emacs Agenda")  ;; org-alert uses the title *org* by default
+  :ensure t
+  :config 
+  (setq alert-default-style 'libnotify      ;; get system notifications
+		  org-alert-interval 300              ;; alert interval (300 seconds)
+		  org-alert-notify-cutoff 10          ;; how long before a scheduled event a notification should be sent - 10 minutes
+		  org-alert-notify-after-event-cutoff 10  ;; controls how long after a scheduled event to continue sending notifications - 10 minutes
+		  org-alert-notification-title "Emacs Agenda")  ;; org-alert uses the title *org* by default
+  (org-alert-enable))
 #+end_src
 
 *** Highlight-todo
