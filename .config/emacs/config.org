@@ -2164,7 +2164,8 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
 *** Org-ref
 
 #+begin_src emacs-lisp
-(use-package org-ref)
+(use-package org-ref
+    :ensure t)
 
 (setq bibtex-completion-bibliography '("~/documents/org/bibliography/references.bib"
 					 "~/documents/org/bibliography/dei.bib"
@@ -2251,8 +2252,7 @@ and latex academic documents.
 #+begin_src emacs-lisp
 (use-package org-roam-bibtex
   :after org-roam
-  :config
-  (require 'org-ref)) ; optional: if using Org-ref v2 or v3 citation links
+  :config)
 
 ;; Use citar-org-roam to plugin to org-roam-bibtex
 ;(require 'citar-org-roam)
