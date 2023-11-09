@@ -2062,6 +2062,9 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
 #+begin_src emacs-lisp
 (use-package org-alert
   :ensure t)
+
+;; Get system notifications
+(setq alert-default-style 'libnotify)
 #+end_src
 
 *** Highlight-todo
