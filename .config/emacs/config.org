@@ -2231,13 +2231,13 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
 (add-hook 'elfeed-search-update-hook #'tl/elfeed-update-and-notify)
 
 ;; Function to run the update and notify function every 5 minutes if the elfeed buffer is open
-(defun tl/elfeed-auto-update ()
-  "Run `tl/elfeed-update-and-notify' every 5 minutes if the elfeed buffer is open."
-  (when (get-buffer-window "*elfeed-search*")
-    (tl/elfeed-update-and-notify)))
+;(defun tl/elfeed-auto-update ()
+;  "Run `tl/elfeed-update-and-notify' every 5 minutes if the elfeed buffer is open."
+;  (when (get-buffer-window "*elfeed-search*")
+;    (tl/elfeed-update-and-notify)))
 
 ;; Run the function every 5 minutes
-(run-with-timer 0 (* 5 60) 'tl/elfeed-auto-update)
+;(run-with-timer 0 (* 5 60) 'tl/elfeed-auto-update)
 #+end_src
 
 *** Elfeed-score
@@ -2790,8 +2790,6 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("example" "»–" "–«")
           ("quote" "❝" "❞")
           ("export" "⏩" "⏪"))
-        org-modern-progress nil
-        org-modern-priority nil
         org-modern-horizontal-rule (make-string 36 ?─)
         org-modern-keyword
         '((t . t)
@@ -2835,14 +2833,18 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("caption" . "☰")
           ("results" . "🠶"))))
 
-;; Function to disable org-modern-mode for specific files
+;; Function to disable org-modern-mode for files where it doesn't render properly
 (defun disable-org-modern-for-specific-files ()
   (when (or (string-match-p "diet.org$" buffer-file-name)
             (string-match-p "goals.org$" buffer-file-name)
             (string-match-p "reading.org$" buffer-file-name)
+            (string-match-p "*Org Agenda*$" buffer-file-name)
     (org-modern-mode -1))))
 
 (add-hook 'org-mode-hook 'disable-org-modern-for-specific-files)
+
+;org-modern-progress nil      ;; Disable modern proggress icon
+;org-modern-priority nil      ;; Disable modern priorities
 #+end_src
 
 *** Org-super-agenda
