@@ -438,7 +438,6 @@
     "s" '(basic-save-buffer :wk "Save buffer")
 	  "C-p" '(find-file-at-point :wk "Find file at point")
 	  "TAB" '(comment-dwim :wk "Comment lines")
-	  "y" '(elfeed-download-video :wk "Download video from elfeed using yt-dlp")
 	  ;; Buffers
     "C-q" '(delete-frame :wk "Delete frame")
     "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -458,35 +457,32 @@
 	;"g" '(git-timemachine :wk "Git time machine")
 	;"C-/" '(magit-branch-checkout :wk "Switch branch")
 
-  ;; TODO KEYBINDS
-  ;; (map! :map elfeed-search-mode-map
-	; (tl/leader-keys
-	;   :after elfeed-search elfeed-show
-	;   "f" '(:ignore t :wk "Elfeed")
-	;   "f" '(elfeed :wk "Elfeed")
-	;   "f q" #'+rss/quit
-	;   "f e" #'elfeed-update
-	;   "f r" #'elfeed-search-untag-all-unread
-	;   "f u" #'elfeed-search-tag-all-unread
-	;   "f s" #'elfeed-search-live-filter
-	;   "f RET" #'elfeed-search-show-entry
-	;   "f p" #'elfeed-show-pdf
-	;   "f +" #'elfeed-search-tag-all
-	;   "f -" #'elfeed-search-untag-all
-	;   "f S" #'elfeed-search-set-filter
-	;   "f b" #'elfeed-search-browse-url
-	;   "f y" #'elfeed-search-yank)
-	;   ;; (map! :map elfeed-show-mode-map
-	;   "f q" #'+rss/delete-pane
-	;   "f o" #'ace-link-elfeed
-	;   "f RET" #'org-ref-elfeed-add
-	;   "f n" #'elfeed-show-next
-	;   "f N" #'elfeed-show-prev
-	;   "f p" #'elfeed-show-pdf
-	;   "f +" #'elfeed-show-tag
-	;   "f -" #'elfeed-show-untag
-	;   "f s" #'elfeed-show-new-live-search
-	;   "f y" #'elfeed-show-yank)
+  (tl/leader-keys
+    "e" '(:ignore t :wk "Elfeed"
+          :after elfeed-search elfeed-show)
+    "e q" '(+rss/quit :wk "Quit")
+	  "e e" '(elfeed-update :wk "Update")
+	  "e r" '(elfeed-search-untag-all-unread :wk "Untag all unread")
+	  "e u" '(elfeed-search-tag-all-unread :wk "Tag all unread")
+	  "e s" '(elfeed-search-live-filter :wk "Filter")
+	  "e S" '(elfeed-show-new-live-search :wk "New search")
+	  "e RET" '(elfeed-search-show-entry :wk "Show entry")
+	  "e P" '(elfeed-show-pdf :wk "Show pdf")
+	  "e =" '(elfeed-search-tag-all :wk "Tag all")
+	  "e -" '(elfeed-search-untag-all :wk "Untag all")
+	  "e +" '(elfeed-show-tag :wk "Show tagged")
+	  "e _" '(elfeed-show-untag :wk "Show untagged")
+	  "e f" '(elfeed-search-set-filter :wk "Set filter")
+	  "e b" '(elfeed-search-browse-url :wk "Browse url")
+	  "e y" '(elfeed-search-yank :wk "Yank search")
+	  "e Y" '(elfeed-show-yank :wk "Show yank")
+	  ;"e q" '(+rss/delete-pane :wk "Delete pane")
+	  "e o" '(ace-link-elfeed :wk "Ace link")
+	  "e a" '(org-ref-elfeed-add :wk "Org-ref add")
+	  "e n" '(elfeed-show-next :wk "Next")
+	  "e p" '(elfeed-show-prev :wk "Previous")
+	  "e R" '(tl/elfeed-update-and-notify :wk "Trigger the update and notification")    
+	  "e D" '(tl/elfeed-download-video :wk "Download video from elfeed using yt-dlp"))
 
   (tl/leader-keys
     "c" '(:ignore t :wk "Consult")
@@ -545,9 +541,17 @@
     "t T" '(org-transclusion-mode :wk "Org Transclusion mode"))
 
   (tl/leader-keys
-    "o" '(:ignore t :wk "Org")
+    "o" '(:ignore t :wk "Eval/Edit File")
+    "o r" '(eval-region :wk "Evaluate a region")
+    "o b" '(eval-buffer :wk "Evaluate a buffer")
     "o e" '(org-export-dispatch :wk "Org export dispatch")
-    "o T" '(org-babel-tangle :wk "Org babel tangle"))
+    "o T" '(org-babel-tangle :wk "Org babel tangle")
+    "o c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
+    "o s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
+
+  (which-key-add-key-based-replacements 
+    "C-x o c" "Edit config"
+    "C-x o s" "Edit emacs cheatsheet")
 
   (tl/leader-keys
     "d" '(:ignore t :wk "Dired")
@@ -593,17 +597,6 @@
   ;;   "g s" '(magit-stage-file :wk "Git stage file")
   ;;   "g t" '(git-timemachine :wk "Git time machine")
   ;;   "g u" '(magit-stage-file :wk "Git unstage file"))
-
-  (tl/leader-keys
-    "e" '(:ignore t :wk "Eval/Edit File")
-    "e r" '(eval-region :wk "Evaluate a region")
-    "e b" '(eval-buffer :wk "Evaluate a buffer")
-    "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
-    "e s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
-
-  (which-key-add-key-based-replacements 
-    "C-x e c" "Edit config"
-    "C-x e s" "Edit emacs cheatsheet")
 #+end_src
 
 *** C-c Leader Key
@@ -2192,27 +2185,6 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
   (elfeed-goodies/setup)
   :config
   (setq elfeed-goodies/entry-pane-size 0.5))
-
-;; Define function to create frame with Elfeed
-(defun run-elfeed-frame ()
-  (interactive)
-  (let ((buf (get-buffer-create "*Elfeed*")))
-    (pop-to-buffer-same-window buf)
-    (elfeed)))
-
-;; From newly uploaded videos feeds in elfeed, have them downloaded if desired
-(defun elfeed-download-video ()
-  "Download a video using yt-dlp."
-  (interactive)
-  (let* ((yt-dlp-command "/usr/bin/yt-dlp --restrict-filenames -f 22 -P ~/videos/elfeed-youtube -o \"%(title)s.%(ext)s\"")
-         (link (elfeed-entry-link elfeed-show-entry))
-         (command (format "%s %s" yt-dlp-command link)))
-    (async-shell-command command)))
-
-;; Add `youtube` tag to all videos
-(add-hook 'elfeed-new-entry-hook
-          (elfeed-make-tagger :feed-url "youtube\\.com"
-                              :add '(video youtube)))
 #+end_src
 
 **** Elfeed Visual enhancments
@@ -2224,7 +2196,48 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
 **** Elfeed functionality enhancemnts
 
 #+begin_src emacs-lisp
+;; Define function to create frame with Elfeed
+(defun run-elfeed-frame ()
+  (interactive)
+  (let ((buf (get-buffer-create "*Elfeed*")))
+    (pop-to-buffer-same-window buf)
+    (elfeed)))
 
+;; From newly uploaded videos feeds in elfeed, have them downloaded if desired
+(defun tl/elfeed-download-video ()
+  "Download a video using yt-dlp."
+  (interactive)
+  (let* ((yt-dlp-command "/usr/bin/yt-dlp --restrict-filenames -f 22 -P ~/videos/elfeed-youtube -o \"%(title)s.%(ext)s\"")
+         (link (elfeed-entry-link elfeed-show-entry))
+         (command (format "%s %s" yt-dlp-command link)))
+    (async-shell-command command)))
+
+;; Add `youtube` tag to all videos
+;; (add-hook 'elfeed-new-entry-hook
+;;           (elfeed-make-tagger :feed-url "youtube\\.com"
+;;                               :add '(video youtube)))
+
+;; Function to update elfeed feeds and show desktop notifications for new entries
+(defun tl/elfeed-update-and-notify ()
+  "Update elfeed feeds and show desktop notifications for new entries."
+  (interactive)
+  (elfeed-update)
+  (let ((new-entries (elfeed-search-unread-unenclosed)))
+    (when new-entries
+      (let ((notification-body (format "You have %d new Elfeed entries." (length new-entries))))
+        (call-process "notify-send" nil nil nil "--urgency=normal" "--expire-time=5000" "New Elfeed Entries" notification-body)))))
+
+;; Hook to update feeds and show notifications after updating
+(add-hook 'elfeed-search-update-hook #'tl/elfeed-update-and-notify)
+
+;; Function to run the update and notify function every 5 minutes if the elfeed buffer is open
+(defun tl/elfeed-auto-update ()
+  "Run `tl/elfeed-update-and-notify' every 5 minutes if the elfeed buffer is open."
+  (when (get-buffer-window "*elfeed-search*")
+    (tl/elfeed-update-and-notify)))
+
+;; Run the function every 5 minutes
+(run-with-timer 0 (* 5 60) 'tl/elfeed-auto-update)
 #+end_src
 
 *** Elfeed-score
