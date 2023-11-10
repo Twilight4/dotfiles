@@ -458,31 +458,31 @@
 	;"C-/" '(magit-branch-checkout :wk "Switch branch")
 
   (tl/leader-keys
-    "e" '(:ignore t :wk "Elfeed"
+    "f" '(:ignore t :wk "Elfeed"
           :after elfeed-search elfeed-show)
-    "e q" '(+rss/quit :wk "Quit")
-	  "e e" '(elfeed-update :wk "Update")
-	  "e r" '(elfeed-search-untag-all-unread :wk "Untag all unread")
-	  "e u" '(elfeed-search-tag-all-unread :wk "Tag all unread")
-	  "e s" '(elfeed-search-live-filter :wk "Filter")
-	  "e S" '(elfeed-show-new-live-search :wk "New search")
-	  "e RET" '(elfeed-search-show-entry :wk "Show entry")
-	  "e P" '(elfeed-show-pdf :wk "Show pdf")
-	  "e =" '(elfeed-search-tag-all :wk "Tag all")
-	  "e -" '(elfeed-search-untag-all :wk "Untag all")
-	  "e +" '(elfeed-show-tag :wk "Show tagged")
-	  "e _" '(elfeed-show-untag :wk "Show untagged")
-	  "e f" '(elfeed-search-set-filter :wk "Set filter")
-	  "e b" '(elfeed-search-browse-url :wk "Browse url")
-	  "e y" '(elfeed-search-yank :wk "Yank search")
-	  "e Y" '(elfeed-show-yank :wk "Show yank")
-	  ;"e q" '(+rss/delete-pane :wk "Delete pane")
-	  "e o" '(ace-link-elfeed :wk "Ace link")
-	  "e a" '(org-ref-elfeed-add :wk "Org-ref add")
-	  "e n" '(elfeed-show-next :wk "Next")
-	  "e p" '(elfeed-show-prev :wk "Previous")
-	  "e R" '(tl/elfeed-update-and-notify :wk "Trigger the update and notification")    
-	  "e D" '(tl/elfeed-download-video :wk "Download video from elfeed using yt-dlp"))
+    "f q" '(+rss/quit :wk "Quit")
+	  "f e" '(elfeed-update :wk "Update")
+	  "f r" '(elfeed-search-untag-all-unread :wk "Untag all unread")
+	  "f u" '(elfeed-search-tag-all-unread :wk "Tag all unread")
+	  "f s" '(elfeed-search-live-filter :wk "Filter")
+	  "f S" '(elfeed-show-new-live-search :wk "New search")
+	  "f RET" '(elfeed-search-show-entry :wk "Show entry")
+	  "f P" '(elfeed-show-pdf :wk "Show pdf")
+	  "f =" '(elfeed-search-tag-all :wk "Tag all")
+	  "f -" '(elfeed-search-untag-all :wk "Untag all")
+	  "f +" '(elfeed-show-tag :wk "Show tagged")
+	  "f _" '(elfeed-show-untag :wk "Show untagged")
+	  "f f" '(elfeed-search-set-filter :wk "Set filter")
+	  "f b" '(elfeed-search-browse-url :wk "Browse url")
+	  "f y" '(elfeed-search-yank :wk "Yank search")
+	  "f Y" '(elfeed-show-yank :wk "Show yank")
+	  ;"f q" '(+rss/delete-pane :wk "Delete pane")
+	  "f o" '(ace-link-elfeed :wk "Ace link")
+	  "f a" '(org-ref-elfeed-add :wk "Org-ref add")
+	  "f n" '(elfeed-show-next :wk "Next")
+	  "f p" '(elfeed-show-prev :wk "Previous")
+	  "f R" '(tl/elfeed-update-and-notify :wk "Trigger the update and notification")    
+	  "f D" '(tl/elfeed-download-video :wk "Download video from elfeed using yt-dlp"))
 
   (tl/leader-keys
     "c" '(:ignore t :wk "Consult")
@@ -541,17 +541,17 @@
     "t T" '(org-transclusion-mode :wk "Org Transclusion mode"))
 
   (tl/leader-keys
-    "o" '(:ignore t :wk "Eval/Edit File")
-    "o r" '(eval-region :wk "Evaluate a region")
-    "o b" '(eval-buffer :wk "Evaluate a buffer")
-    "o e" '(org-export-dispatch :wk "Org export dispatch")
-    "o T" '(org-babel-tangle :wk "Org babel tangle")
-    "o c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
-    "o s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
+    "e" '(:ignore t :wk "Eval/Edit File")
+    "e r" '(eval-region :wk "Evaluate a region")
+    "e b" '(eval-buffer :wk "Evaluate a buffer")
+    "e e" '(org-export-dispatch :wk "Org export dispatch")
+    "e T" '(org-babel-tangle :wk "Org babel tangle")
+    "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
+    "e s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
   (which-key-add-key-based-replacements 
-    "C-x o c" "Edit config"
-    "C-x o s" "Edit emacs cheatsheet")
+    "C-x e c" "Edit config"
+    "C-x e s" "Edit emacs cheatsheet")
 
   (tl/leader-keys
     "d" '(:ignore t :wk "Dired")
