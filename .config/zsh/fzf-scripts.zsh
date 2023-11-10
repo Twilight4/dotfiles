@@ -71,7 +71,7 @@ fqli () {
             read query
             if [ -z "$query" ]
             then
-                xdg-open "https://www.youtube.com" &
+                xdg-open "https://www.youtube.com/feed/subscriptions" &
             else
                 xdg-open "https://www.youtube.com/results?search_query=$query" &
             fi ;;
