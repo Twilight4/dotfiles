@@ -458,33 +458,6 @@
 	;"C-/" '(magit-branch-checkout :wk "Switch branch")
 
   (tl/leader-keys
-    "f" '(:ignore t :wk "Elfeed"
-          :after elfeed-search elfeed-show)
-    "f q" '(+rss/quit :wk "Quit")
-	  "f e" '(elfeed-update :wk "Update")
-	  "f r" '(elfeed-search-untag-all-unread :wk "Untag all unread")
-	  "f u" '(elfeed-search-tag-all-unread :wk "Tag all unread")
-	  "f s" '(elfeed-search-live-filter :wk "Filter")
-	  "f S" '(elfeed-show-new-live-search :wk "New search")
-	  "f RET" '(elfeed-search-show-entry :wk "Show entry")
-	  "f P" '(elfeed-show-pdf :wk "Show pdf")
-	  "f =" '(elfeed-search-tag-all :wk "Tag all")
-	  "f -" '(elfeed-search-untag-all :wk "Untag all")
-	  "f +" '(elfeed-show-tag :wk "Show tagged")
-	  "f _" '(elfeed-show-untag :wk "Show untagged")
-	  "f f" '(elfeed-search-set-filter :wk "Set filter")
-	  "f b" '(elfeed-search-browse-url :wk "Browse url")
-	  "f y" '(elfeed-search-yank :wk "Yank search")
-	  "f Y" '(elfeed-show-yank :wk "Show yank")
-	  ;"f q" '(+rss/delete-pane :wk "Delete pane")
-	  "f o" '(ace-link-elfeed :wk "Ace link")
-	  "f a" '(org-ref-elfeed-add :wk "Org-ref add")
-	  "f n" '(elfeed-show-next :wk "Next")
-	  "f p" '(elfeed-show-prev :wk "Previous")
-	  "f R" '(tl/elfeed-update-and-notify :wk "Trigger the update and notification")    
-	  "f D" '(tl/elfeed-download-video :wk "Download video from elfeed using yt-dlp"))
-
-  (tl/leader-keys
     "c" '(:ignore t :wk "Consult")
 	  ;; Navigation
     "c f" '(consult-fd :wk "Find")
@@ -2185,6 +2158,33 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
   (elfeed-goodies/setup)
   :config
   (setq elfeed-goodies/entry-pane-size 0.5))
+
+(defun tl/setup-elfeed-keys ()
+  "Set up keybindings for Elfeed buffer."
+  (define-key elfeed-search-mode-map (kbd "q") '+rss/quit)
+  (define-key elfeed-search-mode-map (kbd "e") 'elfeed-update)
+  (define-key elfeed-search-mode-map (kbd "r") 'elfeed-search-untag-all-unread)
+  (define-key elfeed-search-mode-map (kbd "u") 'elfeed-search-tag-all-unread)
+  (define-key elfeed-search-mode-map (kbd "s") 'elfeed-search-live-filter)
+  (define-key elfeed-search-mode-map (kbd "S") 'elfeed-show-new-live-search)
+  (define-key elfeed-search-mode-map (kbd "RET") 'elfeed-search-show-entry)
+  (define-key elfeed-search-mode-map (kbd "P") 'elfeed-show-pdf)
+  (define-key elfeed-search-mode-map (kbd "=") 'elfeed-search-tag-all)
+  (define-key elfeed-search-mode-map (kbd "-") 'elfeed-search-untag-all)
+  (define-key elfeed-search-mode-map (kbd "+") 'elfeed-show-tag)
+  (define-key elfeed-search-mode-map (kbd "_") 'elfeed-show-untag)
+  (define-key elfeed-search-mode-map (kbd "f") 'elfeed-search-set-filter)
+  (define-key elfeed-search-mode-map (kbd "b") 'elfeed-search-browse-url)
+  (define-key elfeed-search-mode-map (kbd "y") 'elfeed-search-yank)
+  (define-key elfeed-search-mode-map (kbd "Y") 'elfeed-show-yank)
+  (define-key elfeed-search-mode-map (kbd "o") 'ace-link-elfeed)
+  (define-key elfeed-search-mode-map (kbd "a") 'org-ref-elfeed-add)
+  (define-key elfeed-search-mode-map (kbd "n") 'elfeed-show-next)
+  (define-key elfeed-search-mode-map (kbd "p") 'elfeed-show-prev)
+  (define-key elfeed-search-mode-map (kbd "R") 'tl/elfeed-update-and-notify)
+  (define-key elfeed-search-mode-map (kbd "D") 'tl/elfeed-download-video))
+
+(add-hook 'elfeed-search-mode-hook #'tl/setup-elfeed-keys)
 #+end_src
 
 **** Elfeed Visual enhancments
@@ -2248,7 +2248,7 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
   :config
   (progn
     (elfeed-score-enable)
-    (define-key elfeed-search-mode-map "=" elfeed-score-map)))
+    (define-key elfeed-search-mode-map "0" elfeed-score-map)))
 #+end_src
 
 *** Org-ref
