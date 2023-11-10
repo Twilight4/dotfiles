@@ -438,7 +438,8 @@
     "s" '(basic-save-buffer :wk "Save buffer")
 	  "C-p" '(find-file-at-point :wk "Find file at point")
 	  "TAB" '(comment-dwim :wk "Comment lines")
-    ;; Buffers
+	  "y" '(elfeed-download-video :wk "Download video from elfeed using yt-dlp")
+	  ;; Buffers
     "C-q" '(delete-frame :wk "Delete frame")
     "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     "C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
@@ -2183,6 +2184,8 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
                         ("https://betanews.com/feed" betanews linux)
                         ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
                         ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
+                        ;; Youtube subscription channels
+                        ;("https://www.youtube.com/feeds/videos.xml?channel_id=UC0sytTpk1adR_cfjHhiJ08Q")))))
  
 (use-package elfeed-goodies
   :init
@@ -2196,6 +2199,20 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
   (let ((buf (get-buffer-create "*Elfeed*")))
     (pop-to-buffer-same-window buf)
     (elfeed)))
+
+;; From newly uploaded videos feeds in elfeed, have them downloaded if desired
+(defun elfeed-download-video ()
+  "Download a video using yt-dlp."
+  (interactive)
+  (let* ((yt-dlp-command "/usr/bin/yt-dlp --restrict-filenames -f 22 -P ~/videos/elfeed-youtube -o \"%(title)s.%(ext)s\"")
+         (link (elfeed-entry-link elfeed-show-entry))
+         (command (format "%s %s" yt-dlp-command link)))
+    (async-shell-command command)))
+
+;; Add `youtube` tag to all videos
+(add-hook 'elfeed-new-entry-hook
+          (elfeed-make-tagger :feed-url "youtube\\.com"
+                              :add '(video youtube)))
 #+end_src
 
 **** Elfeed Visual enhancments
