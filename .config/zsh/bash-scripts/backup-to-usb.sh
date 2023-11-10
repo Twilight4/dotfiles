@@ -2,24 +2,20 @@
 
 # backup home to usb
 rsync -aAXvz --ignore-errors --delete --progress \
---exclude Downloads \
---exclude Documents/BlackmagicDesign \
+--exclude downloads \
+--exclude documents/BlackmagicDesign \
 --exclude GPUCache \
---exclude Music \
+--exclude music \
 --exclude roms \
 --exclude snap \
 --exclude torrents \
---exclude Videos \
+--exclude videos \
 --exclude libvirt \
---exclude .nix-channels \
---exclude .nix-defexpr \
---exclude .nix-profile \
 --exclude .config/xmonad \
 --exclude .cache \
 --exclude .dbus \
---exclude .mozilla \
+--exclude .mercury \
 --exclude .var \
---exclude .kodi \
 --exclude .googleearth \
 --exclude .local/share/flatpak \
-/home/djwilcox /mnt/usb
+/home/twilight /mnt/usb
