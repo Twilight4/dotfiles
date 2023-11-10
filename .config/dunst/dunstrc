@@ -28,7 +28,6 @@ sticky_history = yes
 history_length = 20
 browser = x-www-browser -new-tab
 icon_path = "$HOME"/mako/icons/
-#icon_path = "$HOME"/.config/.local/share/icons/Sweet-Red
 always_run_script = true
 title = Dunst
 class = Dunst
