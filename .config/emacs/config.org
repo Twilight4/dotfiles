@@ -45,18 +45,19 @@
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
   - [[#maximize-window-split][Maximize-window-split]]
+- [[#minibuffer--completion-framework][Minibuffer / Completion Framework]]
+  - [[#vertico][Vertico]]
+  - [[#orderless][Orderless]]
+  - [[#marginalia][Marginalia]]
+  - [[#consult][Consult]]
+  - [[#embark][Embark]]
+  - [[#embark-consult][Embark-consult]]
 - [[#other-packages][Other Packages]]
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#avy][Avy]]
-  - [[#vertico][Vertico]]
-  - [[#marginalia][Marginalia]]
-  - [[#orderless][Orderless]]
-  - [[#consult][Consult]]
   - [[#elfeed][Elfeed]]
   - [[#elfeed-score][Elfeed-score]]
-  - [[#embark][Embark]]
-  - [[#embark-consult][Embark-consult]]
   - [[#magit][Magit]]
   - [[#git-timemachine][Git-Timemachine]]
   - [[#drag-stuff][Drag-stuff]]
@@ -1539,6 +1540,137 @@ Function for toggling maximization of window split.
     (delete-other-windows)))
 #+end_src
 
+* Minibuffer / Completion Framework
+** Vertico
+Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options. One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top. This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
+
+The following configuration will add a few improvements: 
+- Additional key bindings for users that like Vim-style movement keys
+- Saving completion history, Vertico will sort items based on history!
+- Adding extra metadata for completions in the margins using Marginalia
+  
+#+begin_src emacs-lisp
+(use-package vertico
+  :ensure t
+  :bind (:map vertico-map
+         ("C-n" . vertico-next)
+         ("C-p" . vertico-previous)
+         ("C-f" . vertico-exit))
+  :init
+  (vertico-mode)
+  (savehist-mode))
+#+end_src
+
+** Orderless
+
+#+begin_src emacs-lisp
+(use-package orderless
+  :ensure t
+  :config
+  (setq completion-styles '(orderless basic)
+		read-buffer-completion-ignore-case t
+		completion-category-defaults nil
+		completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
+** Marginalia
+Marginalia is nice, but the file metadata annotations are a little too plain. Specifically, I have these gripes
+- File attributes would be nicer if coloured
+- I don’t care about the user/group information if the user/group is me
+- When a file time is recent, a relative age (e.g. 2h ago) is more useful than the date
+- An indication of file fatness would be nice
+
+Thanks to the =marginalia-annotator-registry=, we don’t have to advise, we can just add a new =file= annotator.
+Another small thing is the face used for docstrings. At the moment it’s (italic shadow), but I don’t like that. 
+
+#+begin_src emacs-lisp
+(use-package marginalia
+  :after vertico
+  :ensure t
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init
+  (marginalia-mode)
+
+  (setq marginalia-censor-variables nil)
+
+  (defun +marginalia--annotate-local-file-colorful (cand)
+    "Just a more colourful version of `marginalia--annotate-local-file'."
+    (when-let* ((attrs (file-attributes (substitute-in-file-name
+                                        (marginalia--full-candidate cand)))))
+      (marginalia--fields
+       ((marginalia--file-owner attrs)
+        :width 12 :face 'marginalia-file-owner)
+       ((marginalia--file-modes attrs))
+       ((+marginalia-file-size-colorful (file-attribute-size attrs))
+        :width 7)
+       ((+marginalia--time-colorful (file-attribute-modification-time attrs))
+        :width 12))))
+
+  (defun +marginalia--time-colorful (time)
+    (let* ((seconds (float-time (time-subtract (current-time) time)))
+           (color (doom-blend
+                   (face-attribute 'marginalia-date :foreground nil t)
+                   (face-attribute 'marginalia-documentation :foreground nil t)
+                   (/ 1.0 (log (+ 3 (/ (+ 1 seconds) 345600.0)))))))
+      ;; 1 - log(3 + 1/(days + 1)) % grey
+      (propertize (marginalia--time time) 'face (list :foreground color))))
+
+  (defun +marginalia-file-size-colorful (size)
+    (let* ((size-index (/ (log10 (+ 1 size)) 7.0))
+           (color (if (< size-index 10000000) ; 10m
+                      (doom-blend 'orange 'green size-index)
+                    (doom-blend 'red 'orange (- size-index 1)))))
+      (propertize (file-size-human-readable size) 'face (list :foreground color))))
+
+  (add-function :override (symbol-function 'marginalia--annotate-local-file)
+                #'+marginalia--annotate-local-file-colorful)
+)
+#+end_src
+
+** Consult
+
+#+begin_src emacs-lisp
+(use-package consult
+  :ensure t
+  :config)
+#+end_src
+
+** Embark
+[[https://github.com/oantolin/embark][Embark]] is a emacs Mini-Buffer Actions Rooted in Keymaps.
+
+#+begin_src emacs-lisp
+(use-package embark
+  :ensure t
+  :bind
+  ;(("C-." . embark-act)         ;; pick some comfortable binding
+  ; ("C-;" . embark-dwim)        ;; good alternative: M-.
+  ; ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
+  ;; strategy, if you want to see the documentation from multiple providers.
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+#+end_src
+
+** Embark-consult
+
+#+begin_src emacs-lisp
+;; Consult users will also want the embark-consult package.
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+#+end_src
+
 * Other Packages
 ** Treemacs
  
@@ -1728,101 +1860,6 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
   (command-execute 'open-line))
 #+end_src
 
-** Vertico
-Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options. One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top. This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
-
-The following configuration will add a few improvements: 
-- Additional key bindings for users that like Vim-style movement keys
-- Saving completion history, Vertico will sort items based on history!
-- Adding extra metadata for completions in the margins using Marginalia
-  
-#+begin_src emacs-lisp
-(use-package vertico
-  :ensure t
-  :bind (:map vertico-map
-         ("C-n" . vertico-next)
-         ("C-p" . vertico-previous)
-         ("C-f" . vertico-exit))
-  :init
-  (vertico-mode)
-  (savehist-mode))
-#+end_src
-
-** Marginalia
-Marginalia is nice, but the file metadata annotations are a little too plain. Specifically, I have these gripes
-- File attributes would be nicer if coloured
-- I don’t care about the user/group information if the user/group is me
-- When a file time is recent, a relative age (e.g. 2h ago) is more useful than the date
-- An indication of file fatness would be nice
-
-Thanks to the =marginalia-annotator-registry=, we don’t have to advise, we can just add a new =file= annotator.
-Another small thing is the face used for docstrings. At the moment it’s (italic shadow), but I don’t like that. 
-
-#+begin_src emacs-lisp
-(use-package marginalia
-  :after vertico
-  :ensure t
-  :custom
-  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-  :init
-  (marginalia-mode)
-
-  (setq marginalia-censor-variables nil)
-
-  (defun +marginalia--annotate-local-file-colorful (cand)
-    "Just a more colourful version of `marginalia--annotate-local-file'."
-    (when-let* ((attrs (file-attributes (substitute-in-file-name
-                                        (marginalia--full-candidate cand)))))
-      (marginalia--fields
-       ((marginalia--file-owner attrs)
-        :width 12 :face 'marginalia-file-owner)
-       ((marginalia--file-modes attrs))
-       ((+marginalia-file-size-colorful (file-attribute-size attrs))
-        :width 7)
-       ((+marginalia--time-colorful (file-attribute-modification-time attrs))
-        :width 12))))
-
-  (defun +marginalia--time-colorful (time)
-    (let* ((seconds (float-time (time-subtract (current-time) time)))
-           (color (doom-blend
-                   (face-attribute 'marginalia-date :foreground nil t)
-                   (face-attribute 'marginalia-documentation :foreground nil t)
-                   (/ 1.0 (log (+ 3 (/ (+ 1 seconds) 345600.0)))))))
-      ;; 1 - log(3 + 1/(days + 1)) % grey
-      (propertize (marginalia--time time) 'face (list :foreground color))))
-
-  (defun +marginalia-file-size-colorful (size)
-    (let* ((size-index (/ (log10 (+ 1 size)) 7.0))
-           (color (if (< size-index 10000000) ; 10m
-                      (doom-blend 'orange 'green size-index)
-                    (doom-blend 'red 'orange (- size-index 1)))))
-      (propertize (file-size-human-readable size) 'face (list :foreground color))))
-
-  (add-function :override (symbol-function 'marginalia--annotate-local-file)
-                #'+marginalia--annotate-local-file-colorful)
-)
-#+end_src
-
-** Orderless
-
-#+begin_src emacs-lisp
-(use-package orderless
-  :ensure t
-  :config
-  (setq completion-styles '(orderless basic)
-		read-buffer-completion-ignore-case t
-		completion-category-defaults nil
-		completion-category-overrides '((file (styles partial-completion)))))
-#+end_src
-
-** Consult
-
-#+begin_src emacs-lisp
-(use-package consult
-  :ensure t
-  :config)
-#+end_src
-
 ** Elfeed
 *** Elfeed Configuration
 An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move through the stories with =C-j/k= when in other frame.
@@ -1946,41 +1983,6 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
   (progn
     (elfeed-score-enable)
     (define-key elfeed-search-mode-map "0" elfeed-score-map)))
-#+end_src
-
-** Embark
-[[https://github.com/oantolin/embark][Embark]] is a emacs Mini-Buffer Actions Rooted in Keymaps.
-
-#+begin_src emacs-lisp
-(use-package embark
-  :ensure t
-  :bind
-  ;(("C-." . embark-act)         ;; pick some comfortable binding
-  ; ("C-;" . embark-dwim)        ;; good alternative: M-.
-  ; ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
-  ;; strategy, if you want to see the documentation from multiple providers.
-  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-#+end_src
-
-** Embark-consult
-
-#+begin_src emacs-lisp
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t ; only need to install it, embark loads it after consult if found
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
 #+end_src
 
 ** Magit
@@ -2204,7 +2206,13 @@ Source: https://github.com/weirdNox/org-noter
 ;; A custom org link type for pdf-tools 
 (use-package org-noter
   :config
-  ;; Your org-noter config ........
+  (setq
+   ;; The WM can handle splits
+   org-noter-notes-window-location 'other-frame
+   ;; Please stop opening frames
+   org-noter-always-create-frame nil
+   ;; I want to see the whole file
+   org-noter-hide-other nil)
   (require 'org-noter-pdftools))
 #+end_src
 
@@ -2258,22 +2266,23 @@ Basic requirements for my Zotero settings are:
 - The [[https://retorque.re/zotero-better-bibtex/][better bibtex extension]]
 
 *** Helm-bibtex
+This venerable package is really good at interfacing with a variety of externally formatted bibliographic managers.
 
 #+begin_src emacs-lisp
 (setq 
   bibtex-completion-bibliography "~/documents/org/roam/bibliography/zot-lib.bib"
 	bibtex-completion-notes-path "~/documents/org/roam/bibliography/notes/"
 	bibtex-completion-library-path "~/documents/org/roam/bibliography/bibtex-pdfs/"
-  bibtex-completion-pdf-field "File"
+  bibtex-completion-pdf-field "File"   ;; work with the .bib file generated by Zotero
 	;bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
-  bibtex-completion-notes-template-multiple-files
+  bibtex-completion-notes-template-multiple-files  ;; I prefer to have one notes file per pdf so I only configured the bibtex-completion-notes-template-multiple-files variable
   (concat
   "#+TITLE: ${title}\n"
-  "#+ROAM_KEY: cite:${=key=}\n"
+  "#+ROAM_KEY: cite:${=key=}\n"   ;; ensure that cite backlinks work correctly with org-roam
   "* TODO Notes\n"
   ":PROPERTIES:\n"
   ":Custom_ID: ${=key=}\n"
-  ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+  ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"       ;; allow selecting the pdf to be used with org-noter
   ":AUTHOR: ${author-abbrev}\n"
   ":JOURNAL: ${journaltitle}\n"
   ":DATE: ${date}\n"
@@ -2307,11 +2316,60 @@ Basic requirements for my Zotero settings are:
 #+end_src
 
 *** Org-ref
+This just makes citations much more meaningful in =org-mode=.
 
 #+begin_src emacs-lisp
 (use-package org-ref
-    :ensure t)
+    :ensure t
+    :config
+    (setq
+        org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex  ;; uses the helm-bibtex settings to find the pdf
+        org-ref-default-bibliography "~/documents/org/roam/bibliography/zot-lib.bib"  ;; set to the same location as all the org-roam files, to encourage a flat hierarchy
+        org-ref-bibliography-notes "~/documents/org/roam/bibliography/notes/bibnotes.org"
+        org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
+        org-ref-notes-directory "~/documents/org/roam/bibliography/notes/" ;; set to the same location as all the org-roam files, to encourage a flat hierarchy
+        org-ref-notes-function 'orb-edit-notes))  ;; ensures that, like the helm-bibtex settings, I expect one file per pdf, and that I would like to use my org-roam template instead of the org-ref or helm-bibtex one
+
+(require 'org-ref)
+(require 'org-ref-helm)
+
+;; LaTeX/PDF export
+(setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
 #+end_src>
+
+*** Org-roam-bibtex
+
+#+begin_src emacs-lisp
+(use-package org-roam-bibtex
+  :after org-roam
+  :config
+  (setq org-roam-bibtex-preformat-keywords
+   '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
+  (setq orb-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           ""
+           :file-name "${slug}"
+           :head "#+TITLE: ${=key=}: ${title}\n#+ROAM_KEY: ${ref}\n#+ROAM_TAGS: 
+
+- keywords :: ${keywords}
+
+\n* ${title}\n  :PROPERTIES:\n  :Custom_ID: ${=key=}\n  :URL: ${url}\n  :AUTHOR: ${author-or-editor}\n  :NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n  :NOTER_PAGE: \n  :END:\n\n"
+
+           :unnarrowed t))))
+
+;; Use citar-org-roam to plugin to org-roam-bibtex
+;(require 'citar-org-roam)
+;(citar-register-notes-source
+; 'orb-citar-source (list :name "Org-Roam Notes"
+;        :category 'org-roam-node
+;        :items #'citar-org-roam--get-candidates
+;        :hasitems #'citar-org-roam-has-notes
+;        :open #'citar-org-roam-open-note
+;        :create #'orb-citar-edit-note
+;        :annotate #'citar-org-roam--annotate))
+
+(setq citar-notes-source 'orb-citar-source)
+#+end_src
 
 *** Citar
 Emacs package to quickly find and act on bibliographic references, and edit org, markdown, 
@@ -2359,27 +2417,6 @@ and latex academic documents.
 ;(use-package citar-org-roam
 ;  :after (citar org-roam)
 ;  :config (citar-org-roam-mode))
-#+end_src
-
-*** Org-roam-bibtex
-
-#+begin_src emacs-lisp
-(use-package org-roam-bibtex
-  :after org-roam
-  :config)
-
-;; Use citar-org-roam to plugin to org-roam-bibtex
-;(require 'citar-org-roam)
-;(citar-register-notes-source
-; 'orb-citar-source (list :name "Org-Roam Notes"
-;        :category 'org-roam-node
-;        :items #'citar-org-roam--get-candidates
-;        :hasitems #'citar-org-roam-has-notes
-;        :open #'citar-org-roam-open-note
-;        :create #'orb-citar-edit-note
-;        :annotate #'citar-org-roam--annotate))
-
-(setq citar-notes-source 'orb-citar-source)
 #+end_src
 
 ** Editing Features for Org
@@ -3192,6 +3229,12 @@ this with to-do items than with projects or headings."
         (org-roam-capture-templates (list (append (car org-roam-capture-templates)
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
+
+;; Company completion backend for Org-roam 
+;(use-package company-org-roam
+;  :after org-roam
+;  :config
+;  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
 #+end_src
 
 *** Org-roam-dailies setup
