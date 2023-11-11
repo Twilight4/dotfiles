@@ -629,7 +629,12 @@
  "t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
  "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
- "D" '(org-roam-dailies-goto-date :wk "Go to daily in date"))
+ "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
+ ;; Citar
+ "b" '(org-cite-insert :wk "Insert org citation")
+ "c" '(citar-open :wk "Open citar")
+ ;; Org-roam-bibtex
+ "c" '(orb-insert-link :wk "Insert link to a note of bib entry"))
 #+end_src
 
 *** C-l Leader Key
@@ -2259,11 +2264,12 @@ With a prefix ARG, remove start location."
 #+end_src
 
 ** Bibliography Management
-Basic tools of bibliographic management from the =emacs= end are the venerable [[https://github.com/tmalsburg/helm-bibtex][helm-bibtex]] and [[https://github.com/jkitchin/org-ref/][org-ref]]. 
+Emacs ships with =bibtex-mode=, which helps to create and manage bibliographies. This mode, as the name suggests, uses the BibTeX file format as your default literature database. BibTeX is a plain text format to manage literature and citations and is typically used for LaTeX typesetting, but also perfectly integrates with Org mode. You can also link another bibliographic database, such as Zotero, to Emacs. You can export your library in Zotero, or parts thereof, as a BibTeX file. The Better BibTeX package in Zotero can automate this process so that you remain synchronised.
 
+Basic tools of bibliographic management from the =emacs= end are the venerable [[https://github.com/tmalsburg/helm-bibtex][helm-bibtex]] and [[https://github.com/jkitchin/org-ref/][org-ref]]. 
 Basic requirements for my Zotero settings are:
 - [[https://zotero.org/][Zotero]]
-- The [[https://retorque.re/zotero-better-bibtex/][better bibtex extension]]
+- [[https://retorque.re/zotero-better-bibtex/][Better bibtex extension]]
 
 *** Helm-bibtex
 This venerable package is really good at interfacing with a variety of externally formatted bibliographic managers.
@@ -2372,8 +2378,7 @@ This just makes citations much more meaningful in =org-mode=.
 #+end_src
 
 *** Citar
-Emacs package to quickly find and act on bibliographic references, and edit org, markdown, 
-and latex academic documents. 
+Several Emacs packages are available that can link bibliography files to notes. The Citar package uses the standard minibuffer completion mechanism to access your bibliographies. This package provides access to hyperlinks, notes, attachments and the source bibliography file. Citar also integrates with =org-cite=, Org mode’s citation module.
 
 #+begin_src emacs-lisp
 (use-package citar
@@ -2384,9 +2389,6 @@ and latex academic documents.
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
   (citar-bibliography org-cite-global-bibliography)
-  ;; optional: org-cite-insert is also bound to C-c C-x C-@
-  :bind
-  (:map org-mode-map :package org ("C-c b" . #'org-cite-insert))
   :hook
   (org-mode . citar-capf-setup))
 
