@@ -846,7 +846,8 @@ Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][scr
 
 #+begin_src emacs-lisp
 (use-package doom-themes
-  :init (load-theme 'doom-city-lights t))
+  ;:init (load-theme 'doom-city-lights t))
+  :init (load-theme 'doom-moonlight t))
   :config
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
         doom-themes-enable-italic t)   ; if nil, italics is universally disabled
