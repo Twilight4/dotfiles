@@ -632,9 +632,10 @@
  "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
  ;; Citar
  "b" '(org-cite-insert :wk "Insert org citation")
- "c" '(citar-open :wk "Open citar")
+ "o" '(citar-open :wk "Open citar")
+ "O" '(citar-open-notes :wk "Open notes")
  ;; Org-roam-bibtex
- "c" '(orb-insert-link :wk "Insert link to a note of bib entry"))
+ "I" '(orb-insert-link :wk "Insert link to a note of bib entry"))
 #+end_src
 
 *** C-l Leader Key
@@ -2416,9 +2417,9 @@ Several Emacs packages are available that can link bibliography files to notes. 
 *** Citar-org-roam
 
 #+begin_src emacs-lisp
-;(use-package citar-org-roam
-;  :after (citar org-roam)
-;  :config (citar-org-roam-mode))
+(use-package citar-org-roam
+  :after (citar org-roam)
+  :config (citar-org-roam-mode))
 #+end_src
 
 ** Editing Features for Org
@@ -3210,10 +3211,6 @@ this with to-do items than with projects or headings."
     :unnarrowed t)
    ("n" "note" plain
     (file "~/documents/org/roam/templates/note.org")
-    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-    :unnarrowed t)
-   ("b" "book note" plain
-    (file "~/documents/org/roam/templates/book.org")
     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
     :unnarrowed t)))
 
