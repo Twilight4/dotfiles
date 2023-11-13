@@ -590,6 +590,7 @@
  "C-p" '(org-set-property :wk "Org set property")
  "C-e" '(org-set-effort :wk "Org set effort")
  "C-f" '(org-insert-file-link :wk "Org insert file link")
+ "F" '(org-insert-links-to-directory :wk "Insert all links to directory")
  "C-w" '(org-insert-link :wk "Org insert link")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
  "C-a" '(tl/insert-any-date :wk "Insert any date")
@@ -2447,6 +2448,17 @@ function.
   "Insert a file link.  At the prompt, enter the filename."
   (interactive)
   (insert (format "[[%s]]" (org-link-complete-file))))
+#+end_src
+
+*** Insert all links to directory
+
+#+begin_src emacs-lisp
+(defun org-insert-links-to-directory (directory)
+  "Insert Org mode links to all files in the specified DIRECTORY."
+  (interactive "DSelect directory: ")
+  (mapc (lambda (file)
+          (insert (format "[[file:%s][%s]]\n" file (file-name-nondirectory file))))
+        (directory-files directory t "^[^\\.]" t)))
 #+end_src
 
 *** Style formatting
