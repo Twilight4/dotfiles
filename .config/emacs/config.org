@@ -630,11 +630,16 @@
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
  "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
  "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
- ;; Citar
+ ;; Citations/Footnotes
  "b" '(org-cite-insert :wk "Insert org citation")
- "o" '(citar-open :wk "Open citar")
- "O" '(citar-open-notes :wk "Open notes")
- ;; Org-roam-bibtex
+ ;"" '(citar-create-note :wk "Create note associated to bibtex entry")
+ "o" '(citar-open-note :wk "Open single note directly")
+ ;"O" '(citar-open-notes :wk "Open notes")
+ "O" '(citar-dwim :wk "Run the default action on citation keys at point")
+ ;"" '(citar-org-roam-ref-add :wk "Add a roam_ref to the node")
+ ;"" '(citar-org-delete-citation :wk "Delete the citation")
+ ;"" '(citar-open-links :wk "Open links associated with citekeys")
+ "z" '(org-footnote-action :wk "Insert footnote")
  "I" '(orb-insert-link :wk "Insert link to a note of bib entry"))
 #+end_src
 
