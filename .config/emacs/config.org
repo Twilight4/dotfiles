@@ -441,6 +441,8 @@
     "s" '(basic-save-buffer :wk "Save buffer")
 	  "C-p" '(find-file-at-point :wk "Find file at point")
 	  "TAB" '(comment-dwim :wk "Comment lines")
+	  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
+	  "C-v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
 	  ;; Buffers
     "C-q" '(delete-frame :wk "Delete frame")
     "C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -600,7 +602,6 @@
  "C-i" '(org-toggle-item :wk "Toggle item")
  "C-m" '(org-meta-return :wk "Insert another heading/bullet")
  "C-n" '(org-insert-todo-heading :wk "Insert todo heading")
- "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
  "C-h" '(widen :wk "Widen")
  "j" '(tl/org-narrow-forward :wk "Narrow forward")
  "k" '(tl/org-narrow-backward :wk "Narrow backward")
@@ -640,7 +641,7 @@
  ;"" '(citar-create-note :wk "Create note associated to bibtex entry")
  "o" '(citar-open-note :wk "Open single note directly")
  ;"O" '(citar-open-notes :wk "Open notes")
- "O" '(citar-dwim :wk "Run the default action on citation keys at point")
+ "O" '(citar-dwim :wk "Run the default action on citation keys at point"))
  ;"" '(citar-org-roam-ref-add :wk "Add a roam_ref to the node")
  ;"" '(citar-org-delete-citation :wk "Delete the citation")
  ;"" '(citar-open-links :wk "Open links associated with citekeys"))
@@ -2579,6 +2580,21 @@ If you want to see other headings while you are edit the current one, I found a 
     (start-process "swappy" nil "swappy" "-f" file)))
 #+end_src
 
+*** Open videos in mpv
+
+#+begin_src emacs-lisp
+(defun tl/open-video-link-in-mpv ()
+  "Open the video link at point in mpv."
+  (interactive)
+  (let ((link (org-element-lineage (org-element-context) '(link) t)))
+    (if (and link (string= "file" (org-element-property :type link)))
+        (let ((path (expand-file-name (org-element-property :path link))))
+          (if (file-exists-p path)
+              (start-process "mpv" nil "mpv" path)
+            (message "File not found: %s" path)))
+      (message "Not a valid file link"))))
+#+end_src
+
 *** Narrow to subtree
 After executing =org-narrow-to-subtree= I want to be ableto move the narrowing along with point to the next subtree.
 
@@ -3313,7 +3329,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
   (org-gtd-directory "~/documents/org/agenda")
   (org-gtd-areas-of-focus '("Work" "Career" "Privacy" "Social Life" "Habit"))
   (org-edna-use-inheritance t)
-  (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command org-set-effort org-schedule org-deadline))
+  (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command org-set-effort))
   :config
   (org-edna-mode)
   :bind
