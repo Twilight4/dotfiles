@@ -2425,6 +2425,8 @@ Several Emacs packages are available that can link bibliography files to notes. 
 						   :annotate #'citar-org-roam--annotate))
 
   (setq citar-notes-source 'orb-citar-source))
+
+(setq citar-org-roam-capture-template-key "N")
 #+end_src
 
 ** Editing Features for Org
@@ -3215,6 +3217,13 @@ this with to-do items than with projects or headings."
    ("n" "note" plain
     (file "~/documents/org/roam/templates/note.org")
     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
+    :unnarrowed t)
+   ("N" "literature note" plain
+    "%?"
+    :target
+    (file+head
+    "%(expand-file-name (or citar-org-roam-subdir \"\") org-roam-directory)/${citar-citekey}.org"
+    "#+title: ${citar-citekey} (${citar-date}). ${note-title}.\n#+created: %U\n#+last_modified: %U\n\n")
     :unnarrowed t)))
 
 ;; Org-roam dailies capture templates
