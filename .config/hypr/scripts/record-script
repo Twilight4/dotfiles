@@ -1,4 +1,4 @@
-#/usr/bin/bash
+#!/usr/bin/bash
 
 cd ~/videos
 if ["$(pidof wf-recorder)" -ne ""]; then
