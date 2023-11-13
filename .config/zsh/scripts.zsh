@@ -306,10 +306,19 @@ ydlap() {
     fi
 }
 
-# Download a video with best quality from Youtube - ydl <video_url>
+# Download a video from Youtube in mp4 format - ydl <video_url>
 ydl() {
     if [ ! -z $1 ]; then
         yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(title)s.%(ext)s" "$1"
+    else
+        echo "You need to specify a video url as argument"
+    fi
+}
+
+# Download a video with best quality in mp4 format from Youtube - ydlb <video_url>
+ydlb() {
+    if [ ! -z $1 ]; then
+        yt-dlp --restrict-filenames -f bestvideo+bestaudio/best --merge-output-format mp4 -P ~/videos -o "%(title)s.%(ext)s" "$1"
     else
         echo "You need to specify a video url as argument"
     fi
