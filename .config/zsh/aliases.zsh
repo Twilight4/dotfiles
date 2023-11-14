@@ -225,12 +225,15 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
 # Systemd
-alias sdlist="systemctl list-unit-files --type=service"
+alias sdlist="sudo systemctl list-units --type=service"
+alias sdlisten="sudo systemctl list-units --type=service --state=enabled"
+alias sdlistds="sudo systemctl list-units --type=service --state=disabled"
+alias sdlista="sudo systemctl list-units --type=service --state=active"
 alias sdstatus="sudo systemctl status"
 alias sdstart="sudo systemctl start"
 alias sdstop="sudo systemctl stop"
-alias sdenable="sudo systemctl enable --now"
-alias sddisable="sudo systemctl disable"
+alias sden="sudo systemctl enable --now"
+alias sdds="sudo systemctl disable"
 
 # Amass config alias
 alias Amass='amass enum -config ~/.config/amass/config.ini -d $1'
