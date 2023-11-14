@@ -224,6 +224,14 @@ alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
+# Systemd
+alias sdlist="systemctl list-unit-files --type=service"
+alias sdstatus="sudo systemctl status"
+alias sdstart="sudo systemctl start"
+alias sdstop="sudo systemctl stop"
+alias sdenable="sudo systemctl enable --now"
+alias sddisable="sudo systemctl disable"
+
 # Amass config alias
 alias Amass='amass enum -config ~/.config/amass/config.ini -d $1'
 
