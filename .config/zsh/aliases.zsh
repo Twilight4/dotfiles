@@ -225,9 +225,9 @@ alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
 # Systemd
-alias sdlist="sudo systemctl list-units --type=service"
-alias sdlisten="sudo systemctl list-units --type=service --state=enabled"
-alias sdlistds="sudo systemctl list-units --type=service --state=disabled"
+alias sdlistall="sudo systemctl list-unit-files --type=service"
+alias sdlisten="sudo systemctl list-unit-files --type=service --state=enabled"
+alias sdlistds="sudo systemctl list-unit-files --type=service --state=disabled"
 alias sdlista="sudo systemctl list-units --type=service --state=active"
 alias sdstatus="sudo systemctl status"
 alias sdstart="sudo systemctl start"
