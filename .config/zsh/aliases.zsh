@@ -124,8 +124,9 @@ alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 
 # Using AMD P-State EPP Driver
 alias pstate='cat /sys/devices/system/cpu/amd_pstate/status'   # Check if the p-state driver is active
-alias powersave='sudo cpupower frequency-set -g powersave'
-alias performance='sudo cpupower frequency-set -g performance'
+alias powersave='sudo auto-cpufreq --force=powersave && sudo cpupower frequency-set -g powersave'
+alias performance='sudo auto-cpufreq --force=performance && sudo cpupower frequency-set -g performance'
+alias cpu-reset='sudo auto-cpufreq --force=reset'
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
