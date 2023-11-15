@@ -69,9 +69,9 @@ zsh_add_completion "zsh-users/zsh-completions"
 # More completions https://github.com/zsh-users/zsh-completions
 
 # Keybindings - check functions.zsh and emacs-mode for more
-#source "$ZDOTDIR/plugins/fg-bg.sh"
-#zle -N fg-bg
-#bindkey '^Z' fg-bg        # have it bound "open in emacs" in emacs-mode
+source "$ZDOTDIR/plugins/fg-bg.sh"
+zle -N fg-bg
+bindkey '^Z' fg-bg
 
 # Improved backward kill word
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
