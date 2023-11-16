@@ -22,7 +22,7 @@ case $1 in
 
     # Select wallpaper with rofi
     "select")
-        selected=$(ls -1 ~/.config/hypr/wallpapers/ | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/config.rasi)
+        selected=$(ls -1 ~/.config/hypr/wallpapers/ | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/config.rasi -theme ~/.config/rofi/launcher/style.rasi)
         if [ ! "$selected" ]; then
             echo "No wallpaper selected"
             exit
