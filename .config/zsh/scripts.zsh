@@ -498,33 +498,33 @@ cht() {
 
 # Aliases to bash scripts
 pipes() {
-    "$ZDOTDIR/bash-scripts/pipes.sh" "$@"
+    "$XDG_CONFIG_HOME/.local/bin/pipes.sh" "$@"
 }
 
 colorblocks() {
-    "$ZDOTDIR/bash-scripts/colorblocks.sh" "$@"
+    "$XDG_CONFIG_HOME/.local/bin/colorblocks.sh" "$@"
 }
 
 git-jump() {
-    "$ZDOTDIR/bash/scripts/git-jump.sh" "$@"
+    "$XDG_CONFIG_HOME/.local/bin/git-jump.sh" "$@"
 }
 
 githeat() {
-    "$ZDOTDIR/bash-scripts/heatmap.sh" "$@"
+    "$XDG_CONFIG_HOME/.local/bin/heatmap.sh" "$@"
 }
 
 backup() {
-    "$DOTFILES/bash/scripts/backup/backup.sh" "$@" "$CLOUD/dotfiles/dir.csv"
+    "$XDG_CONFIG_HOME/.local/bin/backup.sh" "$@" "$CLOUD/dotfiles/dir.csv"
 }
 
 bm() {
-    "$ZDOTDIR/bash-scripts/bm.sh" "$@"
+    "$XDG_CONFIG_HOME/.local/bin/bm.sh" "$@"
 }
 
 timer() {
-    "$ZDOTDIR/bash-scripts/timer.sh" "$@"
+    "$XDG_CONFIG_HOME/.local/bin/timer.sh" "$@"
 }
 
 optimize-video() {
-    "$ZDOTDIR/bash-scripts/optimize-video.sh" "$@"
+    "$XDG_CONFIG_HOME/.local/bin/optimize-video.sh" "$@"
 }
