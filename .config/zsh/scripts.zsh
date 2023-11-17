@@ -514,7 +514,7 @@ githeat() {
 }
 
 backup() {
-    "$XDG_CONFIG_HOME/.local/bin/backup.sh" "$@" "$CLOUD/dotfiles/dir.csv"
+    "$XDG_CONFIG_HOME/.local/bin/backup/backup.sh" "$@" "$CLOUD/dotfiles/dir.csv"
 }
 
 bm() {
