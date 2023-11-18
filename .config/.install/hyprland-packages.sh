@@ -2,6 +2,7 @@
 
 packagesPacman=(
     "pacman-contrib"
+	"trizen"
     "xfce4-power-manager" 
   	"git"
     "ccache"
