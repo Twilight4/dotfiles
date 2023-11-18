@@ -42,7 +42,7 @@ cp ~/.config/hypr/wallpapers/$wallpaper ~/.cache/current_wallpaper.jpg
 # ----------------------------------------------------- 
 # Reload waybar with new colors
 # -----------------------------------------------------
-~/.config/hypr/scripts/waybar-reset-theme
+~/.config/hypr/scripts/waybar-switch-theme
 
 # ----------------------------------------------------- 
 # Set the new wallpaper
