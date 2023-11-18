@@ -5,8 +5,7 @@
 hyprctl keyword windowrule "workspace 1 silent,kitty-2" && hyprctl dispatch exec "kitty -1 -T kitty-1 --class kitty-1 --session ~/.config/kitty/session-1"
 
 # workspace 2
-hyprctl keyword windowrule "workspace 2 silent,waterfox" && hyprctl dispatch exec "waterfox-g"
-#hyprctl keyword windowrule "workspace 2 silent,burpsuite" && hyprctl dispatch exec "burpsuite"
+hyprctl keyword windowrule "workspace 2 silent,mercury-bin" && hyprctl dispatch exec "mercury-browser"
 
 # workspace 3
 hyprctl keyword windowrule "workspace 3 silent,kitty-2" && hyprctl dispatch exec "kitty -1 -T kitty-2 --class kitty-2 --session ~/.config/kitty/session-2"
@@ -16,7 +15,7 @@ hyprctl keyword windowrule "workspace 4 silent,logseq" && hyprctl dispatch exec 
 hyprctl keyword windowrule "workspace 4 silent,emacs" && sleep 3 && hyprctl dispatch exec "emacsclient -c -a emacs"   # sleep 3 waits for emacs --daemon from autstart.conf to start
 
 # workspace 6
-hyprctl keyword windowrule "workspace 6 silent,newsboat" && hyprctl dispatch exec "footclient -T newsboat -a newsboat -e newsboat"
+#hyprctl keyword windowrule "workspace 6 silent,newsboat" && hyprctl dispatch exec "footclient -T newsboat -a newsboat -e newsboat"
 
 # workspace special:scratchpad
 hyprctl keyword windowrule "workspace special:scratchpad silent,btop" && hyprctl dispatch exec "footcilent -T btop -a btop -e btop"
@@ -27,8 +26,6 @@ sleep 10      # wait untill apps run
 hyprctl keyword windowrule "unset,kitty-1"
 hyprctl keyword windowrule "unset,waterfox"
 hyprctl keyword windowrule "unset,kitty-2"
-hyprctl keyword windowrule "unset,logseq"       # to remove
 hyprctl keyword windowrule "unset,emacs"
-#hyprctl keyword windowrule "unset,burpsuite"
-hyprctl keyword windowrule "unset,newsboat"
+#hyprctl keyword windowrule "unset,newsboat"
 hyprctl keyword windowrule "unset,btop"
