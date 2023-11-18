@@ -47,23 +47,26 @@ echo ""
 ################
 
 source .config/.install/confirm-start.sh
-source .config/.install/rsync.sh
-source .config/.install/backup.sh
-source .config/.install/preparation.sh
-source .config/.install/profile.sh
+source .config/.install/dependencies.sh
 source .config/.install/hyprland.sh
 source .config/.install/paru.sh
 source .config/.install/hyprland-packages.sh
 source .config/.install/install-packages.sh
-source .config/.install/pywal.sh
 source .config/.install/wallpaper.sh
-source .config/.install/disabledm.sh
-source .config/.install/issue.sh
-source .config/.install/restore.sh
-source .config/.install/setup.sh
-source .config/.install/copy.sh
+source .config/.install/display-manager.sh
+source .config/.install/tty-login.sh
+source .config/.install/install-dotfiles.sh
 source .config/.install/config-folder.sh
 source .config/.install/init-pywal.sh
+source .config/.install/cleanup-homedir.sh
 source .config/.install/hyprland-dotfiles.sh
+source .config/.install/hyprland-entry.sh
+source .config/.install/seclists.sh
+source .config/.install/auto-cpufreq.sh
+source .config/.install/systemd-boot.sh
+source .config/.install/locales.sh
+source .config/.install/nnn.sh
+source .config/.install/supergfxd.sh
+source .config/.install/button-layout.sh
 source .config/.install/zsh.sh
-source .config/.install/done.sh
+source .config/.install/final-message.sh
