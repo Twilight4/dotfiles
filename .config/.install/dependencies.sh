@@ -1,5 +1,6 @@
 #!bin/bash
 
+# Installing necessary dependencies
 echo "Checking if rsync is installed..."
 _installPackagesPacman "rsync";
 echo "Checking if git is installed..."

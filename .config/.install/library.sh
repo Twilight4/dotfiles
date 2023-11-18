@@ -1,10 +1,5 @@
 #!bin/bash
 
-_dot_install() {
-    echo -e "${blue}-> Installing ${yellow}${1} ${blue}config"
-    . "$DOTFILES/install/install-${1}.sh"
-}
-
 # ------------------------------------------------------
 # Function: Is package installed
 # ------------------------------------------------------
