@@ -22,12 +22,12 @@ case $1 in
 
     # Select wallpaper with rofi
     "select")
-        selected=$(ls -1 ~/.config/hypr/wallpapers/ | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/config.rasi -theme ~/.config/rofi/launcher/style.rasi)
-        if [ ! "$selected" ]; then
+        wallpaper=$(ls -1 ~/.config/hypr/wallpapers/ | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/config.rasi -theme ~/.config/rofi/launcher/style.rasi)
+        if [ ! "$wallpaper" ]; then
             echo "No wallpaper selected"
             exit
         fi
-        wal -q -i ~/.config/hypr/wallpapers/$selected
+        wal -q -i ~/.config/hypr/wallpapers/$wallpaper
     ;;
 
     # Randomly select wallpaper 
@@ -46,12 +46,7 @@ echo "Wallpaper: $wallpaper"
 # ----------------------------------------------------- 
 # Copy selected wallpaper into .cache folder
 # ----------------------------------------------------- 
-cp $wallpaper ~/.cache/current_wallpaper.jpg
-
-# ----------------------------------------------------- 
-# get wallpaper iamge name
-# ----------------------------------------------------- 
-newwall=$(echo $wallpaper | sed "s|$HOME/wallpaper/||g")
+cp ~/.config/hypr/wallpapers/$wallpaper ~/.cache/current_wallpaper.jpg
 
 # ----------------------------------------------------- 
 # Reload waybar with new colors
@@ -65,7 +60,7 @@ transition_type="wipe"
 # transition_type="outer"
 # transition_type="random"
 
-swww img $wallpaper \
+swww img ~/.config/hypr/wallpapers/$wallpaper \
     --transition-bezier .43,1.19,1,.4 \
     --transition-fps=60 \
     --transition-type=$transition_type \
@@ -76,6 +71,6 @@ swww img $wallpaper \
 # Send notification
 # ----------------------------------------------------- 
 sleep 1
-notify-send "Colors and Wallpaper updated" "with image $newwall"
+notify-send "Colors and Wallpaper updated" "with image $wallpaper"
 
 echo "DONE!"
