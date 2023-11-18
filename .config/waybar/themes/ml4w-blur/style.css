@@ -132,12 +132,12 @@ window#waybar.empty #window {
  * Custom Quicklinks
  * ----------------------------------------------------- */
 
-#custom-brave, 
 #custom-browser, 
+#custom-keepass,
+#custom-uptime,
+#custom-weather,
 #custom-keybindings, 
-#custom-outlook, 
 #custom-filemanager, 
-#custom-teams, 
 #custom-chatgpt, 
 #custom-calculator, 
 #custom-windowsvm, 
@@ -171,6 +171,29 @@ window#waybar.empty #window {
     border:3px solid @bordercolor;
 }
 
+#custom-keepass {
+    margin: 6px 15px 6px 0px;
+}
+
+#custom-uptime {
+    background-color: @backgroundlight;
+    font-size: 16px;
+    color: @textcolor2;
+    border-radius: 15px;
+    padding: 2px 10px 0px 10px;
+    margin: 8px 15px 8px 0px;
+    opacity:0.8;
+}
+
+#custom-weather {
+    background-color: @backgroundlight;
+    font-size: 16px;
+    color: @textcolor2;
+    border-radius: 15px;
+    padding: 2px 16px 0px 10px;
+    margin: 8px 15px 8px 0px;
+    opacity:0.8;
+}
 /* -----------------------------------------------------
  * Custom Exit
  * ----------------------------------------------------- */
@@ -228,7 +251,7 @@ window#waybar.empty #window {
  * Hardware Group
  * ----------------------------------------------------- */
 
-#disk,#memory,#cpu {
+#disk,#memory,#cpu,#custom-cputemp {
     font-size:16px;
     color: @textcolor2;
 	background-color: @backgroundlight;
@@ -248,6 +271,10 @@ window#waybar.empty #window {
 }
 
 #cpu {
+    margin-right:0px;
+}
+
+#custom-cputemp {
     margin-right:0px;
 }
 

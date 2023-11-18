@@ -23,15 +23,20 @@
     // Modules Left
     "modules-left": [
         "custom/appmenu",
-        "custom/wallpaper",
-        "custom/waybarthemes",          
         "wlr/taskbar",
-        "group/quicklinks",
+        "custom/filemanager",
+		"custom/windowsvm",
+		"custom/chatgpt",
+		"custom/keepass",
+		"custom/uptime",
         "hyprland/window"
     ],
 
     // Modules Center
     "modules-center": [
+        "custom/weather",
+        "tray",
+        "clock",
         "hyprland/workspaces"
     ],
 
@@ -39,23 +44,11 @@
     "modules-right": [
         "custom/updates",
         "pulseaudio",
-        "bluetooth",
-        "battery", 
-        "group/hardware",
         "network",
-        "clock",
-        "custom/cliphist",
+        "group/hardware",
+        "battery", 
         "custom/exit"
     ],
-
-    // Group Quicklinks
-    "group/quicklinks": {
-        "orientation": "horizontal",
-        "modules": [
-            "custom/filemanager",
-            "custom/browser"
-         ]
-    },
 
     // Group Hardware
     "group/hardware": {
@@ -63,7 +56,8 @@
         "modules": [
             "disk",
             "cpu",
-            "memory"
+			"custom/cputemp",
+            "memory",
         ]
     }
 }

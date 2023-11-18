@@ -1,18 +1,24 @@
 {
     // Workspaces
     "hyprland/workspaces" : {
+		"format": "{icon}",
         "on-click": "activate",
-        "active-only": false,
+		"sort-by-number": true,
         "all-outputs": true,
-        "format": "{}",
-        "format-icons": {
-			"urgent": "",
-			"active": "",
-			"default": ""
-        },
+        "active-only": false,
+		"sort-by-number": true,
+		"format-icons": {
+			"1": " ",
+			"2": " ",
+			"3": " ",
+			"4": " ",
+			"5": " ",
+			"6": "󱎫 ",
+			"7": " ",
+		},
         "persistent_workspaces": {
-             "*": 5
-        }       
+             "*": 6
+        }
     },
 
     // Taskbar
@@ -110,6 +116,13 @@
         "tooltip": false
     },
 
+    // KeepassXC Launcher
+    "custom/keepass": {
+        "format": "<span font='16'>󰌆</span> <span font='16'></span>",
+        "on-click": "keepassxc",
+        "tooltip": false
+    },
+
     // Calculator
     "custom/calculator": {
         "format": "",
@@ -119,7 +132,7 @@
 
     // Windows VM
     "custom/windowsvm": {
-        "format": "",
+        "format": "",
         "on-click": "~/.config/.local/bin/run-vm.sh",
         "tooltip": false
     },
@@ -174,6 +187,29 @@
         "format": " {}% ",
         "on-click": "footclient -e btop"
     },
+
+	// Cputemp
+	"custom/cputemp":{
+		"format": "<span font='12' rise='2000'></span> {}",
+		"exec": "~/.config/waybar/scripts/cpu-temp.sh",
+		"interval": 15,
+	},
+
+	// Uptime
+	"custom/uptime":{
+		"format": " {}",
+		"exec": "~/.config/waybar/scripts/upt.sh",
+		"interval": 60,
+	},
+
+	// Weather
+	"custom/weather": {
+		"tooltip": true,
+		"format": "{}",
+		"interval": 300,
+		"exec": "~/.config/waybar/scripts/weather.sh",
+		"return-type": "json",
+	},
 
     // Harddisc space used
     "disk": {
