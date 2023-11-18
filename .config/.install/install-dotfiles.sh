@@ -6,9 +6,8 @@ cat <<"EOF"
  | || '_ \/ __| __/ _` | | |  / _` |/ _ \| __| |_| | |/ _ \/ __|
  | || | | \__ \ || (_| | | | | (_| | (_) | |_|  _| | |  __/\__ \
 |___|_| |_|___/\__\__,_|_|_|  \__,_|\___/ \__|_| |_|_|\___||___/
-                                                                
-
 EOF
+
 echo "The script will now remove existing directories and files from ~/.config/"
 echo "and copy your prepared configuration from ~/downloads/dotfiles/ to ~/desktop/workspace/dotfiles"
 echo "Symbolic links will then be created from ~/desktop/workspace/dotfiles into your ~/.config/ directory."

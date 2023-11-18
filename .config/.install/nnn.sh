@@ -5,7 +5,7 @@ _ __  _ __  _ __
 | '_ \| '_ \| '_ \ 
 | | | | | | | | | |
 |_| |_|_| |_|_| |_|
-EOF                   
+EOF
 
 read -p "Do you want to install plugins for nnn file manager? (y/n): " install_choice
 

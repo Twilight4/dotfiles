@@ -50,6 +50,7 @@ source .config/.install/confirm-start.sh
 source .config/.install/dependencies.sh
 source .config/.install/hyprland.sh
 source .config/.install/paru.sh
+source .config/.install/remove-bloat.sh
 source .config/.install/hyprland-packages.sh
 source .config/.install/install-packages.sh
 source .config/.install/wallpaper.sh
