@@ -7,7 +7,6 @@ __        __    _ _
   \ V  V / (_| | | | |_) | (_| | |_) |  __/ |  \__ \
    \_/\_/ \__,_|_|_| .__/ \__,_| .__/ \___|_|  |___/
                    |_|         |_|                  
-
 EOF
 
 echo "Do you want to download the wallpapers from repository https://github.com/Twilight4/wallpapers/ ?"
