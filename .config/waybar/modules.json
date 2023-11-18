@@ -46,21 +46,12 @@
         "separate-outputs": true
     },
 
-    // Youtube Subscriber Count
-    "custom/youtube": {
-        "format": " {}",
-        "exec": "python ~/private/youtube.py",
-        "restart-interval": 600,
-        "on-click": "brave https://studio.youtube.com",
-        "tooltip": false
-    },
-    
     // Cliphist
     "custom/cliphist": {
         "format": "",
-        "on-click": "sleep 0.1 && ~/dotfiles/scripts/cliphist.sh",
-        "on-click-right": "sleep 0.1 && ~/dotfiles/scripts/cliphist.sh d",
-        "on-click-middle": "sleep 0.1 && ~/dotfiles/scripts/cliphist.sh w",
+        "on-click": "sleep 0.1 && ~/.config/rofi/applets/bin/cliphist.sh",
+        "on-click-right": "sleep 0.1 && ~/.config/rofi/applets/bin/cliphist.sh d",
+        "on-click-middle": "sleep 0.1 && ~/.config/rofi/applets/bin/cliphist.sh w",
         "tooltip": false
     },
 
@@ -70,31 +61,31 @@
         "tooltip-format": "{}",
         "escape": true,
         "return-type": "json",       
-        "exec": "~/dotfiles/scripts/updates.sh",
+        "exec": "~/.config/waybar/scripts/check-updates.sh",
         "restart-interval": 60,
-        "on-click": "alacritty -e ~/dotfiles/scripts/installupdates.sh",
+        "on-click": "footclient -e ~/.config/.local/bin/sys-update.sh",
         "tooltip": false
     },
     
     // Wallpaper
     "custom/wallpaper": {
         "format": "",
-        "on-click": "~/dotfiles/hypr/scripts/wallpaper.sh select",
-        "on-click-right": "~/dotfiles/hypr/scripts/wallpaper.sh",
+        "on-click": "~/.config/hypr/scripts/wallpaper select",
+        "on-click-right": "~/.config/hypr/scripts/wallpaper",
         "tooltip": false
     },
 
     // Waybar Themes
     "custom/waybarthemes": {
         "format": "",
-        "on-click": "~/dotfiles/waybar/themeswitcher.sh",
+        "on-click": "~/.config/hypr/scripts/waybar-switch-theme.sh",
         "tooltip": false
     },
 
     // Keybindings
     "custom/keybindings": {
         "format": "",
-        "on-click": "~/dotfiles/hypr/scripts/keybindings.sh",
+        "on-click": "~/.config/rofi/applets/bin/keybinds.sh",
         "tooltip": false
     },
 
@@ -105,52 +96,31 @@
         "tooltip": false
     },
 
-    // Outlook Launcher
-    "custom/outlook": {
-        "format": "",
-        "on-click": "brave --app=https://outlook.office.com/mail/",
-        "tooltip": false
-    },
-
-    // Teams Launcher
-    "custom/teams": {
-        "format": "",
-        "on-click": "chromium --app=https://teams.microsoft.com/go",
-        "tooltip": false
-    },
-
-    // Brave Launcher
-    "custom/brave": {
+    // Mercury Launcher
+    "custom/mercury": {
         "format": "",
-        "on-click": "brave",
+        "on-click": "mercury-browser",
         "tooltip": false
     },
-
-    // Browser Launcher
-    "custom/browser": {
-        "format": "",
-        "on-click": "chromium",
-        "tooltip": false
-    },    
 
     // ChatGPT Launcher
     "custom/chatgpt": {
         "format": "",
-        "on-click": "brave --app=https://chat.openai.com",
+        "on-click": "xdg-open https://chat.openai.com",
         "tooltip": false
     },
 
     // Calculator
     "custom/calculator": {
         "format": "",
-        "on-click": "qalculate-gtk",
+        "on-click": "gnome-calculator",
         "tooltip": false
     },
 
     // Windows VM
     "custom/windowsvm": {
         "format": "",
-        "on-click": "~/dotfiles/scripts/launchvm.sh",
+        "on-click": "~/.config/.local/bin/run-vm.sh",
         "tooltip": false
     },
 
@@ -158,7 +128,7 @@
     "custom/appmenu": {
         "format": "Apps",
         "on-click": "rofi -show drun -replace",
-        "on-click-right": "~/dotfiles/hypr/scripts/keybindings.sh",
+        "on-click-right": "~/.config/rofi/applets/bin/keybinds.sh",
         "tooltip": false
     },
     
@@ -196,13 +166,13 @@
     // CPU
     "cpu": {
         "format": "/ C {usage}% ",
-        "on-click": "alacritty -e htop"
+        "on-click": "footclient -e cpufetch"
     },
 
     // Memory
     "memory": {
         "format": "/ M {}% ",
-        "on-click": "alacritty -e htop"
+        "on-click": "footclient -e btop"
     },
 
     // Harddisc space used
@@ -210,7 +180,7 @@
         "interval": 30,
         "format": "   {percentage_used}% ",
         "path": "/",
-        "on-click": "alacritty -e htop"
+        "on-click": "footclient -e btop"
     }, 
     
     // Network
@@ -224,7 +194,7 @@
         "tooltip-format-ethernet": "  {ifname} ({ipaddr}/{cidr})",
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50,
-        "on-click": "alacritty -e nmtui"
+        "on-click": "fooclient -e nmtui"
     },
 
     // Battery
@@ -269,7 +239,7 @@
         "format-disabled": "",
         "format-off": "",
         "interval": 30,
-        "on-click": "blueman-manager"
+        "on-click": "blueberry"
     },
 
     // Other
