@@ -7,6 +7,16 @@
 # dotfiles
 **Warning**: Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility and customize responsibly to ensure a stable and secure computing environment. Use at your own risk.
 
+## Installation
+**Warning**: There is no backup system. If you install this on top of your dotfiles, expect a big mess. You shouldn't use the `install.sh` script. You should only pick whatever you want and include it in your own config.
+
+```bash
+cd ~/downloads
+git clone https://github.com/Twilight4/dotfiles.git
+cd dotfiles
+./install.sh
+```
+
 ## Contents
 
 |      Label                     |                         Application                        |
@@ -30,13 +40,3 @@
 |  **Fetch script**              | [Nitch](https://github.com/unxsh/nitch)                    |
 |  **Wallpaper Loader**          | [Swaybg](https://github.com/swaywm/swaybg)                 |
 |  **Wallpapers**                | `~/.config/hypr/wallpapers`                                |
-
-## Installation
-**Warning**: There is no backup system. If you install this on top of your dotfiles, expect a big mess. You shouldn't use the `install.sh` script. You should only pick whatever you want and include it in your own config.
-
-```bash
-cd ~/downloads
-git clone https://github.com/Twilight4/dotfiles.git
-cd dotfiles
-./install.sh
-```
