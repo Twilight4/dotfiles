@@ -148,8 +148,6 @@ packagesPacman=(
     "gtklock-userinfo-module"
     "gnome-keyring"
     "polkit-gnome"
-    "sddm-git"
-    "sddm-theme-astronaut"
 	"swww-git"
 	"python-pywal"
 );
