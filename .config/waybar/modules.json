@@ -165,13 +165,13 @@
 
     // CPU
     "cpu": {
-        "format": "/ C {usage}% ",
+		"format": "<span font='13'></span> <span font='13'> {usage}%</span>",
         "on-click": "footclient -e cpufetch"
     },
 
     // Memory
     "memory": {
-        "format": "/ M {}% ",
+        "format": " {}% ",
         "on-click": "footclient -e btop"
     },
 
