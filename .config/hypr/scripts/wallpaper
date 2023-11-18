@@ -13,12 +13,12 @@ case $1 in
 
     # Select wallpaper with rofi
     "select")
-        wallpaper=$(ls -1 ~/.config/hypr/wallpapers/ | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/config.rasi -theme ~/.config/rofi/launcher/style.rasi)
-        if [ ! "$wallpaper" ]; then
+        selected=$(ls -1 ~/.config/hypr/wallpapers | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/config-wallpaper.rasi)
+        if [ ! "$selected" ]; then
             echo "No wallpaper selected"
             exit
         fi
-        wal -q -i ~/.config/hypr/wallpapers/$wallpaper
+        wal -q -i ~/.config/hypr/wallpapers/$selected
     ;;
 
     # Randomly select wallpaper 
@@ -37,12 +37,17 @@ echo "Wallpaper: $wallpaper"
 # ----------------------------------------------------- 
 # Copy selected wallpaper into .cache folder
 # ----------------------------------------------------- 
-cp ~/.config/hypr/wallpapers/$wallpaper ~/.cache/current_wallpaper.jpg
+cp $wallpaper ~/.cache/current_wallpaper.jpg
+
+# ----------------------------------------------------- 
+# get wallpaper iamge name
+# ----------------------------------------------------- 
+newwall=$(echo $wallpaper | sed "s|$HOME/wallpaper/||g")
 
 # ----------------------------------------------------- 
 # Reload waybar with new colors
 # -----------------------------------------------------
-~/.config/hypr/scripts/waybar-switch-theme
+~/.config/hypr/scripts/waybar-reset-theme
 
 # ----------------------------------------------------- 
 # Set the new wallpaper
@@ -51,7 +56,7 @@ transition_type="wipe"
 # transition_type="outer"
 # transition_type="random"
 
-swww img ~/.config/hypr/wallpapers/$wallpaper \
+swww img $wallpaper \
     --transition-bezier .43,1.19,1,.4 \
     --transition-fps=60 \
     --transition-type=$transition_type \
@@ -62,6 +67,6 @@ swww img ~/.config/hypr/wallpapers/$wallpaper \
 # Send notification
 # ----------------------------------------------------- 
 sleep 1
-notify-send "Colors and Wallpaper updated" "with image $wallpaper"
+notify-send "Colors and Wallpaper updated" "with image $newwall"
 
 echo "DONE!"
