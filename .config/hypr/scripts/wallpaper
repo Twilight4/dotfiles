@@ -13,17 +13,17 @@ case $1 in
 
     # Select wallpaper with rofi
     "select")
-        selected=$(ls -1 ~/.config/hypr/wallpapers | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/configs/config-wallpaper.rasi)
+        selected=$(ls -1 ~/pictures/wallpapers | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/configs/config-wallpaper.rasi)
         if [ ! "$selected" ]; then
             echo "No wallpaper selected"
             exit
         fi
-        wal -q -i ~/.config/hypr/wallpapers/$selected
+        wal -q -i ~/pictures/wallpapers/$selected
 		;;
 
     # Randomly select wallpaper 
     *)
-        wal -q -i ~/.config/hypr/wallpapers/
+        wal -q -i ~/pictures/wallpapers/
 		;;
 
 esac
@@ -42,7 +42,7 @@ cp $wallpaper ~/.cache/current_wallpaper.jpg
 # ----------------------------------------------------- 
 # Get wallpaper image name to display
 # ----------------------------------------------------- 
-newwall=$(echo $wallpaper | sed "s|$HOME/.config/hypr/wallpapers/||g")
+newwall=$(echo $wallpaper | sed "s|~/pictures/wallpapers/||g")
 
 # ----------------------------------------------------- 
 # Reload waybar with new colors

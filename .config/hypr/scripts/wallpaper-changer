@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-wallpapers_path="$HOME/.config/hypr/wallpapers/"
+wallpapers_path="~/pictures/wallpapers/"
 
 while true; do
   swaybg -i $(find $wallpapers_path -type f | shuf -n 1) -m fill
