@@ -202,3 +202,42 @@ packagesParu=(
     "waybar-hyprland-git"
     "hyprpicker-git"
 );
+
+nonessentialpackagesPacman=(
+    "cyberchef-electron"
+    "papirus-icon-theme"
+    "fortune-mod"
+    "lolcat"
+    "figlet"
+    "qemu"
+    "virt-manager"
+    "virt-viewer"
+    "dnsmasq"
+    "vde2"
+    "bridge-utils"
+    "openbsd-netcat"
+    "libguestfs"
+    "libvirt"
+
+    # Bluetooth
+    "bluez"
+    "bluez-tools"
+    "bluez-utils"
+    "blueberry"
+);
+
+nonessentialpackagesParu=(
+    "musikcube-bin"
+    "webcord-bin"
+    "tty-clock-git"
+    "toilet"
+    "cmatrix-git"
+    "openrazer-meta"
+    "ookla-speedtest-bin"
+    "nitch-git"
+    "caffeine-ng"
+    "nvchad-git"
+    "polychromatic-git"
+    "asciiquarium-transparent-git"
+    "universal-android-debloater"
+);
