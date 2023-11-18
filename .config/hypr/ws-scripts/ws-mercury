@@ -5,7 +5,7 @@ is_mercury_running() {
 	pgrep -a "mercury-bin" | grep 'default-default' >/dev/null
 }
 
-# Focus on ws "3" if 'mercury-bin' is not running, else just focus
+# Focus on ws "3" and spawn mercury-browser it's not running, else only focus
 if ! is_mercury_running; then
     # Spawn 'mercury-browser' only if it was not running
     hyprctl dispatch exec 'mercury-browser -P default-default'
