@@ -35,7 +35,6 @@
     // Modules Center
     "modules-center": [
         "custom/weather",
-        "tray",
         "clock",
         "hyprland/workspaces"
     ],
