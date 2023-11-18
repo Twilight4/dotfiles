@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ----------------------------------------------------- 
-# Define keybindings location
+# Define keybindings.conf location
 # ----------------------------------------------------- 
 config_file=~/.config/hypr/configs/keybinds.conf
 
