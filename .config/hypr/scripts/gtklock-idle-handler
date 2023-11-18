@@ -1,0 +1,8 @@
+#!/bin/bash
+
+bat=$(ls /sys/class/power_supply | grep -m 1 "BAT")
+
+sway-audio-idle-inhibit & 
+swayidle -w \
+  timeout 300 "gtklock & if [[ \"$(cat /sys/class/power_supply/$bat/status)\" == \"Discharging\" ]]; then systemctl suspend; else hyprctl dispatch dpms off; fi" resume "hyprctl dispatch dpms on"\
+    before-sleep "gtklock &"
