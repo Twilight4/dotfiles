@@ -1012,7 +1012,7 @@ Adjust org-roam file names in similary way I have in the window title.
 It's always better to set transparency in option for respective applications that supports it rather than setting it in window manager. I use transparency in Hyprland but not in River.
 
 #+begin_src emacs-lisp
-;(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
+(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
 #+end_src
 
 ** Centaur-tabs
