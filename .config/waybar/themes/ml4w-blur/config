@@ -42,10 +42,10 @@
         "bluetooth",
         "battery", 
         "group/hardware",
-        "custom/cliphist",
         "network",
-        "custom/exit",
-        "clock"
+        "clock",
+        "custom/cliphist",
+        "custom/exit"
     ],
 
     // Group Quicklinks
