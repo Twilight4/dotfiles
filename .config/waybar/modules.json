@@ -61,7 +61,7 @@
         "tooltip-format": "{}",
         "escape": true,
         "return-type": "json",       
-        "exec": "~/.config/waybar/scripts/check-updates.sh",
+        "exec": "~/.config/waybar/scripts/updates.sh",
         "restart-interval": 60,
         "on-click": "footclient -e ~/.config/.local/bin/sys-update.sh",
         "tooltip": false
@@ -91,21 +91,21 @@
 
     // Filemanager Launcher
     "custom/filemanager": {
-        "format": "",
-        "on-click": "thunar",
+        "format": "",
+        "on-click": "nautilus",
         "tooltip": false
     },
 
     // Mercury Launcher
-    "custom/mercury": {
-        "format": "",
-        "on-click": "mercury-browser",
+    "custom/browser": {
+        "format": "",
+        "on-click": "~/.config/hypr/ws-scripts/ws-mercury",
         "tooltip": false
     },
 
     // ChatGPT Launcher
     "custom/chatgpt": {
-        "format": "",
+        "format": "󰭹",
         "on-click": "xdg-open https://chat.openai.com",
         "tooltip": false
     },
