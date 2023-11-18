@@ -1,11 +1,9 @@
 #!/bin/sh
 
-# screenshot directory
-screenshot_directory="$HOME/pictures/screenshots"
+# Capture directory
 videos_directory="$HOME/videos/recordings"
 audio_directory="$HOME/music/recordings"
 
-mkdir -p "$screenshot_directory"
 mkdir -p "$videos_directory"
 mkdir -p "$audio_directory"
 
@@ -20,7 +18,6 @@ declare Offset=${Res[3]#*+}
 declare -a Res1=($(/usr/sbin/xrandr |grep " connected"));
 declare Offset1=${Res1[2]#*+}
 
-
 get_area(){
     slop="$(slop -n -f '%w,%h,%x,%y')"
     w=$(echo "$slop" | cut -d ',' -f1)
@@ -32,27 +29,6 @@ get_area(){
     [ $((x%2)) -eq 1 ] && x=$(( x + 1 ))
     [ $((y%2)) -eq 1 ] && y=$(( y + 1 ))
     wh="${w}x${h}"
-}
-screenshot_selected_area(){
-    sleep .5
-    grim -g "$(slurp)" "$screenshot_directory/$date.png"
-    wl-copy -t image/png < "$screenshot_directory/$date.png"
-    notify-send -i "$screenshot_directory/$date.png" "Screenshot" "Area screenshot taken"
-}
-screenshot_full_screen(){
-    grim -o "$activemon" "$screenshot_directory/$date.png"
-    wl-copy -t image/png < "$screenshot_directory/$date.png"
-    notify-send -i "$screenshot_directory/$date.png" "Screenshot" "Full screen screenshot taken"
-}
-screenshot_left_screen(){
-    ffcast -vv -g ${Res[3]} png "$screenshot_directory/$date.png"
-    xclip -selection clipboard -t image/png "$screenshot_directory/$date.png"
-    notify-send -i "$screenshot_directory/$date.png" "Screenshot" "Full screen screenshot taken"
-}
-screenshot_right_screen(){
-    ffcast -vv -g ${Res1[2]} png "$screenshot_directory/$date.png"
-    xclip -selection clipboard -t image/png "$screenshot_directory/$date.png"
-    notify-send -i "$screenshot_directory/$date.png" "Screenshot" "Full screen screenshot taken"
 }
 video_selected_area(){
     get_area
@@ -163,8 +139,6 @@ help(){
 cat << EOF 
 -h | -help | --help
 -s | -stop
--sa | -screenshot_selected_area
--sf | -screenshot_full_screen
 -va | -video_selected_area
 -vf | -video_full_screen
 -am | -audio_microphone
@@ -185,15 +159,6 @@ while [ "$1" != "" ]; do
     -s | -stop)
         stop
         exit 1
-        ;;
-    -sf | -screenshot_full_screen)
-        screenshot_full_screen
-        ;;
-    -sl | -screenshot_left_screen)
-        screenshot_left_screen
-        ;;
-    -sr | -screenshot_right_screen)
-        screenshot_right_screen
         ;;
     -va | -video_selected_area)
         video_selected_area
@@ -258,10 +223,6 @@ main "$1" &
 theme="$HOME/.config/rofi/main_without_icons.rasi"
 
 get_options() {
-  echo "  Selected area screenshot"
-  echo "  Full screen screenshot"
-  echo "  Left screen screenshot"
-  echo "  Right screen screenshot"
   echo "  Stop Recording"
   echo "  Selected area video"
   echo "  Full screen video"
@@ -286,9 +247,6 @@ main() {
 
   # run the selected command
   case $choice in
-  '  Full screen screenshot')
-    screenshot_full_screen
-    ;;
   '  Stop Recording')
     stop
     ;;
