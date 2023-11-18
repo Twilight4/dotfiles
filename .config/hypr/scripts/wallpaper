@@ -9,7 +9,7 @@ case $1 in
         else
             wal -q -i ~/.config/hypr/wallpapers/
         fi
-    ;;
+		;;
 
     # Select wallpaper with rofi
     "select")
@@ -19,12 +19,12 @@ case $1 in
             exit
         fi
         wal -q -i ~/.config/hypr/wallpapers/$selected
-    ;;
+		;;
 
     # Randomly select wallpaper 
     *)
         wal -q -i ~/.config/hypr/wallpapers/
-    ;;
+		;;
 
 esac
 
@@ -40,9 +40,9 @@ echo "Wallpaper: $wallpaper"
 cp $wallpaper ~/.cache/current_wallpaper.jpg
 
 # ----------------------------------------------------- 
-# get wallpaper iamge name
+# Get wallpaper image name to display
 # ----------------------------------------------------- 
-newwall=$(echo $wallpaper | sed "s|$HOME/wallpaper/||g")
+newwall=$(echo $wallpaper | sed "s|$HOME/.config/hypr/wallpapers/||g")
 
 # ----------------------------------------------------- 
 # Reload waybar with new colors
@@ -52,9 +52,9 @@ newwall=$(echo $wallpaper | sed "s|$HOME/wallpaper/||g")
 # ----------------------------------------------------- 
 # Set the new wallpaper
 # -----------------------------------------------------
-transition_type="wipe"
+#transition_type="wipe"
 #transition_type="outer"
-#transition_type="random"
+transition_type="random"
 
 swww img $wallpaper \
     --transition-bezier .43,1.19,1,.4 \
