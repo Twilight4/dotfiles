@@ -229,14 +229,26 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #disk,#memory,#cpu {
-    margin:0px;
-    padding:0px;
     font-size:16px;
-    color:@iconcolor;
+    color: @textcolor2;
+	background-color: @backgroundlight;
+	border-radius: 15px;
+	padding: 2px 10px 0px 10px;
+    margin: 8px 15px 8px 0px;
+    border-radius: 15px;
+	opacity:0.8;
 }
 
 #memory {
     margin-right:10px;
+}
+
+#disk {
+    margin-right:0px;
+}
+
+#cpu {
+    margin-right:0px;
 }
 
 /* -----------------------------------------------------
