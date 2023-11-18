@@ -31,17 +31,25 @@ get_area(){
     wh="${w}x${h}"
 }
 video_selected_area(){
-    get_area
-    ffmpeg -hide_banner -loglevel error \
-    -f x11grab -video_size "$wh" -framerate 60 -i :0.0+"$x","$y" -pix_fmt yuv420p "$videos_directory/$date.mp4"
-    ffmpeg -i "$videos_directory/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
-    notify-send -i "/tmp/$date.png" "Video" "Area video taken"
+	cd ~/videos
+	if ["$(pidof wf-recorder)" -ne ""]; then
+		rm recording.mp4
+		notify-send "wf-recorder" "Starting recording"
+		wf-recorder --geometry "$(slurp)"
+	else
+		/usr/bin/kill --signal SIGINT wf-recorder
+		notify-send "wf-recorder" "Recording stopped"
+	fi
 }
 video_full_screen(){
-    ffmpeg -hide_banner -loglevel error \
-    -f x11grab -video_size "$screen_resolution" -framerate 60 -i :0.0 -pix_fmt yuv420p "$videos_directory/$date.mp4"
-    ffmpeg -i "$videos_directory/$date.mp4" -ss 00:00:01.000 -vframes 1 "/tmp/$date.png"
-    notify-send -i "/tmp/$date.png" "Video" "Full screen video taken"
+	cd ~/videos
+	if ["$(pidof wf-recorder)" -ne ""]; then
+		notify-send "wf-recorder" "Starting recording" -a 'wf-recorder'
+		wf-recorder -t -f './recording_'"$(date '+%Y_%m_%_d..%H.%M')"'.mp4' --audio=alsa_output.pci-0000_08_00.6.analog-stereo.monitor
+	else
+		/usr/bin/kill --signal SIGINT wf-recorder
+		notify-send "wf-recorder" "Recording Stopped" -a 'wf-recorder'
+	fi
 }
 video_full_screen_rgba(){
     ffmpeg -hide_banner -loglevel error \
