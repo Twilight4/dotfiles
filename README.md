@@ -32,11 +32,11 @@
 |  **Wallpapers**                | `~/.config/hypr/wallpapers`                                |
 
 ## Installation
-**Warning**: There are no backup system. If you install this on top of your dotfiles, expect a big mess. You shouldn't use the `install.sh` script. You should only pick whatever you want and include it in your own config.
+**Warning**: There is no backup system. If you install this on top of your dotfiles, expect a big mess. You shouldn't use the `install.sh` script. You should only pick whatever you want and include it in your own config.
 
-```
+```bash
 cd ~/downloads
-git clone https://github.com/Twilight4/dotfiles
+git clone https://github.com/Twilight4/dotfiles.git
 cd dotfiles
 ./install.sh
 ```

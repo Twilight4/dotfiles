@@ -5,6 +5,7 @@
 #####################
 
 source .config/.install/colors.sh
+source .config/.install/library.sh
 clear
 
 mode="live"
@@ -35,22 +36,16 @@ ${GREEN}
 |________________________________|
 "
 echo ""
+echo "${YELLOW} Please make sure that your system and your packages are up to date."
 echo "${YELLOW} This script will delete all your configuration files."
 echo "${YELLOW} Use at your own risk."
 echo ""
-
-if [ $# -ne 1 ] || [ "$1" != "-y" ];
-    then
-        echo -e "${yellow}Press a key to continue...\n"
-        read key;
-fi
 
 
 ################
 # Installation #
 ################
 
-source .config/.install/library.sh
 source .config/.install/confirm-start.sh
 source .config/.install/rsync.sh
 source .config/.install/backup.sh
