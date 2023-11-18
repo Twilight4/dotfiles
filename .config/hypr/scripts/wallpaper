@@ -42,7 +42,7 @@ cp $wallpaper ~/.cache/current_wallpaper.jpg
 # ----------------------------------------------------- 
 # Get wallpaper image name to display
 # ----------------------------------------------------- 
-newwall=$(echo $wallpaper | sed "s|~/pictures/wallpapers/||g")
+newwall=$(echo $wallpaper | sed "s|$HOME/pictures/wallpapers/||g")
 
 # ----------------------------------------------------- 
 # Reload waybar with new colors
