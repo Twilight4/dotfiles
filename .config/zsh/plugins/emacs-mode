@@ -46,7 +46,7 @@ function paste_from_clipboard() {
     wl-paste -n
 }
 zle -N paste_from_clipboard
-bindkey '^Y' paste_from_clipboard
+#bindkey '^Y' paste_from_clipboard   # broken, using xterm-paste in kitty config
 
 # Function to copy selected text to system clipboard
 copy-region-and-kill() {
