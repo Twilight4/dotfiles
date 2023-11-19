@@ -524,6 +524,7 @@
     "e b" '(eval-buffer :wk "Evaluate a buffer")
     "e e" '(org-export-dispatch :wk "Org export dispatch")
     "e T" '(org-babel-tangle :wk "Org babel tangle")
+	  "e n" '(lambda () (interactive) (ido-find-file-in-dir "~/documents/org/roam/permanent-notes"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
