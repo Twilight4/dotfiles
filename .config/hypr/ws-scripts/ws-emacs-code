@@ -8,7 +8,7 @@ is_kitty_running() {
 # Focus on ws "5" and spawn kitty it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'kitty' only if it was not running
-    hyprctl dispatch exec 'kitty -1 -T kitty-emacs --class kitty-emacs --session ~/.config/kitty/session-emacs-code'
+    hyprctl dispatch exec 'kitty -1 -T kitty-code --class kitty-code --session ~/.config/kitty/session-emacs-code'
 else
     hyprctl dispatch focuswindow 'kitty-code'
 fi
