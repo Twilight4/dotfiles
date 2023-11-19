@@ -32,7 +32,7 @@ cd dotfiles
 |  **GTK Theme**                 | [Tokyonight-Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)          |
 |  **Shell**                     | [Zsh](https://github.com/zsh-users)                        |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
-|  **Fonts**                     | [MesloLGM NF/JetBrains Mono NF](https://www.nerdfonts.com/)      |
+|  **Fonts**                     | [Meslo / JetBrains Mono NF](https://www.nerdfonts.com/)    |
 |  **Media Player**              | [Mpv](https://mpv.io/)                                     | 
 |  **Fetch script**              | [Nitch](https://github.com/unxsh/nitch)                    |
 |  **Wallpaper Loader**          | [Swaybg](https://github.com/swaywm/swaybg)                 |
