@@ -208,6 +208,7 @@
 		"format": "{}",
 		"interval": 300,
 		"exec": "~/.config/waybar/scripts/weather.sh",
+        "on-click": "gnome-weather",
 		"return-type": "json",
 	},
 
