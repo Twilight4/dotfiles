@@ -7,7 +7,7 @@ case $1 in
         if [ -f ~/.cache/current_wallpaper.jpg ]; then
             wal -q -i ~/.cache/current_wallpaper.jpg
         else
-            wal -q -i ~/.config/hypr/wallpapers/
+            wal -q -i ~/pictures/wallpapers
         fi
 		;;
 
