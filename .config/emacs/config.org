@@ -852,15 +852,38 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
 #+end_src
 
 ** Color Theme
-Taking a look at the [[https://github.com/doomemacs/themes/tree/screenshots][screenshots]] might help you decide which one you like best. You can run =M-x load-theme= to choose between them easily.
+I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs theme generator to match my pywal-based setup.
 
 #+begin_src emacs-lisp
-(use-package doom-themes
-  ;:init (load-theme 'doom-city-lights t))
-  :init (load-theme 'doom-moonlight t))
-  :config
-  (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
-        doom-themes-enable-italic t)   ; if nil, italics is universally disabled
+;(use-package doom-themes)
+  ;:init (load-theme 'doom-tokyo-night t))
+  ;:config
+  ;(setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
+  ;      doom-themes-enable-italic t)   ; if nil, italics is universally disabled
+
+;; (use-package ewal
+;;   :init (setq ewal-use-built-in-always-p nil
+;;               ewal-use-built-in-on-failure-p t
+;;               ewal-built-in-palette "sexy-material"))
+
+;; (use-package ewal-spacemacs-themes
+;;   :init (progn
+;;           (setq spacemacs-theme-underline-parens t
+;;                 my:rice:font (font-spec
+;;                               :family "MesloLGM Nerd Font"
+;;                               :weight 'semi-bold
+;;                               :size 11.0))
+;;           (show-paren-mode +1)
+;;           (global-hl-line-mode)
+;;           (set-frame-font my:rice:font nil t)
+;;           (add-to-list  'default-frame-alist
+;;                         `(font . ,(font-xlfd-name my:rice:font))))
+;;   :config (progn
+;;             (load-theme 'ewal-spacemacs-modern t)
+;;             (enable-theme 'ewal-spacemacs-modern)))
+
+(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+(load-theme 'doom-moonlight t)
 #+end_src
 
 ** Mode Line
