@@ -29,19 +29,19 @@
 		"custom/chatgpt",
 		"custom/keepass",
 		"custom/uptime",
+        "custom/updates",
         "hyprland/window"
     ],
 
     // Modules Center
     "modules-center": [
         "custom/weather",
+        "hyprland/workspaces",
         "clock",
-        "hyprland/workspaces"
     ],
 
     // Modules Right    
     "modules-right": [
-        "custom/updates",
         "pulseaudio",
         "network",
         "group/hardware",

@@ -3,7 +3,7 @@
  * ----------------------------------------------------- */
 
 * {
-    font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: "JetBrainsMono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     border: none;
     border-radius: 0px;
 }
@@ -186,12 +186,12 @@ window#waybar.empty #window {
 }
 
 #custom-weather {
-    background-color: @backgroundlight;
+    background-color: @backgrounddark;
     font-size: 16px;
     color: @textcolor2;
     border-radius: 15px;
     padding: 2px 16px 0px 10px;
-    margin: 8px 15px 8px 0px;
+    margin: 8px 15px 8px 10px;
     opacity:0.8;
 }
 /* -----------------------------------------------------
@@ -267,15 +267,15 @@ window#waybar.empty #window {
 }
 
 #disk {
-    margin-right:0px;
+    margin-right:5px;
 }
 
 #cpu {
-    margin-right:0px;
+    margin-right:5px;
 }
 
 #custom-cputemp {
-    margin-right:0px;
+    margin-right:5px;
 }
 
 /* -----------------------------------------------------
@@ -288,7 +288,7 @@ window#waybar.empty #window {
     color: @textcolor1;
     border-radius: 15px;
     padding: 1px 10px 0px 10px;
-    margin: 6px 15px 6px 0px;
+    margin: 6px 15px 6px 10px;
     opacity:0.8;
     border:3px solid @bordercolor;   
 }

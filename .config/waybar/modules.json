@@ -63,7 +63,7 @@
 
     // Updates Count
     "custom/updates": {
-        "format": "  {}",
+        "format": " {}",
         "tooltip-format": "{}",
         "escape": true,
         "return-type": "json",       
@@ -178,13 +178,13 @@
 
     // CPU
     "cpu": {
-		"format": "<span font='13'></span> <span font='13'> {usage}%</span>",
+		"format": "<span font='13'></span> <span font='13'>{usage}%</span>",
         "on-click": "footclient -e cpufetch"
     },
 
     // Memory
     "memory": {
-        "format": " {}% ",
+        "format": " {}%",
         "on-click": "footclient -e btop"
     },
 
@@ -214,7 +214,7 @@
     // Harddisc space used
     "disk": {
         "interval": 30,
-        "format": "   {percentage_used}% ",
+        "format": " {percentage_used}%",
         "path": "/",
         "on-click": "footclient -e btop"
     }, 
@@ -222,7 +222,7 @@
     // Network
     "network": {
         "format": "{ifname}",
-        "format-wifi": "   {signalStrength}%",
+        "format-wifi": " {signalStrength}%",
         "format-ethernet": "  {ipaddr}",
         "format-disconnected": "Not connected", //An empty format will hide the module.
         "tooltip-format": " {ifname} via {gwaddri}",
@@ -240,7 +240,7 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon}   {capacity}%",
+        "format": "{icon} {capacity}%",
         "format-charging": "  {capacity}%",
         "format-plugged": "  {capacity}%",
         "format-alt": "{icon}  {time}",
@@ -252,7 +252,7 @@
     // Pulseaudio
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}%",
+        "format": "{icon}{volume}%",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
