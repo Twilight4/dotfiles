@@ -22,7 +22,6 @@ cd dotfiles
 |  **Operating System**          | [Arch Linux](https://archlinux.org/)                       |
 |  **Compositor**                | [Hyprland](https://github.com/hyprwm/Hyprland)             |
 |  **Status Bar**                | [Waybar](https://github.com/Alexays/Waybar/)               |
-|  **Widget System**             | [Eww](https://github.com/elkowar/eww)                      |
 |  **Menu Launcher**             | [Wofi](https://hg.sr.ht/~scoopta/wofi)                     |
 |  **Session Manager**           | [Wlogout](https://github.com/ArtsyMacaw/wlogout)           |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
