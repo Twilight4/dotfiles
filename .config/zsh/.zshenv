@@ -14,7 +14,7 @@ export TERMINAL="kitty -1"
 export BROWSER="mercury-browser"
 
 # User-defined PATH executables
-export PATH=$HOME/.config/hypr/scripts:$HOME/.local/bin:$HOME/.config/.local/bin:$HOME/.config/rofi/applets/bin:$HOME/.config/rofi/launcher:$HOME/.config/rofi/wifi:$HOME/.config/node_modules/.bin:$PATH
+export PATH=$HOME/.config/hypr/scripts:$HOME/.local/bin:$HOME/.config/.local/share/cargo/bin:$HOME/.config/.local/bin:$HOME/.config/rofi/applets/bin:$HOME/.config/rofi/launcher:$HOME/.config/rofi/wifi:$HOME/.config/node_modules/.bin:$PATH
 
 # Zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                		 # Zsh config files
