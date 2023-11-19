@@ -858,8 +858,8 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 #+begin_src emacs-lisp
 ;; Load defined themes
 (use-package doom-themes
-  ;:init (load-theme 'doom-tokyo-night t)
-  :init (load-theme 'doom-moonlight t)
+  :init (load-theme 'doom-tokyo-night t)
+  ;:init (load-theme 'doom-moonlight t)
   :config
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
         doom-themes-enable-italic t))   ; if nil, italics is universally disabled
