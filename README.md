@@ -36,4 +36,4 @@ cd dotfiles
 |  **Media Player**              | [Mpv](https://mpv.io/)                                     | 
 |  **Fetch script**              | [Nitch](https://github.com/unxsh/nitch)                    |
 |  **Wallpaper Loader**          | [Swaybg](https://github.com/swaywm/swaybg)                 |
-|  **Wallpapers**                | `~/.config/hypr/wallpapers`                                |
+|  **Wallpapers**                | [Twilight4/wallpapers](https://github.com/Twilight4/wallpapers)  |
