@@ -880,7 +880,6 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
                               :weight 'semi-bold
                               :size 11.0))
           (show-paren-mode +1)
-          (global-hl-line-mode)
           (set-frame-font my:rice:font nil t)
           (add-to-list  'default-frame-alist
                         `(font . ,(font-xlfd-name my:rice:font))))
