@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Function to check if 'emascclient' process is running
+is_emacs_running() {
+    pgrep -af "emacsclient -c -e" >/dev/null
+}
+
+# Focus on ws "6" and spawn 'emacsclient' if it's not running, else only focus
+if ! is_emacs_running; then
+    # Spawn 'emacsclient' only if it was not running
+    hyprctl dispatch exec 'emacsclient -c -e "(run-elfeed-frame)"'
+else
+    hyprctl dispatch focuswindow 'emacsclient'
+fi

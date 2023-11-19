@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Function to check if 'kitty' process is running
+is_kitty_running() {
+	hyprctl clients | grep 'kitty-agenda' >/dev/null
+}
+
+# Focus on ws "6" and spawn kitty it's not running, else only focus
+if ! is_kitty_running; then
+    # Spawn 'kitty' only if it was not running
+    hyprctl dispatch exec 'kitty -1 -T kitty-agenda --class kitty-agenda --session ~/.config/kitty/session-agenda'
+else
+    hyprctl dispatch focuswindow 'kitty-agenda'
+fi
