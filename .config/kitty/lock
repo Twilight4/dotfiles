@@ -1,6 +1,0 @@
-layout tall
-cd ~
-launch --title niewiem sh -c 'exec zsh && cmatrix -a'
-launch sh -c 'exec zsh && ~/.config/zsh/bash-scripts/pipes.sh'
-launch sh -c 'exec zsh && tty-clock -c -C 6 -r -s -f "%A, %B, %d"'
-
