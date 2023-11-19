@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Function to check if 'mercury' process is running
+is_mercury_running() {
+	pgrep -a "mercury" | grep -i 'osint' >/dev/null
+}
+
+# Focus on ws "3" if 'mercury-browser' is not running, else just focus
+if ! is_mercury_running; then
+    # Spawn 'mercury-browser' only if it was not running
+    hyprctl dispatch exec 'mercury-browser -P osint'
+else
+    hyprctl dispatch focuswindow 'mercury-default'
+fi
