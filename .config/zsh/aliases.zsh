@@ -37,6 +37,7 @@ alias s="kitty +kitten ssh"
 alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
 alias ai='tgpt'
+alias watch-lt='watch lsd --tree --hyperlink=auto'
 
 # List cheatsheets for tools
 alias ltp='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/pentest'    # Pentest tools
