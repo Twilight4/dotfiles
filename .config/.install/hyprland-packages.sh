@@ -134,7 +134,7 @@ packagesPacman=(
     "gvfs-smb"
     "xdg-user-dirs-gtk"
     "blanket"
-    "nsxiv"
+    "imv"
     "texlive-bin"
     "tldr"
     "dbus-broker"
