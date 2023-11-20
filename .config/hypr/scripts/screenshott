@@ -27,6 +27,7 @@ countdown() {
   done
 }
 
+
 # -----------------------------------------------------
 # COUNTDOWN FULLSCREEN
 # -----------------------------------------------------
@@ -42,6 +43,7 @@ shot10() {
   sleep 1 && cd ${dir} && grim - | tee "$file" | wl-copy
   notify_view
 }
+
 
 # -----------------------------------------------------
 # AREA
@@ -64,6 +66,7 @@ shotareaedit() {
   notify_view
 }
 
+
 # -----------------------------------------------------
 # WINDOWS
 # -----------------------------------------------------
@@ -71,7 +74,7 @@ shotareaedit() {
 shotwinclip() {
   w_pos=$(hyprctl activewindow | grep 'at:' | cut -d':' -f2 | tr -d ' ' | tail -n1)
   w_size=$(hyprctl activewindow | grep 'size:' | cut -d':' -f2 | tr -d ' ' | tail -n1 | sed s/,/x/g)
-  cd ${dir} && grim -g "$w_pos $w_size" - | tee "$file" | wl-copy
+  cd ${dir} && grim -g "$w_pos $w_size" - | wl-copy
   notify_view
 }
 
@@ -85,7 +88,7 @@ shotwinsave() {
 shotwinedit() {
   w_pos=$(hyprctl activewindow | grep 'at:' | cut -d':' -f2 | tr -d ' ' | tail -n1)
   w_size=$(hyprctl activewindow | grep 'size:' | cut -d':' -f2 | tr -d ' ' | tail -n1 | sed s/,/x/g)
-  cd ${dir} && grim -g "$w_pos $w_size" - | tee "$file" | wl-copy
+  cd ${dir} && grim -g "$w_pos $w_size" - | swappy -f -
   notify_view
 }
 
