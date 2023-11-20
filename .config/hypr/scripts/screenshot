@@ -4,7 +4,7 @@ iDIR="$HOME/.config/hypr/mako/icons"
 
 time=$(date +%Y-%m-%d-%H-%M-%S)
 dir="$(xdg-user-dir PICTURES)/screenshots"
-file="Screenshot_${time}_${RANDOM}.png"
+file="screenshot_${time}_${RANDOM}.png"
 
 # notify and view screenshot
 # notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ${iDIR}/picture.png"
@@ -19,7 +19,7 @@ notify_view() {
   fi
 }
 
-# countdown
+# Countdown
 countdown() {
   for sec in $(seq $1 -1 1); do
     notify-send -h string:x-canonical-private-synchronous:shot-notify -t 1000 -i "$iDIR"/timer.png "Taking shot in : $sec"
@@ -27,7 +27,7 @@ countdown() {
   done
 }
 
-# take shots
+# Take shots
 shotnow() {
   cd ${dir} && grim - | tee "$file" | wl-copy
   notify_view
