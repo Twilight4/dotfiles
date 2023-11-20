@@ -171,8 +171,12 @@ window#waybar.empty #window {
     border:3px solid @bordercolor;
 }
 
+#custom-qemu {
+    margin: 6px 5px 6px 0px;
+}
+
 #custom-keepass {
-    margin: 6px 15px 6px 0px;
+    margin: 6px 10px 6px 0px;
 }
 
 #custom-uptime {

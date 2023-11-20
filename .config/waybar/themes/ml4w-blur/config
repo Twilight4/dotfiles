@@ -27,6 +27,7 @@
         "custom/filemanager",
 		"custom/windowsvm",
 		"custom/chatgpt",
+		"custom/qemu",
 		"custom/keepass",
 		"custom/uptime",
         "custom/updates",
