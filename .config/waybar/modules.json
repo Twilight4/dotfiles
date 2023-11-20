@@ -111,14 +111,21 @@
 
     // ChatGPT Launcher
     "custom/chatgpt": {
-        "format": "󰭹",
+        "format": "",
         "on-click": "xdg-open https://chat.openai.com",
+        "tooltip": false
+    },
+
+    // QEMU Launcher
+    "custom/qemu": {
+        "format": "<span font='18'></span> <span font='16'></span>",
+        "on-click": "virt-manager",
         "tooltip": false
     },
 
     // KeepassXC Launcher
     "custom/keepass": {
-        "format": "<span font='16'>󰌆</span> <span font='16'></span>",
+        "format": "<span font='17'>󰌆</span> <span font='16'></span>",
         "on-click": "keepassxc",
         "tooltip": false
     },
