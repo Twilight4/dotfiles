@@ -7,15 +7,12 @@ dir="$(xdg-user-dir PICTURES)/screenshots"
 file="screenshot_${time}_${RANDOM}.png"
 
 # notify and view screenshot
-# notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ${iDIR}/picture.png"
 notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ${dir}/${file}"
 notify_view() {
-  #${notify_cmd_shot} "Copied to clipboard."    # doesn't ever sehow
   if [[ -e "$dir/$file" ]]; then
-    ${notify_cmd_shot} "Screenshot Saved."
+    ${notify_cmd_shot} "Screenshot Saved"
   else
-	${notify_cmd_shot} "Copied to clipboard."
-    #${notify_cmd_shot} "Screenshot Deleted."     # it's uselses
+	${notify_cmd_shot} "Copied to Clipboard"
   fi
 }
 
