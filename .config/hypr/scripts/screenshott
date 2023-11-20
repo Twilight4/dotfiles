@@ -92,6 +92,7 @@ shotwinedit() {
   notify_view
 }
 
+
 # -----------------------------------------------------
 # FULLSCREEN
 # -----------------------------------------------------
@@ -128,9 +129,9 @@ elif [[ "$1" == "--full-edit" ]]; then
   shotfulledit
 elif [[ "$1" == "--win" ]]; then
   shotwinclip
-elif [[ "$1" == "--full-save" ]]; then
+elif [[ "$1" == "--win-save" ]]; then
   shotwinsave
-elif [[ "$1" == "--full-edit" ]]; then
+elif [[ "$1" == "--win-edit" ]]; then
   shotwinedit
 elif [[ "$1" == "--area" ]]; then
   shotareaclip
@@ -143,7 +144,7 @@ elif [[ "$1" == "--in5" ]]; then
 elif [[ "$1" == "--in10" ]]; then
   shot10
 else
-  echo -e "Available Options : --now --in5 --in10 --win --area --area-edit --area-save"
+  echo -e "Available Options : --full --full-save --full-edit --win --win-save --win-edit --area --area-save --area-edit --in5 --in10"
 fi
 
 exit 0
