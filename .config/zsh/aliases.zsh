@@ -192,6 +192,7 @@ alias tun0='echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
  
 # Show open ports
 alias openports='netstat -nape --inet'
+alias port="netstat -tulpn | rg"
 
 # Show disk space and space used in a folder
 alias diskspace="du -S | sort -n -r |less -R"
@@ -215,6 +216,17 @@ alias gu='git add . && git commit -m "update" && git push'
 alias rmgitcache="rm -r ~/.cache/git"
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
+alias gs='git status'
+alias gss='git status -s'
+alias gpraise='git blame'
+alias grb='git branch -r'
+alias gb='git branch '
+alias gd='git diff'
+alias gco='git checkout '
+alias gl='git log --pretty=oneline'
+alias glol='git log --graph --abbrev-commit --oneline --decorate'
+alias gj="git-jump"                                                      # Open in vim quickfix list files of interest (git diff, merged...)
+alias dif="git diff --no-index"                                          # Diff two files even if not in git repo! Can add -w (don't diff whitespaces)
 
 # Pacman
 alias pacs="sudo pacman -S"                      # Install package faster
