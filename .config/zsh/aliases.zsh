@@ -108,6 +108,16 @@ alias du='dust'
 alias ncdu="ncdu --color dark"
 alias df='duf'
 
+# Find
+alias fds='fd --ignore-case --hidden --type f --size'
+alias fde='fd --ignore-case --hidden --type f --extension'
+alias fdr='fd --ignore-case --hidden --type f --exec rg -l'
+alias fdc='fd --ignore-case --hidden --type f --exec bat --color=always {}'
+alias fdd="fd --ignore-case --hidden --type d"
+alias fdex="fd --ignore-case --hidden --exclude"
+alias fext="fd --ignore-case --hidden --extension"
+alias fdl="fd --ignore-case --hidden --list-details"
+
 # Mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
 alias mpvadd='mpv --ytdl'
