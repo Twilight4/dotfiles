@@ -100,14 +100,13 @@ h() {
 alias cp='xcp'
 alias http='xh'                # Curl replacement
 alias httpd='http --download'  # Uses xh alias first if installed
-alias cat='bat --paging=never --theme OneHalfDark'
+alias cat='bat --color=always --paging=never --theme OneHalfDark'
 alias dig='dog'
 alias digs='dig +short'        # Uses dog alias first if installed
 alias rg='rg --sort path'
 alias du='dust'
 alias ncdu="ncdu --color dark"
 alias df='duf'
-alias bat='bat --paging=never --theme OneHalfDark'
 
 # Mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
