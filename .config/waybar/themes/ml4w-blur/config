@@ -43,6 +43,7 @@
 
     // Modules Right    
     "modules-right": [
+        "bluetooth",
         "pulseaudio",
         "network",
         "group/hardware",
