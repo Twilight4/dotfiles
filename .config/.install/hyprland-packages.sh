@@ -200,6 +200,7 @@ packagesParu=(
     "noise-suppression-for-voice-git"
     "hyprland-git"
     "xdg-desktop-portal-hyprland-git"
+	"xdg-desktop-portal-gtk"
     "waybar-hyprland-git"
     "hyprpicker-git"
 );
