@@ -15,16 +15,7 @@ if [[ "$configure_choice" =~ ^[Yy]$ ]]; then
     if command -v supergfxd >/dev/null; then
         echo "Creating supergfxd configuration..."
 
-        # Create supergfxd.conf
-        echo '{
-          "mode": "Hybrid",
-          "vfio_enable": true,
-          "vfio_save": false,
-          "always_reboot": false,
-          "no_logind": false,
-          "logout_timeout_s": 180,
-          "hotplug_type": "Asus"
-        }' | sudo tee /etc/supergfxd.conf > /dev/null
+		curl -LJO https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/supergfxd.conf && sudo mv supergfxd.conf /etc/supergfxd.conf
 
         echo "supergfxd.conf created."
     else
