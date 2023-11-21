@@ -180,6 +180,10 @@ alias probe="sudo -E hw-probe -all -upload"
 alias sysfailed="systemctl list-units --failed"
 alias hw="hwinfo --short"
 
+# Udiskie-umount
+alias ubackup='udiskie-umount $MEDIA/BACKUP'
+alias umedia='udiskie-umount $MEDIA/*'
+
 # Count all files (recursively) in the current folder
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
 
