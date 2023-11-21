@@ -19,17 +19,7 @@ EOF
 
 				echo "Creating /etc/sddm.conf file..."
 
-				echo "# Use autologin if have problems with sddm
-    			#[Autologin]
-    			#Session=hyprland
-    			#User=twilight
-
-    			[Theme]
-    			Current=astronaut
-    			CursorSize=24
-				CursorTheme=Bibata-Modern-Classic
-    			Font=JetBrainsMonoNerdFont
-    			ThemeDir=/usr/share/sddm/themes" | sudo tee /etc/sddm.conf > /dev/null
+				curl -LJO https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sddm.conf && sudo mv sddm.conf /etc/sddm.conf
 
 				echo "/etc/sddm.conf file created."
             break;;
