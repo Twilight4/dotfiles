@@ -108,9 +108,13 @@ alias ncdu="ncdu --color dark"
 alias df='duf'
 
 # Grep - rg
-alias rg='rg --sort path -n -i'
-alias rgv='rg --sort path -n -i -v'
-alias rgf='rg -l'
+alias rg='rg -i'
+alias rgv='rg -v -i'
+alias rgf='rg -l -i'
+alias rga='rg --hidden -i'
+alias rgo='rg -o -i'
+alias rgc='rg -c -i'
+alias rgs='rg -i --sort'   # Possible sort values: path/modified/accessed/created
 
 # Find - fd
 alias fds='fd --ignore-case --hidden --type f --size'
