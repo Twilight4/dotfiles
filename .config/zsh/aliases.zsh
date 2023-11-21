@@ -103,12 +103,16 @@ alias httpd='http --download'  # Uses xh alias first if installed
 alias cat='bat --color=always --paging=never --theme OneHalfDark'
 alias dig='dog'
 alias digs='dig +short'        # Uses dog alias first if installed
-alias rg='rg --sort path'
 alias du='dust'
 alias ncdu="ncdu --color dark"
 alias df='duf'
 
-# Find
+# Grep - rg
+alias rg='rg --sort path -n -i'
+alias rgv='rg --sort path -n -i -v'
+alias rgf='rg -l'
+
+# Find - fd
 alias fds='fd --ignore-case --hidden --type f --size'
 alias fde='fd --ignore-case --hidden --type f --extension'
 alias fdr='fd --ignore-case --hidden --type f --exec rg -l'
@@ -117,6 +121,8 @@ alias fdd="fd --ignore-case --hidden --type d"
 alias fdex="fd --ignore-case --hidden --exclude"
 alias fext="fd --ignore-case --hidden --extension"
 alias fdl="fd --ignore-case --hidden --list-details"
+alias fdb="fd --ignore-case --hidden --type f --size +100M --exec lsd -l --hyperlink=auto {} ; ."
+alias fdsh="fd . -e py -e sh desktop/workspace/dotfiles/.config/.install/ | xargs wc -l"
 
 # Mpv
 alias mpk='mpv --profile=sw-fast --vo=kitty'
