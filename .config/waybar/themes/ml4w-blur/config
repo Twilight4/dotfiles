@@ -29,25 +29,25 @@
 		"custom/chatgpt",
 		"custom/qemu",
 		"custom/keepass",
-		"custom/uptime",
-        "custom/updates",
-        "hyprland/window"
+        "hyprland/window",
     ],
 
     // Modules Center
     "modules-center": [
+		"custom/uptime",
         "hyprland/workspaces",
         "clock",
     ],
 
     // Modules Right    
     "modules-right": [
+        "custom/updates",
         "bluetooth",
         "pulseaudio",
         "network",
         "group/hardware",
         "battery", 
-        "custom/exit"
+        "custom/exit",
     ],
 
     // Group Hardware
