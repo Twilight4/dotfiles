@@ -58,11 +58,10 @@ source .config/.install/set-user-groups.sh
 source .config/.install/wallpaper.sh
 source .config/.install/display-manager.sh
 source .config/.install/tty-login.sh
-source .config/.install/install-dotfiles.sh
-source .config/.install/config-folder.sh
-source .config/.install/init-pywal.sh
+source .config/.install/clone-dotfiles.sh
 source .config/.install/cleanup-homedir.sh
-source .config/.install/hyprland-dotfiles.sh
+source .config/.install/init-pywal.sh
+source .config/.install/install-dotfiles.sh
 source .config/.install/hyprland-entry.sh
 source .config/.install/seclists.sh
 source .config/.install/auto-cpufreq.sh
