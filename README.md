@@ -9,8 +9,16 @@
 **Warning**: Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility and customize responsibly to ensure a stable and secure computing environment before running `install.sh` script. Use at your own risk.
 
 ```bash
+# Clone the repository
 cd ~/downloads
 git clone https://github.com/Twilight4/dotfiles.git
+
+# Script install-tweaks.sh involves system-wide changes hence must be run as root
+su
+./dotfiles/.install/install-tweaks.sh
+exit
+
+# Install dotfiles
 cd dotfiles
 ./install.sh
 ```
