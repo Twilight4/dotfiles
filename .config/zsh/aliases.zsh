@@ -30,6 +30,8 @@ alias ws='cd "$HOME/desktop/workspace" ; clear'
 
 # Common usage
 alias r='cd $HOME ; clear'
+alias mv='mv -v'
+alias rm='rm -v'
 alias w='cd "$HOME/desktop/server" ; echo "$(hip) in $PWD" ; sudo python3 -m http.server 80'
 alias w2='cd "$HOME/desktop/server" ; echo "$(hip) in $PWD" ; sudo python3 -m http.server 8000'
 alias w3='ngrok http 4444'
@@ -53,6 +55,7 @@ alias blackcat="sudo pacman -Sg | grep blackarch"                             # 
 # Aliases to modified commands
 alias mkdir="mkdir -p"
 alias ping="prettyping -c 3"
+alias pg='prettyping -c 3 8.8.8.8'
 alias less="less -R"
 alias kill='killall -q'
 alias tr="trash"
@@ -80,6 +83,7 @@ alias notif="cat /tmp/notify.log"
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 alias cats='highlight -O ansi --force'
+alias kitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias icat='kitty +kitten icat'
 alias diff="kitty +kitten diff"
 alias gdiff="git difftool --no-symlinks --dir-diff"
@@ -97,10 +101,11 @@ h() {
 }
 
 # Rust replacements
-alias cp='xcp'
+alias cp='xcp -v'
 alias http='xh'                # Curl replacement
 alias httpd='http --download'  # Uses xh alias first if installed
 alias cat='bat --color=always --paging=never --theme OneHalfDark'
+alias catl='bat --color=always --paging=never -l log'
 alias dig='dog'
 alias digs='dig +short'        # Uses dog alias first if installed
 alias du='dust'
@@ -111,7 +116,7 @@ alias df='duf'
 alias rg='rg -i'
 alias rgv='rg -v -i'
 alias rgf='rg -l -i'
-alias rgo='rg -l | xargs $EDITOR'
+alias rgo='rg -i -l | xargs $EDITOR'
 alias rga='rg --hidden -i'
 alias rgo='rg -o -i'
 alias rgc='rg -c -i'
@@ -224,22 +229,22 @@ alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # Cleanup orphaned packages
 alias rmdblock="sudo rm /var/lib/pacman/db.lck"  # Fix “unable to lock database” Error
 alias fix-keys="sudo pacman-key --init; sudo pacman-key --populate; sudo pacman-key --lsign cachyos"
 
-# Paru
+# Package manager - Paru
 alias pars="paru -S"                              # Install AUR package faster
 alias parr="paru -Rns"                            # Remove package faster
 alias parf="paru -F"                              # Search binary package faster
-alias parsyu="paru -Syuu --noconfirm"              # Update standard pkgs and AUR pkgs
-alias parsyur="sudo pacman --noconfirm -Syuu && sleep 5 && reboot"        # Update and reboot
-alias parsyus="sudo pacman --noconfirm -Syuu && sleep 5 && shutdown now"  # Update and shutdown
+alias parsyu="paru -Syuu --noconfirm"             # Update standard pkgs and AUR pkgs
+alias parsyur="paru --noconfirm -Syuu && sleep 5 && reboot"        # Update and reboot
+alias parsyus="paru --noconfirm -Syuu && sleep 5 && shutdown now"  # Update and shutdown
+alias parhi='paru -Ql'                            # Paru Has Installed - what files where installed in a package
+alias parss='paru -Ss'                            # Search
+alias parc='paru -Sc'                             # Remove pacman's cache
+alias parro='paru -Rns $(pacman -Qtdq)'
+alias parls="paru -Qe"
 
 # Revert to an older version of the package
 alias pkgver="cd /var/cache/pacman/pkg && lsd -l --hyperlink=auto"     # Go into the pacman cache and find the needed package.
 alias paruu="sudo pacman -U package"
-
-# Quick access to config files - have these aliases bound keybinds in dired
-alias zshrc="emacsclient -nw ~/.config/zsh/.zshrc"
-alias aliases="emacsclient -nw ~/.config/zsh/aliases.zsh"
-alias init="emacsclient -nw ~/.config/river/init"
 
 # Colorize grep output
 alias grep="grep --color=auto"
