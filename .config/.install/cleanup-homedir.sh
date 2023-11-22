@@ -15,10 +15,6 @@ sudo fc-cache -fv
 rm -rf .config/{fish,gtk-3.0,ibus,kitty,micro,pulse,paru,user-dirs.dirs,user-dirs.locate,dconf}
 rm -rf .config/.gsd-keyboard.settings-ported
 
-# Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
-update-mime-database ~/.config/.local/share/mime
-xdg-mime default emacs.desktop text/org
-
 # Create necessary directories
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
