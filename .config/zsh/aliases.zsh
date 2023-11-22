@@ -84,7 +84,7 @@ alias notif="cat /tmp/notify.log"
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 alias cats='highlight -O ansi --force'
-alias kitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
+alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias icat='kitty +kitten icat'
 alias diff="kitty +kitten diff"
 alias gdiff="git difftool --no-symlinks --dir-diff"
