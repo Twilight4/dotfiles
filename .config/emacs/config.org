@@ -16,7 +16,6 @@
   - [[#color-theme][Color Theme]]
   - [[#mode-line][Mode Line]]
   - [[#toggle-mode-line][Toggle Mode Line]]
-  - [[#pdf-mode-line][PDF Mode Line]]
   - [[#file-names-for-org-roam][File Names for Org-roam]]
   - [[#good-scroll][Good-scroll]]
   - [[#which-key][Which-key]]
@@ -923,50 +922,6 @@ Function =toggle-mode-line= toggles the display of the mode line on and off. Whe
        (redraw-display))
 #+end_src
 
-** PDF Mode Line
-I think the PDF modeline could do with tweaking.
-First up I'm going to want a segment for just the buffer file name, and a PDF icon.
-Then I'll redefine two functions used to generate the modeline.
-
-#+begin_src emacs-lisp
-;(doom-modeline-def-segment buffer-name
-;  "Display the current buffer's name, without any other information."
-;  (concat
-;   doom-modeline-spc
-;   (doom-modeline--buffer-name)))
-;
-;(doom-modeline-def-segment pdf-icon
-;  "PDF icon from all-the-icons."
-;  (concat
-;   doom-modeline-spc
-;   (doom-modeline-icon 'octicon "file-pdf" nil nil
-;                       :face (if (doom-modeline--active)
-;                                 'all-the-icons-red
-;                               'mode-line-inactive)
-;                       :v-adjust 0.02)))
-;
-;(defun doom-modeline-update-pdf-pages ()
-;  "Update PDF pages."
-;  (setq doom-modeline--pdf-pages
-;        (let ((current-page-str (number-to-string (eval `(pdf-view-current-page))))
-;              (total-page-str (number-to-string (pdf-cache-number-of-pages))))
-;          (concat
-;           (propertize
-;            (concat (make-string (- (length total-page-str) (length current-page-str)) ? )
-;                    " P" current-page-str)
-;            'face 'mode-line)
-;           (propertize (concat "/" total-page-str) 'face 'doom-modeline-buffer-minor-mode)))))
-;
-;(doom-modeline-def-segment pdf-pages
-;  "Display PDF pages."
-;  (if (doom-modeline--active) doom-modeline--pdf-pages
-;    (propertize doom-modeline--pdf-pages 'face 'mode-line-inactive)))
-;
-;(doom-modeline-def-modeline 'pdf
-;  '(bar window-number pdf-pages pdf-icon buffer-name)
-;  '(misc-info matches major-mode process vcs))
-#+end_src
-
 ** File Names for Org-roam
 Adjust org-roam file names in similary way I have in the window title.
 
@@ -1037,7 +992,7 @@ Adjust org-roam file names in similary way I have in the window title.
 #+end_src
 
 ** Transparency
-It's always better to set transparency in option for respective applications that supports it rather than setting it in window manager. I use transparency in Hyprland but not in River.
+It's always better to set transparency in option for respective applications that supports it rather than setting it in window manager.
 
 #+begin_src emacs-lisp
 ;(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
@@ -1172,14 +1127,9 @@ appropriate.  In tables, insert a new row or end the table."
   (if default
       (org-return t)
     (cond
-     ;; Act depending on context around point.
-
-     ;; NOTE: I prefer RET to not follow links, but by uncommenting this block, links will be
-     ;; followed.
-
-     ;; ((eq 'link (car (org-element-context)))
-     ;;  ;; Link: Open it.
-     ;;  (org-open-at-point-global))
+     ((eq 'link (car (org-element-context)))
+      ;; Link: Open it.
+      (org-open-at-point-global))
 
      ((org-at-heading-p)
       ;; Heading: Move to position after entry content.

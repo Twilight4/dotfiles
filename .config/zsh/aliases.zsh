@@ -253,7 +253,7 @@ alias cleanup="sudo pacman -Rns (pacman -Qtdq)"  # Cleanup orphaned packages
 alias rmdblock="sudo rm /var/lib/pacman/db.lck"  # Fix “unable to lock database” Error
 alias fix-keys="sudo pacman-key --init; sudo pacman-key --populate; sudo pacman-key --lsign cachyos"
 
-# Package manager - Paru
+# Paru
 alias pars="paru -S"                              # Install AUR package faster
 alias parr="paru -Rns"                            # Remove package faster
 alias parf="paru -F"                              # Search binary package faster
