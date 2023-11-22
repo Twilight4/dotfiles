@@ -215,23 +215,30 @@ alias ...="cd ../../"
 alias ....="cd ../../../"
 
 # Git
+alias gconfig="git config --list"
+alias ginit="git init"   # ginit <directory_name>
+alias gd='git diff'
+alias dif="git diff --no-index"          # Diff two files even if not in git repo! Can add -w (don't diff whitespaces)
+alias gshow='git show'   # gshow <commit_id> - show diff from commit
+alias gs='git status'
+alias gss='git status -s'
+alias grs='git restore --staged'  #grs <file> - remove from staging area
+alias gr='git restore'   #gr <file> - restore accidentally removed file
+alias greset='git reset' #greset <commit_id> - reset to change from commit
+alias greseth='git reset --hard' #greseth <commit_id> - reset change in cwd
+alias gl='git log --pretty=oneline'
+alias glog='git log --graph --abbrev-commit --oneline --decorate'
+alias gj="git-jump"                      # Open in vim quickfix list files of interest (git diff, merged...)
 alias gc="git clone --depth 1"
 alias gci="cloneit"
 alias gu='git add . && git commit -m "update" && git push'
 alias rmgitcache="rm -r ~/.cache/git"
 alias gcm="git checkout master"
 alias gcs="git checkout stable"
-alias gs='git status'
-alias gss='git status -s'
 alias gpraise='git blame'
 alias grb='git branch -r'
-alias gb='git branch '
-alias gd='git diff'
-alias gco='git checkout '
-alias gl='git log --pretty=oneline'
-alias glol='git log --graph --abbrev-commit --oneline --decorate'
-alias gj="git-jump"                                                      # Open in vim quickfix list files of interest (git diff, merged...)
-alias dif="git diff --no-index"                                          # Diff two files even if not in git repo! Can add -w (don't diff whitespaces)
+alias gb='git branch'
+alias gco='git checkout'
 
 # Pacman
 alias pacs="sudo pacman -S"                      # Install package faster
