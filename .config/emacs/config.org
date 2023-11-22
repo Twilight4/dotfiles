@@ -1905,7 +1905,7 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 #+end_src
 
 ** Elfeed
-*** Elfeed Configuration
+*** Configuration
 An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move through the stories with =C-j/k= when in other frame.
 
 #+begin_src emacs-lisp
@@ -1938,40 +1938,14 @@ An RSS newsfeed reader for Emacs. Move through the articles with =j/k=.  Move th
   (elfeed-goodies/setup)
   :config
   (setq elfeed-goodies/entry-pane-size 0.5))
-
-;; (eval-after-load 'elfeed-search
-;;   '(progn
-;;      (define-key elfeed-search-mode-map (kbd "q") #'+rss/quit)
-;;      (define-key elfeed-search-mode-map (kbd "e") 'elfeed-update)
-;;      (define-key elfeed-search-mode-map (kbd "r") 'elfeed-search-untag-all-unread)
-;;      (define-key elfeed-search-mode-map (kbd "u") 'elfeed-search-tag-all-unread)
-;;      (define-key elfeed-search-mode-map (kbd "s") 'elfeed-search-live-filter)
-;;      (define-key elfeed-search-mode-map (kbd "S") 'elfeed-show-new-live-search)
-;;      (define-key elfeed-search-mode-map (kbd "RET") 'elfeed-search-show-entry)
-;;      (define-key elfeed-search-mode-map (kbd "P") 'elfeed-show-pdf)
-;;      (define-key elfeed-search-mode-map (kbd "=") 'elfeed-search-tag-all)
-;;      (define-key elfeed-search-mode-map (kbd "-") 'elfeed-search-untag-all)
-;;      (define-key elfeed-search-mode-map (kbd "+") 'elfeed-show-tag)
-;;      (define-key elfeed-search-mode-map (kbd "_") 'elfeed-show-untag)
-;;      (define-key elfeed-search-mode-map (kbd "f") 'elfeed-search-set-filter)
-;;      (define-key elfeed-search-mode-map (kbd "b") 'elfeed-search-browse-url)
-;;      (define-key elfeed-search-mode-map (kbd "y") 'elfeed-search-yank)
-;;      (define-key elfeed-search-mode-map (kbd "Y") 'elfeed-show-yank)
-;;      (define-key elfeed-search-mode-map (kbd "o") 'ace-link-elfeed)
-;;      (define-key elfeed-search-mode-map (kbd "a") 'org-ref-elfeed-add)
-;;      (define-key elfeed-search-mode-map (kbd "n") 'elfeed-show-next)
-;;      (define-key elfeed-search-mode-map (kbd "p") 'elfeed-show-prev)
-;;      (define-key elfeed-search-mode-map (kbd "R") 'tl/elfeed-update-and-notify)
-;;      (define-key elfeed-search-mode-map (kbd "D") 'tl/elfeed-download-video)))
 #+end_src
-
-*** Elfeed Visual enhancments
+*** Visual enhancments
 
 #+begin_src emacs-lisp
 
 #+end_src
 
-*** Elfeed functionality enhancemnts
+*** Functionality enhancemnts
 
 #+begin_src emacs-lisp
 ;; Define function to create frame with Elfeed
