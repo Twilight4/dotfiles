@@ -436,6 +436,7 @@
     "C" '(org-gtd-capture :wk "Capture to inbox")     ;; for tasks in inbox.org
     "p" '(org-gtd-process-inbox :wk "Process inbox")  ;; process inbox.org
     "b" '(consult-buffer :wk "Switch to buffer")
+    "e" '(elfeed :wk "Newsfeed")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "s" '(basic-save-buffer :wk "Save buffer")

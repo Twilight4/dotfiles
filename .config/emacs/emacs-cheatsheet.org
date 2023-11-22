@@ -225,6 +225,8 @@ To create a table just start typing: =| table | name | description=
 | u          | mark selected entries as unread                    |
 | +          | add a specific tag to selected entries             |
 | -          | remove a specific tag from selected entries        |
+| s          | search with filter (=elfeed-search-set-filter=)      |
+|            | =elfeed-search-clear-filter=                         |
 
 ** Org-agenda
 
