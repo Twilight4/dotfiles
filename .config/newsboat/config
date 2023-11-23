@@ -8,11 +8,11 @@ reload-time 30
 reload-threads 100
 
 # Macro bindings
-browser "cachy-browser %u"
-macro m set browser "mpv %u" ; open-in-browser ; set browser "cachy-browser %u"
-macro v set browser "setsid -f mpv" ; open-in-browser ; set browser "cachy-browser %u"
-macro t set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser "cachy-browser %u"
-macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "cachy-browser %u"
+browser "mercury-browser %u"
+macro m set browser "mpv %u" ; open-in-browser ; set browser "mercury-browser %u"
+macro v set browser "setsid -f mpv" ; open-in-browser ; set browser "mercury-browser %u"
+macro t set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser "mercury-browser %u"
+macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "mercury-browser %u"
 
 # Keys binds
 bind-key ; macro-prefix
