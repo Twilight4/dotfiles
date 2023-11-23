@@ -191,8 +191,8 @@ fpdf() {
 
 # List tracking spreadsheets (productivity, money ...)
 ftrack() {
-    file=$(ls $CLOUD/tracking/**/*.{ods,csv} | fzf) || return
-    [ -n "$file" ] && libreoffice "$file" &> /dev/null &
+    file=$(find ~/documents/org/roam/metrics/* -type f -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2) || return
+    [ -n "$file" ] && emacsclient -nw "$file"
 }
 
 # Find in File using ripgrep
