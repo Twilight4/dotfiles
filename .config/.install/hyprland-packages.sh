@@ -154,6 +154,7 @@ packagesPacman=(
 	"megasync-bin"
 	"megacmd"
 	"nautilus-megasync"
+	"evince"
 );
 
 packagesParu=(
