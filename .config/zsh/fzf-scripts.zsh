@@ -48,7 +48,7 @@ fgb() {
 
 # Browser quicklinks menu
 fqli () {
-    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Proton Mail" " Proton Drive" " Proton VPN" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
+    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Proton Mail" " MEGA" " Proton VPN" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
     local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}") 
     case $choice in
         (" Google") echo -n "Search Google: "
@@ -89,7 +89,7 @@ fqli () {
             ;;
         (" Proton Mail") xdg-open "https://mail.proton.me" &
             ;;
-        (" Proton Drive") xdg-open "https://drive.proton.me" &
+        (" MEGA") xdg-open "https://mega.nz" &
             ;;
         (" Proton VPN") xdg-open "https://account.proton.me/vpn" &
             ;;
