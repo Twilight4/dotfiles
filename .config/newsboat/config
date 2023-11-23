@@ -2,13 +2,13 @@
 # Settings
 # -----------------------------------------
 # Feed settings
-refresh-on-startup yes
+#refresh-on-startup yes               # I want to spare my bandwtith bcs I have a lot of feeds
 feed-sort-order lastupdated
 
 # Reload settings
-#auto-reload yes
-#reload-time 30
-#reload-threads 100
+auto-reload yes
+reload-time 30
+reload-threads 100
 
 # Download items
 download-path "~/downloads/%h/%n"
@@ -46,6 +46,7 @@ bind-key d pagedown
 bind-key u pageup
 bind-key n next-unread
 bind-key p prev-unread
+bind-key i sort
 
 # Operation keybinds
 bind-key ; macro-prefix
@@ -57,15 +58,32 @@ bind-key ^U toggle-source-view
 bind-key o open-in-browser-and-mark-read
 bind-key O open-all-unread-in-browser-and-mark-read
 bind-key D pb-download
-bind-key U show-urls
 bind-key x pb-delete
+bind-key U show-urls
+bind-key / open-search
+bind-key e enqueue
+bind-key E edit-urls 
+bind-key ^R reload-urls 
+bind-key D delete-article
+bind-key $ purge-deleted
+bind-key v view-dialogs
+bind-key ^X close-dialog
+bind-key ^V next-dialog
+bind-key ^G prev-dialog
 
 # Marking keybinds
 bind-key A mark-feed-read
 bind-key C mark-all-feeds-read
 bind-key c toggle-show-read-feeds
 bind-key a toggle-article-read
-
+bind-key ^T clear-tag
+bind-key t set-tag
+bind-key F set-filter
+bind-key f select-filter
+bind-key ^F clear-filter
+bind-key ^B bookmark
+bind-key v bookmark
+ 
 
 # -----------------------------------------
 # Colors
