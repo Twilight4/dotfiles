@@ -88,6 +88,8 @@ alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on un
 alias icat='kitty +kitten icat'
 alias diff="kitty +kitten diff"
 alias gdiff="git difftool --no-symlinks --dir-diff"
+alias news="newsboat"
+alias pod="podboat"
 
 # Prettify help/cheat pages
 alias bathelp='bat --plain --language=help'

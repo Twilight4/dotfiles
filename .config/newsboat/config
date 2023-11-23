@@ -7,17 +7,18 @@ notify-always yes
 notify-format "%d new articles (%n unread articles, %f unread feeds)"
 
 # Feed settings
-#refresh-on-startup yes               # I want to spare my bandwtith bcs I have a lot of feeds
+refresh-on-startup yes
 feed-sort-order lastupdated
+save-path "~/downloads/"
 
 # Reload settings
 auto-reload yes
 reload-time 30
 reload-threads 100
 
-# Download items
+# Podboat items - podcast download manager for text terminals
+# "e" to enqueue and download a podcast
 download-path "~/downloads/%h/%n"
-save-path "~/downloads/"
 max-downloads 3
 player "mpd"
 
