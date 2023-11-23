@@ -151,6 +151,9 @@ packagesPacman=(
     "polkit-gnome"
 	"swww-git"
 	"python-pywal"
+	"megasync-bin"
+	"megacmd"
+	"nautilus-megasync"
 );
 
 packagesParu=(
