@@ -1,0 +1,24 @@
+# Gmail account
+
+set from = "XXX@gmail.com"
+set realname = "Pavel Hrdina"
+
+set imap_user = "XXX@gmail.com"
+set imap_pass = "your custom app password - not gmail one"
+
+set smtp_url = "smtps://XXX@gmail.com@smtp.gmail.com:465/"
+set smtp_user = "XXX@gmail.com"
+set smtp_pass = "your custom app password - not gmail one"
+
+set ssl_starttls = yes
+set ssl_force_tls = yes
+
+set folder = "imaps://imap.gmail.com:993/"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set trash = "+[Gmail]/Trash"
+
+mailboxes =INBOX =[Gmail]/Starred =[Gmail]/All\ Mail =[Gmail]/Drafts =[Gmail]/Sent\ Mail =[Gmail]/Spam =[Gmail]/Trash
+
+set signature = "$XDG_CONFIG_HOME/neomutt/signature"

@@ -1,0 +1,41 @@
+color normal cyan black
+color tree cyan black
+# color hdrdefault white black
+color attachment green black
+
+# sidebar
+# cyan -> foreground
+color indicator black cyan
+color sidebar_indicator yellow black
+color sidebar_highlight black cyan
+color sidebar_divider black black
+color sidebar_flagged red black
+color sidebar_new cyan black
+color sidebar_ordinary cyan default
+color sidebar_spool_file cyan default
+color sidebar_unread cyan default
+
+# status line
+color status black cyan
+
+# prompt
+color prompt yellow black
+
+# search
+color search black yellow
+
+# quotes
+color quoted white black
+color quoted1 green black
+color quoted2 white black
+color quoted3 green black
+color quoted4 white black
+color quoted5 green black
+
+# index (order matters)
+color index green black "~U"  # unread
+color index red black "~F"  # flagged (important)
+color index white black "~D"  # deleted
+
+# body
+color body green default "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL

@@ -1,0 +1,6 @@
+unset mark_old
+set use_threads = yes
+set sort = reverse-date
+set sort_aux = last-date-received
+# number, status flags, date,  sender(truncated to 20 chars), subject, attachment count (if any)
+set index_format = "%4C     %zs     %D     %-20.20L     %s %> %<X?[%X]>"

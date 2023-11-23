@@ -1,0 +1,5 @@
+set sidebar_visible = yes
+set sidebar_width = 30
+set sidebar_short_path = yes
+set sidebar_divider_char = "   │"
+set sidebar_format = '%B%<F? [%F]>%* %<N?%N/>%S'

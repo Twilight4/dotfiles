@@ -1,0 +1,3 @@
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop = yes

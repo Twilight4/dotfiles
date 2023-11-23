@@ -1,0 +1,9 @@
+text/html; firefox %s & sleep 2; test=test -n "$DISPLAY"; nametemplate=%s.html; 
+application/pdf; zathura %s; test=test -n "$DISPLAY"
+image/bmp; nsxiv %s; test=test -n "$DISPLAY"
+image/gif; nsxiv %s; test=test -n "$DISPLAY"
+image/jpeg; nsxiv %s; test=test -n "$DISPLAY"
+image/jpg; nsxiv %s; test=test -n "$DISPLAY"
+image/png; nsxiv %s; test=test -n "$DISPLAY"
+image/tiff; nsxiv %s; test=test -n "$DISPLAY"
+image/webp; nsxiv %s; test=test -n "$DISPLAY"

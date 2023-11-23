@@ -1,0 +1,14 @@
+source ./accounts
+source ./sidebar
+source ./index
+source ./macros
+source ./pager
+source ./ux
+source ./keys
+source ./theme
+
+set header_cache = "$HOME/.cache/neomutt/headers"
+set message_cachedir = "$HOME/.cache/neomutt/bodies"
+set mailcap_path = "$XDG_CONFIG_HOME/neomutt/mailcap"
+# set certificate_file = "$HOME/.cache/neomutt/certificates"
+unset record
