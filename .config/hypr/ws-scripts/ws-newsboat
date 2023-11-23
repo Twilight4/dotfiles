@@ -2,7 +2,7 @@
 
 # Function to check if 'newsboat' process is running
 is_newsboat_running() {
-    prep -x "newsboat" >/dev/null
+    pgrep -x "newsboat" >/dev/null
 }
 
 # Focus on ws "6" and spawn 'newsboat' if it's not running, else only focus
