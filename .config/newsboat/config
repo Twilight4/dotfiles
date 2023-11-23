@@ -1,6 +1,11 @@
 # -----------------------------------------
 # Settings
 # -----------------------------------------
+# Notification settings
+notify-program "/bin/notify-send"
+notify-always yes
+notify-format "%d new articles (%n unread articles, %f unread feeds)"
+
 # Feed settings
 #refresh-on-startup yes               # I want to spare my bandwtith bcs I have a lot of feeds
 feed-sort-order lastupdated
