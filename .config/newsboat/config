@@ -93,4 +93,4 @@ bind-key v bookmark
 # -----------------------------------------
 # Highlights & Colors
 # -----------------------------------------
-include ~/.config/newsboat/themes/nord
+include ~/.config/newsboat/theme/nord
