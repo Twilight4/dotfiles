@@ -1767,9 +1767,9 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 #+begin_src emacs-lisp
 (use-package dired-open
   :config
-  (setq dired-open-extensions '(("gif" . "imv")
-                                ("jpg" . "imv")
-                                ("png" . "imv")
+  (setq dired-open-extensions '(("gif" . "swayimg")
+                                ("jpg" . "swayimg")
+                                ("png" . "swayimg")
                                 ("mkv" . "mpv")
                                 ("mp4" . "mpv")
                                 ("pdf" . "zathura"))))
