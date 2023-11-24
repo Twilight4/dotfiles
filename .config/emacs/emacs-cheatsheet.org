@@ -33,6 +33,7 @@ The world's greatest programmer once said:
   - [[#dired][Dired]]
   - [[#magit][Magit]]
   - [[#undo-tree][Undo-tree]]
+  - [[#consult-buffer][Consult-buffer]]
 
 * C-x Leader Key
 ** Common keybinds
@@ -60,18 +61,6 @@ The world's greatest programmer once said:
 | e          | Eval/Edit file |
 | d          | Dired          |
 | r          | Registers      |
-
-*** Consult-buffer prompt key shortcuts
-
-| Keybinding | Description      |
-|------------+------------------|
-| b          | Buffers          |
-| SPC        | Hidden buffers   |
-| * SPC      | Modified buffers |
-| f SPC      | Files            |
-| r SPC      | File registers   |
-| m SPC      | Bookmarks        |
-| p SPC      | Project          |
 
 * C-c Leader Key
 
@@ -223,4 +212,16 @@ The world's greatest programmer once said:
 | M-/        | redo                                 |
 | C-p/n      | navigate through =undo-tree-visualise= |
 | q          | quit                                 |
+
+** Consult-buffer
+
+| Keybinding | Description      |
+|------------+------------------|
+| b          | Buffers          |
+| SPC        | Hidden buffers   |
+| * SPC      | Modified buffers |
+| f SPC      | Files            |
+| r SPC      | File registers   |
+| m SPC      | Bookmarks        |
+| p SPC      | Project          |
 
