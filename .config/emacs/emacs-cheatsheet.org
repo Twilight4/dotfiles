@@ -21,10 +21,17 @@ The world's greatest programmer once said:
   - [[#common-keybinds][Common keybinds]]
   - [[#prefix-keys][Prefix keys]]
 - [[#c-c-leader-key][C-c Leader Key]]
+  - [[#org-mode][Org-mode]]
   - [[#org-roam][Org-Roam]]
   - [[#org-roam-dailies][Org-Roam dailies]]
 - [[#c-l-leader-key][C-l Leader Key]]
+  - [[#avy-jumping][Avy jumping]]
+  - [[#avy-yankingkillingmoving][Avy yanking/killing/moving]]
+  - [[#avy-navigation][Avy navigation]]
+  - [[#zap-to-char][Zap to char]]
 - [[#m-i-leader-key][M-i Leader Key]]
+  - [[#symbol-overlay][Symbol-overlay]]
+  - [[#expand-region][Expand-region]]
 - [[#other-packages][Other Packages]]
   - [[#elfeed][Elfeed]]
   - [[#org-agenda][Org-agenda]]
@@ -63,6 +70,7 @@ The world's greatest programmer once said:
 | r          | Registers      |
 
 * C-c Leader Key
+** Org-mode
 
 | Keybinding | Description         |
 |------------+---------------------|
@@ -109,16 +117,26 @@ The world's greatest programmer once said:
 | D          | Go to daily in date       |
 
 * C-l Leader Key
+** Avy jumping
 
 | Keybinding | Description         |
 |------------+---------------------|
 | C-c        | Jump to a character |
 
+** Avy yanking/killing/moving
+
+** Avy navigation
+
+** Zap to char
+
 * M-i Leader Key
+** Symbol-overlay
 
 | Keybinding | Description |
 |------------+-------------|
 | M-u        | Symbol put  |
+
+** Expand-region
 
 * Other Packages
 ** Elfeed
