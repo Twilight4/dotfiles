@@ -1,33 +1,35 @@
-# Color scheme
-color background          color15    default
-color listnormal          color248   default
-color listnormal_unread   color4     default
-color listfocus           color0     color4
-color listfocus_unread    color0     color4   bold
+# Catppucin color scheme
+color listnormal         color15 default
+color listnormal_unread  color2  default
+color listfocus_unread   color2  color0
+color listfocus          default color0
+color background         default default
+color article            default default
+color end-of-text-marker color8  default
 color info                color12    color0
 color article             color248   default
 
 # Highlight article
+highlight article "\\((link|image|video)\\)" color8 default
+highlight article "https?://[^ ]+" color4 default
 highlight article "^(Feed|Link):.*$" color6 default bold
 highlight article "^(Title|Date|Author):.*$" color6 default bold
-highlight article "https?://[^ ]+" color10 default underline
-highlight article "\\[[0-9]+\\]" color10 default bold
-highlight article "\\[image\\ [0-9]+\\]" color10 default bold
+highlight article "\\[[0-9][0-9]*\\]" color66 default bold
+highlight article "\\[image [0-9][0-9]*\\]" color109 default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" color66 default bold
 highlight article "^Feed:.*" magenta default 
 highlight article "^Title:.*" yellow default bold
 highlight article "^Author:.*" green default
 highlight article "^Date:.*" color223 default
 highlight article "^Link:.*" blue default
 highlight article "^Flags:.*" color9 default
-highlight article "\\[[0-9][0-9]*\\]" color66 default bold
-highlight article "\\[image [0-9][0-9]*\\]" color109 default bold
-highlight article "\\[embedded flash: [0-9][0-9]*\\]" color66 default bold
 
 # Highlights feedlist
-highlight feedlist "\\(Youtube\\) .*" red
-highlight feedlist "\\(Twitter\\) .*" blue
-highlight feedlist "\\(Reddit\\) .*" green
-highlight feedlist "\\(Podcast\\) .*" magenta
+highlight feedlist "\\(Youtube\\) .*" color30
+highlight feedlist "\\(HTB\\) .*" blue
+highlight feedlist "\\(Reddit\\) .*" red
+highlight feedlist "\\(CTF\\) .*" magenta
 highlight feedlist "\\(Blog\\) .*" cyan
-#highlight feedlist "\\(Reddit\\) .*" color166 
+highlight feedlist "\\(Pentest\\) .*" color29
+highlight feedlist "\\(Github\\) .*" color25
 highlight feedlist "^─.*$" color6 color0 bold

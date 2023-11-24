@@ -10,15 +10,13 @@ https://www.reddit.com/r/unixporn/new.rss "Reddit"
 https://www.reddit.com/r/commandline/new.rss "Reddit"
 https://www.reddit.com/r/vim/new.rss "Reddit"
 
-# Dev
-https://thevaluable.dev/index.xml "Dev"
-https://opensource.com/feed "Dev"
-
-# Polish
-http://feeds.feedburner.com/niebezpiecznik/ "PL"
-http://feeds.feedburner.com/sekurak "PL"
-https://helion.pl/rss/promocje.rss "PL"
-https://helion.pl/rss/ "PL"
+# Blog
+https://thevaluable.dev/index.xml "Blog"
+https://opensource.com/feed "Blog"
+http://feeds.feedburner.com/niebezpiecznik/ "Blog"
+http://feeds.feedburner.com/sekurak "Blog"
+https://helion.pl/rss/promocje.rss "Blog"
+https://helion.pl/rss/ "BLog"
 
 # HTB
 https://www.hackthebox.com/rss/blog/hacker "HTB"
@@ -27,13 +25,13 @@ https://www.hackthebox.com/rss/blog/events "HTB"
 https://www.hackthebox.com/rss/blog/tips-and-tricks "HTB"
 https://www.hackthebox.com/rss/blog/news "HTB"
 
-# Write-ups
+# CTF
 https://0xdf.gitlab.io/feed.xml "CTF"
 https://www.reddit.com/r/netsec/new.rss "CTF"
 https://www.reddit.com/r/AskNetsec/new.rss "CTF"
 https://www.reddit.com/r/securityCTF/new.rss "CTF"
 
-# Pentest news
+# Pentest
 https://hackaday.com/blog/feed/ "Pentest"
 https://www.darkreading.com/rss.xml "Pentest"
 https://feeds.feedburner.com/TheHackersNews "Pentest"
@@ -44,31 +42,11 @@ https://www.blazeinfosec.com/feed/ "Pentest"
 https://latesthackingnews.com/feed/ "Pentest"
 https://www.kitploit.com//feeds/posts/default "Pentest"
 
-# Bug Bounty
-https://www.hackerone.com/blog.rss "Bug Bounty"
-https://www.bugcrowd.com/about/news/feed/ "Bug Bounty"
-https://portswigger.net/daily-swig/rss "Bug Bounty"
-
 # Github
 https://github.com/Athena-OS/athena-iso/releases.atom "Github"
 https://github.com/hyprwm/Hyprland/releases.atom "Github"
 https://github.com/nawfalmrouyan/hyprland/commits.atom "Github"
 https://github.com/AmadeusWM/dotfiles-hyprland/commits.atom "Github"
-
-# Repo releases 
-#https://github.com/:owner/:repo/releases.atom
-
-# Repo commits 
-#https://github.com/:owner/:repo/commits.atom
-
-# Private feed (You can find Subscribe to your news feed in dashboard page after login) 
-#https://github.com/:user.private.atom?token=:secret
-
-# Repo tags 
-#https://github.com/:user/:repo/tags.atom
-
-# User activity 
-#https://github.com/:user.atom
 
 # Youtube
 https://www.youtube.com/feeds/videos.xml?channel_id=UC0ArlFuFYMpEewyRBzdLHiw "~TCM Academy"                   "Youtube"
@@ -147,3 +125,18 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UChH3vLF7j8PlgSTtOB9adJA "~U
 https://www.youtube.com/feeds/videos.xml?channel_id=UCKONdcQCTP3aozARj1ntKhw "~warpdotdev"                    "Youtube"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCWsdOwuIUInJwyXxI9j_Adw "~Yaniv Hoffman"                 "Youtube"
 https://www.youtube.com/feeds/videos.xml?channel_id=UCVPjtOVcnKaSRI8IO3KSetA "~zSecurity"                     "Youtube"
+
+# Repo releases 
+#https://github.com/:owner/:repo/releases.atom
+
+# Repo commits 
+#https://github.com/:owner/:repo/commits.atom
+
+# Private feed (You can find Subscribe to your news feed in dashboard page after login) 
+#https://github.com/:user.private.atom?token=:secret
+
+# Repo tags 
+#https://github.com/:user/:repo/tags.atom
+
+# User activity 
+#https://github.com/:user.atom
