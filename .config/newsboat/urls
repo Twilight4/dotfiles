@@ -3,7 +3,7 @@
 "query:Hacking Articles:unread = \"yes\" and tags =~ \"2. Hacking Articles\" and age >= \"1d\"" Hacking "5. Older Unread Articles"
 "query:Youtube Articles:unread = \"yes\" and tags =~ \"Youtube\" and age >= \"2d\"" Youtube "5. Older Unread Articles"
 
-# Query and show unread entries for defined tags that are not not older than one day
+# Query and show unread entries for defined tags that are not not older than 1 day
 "query:Blog Articles:unread = \"yes\" and tags =~ \"3. Blog Articles\" and age <= \"1d\"" Blog "4. Today's Unread Articles"
 "query:Hacking Articles:unread = \"yes\" and tags =~ \"2. Hacking Articles\" and age <= \"1d\"" Hacking "4. Today's Unread Articles"
 "query:Youtube Articles:unread = \"yes\" and tags =~ \"Youtube\" and age <= \"1d\"" Youtube "4. Today's Unread Articles"
