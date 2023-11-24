@@ -11,6 +11,8 @@ refresh-on-startup yes
 feed-sort-order lastupdated
 save-path "~/downloads/"
 feedlist-format "%?T?%4i %n %8u (%T) %t?"
+confirm-mark-all-feeds-read no
+confirm-mark-feed-read no
 
 # Reload settings
 auto-reload yes

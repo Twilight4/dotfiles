@@ -1,3 +1,13 @@
+# Query to show unread entries - under "Unread Articles" tag
+"query:Unread:unread = \"yes\"" "Unread Articles"
+
+# Query to not show unread feeds older than one day
+"query:Unread:unread = \"yes\" and age <= \"1d\"" "Today's Unread Articles"
+
+# Query to show unread entries that are not older than one day and contain tag "Youtube" - under "Youtube Unread" tag
+"query:Youtube Unread:unread = \"yes\" and tags =~ \"Youtube\" and age <= \"1d\"" "Today's Youtube Unread"
+
+
 # Reddit
 https://www.reddit.com/r/linux/new.rss "Reddit"
 https://www.reddit.com/r/commandline/new.rss "Reddit"
