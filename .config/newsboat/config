@@ -20,8 +20,13 @@ reload-threads 100
 # "e" to enqueue and download a podcast
 download-path "~/downloads/%h/%n"
 max-downloads 3
-player "mpd"
+player "mpv"
 
+# Rice
+#highlight feedlist "[╒╘╞]═.*═[╛╕╡]" yellow default bold
+highlight feedlist "[║│]" yellow default bold
+highlight feedlist "╠═.*" yellow default bold
+feedlist-format "%?T?║%4i %n %8u (%T) %t &╠═════════════════════════════════════════════════════%t?"
 
 # -----------------------------------------
 # Macros
