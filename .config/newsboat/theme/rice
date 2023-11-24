@@ -1,0 +1,28 @@
+color listnormal default default
+color listfocus default default reverse
+color listnormal_unread default default bold
+color listfocus_unread default default bold underline
+color info red black bold
+color article default default
+
+highlight article "^Feed:.*" magenta default 
+highlight article "^Title:.*" yellow default bold
+highlight article "^Author:.*" green default
+highlight article "^Date:.*" color223 default
+highlight article "^Link:.*" blue default
+highlight article "^Flags:.*" color9 default
+highlight article "\\[[0-9][0-9]*\\]" color66 default bold
+highlight article "\\[image [0-9][0-9]*\\]" color109 default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" color66 default bold
+
+highlight feedlist "[║│]" yellow default bold
+highlight feedlist "╠═.*" yellow default bold
+
+highlight feedlist "\\(Youtube\\) .*" red
+highlight feedlist "\\(Twitter\\) .*" blue
+highlight feedlist "\\(Reddit\\) .*" green
+highlight feedlist "\\(Podcast\\) .*" magenta
+highlight feedlist "\\(Blog\\) .*" cyan
+#highlight feedlist "\\(Reddit\\) .*" color166 
+
+feedlist-format "%?T?║%4i %n %8u (%T) %t &╠═════════════════════════════════════════════════════%t?"

@@ -13,6 +13,7 @@ save-path "~/downloads/"
 
 # Reload settings
 auto-reload yes
+max-items 100
 reload-time 30
 reload-threads 100
 
@@ -22,19 +23,13 @@ download-path "~/downloads/%h/%n"
 max-downloads 3
 player "mpv"
 
-# Rice
-#highlight feedlist "[╒╘╞]═.*═[╛╕╡]" yellow default bold
-highlight feedlist "[║│]" yellow default bold
-highlight feedlist "╠═.*" yellow default bold
-feedlist-format "%?T?║%4i %n %8u (%T) %t &╠═════════════════════════════════════════════════════%t?"
-
 # -----------------------------------------
 # Macros
 # -----------------------------------------
 # Macro bindings
 browser "mercury-browser %u"
-macro m set browser "mpv %u" ; open-in-browser ; set browser "mercury-browser %u"
-macro v set browser "setsid -f mpv" ; open-in-browser ; set browser "mercury-browser %u"
+macro m set browser "mpv --no-input-builtin-bindings %u" ; open-in-browser ; set browser "mercury-browser %u"
+macro v set browser "setsid -f mpv --no-input-builtin-bindings" ; open-in-browser ; set browser "mercury-browser %u"
 macro t set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser "mercury-browser %u"
 macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "mercury-browser %u"
 
@@ -99,4 +94,5 @@ bind-key v bookmark
 # -----------------------------------------
 # Highlights & Colors
 # -----------------------------------------
-include ~/.config/newsboat/theme/nord
+#include ~/.config/newsboat/theme/nord
+include ~/.config/newsboat/theme/rice
