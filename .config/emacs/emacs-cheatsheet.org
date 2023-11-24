@@ -17,22 +17,14 @@ The world's greatest programmer once said:
 #+end_quote
 
 * Table of Contents :toc:
-- [[#keybinds-without-a-leader-key][Keybinds without a Leader Key]]
-  - [[#splits-navigation][Splits navigation]]
-  - [[#style-formatting-surround-automation-selection-mode][Style formatting surround automation (selection-mode)]]
-  - [[#org-mode-common-keys][Org Mode common keys]]
-  - [[#org-mode-tables][Org Mode Tables]]
-  - [[#centaur-tabsbuffers][Centaur Tabs/buffers]]
-  - [[#zoom][Zoom]]
-  - [[#other][Other]]
 - [[#c-x-leader-key][C-x Leader Key]]
   - [[#common-keybinds][Common keybinds]]
-  - [[#another-prefix-keys][Another prefix-keys]]
-  - [[#consult-buffer][Consult-buffer]]
+  - [[#prefix-keys][Prefix keys]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-roam][Org-Roam]]
   - [[#org-roam-dailies][Org-Roam dailies]]
 - [[#c-l-leader-key][C-l Leader Key]]
+- [[#m-i-leader-key][M-i Leader Key]]
 - [[#other-packages][Other Packages]]
   - [[#elfeed][Elfeed]]
   - [[#org-agenda][Org-agenda]]
@@ -41,85 +33,6 @@ The world's greatest programmer once said:
   - [[#dired][Dired]]
   - [[#magit][Magit]]
   - [[#undo-tree][Undo-tree]]
-
-* Keybinds without a Leader Key
-** Splits navigation
-
-| Keybinding  | Description              |
-|-------------+--------------------------|
-| C-h/j/k/l   | Switch split focus       |
-| C-S-h/j/k/l | Move split               |
-| M-</>       | Increase/Decrease width  |
-| M-=/-       | Increase/Decrease height |
-| M-0         | Balance splits           |
-| M-c         | Close split              |
-| M-s         | Horizontal split window  |
-| M-v         | Vertical split window    |
-| M-m         | Maximize split           |
-
-** Style formatting surround automation (selection-mode)
-
-| Keybinding | Description      |
-|------------+------------------|
-| m          | Bold             |
-| .          | Code             |
-| ,          | Distinguish      |
-| /          | Underline        |
-| '          | quotation        |
-| "          | double-quotation |
-
-** Org Mode common keys
-
-| Keybinding  | Description                                |
-|-------------+--------------------------------------------|
-| M-h/j/k/l   | Headings navigation                        |
-| M-S-h/j/k/l | Move/Promote/Demote headings               |
-| C-S-f/b/p/n | Change todo state/priority                 |
-| C-Ret       | Create a headline of the same type         |
-| C-S-Ret     | Create a TODO headline of the same type    |
-| M-Ret       | Create a headline of the same type         |
-| M-S-Ret     | Create another level headline              |
-| C-M-\       | Indent region                              |
-| TAB/S-TAB   | Toggle folding/cycle through folded stages |
-| f12         | Org transclusion add                       |
-
-** Org Mode Tables
-To create a table just start typing: =| table | name | description=
-
-| Keybinding          | Description                                   |
-|---------------------+-----------------------------------------------|
-| TAB/S-Tab           | Forward/backward                              |
-| S-Ret               | Duplicate a field in the call below           |
-| C-Ret (normal mode) | Create new table below                        |
-| Ret (normal mode)   | Clear the field and enter insert mode         |
-| M-h/j/k/l           | The same essential keybindings for navigation |
-| M-S-j/k             | Insert a new row above/delete current row     |
-| o                   | Insert new roam and move to the beginning     |
-
-** Centaur Tabs/buffers
-
-| Keybinding | Description                         |
-|------------+-------------------------------------|
-| M-p/n      | Tab Previous/Next                   |
-| M-F/B      | Move tab forward/backward           |
-| M-u        | Kill this buffer                    |
-| M-U        | Kill other buffers in current group |
-| M-o        | Create new tab                      |
-| M-O        | Open dashbord                       |
-| M-1/2/3/4  | Switch to tab 1/2/3/4               |
-
-** Zoom
-
-| Keybinding  | Description                         |
-|-------------+-------------------------------------|
-| C-=/-       | Zoom In/Out                         |
-| C-0         | Adjust zoom                         |
-
-** Other
-
-| Keybinding | Description    |
-|------------+----------------|
-| M-S-n      | Toggle neotree |
 
 * C-x Leader Key
 ** Common keybinds
@@ -136,20 +49,19 @@ To create a table just start typing: =| table | name | description=
 | C-s        | Save current bookmarks to bookmark file |
 | u          | =undo-tree-visualise=                     |
 
-** Another prefix-keys
+** Prefix keys
 
 | Keybinding | Description    |
 |------------+----------------|
-| e          | Eval/Edit file |
+| c          | Consult        |
 | a          | Org agenda     |
-| d          | Dired          |
-| b          | Buffer         |
 | h          | Help           |
-| o          | Org            |
-| T          | Toggle         |
+| t          | Toggle         |
+| e          | Eval/Edit file |
+| d          | Dired          |
 | r          | Registers      |
 
-** Consult-buffer
+*** Consult-buffer prompt key shortcuts
 
 | Keybinding | Description      |
 |------------+------------------|
@@ -208,6 +120,16 @@ To create a table just start typing: =| table | name | description=
 | D          | Go to daily in date       |
 
 * C-l Leader Key
+
+| Keybinding | Description         |
+|------------+---------------------|
+| C-c        | Jump to a character |
+
+* M-i Leader Key
+
+| Keybinding | Description |
+|------------+-------------|
+| M-u        | Symbol put  |
 
 * Other Packages
 ** Elfeed
