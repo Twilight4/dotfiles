@@ -26,6 +26,7 @@ download-path "~/downloads/%h/%n"
 max-downloads 3
 player "mpv"
 
+
 # -----------------------------------------
 # Macros
 # -----------------------------------------
