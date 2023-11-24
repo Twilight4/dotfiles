@@ -26,10 +26,14 @@ highlight article "^Flags:.*" color9 default
 
 # Highlights feedlist
 highlight feedlist "\\(Youtube\\) .*" color30
+highlight feedlist "\\(4. Today's Unread Articles\\) .*" color30
+highlight feedlist "\\(5. Older Unread Articles\\) .*" color25
 highlight feedlist "\\(HTB\\) .*" blue
 highlight feedlist "\\(Reddit\\) .*" red
 highlight feedlist "\\(CTF\\) .*" magenta
 highlight feedlist "\\(Blog\\) .*" cyan
 highlight feedlist "\\(Pentest\\) .*" color29
 highlight feedlist "\\(Github\\) .*" color25
+highlight feedlist "\\(Hacking\\) .*" color25
+highlight feedlist "\\(Dev\\) .*" color8
 highlight feedlist "^─.*$" color6 color0 bold
