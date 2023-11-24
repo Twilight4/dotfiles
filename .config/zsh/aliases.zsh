@@ -138,11 +138,11 @@ alias fdb="fd --ignore-case --hidden --type f --size +100M --exec lsd -l --hyper
 alias fdsh="fd . -e py -e sh desktop/workspace/dotfiles/.config/.install/ | xargs wc -l"
 
 # Mpv
-alias mpk='mpv --profile=sw-fast --vo=kitty'
-alias mpvadd='mpv --ytdl'
-alias mpvpl='mpv "$(yt-dlp -g --flat-playlist "$1")"'
-alias mpa='mpv --no-video'
-alias mpapl='mpv --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "$1")"'
+alias mpk='mpv --no-input-builtin-bindings --profile=sw-fast --vo=kitty'
+alias mpvadd='mpv --no-input-builtin-bindings --ytdl'
+alias mpvpl='mpv --no-input-builtin-bindings "$(yt-dlp -g --flat-playlist "$1")"'
+alias mpa='mpv --no-input-builtin-bindings --no-video'
+alias mpapl='mpv --no-input-builtin-bindings --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "$1")"'
 
 # Trans
 alias tre='trans en:pl'
