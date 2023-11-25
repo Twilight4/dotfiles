@@ -528,3 +528,47 @@ timer() {
 optimize-video() {
     "$XDG_CONFIG_HOME/.local/bin/optimize-video.sh" "$@"
 }
+
+d-attach() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/d-attach.sh" "$@"
+}
+
+d-image-rm() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/d-image-rm.sh" "$@"
+}
+
+d-rm() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/d-rm.sh" "$@"
+}
+
+d-stop-container() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/d-stop-container.sh" "$@"
+}
+
+fif() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/fif.sh" "$@"
+}
+
+ffe() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/fzf-find-edit.sh" "$@"
+}
+
+fgb() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/fzf-git-branch.sh" "$@"
+}
+
+fgc() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/fzf-git-checkout.sh" "$@"
+}
+
+fge() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/fzf-grep-edit.sh" "$@"
+}
+
+fkill() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/fzf-kill.sh" "$@"
+}
+
+lessf() {
+    "$XDG_CONFIG_HOME/zsh/fzf-scripts/less-filter-fzf.sh" "$@"
+}
