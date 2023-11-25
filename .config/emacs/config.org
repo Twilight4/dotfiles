@@ -704,7 +704,7 @@
  "M-d" '(symbol-overlay-jump-to-definition :wk "Symbol jump to definition")
  "M-i" '(symbol-overlay-query-isearch-literally :wk "Symbol isearch")
  "M-r" '(symbol-overlay-query-replace :wk "Symbol query replace")
- "M-N" '(symbol-overlay-rename :wk "Symbol rename"))
+ "M-N" '(symbol-overlay-rename :wk "Symbol rename")
  ;; Expand-region
  "w" '(er/mark-word :wk "Mark word")
  "h" '(er/mark-symbol :wk "Mark symbol")
@@ -720,7 +720,7 @@
  "e" '(er/mark-email :wk "Mark email")
  "d" '(er/mark-defun :wk "Mark defun")
  "l" '(er/mark-sentence :wk "Mark defun")
- "L" '(er/mark-paragraph :wk "Mark defun")
+ "L" '(er/mark-paragraph :wk "Mark defun"))
 )
 #+end_src
 
@@ -1350,29 +1350,29 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
 #+begin_src emacs-lisp
 (defun smarter-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
-
-Move point to the first non-whitespace character on this line.
-If point is already there, move to the beginning of the line.
-Effectively toggle between the first non-whitespace character and
-the beginning of the line.
-
-If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-point reaches the beginning or end of the buffer, stop there."
+   Only bind this function when not in an Org mode buffer.
+   When in Org mode buffers, maintain the normal behavior of
+   `move-beginning-of-line'."
   (interactive "^p")
-  (setq arg (or arg 1))
+  (if (and (boundp 'org-mode) org-mode)
+      (move-beginning-of-line arg)
+    (setq arg (or arg 1))
+    ;; Move lines first
+    (when (/= arg 1)
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
+    (let ((orig-point (point)))
+      (back-to-indentation)
+      (when (= orig-point (point))
+        (move-beginning-of-line 1)))))
 
-  ;; Move lines first
-  (when (/= arg 1)
-    (let ((line-move-visual nil))
-      (forward-line (1- arg))))
+(defun set-smarter-move-beginning-of-line-key ()
+  "Set key binding for 'smarter-move-beginning-of-line' based on the buffer type."
+  (global-set-key (kbd "C-a") 'smarter-move-beginning-of-line))
 
-  (let ((orig-point (point)))
-    (back-to-indentation)
-    (when (= orig-point (point))
-      (move-beginning-of-line 1))))
-
-;; Bind C-a to 'smarter-move-beginning-of-line'
-(global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
+;; Set the key binding based on the buffer type
+(add-hook 'org-mode-hook (lambda () (local-set-key (kbd "C-a") 'move-beginning-of-line)))
+(add-hook 'after-change-major-mode-hook 'set-smarter-move-beginning-of-line-key)
 
 ;; Select until beginning of the buffer
 (defun select-until-beginning ()
