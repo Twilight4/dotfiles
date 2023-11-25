@@ -86,10 +86,6 @@ alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 alias cats='highlight -O ansi --force'
 alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias icat='kitty +kitten icat'
-alias diff="kitty +kitten diff"
-alias gdiff="git difftool --no-symlinks --dir-diff"
-alias diffn="diff ~/documents/org/roam/seed-notes/ ~/MEGA/documents/org/roam/seed-notes/"
-alias diffa="diff ~/documents/org/ ~/MEGA/documents/org/"
 alias news="newsboat"
 alias pod="podboat"
 
@@ -103,6 +99,17 @@ help() {
 }
 h() {
     "$@" --help 2>&1 | bathelp
+}
+
+# Better diff
+#alias diff="kitty +kitten diff"
+alias diffn="diff -r -u ~/documents/org/roam/seed-notes/ ~/MEGA/documents/org/roam/seed-notes/ | diff-so-fancy"
+alias diffa="diff -r -u ~/documents/org/ ~/MEGA/documents/org/ | diff-so-fancy"
+diff() {
+  command diff -u "$@" | diff-so-fancy
+}
+diffd() {
+  command diff -r -u "$@" | diff-so-fancy
 }
 
 # Rust replacements
@@ -224,6 +231,7 @@ alias ginit="git init"   # ginit <directory_name>
 alias gd='git diff'
 alias dif="git diff --no-index"          # Diff two files even if not in git repo! Can add -w (don't diff whitespaces)
 alias gshow='git show'   # gshow <commit_id> - show diff from commit
+alias gdiff="git difftool --no-symlinks --dir-diff"
 alias gs='git status'
 alias gss='git status -s'
 alias grs='git restore --staged'  #grs <file> - remove from staging area
