@@ -88,6 +88,8 @@ alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on un
 alias icat='kitty +kitten icat'
 alias diff="kitty +kitten diff"
 alias gdiff="git difftool --no-symlinks --dir-diff"
+alias diffn="diff ~/documents/org/roam/seed-notes/ ~/MEGA/documents/org/roam/seed-notes/"
+alias diffa="diff ~/documents/org/ ~/MEGA/documents/org/"
 alias news="newsboat"
 alias pod="podboat"
 
