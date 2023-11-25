@@ -121,7 +121,7 @@ else
 fi
 
 # Select a docker container to remove
-drm() {
+d-rm() {
   set -o pipefail
   if [[ -n "$DEBUG" ]]; then
     set -x
@@ -156,6 +156,49 @@ drm() {
 
 if has docker; then
   drm "$@"
+else
+  echo "Cannot find docker in \$PATH" >&2
+fi
+
+# Stop a docker container
+d-stop-container() {
+  set -o pipefail
+  if [[ -n "$DEBUG" ]]; then
+    set -x
+  fi
+
+  debug() {
+    if [[ -n "$DEBUG" ]]; then
+      echo "$@"
+    fi
+  }
+
+  fail() {
+    printf '%s\n' "$1" >&2  ## Send message to stderr. Exclude >&2 if you don't want it that way.
+    exit "${2-1}"  ## Return a code specified by $2 or 1 by default.
+  }
+
+  has() {
+    # Check if a command is in $PATH
+    which "$@" > /dev/null 2>&1
+  }
+
+  d_stop_container_internal() {
+    local cid
+    cid=$(docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
+
+    [ -n "$cid" ] && docker stop "$cid"
+  }
+
+  if has docker; then
+    d_stop_container_internal "$@"
+  else
+    echo "Cannot find docker in \$PATH" >&2
+  fi
+}
+
+if has docker; then
+  d_stop_container "$@"
 else
   echo "Cannot find docker in \$PATH" >&2
 fi
