@@ -87,7 +87,8 @@ alias cats='highlight -O ansi --force'
 alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias icat='kitty +kitten icat'
 alias news="newsboat"
-alias pod="podboat"
+alias tail="tail -f"
+alias truncate="truncate -s 0"
 
 # Prettify help/cheat pages
 alias bathelp='bat --plain --language=help'
