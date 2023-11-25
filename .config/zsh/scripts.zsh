@@ -498,19 +498,19 @@ cht() {
 
 # Aliases to bash scripts
 pipes() {
-    "$XDG_CONFIG_HOME/.local/bin/pipes.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/zsh-scripts/pipes.sh" "$@"
 }
 
 colorblocks() {
-    "$XDG_CONFIG_HOME/.local/bin/colorblocks.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/zsh-scripts/colorblocks.sh" "$@"
 }
 
 git-jump() {
-    "$XDG_CONFIG_HOME/.local/bin/git-jump.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/zsh-scripts/git-jump.sh" "$@"
 }
 
 githeat() {
-    "$XDG_CONFIG_HOME/.local/bin/heatmap.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/zsh-scripts/heatmap.sh" "$@"
 }
 
 backup() {
@@ -518,15 +518,15 @@ backup() {
 }
 
 bm() {
-    "$XDG_CONFIG_HOME/.local/bin/bm.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/zsh-scripts/bm.sh" "$@"
 }
 
 timer() {
-    "$XDG_CONFIG_HOME/.local/bin/timer.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/zsh-scripts/timer.sh" "$@"
 }
 
 optimize-video() {
-    "$XDG_CONFIG_HOME/.local/bin/optimize-video.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/zsh-scripts/optimize-video.sh" "$@"
 }
 
 d-attach() {
