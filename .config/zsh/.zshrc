@@ -32,8 +32,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Colors
 autoload -Uz colors && colors
 
-# Jump plugin
-eval "$(jump shell --bind=j)"  # Idk why but it breaks
+# thefuck alias
 eval $(thefuck --alias)
 
 # Profiling
