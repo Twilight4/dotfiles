@@ -490,6 +490,22 @@ path() {
     echo $PATH | tr ':' '\n'
 }
 
+gitnewrepo() { 
+	mkdir "$*" && cd "$*" && git init && hub create && touch README.md && echo "# " "$*" >>README.md && git add . && git commit -m "init" && git push -u origin HEAD; 
+}
+
+# Wrapper for git clone, 'gcl' to clone from clipboard
+# Does not matter if the link you copied has "git clone" in front of it or not
+gcl() {
+    if [[ $# -gt 0 ]]; then
+        git clone "$*" && cd "$(basename "$1" .git)"
+    elif [[ "$(wl-paste)" == *"clone"* ]]; then
+        $(wl-paste) && cd "$(basename "$(wl-paste)" .git)"
+    else
+        git clone --depth 1 "$(wl-paste)" && cd "$(basename "$(wl-paste)" .git)"
+    fi
+}
+
 # Use tinyurl to shorten the <url>.
 tiny() {
     local URL=${1:?}

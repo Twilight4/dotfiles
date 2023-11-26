@@ -1,5 +1,56 @@
 #!/usr/bin/env zsh
 
+
+####################
+# Common use cases #
+####################
+
+#fuzzy finder without hidden files and open in $EDITOR
+ff() {
+    $EDITOR $(find * -type f | fzf --multi --reverse --preview "$(getFZFPreviewer)")
+}
+
+# cd into the directory of the selected file
+fz() {
+    local file
+    local dir
+    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    ls
+}
+
+# Find Dirs
+fd() {
+    local dir
+    dir=$(find ${1:-.} -path '*/\.*' -prune \
+        -o -type d -print 2>/dev/null | fzf +m) &&
+        cd "$dir"
+    ls
+}
+
+# Find Dirs + Hidden
+fdh() {
+    local dir
+    dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m) && cd "$dir"
+    ls
+}
+
+# fdr - cd to selected parent directory
+f..() {
+    local declare dirs=()
+    get_parent_dirs() {
+        if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
+        if [[ "${1}" == '/' ]]; then
+            for _dir in "${dirs[@]}"; do echo $_dir; done
+        else
+            get_parent_dirs $(dirname "$1")
+        fi
+    }
+    local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
+    cd "$DIR"
+    ls
+}
+
+
 ################
 # Command Line #
 ################
@@ -101,6 +152,37 @@ fman() (
     fi
 )
 
+# Docker
+ssh-docker() {
+    docker exec -it "$@" bash
+}
+
+# i.e. fzf-eval ls
+fzf-eval() {
+    echo | fzf -q "$*" --preview-window=up:99% --preview="eval {q}"
+}
+
+execute-fzf() {
+    if [ -z "$1" ]; then
+        file="$(fzf --multi)" # if no cmd provided default to ls
+    else
+        file=$(eval "$1 | fzf --multi") # otherwise pipe output of that command into fzf
+    fi
+
+    case "$file" in
+    "") echo "fzf cancelled" ;;
+    *) eval "$2" "$file" ;; #execute the second provided command on the selected file
+    esac
+}
+
+# Search for a file to edit in $EDITOR
+fzf-find-files-alt() {
+    selected="$(fzf --multi --reverse)"
+    case "$selected" in
+    "") echo "cancelled fzf" ;;
+    *) eval "$EDITOR" "$selected" ;;
+    esac
+}
 
 ####################
 # Package Managers #
