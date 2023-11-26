@@ -57,6 +57,7 @@ zsh_add_file "bd.zsh"
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # Install plugins
+zsh_add_plugin "b4b4r07/enhancd"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
@@ -69,6 +70,7 @@ zsh_add_completion "zsh-users/zsh-completions"
 
 # Keybindings - check functions.zsh and emacs-mode for more
 source "$ZDOTDIR/plugins/fg-bg.sh"
+source "$ZDOTDIR/plugins/enhancd/init.sh"
 zle -N fg-bg
 bindkey '^Z' fg-bg
 
