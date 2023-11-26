@@ -689,8 +689,8 @@
  "u" '(er/mark-url :wk "Mark URL")
  "e" '(er/mark-email :wk "Mark email")
  "d" '(er/mark-defun :wk "Mark defun")
- "l" '(er/mark-sentence :wk "Mark defun")
- "L" '(er/mark-paragraph :wk "Mark defun"))
+ "l" '(er/mark-sentence :wk "Mark sentence")
+ "L" '(er/mark-paragraph :wk "Mark paragraph"))
 )
 #+end_src
 
@@ -3021,8 +3021,6 @@ this with to-do items than with projects or headings."
     ("m" "Metrics Capture")
      ("md" "Diet" table-line (file+headline "~/documents/org/roam/metrics/diet.org" "Weight")
          "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)
-     ("mg" "Goals" table-line (file+headline "~/documents/org/roam/metrics/goals.org" "Goals")
-         "| %U | %^{Goal} | %^{Notes} |" :kill-buffer t)
      ("mr" "Reading" table-line (file+headline "~/documents/org/roam/metrics/reading.org" "Reading")
          "| %U | %^{Page} | %^{Notes} |" :kill-buffer t)))
 #+end_src
