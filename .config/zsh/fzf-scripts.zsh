@@ -606,3 +606,8 @@ fifa() {
         | fzf-tmux -p +m --preview="rga --ignore-case --pretty --context 10 '"$*"' {}")" \
         && print -z "./$file" || return 1;
 }
+
+# Image preview
+fimg() {
+	fzf --preview 'tupimage --force-upload --less-diacritics --fzf {}'
+}
