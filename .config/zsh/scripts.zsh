@@ -485,6 +485,11 @@ zshcomp() {
     done | sort
 }
 
+# Print PATH
+path() {
+    echo $PATH | tr ':' '\n'
+}
+
 # Use tinyurl to shorten the <url>.
 tiny() {
     local URL=${1:?}
