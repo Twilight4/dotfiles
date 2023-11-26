@@ -32,8 +32,6 @@ alias ws='cd "$HOME/desktop/workspace" ; clear'
 alias cd-="cd -"
 alias .="cd ."
 alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
 
 # Common usage
 alias r='cd $HOME ; clear'
