@@ -4,7 +4,7 @@
 # Command Line #
 ################
 
-function rm() (
+frm() (
     local SOURCES
     local REPLY
     local ERRORMSG
@@ -35,6 +35,69 @@ function rm() (
         else
             echo "removed file/folder"
         fi
+    fi
+)
+
+# mv wrapper. if no command provided prompt user to
+# interactively select multiple files with tab + fuzzy search
+fmv() {
+    local SOURCES
+    local TARGET
+    local REPLY
+    local ERRORMSG
+    if [[ "$#" -eq 0 ]]; then
+        echo -n "would you like to use the force young padawan? y/n: "
+        read -r REPLY
+
+        # NOTE. THIS IS A ZSH IMPLEMENTATION ONLY FOR NOW. VARED IS ZSH BUILTIN.
+        # FOR BASH use something like read -p "enter a directory: "
+        echo "Use full path i.e /Users/admin/Git_Downloads/blog-sites"
+        vared -p 'to whence shall be the files moved. state your target: ' -c TARGET
+        if [ -z "$TARGET" ]; then
+            echo 'no target specified'
+            return 1
+        fi
+
+        # This corrects issue where directory is not found as ~ is
+        # not expanded  properly When stored directly from user input
+        if echo "$TARGET" | grep -q "~"; then
+            TARGET=$(echo $TARGET | sed 's/~//')
+            TARGET=~/$TARGET
+        fi
+
+        SOURCES=$(find . -maxdepth 1 | fzf --multi)
+        #we use xargs to capture filenames with spaces in them properly
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            echo "using the force..."
+            echo "$SOURCES" | xargs -I '{}' mv -f {} '/'$TARGET'/'
+        else
+            echo "$SOURCES" | xargs -I '{}' mv {} '/'$TARGET'/'
+        fi
+        echo "moved selected file/folder(s)"
+    else
+        ERRORMSG=$(command mv "$@" 2>&1)
+        #if error msg is not empty, prompt the user
+        if [ -n "$ERRORMSG" ]; then
+            echo "$ERRORMSG"
+            echo -n "mv failed, would you like to use the force young padawan? y/n: "
+            read -r REPLY
+            if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+                echo "using the force..."
+                command mv -f "$@"
+            fi
+        fi
+    fi
+}
+
+# Man without options will use fzf to select a page
+fman() (
+    MAN="/usr/bin/man"
+    if [ -n "$1" ]; then
+        $MAN "$@"
+        return $?
+    else
+        $MAN -k . | fzf --reverse --prompt='Man> ' --preview="echo {1} | sed 's/(.*//' | xargs $MAN -P cat" | awk '{print $1}' | sed 's/(.*//' | xargs $MAN
+        return $?
     fi
 )
 
