@@ -17,24 +17,24 @@ ff() {
 ffh() {
     local file
     local dir
-    file=$(fzf +m --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
-    ls
+    file=$(fzf +m --reverse --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    lsd -l --hyperlink=auto
 }
 
 # Find Dirs (not hidden)
 fdd() {
     local dir
     dir=$(find ${1:-.} -path '*/\.*' -prune \
-        -o -type d -print 2>/dev/null | fzf +m --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}') &&
+        -o -type d -print 2>/dev/null | fzf +m --reverse --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}') &&
         cd "$dir"
-    ls
+    lsd -l --hyperlink=auto
 }
 
 # Find Dirs + Hidden (using cd . - improved version from enhancd)
 # fdh() {
 #     local dir
 #     dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m) && cd "$dir"
-#     ls
+#     lsd -l --hyperlink=auto
 # }
 
 
