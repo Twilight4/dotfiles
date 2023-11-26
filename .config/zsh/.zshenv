@@ -50,6 +50,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export LESSOPEN='| ~/.config/zsh/fzf-scripts/less-filter-fzf.sh %s'
 export ENHANCD_FILTER="fzf --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}'"
+export ENHANCD_DIR="$HOME/.config/.enhancd"
 
 # Colorize FZF
 FZF_COLORS="bg+:-1,\

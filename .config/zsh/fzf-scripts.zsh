@@ -1,53 +1,37 @@
 #!/usr/bin/env zsh
 
 ####################
-# Common use cases #
+# Change directory #
 ####################
 
-#fuzzy finder without hidden files and open in $EDITOR
+# Find file and open in $EDITOR (not hidden)
 ff() {
-    $EDITOR $(find * -type f | fzf --multi --reverse --preview "$(getFZFPreviewer)")
+    $EDITOR $(find * -type f | fzf --multi --reverse --preview "bat --style=numbers --color=always --line-range :500 {}")
 }
 
-# cd into the directory of the selected file
-fz() {
+# Find file and cd there + Hidden
+ffh() {
     local file
     local dir
-    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    file=$(fzf +m --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
     ls
 }
 
-# Find Dirs
-fd() {
+# Find Dirs (not hidden)
+fdd() {
     local dir
     dir=$(find ${1:-.} -path '*/\.*' -prune \
-        -o -type d -print 2>/dev/null | fzf +m) &&
+        -o -type d -print 2>/dev/null | fzf +m --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}') &&
         cd "$dir"
     ls
 }
 
-# Find Dirs + Hidden
-fdh() {
-    local dir
-    dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m) && cd "$dir"
-    ls
-}
-
-# fdr - cd to selected parent directory
-f..() {
-    local declare dirs=()
-    get_parent_dirs() {
-        if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
-        if [[ "${1}" == '/' ]]; then
-            for _dir in "${dirs[@]}"; do echo $_dir; done
-        else
-            get_parent_dirs $(dirname "$1")
-        fi
-    }
-    local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
-    cd "$DIR"
-    ls
-}
+# Find Dirs + Hidden (using cd . - improved version from enhancd)
+# fdh() {
+#     local dir
+#     dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m) && cd "$dir"
+#     ls
+# }
 
 
 ################
@@ -617,12 +601,6 @@ fpop() {
     # alias d='dirs -v'
     # for index ({1..9}) alias "$index"="cd +${index}"; unset index
     d | fzf --height="20%" | cut -f 1 | source /dev/stdin
-}
-
-# Better cd-ls navigation
-fcd() {
-    local dir
-    dir=$(find ${1:-.} -type d -not -path '*/\.*' 2> /dev/null | fzf +m) && cd "$dir"
 }
 
 # Find in File using ripgrep

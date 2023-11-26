@@ -28,6 +28,13 @@ alias pj='cd "$HOME/desktop/projects" ; clear'
 alias lpj='lsd --tree --hyperlink=auto ~/desktop/projects'
 alias ws='cd "$HOME/desktop/workspace" ; clear'
 
+# Enhancd: cd, cd-, cd <dir_not_in_cwd>, .., .
+alias cd-="cd -"
+alias .="cd ."
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
 # Common usage
 alias r='cd $HOME ; clear'
 alias mv='mv -v'
@@ -140,7 +147,7 @@ alias fds='fd --ignore-case --hidden --type f --size'
 alias fde='fd --ignore-case --hidden --type f --extension'
 alias fdr='fd --ignore-case --hidden --type f --exec rg -l'
 alias fdc='fd --ignore-case --hidden --type f --exec bat --color=always {}'
-alias fdd="fd --ignore-case --hidden --type d"
+#alias fdd="fd --ignore-case --hidden --type d"
 alias fdex="fd --ignore-case --hidden --exclude"
 alias fext="fd --ignore-case --hidden --extension"
 alias fdl="fd --ignore-case --hidden --list-details"
@@ -220,11 +227,6 @@ alias treed='tree -CAFd'
 
 # Show all logs in /var/log
 alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -  f1 | sed -e's/:\$//g' | grep -v '[0-9]\$' | xargs tail -f"
-
-# Usefull
-alias ..="cd ../"
-alias ...="cd ../../"
-alias ....="cd ../../../"
 
 # Git
 alias gconfig="git config --list"
