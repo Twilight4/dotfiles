@@ -49,9 +49,9 @@ export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export LESSOPEN='| ~/.config/zsh/fzf-scripts/less-filter-fzf.sh %s'
-export ENHANCD_FILTER="fzf --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}'"
+export ENHANCD_FILTER="fzf --reverse --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}'"
 export ENHANCD_DIR="$HOME/.config/.enhancd"
-export ENHANCD_HOOK_AFTER_CD=ls
+export ENHANCD_HOOK_AFTER_CD="ls"
 
 # Colorize FZF
 FZF_COLORS="bg+:-1,\

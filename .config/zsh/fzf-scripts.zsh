@@ -4,13 +4,20 @@
 # Change directory #
 ####################
 
-# Search for a file to edit in $EDITOR (not hidden)
+# Search for a file and edit in $EDITOR + Hidden
 ff() {
-    selected="$(find * -type f | fzf --multi --reverse --preview "bat --style=numbers --color=always --line-range :500 {}")"
-    case "$selected" in
-    "") echo "cancelled fzf" ;;
-    *) eval "$EDITOR" "$selected" ;;
-    esac
+  file=$(find . -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
+      | fzf --query="$1" --no-multi --select-1 --exit-0 \
+      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+  if [[ -n "$file" ]]; then
+    eval "$EDITOR" "$file"
+  fi
+}
+
+# Search for a file in ~/.config and edit in $EDITOR + Hidden
+ffd() {
+	selected="$(find ~/.config -type f -exec realpath --relative-to=$HOME {} + | fzf --multi --reverse --preview "bat --style=numbers --color=always --line-range :500 {}" | sed "s|^~|~/.|")"
+    [ -n "$selected" ] && eval "$EDITOR" "$selected"
 }
 
 # Find file and cd there + Hidden
@@ -21,16 +28,16 @@ ffh() {
     lsd -l --hyperlink=auto
 }
 
-# Find Dirs (not hidden)
-fdd() {
-    local dir
-    dir=$(find ${1:-.} -path '*/\.*' -prune \
-        -o -type d -print 2>/dev/null | fzf +m --reverse --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}') &&
-        cd "$dir"
-    lsd -l --hyperlink=auto
-}
+# Find Dirs (not hidden) (using cd . - improved version from enhancd with hidden)
+# fdd() {
+#     local dir
+#     dir=$(find ${1:-.} -path '*/\.*' -prune \
+#         -o -type d -print 2>/dev/null | fzf +m --reverse --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}') &&
+#         cd "$dir"
+#     lsd -l --hyperlink=auto
+# }
 
-# Find Dirs + Hidden (using cd . - improved version from enhancd)
+# Find Dirs + Hidden (using cd . - improved version from enhancd with hidden)
 # fdh() {
 #     local dir
 #     dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m) && cd "$dir"
@@ -409,7 +416,7 @@ fgs() {
             --preview '(git diff --color=always -- {-1} | delta | sed 1,4d; cat {-1}) | head -500' |
         cut -c4- | sed 's/.* -> //')
     if [[ $selected ]]; then
-        for prog in $selected; do nvim "$prog"; done
+        for prog in $selected; do eval "$EDITOR" "$prog"; done
     fi
 }
 
@@ -457,7 +464,7 @@ fpdf() {
 # List tracking spreadsheets (productivity, money ...)
 ftrack() {
     file=$(find ~/documents/org/roam/metrics/* -type f -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2) || return
-    [ -n "$file" ] && emacsclient -nw "$file"
+    [ -n "$file" ] && eval "$EDITOR" "$file"
 }
 
 # List clipboard history
