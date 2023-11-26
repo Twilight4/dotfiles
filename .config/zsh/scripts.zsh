@@ -498,19 +498,19 @@ cht() {
 
 # Aliases to bash scripts
 pipes() {
-    "$XDG_CONFIG_HOME/zsh/zsh-scripts/pipes.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/bash-scripts/pipes.sh" "$@"
 }
 
 colorblocks() {
-    "$XDG_CONFIG_HOME/zsh/zsh-scripts/colorblocks.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/bash-scripts/colorblocks.sh" "$@"
 }
 
 git-jump() {
-    "$XDG_CONFIG_HOME/zsh/zsh-scripts/git-jump.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/bash-scripts/git-jump.sh" "$@"
 }
 
 githeat() {
-    "$XDG_CONFIG_HOME/zsh/zsh-scripts/heatmap.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/bash-scripts/heatmap.sh" "$@"
 }
 
 backup() {
@@ -518,15 +518,15 @@ backup() {
 }
 
 bm() {
-    "$XDG_CONFIG_HOME/zsh/zsh-scripts/bm.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/bash-scripts/bm.sh" "$@"
 }
 
 timer() {
-    "$XDG_CONFIG_HOME/zsh/zsh-scripts/timer.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/bash-scripts/timer.sh" "$@"
 }
 
 optimize-video() {
-    "$XDG_CONFIG_HOME/zsh/zsh-scripts/optimize-video.sh" "$@"
+    "$XDG_CONFIG_HOME/zsh/bash-scripts/optimize-video.sh" "$@"
 }
 
 d-attach() {
