@@ -55,8 +55,6 @@
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#avy][Avy]]
-  - [[#magit][Magit]]
-  - [[#git-timemachine][Git-Timemachine]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#pdf-tools][Pdf-tools]]
   - [[#desktop-mode][Desktop-mode]]
@@ -454,11 +452,6 @@
     "C-m" '(bookmark-set :wk "Set bookmark")
     "C-d" '(bookmark-delete :wk "Delete bookmark")
     "C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
-  ;; Git - TODO keybinds
-	;"C-g" '(magit-displatch :wk "Magit dispatch")
-	;"g" '(magit-file-displatch :wk "Magit file dispatch")
-	;"g" '(git-timemachine :wk "Git time machine")
-	;"C-/" '(magit-branch-checkout :wk "Switch branch")
 
   (tl/leader-keys
     "c" '(:ignore t :wk "Consult")
@@ -551,29 +544,6 @@
       "r w" '(window-configuration-to-register :wk "Window configuration to register")
       "r +" '(increment-register :wk "Increment register")
       "r SPC" '(point-to-register :wk "Point to register"))
-
-  ;; (tl/leader-keys
-  ;;   "g" '(:ignore t :wk "Git")    
-  ;;   "g /" '(magit-displatch :wk "Magit dispatch")
-  ;;   "g ." '(magit-file-displatch :wk "Magit file dispatch")
-  ;;   "g b" '(magit-branch-checkout :wk "Switch branch")
-  ;;   "g c" '(:ignore t :wk "Create") 
-  ;;   "g c b" '(magit-branch-and-checkout :wk "Create branch and checkout")
-  ;;   "g c c" '(magit-commit-create :wk "Create commit")
-  ;;   "g c f" '(magit-commit-fixup :wk "Create fixup commit")
-  ;;   "g C" '(magit-clone :wk "Clone repo")
-  ;;   "g f" '(:ignore t :wk "Find") 
-  ;;   "g f c" '(magit-show-commit :wk "Show commit")
-  ;;   "g f f" '(magit-find-file :wk "Magit find file")
-  ;;   "g f g" '(magit-find-git-config-file :wk "Find gitconfig file")
-  ;;   "g F" '(magit-fetch :wk "Git fetch")
-  ;;   "g g" '(magit-status :wk "Magit status")
-  ;;   "g i" '(magit-init :wk "Initialize git repo")
-  ;;   "g l" '(magit-log-buffer-file :wk "Magit buffer log")
-  ;;   "g r" '(vc-revert :wk "Git revert file")
-  ;;   "g s" '(magit-stage-file :wk "Git stage file")
-  ;;   "g t" '(git-timemachine :wk "Git time machine")
-  ;;   "g u" '(magit-stage-file :wk "Git unstage file"))
 #+end_src
 
 *** C-c Leader Key
@@ -1755,10 +1725,6 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (use-package treemacs-icons-dired
   :hook (dired-mode . treemacs-icons-dired-enable-once)
   :ensure t)
-
-(use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
 #+end_src
 
 ** Dired
@@ -1851,22 +1817,6 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
   (interactive)
   (command-execute 'avy-goto-line)
   (command-execute 'open-line))
-#+end_src
-
-** Magit
-Magit is a complete text-based user interface to =Git=. Source: [[https://magit.vc][magit.vc]]
-
-#+begin_src emacs-lisp
-(use-package magit 
-  :ensure t
-  :defer t)
-#+end_src
-
-** Git-Timemachine
-=git-timemachine= is a program that allows you to move backwards and forwards through a file’s commits. =M-SPC g t= will open the time machine on a file if it is in a git repo. Then, while in normal mode, you can use =CTRL-j= and =CTRL-k= to move backwards and forwards through the commits.
-
-#+begin_src emacs-lisp
-(use-package git-timemachine)
 #+end_src
 
 ** Drag-stuff
