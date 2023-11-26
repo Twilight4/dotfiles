@@ -6,7 +6,7 @@
 
 # Find file and open in $EDITOR (not hidden)
 ff() {
-    $EDITOR $(find * -type f | fzf --multi --reverse --preview "bat --style=numbers --color=always --line-range :500 {}")
+    $EDITOR $(find * -type f | fzf --multi --preview "bat --style=numbers --color=always --line-range :500 {}")
 }
 
 # Find file and cd there + Hidden

@@ -52,7 +52,6 @@ export LESSOPEN='| ~/.config/zsh/fzf-scripts/less-filter-fzf.sh %s'
 export ENHANCD_FILTER="fzf --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}'"
 export ENHANCD_DIR="$HOME/.config/.enhancd"
 export ENHANCD_HOOK_AFTER_CD=ls
-export ENHANCD_USE_ABBREV=true
 
 # Colorize FZF
 FZF_COLORS="bg+:-1,\

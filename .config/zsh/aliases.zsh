@@ -29,6 +29,7 @@ alias lpj='lsd --tree --hyperlink=auto ~/desktop/projects'
 alias ws='cd "$HOME/desktop/workspace" ; clear'
 
 # Enhancd: cd, cd-, cd <dir_not_in_cwd>, .., .
+# keybinds: alt+a, alt+d, alt+g, ctrl+. ctrl+,
 alias cd-="cd -"
 alias .="cd ."
 alias ..="cd .."
