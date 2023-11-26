@@ -149,6 +149,18 @@ fgb() {
 # List files #
 ##############
 
+# Search and run from list of aliases/functions
+falias() {
+    CMD=$(
+        (
+            (alias)
+            (functions | grep "()" | cut -d ' ' -f1 | grep -v "^_")
+        ) | fzf | cut -d '=' -f1
+    )
+
+    eval $CMD
+}
+
 # List and edit cheatsheet
 fcheat() {
     file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return

@@ -496,6 +496,11 @@ tiny() {
     curl -s "http://tinyurl.com/api-create.php?url=$1"
 }
 
+# Scrape a single webpage with all assets
+scrape-url() {
+    wget --adjust-extension --convert-links --page-requisites --span-hosts --no-host-directories "$1"
+}
+
 # Display command cheatsheet from cheat.sh. - cheat <command>
 cht() {
     curl cheat.sh/$1

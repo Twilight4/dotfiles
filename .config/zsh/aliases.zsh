@@ -56,7 +56,7 @@ alias blackcat="sudo pacman -Sg | grep blackarch"                             # 
 alias mkdir="mkdir -p"
 alias ping="prettyping -c 3"
 alias pg='prettyping -c 3 8.8.8.8'
-alias less="less -R"
+#alias less="less -R"   # have function as 'less'
 alias kill='killall -q'
 alias tr="trash"
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
@@ -242,7 +242,7 @@ alias greseth='git reset --hard' #greseth <commit_id> - reset change in cwd
 alias gl='git log --pretty=oneline'
 alias glog='git log --graph --abbrev-commit --oneline --decorate'
 alias gj="git-jump"                      # Open in vim quickfix list files of interest (git diff, merged...)
-alias gc="git clone --depth 1"
+#alias gc="git clone --depth 1"     # have 'gcl' function
 alias gci="cloneit"
 alias gu='git add . && git commit -m "update" && git push'
 alias rmgitcache="rm -r ~/.cache/git"
