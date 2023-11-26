@@ -14,10 +14,13 @@ ff() {
   fi
 }
 
-# Search for a file in ~/.config and edit in $EDITOR + Hidden
+# Search for a file in dotfiles repo and edit in $EDITOR + Hidden
 ffd() {
-	selected="$(find ~/.config -type f -exec realpath --relative-to=$HOME {} + | fzf --multi --reverse --preview "bat --style=numbers --color=always --line-range :500 {}" | sed "s|^~|~/.|")"
-    [ -n "$selected" ] && eval "$EDITOR" "$selected"
+  file=$(find ~/desktop/workspace/dotfiles/.config -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" -exec realpath --relative-to=$HOME {} + | sed 's|^desktop/workspace/dotfiles/||' | fzf --query="$1" --no-multi --select-1 --exit-0 \
+      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+  if [[ -n "$file" ]]; then
+    eval "$EDITOR" "$HOME/$file"
+  fi
 }
 
 # Find file and cd there + Hidden

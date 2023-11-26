@@ -580,10 +580,6 @@ d-stop-container() {
     "$XDG_CONFIG_HOME/zsh/fzf-scripts/d-stop-container.sh" "$@"
 }
 
-ffe() {
-    "$XDG_CONFIG_HOME/zsh/fzf-scripts/fzf-find-edit.sh" "$@"
-}
-
 fgb() {
     "$XDG_CONFIG_HOME/zsh/fzf-scripts/fzf-git-branch.sh" "$@"
 }
