@@ -1,5 +1,44 @@
 #!/usr/bin/env zsh
 
+################
+# Command Line #
+################
+
+function rm() (
+    local SOURCES
+    local REPLY
+    local ERRORMSG
+    if [[ "$#" -eq 0 ]]; then
+        echo -n "would you like to use the force young padawan? y/n: "
+        read -r REPLY
+        #prompt user interactively to select multiple files with tab + fuzzy search
+        SOURCES=$(find . -maxdepth 1 | fzf --multi)
+        #we use xargs to capture filenames with spaces in them properly
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            echo "using the force..."
+            echo "$SOURCES" | xargs -I '{}' rm -rf {}
+        else
+            echo "$SOURCES" | xargs -I '{}' rm {}
+        fi
+        echo "removed selected file/folder(s)"
+    else
+        ERRORMSG=$(command rm "$@" 2>&1)
+        #if error msg is not empty, prompt the user
+        if [ -n "$ERRORMSG" ]; then
+            echo "$ERRORMSG"
+            echo -n "rm failed, would you like to use the force young padawan? y/n: "
+            read -r REPLY
+            if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+                echo "using the force..."
+                command rm -rf "$@"
+            fi
+        else
+            echo "removed file/folder"
+        fi
+    fi
+)
+
+
 ####################
 # Package Managers #
 ####################
@@ -34,11 +73,52 @@ fgl() {
 FZF-EOF"
 }
 
+# git branch
 fgb() {
   local branches branch
   branches=$(git --no-pager branch -vv) &&
   branch=$(echo "$branches" | fzf +m) &&
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+
+##############
+# List files #
+##############
+
+# List and edit cheatsheet
+fcheat() {
+    file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return
+	[ -n "$file" ] && cheat --edit "$file"
+}
+
+# List workspace projects
+fwork() {
+    result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$result" ] && cd ~/desktop/workspace/$result
+}
+
+# List projects
+fproj() {
+    result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$result" ] && cd ~/desktop/projects/$result
+}
+
+# List pdfs
+fpdf() {
+    result=$(find ~ -type f -name '*.pdf' | fzf --bind "ctrl-r:reload(find -type f -name '*.pdf')" --preview "pdftotext {} - | less")
+    [ -n "$result" ] && zathura "$result" &
+}
+
+# List tracking spreadsheets (productivity, money ...)
+ftrack() {
+    file=$(find ~/documents/org/roam/metrics/* -type f -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2) || return
+    [ -n "$file" ] && emacsclient -nw "$file"
+}
+
+# List clipboard history
+fclip() {
+    cliphist list | fzf | cliphist decode | wl-copy
 }
 
 
@@ -171,30 +251,6 @@ fcd() {
     dir=$(find ${1:-.} -type d -not -path '*/\.*' 2> /dev/null | fzf +m) && cd "$dir"
 }
 
-# List workspace projects
-fwork() {
-    result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/desktop/workspace/$result
-}
-
-# List projects
-fproj() {
-    result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/desktop/projects/$result
-}
-
-# List pdfs
-fpdf() {
-    result=$(find ~ -type f -name '*.pdf' | fzf --bind "ctrl-r:reload(find -type f -name '*.pdf')" --preview "pdftotext {} - | less")
-    [ -n "$result" ] && zathura "$result" &
-}
-
-# List tracking spreadsheets (productivity, money ...)
-ftrack() {
-    file=$(find ~/documents/org/roam/metrics/* -type f -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2) || return
-    [ -n "$file" ] && emacsclient -nw "$file"
-}
-
 # Find in File using ripgrep
 fif() {
   if [ ! "$#" -gt 0 ]; then return 1; fi
@@ -211,13 +267,4 @@ fifa() {
     file="$(rga --max-count=1 --ignore-case --files-with-matches --no-messages "$*" \
         | fzf-tmux -p +m --preview="rga --ignore-case --pretty --context 10 '"$*"' {}")" \
         && print -z "./$file" || return 1;
-}
-
-fclip() {
-    cliphist list | fzf | cliphist decode | wl-copy
-}
-
-# Search through all man pages
-function fman() {
-    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 }
