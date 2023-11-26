@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-
 ####################
 # Common use cases #
 ####################
@@ -184,6 +183,29 @@ fzf-find-files-alt() {
     esac
 }
 
+# fh - Repeat history, assumes zsh
+fhistory() {
+    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+# Search env variables
+vars() {
+    local out
+    out=$(env | fzf)
+    echo $(echo $out | cut -d= -f2)
+}
+
+# Kill process
+fkill() {
+    local pid
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+    if [ "x$pid" != "x" ]; then
+        echo $pid | xargs kill -${1:-9}
+    fi
+}
+
+
 ####################
 # Package Managers #
 ####################
@@ -224,6 +246,35 @@ fgb() {
   branches=$(git --no-pager branch -vv) &&
   branch=$(echo "$branches" | fzf +m) &&
   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+# Git commit history browser, when @param provided, its a shorthand for git commit
+gcom() {
+    if [[ $# -gt 0 ]]; then
+        git commit -m "$*"
+    else
+        git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |
+            fzf --ansi --no-sort --reverse --tiebreak=index --preview \
+                'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 | delta ; }; f {}' \
+                --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:
+                    (grep -o '[a-f0-9]\{7\}' | head -1 |
+                        xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                                            {}
+                                            FZF-EOF" --preview-window=right:60%
+    fi
+}
+
+#Show git staging area (git status)
+gds() {
+    git rev-parse --git-dir >/dev/null 2>&1 || { echo "You are not in a git repository" && return; }
+    local selected
+    selected=$(git -c color.status=always status --short |
+        fzf --height 50% "$@" --preview-window right:70% --border -m --ansi --nth 2..,.. \
+            --preview '(git diff --color=always -- {-1} | delta | sed 1,4d; cat {-1}) | head -500' |
+        cut -c4- | sed 's/.* -> //')
+    if [[ $selected ]]; then
+        for prog in $selected; do nvim "$prog"; done
+    fi
 }
 
 
