@@ -517,6 +517,15 @@ scrape-url() {
     wget --adjust-extension --convert-links --page-requisites --span-hosts --no-host-directories "$1"
 }
 
+#USAGE: mdrender README.md
+mdrender() {
+    HTMLFILE="$(mktemp -u).html"
+        jq --slurp --raw-input '{"text": "\(.)", "mode": "markdown"}' "$1" |
+        curl -s --data @- https://api.github.com/markdown >"$HTMLFILE"
+    echo Opening "$HTMLFILE"
+    xdg-open "$HTMLFILE"
+}
+
 # Display command cheatsheet from cheat.sh. - cheat <command>
 cht() {
     curl cheat.sh/$1

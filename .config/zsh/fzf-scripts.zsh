@@ -4,9 +4,13 @@
 # Change directory #
 ####################
 
-# Find file and open in $EDITOR (not hidden)
+# Search for a file to edit in $EDITOR (not hidden)
 ff() {
-    $EDITOR $(find * -type f | fzf --multi --preview "bat --style=numbers --color=always --line-range :500 {}")
+    selected="$(find * -type f | fzf --multi --reverse --preview "bat --style=numbers --color=always --line-range :500 {}")"
+    case "$selected" in
+    "") echo "cancelled fzf" ;;
+    *) eval "$EDITOR" "$selected" ;;
+    esac
 }
 
 # Find file and cd there + Hidden
@@ -158,15 +162,6 @@ execute-fzf() {
     esac
 }
 
-# Search for a file to edit in $EDITOR
-fzf-find-files-alt() {
-    selected="$(fzf --multi --reverse)"
-    case "$selected" in
-    "") echo "cancelled fzf" ;;
-    *) eval "$EDITOR" "$selected" ;;
-    esac
-}
-
 # fh - Repeat history, assumes zsh
 fhistory() {
     print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
@@ -185,7 +180,7 @@ fkill() {
     pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 
     if [ "x$pid" != "x" ]; then
-        echo $pid | xargs kill -${1:-9}
+        echo $pid | xargs killall -3 -${1:-9}
     fi
 }
 
@@ -369,7 +364,7 @@ fparr() {
 # Git #
 #######
 
-# git log browser with FZF
+# Git log browser with FZF
 fgl() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
@@ -381,7 +376,7 @@ fgl() {
 FZF-EOF"
 }
 
-# git branch
+# Git branch
 fgb() {
   local branches branch
   branches=$(git --no-pager branch -vv) &&
@@ -390,7 +385,7 @@ fgb() {
 }
 
 # Git commit history browser, when @param provided, its a shorthand for git commit
-gcom() {
+fgcom() {
     if [[ $# -gt 0 ]]; then
         git commit -m "$*"
     else
@@ -405,8 +400,8 @@ gcom() {
     fi
 }
 
-#Show git staging area (git status)
-gds() {
+# Show git staging area (git status)
+fgs() {
     git rev-parse --git-dir >/dev/null 2>&1 || { echo "You are not in a git repository" && return; }
     local selected
     selected=$(git -c color.status=always status --short |
@@ -416,15 +411,6 @@ gds() {
     if [[ $selected ]]; then
         for prog in $selected; do nvim "$prog"; done
     fi
-}
-
-#USAGE: mdrender README.md
-mdrender() {
-    HTMLFILE="$(mktemp -u).html"
-        jq --slurp --raw-input '{"text": "\(.)", "mode": "markdown"}' "$1" |
-        curl -s --data @- https://api.github.com/markdown >"$HTMLFILE"
-    echo Opening "$HTMLFILE"
-    xdg-open "$HTMLFILE"
 }
 
 
