@@ -176,6 +176,7 @@ packagesParu=(
     "wl-clip-persist-git"
     "udev-block-notify-git"
     "btop-git"
+	"nb"
     "dragon-drop"
     "xdg-ninja-git"
     "yt-dlp"
