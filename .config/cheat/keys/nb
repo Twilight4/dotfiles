@@ -1,0 +1,17 @@
+####### Initial configuration #######
+# Init local notebook
+nb notebooks init
+
+# Set default file type
+nb set default_extension org
+
+
+####### nb add #######
+# List notebooks
+nb notebooks
+
+# Create a new note
+nb add/nb a
+
+# Create a new note with string as the content without opening the eidtor
+nb add "This is a note."

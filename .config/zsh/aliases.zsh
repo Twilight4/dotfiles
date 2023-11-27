@@ -2,8 +2,6 @@
 
 # ls to lsd
 alias l='lsd --hyperlink=auto'
-alias cdl='() { cd "$1" && ls -l; }'
-alias cl='clear ; lsd -l --hyperlink=auto'
 alias ls='lsd -l --hyperlink=auto'
 alias la='lsd -lA --hyperlink=auto'
 alias lt='lsd --tree --hyperlink=auto'
@@ -20,8 +18,7 @@ alias dt='cd "$HOME/desktop" ; clear'
 alias pc='cd "$HOME/pictures" ; clear'
 alias vd='cd "$HOME/videos" ; clear'
 alias dc='cd "$HOME/documents" ; clear'
-alias org='cd "$HOME/documents/org" ; clear ; lsd --tree --hyperlink=auto'
-alias guorg='cd "$HOME/documents/org" ; git add . && git commit -m "update" && git push ; cd $HOME'
+alias org='cd "$HOME/documents/org" ; clear'
 
 # Work dirs
 alias pj='cd "$HOME/desktop/projects" ; clear'
