@@ -10,8 +10,11 @@ nb set default_extension org
 # List notebooks
 nb notebooks
 
-# Create a new note
-nb add/nb a
+# Create a new note with filename note
+nb add/nb a note
 
-# Create a new note with string as the content without opening the eidtor
+# Create a new note with filename note and open it
+nb add/nb a note file.org
+
+# Create a new note with string as the content without opening the editor
 nb add "This is a note."

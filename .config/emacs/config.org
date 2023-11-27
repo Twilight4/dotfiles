@@ -294,12 +294,12 @@
 ;;(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 
 ;; Org-agenda
-(add-hook 'org-agenda-mode-hook
-          (lambda ()
-            ;; Set the default keys for tasks in org-agenda-mode
-	          (local-set-key (kbd "x") 'tl/org-agenda-done)
-            (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
-            (local-set-key (kbd "N") 'tl/org-agenda-new)))
+;(add-hook 'org-agenda-mode-hook
+;          (lambda ()
+;            ;; Set the default keys for tasks in org-agenda-mode
+;	          (local-set-key (kbd "x") 'tl/org-agenda-done)
+;            (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
+;            (local-set-key (kbd "N") 'tl/org-agenda-new)))
 
 ;; Treemacs global keybinds
 ;(global-set-key (kbd "C-c C-w s") 'treemacs-switch-workspace)
@@ -2507,7 +2507,7 @@ Let’s make creating an Org buffer just that little bit easier.
 #+end_src
 
 ** Org Configuraion
-*** Org Font Faces
+*** Org-Mode Font Faces
 
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
@@ -2539,7 +2539,7 @@ Let’s make creating an Org buffer just that little bit easier.
 (setq org-fontify-quote-and-verse-blocks t)
 #+end_src
 
-*** Org Basic Config
+*** Org-Mode Config
 
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/agenda"
@@ -2905,7 +2905,7 @@ Make it easy to mark a task as done.
   (kmacro-lambda-form [?x ?\C-n] 0 "%d"))
 
 ;; Check the first morning routine habbits as done
-(global-set-key (kbd "C-c m") (lambda () (interactive) (dotimes (_ 10) (do-habit-move))))
+;(global-set-key (kbd "C-c m") (lambda () (interactive) (dotimes (_ 3) (do-habit-move))))
 #+end_src
 
 Make it easy to mark a task as done and create a follow-up task.
@@ -3078,7 +3078,7 @@ this with to-do items than with projects or headings."
 ;  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
 #+end_src
 
-*** Org-roam-dailies setup
+*** Org-roam-dailies
 Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day.
 The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
 
