@@ -14,6 +14,16 @@ ff() {
   fi
 }
 
+# Search for a file and copy path to clipboard + Hidden
+ffp() {
+  file=$(find "$HOME" -type f | fzf --query="$1" --no-multi --select-1 --exit-0 \
+      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+  if [[ -n "$file" ]]; then
+    printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
+    echo "Copied to clipboard: $file"
+  fi
+}
+
 # Search for a file in dotfiles repo and edit in $EDITOR + Hidden
 ffd() {
   file=$(find ~/desktop/workspace/dotfiles/.config -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" -exec realpath --relative-to=$HOME {} + | sed 's|^desktop/workspace/dotfiles/||' | fzf --query="$1" --no-multi --select-1 --exit-0 \
