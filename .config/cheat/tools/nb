@@ -22,8 +22,17 @@ nb add "This is a note."
 # Create a new note with content and filename/title with tags
 nb add "Example content." -t "Example Title" --tags tag1,tag2
 
+# Save the clipboard contents into .org file
+wl-paste | nb add .org
+# Use nb show and nb browse to view code snippets with automatic syntax highlighting and use nb edit to open in your editor.
+
 
 
 ####### nb search #######
 # Search for items tagged with "#tag1" "#tag2"
 nb search/nb q -t tag1 -t tag2
+
+
+####### Listing & Filtering #######
+# List notes
+nb
