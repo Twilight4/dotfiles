@@ -30,6 +30,7 @@ packagesPacman=(
     "dunst"
     "thefuck"
     "supergfxctl"
+    "openbsd-netcat"
     "wofi"
     "libnotify"
     "polkit-kde-agent"
@@ -220,7 +221,6 @@ nonessentialpackagesPacman=(
     "dnsmasq"
     "vde2"
     "bridge-utils"
-    "openbsd-netcat"
     "libguestfs"
     "libvirt"
 
