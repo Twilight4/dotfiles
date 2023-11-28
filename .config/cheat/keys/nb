@@ -14,10 +14,16 @@ nb notebooks
 nb add/nb a note
 
 # Create a new note with filename note and open it
-nb add/nb a note file.org
+nb add/nb a file.org
 
 # Create a new note with string as the content without opening the editor
 nb add "This is a note."
 
+# Create a new note with content and filename/title with tags
+nb add "Example content." -t "Example Title" --tags tag1,tag2
+
+
 
 ####### nb search #######
+# Search for items tagged with "#tag1" "#tag2"
+nb search/nb q -t tag1 -t tag2
