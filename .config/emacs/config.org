@@ -3162,6 +3162,8 @@ When using an article class, LaTeX headlines go from =\section=, =\subsection=, 
 and =\paragraph= to =\subgraph= — five levels. HTML5 has six levels of headings (=<h1>= to =<h6>=), 
 but first level Org headings get exported as =<h2>= elements — leaving five usable levels. 
 
+As such, it would seem to make sense to recognise the first five levels of Org headings when exporting.
+
 #+begin_src emacs-lisp
 (setq org-export-headline-levels 5) ; I like nesting
 #+end_src
