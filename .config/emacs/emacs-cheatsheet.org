@@ -141,15 +141,49 @@ The world's greatest programmer once said:
 * C-l Leader Key
 ** Avy jumping
 
-| Keybinding | Description         |
-|------------+---------------------|
-| C-c        | Jump to a character |
+| Keybinding | Description                              |
+|------------+------------------------------------------|
+| C-c        | Jump to a character                      |
+| c          | Jump to a two-character char              |
+| C-e        | Jump to a character in line               |
+| C-a        | Jump to a subword                        |
+| C-l        | Jump to line below                       |
+| l          | Jump to line above                       |
+| C-o        | Jump to line and insert new one above    |
+| C-w        | Jump to a word below                     |
+| w          | Jump to a word above                     |
+| C-h        | Jump to org heading                      |
 
 ** Avy yanking/killing/moving
 
+| Keybinding | Description                           |
+|------------+---------------------------------------|
+| k          | Kill region                            |
+| K          | Kill whole line                        |
+| C-s        | Save region                            |
+| s          | Save whole line                        |
+| C-y        | Copy region                            |
+| y          | Copy line                              |
+| C-m        | Move region                            |
+| m          | Move line                              |
+
 ** Avy navigation
 
+| Keybinding | Description                               |
+|------------+-------------------------------------------|
+| C-n        | Next occurrence                           |
+| C-p        | Previous occurrence                       |
+| C-r        | Resume last Avy action                    |
+| C-/        | Jump to previous Avy location             |
+| C-i        | iSearch with Avy                          |
+| C-t        | Transpose lines in region                 |
+
 ** Zap to char
+
+| Keybinding | Description                        |
+|------------+------------------------------------|
+| C-z        | Kill up to char                    |
+| C-x        | Kill up to, but not including char |
 
 * M-i Leader Key
 ** Symbol-overlay
