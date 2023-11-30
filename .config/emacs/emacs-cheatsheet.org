@@ -154,11 +154,43 @@ The world's greatest programmer once said:
 * M-i Leader Key
 ** Symbol-overlay
 
-| Keybinding | Description |
-|------------+-------------|
-| M-u        | Symbol put  |
+| Keybinding | Description               |
+|------------+---------------------------|
+| M-u        | Symbol put                |
+| M-n        | Symbol jump next          |
+| M-p        | Symbol jump prev          |
+| M-P        | Symbol jump first         |
+| M-N        | Symbol jump last          |
+| M-f        | Symbol switch forward     |
+| M-b        | Symbol switch backward    |
+| M-a        | Symbol remove all         |
+| M-s        | Symbol save               |
+| M-t        | Symbol toggle in scope    |
+| M-e        | Symbol echo mark          |
+| M-d        | Symbol jump to definition |
+| M-i        | Symbol isearch            |
+| M-r        | Symbol query replace      |
+| M-N        | Symbol rename             |
 
 ** Expand-region
+
+| Keybinding | Description             |
+|------------+-------------------------|
+| w          | Mark word               |
+| h          | Mark symbol             |
+| H          | Mark symbol with prefix |
+| a          | Mark next accessor      |
+| c          | Mark method call        |
+| q          | Mark inside quotes      |
+| Q          | Mark outside quotes     |
+| j          | Mark inside pairs       |
+| J          | Mark outside pairs      |
+| k          | Mark comment            |
+| u          | Mark URL                |
+| e          | Mark email              |
+| d          | Mark defun              |
+| l          | Mark sentence           |
+| L          | Mark paragraph          |
 
 * Other Packages
 ** Elfeed
