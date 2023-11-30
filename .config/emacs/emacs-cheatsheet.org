@@ -74,6 +74,11 @@ The world's greatest programmer once said:
 
 | Keybinding | Description         |
 |------------+---------------------|
+| ,          | Org todo            |
+| .          | Org priority        |
+| C-/        | Org tags            |
+|            |                     |
+|            |                     |
 | C-s        | Org schedule        |
 | C-d        | Org deadline        |
 | C-o        | Org open at point   |
