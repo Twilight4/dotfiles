@@ -72,29 +72,30 @@ The world's greatest programmer once said:
 * C-c Leader Key
 ** Org-mode
 
-| Keybinding | Description         |
-|------------+---------------------|
-| ,          | Org todo            |
-| .          | Org priority        |
-| C-/        | Org tags            |
-|            |                     |
-|            |                     |
-| C-s        | Org schedule        |
-| C-d        | Org deadline        |
-| C-o        | Org open at point   |
-| C-.        | Org timestamp       |
-| C-,        | Insert source block |
-| C-/        | Org tag             |
-| C-p        | Org set property    |
-| C-e        | Org set effort      |
-| C-w        | Org refile          |
-| C-l        | Insert link         |
-| C-h        | Toggle heading      |
-| C-f        | Insert file link    |
-| C-i        | Toggle item         |
-| C-m        | Toggle checkbox     |
-| C--        | Table insert hline  |
-| C-SPC      | Zero-width space    |
+| Keybinding | Description               |
+|------------+---------------------------|
+| ,          | Org todo                  |
+| .          | Org priority              |
+| C-/        | Org tags                  |
+| C-p        | Org property              |
+| C-e        | Org set effort            |
+| C-f        | Insert file link          |
+| F          | Insert links to directory |
+| C-w        | Insert link               |
+| C--        | Table insert hline        |
+| C-a        | Insert any date           |
+| C-a        | Insert today's date       |
+| C-s        | Org schedule              |
+| C-d        | Org deadline              |
+| C-o        | Org open at point         |
+| C-.        | Org timestamp             |
+| C-,        | Insert source block       |
+| C-/        | Org tag                   |
+| C-p        | Org set property          |
+| C-h        | Toggle heading            |
+| C-i        | Toggle item               |
+| C-m        | Toggle checkbox           |
+| C-SPC      | Zero-width space          |
 
 ** Org-Roam
 
