@@ -36,7 +36,7 @@ cd dotfiles
 |  **Web Browser**               | [Mercury](https://thorium.rocks/mercury)                   |
 |  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)    |
 |  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
-|  **Editor**                    | [Emacs](https://www.gnu.org/software/emacs/)               |
+|  **Text Editor**            	 | [Emacs](https://www.gnu.org/software/emacs/)               |
 |  **GTK Theme**                 | [Tokyonight-Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)          |
 |  **Shell**                     | [Zsh](https://github.com/zsh-users)                        |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
