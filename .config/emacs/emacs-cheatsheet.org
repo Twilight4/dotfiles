@@ -107,6 +107,10 @@ The world's greatest programmer once said:
 | C-g        | Focus current heading             |
 | C-g        | Insert subheading                 |
 | C-r        | Insert heading respecting content |
+| z          | Insert footnote                   |
+| I          | Inset link to a bib entry         |
+| b          | Insert org citation               |
+| o          | Open single note directly         |
 | C-SPC      | Zero-width space                  |
 
 ** Org-Roam
