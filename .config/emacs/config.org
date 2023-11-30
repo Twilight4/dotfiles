@@ -3153,7 +3153,6 @@ The following snippet sets up a hook for all Org task state changes and then mov
 #+end_src
 
 ** Exporting
-
 *** General Settings
 By default Org only exports the first three levels of headings as … headings. 
 This is rather unfortunate as my documents frequently stray far beyond three levels of depth. 
