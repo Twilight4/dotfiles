@@ -1986,7 +1986,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
   (setq alert-default-style 'libnotify      ;; get system notifications
 		  org-alert-interval 300              ;; alert interval (300 seconds)
 		  org-alert-notify-cutoff 10          ;; how long before a scheduled event a notification should be sent - 10 minutes
-		  org-alert-notify-after-event-cutoff 10  ;; controls how long after a scheduled event to continue sending notifications - 10 minutes
+		  org-alert-notify-after-event-cutoff 5  ;; controls how long after a scheduled event to continue sending notifications - 5 minutes
 		  org-alert-notification-title "Emacs Agenda")  ;; org-alert uses the title *org* by default
   (org-alert-enable))
 #+end_src
