@@ -72,30 +72,42 @@ The world's greatest programmer once said:
 * C-c Leader Key
 ** Org-mode
 
-| Keybinding | Description               |
-|------------+---------------------------|
-| ,          | Org todo                  |
-| .          | Org priority              |
-| C-/        | Org tags                  |
-| C-p        | Org property              |
-| C-e        | Org set effort            |
-| C-f        | Insert file link          |
-| F          | Insert links to directory |
-| C-w        | Insert link               |
-| C--        | Table insert hline        |
-| C-a        | Insert any date           |
-| C-a        | Insert today's date       |
-| C-s        | Org schedule              |
-| C-d        | Org deadline              |
-| C-o        | Org open at point         |
-| C-.        | Org timestamp             |
-| C-,        | Insert source block       |
-| C-/        | Org tag                   |
-| C-p        | Org set property          |
-| C-h        | Toggle heading            |
-| C-i        | Toggle item               |
-| C-m        | Toggle checkbox           |
-| C-SPC      | Zero-width space          |
+| Keybinding | Description                       |
+|------------+-----------------------------------|
+| ,          | Org todo                          |
+| .          | Org priority                      |
+| C-/        | Org tag                           |
+| C-p        | Org property                      |
+| C-e        | Org set effort                    |
+| C-f        | Insert file link                  |
+| F          | Insert links to directory         |
+| C-w        | Insert link                       |
+| C--        | Table insert hline                |
+| C-a        | Insert any date                   |
+| C-t        | Insert today's date               |
+| C-y        | Insert screenshot                 |
+| C-v        | Toggle heading                    |
+| C-c        | Toggle checkbox                   |
+| C-s        | Org schedule                      |
+| C-d        | Org deadline                      |
+| C-o        | Org open at point                 |
+| C-.        | Org timestamp                     |
+| C-,        | Insert source block               |
+| /          | Org time stamp                    |
+| C-p        | Org set property                  |
+| C-h        | Toggle heading                    |
+| C-i        | Toggle item                       |
+| C-m        | Org meta return                   |
+| C-n        | Insert TODO heading               |
+| C-h        | Widen                             |
+| j          | Narrow forward                    |
+| k          | Narrow backward                   |
+| C-l        | Narrow to subtree                 |
+| C-u        | Narrow to block                   |
+| C-g        | Focus current heading             |
+| C-g        | Insert subheading                 |
+| C-r        | Insert heading respecting content |
+| C-SPC      | Zero-width space                  |
 
 ** Org-Roam
 
