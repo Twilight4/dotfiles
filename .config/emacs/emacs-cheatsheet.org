@@ -36,8 +36,6 @@ The world's greatest programmer once said:
   - [[#org-agenda][Org-agenda]]
   - [[#org-tempo][Org-tempo]]
   - [[#treemacs][Treemacs]]
-  - [[#dired][Dired]]
-  - [[#magit][Magit]]
   - [[#undo-tree][Undo-tree]]
   - [[#consult-buffer][Consult-buffer]]
 
@@ -351,27 +349,6 @@ The world's greatest programmer once said:
 | C-c C-p c o | treemacs-collapse-all-projects         |
 | S-TAB       | treemacs-collapse-all-projects         |
 
-** Dired
-
-| Keybinding | Description                                        |
-|------------+----------------------------------------------------|
-| h/j/k/l    | left/down/up/right                                 |
-| C          | Create a new subdirectory                          |
-| m          | Mark files or directories for operations           |
-| u          | Unmark previously marked files or directories      |
-| U          | Unmark all marked fiels or directories             |
-| d          | Delete marked files or directories                 |
-| R          | Rename/move current or marked files                |
-| C          | Copy current or marked files                       |
-| +          | Create an empty file                               |
-| =          | Compare files with their backups or other versions |
-| (          | Toggle detailed listing on/off                     |
-| )          | Toggle git information on/off                      |
-| TAB        | Toggle viewing subtree at point                    |
-| Q          | Toggle read-only mode for the current Dired buffer |
-
-** Magit
-
 ** Undo-tree
 
 | Keybinding | Description                          |
@@ -392,4 +369,3 @@ The world's greatest programmer once said:
 | r SPC      | File registers   |
 | m SPC      | Bookmarks        |
 | p SPC      | Project          |
-
