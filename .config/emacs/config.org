@@ -3166,3 +3166,9 @@ As such, it would seem to make sense to recognise the first five levels of Org h
 #+begin_src emacs-lisp
 (setq org-export-headline-levels 5) ; I like nesting
 #+end_src
+
+Since I (roughly) track Org =HEAD=, it makes sense to include the git version in the creator string. 
+#+begin_src emacs-lisp
+(setq org-export-creator-string
+      (format "Emacs %s (Org mode %s–%s)" emacs-version (org-release) (org-git-version)))
+#+end_src
