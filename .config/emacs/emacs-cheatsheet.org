@@ -33,10 +33,9 @@ The world's greatest programmer once said:
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#expand-region][Expand-region]]
 - [[#other-packages][Other Packages]]
-  - [[#elfeed][Elfeed]]
   - [[#org-agenda][Org-agenda]]
   - [[#org-tempo][Org-tempo]]
-  - [[#neotree][Neotree]]
+  - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#magit][Magit]]
   - [[#undo-tree][Undo-tree]]
@@ -227,24 +226,6 @@ The world's greatest programmer once said:
 | L          | Mark paragraph          |
 
 * Other Packages
-** Elfeed
-
-| Keybinding | Description                                        |
-|------------+----------------------------------------------------|
-| g          | Refresh view of feed listing                       |
-| G          | fetch feed updates from the servers                |
-| s          | update the search filter (see tags)                |
-| c          | clear the search filter                            |
-| RET        | view selected entry in a buffer                    |
-| b          | open selected entries in your browser (=browse-url=) |
-| y          | copy selected entries URL to the clipboard         |
-| r          | mark selected entries as read                      |
-| u          | mark selected entries as unread                    |
-| +          | add a specific tag to selected entries             |
-| -          | remove a specific tag from selected entries        |
-| s          | search with filter (=elfeed-search-set-filter=)      |
-|            | =elfeed-search-clear-filter=                         |
-
 ** Org-agenda
 
 | Keybinding | Description                   |
@@ -257,6 +238,7 @@ The world's greatest programmer once said:
 | t          | Set tag                       |
 | J/K        | Change priority               |
 | o          | show on full screen           |
+
 ** Org-tempo
 
 | Keybinding | Description                             |
@@ -272,22 +254,102 @@ The world's greatest programmer once said:
 | <s         | '#+BEGIN_SRC' ... '#+END_SRC'            |
 | <v         | '#+BEGIN_VERSE' ... '#+END_VERSE'         |
 
-** Neotree
+** Treemacs
+*** General
 
-| Keybinding  | Description                                                      |
-|-------------+------------------------------------------------------------------|
-| n/p         | Next/previous line                                               |
-| SPC/RET/TAB | Open current iterm if it's a file. Fold/unfold if it's directory |
-| U           | Go up a directory                                                |
-| g           | Refresh                                                          |
-| A           | Maximize/Minimize the Neotree widno                              |
-| H           | Toggle display hidden files                                      |
-| O           | Recursively open a directory                                     |
-| C-c C-n     | Create a file or create a directory if filename ends with a '/'  |
-| C-c C-d     | Delete a file or a directory                                     |
-| C-c C-r     | Rename a file or a directory                                     |
-| C-c C-c     | Change the root directory                                        |
-| C-c C-p     | Copy a file or a directory                                       |
+| Keybinding | Description                                 |
+|------------+---------------------------------------------|
+| ?          | treemacs-common-helpful-hydra               |
+| j          | treemacs-next-line                          |
+| k          | treemacs-previous-line                      |
+| h          | treemacs-root-up                            |
+| l          | treemacs-root-down                          |
+| u          | treemacs-goto-parent-node                   |
+| H          | treemacs-collapse-parent-node               |
+| M-j        | treemacs-next-neighbour                     |
+| M-k        | treemacs-previous-neighbour                 |
+| M-p        | treemacs-move-project-up                    |
+| M-n        | treemacs-move-project-down                  |
+| RET        | treemacs-RET-action                         |
+| TAB        | treemacs-TAB-action                         |
+| w          | treemacs-set-width                          |
+| =          | treemacs-fit-window-width                   |
+| W          | treemacs-extra-wide-toggle                  |
+| <          | treemacs-decrement-width                    |
+| >          | treemacs-increment-width                    |
+| g          | treemacs-refresh                            |
+| d          | treemacs-delete-file                        |
+| r          | treemacs-rename-file                        |
+| cf         | treemacs-create-file                        |
+| cd         | treemacs-create-dir                         |
+| q          | treemacs-quit                               |
+| Q          | treemacs-kill-buffer                        |
+| P          | treemacs-peek-mode                          |
+| m          | treemacs-move-file                          |
+| s          | treemacs-resort                             |
+| b          | treemacs-add-bookmark                       |
+| \!         | treemacs-run-shell-command-for-current-node |
+| M-\!       | treemacs-run-shell-command-in-project-root  |
+| C          | treemacs-cleanup-litter                     |
+
+*** Copy keybinds
+
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| ya         | treemacs-copy-absolute-path-at-point |
+| yr         | treemacs-copy-relative-path-at-point |
+| yp         | treemacs-copy-project-path-at-point  |
+| yf         | treemacs-copy-file                   |
+
+*** Toggle keybinds
+| Keybinding | Description                         |
+|------------+-------------------------------------|
+| th         | treemacs-toggle-show-dotfiles       |
+| ti         | treemacs-hide-gitignored-files-mode |
+| tw         | treemacs-toggle-fixed-width         |
+| tf         | treemacs-follow-mode                |
+| ta         | treemacs-filewatch-mode             |
+| tv         | treemacs-fringe-indicator-mode      |
+| td         | treemacs-git-commit-diff-mode       |
+
+*** Node visit keybinds
+
+| Keybinding | Description                                      |
+|------------+--------------------------------------------------|
+| ov         | treemacs-visit-node-vertical-split               |
+| oh         | treemacs-visit-node-horizontal-split             |
+| oo         | treemacs-visit-node-no-split                     |
+| RET        | treemacs-visit-node-no-split (Added for o/RET)   |
+| oc         | treemacs-visit-node-close-treemacs               |
+| oaa        | treemacs-visit-node-ace                          |
+| oah        | treemacs-visit-node-ace-horizontal-split         |
+| oav        | treemacs-visit-node-ace-vertical-split           |
+| or         | treemacs-visit-node-in-most-recently-used-window |
+| ox         | treemacs-visit-node-in-external-application      |
+
+*** Workspaces keybinds
+
+| Keybinding | Description                     |
+|------------+---------------------------------|
+| C-c C-w r  | treemacs-rename-workspace       |
+| C-c C-w a  | treemacs-create-workspace       |
+| C-c C-w d  | treemacs-remove-workspace       |
+| C-c C-w s  | treemacs-switch-workspace       |
+| C-c C-w e  | treemacs-edit-workspaces        |
+| C-c C-w n  | treemacs-next-workspace         |
+| C-c C-w f  | treemacs-set-fallback-workspace |
+
+*** Project keybinds
+
+| Keybinding  | Description                            |
+|-------------+----------------------------------------|
+| C-c C-p a   | treemacs-add-project-to-workspace      |
+| C-c C-p p   | treemacs-projectile                    |
+| C-c C-p d   | treemacs-remove-project-from-workspace |
+| C-c C-p r   | treemacs-rename-project                |
+| C-c C-p c c | treemacs-collapse-project              |
+| C-c C-p c o | treemacs-collapse-all-projects         |
+| S-TAB       | treemacs-collapse-all-projects         |
 
 ** Dired
 
