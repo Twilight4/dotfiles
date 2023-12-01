@@ -3852,3 +3852,184 @@ Now let's just sprinkle some KOMA all over the Org LaTeX classes.
       org-latex-hyperref-template "YOUR_LATEX_FANCY_HYPERREF_TEMPLATE_HERE"
       org-latex-reference-command "\\cref{%s}")
 #+end_src
+
+The =hyperref= setup needs to be handled separately however.
+#+name: latex-fancy-hyperref
+#+begin_src LaTeX
+\providecolor{url}{HTML}{0077bb}
+\providecolor{link}{HTML}{882255}
+\providecolor{cite}{HTML}{999933}
+\hypersetup{
+  pdfauthor={%a},
+  pdftitle={%t},
+  pdfkeywords={%k},
+  pdfsubject={%d},
+  pdfcreator={%c},
+  pdflang={%L},
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=link,
+  urlcolor=url,
+  citecolor=cite
+}
+\urlstyle{same}
+%% hide links styles in toc
+\NewCommandCopy{\oldtoc}{\tableofcontents}
+\renewcommand{\tableofcontents}{\begingroup\hypersetup{hidelinks}\oldtoc\endgroup}
+#+end_src
+
+**** A cleverer preamble
+We often want particular snippets of LaTeX in our documents preambles.
+It's a pain to have to work out / remember them every time.
+For example, I almost always want to include the snippet below.
+
+#+name: org-latex-embed-files-preamble
+#+begin_src LaTeX
+\usepackage[main,include]{embedall}
+\IfFileExists{./\jobname.org}{\embedfile[desc=The original file]{\jobname.org}}{}
+#+end_src
+
+We could have every package we could possibly need in every one of
+~org-latex-classes~, but that's /horribly/ inefficient and I don't want to think
+about maintaining that.
+
+Instead we can provide some granularity by splitting up the features we want,
+and then take the experience to a whole new level by implementing a system to
+automatically detect which features are desired and generating a preamble that
+provides these features.
+
+**** Conditional Content
+Let's consider content we want in particular situations.
+
+Captions could do with a bit of tweaking such that
++ You can easily have multiple captions
++ Links to figures take you to the /top/ of the figure (not the bottom)
++ Caption labels could do with being emphasised slightly more
++ Multiline captions should run ragged-right, but only when then span more than
+  one line
+
+#+name: org-latex-caption-preamble
+#+begin_src LaTeX
+\usepackage{subcaption}
+\usepackage[hypcap=true]{caption}
+\setkomafont{caption}{\sffamily\small}
+\setkomafont{captionlabel}{\upshape\bfseries}
+\captionsetup{justification=raggedright,singlelinecheck=true}
+\usepackage{capt-of} % required by Org
+#+end_src
+
+The default checkboxes look rather ugly, so let's provide some prettier alternatives.
+#+name: org-latex-checkbox-preamble
+#+begin_src LaTeX
+\newcommand{\checkboxUnchecked}{$\square$}
+\newcommand{\checkboxTransitive}{\rlap{\raisebox{-0.1ex}{\hspace{0.35ex}\Large\textbf -}}$\square$}
+\newcommand{\checkboxChecked}{\rlap{\raisebox{0.2ex}{\hspace{0.35ex}\scriptsize \ding{52}}}$\square$}
+#+end_src
+
+It's nice to have "message blocks", things like info/warning/error/success.
+A LaTeX macro should make them trivial to create.
+#+name: org-latex-box-preamble
+#+begin_src LaTeX
+\ExplSyntaxOn
+\NewCoffin\Content
+\NewCoffin\SideRule
+\NewDocumentCommand{\defsimplebox}{O{\ding{117}} O{0.36em} m m m}{%
+  % #1 ding, #2 ding offset, #3 name, #4 colour, #5 default label
+  \definecolor{#3}{HTML}{#4}
+  \NewDocumentEnvironment{#3}{ O{#5} }
+  {
+    \vcoffin_set:Nnw \Content { \linewidth }
+    \noindent \ignorespaces
+    \par\vspace{-0.7\baselineskip}%
+    \textcolor{#3}{#1}~\textcolor{#3}{\textbf{##1}}%
+    \vspace{-0.8\baselineskip}
+    \begin{addmargin}[1em]{1em}
+    }
+    {
+    \end{addmargin}
+    \vspace{-0.5\baselineskip}
+    \vcoffin_set_end:
+    \SetHorizontalCoffin\SideRule{\color{#3}\rule{1pt}{\CoffinTotalHeight\Content}}
+    \JoinCoffins*\Content[l,t]\SideRule[l,t](#2,-0.7em)
+    \noindent\TypesetCoffin\Content
+    \vspace*{\CoffinTotalHeight\Content}\bigskip
+    \vspace{-2\baselineskip}
+  }
+}
+\ExplSyntaxOff
+#+end_src
+
+In the "universal preamble", we already embed the source =.org= file, but it would
+be nice to embed all the tangled files. This is fairly easy to accomplish by
+mapping each tangled file to a form which embeds the file if it exists.
+Considering we're going this far, why not add a dedicated =#+emded= keyword, so we
+can embed whatever we want.
+#+begin_src emacs-lisp
+(defun org-latex-embed-extra-files ()
+  "Return a string that uses embedfile to embed all tangled files."
+  (mapconcat
+   (lambda (file-desc)
+     (format "\\IfFileExists{%1$s}{\\embedfile[desc=%2$s]{%1$s}}{}"
+             (thread-last (car file-desc)
+                          (replace-regexp-in-string "\\\\" "\\\\\\\\")
+                          (replace-regexp-in-string "~" "\\\\string~"))
+             (cdr file-desc)))
+   (append
+    (let (tangle-fspecs) ; All files being tangled to.
+      (org-element-cache-map
+       (lambda (src)
+         (when (and (not (org-in-commented-heading-p nil src))
+                    (not (org-in-archived-heading-p nil src)))
+           (when-let ((lang (org-element-property :language src))
+                      (params
+                       (apply
+                        #'org-babel-merge-params
+                        (append
+                         (org-with-point-at (org-element-property :begin src)
+                           (org-babel-params-from-properties lang t))
+                         (mapcar
+                          (lambda (h)
+                            (org-babel-parse-header-arguments h t))
+                          (cons (org-element-property :parameters src)
+                                (org-element-property :header src))))))
+                      (tangle-value
+                       (pcase (alist-get :tangle params)
+                         ((and (pred stringp) (pred (string-match-p "^(.*)$")) expr)
+                          (eval (read expr)))
+                         (val val)))
+                      (tangle-file
+                       (pcase tangle-value
+                         ((or "no" (guard (member (alist-get :export-embed params) '("no" "nil"))))
+                          nil)
+                         ("yes"
+                          (file-name-with-extension
+                           (file-name-nondirectory (buffer-file-name))
+                           (or (alist-get lang org-babel-tangle-lang-exts nil nil #'equal)
+                               lang)))
+                         (val val))))
+             (unless (assoc tangle-file tangle-fspecs)
+               (push
+                (cons tangle-file (format "Tangled %s file" lang))
+                tangle-fspecs)))))
+       :granularity 'element
+       :restrict-elements '(src-block))
+      (nreverse tangle-fspecs))
+    (let (extra-files)
+      (save-excursion
+        (goto-char (point-min))
+        (while (re-search-forward "^[ \t]*#\\+embed:" nil t)
+          (let* ((file-desc (split-string (org-element-property :value (org-element-at-point)) " :desc\\(?:ription\\)? ")))
+            (push (cons (car file-desc) (or (cdr file-desc) "Extra file")) extra-files))))
+      (nreverse extra-files)))
+   "\n"))
+#+end_src
+
+Now all tangled files will be embedded, and we can embed arbitrary files like
+so:
+#+begin_src org
+,#+embed: some-file :description flavour text about the file
+#+end_src
+
+This currently won't complete or anything like that, as we haven't told Org that
+it's a keyword yet. It's also LaTeX-specific, so maybe it should be changed to
+=#+latex_embed= or something like that.
