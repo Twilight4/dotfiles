@@ -2237,7 +2237,7 @@ Several Emacs packages are available that can link bibliography files to notes. 
 #+end_src
 
 ** Editing Features for Org
-*** File Links automation
+*** File links automation
 While =org-insert-link= is all very well and good, a large portion of the time I
 want to insert a file, and so it would be good to have a way to skip straight to
 that and avoid the description prompt. Looking at =org-link-parameters=, we can
@@ -2447,7 +2447,7 @@ Skip default buffers like **Messages** when using =buffer-prev=/=next=
     (previous-buffer)))
 #+end_src
 
-*** Source Code Block Tag Expansion
+*** Source code block tag expansion
 Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
@@ -3172,3 +3172,5 @@ Since I (roughly) track Org =HEAD=, it makes sense to include the git version in
 (setq org-export-creator-string
       (format "Emacs %s (Org mode %s–%s)" emacs-version (org-release) (org-git-version)))
 #+end_src
+
+*** Exporting Org code
