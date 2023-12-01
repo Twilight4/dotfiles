@@ -3357,3 +3357,45 @@ of contents as a string, or nil if it is empty."
 
 (advice-add 'org-html-toc :override #'tl/org-html-toc-linked)
 #+end_src
+
+**** Collapsable src and example blocks
+By wrapping the ~<pre>~ element in a ~<details>~ block, we can obtain collapsable
+blocks with no CSS, though we will toss a little in anyway to have this looking
+somewhat spiffy.
+
+#+begin_src emacs-lisp
+(defvar org-html-export-collapsed nil)
+
+(defun my/org-html-toc-linked (depth info &optional scope)
+  "Build a table of contents.
+
+Just like `org-html-toc', except the header is a link to \"#\".
+
+DEPTH is an integer specifying the depth of the table.  INFO is
+a plist used as a communication channel.  Optional argument SCOPE
+is an element defining the scope of the table.  Return the table
+of contents as a string, or nil if it is empty."
+  (let ((toc-entries
+         (mapcar (lambda (headline)
+                   (cons (org-html--format-toc-headline headline info)
+                         (org-export-get-relative-level headline info)))
+                 (org-export-collect-headlines info depth scope))))
+    (when toc-entries
+      (let ((toc (concat "<div id=\"text-table-of-contents\">"
+                         (org-html--toc-text toc-entries)
+                         "</div>\n")))
+        (if scope toc
+          (let ((outer-tag (if (org-html--html5-fancy-p info)
+                               "nav"
+                             "div")))
+            (concat (format "<%s id=\"table-of-contents\">\n" outer-tag)
+                    (let ((top-level (plist-get info :html-toplevel-hlevel)))
+                      (format "<h%d><a href=\"#\" style=\"color:inherit; text-decoration: none;\">%s</a></h%d>\n"
+                              top-level
+                              (org-html--translate "Table of Contents" info)
+                              top-level))
+                    toc
+                    (format "</%s>\n" outer-tag))))))))
+
+(advice-add 'org-html-toc :override #'my/org-html-toc-linked)
+#+end_src
