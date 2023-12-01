@@ -2508,7 +2508,7 @@ Let’s make creating an Org buffer just that little bit easier.
 #+end_src
 
 ** Org Configuraion
-*** Org-Mode Font Faces
+*** Org-Mode font faces
 
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
@@ -2540,7 +2540,7 @@ Let’s make creating an Org buffer just that little bit easier.
 (setq org-fontify-quote-and-verse-blocks t)
 #+end_src
 
-*** Org-Mode Config
+*** Org-Mode config
 
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/agenda"
@@ -3153,7 +3153,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
 #+end_src
 
 ** Exporting
-*** General Settings
+*** General settings
 By default Org only exports the first three levels of headings as … headings. 
 This is rather unfortunate as my documents frequently stray far beyond three levels of depth. 
 The two main formats I care about exporting to are LaTeX and HTML. 
@@ -3173,7 +3173,7 @@ Since I (roughly) track Org =HEAD=, it makes sense to include the git version in
       (format "Emacs %s (Org mode %s–%s)" emacs-version (org-release) (org-git-version)))
 #+end_src
 
-*** Exporting Org code
+*** Exporting org code
 With all our Org config and hooks, exporting an Org code block when using a font-lock based method can produce undesirable results. To address this, we can tweak =+org-babel-mode-alist= when exporting.
 
 #+begin_src emacs-lisp
@@ -3194,3 +3194,5 @@ With all our Org config and hooks, exporting an Org code block when using a font
 
 (add-hook 'org-export-before-processing-hook #'+org-export-babel-mask-org-config)
 #+end_src
+
+*** HTML Export
