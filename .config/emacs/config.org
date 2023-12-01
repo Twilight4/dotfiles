@@ -3366,36 +3366,122 @@ somewhat spiffy.
 #+begin_src emacs-lisp
 (defvar org-html-export-collapsed nil)
 
-(defun my/org-html-toc-linked (depth info &optional scope)
-  "Build a table of contents.
+(defun my/org-html-src-block-collapsable (orig-fn src-block contents info)
+  "Wrap the usual <pre> block in a <details>"
+  (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
+      (funcall orig-fn src-block contents info)
+    (let* ((properties (cadr src-block))
+           (lang (my/mode-name-to-lang-name
+                  (plist-get properties :language)))
+           (name (plist-get properties :name))
+           (ref (org-export-get-reference src-block info))
+           (collapsed-p (member (or (org-export-read-attribute :attr_html src-block :collapsed)
+                                    (plist-get info :collapsed))
+                                '("y" "yes" "t" t "true" "all"))))
+      (format
+       "<details id='%s' class='code'%s><summary%s>%s</summary>
+<div class='gutter'>
+<a href='#%s'>#</a>
+<button title='Copy to clipboard' onclick='copyPreToClipbord(this)'>⎘</button>\
+</div>
+%s
+</details>"
+       ref
+       (if collapsed-p "" " open")
+       (if name " class='named'" "")
+       (concat
+        (when name (concat "<span class=\"name\">" name "</span>"))
+        "<span class=\"lang\">" lang "</span>")
+       ref
+       (if name
+           (replace-regexp-in-string (format "<pre\\( class=\"[^\"]+\"\\)? id=\"%s\">" ref) "<pre\\1>"
+                                     (funcall orig-fn src-block contents info))
+         (funcall orig-fn src-block contents info))))))
 
-Just like `org-html-toc', except the header is a link to \"#\".
+(defun my/mode-name-to-lang-name (mode)
+  (or (cadr (assoc mode
+                   '(("asymptote" . "Asymptote")
+                     ("awk" . "Awk")
+                     ("C" . "C")
+                     ("clojure" "Clojure")
+                     ("css" "CSS")
+                     ("D" "D")
+                     ("ditaa" "ditaa")
+                     ("dot" "Graphviz")
+                     ("calc" "Emacs Calc")
+                     ("emacs-lisp" "Emacs Lisp")
+                     ("fortran" "Fortran")
+                     ("gnuplot" "gnuplot")
+                     ("haskell" "Haskell")
+                     ("hledger" "hledger")
+                     ("java" "Java")
+                     ("js" "Javascript")
+                     ("latex" "LaTeX")
+                     ("ledger" "Ledger")
+                     ("lisp" "Lisp")
+                     ("lilypond" "Lilypond")
+                     ("lua" "Lua")
+                     ("matlab" "MATLAB")
+                     ("mscgen" "Mscgen")
+                     ("ocaml" "Objective Caml")
+                     ("octave" "Octave")
+                     ("org" "Org mode")
+                     ("oz" "OZ")
+                     ("plantuml" "Plantuml")
+                     ("processing" "Processing.js")
+                     ("python" "Python")
+                     ("R" "R")
+                     ("ruby" "Ruby")
+                     ("sass" "Sass")
+                     ("scheme" "Scheme")
+                     ("screen" "Gnu Screen")
+                     ("sed" "Sed")
+                     ("sh" "shell")
+                     ("sql" "SQL")
+                     ("sqlite" "SQLite")
+                     ("forth" "Forth")
+                     ("io" "IO")
+                     ("J" "J")
+                     ("makefile" "Makefile")
+                     ("maxima" "Maxima")
+                     ("perl" "Perl")
+                     ("picolisp" "Pico Lisp")
+                     ("scala" "Scala")
+                     ("shell" "Shell Script")
+                     ("ebnf2ps" "ebfn2ps")
+                     ("cpp" "C++")
+                     ("abc" "ABC")
+                     ("coq" "Coq")
+                     ("groovy" "Groovy")
+                     ("bash" "bash")
+                     ("csh" "csh")
+                     ("ash" "ash")
+                     ("dash" "dash")
+                     ("ksh" "ksh")
+                     ("mksh" "mksh")
+                     ("posh" "posh")
+                     ("ada" "Ada")
+                     ("asm" "Assembler")
+                     ("caml" "Caml")
+                     ("delphi" "Delphi")
+                     ("html" "HTML")
+                     ("idl" "IDL")
+                     ("mercury" "Mercury")
+                     ("metapost" "MetaPost")
+                     ("modula-2" "Modula-2")
+                     ("pascal" "Pascal")
+                     ("ps" "PostScript")
+                     ("prolog" "Prolog")
+                     ("simula" "Simula")
+                     ("tcl" "tcl")
+                     ("tex" "LaTeX")
+                     ("plain-tex" "TeX")
+                     ("verilog" "Verilog")
+                     ("vhdl" "VHDL")
+                     ("xml" "XML")
+                     ("nxml" "XML")
+                     ("conf" "Configuration File"))))
+      mode))
 
-DEPTH is an integer specifying the depth of the table.  INFO is
-a plist used as a communication channel.  Optional argument SCOPE
-is an element defining the scope of the table.  Return the table
-of contents as a string, or nil if it is empty."
-  (let ((toc-entries
-         (mapcar (lambda (headline)
-                   (cons (org-html--format-toc-headline headline info)
-                         (org-export-get-relative-level headline info)))
-                 (org-export-collect-headlines info depth scope))))
-    (when toc-entries
-      (let ((toc (concat "<div id=\"text-table-of-contents\">"
-                         (org-html--toc-text toc-entries)
-                         "</div>\n")))
-        (if scope toc
-          (let ((outer-tag (if (org-html--html5-fancy-p info)
-                               "nav"
-                             "div")))
-            (concat (format "<%s id=\"table-of-contents\">\n" outer-tag)
-                    (let ((top-level (plist-get info :html-toplevel-hlevel)))
-                      (format "<h%d><a href=\"#\" style=\"color:inherit; text-decoration: none;\">%s</a></h%d>\n"
-                              top-level
-                              (org-html--translate "Table of Contents" info)
-                              top-level))
-                    toc
-                    (format "</%s>\n" outer-tag))))))))
-
-(advice-add 'org-html-toc :override #'my/org-html-toc-linked)
+(advice-add 'org-html-src-block :around #'my/org-html-src-block-collapsable)
 #+end_src
