@@ -3634,18 +3634,17 @@ Then, styling these two cases differently can help improve clarity in a document
 I want to add GitHub-style links on hover for headings.
 
 #+begin_src emacs-lisp
-(defun org-export-html-headline-anchor (text backend info)
+(defun tl-org-export-html-headline-anchor (text backend info)
   (when (and (org-export-derived-backend-p backend 'html)
              (not (org-export-derived-backend-p backend 're-reveal))
              org-fancy-html-export-mode)
     (unless (bound-and-true-p org-msg-export-in-progress)
       (replace-regexp-in-string
-       "<h\\([0-9]\\) id=\"\\([a-z0-9-]+\\)\">\\(.*[^ ]\\)<\\/h[0-9]>" ; this is quite restrictive, but due to `org-reference-contraction' I can do this
+       "<h\\([0-9]\\) id=\"\\([a-z0-9-]+\\)\">\\(.*[^ ]\\)<\\/h[0-9]>"
        "<h\\1 id=\"\\2\">\\3<a aria-hidden=\"true\" href=\"#\\2\">#</a> </h\\1>"
        text))))
 
-(add-to-list 'org-export-filter-headline-functions
-             'org-export-html-headline-anchor)
+(advice-add 'org-export-to-buffer :filter-args #'tl-org-export-html-headline-anchor)
 #+end_src
 
 **** Link previews
@@ -3736,3 +3735,25 @@ Now we just need to actually implement that metadata extraction function.
 #+end_src
 
 *** LaTeX Export
+**** Compiling
+
+By default Org uses ~pdflatex~ \times 3 + ~bibtex~. This simply won't do in our
+modern world. ~latexmk~ + ~biber~ (which is used automatically with ~latexmk~) is a
+simply superior combination.
+
+#+begin_src emacs-lisp
+;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+#+end_src
+
+While ~org-latex-pdf-process~ does support a function, and we could use that
+instead, this would no longer use the log buffer --- it's a bit blind, you give
+it the file name and expect it to do its thing.
+
+The default values of ~org-latex-compilers~ is given in commented form to see how
+~org-latex-pdf-process~ works with them.
+
+While the ~-%latex~ above is slightly hacky (~-pdflatex~ expects to be given a
+value) it allows us to leave ~org-latex-compilers~ unmodified.
+This is nice in case I open an org file that uses =#+LATEX_COMPILER= for example,
+it should still work.
