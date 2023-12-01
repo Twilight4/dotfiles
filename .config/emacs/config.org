@@ -3631,4 +3631,18 @@ Then, styling these two cases differently can help improve clarity in a document
 #+end_src
 
 **** Header anchors
+I want to add GitHub-style links on hover for headings.
+#+begin_src emacs-lisp
+(defun org-export-html-headline-anchor (text backend info)
+  (when (and (org-export-derived-backend-p backend 'html)
+             (not (org-export-derived-backend-p backend 're-reveal))
+             org-fancy-html-export-mode)
+    (unless (bound-and-true-p org-msg-export-in-progress)
+      (replace-regexp-in-string
+       "<h\\([0-9]\\) id=\"\\([a-z0-9-]+\\)\">\\(.*[^ ]\\)<\\/h[0-9]>" ; this is quite restrictive, but due to `org-reference-contraction' I can do this
+       "<h\\1 id=\"\\2\">\\3<a aria-hidden=\"true\" href=\"#\\2\">#</a> </h\\1>"
+       text))))
 
+(add-to-list 'org-export-filter-headline-functions
+             'org-export-html-headline-anchor)
+#+end_src
