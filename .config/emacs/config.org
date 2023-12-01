@@ -3225,7 +3225,6 @@ the vast majority of the change in behaviour comes from switch statements in:
 We want to tack on a few more bits to the start of the body. Unfortunately, there doesn’t seem to be any nice variable or hook, so we’ll just override the relevant function.
 
 This is done to allow me to add the date and author to the page header, implement a CSS-only light/dark theme toggle, and a sprinkle of Open Graph metadata.
-
 #+begin_src emacs-lisp
 (defun tl/org-html-template-fancier (orig-fn contents info)
   "Return complete document string after HTML conversion.
@@ -3324,7 +3323,6 @@ compared to the default implementation."
 #+end_src
 
 I think it would be nice if “Table of Contents” brought you back to the top of the page. Well, since we’ve done this much advising already…
-
 #+begin_src emacs-lisp
 (defun tl/org-html-toc-linked (depth info &optional scope)
   "Build a table of contents.
