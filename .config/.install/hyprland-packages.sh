@@ -33,6 +33,7 @@ packagesPacman=(
 	"texlive-latex"
 	"texlive-latexextra"
 	"texlive-plaingeneric"
+	"texlive-binextra"
     "supergfxctl"
     "openbsd-netcat"
     "wofi"
