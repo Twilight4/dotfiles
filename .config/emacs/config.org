@@ -3780,256 +3780,52 @@ commands below are defined.
 (add-hook 'org-export-before-parsing-hook #'+org-export-latex-fancy-item-checkboxes)
 #+end_src
 
-**** Class templates
-I really like the KOMA bundle. It provides a set of mechanisms to tweak document
-styling which is both easy to use, and quite comprehensive.
-For example, I rather like section numbers in the margin, which can be
-accomplished with:
-
-#+name: latex-hanging-secnum
-#+begin_src LaTeX
-\renewcommand\sectionformat{\llap{\thesection\autodot\enskip}}
-\renewcommand\subsectionformat{\llap{\thesubsection\autodot\enskip}}
-\renewcommand\subsubsectionformat{\llap{\thesubsubsection\autodot\enskip}}
-#+end_src
-
-It can also be nice to have big =\chapter=​s.
-#+name: latex-big-chapter
-#+begin_src LaTeX
-\RedeclareSectionCommand[afterindent=false, beforeskip=0pt, afterskip=0pt, innerskip=0pt]{chapter}
-\setkomafont{chapter}{\normalfont\Huge}
-\renewcommand*{\chapterheadstartvskip}{\vspace*{0\baselineskip}}
-\renewcommand*{\chapterheadendvskip}{\vspace*{0\baselineskip}}
-\renewcommand*{\chapterformat}{%
-  \fontsize{60}{30}\selectfont\rlap{\hspace{6pt}\thechapter}}
-\renewcommand*\chapterlinesformat[3]{%
-  \parbox[b]{\dimexpr\textwidth-0.5em\relax}{%
-    \raggedleft{{\large\scshape\bfseries\chapapp}\vspace{-0.5ex}\par\Huge#3}}%
-    \hfill\makebox[0pt][l]{#2}}
-#+end_src
-
-Now let's just sprinkle some KOMA all over the Org LaTeX classes.
-#+begin_src emacs-lisp :noweb no-export :noweb-prefix no
-;; LaTeX configurations
-(with-eval-after-load 'ox-latex
-  (let* ((article-sections '(("\\section{%s}" . "\\section*{%s}")
-                             ("\\subsection{%s}" . "\\subsection*{%s}")
-                             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                             ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-         (book-sections (append '(("\\chapter{%s}" . "\\chapter*{%s}"))
-                                article-sections))
-         (hanging-secnum-preamble "YOUR_LATEX_HANGING_SECNUM_PREAMBLE_HERE")
-         (big-chap-preamble "YOUR_LATEX_BIG_CHAPTER_PREAMBLE_HERE"))
-    
-    (setcdr (assoc "article" org-latex-classes)
-            `(,(concat "\\documentclass{scrartcl}" hanging-secnum-preamble)
-              ,@article-sections))
-    
-    (add-to-list 'org-latex-classes
-                 `("report" ,(concat "\\documentclass{scrartcl}" hanging-secnum-preamble)
-                   ,@article-sections))
-    
-    (add-to-list 'org-latex-classes
-                 `("book" ,(concat "\\documentclass[twoside=false]{scrbook}"
-                                   big-chap-preamble hanging-secnum-preamble)
-                   ,@book-sections))
-    
-    (add-to-list 'org-latex-classes
-                 `("blank" "[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]\n[EXTRA]"
-                   ,@article-sections))
-    
-    (add-to-list 'org-latex-classes
-                 `("bmc-article" "\\documentclass[article,code,maths]{bmc}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]\n[EXTRA]"
-                   ,@article-sections))
-    
-    (add-to-list 'org-latex-classes
-                 `("bmc" "\\documentclass[code,maths]{bmc}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]\n[EXTRA]"
-                   ,@book-sections))))
-
-;; Additional LaTeX configurations
-(setq org-latex-tables-booktabs t
-      org-latex-hyperref-template "YOUR_LATEX_FANCY_HYPERREF_TEMPLATE_HERE"
-      org-latex-reference-command "\\cref{%s}")
-#+end_src
-
-The =hyperref= setup needs to be handled separately however.
-#+name: latex-fancy-hyperref
-#+begin_src LaTeX
-\providecolor{url}{HTML}{0077bb}
-\providecolor{link}{HTML}{882255}
-\providecolor{cite}{HTML}{999933}
-\hypersetup{
-  pdfauthor={%a},
-  pdftitle={%t},
-  pdfkeywords={%k},
-  pdfsubject={%d},
-  pdfcreator={%c},
-  pdflang={%L},
-  breaklinks=true,
-  colorlinks=true,
-  linkcolor=link,
-  urlcolor=url,
-  citecolor=cite
-}
-\urlstyle{same}
-%% hide links styles in toc
-\NewCommandCopy{\oldtoc}{\tableofcontents}
-\renewcommand{\tableofcontents}{\begingroup\hypersetup{hidelinks}\oldtoc\endgroup}
-#+end_src
-
-**** A cleverer preamble
-We often want particular snippets of LaTeX in our documents preambles.
-It's a pain to have to work out / remember them every time.
-For example, I almost always want to include the snippet below.
-
-#+name: org-latex-embed-files-preamble
-#+begin_src LaTeX
-\usepackage[main,include]{embedall}
-\IfFileExists{./\jobname.org}{\embedfile[desc=The original file]{\jobname.org}}{}
-#+end_src
-
-We could have every package we could possibly need in every one of
-~org-latex-classes~, but that's /horribly/ inefficient and I don't want to think
-about maintaining that.
-
-Instead we can provide some granularity by splitting up the features we want,
-and then take the experience to a whole new level by implementing a system to
-automatically detect which features are desired and generating a preamble that
-provides these features.
-
-**** Conditional Content
-Let's consider content we want in particular situations.
-
-Captions could do with a bit of tweaking such that
-+ You can easily have multiple captions
-+ Links to figures take you to the /top/ of the figure (not the bottom)
-+ Caption labels could do with being emphasised slightly more
-+ Multiline captions should run ragged-right, but only when then span more than
-  one line
-
-#+name: org-latex-caption-preamble
-#+begin_src LaTeX
-\usepackage{subcaption}
-\usepackage[hypcap=true]{caption}
-\setkomafont{caption}{\sffamily\small}
-\setkomafont{captionlabel}{\upshape\bfseries}
-\captionsetup{justification=raggedright,singlelinecheck=true}
-\usepackage{capt-of} % required by Org
-#+end_src
-
-The default checkboxes look rather ugly, so let's provide some prettier alternatives.
-#+name: org-latex-checkbox-preamble
-#+begin_src LaTeX
-\newcommand{\checkboxUnchecked}{$\square$}
-\newcommand{\checkboxTransitive}{\rlap{\raisebox{-0.1ex}{\hspace{0.35ex}\Large\textbf -}}$\square$}
-\newcommand{\checkboxChecked}{\rlap{\raisebox{0.2ex}{\hspace{0.35ex}\scriptsize \ding{52}}}$\square$}
-#+end_src
-
-It's nice to have "message blocks", things like info/warning/error/success.
-A LaTeX macro should make them trivial to create.
-#+name: org-latex-box-preamble
-#+begin_src LaTeX
-\ExplSyntaxOn
-\NewCoffin\Content
-\NewCoffin\SideRule
-\NewDocumentCommand{\defsimplebox}{O{\ding{117}} O{0.36em} m m m}{%
-  % #1 ding, #2 ding offset, #3 name, #4 colour, #5 default label
-  \definecolor{#3}{HTML}{#4}
-  \NewDocumentEnvironment{#3}{ O{#5} }
-  {
-    \vcoffin_set:Nnw \Content { \linewidth }
-    \noindent \ignorespaces
-    \par\vspace{-0.7\baselineskip}%
-    \textcolor{#3}{#1}~\textcolor{#3}{\textbf{##1}}%
-    \vspace{-0.8\baselineskip}
-    \begin{addmargin}[1em]{1em}
-    }
-    {
-    \end{addmargin}
-    \vspace{-0.5\baselineskip}
-    \vcoffin_set_end:
-    \SetHorizontalCoffin\SideRule{\color{#3}\rule{1pt}{\CoffinTotalHeight\Content}}
-    \JoinCoffins*\Content[l,t]\SideRule[l,t](#2,-0.7em)
-    \noindent\TypesetCoffin\Content
-    \vspace*{\CoffinTotalHeight\Content}\bigskip
-    \vspace{-2\baselineskip}
-  }
-}
-\ExplSyntaxOff
-#+end_src
-
-In the "universal preamble", we already embed the source =.org= file, but it would
-be nice to embed all the tangled files. This is fairly easy to accomplish by
-mapping each tangled file to a form which embeds the file if it exists.
-Considering we're going this far, why not add a dedicated =#+emded= keyword, so we
-can embed whatever we want.
+**** Pretty code blocks
+We could just use minted for syntax highlighting --- however, we can do better!
+The =engrave-faces= package lets us use Emacs' font-lock for syntax highlighting,
+exporting that as LaTeX commands.
 #+begin_src emacs-lisp
-(defun org-latex-embed-extra-files ()
-  "Return a string that uses embedfile to embed all tangled files."
-  (mapconcat
-   (lambda (file-desc)
-     (format "\\IfFileExists{%1$s}{\\embedfile[desc=%2$s]{%1$s}}{}"
-             (thread-last (car file-desc)
-                          (replace-regexp-in-string "\\\\" "\\\\\\\\")
-                          (replace-regexp-in-string "~" "\\\\string~"))
-             (cdr file-desc)))
-   (append
-    (let (tangle-fspecs) ; All files being tangled to.
-      (org-element-cache-map
-       (lambda (src)
-         (when (and (not (org-in-commented-heading-p nil src))
-                    (not (org-in-archived-heading-p nil src)))
-           (when-let ((lang (org-element-property :language src))
-                      (params
-                       (apply
-                        #'org-babel-merge-params
-                        (append
-                         (org-with-point-at (org-element-property :begin src)
-                           (org-babel-params-from-properties lang t))
-                         (mapcar
-                          (lambda (h)
-                            (org-babel-parse-header-arguments h t))
-                          (cons (org-element-property :parameters src)
-                                (org-element-property :header src))))))
-                      (tangle-value
-                       (pcase (alist-get :tangle params)
-                         ((and (pred stringp) (pred (string-match-p "^(.*)$")) expr)
-                          (eval (read expr)))
-                         (val val)))
-                      (tangle-file
-                       (pcase tangle-value
-                         ((or "no" (guard (member (alist-get :export-embed params) '("no" "nil"))))
-                          nil)
-                         ("yes"
-                          (file-name-with-extension
-                           (file-name-nondirectory (buffer-file-name))
-                           (or (alist-get lang org-babel-tangle-lang-exts nil nil #'equal)
-                               lang)))
-                         (val val))))
-             (unless (assoc tangle-file tangle-fspecs)
-               (push
-                (cons tangle-file (format "Tangled %s file" lang))
-                tangle-fspecs)))))
-       :granularity 'element
-       :restrict-elements '(src-block))
-      (nreverse tangle-fspecs))
-    (let (extra-files)
-      (save-excursion
-        (goto-char (point-min))
-        (while (re-search-forward "^[ \t]*#\\+embed:" nil t)
-          (let* ((file-desc (split-string (org-element-property :value (org-element-at-point)) " :desc\\(?:ription\\)? ")))
-            (push (cons (car file-desc) (or (cdr file-desc) "Extra file")) extra-files))))
-      (nreverse extra-files)))
-   "\n"))
+(use-package engrave-faces
+  :ensure t
+  :after ox-latex)
 #+end_src
 
-Now all tangled files will be embedded, and we can embed arbitrary files like
-so:
-#+begin_src org
-,#+embed: some-file :description flavour text about the file
+Using this as in LaTeX exports is now as easy as
+#+begin_src emacs-lisp
+(setq org-latex-listings 'engraved)
 #+end_src
 
-This currently won't complete or anything like that, as we haven't told Org that
-it's a keyword yet. It's also LaTeX-specific, so maybe it should be changed to
-=#+latex_embed= or something like that.
+One little annoyance with this is the interaction between microtype and =Verbatim=
+environments. Protrusion is not desirable here. Thankfully, we can patch the
+=Verbatim= environment to turn off protrusion locally.
+#+begin_src emacs-lisp
+(defun tl/org-latex-no-protrusion-in-code (backend)
+  "Conditionally modify LaTeX export for code blocks."
+  (when (and (eq backend 'latex) (featurep 'microtype))
+    (setq org-latex-listings-options
+          (concat org-latex-listings-options "\\microtypesetup{protrusion=false}"))))
+
+(add-hook 'org-export-before-parsing-hook #'tl/org-latex-no-protrusion-in-code)
+#+end_src
+
+At some point it would be nice to make the box colours easily customisable. At
+the moment it's fairly easy to change the syntax highlighting colours with
+src_elisp{(setq engrave-faces-preset-styles (engrave-faces-generate-preset))},
+but perhaps a toggle which specifies whether to use the default values, the
+current theme, or any named theme could be a good idea. It should also possible
+to set the box background dynamically to match. The named theme could work by
+looking for a style definition with a certain name in a cache dir, and then
+switching to that theme and producing (and saving) the style definition if it
+doesn't exist.
+
+Now let's have the example block be styled similarly.
+#+begin_src emacs-lisp
+(defun tl/org-latex-example-block-engraved (orig-fn example-block contents info)
+  "Like `org-latex-example-block', but supporting an engraved backend"
+  (let ((output-block (funcall orig-fn example-block contents info)))
+    (if (eq 'engraved (plist-get info :latex-listings))
+        (format "\\begin{Code}[alt]\n%s\n\\end{Code}" output-block)
+      output-block)))
+
+(advice-add 'org-latex-example-block :around #'tl/org-latex-example-block-engraved)
+#+end_src
