@@ -3366,12 +3366,12 @@ somewhat spiffy.
 #+begin_src emacs-lisp
 (defvar org-html-export-collapsed nil)
 
-(defun my/org-html-src-block-collapsable (orig-fn src-block contents info)
+(defun tl/org-html-src-block-collapsable (orig-fn src-block contents info)
   "Wrap the usual <pre> block in a <details>"
   (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
       (funcall orig-fn src-block contents info)
     (let* ((properties (cadr src-block))
-           (lang (my/mode-name-to-lang-name
+           (lang (tl/mode-name-to-lang-name
                   (plist-get properties :language)))
            (name (plist-get properties :name))
            (ref (org-export-get-reference src-block info))
@@ -3398,7 +3398,7 @@ somewhat spiffy.
                                      (funcall orig-fn src-block contents info))
          (funcall orig-fn src-block contents info))))))
 
-(defun my/mode-name-to-lang-name (mode)
+(defun tl/mode-name-to-lang-name (mode)
   (or (cadr (assoc mode
                    '(("asymptote" . "Asymptote")
                      ("awk" . "Awk")
@@ -3483,5 +3483,81 @@ somewhat spiffy.
                      ("conf" "Configuration File"))))
       mode))
 
-(advice-add 'org-html-src-block :around #'my/org-html-src-block-collapsable)
+(advice-add 'org-html-src-block :around #'tl/org-html-src-block-collapsable)
+#+end_src
+
+#+begin_src emacs-lisp
+(defun org-html-block-collapsable (orig-fn block contents info)
+  "Wrap the usual block in a <details>"
+  (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
+      (funcall orig-fn block contents info)
+    (let ((ref (org-export-get-reference block info))
+          (type (pcase (car block)
+                  ('property-drawer "Properties")))
+          (collapsed-default (pcase (car block)
+                               ('property-drawer t)
+                               (_ nil)))
+          (collapsed-value (org-export-read-attribute :attr_html block :collapsed))
+          (collapsed-p (or (member (org-export-read-attribute :attr_html block :collapsed)
+                                   '("y" "yes" "t" t "true"))
+                           (member (plist-get info :collapsed) '("all")))))
+      (format
+       "<details id='%s' class='code'%s>
+<summary%s>%s</summary>
+<div class='gutter'>\
+<a href='#%s'>#</a>
+<button title='Copy to clipboard' onclick='copyPreToClipbord(this)'>⎘</button>\
+</div>
+%s\n
+</details>"
+       ref
+       (if (or collapsed-p collapsed-default) "" " open")
+       (if type " class='named'" "")
+       (if type (format "<span class='type'>%s</span>" type) "")
+       ref
+       (funcall orig-fn block contents info)))))
+
+(advice-add 'org-html-example-block   :around #'org-html-block-collapsable)
+(advice-add 'org-html-fixed-width     :around #'org-html-block-collapsable)
+(advice-add 'org-html-property-drawer :around #'org-html-block-collapsable)
+#+end_src
+
+**** Include extra font-locking in htmlize
+Org uses [[https://github.com/hniksic/emacs-htmlize][htmlize.el]] to export buffers with syntax highlighting.
+
+The works fantastically, for the most part. Minor modes that provide
+font-locking are /not/ loaded, and so do not impact the result.
+
+By enabling these modes in ~htmlize-before-hook~ we can correct this behaviour.
+
+#+begin_src emacs-lisp
+(autoload #'highlight-numbers--turn-on "highlight-numbers")
+(add-hook 'htmlize-before-hook #'highlight-numbers--turn-on)
+#+end_src
+
+**** 
+
+#+begin_src emacs-lisp
+;; Define the advice
+(defadvice org-html-table (around org-html-table-wrapped activate)
+  "Wrap the usual <table> in a <div>"
+  (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
+      ad-do-it
+    (let* ((name (plist-get (cadr table) :name))
+           (ref (org-export-get-reference table info)))
+      (setq ad-return-value
+            (format "<div id='%s' class='table'>
+<div class='gutter'><a href='#%s'>#</a></div>
+<div class='tabular'>
+%s
+</div>\
+</div>"
+                    ref ref
+                    (if name
+                        (replace-regexp-in-string (format "<table id=\"%s\"" ref) "<table"
+                                                  ad-do-it)
+                      ad-do-it))))))
+
+;; Apply the advice
+(ad-activate 'org-html-table)
 #+end_src
