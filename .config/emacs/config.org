@@ -3736,7 +3736,6 @@ Now we just need to actually implement that metadata extraction function.
 
 *** LaTeX Export
 **** Compiling
-
 By default Org uses ~pdflatex~ \times 3 + ~bibtex~. This simply won't do in our
 modern world. ~latexmk~ + ~biber~ (which is used automatically with ~latexmk~) is a
 simply superior combination.
@@ -3757,3 +3756,99 @@ While the ~-%latex~ above is slightly hacky (~-pdflatex~ expects to be given a
 value) it allows us to leave ~org-latex-compilers~ unmodified.
 This is nice in case I open an org file that uses =#+LATEX_COMPILER= for example,
 it should still work.
+
+**** Nicer checkboxes
+We'll assume that thanks to the clever preamble the various custom =\checkbox...=
+commands below are defined.
+
+#+begin_src emacs-lisp
+(defun +org-export-latex-fancy-item-checkboxes (backend)
+  "Replace LaTeX item with fancy checkboxes."
+  (when (org-export-derived-backend-p backend 'latex)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward
+              "\\\\item\\[{$\\\\\\(\\w+\\)$}\\]" nil t)
+        (replace-match
+         (pcase (match-string 1)
+           ("square"   "\\\\checkboxUnchecked")
+           ("boxminus" "\\\\checkboxTransitive")
+           ("boxtimes" "\\\\checkboxChecked")
+           (_ (match-string 1)))
+         t t)))))
+
+(add-hook 'org-export-before-parsing-hook #'+org-export-latex-fancy-item-checkboxes)
+#+end_src
+
+**** Class templates
+I really like the KOMA bundle. It provides a set of mechanisms to tweak document
+styling which is both easy to use, and quite comprehensive.
+For example, I rather like section numbers in the margin, which can be
+accomplished with:
+
+#+name: latex-hanging-secnum
+#+begin_src LaTeX
+\renewcommand\sectionformat{\llap{\thesection\autodot\enskip}}
+\renewcommand\subsectionformat{\llap{\thesubsection\autodot\enskip}}
+\renewcommand\subsubsectionformat{\llap{\thesubsubsection\autodot\enskip}}
+#+end_src
+
+It can also be nice to have big =\chapter=​s.
+#+name: latex-big-chapter
+#+begin_src LaTeX
+\RedeclareSectionCommand[afterindent=false, beforeskip=0pt, afterskip=0pt, innerskip=0pt]{chapter}
+\setkomafont{chapter}{\normalfont\Huge}
+\renewcommand*{\chapterheadstartvskip}{\vspace*{0\baselineskip}}
+\renewcommand*{\chapterheadendvskip}{\vspace*{0\baselineskip}}
+\renewcommand*{\chapterformat}{%
+  \fontsize{60}{30}\selectfont\rlap{\hspace{6pt}\thechapter}}
+\renewcommand*\chapterlinesformat[3]{%
+  \parbox[b]{\dimexpr\textwidth-0.5em\relax}{%
+    \raggedleft{{\large\scshape\bfseries\chapapp}\vspace{-0.5ex}\par\Huge#3}}%
+    \hfill\makebox[0pt][l]{#2}}
+#+end_src
+
+Now let's just sprinkle some KOMA all over the Org LaTeX classes.
+#+begin_src emacs-lisp :noweb no-export :noweb-prefix no
+;; LaTeX configurations
+(with-eval-after-load 'ox-latex
+  (let* ((article-sections '(("\\section{%s}" . "\\section*{%s}")
+                             ("\\subsection{%s}" . "\\subsection*{%s}")
+                             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                             ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+         (book-sections (append '(("\\chapter{%s}" . "\\chapter*{%s}"))
+                                article-sections))
+         (hanging-secnum-preamble "YOUR_LATEX_HANGING_SECNUM_PREAMBLE_HERE")
+         (big-chap-preamble "YOUR_LATEX_BIG_CHAPTER_PREAMBLE_HERE"))
+    
+    (setcdr (assoc "article" org-latex-classes)
+            `(,(concat "\\documentclass{scrartcl}" hanging-secnum-preamble)
+              ,@article-sections))
+    
+    (add-to-list 'org-latex-classes
+                 `("report" ,(concat "\\documentclass{scrartcl}" hanging-secnum-preamble)
+                   ,@article-sections))
+    
+    (add-to-list 'org-latex-classes
+                 `("book" ,(concat "\\documentclass[twoside=false]{scrbook}"
+                                   big-chap-preamble hanging-secnum-preamble)
+                   ,@book-sections))
+    
+    (add-to-list 'org-latex-classes
+                 `("blank" "[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]\n[EXTRA]"
+                   ,@article-sections))
+    
+    (add-to-list 'org-latex-classes
+                 `("bmc-article" "\\documentclass[article,code,maths]{bmc}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]\n[EXTRA]"
+                   ,@article-sections))
+    
+    (add-to-list 'org-latex-classes
+                 `("bmc" "\\documentclass[code,maths]{bmc}\n[NO-DEFAULT-PACKAGES]\n[NO-PACKAGES]\n[EXTRA]"
+                   ,@book-sections))))
+
+;; Additional LaTeX configurations
+(setq org-latex-tables-booktabs t
+      org-latex-hyperref-template "YOUR_LATEX_FANCY_HYPERREF_TEMPLATE_HERE"
+      org-latex-reference-command "\\cref{%s}")
+#+end_src
