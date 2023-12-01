@@ -3599,15 +3599,36 @@ obvious way to achieve this is by including some /if no children.../ logic in
 up to par to extract the number of child headings from the mountain of info that
 org provides.
 #+begin_src emacs-lisp
-(defun tl/org-html--format-toc-headline-collapseable (orig-fn headline info)
-  "Add a label and checkbox to `org-html--format-toc-headline's usual output,
-to allow the TOC to be a collapsible tree."
+(defun tl-org-html--toc-text-stripped-leaves (orig-fn toc-entries)
+  "Remove label"
   (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
-      (funcall orig-fn headline info)
-    (let ((id (or (org-element-property :CUSTOM_ID headline)
-                  (org-export-get-reference headline info))))
-      (format "<input type='checkbox' id='toc--%s'/><label for='toc--%s'>%s</label>"
-              id id (funcall orig-fn headline info)))))
+      (funcall orig-fn toc-entries)
+    (replace-regexp-in-string "<input [^>]+><label [^>]+>\\(.+?\\)</label></li>" "\\1</li>"
+                              (funcall orig-fn toc-entries))))
 
-(advice-add 'org-html--format-toc-headline :around #'tl/org-html--format-toc-headline-collapseable)
+(advice-add 'org-html--toc-text-stripped-leaves :around #'tl-org-html--toc-text-stripped-leaves)
 #+end_src
+
+**** Make verbatim different to code
+Since we have =verbatim= and ~code~, let's make use of the difference.
+
+We can use ~code~ exclusively for code snippets and commands like: "calling
+src_elisp{(message "Hello")} in batch-mode Emacs prints to stdout like ~echo~".
+Then we can use =verbatim= for miscellaneous 'other monospace' like keyboard
+shortcuts: "either =C-c C-c= or =C-g= is likely the most useful keybinding in Emacs",
+or file names: "I keep my configuration in =~/.config/doom/=", among other things.
+
+Then, styling these two cases differently can help improve clarity in a document.
+
+#+begin_src emacs-lisp
+(setq org-html-text-markup-alist
+      '((bold . "<b>%s</b>")
+        (code . "<code>%s</code>")
+        (italic . "<i>%s</i>")
+        (strike-through . "<del>%s</del>")
+        (underline . "<span class=\"underline\">%s</span>")
+        (verbatim . "<kbd>%s</kbd>")))
+#+end_src
+
+**** Header anchors
+
