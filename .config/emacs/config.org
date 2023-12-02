@@ -2022,6 +2022,30 @@ Adding highlights to =TODO= and related words.
           ("CANC"       error bold))))
 #+end_src
 
+*** Org-fancy-priorities
+
+#+begin_src emacs-lisp
+;; Enable prettify-symbols-mode
+(global-prettify-symbols-mode 1)
+
+;; Org symbols/priorities
+(use-package org-fancy-priorities
+  :ensure t
+  :hook
+  (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq
+    org-hide-leading-stars t
+    org-priority-highest ?A
+    org-priority-lowest ?C
+    ;;org-fancy-priorities-list '("[A]" "[B]" "[C]")
+    org-fancy-priorities-list '("" "" "")
+    org-priority-faces
+    '((?A :foreground (face-foreground 'all-the-icons-red) :weight bold)
+      (?B :foreground (face-foreground 'all-the-icons-orange) :weight bold)
+      (?C :foreground (face-foreground 'all-the-icons-yellow) :weight bold))))
+#+end_src
+
 *** Org-noter
 Emacs document annotator compatible with =pdf-tools=, using Org-mode.
 Source: https://github.com/weirdNox/org-noter
@@ -2604,37 +2628,11 @@ Let’s make creating an Org buffer just that little bit easier.
            "FINISHED(f)"
            "CANC(c)")))
 
-;; Org-journal (using org-roam-dailies)
-(setq org-journal-dir "~/documents/org/agenda"
-      org-journal-date-prefix "* "
-      org-journal-time-prefix "** "
-      org-journal-date-format "%B %d, %Y (%A) "
-      org-journal-file-format "%Y-%m-%d.org")
-
-;; Org symbols/priorities
-(setq org-hide-leading-stars t
-      ;org-fancy-priorities-list '("🟥" "🟧" "🟨")
-      org-priority-highest ?A
-      org-priority-lowest ?C
-      org-priority-faces
-      '((?A . 'all-the-icons-red)
-		  (?B . 'all-the-icons-orange)
-        (?C . 'all-the-icons-yellow)))
-
-;; Enable prettify-symbols-mode
-(global-prettify-symbols-mode 1)
-
-;; Using refiling for org-roam-dailiies instead
-;(setq org-refile-targets
-;  '(("archive.org" :maxlevel . 1)))
-
-;; Save Org buffers after refiling
-;(advice-add 'org-refile :after 'org-save-all-org-buffers)
-
 ;; Org-habit config
 (require 'org-habit)
 (setq org-habit-graph-column 60)
 
+;; Org-tags config
 (setq org-tag-alist
   '((:startgroup)
      ; Put mutually exclusive tags here
@@ -2702,10 +2700,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("arrow_left" "←" "←")
           ("arrow_lr" "↔" "↔")
           ("properties" "⚙" "⚙")
-          ("end" "∎" "∎")
-          ("priority_a" "⚑" "⚑")
-          ("priority_b" "⬆" "⬆")
-          ("priority_c" "■" "■"))
+          ("end" "∎" "∎"))
         org-modern-horizontal-rule (make-string 36 ?─)
         org-modern-keyword
         '((t . t)
@@ -3158,6 +3153,20 @@ The following snippet sets up a hook for all Org task state changes and then mov
              (lambda ()
                (when (equal org-state "DONE")
                  (tl/org-roam-copy-todo-to-today))))
+
+;; Old settings
+;(setq org-refile-targets
+;  '(("archive.org" :maxlevel . 1)))
+
+;; Save Org buffers after refiling
+;(advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+;; Org-journal (using org-roam-dailies anyways)
+(setq org-journal-dir "~/documents/org/agenda"
+      org-journal-date-prefix "* "
+      org-journal-time-prefix "** "
+      org-journal-date-format "%B %d, %Y (%A) "
+      org-journal-file-format "%Y-%m-%d.org")
 #+end_src
 
 *** Org-roam-ui
