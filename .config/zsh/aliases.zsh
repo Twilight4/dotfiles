@@ -13,12 +13,12 @@ alias lc='lsd -ltrh --hyperlink=auto'                # Sort by date
 alias l.='lsd -A $* | grep "^\."'                    # List hidden files
 
 # HOME dirs
-alias dw='cd "$HOME/downloads" ; clear'
-alias dt='cd "$HOME/desktop" ; clear'
-alias pc='cd "$HOME/pictures" ; clear'
-alias vd='cd "$HOME/videos" ; clear'
-alias dc='cd "$HOME/documents" ; clear'
-alias org='cd "$HOME/documents/org" ; clear'
+alias dw='cd "$HOME/downloads" ; clear ; lsd -l --hyperlink=auto'
+alias pc='cd "$HOME/pictures" ; clear ; lsd -l --hyperlink=auto'
+alias vd='cd "$HOME/videos" ; clear ; lsd -l --hyperlink=auto'
+alias dc='cd "$HOME/documents" ; clear ; lsd -l --hyperlink=auto'
+alias org='cd "$HOME/documents/org" ; clear ; lsd -l --hyperlink=auto'
+alias sc='cd "$HOME/pictures/screenshots" ; clear ; fimg'
 
 # Work dirs
 alias pj='cd "$HOME/desktop/projects" ; clear'
@@ -80,8 +80,6 @@ alias biggest="du -h --max-depth=1 | sort -h"
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
 alias open='xdg-open'
-alias sc='socat'
-alias scat='socat'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
