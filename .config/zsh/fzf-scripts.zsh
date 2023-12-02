@@ -4,7 +4,7 @@
 # Change directory #
 ####################
 
-# Search for a file and edit in $EDITOR + Hidden
+# Search for a file and edit in $EDITOR
 ff() {
   file=$(find . -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
       | fzf --query="$1" --no-multi --select-1 --exit-0 \
@@ -14,9 +14,9 @@ ff() {
   fi
 }
 
-# Search for a file and copy path to clipboard + Hidden
+# Preview file and copy the path to clipboard
 ffp() {
-  file=$(find "$HOME" -type f | fzf --query="$1" --no-multi --select-1 --exit-0 \
+  file=$(find . -type f | fzf --height 95% --query="$1" --no-multi --select-1 --exit-0 \
       --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
@@ -24,7 +24,7 @@ ffp() {
   fi
 }
 
-# Search for a file in dotfiles repo and edit in $EDITOR + Hidden
+# Search for a file in dotfiles repo and edit in $EDITOR
 ffd() {
   file=$(find ~/desktop/workspace/dotfiles/.config -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" -exec realpath --relative-to=$HOME {} + | sed 's|^desktop/workspace/dotfiles/||' | fzf --query="$1" --no-multi --select-1 --exit-0 \
       --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
@@ -33,7 +33,7 @@ ffd() {
   fi
 }
 
-# Find file and cd there + Hidden
+# Find file and cd there
 ffh() {
     local file
     local dir
