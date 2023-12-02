@@ -6,15 +6,15 @@ cd ~/documents/org/agenda/
 launch --title workflow sh -c "emacsclient -nw ~/documents/org/agenda/workflow.org && exec zsh"
 
 # Create a new tab for file manger
-new_tab dired
+new_tab navi/cheat
 # Set the layout in this tab
 layout tall
 # Create a window (title sets the tab title)
 cd ~/desktop/workspace/cheats/active-directory/
-launch sh -c "emacsclient -nw -e '(dired \"./\")' && exec zsh"
+launch sh -c "lsd --tree --hyperlink=auto && exec zsh"
 # Create second window
 cd ~/desktop/workspace/dotfiles/.config/cheat/tools/
-launch sh -c "emacsclient -nw -e '(dired \"./\")' && exec zsh"
+launch sh -c "file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return && [ -n "$file" ] && cheat --edit "$file" && exec zsh"
 
 # Create a new tab
 new_tab templates
@@ -23,4 +23,4 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/desktop/workspace/dotfiles/.config/cheat/templates/
 # Create a window (title sets the tab title)
-launch --title templates sh -c "lsd --hyperlink=auto && exec zsh"
+launch --title templates sh -c "lsd -l --hyperlink=auto && exec zsh"
