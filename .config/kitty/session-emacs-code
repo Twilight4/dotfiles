@@ -10,8 +10,8 @@ new_tab navi/cheat
 # Set the layout in this tab
 layout tall
 # Create a window (title sets the tab title)
-cd ~/desktop/workspace/cheats/active-directory/
-launch sh -c "lsd --tree --hyperlink=auto && exec zsh"
+cd ~/desktop/workspace/cheats/
+launch sh -c "lsd --tree --hyperlink=auto active-directory && exec zsh"
 # Create second window
 cd ~/desktop/workspace/dotfiles/.config/cheat/tools/
 launch sh -c "file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return && [ -n "$file" ] && cheat --edit "$file" && exec zsh"
