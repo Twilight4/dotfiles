@@ -2038,12 +2038,14 @@ Adding highlights to =TODO= and related words.
     org-hide-leading-stars t
     org-priority-highest ?A
     org-priority-lowest ?C
-    ;;org-fancy-priorities-list '("[A]" "[B]" "[C]")
-    org-fancy-priorities-list '("" "" "")
+    ;;org-fancy-priorities-list '("[A]" "[B]" "[C] "[D])
+    org-fancy-priorities-list '("" "" "" "")
     org-priority-faces
-    '((?A :foreground (face-foreground 'all-the-icons-red) :weight bold)
-      (?B :foreground (face-foreground 'all-the-icons-orange) :weight bold)
-      (?C :foreground (face-foreground 'all-the-icons-yellow) :weight bold))))
+    '((?A . 'all-the-icons-red)
+      (?B . 'all-the-icons-orange)
+      (?C . '(:foreground "#FFD700")) ;; Adjusted for brighter yellow
+      ;(?C . 'all-the-icons-yellow)
+      (?D . 'all-the-icons-green))))
 #+end_src
 
 *** Org-noter
@@ -2661,7 +2663,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 #+begin_src emacs-lisp
 (use-package org-modern
   :ensure t
-  :hook (org-mode . org-modern-mode)
+  ;:hook (org-mode . org-modern-mode)
   :config
   (setq org-modern-star '("◉" "○" "◈" "◇" "◆" "●")
         org-modern-table-vertical 1
@@ -2755,6 +2757,10 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   (set-face-foreground face (face-attribute 'default :background)))
 (set-face-background 'fringe (face-attribute 'default :background))
 
+;; Enable Org-modern per buffer
+;(add-hook 'org-mode-hook #'org-modern-mode)
+;(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+
 ;; Function to disable org-modern-mode for files where it doesn't render properly
 ;; But it doesn't work, breaks org-capture functionality
 ;(defun disable-org-modern-for-specific-files ()
@@ -2765,9 +2771,6 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 ;    (org-modern-mode -1))))
 
 ;(add-hook 'org-mode-hook 'disable-org-modern-for-specific-files)
-
-;org-modern-progress nil      ;; Disable modern proggress icon
-;org-modern-priority nil      ;; Disable modern priorities
 #+end_src
 
 *** Org-super-agenda
