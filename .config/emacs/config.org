@@ -2538,6 +2538,16 @@ Let’s make creating an Org buffer just that little bit easier.
 
 ;; Make quote blocks italic style format
 (setq org-fontify-quote-and-verse-blocks t)
+
+;; Org files can be rather nice to look at, particularly with some of the customisations here. This comes at a cost however, expensive font-lock. Feeling like you’re typing through molasses in large files is no fun, but there is a way I can defer font-locking when typing to make the experience more responsive.
+;; Apparently this causes issues with some people, but I haven’t noticed anything problematic beyond the expected slight delay in some fontification, so until I do I’ll use the above.
+(defun locally-defer-font-lock ()
+  "Set jit-lock defer and stealth, when buffer is over a certain size."
+  (when (> (buffer-size) 50000)
+    (setq-local jit-lock-defer-time 0.05
+                jit-lock-stealth-time 1)))
+
+(add-hook 'org-mode-hook #'locally-defer-font-lock)
 #+end_src
 
 *** Org-Mode config
