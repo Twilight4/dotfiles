@@ -2608,12 +2608,16 @@ Let’s make creating an Org buffer just that little bit easier.
 
 ;; Org symbols/priorities
 (setq org-hide-leading-stars t
+      ;org-fancy-priorities-list '("🟥" "🟧" "🟨")
       org-priority-highest ?A
       org-priority-lowest ?C
       org-priority-faces
       '((?A . 'all-the-icons-red)
-        (?B . 'all-the-icons-orange)
+		  (?B . 'all-the-icons-orange)
         (?C . 'all-the-icons-yellow)))
+
+;; Enable prettify-symbols-mode
+(global-prettify-symbols-mode 1)
 
 ;; Using refiling for org-roam-dailiies instead
 ;(setq org-refile-targets
@@ -2656,7 +2660,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
   :ensure t
   :hook (org-mode . org-modern-mode)
   :config
-  (setq org-modern-star '("◉" "○" "◆" "●" "○" "◆" "●")
+  (setq org-modern-star '("◉" "○" "◈" "◇" "◆" "●")
         org-modern-table-vertical 1
         org-modern-table-horizontal 0.2
         org-modern-list '((45 . "➤")
@@ -2684,7 +2688,19 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("src" "»" "«")
           ("example" "»–" "–«")
           ("quote" "❝" "❞")
-          ("export" "⏩" "⏪"))
+          ("export" "⏩" "⏪")
+          ;; New block names
+          ("list" "∷" "∷")
+          ("em_dash" "—" "—")
+          ("ellipses" "…" "…")
+          ("arrow_right" "→" "→")
+          ("arrow_left" "←" "←")
+          ("arrow_lr" "↔" "↔")
+          ("properties" "⚙" "⚙")
+          ("end" "∎" "∎")
+          ("priority_a" "⚑" "⚑")
+          ("priority_b" "⬆" "⬆")
+          ("priority_c" "■" "■"))
         org-modern-horizontal-rule (make-string 36 ?─)
         org-modern-keyword
         '((t . t)
