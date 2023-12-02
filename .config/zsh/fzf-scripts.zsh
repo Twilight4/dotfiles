@@ -187,11 +187,14 @@ vars() {
 
 # Kill process
 fkill() {
-    local pid
-    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    if [ "$UID" != "0" ]; then
+        pid=$(ps -f -u $UID | sed 1d | fzf -m --ansi --color fg:-1,bg:-1,hl:46,fg+:40,bg+:233,hl+:46 --color prompt:166,border:46 --height 30%  --border=sharp --prompt="➤  " --pointer="➤ " --marker="➤ " | awk '{print $2}')
+    else
+        pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    fi
 
     if [ "x$pid" != "x" ]; then
-        echo $pid | xargs killall -3 -${1:-9}
+        echo $pid | xargs kill -${1:-9}
     fi
 }
 
