@@ -8,7 +8,7 @@
 ff() {
   file=$(find . -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
       | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}' --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:")
   if [[ -n "$file" ]]; then
     eval "$EDITOR" "$file"
   fi
@@ -17,19 +17,10 @@ ff() {
 # Preview file and copy the path to clipboard
 ffp() {
   file=$(find . -type f | fzf --height 95% --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}' --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:")
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
     echo "Copied to clipboard: $file"
-  fi
-}
-
-# Search for a file in dotfiles repo and edit in $EDITOR
-ffd() {
-  file=$(find ~/desktop/workspace/dotfiles/.config -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" -exec realpath --relative-to=$HOME {} + | sed 's|^desktop/workspace/dotfiles/||' | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
-  if [[ -n "$file" ]]; then
-    eval "$EDITOR" "$HOME/$file"
   fi
 }
 
@@ -37,7 +28,7 @@ ffd() {
 ffh() {
     local file
     local dir
-    file=$(fzf +m --reverse --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    file=$(fzf +m --reverse --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1" --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:") && dir=$(dirname "$file") && cd "$dir"
     lsd -l --hyperlink=auto
 }
 
@@ -462,6 +453,12 @@ fwork() {
     [ -n "$result" ] && cd ~/desktop/workspace/$result
 }
 
+# List connected external devices
+fdev() {
+    result=$(find /run/media/$USER/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$result" ] && cd ~/run/media/$USER/$result
+}
+
 # List projects
 fproj() {
     result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
@@ -492,7 +489,7 @@ fclip() {
 
 # Browser quicklinks menu
 fqli () {
-    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Proton Mail" " MEGA" " Proton VPN" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
+    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Proton Mail" " MEGA" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
     local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}") 
     case $choice in
         (" Google") echo -n "Search Google: "
@@ -534,8 +531,6 @@ fqli () {
         (" Proton Mail") xdg-open "https://mail.proton.me" &
             ;;
         (" MEGA") xdg-open "https://mega.nz" &
-            ;;
-        (" Proton VPN") xdg-open "https://account.proton.me/vpn" &
             ;;
 		(" Open Shopping Websites") echo -n "Search Shopping Websites: "
             read query
