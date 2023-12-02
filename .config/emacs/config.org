@@ -1935,26 +1935,25 @@ Source: https://github.com/vedang/pdf-tools
   (setq org-startup-folded 'show3levels))  ;; Show only 3 levels of TOC on startup
 #+end_src
 
-*** Org-bullets
-
-#+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'org-indent-mode)
-(use-package org-bullets
-  :ensure t)
-
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#+end_src
-
-*** Org-Superstar
+*** Org-superstar
 
 #+begin_src emacs-lisp
 (use-package org-superstar
   :ensure t
   :config
-  (setq org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
-;org-bullets-bullet-list '("◉" "○" "◈" "◇" "◆" "●")))
-        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)))) ; changes +/- symbols in item lists
+  (setq org-superstar-headline-bullets-list '("🞛 " "◉" "○" "◈" "◆" "◇")
+		  org-superstar-item-bullet-alist '((?- . ?•) (?+ . ?➤) (?* . ?▷))))
 
+;; Hide leading stars
+(setq org-hide-leading-stars nil
+      org-superstar-leading-bullet ?\s
+      org-indent-mode-turns-on-hiding-stars nil
+      org-superstar-remove-leading-stars t)
+
+;; This variable also holds further information regarding significant slowdown
+(setq inhibit-compacting-font-caches t)
+
+(add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 #+end_src
 
@@ -2050,7 +2049,6 @@ Adding highlights to =TODO= and related words.
   (org-mode . org-fancy-priorities-mode)
   :config
   (setq
-    org-hide-leading-stars t
     org-priority-highest ?A
     org-priority-lowest ?C
     ;;org-fancy-priorities-list '("[A]" "[B]" "[C] "[D])
@@ -2609,7 +2607,7 @@ Let’s make creating an Org buffer just that little bit easier.
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-ellipsis " ▼ "                           ; Elipsis character for folding headings
       org-log-done 'time                           ; Having the time a item is done sounds
-      org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))
+      org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("1." . "*") ("1." . "a."))
       org-hide-emphasis-markers t
       ;; ex. of org-link-abbrev-alist in action
       ;; [[arch-wiki:Name_of_Page][Description]]
