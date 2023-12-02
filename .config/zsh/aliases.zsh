@@ -83,7 +83,7 @@ alias open='xdg-open'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
-alias jctle="journalctl -xeu"    # show error messages, specify a unit
+alias jctle="journalctl --user -xeu"    # show error messages, specify a unit
 alias notif="cat /tmp/notify.log"
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
