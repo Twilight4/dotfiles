@@ -107,8 +107,6 @@ h() {
 
 # Better diff
 #alias diff="kitty +kitten diff"
-alias diffn="diff -r -u ~/documents/org/roam/seed-notes/ ~/MEGA/documents/org/roam/seed-notes/ | diff-so-fancy"
-alias diffa="diff -r -u ~/documents/org/ ~/MEGA/documents/org/ | diff-so-fancy"
 diff() {
   command diff -u "$@" | diff-so-fancy
 }
@@ -226,7 +224,6 @@ alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' 
 
 # Git
 alias gconfig="git config --list"
-alias ginit="git init"   # ginit <directory_name>
 alias gd='git diff'
 alias dif="git diff --no-index"          # Diff two files even if not in git repo! Can add -w (don't diff whitespaces)
 alias gshow='git show'   # gshow <commit_id> - show diff from commit
