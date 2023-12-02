@@ -8,7 +8,7 @@
 ff() {
   file=$(find . -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
       | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}' --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:")
+      --reverse --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort" --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     eval "$EDITOR" "$file"
   fi
@@ -16,8 +16,8 @@ ff() {
 
 # Preview file and copy the path to clipboard
 ffp() {
-  file=$(find . -type f | fzf --height 95% --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}' --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:")
+  file=$(find . -type f | fzf --height 95% --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort" --query="$1" --no-multi --select-1 --exit-0 \
+      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
     echo "Copied to clipboard: $file"
@@ -28,7 +28,7 @@ ffp() {
 ffh() {
     local file
     local dir
-    file=$(fzf +m --reverse --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1" --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,ctrl-m:execute:") && dir=$(dirname "$file") && cd "$dir"
+    file=$(fzf +m --reverse --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort" --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
     lsd -l --hyperlink=auto
 }
 
