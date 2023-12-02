@@ -2363,7 +2363,7 @@ This automates the surround of word for style formatting with respective keys in
     (insert "/")))
 #+end_src
 
-*** Heading Focus
+*** Heading focus
 If you want to see other headings while you are edit the current one, I found a [[https://stackoverflow.com/questions/25161792/emacs-org-mode-how-can-i-fold-everything-but-the-current-headline/28031539#28031539][StackOverflow]] answer and adapted for my need.
 
 #+begin_src emacs-lisp
@@ -2508,7 +2508,7 @@ Let’s make creating an Org buffer just that little bit easier.
 #+end_src
 
 ** Org Configuraion
-*** Org-Mode font faces
+*** Org-mode font faces
 
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
@@ -2548,9 +2548,12 @@ Let’s make creating an Org buffer just that little bit easier.
                 jit-lock-stealth-time 1)))
 
 (add-hook 'org-mode-hook #'locally-defer-font-lock)
+
+;; Using org-src-font-lock-fontify-block we can apply language-appropriate syntax highlighting. Then, continuing on to {{{results(...)}}} , it can have the org-block face applied to match, and then the value-surrounding constructs hidden by mimicking the behaviour of prettify-symbols-mode. 
+(setq org-inline-src-prettify-results '("⟨" . "⟩"))
 #+end_src
 
-*** Org-Mode config
+*** Org-mode config
 
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/agenda"
@@ -2725,6 +2728,17 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
           ("caption" . "☰")
           ("results" . "🠶"))))
 
+;; Add frame borders and window dividers
+(modify-all-frames-parameters
+ '((right-divider-width . 40)
+   (internal-border-width . 40)))
+(dolist (face '(window-divider
+                window-divider-first-pixel
+                window-divider-last-pixel))
+  (face-spec-reset-face face)
+  (set-face-foreground face (face-attribute 'default :background)))
+(set-face-background 'fringe (face-attribute 'default :background))
+
 ;; Function to disable org-modern-mode for files where it doesn't render properly
 ;; But it doesn't work, breaks org-capture functionality
 ;(defun disable-org-modern-for-specific-files ()
@@ -2766,7 +2780,13 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
       org-deadline-warning-days 30
       org-return-follows-link t
       org-use-speed-commands t
-      org-agenda-compact-blocks t)
+      org-agenda-compact-blocks t
+	    org-agenda-time-grid
+		'((daily today require-timed)
+		  (800 1000 1200 1400 1600 1800 2000)
+		  " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+		org-agenda-current-time-string
+		"◀── now ─────────────────────────────────────────────────")
 
 ;; It seems reasonable to have deadlines in the error face when they’re passed.
 (setq org-agenda-deadline-faces
