@@ -31,6 +31,9 @@ alias cd-="cd -"
 alias .="cd ."
 alias ..="cd .."
 
+# Alias for copying the current working directory to clipboard
+alias ccp='print -n "${PWD:a}" | wl-copy || return 1; echo ${(%):-"%B${PWD:a}%b copied to clipboard."}'
+
 # Common usage
 alias r='cd $HOME ; clear'
 alias mv='mv -v'
