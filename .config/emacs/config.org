@@ -1939,8 +1939,23 @@ Source: https://github.com/vedang/pdf-tools
 
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook 'org-indent-mode)
-(use-package org-bullets)
+(use-package org-bullets
+  :ensure t)
+
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+end_src
+
+*** Org-Superstar
+
+#+begin_src emacs-lisp
+(use-package org-superstar
+  :ensure t
+  :config
+  (setq org-superstar-headline-bullets-list '("◉" "●" "○" "◆" "●" "○" "◆")
+;org-bullets-bullet-list '("◉" "○" "◈" "◇" "◆" "●")))
+        org-superstar-itembullet-alist '((?+ . ?➤) (?- . ?✦)))) ; changes +/- symbols in item lists
+
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 #+end_src
 
 *** Org-transclusion
@@ -2594,7 +2609,7 @@ Let’s make creating an Org buffer just that little bit easier.
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-ellipsis " ▼ "                           ; Elipsis character for folding headings
       org-log-done 'time                           ; Having the time a item is done sounds
-      org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))   ; List of bullets that cahnge with depth
+      org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("*" . "+") ("1." . "a."))
       org-hide-emphasis-markers t
       ;; ex. of org-link-abbrev-alist in action
       ;; [[arch-wiki:Name_of_Page][Description]]
