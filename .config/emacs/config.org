@@ -2544,15 +2544,18 @@ Let’s make creating an Org buffer just that little bit easier.
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
   ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . 1.25)
-                  (org-level-2 . 1.15)
-                  (org-level-3 . 1.12)
-                  (org-level-4 . 1.09)
-                  (org-level-5 . 1.06)
-                  (org-level-6 . 1.03)
-                  (org-level-7 . 1.0)
-                  (org-level-8 . 1.0)))
-    (set-face-attribute (car face) nil :font "Jetbrains Mono Nerd Font" :weight 'normal :height (cdr face)))
+  (dolist (face '((org-level-1 . "#50C1F7")
+                  (org-level-2 . "#84DDF8")
+                  (org-level-3 . "#7FA7FB")
+                  (org-level-4 . "#FA95A2")
+                  (org-level-5 . "#50C1F7")
+                  (org-level-6 . "#84DDF8")
+                  (org-level-7 . "#7FA7FB")
+                  (org-level-8 . "#FA95A2")))
+        (set-face-attribute (car face) nil
+                        :foreground (cdr face)
+                        :font "Jetbrains Mono Nerd Font"
+                        :weight 'normal))
 
   ;; Fixed-pitch settings
   (dolist (face '(org-block org-table org-formula org-code
@@ -2560,7 +2563,7 @@ Let’s make creating an Org buffer just that little bit easier.
                   org-checkbox line-number line-number-current-line))
     (set-face-attribute face nil :inherit '(shadow fixed-pitch))))
 
-;; Call efs/org-font-setup when entering org-mode
+;; Call org-font-setup when entering org-mode
 (add-hook 'org-mode-hook #'tl/org-font-setup)
 
 ;; Increase title size
@@ -2769,7 +2772,6 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 ;            (string-match-p "reading.org$" buffer-file-name)
 ;            (string-match-p "*Org Agenda*$" buffer-file-name)
 ;    (org-modern-mode -1))))
-
 ;(add-hook 'org-mode-hook 'disable-org-modern-for-specific-files)
 #+end_src
 
