@@ -30,11 +30,6 @@ cheatpaths:
     tags: [ tools ]
     readonly: false
 
-  - name: keys
-    path: /home/twilight/.config/cheat/keys
-    tags: [ keys ]
-    readonly: false
-
 #  - name: new
 #    path: /home/twilight/.config/cheat/new
 #    tags: [ new ]
