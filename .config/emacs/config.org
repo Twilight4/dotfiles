@@ -219,6 +219,8 @@
 ;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
 (global-set-key (kbd "C-t") 'dashboard-open)
 (global-set-key (kbd "C-i") 'universal-argument)
+;; Execute kmacro
+(global-set-key (kbd "f5") 'consult-kmacro)
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Zero-width space (this is an exception keybinding)
@@ -446,7 +448,6 @@
 	  ;; Editing
     "c y" '(consult-yank-from-kill-ring :wk "Yank from kill ring history")
     "c Y" '(consult-yank-replace :wk "Yank replace from kill ring history")
-    "c K" '(consult-kmacro :wk "Choose kmacro")
     "c b" '(consult-bookmark :wk "Bookmark"))
 	  ;; Registers
     ;"c Y" '(consult-register :wk "Load register and jump to location or insert the stored text")
@@ -702,6 +703,7 @@
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 (save-place-mode 1)                               ; Open files back up at same position
+(recentf-mode 1)                                  ; Remember recently edited files
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
@@ -1500,6 +1502,8 @@ The following configuration will add a few improvements:
   :init
   (vertico-mode)
   (savehist-mode))
+
+(setq history-length 25)
 #+end_src
 
 ** Orderless
