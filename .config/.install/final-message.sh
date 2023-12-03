@@ -18,8 +18,8 @@ echo "Import the ~/.config/superProductivity/config.json in: Settings > Sync & E
 echo "Add pub key to github: Settings > SSH > New:"
 echo '    ssh-keygen -t ed25519 -C "your_email@example.com"'
 echo "Clone relevant repos via SSH:"
-echo '    git clone git@github.com:Twilight4/dotfiles.git ~/desktop/workspace/dotfiles'
-echo '    git clone git@github.com:Twilight4/cheats.git ~/desktop/workspace/cheats'
-echo '    git clone git@github.com:Twilight4/emacs-notes.git ~/documents/org'
-echo '    git clone git@github.com:Twilight4/firefox-config.git ~/.mozilla'
+echo '    git clone --depth 1 git@github.com:Twilight4/dotfiles.git ~/desktop/workspace/dotfiles'
+echo '    git clone --depth 1 git@github.com:Twilight4/cheats.git ~/desktop/workspace/cheats'
+echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents/'
+echo '    git clone --depth 1 git@github.com:Twilight4/mercury-config.git ~/downloads'
 echo ""
