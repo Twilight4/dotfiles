@@ -607,13 +607,17 @@ fpop() {
     d | fzf --height="20%" | cut -f 1 | source /dev/stdin
 }
 
-# Find in File using ripgrep
-fif() {
+# Find in File using ripgrep and open in editor
+frg() {
   if [ ! "$#" -gt 0 ]; then return 1; fi
-  rg --files-with-matches --no-messages "$1" \
-      | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
-      | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' \
-      || rg --ignore-case --pretty --context 10 '$1' {}"
+  selected_file=$(rg --files-with-matches --no-messages "$1" \
+    | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
+    | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' \
+    || rg --ignore-case --pretty --context 10 '$1' {}")
+
+  if [ -n "$selected_file" ]; then
+    eval $EDITOR "$selected_file"
+  fi
 }
 
 # Find in file using ripgrep-all
@@ -633,5 +637,5 @@ fimg() {
 
 # Fuzzy search file output
 fcat() {
-  command cat "$@" | fzf --reverse --bind "j:down,k:up,alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort"
+  command cat "$@" | fzf --reverse
 }
