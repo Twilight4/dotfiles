@@ -25,8 +25,7 @@ alias pj='cd "$HOME/desktop/projects" ; clear'
 alias lpj='lsd --tree --hyperlink=auto ~/desktop/projects'
 alias ws='cd "$HOME/desktop/workspace" ; clear'
 
-# Enhancd: cd, cd-, cd <dir_not_in_cwd>, .., .
-# keybinds: alt+a, alt+d, alt+g, ctrl+. ctrl+,
+# Enhancd: cd, cd-, cd <jump_to_dir>, .., .
 alias cd-="cd -"
 alias .="cd ."
 alias ..="cd .."
@@ -94,32 +93,11 @@ alias news="newsboat"
 alias tail="tail -f"
 alias truncate="truncate -s 0"
 
-# Prettify help/cheat pages
-alias bathelp='bat --plain --language=help'
-c() {
-  command cheat "$@" | bat --plain --language=help
-}
-help() {
-    "$@" --help 2>&1 | bathelp
-}
-h() {
-    "$@" --help 2>&1 | bathelp
-}
-
-# Better diff
-#alias diff="kitty +kitten diff"
-diff() {
-  command diff -u "$@" | diff-so-fancy
-}
-diffd() {
-  command diff -r -u "$@" | diff-so-fancy
-}
-
 # Rust replacements
 alias cp='xcp -v'
 alias http='xh'                # Curl replacement
 alias httpd='http --download'  # Uses xh alias first if installed
-alias cat='bat --color=always --paging=never --theme OneHalfDark'
+alias bat='bat --color=always --paging=never --theme OneHalfDark'
 alias catl='bat --color=always --paging=never -l log'
 alias dig='dog'
 alias digs='dig +short'        # Uses dog alias first if installed

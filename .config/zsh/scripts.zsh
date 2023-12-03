@@ -23,6 +23,30 @@ mac() {
   ip a | grep ether | awk '{print $2}'
 }
 
+
+# Prettify help/cheat pages
+c() {
+  command cheat "$@" | bat --plain --language=help
+}
+
+help() {
+    "$@" --help 2>&1 | bat --plain --language=help
+}
+
+h() {
+    "$@" --help 2>&1 | bat --plain --language=help
+}
+
+# Better diff
+diff() {
+  command diff -u "$@" | diff-so-fancy
+}
+
+diffd() {
+  command diff -r -u "$@" | diff-so-fancy
+}
+
+
 # Add Vi text-objects for brackets and quotes
 autoload -Uz select-bracketed select-quoted
 zle -N select-quoted

@@ -218,7 +218,7 @@
 ;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
 ;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
 (global-set-key (kbd "C-t") 'dashboard-open)
-(global-set-key (kbd "C-i") 'universal-argument)
+(global-set-key (kbd "M-g") 'universal-argument)
 ;; Execute kmacro
 (global-set-key (kbd "<f5>") 'consult-kmacro)
 ;; Org tansclusion package
