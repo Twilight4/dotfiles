@@ -54,6 +54,7 @@ packagesPacman=(
     "lsd"
     "fzf"
     "ripgrep"
+    "the_silver_searcher"
   	"sd"
     "bat"
     "playerctl"

@@ -27,7 +27,7 @@
   - [[#youtube-link-export][YouTube link export]]
 - [[#editing-features][Editing Features]]
   - [[#improved-file-management][Improved File Management]]
-  - [[#nicer-org-return][Nicer =Org-Return=]]
+  - [[#nicer-org-return][Nicer Org-Return]]
   - [[#expand-region][Expand-region]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#hungry-delete][Hungry-delete]]
@@ -220,7 +220,7 @@
 (global-set-key (kbd "C-t") 'dashboard-open)
 (global-set-key (kbd "C-i") 'universal-argument)
 ;; Execute kmacro
-(global-set-key (kbd "f5") 'consult-kmacro)
+(global-set-key (kbd "<f5>") 'consult-kmacro)
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
 ;; Zero-width space (this is an exception keybinding)
@@ -741,7 +741,7 @@
 ;; Set src block automatic indent to 0 instead of 2
 (setq org-edit-src-content-indentation 0)
 
-;; Keep buffers synced and up to date with auto revert mode
+;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 
 ;; Bookmarks location
@@ -1051,7 +1051,7 @@ Function =rename-this-file-and-buffer= renames both the current buffer and the f
       (rename-buffer new-name))))
 #+end_src
 
-** Nicer =Org-Return=
+** Nicer Org-Return
 
 #+begin_src emacs-lisp
 (defun unpackaged/org-element-descendant-of (type element)
