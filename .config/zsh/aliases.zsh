@@ -90,7 +90,7 @@ alias cats='highlight -O ansi --force'
 alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias icat='kitty +kitten icat'
 alias news="newsboat"
-alias tail="tail -f"
+alias tailf="tail -f"
 alias truncate="truncate -s 0"
 
 # Rust replacements
