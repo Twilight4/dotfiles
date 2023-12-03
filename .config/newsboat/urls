@@ -28,7 +28,8 @@ https://helion.pl/rss/promocje.rss "~Helion Promocje" Dev "3. Blog Articles"
 https://helion.pl/rss/ "~Helion" Dev "3. Blog Articles"
 
 # Github
-https://github.com/Athena-OS/athena-iso/releases.atom "~Athena-OS" Github "3. Blog Articles"
+https://github.com/Athena-OS/athena-iso/releases.atom "~Athena-OS Releases" Github "3. Blog Articles"
+https://github.com/arkenfox/user.js/releases.atom "~Arkenfox Releases" Github "3. Blog Articles"
 https://github.com/hyprwm/Hyprland/releases.atom "~Hyprland Releases" Github "3. Blog Articles"
 https://github.com/nawfalmrouyan/hyprland/commits.atom "~Hyprland Commits" Github "3. Blog Articles"
 https://github.com/AmadeusWM/dotfiles-hyprland/commits.atom "~Hyprland AmadeusWM dotfiles" Github "3. Blog Articles"
