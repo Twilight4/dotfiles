@@ -225,11 +225,15 @@ nonessentialpackagesPacman=(
     "fortune-mod"
     "lolcat"
     "figlet"
-    "qemu"
+
+	# QEMU
+    "qemu-base"
     "virt-manager"
     "virt-viewer"
     "dnsmasq"
+	"edk2-ovmf"
     "vde2"
+	"ebtables"
     "bridge-utils"
     "libguestfs"
     "libvirt"
