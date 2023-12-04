@@ -8,8 +8,6 @@ cat <<"EOF"
     |_|                     
 EOF
 
-#!/bin/bash
-
 # Function to prompt user with yes/no question
 prompt_yes_no() {
     read -p "$1 (y/n): " yn
@@ -21,16 +19,19 @@ prompt_yes_no() {
 }
 
 # Ask the user if they want to install QEMU
+install_qemu=false
 if prompt_yes_no "Do you want to install QEMU and related packages?"; then
     # Install all necessary packages
     sudo pacman -S virt-manager virt-viewer qemu-base edk2-ovmf ebtables \
     dnsmasq vde2 ebtables bridge-utils openbsd-netcat libguestfs libvirt
     
     paru -S qemu-arch-extra-git
+
+    install_qemu=true
 fi
 
 # Proceed only if the user chose to install QEMU
-if [ $? -eq 0 ]; then
+if $install_qemu; then
 
     # Enable libvirt daemon
 	if ! sudo systemctl is-enabled --quiet libvirtd.service; then
@@ -64,8 +65,8 @@ if [ $? -eq 0 ]; then
 		echo "User added to kvm and libvirt groups"
 	fi
 	
-	# Switch to the libvirt group
-	newgrp libvirt
+	# Switch to the libvirt group (won't work)
+	#newgrp libvirt
 	
 	# Additional message
 	echo "User is now in the libvirt group."
