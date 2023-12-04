@@ -1,4 +1,5 @@
 theHarvester - tool designed to gather emails, domain information, hostnames, employee names, open ports and banners using search engines and Maltego
+theHarvester is designed to gather emails, employee names, subdomains, and host information as well as open ports and banners from search engines and other sources.
 
 We can use it to gather information to help identify a company's attack surface. 
 The tool collects emails, names, subdomains, IP addresses, and URLs from various public data sources for passive information gathering.

@@ -1,0 +1,2 @@
+# if you target supports SNMP, and you have appropriate community string, you can use =snmpwalk= to enumerate users, using *public* as the community string and e.g. *10.0.0.1* as the target host:
+  snmpwalk public -v1 10.0.0.1 1 | grep 77.1.2.25 | cut -d "" -f4

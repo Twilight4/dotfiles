@@ -1,0 +1,1 @@
+lbd - toold used to determine if there is a DNS or an HTTP-based load balancer in place. You may also be able to simply perform a DNS query or even a ping to see if multiple IP addresses resolve for a website and if time to live (TTL) is different

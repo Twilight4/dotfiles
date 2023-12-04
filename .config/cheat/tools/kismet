@@ -1,0 +1,2 @@
+Kismet provides additional features that can be useful when sniffing wireless networks, includding the ability to find hidden SSIDs, passive association of wireless clients and access points
+- It is worth noting that some organizations use *non-Wi-Fi* wireless networks, including *Bluetooth*, proprietary protocols, other communication methods based on RF (radio frequency)

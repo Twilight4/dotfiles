@@ -1,0 +1,2 @@
+traceroute can show where traffic no longer passes, but more detailed information takes more complex tools like nmap.
+Once the firewall is identified, the next step is often to map the devices behind the firewall with a tool like Firewalk, which scans to determine that protocols a firewall device will pass through
