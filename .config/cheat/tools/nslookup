@@ -1,3 +1,5 @@
+nslookup - DNS lookup tool (check fot hosts based on an IP range and for IPs based on hostnames)
+
 A manual approach for testing zonetransfers will be the following set of commands
 USE THE TARGET'S IP ADDRESS AS THE NAME SERVER
 
