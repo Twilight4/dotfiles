@@ -65,11 +65,9 @@ services=(
     fstrim.timer
     #ananicy             # enable ananicy daemon (CachyOS has it built in)
     nohang-desktop
-    bluetooth
 	tor
     supergfxd           # needed in order to use VFIO - https://wiki.archlinux.org/title/Supergfxctl
     vnstat              # network traffic monitor
-    libvirtd            # enable qemu/virt manager daemon
     #docker
 )
 

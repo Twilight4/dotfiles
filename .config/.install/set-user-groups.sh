@@ -12,10 +12,7 @@ EOF
 groups_to_create=(
     "plugdev"
     "autologin"
-    "libvirt"
-    "libvirt-qemu"
     "video"
-    "kvm"
     "input"
     "disk"
     "mpd"

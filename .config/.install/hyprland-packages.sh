@@ -225,24 +225,6 @@ nonessentialpackagesPacman=(
     "fortune-mod"
     "lolcat"
     "figlet"
-
-	# QEMU
-    "qemu-base"
-    "virt-manager"
-    "virt-viewer"
-    "dnsmasq"
-	"edk2-ovmf"
-    "vde2"
-	"ebtables"
-    "bridge-utils"
-    "libguestfs"
-    "libvirt"
-
-    # Bluetooth
-    "bluez"
-    "bluez-tools"
-    "bluez-utils"
-    "blueberry"
 );
 
 nonessentialpackagesParu=(
