@@ -1,0 +1,1 @@
+samba users can be gathered using tool like [[https://github.com/CoreSecurity/impacket/blob/impacket_0_9_15/examples/samrdump.py][samrdump]] which communicates with the Security Account Manager Remote interface to list user accounts and shares.
