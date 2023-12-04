@@ -54,6 +54,8 @@ source .config/.install/remove-bloat.sh
 source .config/.install/hyprland-packages.sh
 source .config/.install/install-packages.sh
 source .config/.install/enable-services.sh
+source .config/.install/qemu.sh
+source .config/.install/bluetooth.sh
 source .config/.install/set-user-groups.sh
 source .config/.install/wallpaper.sh
 source .config/.install/display-manager.sh
