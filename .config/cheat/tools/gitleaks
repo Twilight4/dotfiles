@@ -1,3 +1,11 @@
+github could leak information about configuration, interfaces, IP addresses, domains etc. Infrastructure as code tools like:
+- CloudFormation
+- Ansible
+- Puppet
+- Chef
+- SaltStack
+also generate useful code that can be ontained and analyzed.
+
 Options:
 -v              verbose
 -v report.json  export to file

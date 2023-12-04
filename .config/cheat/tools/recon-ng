@@ -1,3 +1,5 @@
+Recon-ng - OSINT gathering tool that allows you to automate information gathering in a metasploit-like tool with plugins
+
 Commands:
   workspaces create WORKSPACE_NAME     Create a new workspace for your investigation
   recon-ng -w WORKSPACE_NAME           Starts recon-ng with the specific workspace

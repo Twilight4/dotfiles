@@ -1,4 +1,4 @@
-Metadata for image files investigation tool
+ExifTool - shows document metadata with location
 
 Usage:
   exiftool IMAGE.jpg
