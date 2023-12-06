@@ -55,6 +55,7 @@ packagesPacman=(
     "ripgrep"
     "the_silver_searcher"
   	"sd"
+  	"bleachbit"
     "bat"
     "playerctl"
     "net-tools"
