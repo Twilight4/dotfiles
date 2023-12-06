@@ -86,6 +86,13 @@ bindkey -M menuselect '^xu' undo                           # Undo
 autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
 
+# automatically load bash completion functions
+autoload -U +X bashcompinit && bashcompinit
+
+HISTFILE=~/.zhistory
+HISTSIZE=50000
+SAVEHIST=10000
+
 # Only work with the Zsh function vman
 # See $DOTFILES/zsh/scripts.zsh
 compdef vman="man"
@@ -113,9 +120,10 @@ setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 
 # Define completers
-zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' completer _expand _complete _ignored _approximate _extensions
 
 # Use cache for commands using cache
+zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 # Complete the alias when _expand_alias is used as a function
@@ -152,6 +160,8 @@ zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions co
 
 # See ZSHCOMPWID "completion matching control"
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' rehash true                              # automatically find new executables in path 
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 
 zstyle ':completion:*' keep-prefix true
 

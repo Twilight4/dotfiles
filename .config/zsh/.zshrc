@@ -11,17 +11,24 @@ setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed
 setopt SHARE_HISTORY             # Share history between all sessions.
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
 setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS      # Delete an old recorded event if a new event is a duplicate.
 setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
 setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+setopt appendhistory             # Immediately append history instead of overwriting
+setopt histignorealldups         # If a new command is a duplicate, remove the older one
 
 # Navigation
+setopt nocaseglob           # Case insensitive globbing
+setopt rcexpandparam        # Array expension with parameters
+setopt nocheckjobs          # Don't warn about running processes when exiting
+setopt numericglobsort      # Sort filenames numerically when it makes sense
+setopt autocd               # if only directory path is entered, cd there.
+setopt pushdminus
 setopt AUTO_PUSHD           # Push the current directory visited on to the stack
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicate directories in the stack
 setopt PUSHD_SILENT         # Do not print the directory stack after using pushd or popd
-setopt EXTENDED_GLOB        # Use extended globbing syntax
+setopt extendedglob         # Extended globbing. Allows using regular expressions with *
 setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive session
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
@@ -86,11 +93,23 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
-source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $XDG_CONFIG_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+## Plugins section: Enable fish style features
+#source $XDG_CONFIG_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source $XDG_CONFIG_HOME/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-# pkgfile "command not found" handler
-source /usr/share/doc/pkgfile/command-not-found.zsh
+# Use fzf
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+# Arch Linux command-not-found support, you must have package pkgfile installed
+# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
+[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
+
+# Advanced command-not-found hook
+[[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
 
 # Fortune
 #fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat
