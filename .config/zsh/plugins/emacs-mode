@@ -28,6 +28,8 @@ bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 bindkey '^[[A' up-line-or-history
 bindkey '^[[B' down-line-or-history
+#bindkey '^[[A' up-line-or-beginning-search
+#bindkey '^[[B' down-line-or-beginning-search
 bindkey '^[[5~' beginning-of-buffer-or-history
 bindkey '^[[6~' end-of-buffer-or-history
 bindkey '^[[3~' delete-char

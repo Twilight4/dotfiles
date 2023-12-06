@@ -29,6 +29,8 @@ alias ws='cd "$HOME/desktop/workspace" ; clear'
 alias cd-="cd -"
 alias .="cd ."
 alias ..="cd .."
+alias ...='cd ../..'
+alias ....='cd ../../..'
 
 # Alias for copying the current working directory to clipboard
 alias ccp='print -n "${PWD:a}" | wl-copy || return 1; echo ${(%):-"%B${PWD:a}%b copied to clipboard."}'
@@ -85,19 +87,21 @@ alias jctl="journalctl -p 3 -xb"
 alias jctle="journalctl --user -xeu"    # show error messages, specify a unit
 alias notif="cat /tmp/notify.log"
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
-alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
+alias wget='wget -c --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 alias cats='highlight -O ansi --force'
 alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias icat='kitty +kitten icat'
 alias news="newsboat"
 alias tailf="tail -f"
 alias truncate="truncate -s 0"
+alias grubup="sudo update-grub"
 
 # Rust replacements
 alias cp='xcp -v'
 alias http='xh'                # Curl replacement
 alias httpd='http --download'  # Uses xh alias first if installed
-alias bat='bat --color=always --paging=never --theme OneHalfDark'
+#alias bat='bat --color=always --paging=never --theme OneHalfDark'
+alias bat='bat --style header --style snip --style changes --style header'
 alias catl='bat --color=always --paging=never -l log'
 alias dig='dog'
 alias digs='dig +short'        # Uses dog alias first if installed
@@ -184,6 +188,7 @@ alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  typ
 alias nethog='sudo nethogs'
 alias psnet="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
 alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort  | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
+alias ip='ip -color'
 alias wlo1='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
 alias tun0='echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
  
@@ -258,9 +263,9 @@ alias pkgver="cd /var/cache/pacman/pkg && lsd -l --hyperlink=auto"     # Go into
 alias paruu="sudo pacman -U package"
 
 # Colorize grep output
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
+alias grep='ugrep --color=auto'
+alias fgrep='ugrep -F --color=auto'
+alias egrep='ugrep -E --color=auto'
 
 # Systemd
 alias sdlistall="sudo systemctl list-unit-files --type=service"
