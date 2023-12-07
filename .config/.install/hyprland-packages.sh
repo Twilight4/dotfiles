@@ -38,7 +38,6 @@ packagesPacman=(
     "openbsd-netcat"
     "wofi"
     "libnotify"
-    "polkit-kde-agent"
     "qt5ct"
     "qt5-wayland"
     "qt6-wayland"
