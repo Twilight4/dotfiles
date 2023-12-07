@@ -61,10 +61,11 @@ services=(
     chronyd
     systemd-oomd
     systemd-resolved
-    paccache.timer      # enable weekly pkg cache cleaning
+    paccache.timer
     fstrim.timer
-    #ananicy             # enable ananicy daemon (CachyOS has it built in)
+    ananicy.cpp
     nohang-desktop
+    preload
 	tor
     supergfxd           # needed in order to use VFIO - https://wiki.archlinux.org/title/Supergfxctl
     vnstat              # network traffic monitor
