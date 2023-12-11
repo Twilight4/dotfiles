@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 cat <<"EOF"
 _ __  _ __  _ __  
