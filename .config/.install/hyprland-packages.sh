@@ -1,6 +1,8 @@
 #!/bin/bash
 
 packagesPacman=(
+	"linux-and-znver3"
+	"linux-and-znver3-headers"
 	"pacman-contrib"
 	"trizen"
 	"xfce4-power-manager"
