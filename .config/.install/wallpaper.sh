@@ -15,7 +15,7 @@ while true; do
     case $yn in
         [Yy]* )
             git clone --depth 1 https://github.com/Twlight4/wallpapers ~/pictures/wallpapers
-			rm -rf ~/pictures/wallpapers/.git
+	    rm -rf ~/pictures/wallpapers/.git
             echo "Wallpapers installed successfully."
         break;;
         [Nn]* ) 
@@ -23,8 +23,8 @@ while true; do
                 echo "Wallpaper directory already exists."
             else
                 mkdir -p ~/pictures/wallpapers
-				cp .config/wallpapers/* ~/pictures/wallpapers
-				echo "Default wallpapers installed successfully."
+		cp .config/wallpapers/* ~/pictures/wallpapers
+		echo "Default wallpapers installed successfully."
             fi
         break;;
         * ) echo "Please answer yes or no.";;
