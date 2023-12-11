@@ -9,7 +9,7 @@ cat <<"EOF"
 EOF
 
 # Remove bloat that came with distro installation
-cachyos_bloat=(
+distro_bloat=(
     b43-fwcutter
     iwd
     octopi
@@ -28,21 +28,22 @@ cachyos_bloat=(
     sddm
     linux
     linux-headers
-    cachyos-fish-config
+    garuda-fish-config
     fish-autopair
     fisher
     fish-pure-prompt
     fish
-    cachyos-zsh-config
+    gnu-netcat
+    garuda-zsh-config
+    garuda-starship-prompt
+    garuda-bash-config
+    garuda-welcome
+    garuda-gamer
     oh-my-zsh-git
-    cachyos-hello
-    cachyos-kernel-manager
     exa
     alacritty
     micro
-    cachyos-micro-settings
     btop
-    cachyos-packageinstaller
     xdg-desktop-portal-gnome
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
@@ -50,7 +51,7 @@ cachyos_bloat=(
 
 read -p "Do you want to remove bloat packages? (y/n): " choice
 if [ "$choice" == "y" ]; then
-    for package in "${cachyos_bloat[@]}"; do
+    for package in "${distro_bloat[@]}"; do
         if pacman -Qs "$package" > /dev/null 2>&1; then
             echo "Removing $package..."
             sudo pacman -Rsn --noconfirm "$package"
