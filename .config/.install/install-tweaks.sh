@@ -9,16 +9,10 @@
 #pacman-key --populate
 #pacman -Syy
 
-# Import pacman config (commented out bcs CachyOS repos are already added upon CachyOS installation)
-#mv /etc/pacman.conf /etc/pacman.conf.bak
-#curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/pacman.conf > /etc/pacman.conf
-#pacman -Syy
-
-# Enabling CachyOS Repositories for Enhanced Arch Linux Performance
-#pacman -S --noconfirm --needed wget
-#wget https://mirror.cachyos.org/cachyos-repo.tar.xz
-#tar xvf cachyos-repo.tar.xz && cd cachyos-repo
-#./cachyos-repo.sh && cd -
+# Import pacman config
+mv /etc/pacman.conf /etc/pacman.conf.bak
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/pacman.conf >/etc/pacman.conf
+pacman -Syy
 
 # Enabling Black Arch repo
 curl -O https://blackarch.org/strap.sh
@@ -35,19 +29,18 @@ Server = https://athena-os.github.io/$repo/$arch' | tee --append /etc/pacman.con
 
 # Get the mirrorlist file
 curl https://raw.githubusercontent.com/Athena-OS/package-source/main/packages/athena-mirrorlist/athena-mirrorlist -o /etc/pacman.d/athena-mirrorlist
-pacman-key --recv-keys A3F78B994C2171D5 --keyserver keys.openpgp.org   # Import a key
-pacman-key --lsign A3F78B994C2171D5                                    # Trust the imported key
+pacman-key --recv-keys A3F78B994C2171D5 --keyserver keys.openpgp.org # Import a key
+pacman-key --lsign A3F78B994C2171D5                                  # Trust the imported key
 pacman -Syy
 
-# Enabling Chaotic-AUR repo (CachyOS repos are certainly sufficient)
-#pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-#pacman-key --lsign-key 3056513887B78AEB
-#pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
-#echo '
-#[chaotic-aur]
-#Include = /etc/pacman.d/chaotic-mirrorlist' | tee --append /etc/pacman.conf
-#pacman -Syy
-
+# Enabling Chaotic-AUR repo
+pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key 3056513887B78AEB
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+echo '
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist' | tee --append /etc/pacman.conf
+pacman -Syy
 
 #####################################################################
 # Security Enhancments
@@ -61,65 +54,65 @@ pacman -Syy
 # Enabling IOMMU
 #curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_enable_iommu.cfg >> /etc/grub.d/40_enable_iommu.cfg
 # Enabling NTS
-curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/chrony.conf >> /etc/chrony.conf
+curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/chrony.conf >>/etc/chrony.conf
 # Setting GRUB configuration file permissions
 #chmod 755 /etc/grub.d/*
 
 # Blacklisting kernel modules
-curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/modprobe.d/30_security-misc.conf >> /etc/modprobe.d/30_security-misc.conf
-sed -i '14,15 s/^/#/' /etc/modprobe.d/30_security-misc.conf       # don't disable bluetooth
+curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/modprobe.d/30_security-misc.conf >>/etc/modprobe.d/30_security-misc.conf
+sed -i '14,15 s/^/#/' /etc/modprobe.d/30_security-misc.conf # don't disable bluetooth
 chmod 600 /etc/modprobe.d/*
 
 # Security kernel settings
-curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/sysctl.d/30_security-misc.conf >> /etc/sysctl.d/30_security-misc.conf
+curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/sysctl.d/30_security-misc.conf >>/etc/sysctl.d/30_security-misc.conf
 sed -i 's/kernel.yama.ptrace_scope=2/kernel.yama.ptrace_scope=3/g' /etc/sysctl.d/30_security-misc.conf
-curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/sysctl.d/30_silent-kernel-printk.conf >> /etc/sysctl.d/30_silent-kernel-printk.conf
+curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/sysctl.d/30_silent-kernel-printk.conf >>/etc/sysctl.d/30_silent-kernel-printk.conf
 chmod 600 /etc/sysctl.d/*
 
 # Remove nullok from system-auth
 sed -i 's/nullok//g' /etc/pam.d/system-auth
 
 # Disable coredump
-echo "* hard core 0" >> /etc/security/limits.conf
+echo "* hard core 0" >>/etc/security/limits.conf
 
 # Disable su for non-wheel users
 bash -c 'cat > /etc/pam.d/su' <<-'EOF'
-#%PAM-1.0
-auth		sufficient	pam_rootok.so
-# Uncomment the following line to implicitly trust users in the "wheel" group.
-#auth		sufficient	pam_wheel.so trust use_uid
-# Uncomment the following line to require a user to be in the "wheel" group.
-auth		required	pam_wheel.so use_uid
-auth		required	pam_unix.so
-account		required	pam_unix.so
-session		required	pam_unix.so
+	#%PAM-1.0
+	auth  sufficient pam_rootok.so
+	# Uncomment the following line to implicitly trust users in the "wheel" group.
+	#auth  sufficient pam_wheel.so trust use_uid
+	# Uncomment the following line to require a user to be in the "wheel" group.
+	auth     required pam_wheel.so use_uid
+	auth     required pam_unix.so
+	account  required pam_unix.so
+	session  required pam_unix.so
 EOF
 
 # Randomize Mac Address
 bash -c 'cat > /etc/NetworkManager/conf.d/00-macrandomize.conf' <<-'EOF'
-[device]
-wifi.scan-rand-mac-address=yes
-[connection]
-wifi.cloned-mac-address=random
-ethernet.cloned-mac-address=random
-connection.stable-id=${CONNECTION}/${BOOT}
+	[device]
+	wifi.scan-rand-mac-address=yes
+	[connection]
+	wifi.cloned-mac-address=random
+	ethernet.cloned-mac-address=random
+	connection.stable-id=${CONNECTION}/${BOOT}
 EOF
 
 chmod 600 /etc/NetworkManager/conf.d/00-macrandomize.conf
 
 # Disable Connectivity Check
 bash -c 'cat > /etc/NetworkManager/conf.d/20-connectivity.conf' <<-'EOF'
-[connectivity]
-uri=http://www.archlinux.org/check_network_status.txt
-interval=0
+	[connectivity]
+	uri=http://www.archlinux.org/check_network_status.txt
+	interval=0
 EOF
 
 chmod 600 /etc/NetworkManager/conf.d/20-connectivity.conf
 
 # Enable IPv6 privacy extensions
 bash -c 'cat > /etc/NetworkManager/conf.d/ip6-privacy.conf' <<-'EOF'
-[connection]
-ipv6.ip6-privacy=2
+	[connection]
+	ipv6.ip6-privacy=2
 EOF
 
 chmod 600 /etc/NetworkManager/conf.d/ip6-privacy.conf
@@ -130,21 +123,21 @@ chmod 600 /etc/NetworkManager/conf.d/ip6-privacy.conf
 
 # ZRAM configuration
 bash -c 'cat > /etc/systemd/zram-generator.conf' <<-'EOF'
-[zram0]
-zram-fraction = 1
-max-zram-size = 8192
+	[zram0]
+	zram-fraction = 1
+	max-zram-size = 8192
 EOF
 
 # General system tweaks - https://wiki.cachyos.org/general_info/general_system_tweaks/
 # Reduce Swappiness and vfs_cache_pressure
-sed -i -E 's/^(#)?(vm\.vfs_cache_pressure)/\2/' /etc/sysctl.d/99-cachyos-settings.conf
-sed -i -E 's/^vm\.swappiness\s*=\s*[0-9]+/vm.swappiness = 10/' /etc/sysctl.d/99-cachyos-settings.conf
-echo -e "\n# Additional settings" | tee -a /etc/sysctl.d/99-cachyos-settings.conf
-echo "vm.dirty_background_ratio=15" | tee -a /etc/sysctl.d/99-cachyos-settings.conf
-echo "vm.dirty_ratio=40" | tee -a /etc/sysctl.d/99-cachyos-settings.conf
-echo "vm.oom_dump_tasks=0" | tee -a /etc/sysctl.d/99-cachyos-settings.conf
-echo "vm.oom_kill_allocating_task=1" | tee -a /etc/sysctl.d/99-cachyos-settings.conf
-echo "vm.overcommit_memory=1" | tee -a /etc/sysctl.d/99-cachyos-settings.conf
+sed -i -E 's/^(#)?(vm\.vfs_cache_pressure)/\2/' /etc/sysctl.conf
+sed -i -E 's/^vm\.swappiness\s*=\s*[0-9]+/vm.swappiness = 10/' /etc/sysctl.conf
+echo -e "\n# Additional settings" | tee -a /etc/sysctl.conf
+echo "vm.dirty_background_ratio=15" | tee -a /etc/sysctl.conf
+echo "vm.dirty_ratio=40" | tee -a /etc/sysctl.conf
+echo "vm.oom_dump_tasks=0" | tee -a /etc/sysctl.conf
+echo "vm.oom_kill_allocating_task=1" | tee -a /etc/sysctl.conf
+echo "vm.overcommit_memory=1" | tee -a /etc/sysctl.conf
 
 # Zswap tweaking
 sh -c 'echo zstd > /sys/module/zswap/parameters/compressor'
@@ -168,20 +161,20 @@ echo "kernel.split_lock_mitigate=0" | tee /etc/sysctl.d/99-splitlock.conf
 #grub-mkconfig -o /boot/grub/grub.cfg
 # lz4 for fast compression - improved boot time performance
 #curl https://raw.githubusercontent.com/Twilight4/arch-setup-old/master/mkinitcpio.conf > /etc/mkinitcpio.conf
-#mkinitcpio -P                                                             
+#mkinitcpio -P
 
 # Parallel compilation and building from files in memory tweak
-curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/makepkg.conf > /etc/makepkg.conf
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/makepkg.conf >/etc/makepkg.conf
 
 # Giving wheel user sudo access
-curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sudoers > /etc/sudoers
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sudoers >/etc/sudoers
 
 # Blacklist beep
 rmmod pcspkr
-echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
+echo "blacklist pcspkr" >/etc/modprobe.d/nobeep.conf
 
 # Change audit logging group
-echo "log_group = audit" >> /etc/audit/auditd.conf
+echo "log_group = audit" >>/etc/audit/auditd.conf
 
 # Finishing up
 echo "Done, you may now run system-setup/ scripts in correct order - check README."
