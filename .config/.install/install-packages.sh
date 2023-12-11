@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 cat <<"EOF"
  ___           _        _ _                    _                         
@@ -12,14 +12,14 @@ EOF
 # If first time building rust packages this needs to be set
 rustup default stable
 
-_installPackagesPacman "${packagesPacman[@]}";
-_installPackagesParu "${packagesParu[@]}";
+_installPackagesPacman "${packagesPacman[@]}"
+_installPackagesParu "${packagesParu[@]}"
 
 read -p "Do you want to proceed with the installation of non-essential packages? (y/n): " choice
 if [ "$choice" == "y" ]; then
-    _installPackagesPacman "${nonessentialpackagesPacman[@]}"
-    _installPackagesParu "${nonessentialpackagesParu[@]}"
+	_installPackagesPacman "${nonessentialpackagesPacman[@]}"
+	_installPackagesParu "${nonessentialpackagesParu[@]}"
 else
-    echo "Installation of non-essential packages skipped."
+	echo "Installation of non-essential packages skipped."
 fi
 echo ""

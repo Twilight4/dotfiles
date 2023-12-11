@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 cat <<"EOF"
  ___           _        _ _       _       _    __ _ _           
@@ -14,24 +14,26 @@ echo "Symbolic links will then be created from ~/desktop/workspace/dotfiles into
 echo ""
 
 while true; do
-    read -p "Do you want to install the dotfiles now? (Yy/Nn): " yn
-    case $yn in
-        [Yy]* )
-            if [ ! $mode == "dev" ]; then
-                echo "Copying dotfiles..."
-                if [ ! -d ~/desktop/workspace/dotfiles ]; then
-                    mkdir -p ~/desktop/workspace/dotfiles
-                fi   
-                cp -rf ~/downloads/dotfiles ~/desktop/workspace/dotfiles/
-                echo "Dotfiles copied successfully."
-            else
-                echo "Skipped: DEV MODE!"
-            fi
-        break;;
-        [Nn]* ) 
-            exit
-        break;;
-        * ) echo "Please answer yes or no.";;
-    esac
+	read -p "Do you want to install the dotfiles now? (Yy/Nn): " yn
+	case $yn in
+	[Yy]*)
+		if [ ! $mode == "dev" ]; then
+			echo "Copying dotfiles..."
+			if [ ! -d ~/desktop/workspace/dotfiles ]; then
+				mkdir -p ~/desktop/workspace/dotfiles
+			fi
+			cp -rf ~/downloads/dotfiles ~/desktop/workspace/dotfiles/
+			echo "Dotfiles copied successfully."
+		else
+			echo "Skipped: DEV MODE!"
+		fi
+		break
+		;;
+	[Nn]*)
+		exit
+		break
+		;;
+	*) echo "Please answer yes or no." ;;
+	esac
 done
 echo ""
