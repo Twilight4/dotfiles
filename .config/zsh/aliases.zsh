@@ -95,6 +95,8 @@ alias news="newsboat"
 alias tailf="tail -f"
 alias truncate="truncate -s 0"
 alias grubup="sudo update-grub"
+alias ginxi="garuda-inxi"
+alias gup="garuda-update"
 
 # Rust replacements
 alias cp='xcp -v'
