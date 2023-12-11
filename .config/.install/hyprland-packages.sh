@@ -169,7 +169,6 @@ packagesPacman=(
 
 packagesParu=(
     "pfetch" 
-    "mesa-git"
     "zsh-theme-powerlevel10k-git"
     "yt-dlp"
     "mpv-git"
