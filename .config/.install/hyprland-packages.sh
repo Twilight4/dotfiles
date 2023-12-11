@@ -154,8 +154,14 @@ packagesPacman=(
 	"libdbusmenu-glib"
 	"stacer"
 	"python-pywhat"
-	"fuzzel"
+	"megasync-bin"
+	"megacmd"
+	"nautilus-megasync"
+	"evince"
+
+	# Hyprland-specific
 	"gtklock "
+	"fuzzel"
 	"gtklock-playerctl-module "
 	"gtklock-powerbar-module "
 	"gtklock-userinfo-module"
@@ -163,22 +169,16 @@ packagesPacman=(
 	"polkit-gnome"
 	"swww-git"
 	"python-pywal"
-	"megasync-bin"
-	"megacmd"
-	"nautilus-megasync"
-	"evince"
 )
 
 packagesParu=(
 	"pfetch"
-	"zsh-theme-powerlevel10k-git"
 	"yt-dlp"
 	"mpv-git"
 	"tabbed-git"
 	"nohang-git"
 	"btop-git"
 	"rofi-lbonn-wayland-git"
-	"lswt"
 	"sway-audio-idle-inhibit-git"
 	"grimblast-git"
 	"wdisplays"
@@ -192,7 +192,6 @@ packagesParu=(
 	"checkupdates-with-aur"
 	"nohang-git"
 	"cliphist"
-	"numix-cursor-theme"
 	"cheat-bin"
 	"tabbed-git"
 	"betterlockscreen"
@@ -210,6 +209,10 @@ packagesParu=(
 	"xcp-git"
 	"anki-bin"
 	"noise-suppression-for-voice-git"
+
+	# Hyprland-specific
+	"numix-cursor-theme"
+	"zsh-theme-powerlevel10k-git"
 	"hyprland-git"
 	"xdg-desktop-portal-hyprland"
 	"xdg-desktop-portal"
