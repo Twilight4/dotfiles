@@ -46,8 +46,6 @@ cachyos_bloat=(
     xdg-desktop-portal-gnome
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
-    lib32-opencl-clover-mesa
-    lib32-opencl-rusticl-mesa
 )
 
 read -p "Do you want to remove bloat packages? (y/n): " choice
