@@ -21,6 +21,7 @@ packagesPacman=(
     "irqbalance"
     "pkgfile"
     "firewalld"
+    "mkinitcpio"
     "chrony"
     "dkms"
     "expac"
