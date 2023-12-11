@@ -16,16 +16,9 @@ bloat=(
     garuda-dracut-support
     garuda-browser-settings
     garuda-setup-assistant
-    #garuda-common-settings
-    #garuda-system-maintenance
-    #garuda-boot-options
-    #garuda-network-assistant
-    #mhwd-garuda-git
-    #garuda-assistant
     garuda-icons
     garuda-gamer
     #grub-theme-garuda
-    #garuda-settings-manager
     garuda-hyprland-settings
     garuda-wallpapers
     garuda-wallpapers-extra
