@@ -63,10 +63,10 @@ services=(
     systemd-resolved
     paccache.timer
     fstrim.timer
-    ananicy.cpp
-    nohang-desktop
+    ananicy-cpp
+    nohang
     preload
-	tor
+    tor
     supergfxd           # needed in order to use VFIO - https://wiki.archlinux.org/title/Supergfxctl
     vnstat              # network traffic monitor
     #docker
