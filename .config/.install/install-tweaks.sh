@@ -11,7 +11,7 @@
 
 # Import pacman config (commented out bcs CachyOS repos are already added upon CachyOS installation)
 #mv /etc/pacman.conf /etc/pacman.conf.bak
-#curl https://raw.githubusercontent.com/Twilight4/arch-install/main/config-files/pacman.conf > /etc/pacman.conf
+#curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/pacman.conf > /etc/pacman.conf
 #pacman -Syy
 
 # Enabling CachyOS Repositories for Enhanced Arch Linux Performance
@@ -164,17 +164,17 @@ echo "kernel.split_lock_mitigate=0" | tee /etc/sysctl.d/99-splitlock.conf
 ######################################################################
 
 # Warning: These configs are correct ONLY for ext4 and GRUB bootloader.
-#curl https://raw.githubusercontent.com/Twilight4/arch-install-old/main/grub > /etc/default/grub
+#curl https://raw.githubusercontent.com/Twilight4/arch-setup-old/main/grub > /etc/default/grub
 #grub-mkconfig -o /boot/grub/grub.cfg
 # lz4 for fast compression - improved boot time performance
-#curl https://raw.githubusercontent.com/Twilight4/arch-install-old/master/mkinitcpio.conf > /etc/mkinitcpio.conf
+#curl https://raw.githubusercontent.com/Twilight4/arch-setup-old/master/mkinitcpio.conf > /etc/mkinitcpio.conf
 #mkinitcpio -P                                                             
 
 # Parallel compilation and building from files in memory tweak
-curl https://raw.githubusercontent.com/Twilight4/arch-install/main/config-files/makepkg.conf > /etc/makepkg.conf
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/makepkg.conf > /etc/makepkg.conf
 
 # Giving wheel user sudo access
-curl https://raw.githubusercontent.com/Twilight4/arch-install/main/config-files/sudoers > /etc/sudoers
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sudoers > /etc/sudoers
 
 # Blacklist beep
 rmmod pcspkr
