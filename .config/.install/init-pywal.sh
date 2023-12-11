@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 _installSymLink wal ~/.config/wal ~/desktop/workspace/dotfiles/wal/ ~/.config
 wal -i ~/pictures/wallpapers/default.jpg

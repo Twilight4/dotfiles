@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 # Post-install message
 echo "DONE, Please logout and reboot your system."

@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 # Installing necessary dependencies
 echo "Checking if rsync is installed..."

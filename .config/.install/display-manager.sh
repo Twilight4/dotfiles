@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 if [ $disman == 1 ]; then
 cat <<"EOF"

@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 if [ ! $mode == "dev" ]; then
     _installSymLink kitty ~/.config/kitty ~/desktop/workspace/dotfiles/.config/kitty/ ~/.config
