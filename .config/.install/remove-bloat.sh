@@ -35,6 +35,7 @@ bloat=(
     garuda-bash-config
     garuda-welcome
     firedragon
+    swaylock
     # Other bloat that can come with distro installation
     adobe-source-han-sans-cn-fonts
     adobe-source-han-sans-jp-fonts
