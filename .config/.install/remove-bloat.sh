@@ -16,16 +16,11 @@ bloat=(
     garuda-dracut-support
     garuda-browser-settings
     garuda-setup-assistant
-    garuda-icons
     garuda-gamer
     #grub-theme-garuda
     garuda-hyprland-settings
-    garuda-wallpapers
-    garuda-wallpapers-extra
     garuda-fish-config
     garuda-zsh-config
-    garuda-starship-prompt
-    garuda-bash-config
     garuda-welcome
     firedragon
     swaylock
