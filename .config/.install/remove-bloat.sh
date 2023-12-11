@@ -10,7 +10,6 @@ EOF
 
 # Remove bloat that came with distro installation
 distro_bloat=(
-#!/usr/bin/env bash
 
 # Remove garuda bloat if garuda linux was installed on the system
 bloat=(
@@ -113,4 +112,24 @@ if [ "$choice" == "y" ]; then
     done
 else
     echo "Bloat removal skipped."
+fi
+
+# Remove distro desktop entries
+# Define the file paths
+hyprland_desktop="/usr/share/wayland-sessions/hyprland.desktop"
+garuda_hyprland_desktop="/usr/share/wayland-sessions/garuda-hyprland.desktop"
+
+# Check if files exist before attempting to remove them
+if [ -e "$hyprland_desktop" ]; then
+    sudo rm "$hyprland_desktop"
+    echo "Removed $hyprland_desktop"
+else
+    echo "$hyprland_desktop does not exist, nothing to remove."
+fi
+
+if [ -e "$garuda_hyprland_desktop" ]; then
+    sudo rm "$garuda_hyprland_desktop"
+    echo "Removed $garuda_hyprland_desktop"
+else
+    echo "$garuda_hyprland_desktop does not exist, nothing to remove."
 fi
