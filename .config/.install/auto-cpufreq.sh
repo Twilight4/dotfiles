@@ -7,7 +7,10 @@ cat <<"EOF"
 | (_| | |_| | || (_) |_____| (__| |_) | |_| |  _| | |  __/ (_| |
  \__,_|\__,_|\__\___/       \___| .__/ \__,_|_| |_|  \___|\__, |
                                 |_|                          |_|
+
 EOF
+
+read -p "Do you want to install auto-cpufreq? (y/n): " install_choice
 
 if [ "$install_choice" == "y" ]; then
     if ! command -v auto-cpufreq >/dev/null; then
