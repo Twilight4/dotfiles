@@ -180,7 +180,6 @@ packagesParu=(
 	"btop-git"
 	"rofi-lbonn-wayland-git"
 	"sway-audio-idle-inhibit-git"
-	"grimblast-git"
 	"wdisplays"
 	"nwg-look-bin"
 	"wlr-randr"
@@ -211,6 +210,7 @@ packagesParu=(
 	"noise-suppression-for-voice-git"
 
 	# Hyprland-specific
+	"grimblast-git"
 	"numix-cursor-theme"
 	"zsh-theme-powerlevel10k-git"
 	"hyprland-git"
