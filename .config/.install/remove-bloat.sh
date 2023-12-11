@@ -34,6 +34,7 @@ bloat=(
     garuda-starship-prompt
     garuda-bash-config
     garuda-welcome
+    firedragon
     # Other bloat that can come with distro installation
     adobe-source-han-sans-cn-fonts
     adobe-source-han-sans-jp-fonts
