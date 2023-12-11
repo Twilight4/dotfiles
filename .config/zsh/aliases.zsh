@@ -97,6 +97,7 @@ alias truncate="truncate -s 0"
 alias grubup="sudo update-grub"
 alias ginxi="garuda-inxi"
 alias gup="garuda-update"
+alias lsall="lspci"
 
 # Rust replacements
 alias cp='xcp -v'
