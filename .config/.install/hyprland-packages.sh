@@ -30,7 +30,6 @@ packagesPacman=(
 	"expac"
 	"findutils"
 	"cava"
-	"dunst"
 	"thefuck"
 	"texlive-basic"
 	"texlive-latex"
@@ -171,6 +170,7 @@ packagesPacman=(
 	"polkit-gnome"
 	"swww-git"
 	"python-pywal"
+	"dunst"
 )
 
 packagesParu=(
