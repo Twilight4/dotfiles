@@ -8,7 +8,7 @@
 ff() {
   file=$(find . -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
       | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --preview 'bat --style=numbers --color=always --line-range :500 {}')
+      --reverse --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     eval "$EDITOR" "$file"
   fi
