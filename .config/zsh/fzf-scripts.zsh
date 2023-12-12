@@ -16,7 +16,7 @@ ff() {
 
 # Preview file and copy the path to clipboard
 ffp() {
-  file=$(find . -type f | fzf --height 95% --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
+  file=$(find . -type f | fzf --height 95% --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
       --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
