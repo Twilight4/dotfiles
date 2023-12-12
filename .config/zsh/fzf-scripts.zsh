@@ -28,7 +28,7 @@ ffp() {
 ffh() {
     local file
     local dir
-    file=$(fzf +m --reverse --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    file=$(fzf +m --reverse --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
     lsd -l --hyperlink=auto
 }
 
