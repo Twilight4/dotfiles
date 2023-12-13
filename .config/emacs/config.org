@@ -3013,18 +3013,7 @@ this with to-do items than with projects or headings."
                  (insert "#+date: " current-date "\n\n")
                  (write-file full-path)
                  full-path))))
-     "* Red Team\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Physical Assessment\n\n* Social-Engineering")
-     ("aw" "Wireless" entry
-      (file (lambda ()
-             (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/wireless/" filename ".org"))
-                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
-               (with-temp-buffer
-                 (insert "#+title: " filename "\n")
-                 (insert "#+date: " current-date "\n\n")
-                 (write-file full-path)
-                 full-path))))
-     "* Wi-fi\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Wardriving")))
+     "* Red Team\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Physical Assessment\n\n* Social-Engineering")))
 
 (setq org-gtd-capture-templates
   `(("t" "Todo" entry (file "~/documents/org/agenda/inbox.org")
