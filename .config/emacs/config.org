@@ -2385,9 +2385,6 @@ This automates the surround of word for style formatting with respective keys in
 
 *** Copy surround automation
 
-
-hgsdkjlfghsdfglk =dgfashjk= fdasj;lkf 
-
 #+begin_src emacs-lisp
 (defun copy-surrounded-by-equals ()
   "Copy text surrounded by equals on the current line to the system clipboard."
