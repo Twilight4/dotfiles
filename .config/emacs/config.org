@@ -2383,6 +2383,21 @@ This automates the surround of word for style formatting with respective keys in
     (insert "/")))
 #+end_src
 
+*** Copy surround automation
+
+#+begin_src emacs-lisp
+(defun copy-surrounded-by-equals ()
+  "Copy text surrounded by equal signs to the clipboard."
+  (interactive)
+  (let ((start (save-excursion (re-search-backward "=" nil t))))
+    (when start
+      (let ((end (save-excursion (re-search-forward "=" nil t))))
+        (copy-region-as-kill start end)
+        (message "Text surrounded by equals copied to clipboard")))))
+
+;(global-set-key (kbd "C-c C-e") 'copy-surrounded-by-equals)
+#+end_src
+
 *** Heading focus
 If you want to see other headings while you are edit the current one, I found a [[https://stackoverflow.com/questions/25161792/emacs-org-mode-how-can-i-fold-everything-but-the-current-headline/28031539#28031539][StackOverflow]] answer and adapted for my need.
 
