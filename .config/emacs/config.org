@@ -669,8 +669,10 @@
  "e" '(er/mark-email :wk "Mark email")
  "d" '(er/mark-defun :wk "Mark defun")
  "l" '(er/mark-sentence :wk "Mark sentence")
- "L" '(er/mark-paragraph :wk "Mark paragraph"))
-)
+ "L" '(er/mark-paragraph :wk "Mark paragraph")
+ ;; Copy surround automation
+ "m" '(copy-surrounded-by-equals :wk "Copy org command")
+))
 #+end_src
 
 * UI Configuration
