@@ -37,6 +37,7 @@ packagesPacman=(
 	"texlive-plaingeneric"
 	"texlive-binextra"
 	"python-pylatexenc"
+	"ngrok"
 	"supergfxctl"
 	"openbsd-netcat"
 	"wofi"
