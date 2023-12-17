@@ -35,6 +35,7 @@
   - [[#i-search][I-Search]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-adjustments][Selection Adjustments]]
+  - [[#kill-whole-line-adjustment][Kill-whole-line Adjustment]]
   - [[#screenshot-automation][Screenshot Automation]]
   - [[#pdf-links-automation][Pdf links Automation]]
   - [[#no-littering][No-littering]]
@@ -201,7 +202,7 @@
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
-(global-set-key (kbd "C-M-h") 'kill-whole-line)
+(global-set-key (kbd "C-M-h") 'copy-whole-line-to-clipboard)
 (global-set-key (kbd "M-y") 'consult-yank-pop)
 ;; Zooming keys
 (global-set-key (kbd "C-z") 'recenter-top-bottom)
@@ -1345,6 +1346,17 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
   "Kill text from point to the beginning of the line."
   (interactive)
   (kill-line 0))
+#+end_src
+
+** Kill-whole-line Adjustment
+
+#+begin_src emacs-lisp
+(defun copy-whole-line-to-clipboard ()
+  "Copy the entire line at point to the clipboard using wl-copy."
+  (interactive)
+  (kill-new (thing-at-point 'line t))
+  (kill-whole-line)
+  (message "Line copied to clipboard"))
 #+end_src
 
 ** Screenshot Automation
