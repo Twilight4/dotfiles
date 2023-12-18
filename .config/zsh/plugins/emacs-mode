@@ -58,14 +58,6 @@ copy-region-and-kill() {
 zle -N copy-region-and-kill
 bindkey '^[w' copy-region-and-kill
 
-# Function to cut current line to system clipboard
-cut-and-copy-current-line() {
-  zle kill-whole-line
-  print -n "$CUTBUFFER" | wl-copy
-}
-zle -N cut-and-copy-current-line
-bindkey '^^[h' cut-and-copy-current-line     # Ctrl+Alt+h
-
 # Function to copy current line to system clipboard
 copy-current-line() {
   print -n "$BUFFER" | wl-copy
