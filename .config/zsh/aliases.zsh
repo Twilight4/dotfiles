@@ -48,13 +48,6 @@ alias ce='cheat --edit'
 alias ai='tgpt'
 alias watch-lt='watch lsd --tree --hyperlink=auto'
 
-# List cheatsheets for tools
-alias ltp='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/pentest'    # Pentest tools
-alias ltw='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/web-app'    # Web app tools
-alias ltr='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/red-team'   # Red team tools
-alias ltf='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/forensics'  # Forensics tools
-alias lto='lsd --tree --hyperlink=auto ~/desktop/workspace/cheats/other'      # Other tools
-
 # Blackarch repo packages
 alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # List all available tools
 alias blackcat="sudo pacman -Sg | grep blackarch"                             # See the blackarch categories
