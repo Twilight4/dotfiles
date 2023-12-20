@@ -1352,10 +1352,14 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
 
 #+begin_src emacs-lisp
 (defun copy-whole-line-to-clipboard ()
-  "Copy the entire line at point to the clipboard using wl-copy."
+  "Copy the entire line at point to the clipboard using wl-copy and kill the line."
   (interactive)
-  (kill-new (thing-at-point 'line t))
-  (kill-whole-line)
+  (let ((line-text (thing-at-point 'line t)))
+    (unless (zerop (length line-text))
+      (with-temp-buffer
+        (insert line-text)
+        (call-process-region (point-min) (point-max) "wl-copy" nil nil nil)))
+    (kill-whole-line))
   (message "Line copied to clipboard"))
 #+end_src
 
