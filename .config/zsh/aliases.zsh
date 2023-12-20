@@ -102,7 +102,6 @@ alias dig='dog'
 alias digs='dig +short'        # Uses dog alias first if installed
 alias du='dust'
 alias ncdu="ncdu --color dark"
-alias df='duf'
 
 # Grep - rg
 alias rg='rg -i'
@@ -172,6 +171,8 @@ alias probe="sudo -E hw-probe -all -upload"
 alias sysfailed="systemctl list-units --failed"
 alias hw="hwinfo --short"
 alias go-update="go get -u all"
+
+# File system
 alias fs-mounted="sudo mount | column -t"
 alias fs-usage="df -mTh --total"
 alias fs-last3="sudo find /etc -mtime -3"
@@ -181,6 +182,20 @@ alias fs-disk-top10="sudo du -sk ./* | sort -r -n | head -10"
 alias fs-mounted=""
 alias free="free -m"
 alias mem-free="free -th"
+
+# Network
+alias net-watch="sudo watch -n 0.3 'netstat -pantlu4 | grep \"ESTABLISHED\|LISTEN\"' "
+alias net-open4="sudo netstat -pantlu4"
+alias net-open6="sudo netstat -pantlu6"
+alias net-routes="netstat -r --numeric-hosts"
+alias net-ss="sudo ss -plaunt4"
+alias net-lsof="sudo lsof -P -i -n "
+alias net-pubip="curl -s \"https://icanhazip.com\" "
+alias net-pvpn-update="sudo pip3 install protonvpn-cli --upgrade"
+alias net-pvpn-status="sudo protonvpn status"
+alias net-pvpn-connect-tcp="sudo protonvpn c -f"
+alias net-pvpn-connect-udp="sudo protonvpn c -f -p udp"
+alias net-disconnect="sudo protonvpn disconnect"
 
 # Udiskie-umount
 alias ubackup='udiskie-umount $MEDIA/BACKUP'
