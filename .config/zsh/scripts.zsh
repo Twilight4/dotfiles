@@ -441,22 +441,18 @@ nproj() {
 
     # Ask for assessment type
     echo "Assessment types:"
-    echo "1. redteam"
-    echo "2. pentest"
+    echo "1. red-team"
+    echo "2. network-pentest"
     echo "3. osint"
-    echo "4. webapp"
-    echo "5. wireless"
 
     # Read assessment choice
     echo -n "Enter assessment type number: "
     read assessment_choice
 
     case $assessment_choice in
-        1) assessment_type="redteam";;
-        2) assessment_type="pentest";;
+        1) assessment_type="red-team";;
+        2) assessment_type="network-pentest";;
         3) assessment_type="osint";;
-        4) assessment_type="webapp";;
-        5) assessment_type="wireless";;
         *) echo -e "\nInvalid choice. Aborting."; return 1;;
     esac
 
