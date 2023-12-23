@@ -58,7 +58,6 @@ zsh_add_file "bindings.zsh"
 # Source additional files from plugins directory
 #zsh_add_file "vim-mode"
 #zsh_add_file "cursor-mode"
-zsh_add_file "quiver"
 zsh_add_file "emacs-mode"
 zsh_add_file "bd.zsh"
 # Source prompt
