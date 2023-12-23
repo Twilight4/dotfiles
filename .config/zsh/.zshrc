@@ -58,7 +58,7 @@ zsh_add_file "bindings.zsh"
 # Source additional files from plugins directory
 #zsh_add_file "vim-mode"
 #zsh_add_file "cursor-mode"
-zsh_add_file "quiver-arch"
+zsh_add_file "quiver"
 zsh_add_file "emacs-mode"
 zsh_add_file "bd.zsh"
 # Source prompt
@@ -69,7 +69,7 @@ zsh_add_plugin "b4b4r07/enhancd"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
-zsh_add_plugin "Twilight4/quiver"
+zsh_add_plugin "Twilight4/quiver-arch"
 #zsh_add_plugin "kutsan/zsh-system-clipboard"  # for vim-mode
 zsh_add_plugin "unixorn/prettyping"
 #zsh_add_plugin "zshzoo/copier"
