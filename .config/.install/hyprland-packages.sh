@@ -124,6 +124,7 @@ packagesPacman=(
 	"nyx"
 	"torsocks"
 	"openvpn"
+	"protonvpn-cli"
 	"ntop"
 	"gnome-calculator"
 	"inetutils"
