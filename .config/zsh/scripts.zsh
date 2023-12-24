@@ -37,6 +37,11 @@ h() {
     "$@" --help 2>&1 | bat --plain --language=help
 }
 
+# Prettify org mode files output
+cato() {
+	sed -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' "$@" | command bat --language=org --style=plain --color=always
+}
+
 # Better diff
 diff() {
   command diff -u "$@" | diff-so-fancy
