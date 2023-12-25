@@ -23,7 +23,6 @@ mac() {
   ip a | grep ether | awk '{print $2}'
 }
 
-
 # Prettify help/cheat pages
 c() {
   command cheat "$@" | bat --plain --language=help
@@ -50,7 +49,6 @@ diff() {
 diffd() {
   command diff -r -u "$@" | diff-so-fancy
 }
-
 
 # Add Vi text-objects for brackets and quotes
 autoload -Uz select-bracketed select-quoted
@@ -434,46 +432,6 @@ gtfo() {
 pass() {
     local size=${1:-20}
     cat /dev/random | tr -dc '[:graph:]' | head -c$size
-}
-
-# Create a new project and go there
-nproj() {
-    # Check if project name is provided
-    if [ -z "$1" ]; then
-        echo "Usage: nproj company-name"
-        return 1
-    fi
-
-    # Ask for assessment type
-    echo "Assessment types:"
-    echo "1. red-team"
-    echo "2. network-pentest"
-    echo "3. osint"
-
-    # Read assessment choice
-    echo -n "Enter assessment type number: "
-    read assessment_choice
-
-    case $assessment_choice in
-        1) assessment_type="red-team";;
-        2) assessment_type="network-pentest";;
-        3) assessment_type="osint";;
-        *) echo -e "\nInvalid choice. Aborting."; return 1;;
-    esac
-
-    # Create a directory for assessment type if it doesn't exist
-    assessment_dir="$HOME/desktop/projects/$assessment_type"
-    mkdir -p "$assessment_dir"
-
-    # Create the project directory
-    proj_name="$1"
-    proj_dir="$assessment_dir/$proj_name"
-    mkdir -p "$proj_dir"
-
-    # Move to the project directory
-    cd "$proj_dir"
-
-    echo "Project '$proj_name' created with assessment type '$assessment_type'."
 }
 
 # Calculate repo size
