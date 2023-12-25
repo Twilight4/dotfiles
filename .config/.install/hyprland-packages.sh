@@ -103,7 +103,6 @@ packagesPacman=(
 	"kitty"
 	"translate-shell"
 	"hub"
-	"navi"
 	"nvtop"
 	"socat"
 	"ttf-jetbrains-mono-nerd"
