@@ -490,16 +490,10 @@
     "e b" '(eval-buffer :wk "Evaluate a buffer")
     "e e" '(org-export-dispatch :wk "Org export dispatch")
     "e T" '(org-babel-tangle :wk "Org babel tangle")
-	  "e n" '(lambda () (interactive) (ido-find-file-in-dir "~/documents/org/roam/permanent-notes"))
-	  "e m" '(lambda () (interactive) (ido-find-file-in-dir "~/documents/org/roam/metrics"))
-	  "e k" '(lambda () (interactive) (ido-find-file-in-dir "~/documents/org/roam/keys"))
     "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "e s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
   (which-key-add-key-based-replacements 
-    "C-x e n" "Edit permanent-notes"
-    "C-x e m" "Edit metrics"
-    "C-x e k" "Edit keybinds"
     "C-x e c" "Edit config"
     "C-x e s" "Edit emacs cheatsheet")
 
