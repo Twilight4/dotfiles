@@ -6,6 +6,7 @@ packagesPacman=(
 	"pacman-contrib"
 	"trizen"
 	"zenpower3-dkms"
+	"hp-omen-wmi-dkms"
 	"xfce4-power-manager"
 	"git"
 	"ccache"
