@@ -2,6 +2,7 @@
 
 # Warning: Before running the script make sure you have installed packages: "zenpower3-dkms" "hp-omen-wmi-dkms", rebooted
 # and read instructions in script: ~/desktop/workspace/arch-setup/tools-installation/omen-keyboard.sh
+# Otherwise the script will not work
 
 # Check if the script is run as root
 if [ "$EUID" -ne 0 ]; then
