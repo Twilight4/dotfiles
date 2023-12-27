@@ -145,7 +145,8 @@ alias powersave='sudo auto-cpufreq --force=powersave && sudo cpupower frequency-
 alias performance='sudo auto-cpufreq --force=performance && sudo cpupower frequency-set -g performance'
 alias cpu-reset='sudo auto-cpufreq --force=reset'
 # Omen laptop settings
-#alias omenfix='~/.config/.local/bin/omen-fix-startup'    # RUN AS ROOT/systemd service
+#alias omen-fix='~/.config/.local/bin/omen-fix-startup'    # RUN AS ROOT/systemd service
+alias omen-status='sudo systemctl status omen-performance-fix.service'
 alias cpu-tem='sensors zenpower-pci-00c3'     # Check CPU thermals
 alias fans='sensors hp-isa-0000'              # Check Cooling fan speed
 alias fan-boost-on='echo 0 > /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable'
