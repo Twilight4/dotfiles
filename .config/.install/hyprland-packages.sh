@@ -5,6 +5,7 @@ packagesPacman=(
 	"linux-and-znver3-headers"
 	"pacman-contrib"
 	"trizen"
+	"zenpower3-dkms"
 	"xfce4-power-manager"
 	"git"
 	"ccache"
