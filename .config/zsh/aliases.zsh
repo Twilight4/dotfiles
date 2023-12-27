@@ -139,11 +139,17 @@ alias trp='trans pl:en'
 # Check CPU mitigations vulnerabilities in microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 
-# Using AMD P-State EPP Driver
+# Using AMD P-State EPP scheduler
 alias pstate='cat /sys/devices/system/cpu/amd_pstate/status'   # Check if the p-state driver is active
 alias powersave='sudo auto-cpufreq --force=powersave && sudo cpupower frequency-set -g powersave'
 alias performance='sudo auto-cpufreq --force=performance && sudo cpupower frequency-set -g performance'
 alias cpu-reset='sudo auto-cpufreq --force=reset'
+# Omen laptop settings
+#alias omenfix='~/.config/.local/bin/omen-fix-startup'    # RUN AS ROOT/systemd service
+alias cpu-tem='sensors zenpower-pci-00c3'     # Check CPU thermals
+alias fans='sensors hp-isa-0000'              # Check Cooling fan speed
+alias fan-boost-on='echo 0 > /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable'
+alias fan-boost-off='echo 2 > /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable'
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
