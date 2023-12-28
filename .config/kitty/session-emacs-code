@@ -19,4 +19,4 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/desktop/workspace/dotfiles/.config/cheat/templates/
 # Create a window (title sets the tab title)
-launch --title templates sh -c "lsd -l --hyperlink=auto && exec zsh"
+launch --title templates sh -c "bat --plain --language help cheat && exec zsh"
