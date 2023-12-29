@@ -41,6 +41,9 @@ Modules:
              and you can set it to any port not used by any other application.
   SESSION    Each connection established to the target system using Metasploit will have a session ID.
              You will use this with post-exploitation modules that will connect to the target system using an existing connection.
+  ExitonSession 
+             The module is used by meterpreter_reverse_tcp. Typical behavior is to sotp listening once we get our first shell back.
+              If you want to catch multiple shells to try each of the binaries, set this value to false.
 
 Setting Parameters:
   set        Override any set parameter
