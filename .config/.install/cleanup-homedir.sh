@@ -19,7 +19,7 @@ rm -rf .config/.gsd-keyboard.settings-ported
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
 	~/videos/elfeed-youtube
-    ~/desktop/{workspace,projects}
+    ~/desktop/{workspace,projects,server}
     ~/desktop/projects/company-name/{EPT,IPT}
     ~/.config/.local/share/gnupg
     ~/.config/.local/share/cargo
