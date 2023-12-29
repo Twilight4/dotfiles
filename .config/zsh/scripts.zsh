@@ -23,6 +23,11 @@ mac() {
   ip a | grep ether | awk '{print $2}'
 }
 
+# Convert ASCII into UTF16-LE for windows compatibility and then encode powershell command to base64
+pow-enc() {
+  echo -n "$@" | iconv -f ASCII -t UTF-16LE | b64
+}
+
 # Prettify help/cheat pages
 c() {
   command cheat "$@" | bat --plain --language=help
