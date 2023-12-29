@@ -10,6 +10,8 @@ Options:
   -i number of iterations for encoding e.g. 3
   -o output-file
   -k keep functionality in the binary (if using e.g. wget.exe as obfuscation template)
+  PrependMigrate=true  add a migration to a new process at the beginning of the code,
+                        making out shell live longer than the process itself (usefull when using -k option)
   LHOST=<LOCAL_IP>
   LPORT=<LOCAL_PORT> (listening port)
 
