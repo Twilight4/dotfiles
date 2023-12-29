@@ -49,6 +49,7 @@ Setting Parameters:
   setg       Set Globally: set a global value for all different modules that will be used until you exit Metasploit or clear it using the "unsetg" command
   unsetg     Clear any value set with "setg"
   exploit -z   Will run the exploit and background the session as soon as it opens
+  exploit -j   Will run the exploit and background the session as soon as it opens
   check        Some modules support this option which will check if the target system is vulnerable without exploiting it
 
 Sessions:
