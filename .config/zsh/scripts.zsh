@@ -24,6 +24,7 @@ mac() {
 }
 
 # Convert ASCII into UTF16-LE for windows compatibility and then encode powershell command to base64
+# Requires 'rbkb' tool
 pow-enc() {
   echo -n "$@" | iconv -f ASCII -t UTF-16LE | b64
 }
