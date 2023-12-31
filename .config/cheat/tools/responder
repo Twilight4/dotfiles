@@ -13,10 +13,12 @@ Options:
                         wildcard for all interfaces
   -D, --DHCP-DNS        Respond to DHCP broadcast request. Default: False
   -w, --wpad            Start the WPAD rogue proxy server. Default: False
+                        WPAD is the Web Proxy Auto-Discovery protocol.
+                        It's used by Windows devices to find a proxy server on the network
   -P, --ProxyAuth       Force NTLM (transparently)/Basic (prompt)
                         authentication for the proxy. WPAD doesn't need to be
                         ON. This option is highly effective. Default: False
   -v, --verbose         Increase verbosity
-
-Informational:
+  -f, --fingerprint     Gives us some basic info about hosts using NetBIOS on the network
+                        This gives us indication of what types of boxes are on the network
 
