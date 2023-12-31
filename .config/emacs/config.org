@@ -2301,7 +2301,7 @@ This controls the color of bold, italic, underline, verbatim, strikethrough in O
 #+begin_src emacs-lisp
 (setq org-emphasis-alist
 '(("*" (bold :slant italic :weight black ))
-  ("/" (italic :foreground "dark salmon" ))
+  ;("/" (italic :foreground "dark salmon" ))   ;; Creates conflicts + I have "/" bound to underline keybind
   ("_" (underline :foreground "cyan" ))
   ("=" (:foreground "PaleGreen1" ))
   ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1

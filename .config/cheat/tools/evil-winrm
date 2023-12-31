@@ -6,6 +6,7 @@ Usage:
 Options:
   -i, --ip IP                      Remote host IP or hostname. FQDN for Kerberos auth (required)
   -u, --user USER                  Username (required if not using kerberos)
+  -p, --password                   Password
   -H, --hash HASH                  NTHash
 
 Informational:

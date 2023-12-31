@@ -1,0 +1,3 @@
+Options:
+  --uninstall      uninstall our service on exit to not leave the trace on the target system
+  --system         escalate to the SYSTEM user
