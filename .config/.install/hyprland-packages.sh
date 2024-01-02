@@ -22,6 +22,7 @@ packagesPacman=(
 	"acpi"
 	"rsync"
 	"apparmor"
+	"xorg-xhost"
 	"irqbalance"
 	"pkgfile"
 	"firewalld"
