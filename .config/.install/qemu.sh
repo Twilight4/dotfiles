@@ -30,6 +30,9 @@ if prompt_yes_no "Do you want to install QEMU and related packages?"; then
 
 	paru -S qemu-arch-extra-git
 
+	# VMware package
+	#sudo pacman -S vmware-host-modules-dkms-git
+
 	install_qemu=true
 fi
 
