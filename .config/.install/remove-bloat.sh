@@ -6,6 +6,7 @@ cat <<"EOF"
 | '_ \| |/ _ \ / _` | __|
 | |_) | | (_) | (_| | |_ 
 |_.__/|_|\___/ \__,_|\__|
+
 EOF
 
 # Remove bloat that came with distro installation
