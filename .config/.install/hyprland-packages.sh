@@ -67,6 +67,7 @@ packagesPacman=(
 	"wl-clipboard"
 	"xdg-user-dirs"
 	"swappy"
+	"bleachbit"
 	"pamixer"
 	"foot"
 	"zathura"
