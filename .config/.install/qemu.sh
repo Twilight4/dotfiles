@@ -49,8 +49,8 @@ if $install_qemu; then
 	sudo virsh net-autostart default
 
 	# Enable normal user account to use KVM
-	if curl -LJO https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/libvirtd.conf && sudo mv libvirtd.conf /etc/libvirtd.conf; then
-		echo "/etc/libvirtd.conf file written successfully"
+	if curl -LJO https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/libvirtd.conf && sudo mv libvirtd.conf /etc/libvirt/libvirtd.conf; then
+		echo "/etc/libvirt/libvirtd.conf file written successfully"
 	else
 		echo "Error: Unable to download or move the file"
 	fi
