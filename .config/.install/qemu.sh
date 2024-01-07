@@ -25,10 +25,10 @@ prompt_yes_no() {
 install_qemu=false
 if prompt_yes_no "Do you want to install QEMU and related packages?"; then
 	# Install all necessary packages
-	sudo pacman -S virt-manager virt-viewer qemu-base edk2-ovmf ebtables \
+	sudo pacman -S --needed virt-manager virt-viewer qemu-base edk2-ovmf ebtables \
 		dnsmasq vde2 ebtables bridge-utils openbsd-netcat libguestfs libvirt
 
-	paru -S qemu-arch-extra-git
+	paru -S --needed qemu-arch-extra-git
 
 	install_qemu=true
 fi
@@ -67,21 +67,4 @@ if $install_qemu; then
 		echo "User added to kvm and libvirt groups"
 	fi
 
-	# Switch to the libvirt group (won't work)
-	#newgrp libvirt
-
-	# Additional message
-	echo "User is now in the libvirt group."
-
-	# Enable nested virtualization (optional)
-	if prompt_yes_no "Do you want to enable nested virtualization?"; then
-		sudo modprobe -r kvm_intel
-		sudo modprobe kvm_intel nested=1
-		echo "options kvm-intel nested=1" | sudo tee /etc/modprobe.d/kvm-intel.conf
-	fi
-
-	# Verify nested virtualization
-	echo "Verifying nested virtualization:"
-	systool -m kvm_intel -v | grep nested
-	cat /sys/module/kvm_intel/parameters/nested
 fi
