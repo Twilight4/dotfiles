@@ -1,0 +1,10 @@
+setspn.exe - default Windows binary which exists on all modern Windows systems. Can be used to query AD.
+
+Usage:
+  setspn -T <DOMAIN> -F -Q */*
+
+Options:
+  -T         perform querry on the specified domain
+  -F         perform queries at the AD forest, rather than domain level
+  -Q         execute on each target domain or forest
+  */*        everything
