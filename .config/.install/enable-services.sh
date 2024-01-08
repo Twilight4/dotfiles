@@ -65,6 +65,7 @@ services=(
 	paccache.timer
 	fstrim.timer
 	ananicy-cpp
+	NetworkManager
 	nohang
 	preload
 	tor
