@@ -208,6 +208,8 @@ packagesParu=(
 	"gitsome"
 	"cloneit-git"
 	"boxes"
+	"session-desktop"
+	"wire-desktop"
 	"sysz"
 	"shellcheck-bin"
 	"gitleaks"
