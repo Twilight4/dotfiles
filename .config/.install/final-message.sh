@@ -6,7 +6,7 @@ echo "------------------------------ AFTER REBOOT ------------------------------
 echo "Check if AMD P-State Preferred Core Handling is enabled with following command"
 echo '    cat /sys/devices/system/cpu/amd_pstate/prefcore'
 echo "Check Default Network for virt-manager status"
-echo "    Check status with: sudo virsh net-list --all"
+echo "    sudo virsh net-list --all"
 echo "Install more packages:"
 echo '    sudo npm install git-file-downloader cli-fireplace git-stats'
 echo "Check if profile sync daemon is running:"
