@@ -3,8 +3,6 @@
 # Post-install message
 echo "DONE, Please logout and reboot your system."
 echo "------------------------------ AFTER REBOOT ------------------------------"
-echo "Check if AMD P-State Preferred Core Handling is enabled with following command"
-echo '    cat /sys/devices/system/cpu/amd_pstate/prefcore'
 echo "Check Default Network for virt-manager status"
 echo "    sudo virsh net-list --all"
 echo "Install more packages:"
