@@ -15,5 +15,5 @@ echo "Add pub key to github: Settings > SSH > New:"
 echo '    ssh-keygen -t ed25519 -C "your_email@example.com"'
 echo "Clone relevant repos via SSH:"
 echo '    git clone --depth 1 git@github.com:Twilight4/dotfiles.git ~/desktop/workspace/dotfiles'
-echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents/'
+echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents/org'
 echo ""
