@@ -3026,7 +3026,7 @@ this with to-do items than with projects or headings."
                  (insert "#+date: " current-date "\n\n")
                  (write-file full-path)
                  full-path))))
-     "* Usernames\n* Email Address\n* Domain Name\n* IP Address\n* Images/Videos/Docs\n* Social Networks\n* Instant Messaging\n* People Search Engines\n* Dating\n* Telephone Numbers\n* Public Records\n* Business Records\n* Transportation\n* Geolocation Tools/Maps\n* Search Engines\n* Forums/Blogs/IRC\n* Archives\n* Language Translation\n* Metadata\n* Mobile Emulation\n* Terrorism\n* Dark Web\n* Digital Currency\n* Classifieds\n* Encoding/Decoding\n* Tools\n* Malicious File Analysis\n* Exploits & Advisories\n* Threat Intelligence\n* OpSec\n* Documentation\n* Training")
+     "* EPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools")
      ("ri" "Internal Pentest" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
@@ -3037,7 +3037,7 @@ this with to-do items than with projects or headings."
                  (insert "#+date: " current-date "\n\n")
                  (write-file full-path)
                  full-path))))
-     "* EPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools")
+     "* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools")
      ("rr" "Red Team Engagement" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
