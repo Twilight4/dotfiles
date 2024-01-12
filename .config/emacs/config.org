@@ -2802,9 +2802,11 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 ;; Doesn't affect anything since I use org-gtd package
 (setq org-agenda-files
       '("~/documents/org/agenda/org-gtd-tasks.org"
-        "~/documents/org/agenda/osint-workflow.org"
-        "~/documents/org/agenda/pentest-workflow.org"
-        "~/documents/org/agenda/redteam-workflow.org"))
+        "~/documents/org/agenda/wireless-workflow.org"
+        "~/documents/org/agenda/internal-pen-workflow.org"
+        "~/documents/org/agenda/external-pen-workflow.org"
+        "~/documents/org/agenda/social-engineering-workflow.org"
+        "~/documents/org/agenda/red-team-workflow.org"))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
