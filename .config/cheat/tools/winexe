@@ -1,3 +1,6 @@
+Winexe is a remote administration tool for Windows systems that runs on Linux, using this tool we can open up cmd on target system as SYSTEM if we are targeting a system where our user has elevated credentials.
+
+
 Options:
   --uninstall      uninstall our service on exit to not leave the trace on the target system
   --system         escalate to the SYSTEM user

@@ -25,6 +25,7 @@ alias sc='cd "$HOME/pictures/screenshots" ; clear ; fimg'
 alias pj='cd "$HOME/desktop/projects" ; clear'
 alias lpj='lsd --tree --hyperlink=auto ~/desktop/projects'
 alias ws='cd "$HOME/desktop/workspace" ; clear'
+alias meth='emacsclient -nw "$HOME/documents/org/roam/red-team/methodology.org"'
 
 # Enhancd: cd, cd-, cd <jump_to_dir>, .., .
 alias cd-="cd -"

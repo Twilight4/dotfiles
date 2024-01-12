@@ -1,3 +1,5 @@
+WMI is a set of specifications for accessing system configuration information across an enterprise. WMI allows admins to view processess, patches, hardware, and many other pieces of information about the target system.
+
 Windows Management Instrumentation (WMI) - port: 135
 WMI is Microsoft's implementation and also an extension of the Common Information Model (CIM), core 
 functionality of the standardized Web-Based Enterprise Management (WBEM) for the Windows platform.

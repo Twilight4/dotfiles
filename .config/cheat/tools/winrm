@@ -1,3 +1,5 @@
+WinRM is additional way to interact with Windows remotely. This tool supports HTTP and HTTPS as well as authentication-based on Basic Auth, hashes, and Kerberos. Along with the ability to do scrtipting with WMI-based interfaces, launch applications and interact with Powershell.
+
 Windows Remote Management (WinRM) - ports: 5985 (HTTP), 5986 (HTTPS)
 WinRM is a simple Windows integrated remote management protocol based on the command line
 
