@@ -3013,7 +3013,7 @@ this with to-do items than with projects or headings."
      ("re" "External Pentest Report" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/osint/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/external-pentest/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
@@ -3024,7 +3024,7 @@ this with to-do items than with projects or headings."
      ("ri" "Internal Pentest Report" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/network-pentest/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/internal-pentest/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
@@ -3032,10 +3032,10 @@ this with to-do items than with projects or headings."
                  (write-file full-path)
                  full-path))))
      "* EPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools")
-     ("ar" "Red Team" entry
+     ("ar" "Red Team Report" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/red-team/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/red-team-engagement/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
