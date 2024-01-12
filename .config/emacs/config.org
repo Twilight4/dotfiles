@@ -3036,7 +3036,7 @@ this with to-do items than with projects or headings."
                  (write-file full-path)
                  full-path))))
      "* EPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools")
-     ("rr" "Red Team" entry
+     ("rr" "Red Team Engagement" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
                     (full-path (concat "~/documents/org/projects/red-team-engagement/" filename ".org"))
@@ -3047,7 +3047,7 @@ this with to-do items than with projects or headings."
                  (write-file full-path)
                  full-path))))
      "* Red Team\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Physical Assessment\n\n* Social-Engineering")
-     ("rs" "Social Engineering" entry
+     ("rs" "Social Engineering Pentest" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
                     (full-path (concat "~/documents/org/projects/social-engineering-pentest/" filename ".org"))
@@ -3058,7 +3058,7 @@ this with to-do items than with projects or headings."
                  (write-file full-path)
                  full-path))))
      "* Social Engineering\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Physical Assessment\n\n* Social-Engineering")
-     ("rw" "Wireless" entry
+     ("rw" "Wireless Pentest" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
                     (full-path (concat "~/documents/org/projects/wireless-pentest/" filename ".org"))
