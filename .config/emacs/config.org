@@ -3011,12 +3011,9 @@ this with to-do items than with projects or headings."
      ("wr" "Red Team Engagement" entry (file "~/documents/org/agenda/red-team-workflow.org")
          "")
      ("ws" "Social Engineering Pentest" entry (file "~/documents/org/agenda/social-engineering-workflow.org")
-         "* NOW Social Engineering\n- [ ] [[id:88f783b1-fae0-49c2-95e3-913bd17cde7a][cloned-auth-pages]]\n- [ ] [[id:6d0dd6fe-f280-44eb-b417-ac999163b0c7][other-phishing-techniques]]- [ ] [[id:e0f65d77-a897-45f8-b0f1-cc5be581dbd0][se-mitigations]]")
+         "* NOW Social Engineering\n- [ ] [[id:88f783b1-fae0-49c2-95e3-913bd17cde7a][cloned-auth-pages]]\n- [ ] [[id:6d0dd6fe-f280-44eb-b417-ac999163b0c7][other-phishing-techniques]]\n- [ ] [[id:e0f65d77-a897-45f8-b0f1-cc5be581dbd0][se-mitigations]]")
      ("ww" "Wireless Pentest" entry (file "~/documents/org/agenda/wireless-workflow.org")
-         "* NOW Wireless
-- [[id:27212c56-9d60-4fc4-90ea-f568e67c0663][man-in-the-middle]]
-- [[id:f8c56377-9da5-4640-8a8f-9f79e505b55a][evil_twin]]
-")
+         "* NOW Wireless\n- [ ] [[id:27212c56-9d60-4fc4-90ea-f568e67c0663][man-in-the-middle]]\n- [ ] [[id:f8c56377-9da5-4640-8a8f-9f79e505b55a][evil_twin]]")
 
     ("r" "Report Template")
      ("re" "External Pentest" entry
