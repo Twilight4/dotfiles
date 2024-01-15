@@ -42,6 +42,6 @@ cd dotfiles
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
 |  **Fonts**                     | [Meslo / JetBrains Mono NF](https://www.nerdfonts.com/)    |
 |  **Media Player**              | [Mpv](https://mpv.io/)                                     | 
-|  **Fetch script**              | [Nitch](https://github.com/unxsh/nitch)                    |
+|  **Fetch Script**              | [Nitch](https://github.com/unxsh/nitch)                    |
 |  **Wallpaper Loader**          | [Swww](https://github.com/Horus645/swww)                   |
 |  **Wallpapers**                | [Twilight4/wallpapers](https://github.com/Twilight4/wallpapers)  |
