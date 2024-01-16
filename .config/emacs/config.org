@@ -2954,7 +2954,7 @@ and Minad’s lovely =org-modern= goes a long way in this regard.
 
 *** Org-agenda setup
 - =x=: Mark the current task as done.
-- =X=: Mark the current task as done and create a new task at the same level, taking advantage of the task template I’d previously created in =org-capture-templates=.
+- =X=: Mark the current task as done and create a new task at the same level, taking advantage of the capture template.
 - =N=: Create a new note or task at the current position.
 
 Make it easy to mark a task as done.
@@ -2966,13 +2966,6 @@ Make it easy to mark a task as done.
   (interactive "P")
   (org-agenda-todo "DONE")
   (org-agenda-redo-all))
-
-;; Macro for finishing tasks
-(fset 'do-habit-move
-  (kmacro-lambda-form [?x ?\C-n] 0 "%d"))
-
-;; Check the first morning routine habbits as done
-;(global-set-key (kbd "C-c m") (lambda () (interactive) (dotimes (_ 3) (do-habit-move))))
 #+end_src
 
 Make it easy to mark a task as done and create a follow-up task.
