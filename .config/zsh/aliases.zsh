@@ -205,6 +205,7 @@ alias net-pvpn-status="sudo protonvpn status"
 alias net-pvpn-connect-tcp="sudo protonvpn c -f"
 alias net-pvpn-connect-udp="sudo protonvpn c -f -p udp"
 alias net-disconnect="sudo protonvpn disconnect"
+alias net-adapter="inxi -Na"
 
 # Udiskie-umount
 alias ubackup='udiskie-umount $MEDIA/BACKUP'
