@@ -133,6 +133,7 @@ alias mpvadd='mpv --no-input-builtin-bindings --ytdl'
 alias mpvpl='mpv --no-input-builtin-bindings "$(yt-dlp -g --flat-playlist "$1")"'
 alias mpa='mpv --no-input-builtin-bindings --no-video'
 alias mpapl='mpv --no-input-builtin-bindings --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "$1")"'
+alias ytfzf-random='ytfzf -f -A -r -n 10'
 
 # Trans
 alias tre='trans en:pl'
