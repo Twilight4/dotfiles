@@ -208,6 +208,7 @@ alias net-pvpn-connect-udp="sudo protonvpn c -f -p udp"
 alias net-disconnect="sudo protonvpn disconnect"
 alias net-adapter="inxi -Na"
 alias net-lspci="lspci -nn | grep -i net"
+alias net-ps="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
 
 # Udiskie-umount
 alias ubackup='udiskie-umount $MEDIA/BACKUP'
@@ -218,7 +219,6 @@ alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  typ
 
 # Show current network connections to the server
 alias nethog='sudo nethogs'
-alias psnet="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
 alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort  | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
 alias ip='ip -color'
 alias wlo1='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
