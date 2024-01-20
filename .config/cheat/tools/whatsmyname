@@ -1,0 +1,7 @@
+Source: https://github.com/WebBreacher/WhatsMyName
+
+WhatsMyName is a tool designed to create website links on which a given username exists.
+To limit amount of websites or add them to the list for checking, edit web_accounts_list.json file
+
+Usage:
+  python3 web_accounts_list_checker.py -u <USERNAME>

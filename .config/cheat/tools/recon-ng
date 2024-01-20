@@ -51,3 +51,4 @@ Example Modules for business osint:
 Example Modules for people osint:
   hibp_breach            Checks haveibeenpwned website
   hibp_paste             Checks haveibeenpwned website
+  profiler_module        Uses whatsmyname tool
