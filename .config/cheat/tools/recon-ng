@@ -43,7 +43,11 @@ The modules are grouped under multiple categories, such as discovery, import, re
 Modules, which require a key, we can tell from the "*" under the "K" column. This requirement indicates that this module is not usable unless we have a key to use the related service.
 Other modules have dependencies, indicated by a "*" under the "D" column. Dependencies show that third-party Python libraries might be necessary to use the related module.
 
-Useful modules for business osint:
+Example Modules for business osint:
   metacrawler            Researches the website for microsoft, word, excel, pdf files
   whois_pocs             Creates a list of all known contacts for the domain
   mx_spf_ip              Researches information about email rules used by the domain
+
+Example Modules for people osint:
+  hibp_breach            Checks haveibeenpwned website
+  hibp_paste             Checks haveibeenpwned website
