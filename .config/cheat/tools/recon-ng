@@ -3,7 +3,7 @@ Recon-ng - OSINT gathering tool that allows you to automate information gatherin
 Commands:
   workspaces create WORKSPACE_NAME     Create a new workspace for your investigation
   recon-ng -w WORKSPACE_NAME           Starts recon-ng with the specific workspace
-  workspaces create WORKSPACE_NAME     List created workspaces
+  workspace list                       List created workspaces
   db schema                            Check the names of the tables in the database
   db insert DOMAIN.COM                 Insert the domain name into the domains table
 
