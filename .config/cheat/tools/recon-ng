@@ -1,9 +1,13 @@
 Recon-ng - OSINT gathering tool that allows you to automate information gathering in a metasploit-like tool with plugins
 
-Commands:
-  workspaces create WORKSPACE_NAME     Create a new workspace for your investigation
-  recon-ng -w WORKSPACE_NAME           Starts recon-ng with the specific workspace
-  workspace list                       List created workspaces
+Workspaces:
+  workspace create WORKSPACE_NAME     Create a new workspace for your investigation
+  recon-ng -w <WORKSPACE_NAME>        Starts recon-ng with the specific workspace
+  workspace list                      List created workspaces
+  workspace load <WORKSPACE_NAME>     Load existing workspace
+  workspace remove <WORKSPACE_NAME    Remove existing workspace
+
+SQLite Database:
   db schema                            Check the names of the tables in the database
   db insert DOMAIN.COM                 Insert the domain name into the domains table
 
@@ -21,6 +25,7 @@ Installed Modules:
   info                                 Review the loaded module’s info
   options list                         List the options that we can set for the loaded module
   options set OPTION VALUE             Set the value of the option
+  back                                 Exit the loaded module
   run                                  Run loaded module. When the module is run, it will read 
                                        that value from the database, get new kinds of
                                        information, and add them to the database in turn
