@@ -12,3 +12,13 @@ We can learn several things related to our search, such as:
   hosting company 
   geographic location 
   server type and version
+
+Search options:
+  city
+  country
+  geo
+  hostname
+  net
+  os
+  port
+  before/after
