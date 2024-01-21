@@ -6,3 +6,15 @@ USE THE TARGET'S IP ADDRESS AS THE NAME SERVER
 ZONE TRANSFERS ARE THE ONE WITH ADDRESS: 127.0.0.1
 If we manage to perform a successful zone transfer for a domain, there is no need to 
 continue enumerating this particular domain as this will extract all the available information.
+
+Identifying nameservers:
+  nslookup -type=NS <ZONETRANSFER_ME>
+
+Identifying nameservers 2:
+  nslookup -type=NS <ZONETRANSFER_ME> <IP_ADDRESS>
+
+Testing for ANY and AXFR Zone Transfer:
+  nslookup -type=any -query=AXFR <ZONETRANSFER_ME> <NSZTM1_DIGI_NINJA>
+
+Testing for ANY and AXFR Zone Transfer 2:
+  nslookup -type=any -query=AXFR <ZONETRANSFER_ME> <IP_ADDRESS>
