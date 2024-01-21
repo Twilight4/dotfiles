@@ -1,3 +1,9 @@
+Usage
+ github-subdomains -t <STRING> -d twitch.tv > twitch.tv
+
+Usage 2:
+  cat twitch.tv | wc -l
+
 Options:
   -d string
     	domain you are looking for (required)
