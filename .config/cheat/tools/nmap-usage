@@ -1,0 +1,41 @@
+Scan network range:
+  sudo nmap <TARGET_IP/24> -sn -oA tnet | grep for | cut -d" " -f5
+
+Scan IP List:
+  sudo nmap -sn -oA tnet -iL <HOSTS_TXT> | grep for | cut -d" " -f5
+
+Scan Multiple IPs:
+  sudo nmap -sn -oA tnet <TARGET_IP_1> <TARGET_IP_2> <TARGET_IP_3> | grep for | cut -d" " -f5
+
+Define the range in the respective octet:
+  sudo nmap -sn -oA tnet <TARGET_IP_1-20> | grep for | cut -d" " -f5
+
+Scan Single IP - determine if host is alive or not:
+  sudo nmap <TARGET_IP> -sn -oA host -PE --reason
+
+Disable ARP requests and scan our target with the desired ICMP echo requests:
+  sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping
+
+UDP Port Scan:
+  sudo nmap <TARGET_IP> -sU -Pn -n --disable-arp-ping --packet-trace -p 137 --reason
+
+Version Scan:
+  sudo nmap <TARGET_IP> -Pn -n --disable-arp-ping --packet-trace -p 445 --reason -sV
+
+Nmap Scripting Engine (NSE):
+  sudo nmap <TARGET_IP> -sC
+
+Aggressive Scan:
+  sudo nmap <TARGET_IP> -p 80 -A
+
+ACK-Scan:
+  sudo nmap <TARGET_IP> -p 21,22,25 -sA -Pn -n --disable-arp-ping --packet-trace
+
+Scan by Using Decoys:
+  sudo nmap <TARGET_IP> -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
+
+Scan by Using Different Source IP:
+  sudo nmap <TARGET_IP> -n -Pn -p 445 -O -S 10.129.2.200 -e tun0
+
+SYN-Scan From DNS Port:
+  sudo nmap <TARGET_IP> -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
