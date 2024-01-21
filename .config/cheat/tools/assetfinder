@@ -1,0 +1,4 @@
+Usage:
+  assetfinder <DOMAIN> > <DOMAIN>-subdomains.txt
+  cat subdomains.txt | grep <DOMAIN> > <DOMAIN>-subdomains.txt
+  cat subdomains.txt | wc -l 
