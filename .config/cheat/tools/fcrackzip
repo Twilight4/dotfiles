@@ -4,6 +4,9 @@ Source: https://www.kali.org/tools/fcrackzip/
 Usage:
   fcrackzip [options] [file.zip]
 
+Crack the password-protected zip file:
+  fcrackzip -v -u -D -p <WORDLIST> <FILE_ZIP>
+
 Example Usage:
   fcrackzip -v -u -D  -p /usr/share/wordlists/rockyou.txt save.zip
 
