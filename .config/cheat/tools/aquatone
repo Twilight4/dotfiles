@@ -6,3 +6,6 @@ Chrome browser, and taking and screenshot.
 
 When it finishes, we will have a file called aquatone_report.html where we
 can see screenshots, technologies identified, server response headers, and HTML.
+
+Use cat in our subdomain list and pipe the command to aquatone via:
+  cat <LIST_AQUATONE> | aquatone -out ./aquatone -screenshot-timeout 1000
