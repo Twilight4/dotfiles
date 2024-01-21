@@ -1,12 +1,33 @@
 Usage:
   amass [commands] [options]
 
+ASN Enumeration
+  amass intel -asn 46489
+
+Subdomain Scraping
+  amass enum -d <DOMAIN>
+
+Active Scanning
+  amass enum -active -brute -o target.txt -d <DOMAIN>
+
+Validate urls
+  cat domains.txt | httprobe
+
+1. Check waybackmachine and valid urls from the output 
+  cat domains.txt | waybackurls > yahoo-urls
+
+2. Check waybackmachine and valid urls from the output 
+  cat yahoo-urls | httprobe -t 1000
+
+Subdomain bruting
+  amass enum -brute -d <DOMAIN> -src
+
 Commands: 
   amass intel   Discover targets for enumerations
-	amass enum    Perform enumerations and network mapping
-	amass viz     Visualize enumeration results
-	amass track   Track differences between enumerations
-	amass db      Manipulate the Amass graph database
+  amass enum    Perform enumerations and network mapping
+  amass viz     Visualize enumeration results
+  amass track   Track differences between enumerations
+  amass db      Manipulate the Amass graph database
 
 Options:
   -h	Show the program usage message
