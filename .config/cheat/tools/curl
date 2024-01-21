@@ -1,0 +1,14 @@
+Banner Grabbing / Web Server Headers
+  curl -IL <url_com>
+
+To download a file over FTP
+  curl -u <username>:<password> -O ftp://example.com/pub/file.zip
+
+To get an FTP directory listing
+  curl ftp://<username>:<password@example_com>
+
+To fetch only the HTTP headers from a response
+  curl -I <url>
+
+To get your global IP
+  curl httpbin.org/ip
