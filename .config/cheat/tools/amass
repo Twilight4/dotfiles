@@ -13,13 +13,13 @@ Active Scanning:
 Validate urls:
   cat domains.txt | httprobe
 
-1. Check waybackmachine and valid urls from the output 
+1. Check waybackmachine and valid urls from the output:
   cat domains.txt | waybackurls > yahoo-urls
 
-2. Check waybackmachine and valid urls from the output 
+2. Check waybackmachine and valid urls from the output:
   cat yahoo-urls | httprobe -t 1000
 
-Subdomain bruting
+Subdomain brute-force:
   amass enum -brute -d <DOMAIN> -src
 
 Commands: 
