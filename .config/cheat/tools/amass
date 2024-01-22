@@ -1,10 +1,10 @@
 Usage:
   amass [commands] [options]
 
-ASN Enumeration
+ASN Enumeration:
   amass intel -asn 46489
 
-Subdomain Scraping
+Subdomain Scraping:
   amass enum -d <DOMAIN>
 
 Active Scanning
