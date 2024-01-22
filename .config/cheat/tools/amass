@@ -7,10 +7,10 @@ ASN Enumeration:
 Subdomain Scraping:
   amass enum -d <DOMAIN>
 
-Active Scanning
+Active Scanning:
   amass enum -active -brute -o target.txt -d <DOMAIN>
 
-Validate urls
+Validate urls:
   cat domains.txt | httprobe
 
 1. Check waybackmachine and valid urls from the output 
