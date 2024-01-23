@@ -7,4 +7,3 @@ Options:
   -w    Write the contents to a file.
   -m 5  Gathers strings (words) that are 5 characters or more
   -d 5  Depth level of web crawling/spidering (default 2)
-  URL   URL that will be used
