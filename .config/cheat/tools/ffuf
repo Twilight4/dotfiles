@@ -1,5 +1,5 @@
 Usage:
-  ffuf -c -v -t XX -w <WORDLIST_TXT> -u <DOMAIN_COM>
+  ffuf -c -v -t XX -w <WORDLIST> -u <DOMAIN>
 
 Fuzzing for subdirectories:
   ffuf -w <WORDLIST> -u <URL> -p 2 -fc 301
