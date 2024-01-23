@@ -14,7 +14,7 @@ SMB shell commands:
 
 SMB Enumeration:
   See if our interesting share has been configured to allow anonymous access,
-  I.E it doesn't require authentication to view the files. We can do this easily by:
+  i.e it doesn't require authentication to view the files. We can do this easily by:
     using the username "Anonymous" (-U Anonymous)
     connecting to the share we found during the enumeration stage
     not supplying a password
