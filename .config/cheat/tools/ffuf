@@ -1,23 +1,23 @@
 Usage:
   ffuf -c -v -t XX -w <WORDLIST_TXT> -u <DOMAIN_COM>
 
-Fuzzeing for subdrictories:
-  ffuf -w <WORDLIST_TXT> -u <URL> -p 2 -fc 301
+Fuzzing for subdirectories:
+  ffuf -w <WORDLIST> -u <URL> -p 2 -fc 301
 
 Fuzz host-[H]eaders with a host file on a target website and [m]atch HTTP 200 [c]ode responses:
   ffuf -w <HOSTS_TXT> -u <URL> -H "Host: FUZZ" -mc 200
 
 Fuzz POST method with POST [d]ata of password on a target website and [f]ilter out HTTP response [c]ode 401:
-  ffuf -w <WORDLIST_TXT> -X POST -d "username=admin\&password=FUZZ" -u <URL> -fc 401
+  ffuf -w <WORDLIST> -X POST -d "username=admin\&password=FUZZ" -u <URL> -fc 401
 
 Discover subdomains using a subdomain list on a target website:
-  ffuf -w <WORDLIST_TXT> -u <URL> -H "Host: FUZZ.website.com"
+  ffuf -w <WORDLIST> -u <URL> -H "Host: FUZZ.website.com"
 
 Options:
--fc 301   doesn't show 301 errors
--p        seconds of `delay` between requests, or a range of random delay.
--mc       match HTTP status codes, or "all" for everything.
--c        colorize output.
--t        number of concurrent threads. (default: 40)
--X        HTTP method to use.
--H        header `"Name: Value"`, separated by colon.
+  -fc 301   doesn't show 301 errors
+  -p        seconds of `delay` between requests, or a range of random delay.
+  -mc       match HTTP status codes, or "all" for everything.
+  -c        colorize output.
+  -t        number of concurrent threads. (default: 40)
+  -X        HTTP method to use.
+  -H        header `"Name: Value"`, separated by colon.
