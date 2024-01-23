@@ -1,7 +1,7 @@
 Cewl - create custom password lists from the target website
 
 Commands:
-  cewl -w list.txt -d 5 -m 5 URL
+  cewl -w list.txt -d 5 -m 5 <DOMAIN>
 
 Options:
   -w    Write the contents to a file.
