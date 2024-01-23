@@ -3,10 +3,3 @@ Source: https://github.com/sullo/nikto
 
 Usage:
   nikto -h <TARGET_IP>
-
-Commands:
-
-Options:
-
-Informational:
-
