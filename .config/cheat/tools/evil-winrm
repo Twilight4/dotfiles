@@ -10,6 +10,3 @@ Options:
   -H, --hash HASH                  NTHash
   -e                               Specify a location to pull binaries from. 
   -s                               Specify a script directory location
-
-Informational:
-

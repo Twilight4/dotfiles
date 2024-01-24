@@ -8,7 +8,7 @@ Crack the password-protected zip file:
   fcrackzip -v -u -D -p <WORDLIST> <FILE_ZIP>
 
 Example Usage:
-  fcrackzip -v -u -D  -p /usr/share/wordlists/rockyou.txt save.zip
+  fcrackzip -v -u -D -p /usr/share/wordlists/rockyou.txt save.zip
 
 Options:
   -v   Verbose
