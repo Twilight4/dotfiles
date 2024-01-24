@@ -1,23 +1,23 @@
 github could leak information about configuration, interfaces, IP addresses, domains etc. Infrastructure as code tools like:
-- CloudFormation
-- Ansible
-- Puppet
-- Chef
-- SaltStack
+  - CloudFormation
+  - Ansible
+  - Puppet
+  - Chef
+  - SaltStack
 also generate useful code that can be ontained and analyzed.
 
 1. scan entire git history
-gitleaks detect --source . -v
+  gitleaks detect --source . -v
 
 2. bfg - deleting commits
-bfg --delete-files filename.json
+  bfg --delete-files filename.json
 
 3. after cleaning it's recommended to run reflog expire to remove expired entries from reflog
-git reflog expire --expire=now --all && git gc --prune=now --aggressive
+  git reflog expire --expire=now --all && git gc --prune=now --aggressive
 
 4. to not pull the changes back in your computer and push and overwrite the existing one use this command
-git push origin +main --force
+  git push origin +main --force
 
 Options:
--v              verbose
--v report.json  export to file
+  -v              verbose
+  -v report.json  export to file
