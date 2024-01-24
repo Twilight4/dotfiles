@@ -1,9 +1,9 @@
-Nessus - Proprietary vulnerability scanner
+Nessus is a proprietary vulnerability scanner
 Installation: https://wiki.archlinux.org/title/Nessus
 Pricing: https://www.tenable.com/products/nessus
 
 Installation:
-  yay -S nessus
+  paru -S nessus
   sudo systemctl enable --now nessusd.service
   https://localhost:8834   Visit this site
   https://www.tenable.com/products/nessus/activation-code
