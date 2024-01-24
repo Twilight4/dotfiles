@@ -1,0 +1,30 @@
+Perfect help page for example pattern
+DISCLAIMER: any other strings you add will not be colorized
+
+Usage: 
+  awesometool [options] [command] [args]
+
+Options:
+  -h, --help string       Show this message and exit
+  -v, --version stuff     Display the version of AwesomeTool
+  -c, --completed, --command   *TAB* if there is no space left
+  -g, --gone              Very simple stuff, if a comment description is
+                          too long then write underneath it so it looks
+                          even nicer when you always end in the same
+                          spot
+  -f, --file filename     Specify a custom file to store your to-do list
+
+Commands:
+  add                     Add a new task to the to-do list
+  list                    Display the current to-do list
+  complete                Mark a task as completed
+  remove                  Remove a task from the list
+  clear                   Clear all completed tasks from the list
+
+Other:                    Uppercase: - green color
+  BIG_LETTERS             Purple color
+  -f, --flag              Blue color
+  -f, --flag string       Blue color with purple argument
+  word                    Yellow color
+
+Use "awesometool [command] --help" for more information about a command
