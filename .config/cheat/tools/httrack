@@ -1,0 +1,20 @@
+Httrack - tool to clone auth pages
+Source: https://www.httrack.com/
+
+Usage:
+  tool [commands] [options]
+
+Example Usage:
+
+Commands:
+  -mirror       creates almost identical copy of the website
+  -update       updates copy of existing website
+  -continue     continues creating mirror copy of a website, if the process was interrupted or stopped
+  -skeleton     copies only HTML files of the website
+  -O            Output file
+
+Options:
+
+Informational:
+  The bigger website the longer it takes to mirror it using -mirror flag and its easier to catch and block by a company, but it's more solid.
+  If you don't care about obstructiveness of the website, use --skeleton flag.
