@@ -5,15 +5,14 @@ Usage:
   tool [commands] [options]
 
 Example Usage:
+  httrack --skeleton https://nostarch.com/user/
 
-Commands:
+Options:
   -mirror       creates almost identical copy of the website
   -update       updates copy of existing website
   -continue     continues creating mirror copy of a website, if the process was interrupted or stopped
   -skeleton     copies only HTML files of the website
   -O            Output file
-
-Options:
 
 Informational:
   The bigger website the longer it takes to mirror it using -mirror flag and its easier to catch and block by a company, but it's more solid.
