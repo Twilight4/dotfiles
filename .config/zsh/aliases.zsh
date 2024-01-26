@@ -97,7 +97,7 @@ alias lsall="lspci"
 # Rust replacements
 alias cp='xcp -v'
 alias http='xh'                # Curl replacement
-alias httpd='http --download'  # Uses xh alias first if installed
+#alias httpd='http --download'  # Uses xh alias first if installed
 #alias bat='bat --color=always --paging=never --theme OneHalfDark'
 alias bat='bat --style header --style snip --style changes --style header'
 alias catl='bat --color=always --paging=never -l log'
