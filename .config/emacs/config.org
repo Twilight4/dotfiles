@@ -3076,7 +3076,7 @@ this with to-do items than with projects or headings."
                  (insert "#+date: " current-date "\n\n")
                  (write-file full-path)
                  full-path))))
-     "* Statement of Work\n- Nazwa organizacji namierzanej:\n- Punkt kontaktowy organizacji:\n- Nazwa/tytul twoich dzialan:\n- Operacje, o ktore prosi Twoj klient: (e.g. OSINT, phishing, vishing, operacje na terenie obiektu, operacje fizyczne, baiting, dumpster diving)\n- Harmonogram dzialan:\n- Godziny przewidziane w budzecie:\n- Stawka:\n- Szacunkowa wartosc prac:\n\n**")
+     "* Statement of Work\n- Nazwa organizacji namierzanej:\n- Punkt kontaktowy organizacji:\n- Nazwa/tytul twoich dzialan:\n- Operacje, o ktore prosi Twoj klient: (e.g. OSINT, phishing, vishing, operacje na terenie obiektu, operacje fizyczne, baiting, dumpster diving)\n- Harmonogram dzialan:\n- Godziny przewidziane w budzecie:\n- Stawka:\n- Szacunkowa wartosc prac:\n\n**TODO Kwestie prawne checklist\n- [ ] Upewnij sie, ze umowa i wykaz prac do zrealizowania wymieniaja w miare mozliwosci firme i wszystkich testerow\n- [ ] Upewnij sie, ze polisa ubezpieczeniowa od bledow i zaniechan E&O jest wazna i spelnia wymagania umowy zawartej z twoim klientem\n- [ ] Upewnij sie, ze osoba upowazniajace cie do dzialania jest do tego upowazniona lub uprawniona\n- [ ] Twoj radca prawny przejrzal wykaz prac do zrealizowania i umowe\n\n** Rozmiar i wyniki dzialan")
 
 
 (setq org-gtd-capture-templates
