@@ -3065,6 +3065,20 @@ this with to-do items than with projects or headings."
                  full-path))))
      "* Wireless\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Physical Assessment\n\n* Social-Engineering")))
 
+    ("r" "Statement of Work Template")
+     ("rs" "Social Engineering Pentest" entry
+      (file (lambda ()
+             (let* ((filename (read-string "Enter filename: "))
+                    (full-path (concat "~/documents/org/projects/social-engineering-pentest/" filename ".org"))
+                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
+               (with-temp-buffer
+                 (insert "#+title: " filename "\n")
+                 (insert "#+date: " current-date "\n\n")
+                 (write-file full-path)
+                 full-path))))
+     "")
+
+
 (setq org-gtd-capture-templates
   `(("t" "Todo" entry (file "~/documents/org/agenda/inbox.org")
          "* TODO %?\n  %U\n\n  %i" :empty-lines 1 :kill-buffer t)
