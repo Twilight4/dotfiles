@@ -153,8 +153,6 @@ alias cpu-reset='sudo auto-cpufreq --force=reset'
 alias omen-status='sudo systemctl status omen-performance-fix.service'
 alias cpu-temp='sensors zenpower-pci-00c3'     # Check CPU thermals
 alias fans='sensors hp-isa-0000'              # Check Cooling fan speed
-alias fan-boost-on='echo 0 > /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable'
-alias fan-boost-off='echo 2 > /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable'
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
