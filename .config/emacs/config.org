@@ -3076,7 +3076,7 @@ this with to-do items than with projects or headings."
                  (insert "#+date: " current-date "\n\n")
                  (write-file full-path)
                  full-path))))
-     "")
+     "* Statement of Work\n- Nazwa organizacji namierzanej:\n- Punkt kontaktowy organizacji:\n- Nazwa/tytul twoich dzialan:\n- Operacje, o ktore prosi Twoj klient: (e.g. OSINT, phishing, vishing, operacje na terenie obiektu, operacje fizyczne, baiting, dumpster diving)\n- Harmonogram dzialan:\n- Godziny przewidziane w budzecie:\n- Stawka:\n- Szacunkowa wartosc prac:\n\n**")
 
 
 (setq org-gtd-capture-templates
