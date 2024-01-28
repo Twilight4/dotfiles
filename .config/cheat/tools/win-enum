@@ -46,10 +46,10 @@ Some of the information we are interested in gathering include:
   Hunting for credentials (saved on web browsers or client applications)
 
 Domain Name System (DNS):
-  dig -t AXFR DOMAIN_NAME @DNS_SERVER                  If we can get a “copy” of all the records that a DNS server is responsible
-                                                       for answering, we might discover hosts we didn’t know existed.
-                                                       Depending on the DNS server configuration, DNS zone transfer might be restricted.
-                                                       If it is not restricted, it should be achievable using the herein command.
+  dig -t AXFR DOMAIN_NAME @DNS_SERVER         If we can get a “copy” of all the records that a DNS server is responsible
+                                              for answering, we might discover hosts we didn’t know existed.
+                                              Depending on the DNS server configuration, DNS zone transfer might be restricted.
+                                              If it is not restricted, it should be achievable using the herein command.
                                                        
 Options:
   -t AXFR     Indicates that we are requesting a zone transfer,
