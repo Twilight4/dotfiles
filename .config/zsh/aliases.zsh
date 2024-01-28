@@ -140,6 +140,10 @@ alias ytfzf-random='ytfzf -f -A -r -n 10'
 alias tre='trans en:pl'
 alias trp='trans pl:en'
 
+# Wifi
+alias wifi-on='nmcli r wifi on'
+alias wifi-off='nmcli r wifi off
+
 # Check CPU mitigations vulnerabilities in microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 
@@ -153,6 +157,7 @@ alias cpu-reset='sudo auto-cpufreq --force=reset'
 alias omen-status='sudo systemctl status omen-performance-fix.service'
 alias cpu-temp='sensors zenpower-pci-00c3'     # Check CPU thermals
 alias fans='sensors hp-isa-0000'              # Check Cooling fan speed
+#other scripts - run as root: fan-boost-on fan-boost-off omen-keyboard
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
