@@ -198,6 +198,7 @@ packagesParu=(
 	"checkupdates-with-aur"
 	"nohang-git"
 	"cliphist"
+	"authenticator"
 	"cheat-bin"
 	"tabbed-git"
 	"betterlockscreen"
