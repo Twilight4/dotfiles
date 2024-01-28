@@ -6,10 +6,10 @@ UACME-Akagi64.exe 33     If you want to test for method 33, you can do the follo
                          from a command prompt, and a high integrity cmd.exe will pop up
 
 Options:
-33   	fodhelper.exe
-34  	DiskCleanup scheduled task
-70  	fodhelper.exe using CurVer registry key
-A complete list of methods is available on the project's GitHub description
+  33     fodhelper.exe
+  34     DiskCleanup scheduled task
+  70     fodhelper.exe using CurVer registry key
+         A complete list of methods is available on the project's GitHub description
 
 Informational:
 UACME provides several tools, i.e. UACME-Akagi64.exe runs the actual UAC bypasses
