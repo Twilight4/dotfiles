@@ -1,5 +1,5 @@
 Usage:
-  ytfzf <option> <search>
+  ytfzf <OPTION> <SEARCH>
 
 Options:
   -a                      Automatically select the first video
