@@ -8,5 +8,5 @@ Classic:
   whatweb -a3 <TARGET_DOMAIN> -v
 
 Options:
--a3  Aggression level of 3
--v   Verbose output
+  -a3  Aggression level of 3
+  -v   Verbose output
