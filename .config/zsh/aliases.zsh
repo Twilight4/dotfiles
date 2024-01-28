@@ -142,7 +142,7 @@ alias trp='trans pl:en'
 
 # Wifi
 alias wifi-on='nmcli r wifi on'
-alias wifi-off='nmcli r wifi off
+alias wifi-off='nmcli r wifi off'
 
 # Check CPU mitigations vulnerabilities in microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
