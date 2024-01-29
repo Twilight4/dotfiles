@@ -61,6 +61,7 @@ alias ping="prettyping -c 3"
 alias pg='prettyping -c 3 8.8.8.8'
 #alias less="less -R"   # have function as 'less'
 alias kill='killall -q'
+alias fkill='~/.config/zsh/fzf-scripts/fkill'
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
