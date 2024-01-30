@@ -2,4 +2,4 @@ Goclone - Website Cloner - Utilizes powerful Go routines to clone websites to yo
 Source: https://github.com/imthaghost/goclone
 
 Usage:
-  goclone <url>
+  goclone <TARGET_DOMAIN>
