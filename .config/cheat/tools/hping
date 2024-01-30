@@ -5,7 +5,7 @@ Manual or tool-assisted packet creation can allow you to send packets that other
 - replaying packets
 
 # sending SYN packets to a remote system using =hping= 
-  hping  -S -V targetsite.com -p 8080
+  hping -S -V targetsite.com -p 8080
 
 
 other popular tools include =Scapy=, =Yersinia=, and even =Netcat=

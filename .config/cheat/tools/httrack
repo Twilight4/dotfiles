@@ -8,10 +8,10 @@ Example Usage:
   httrack --skeleton https://nostarch.com/user/
 
 Options:
-  -mirror       creates almost identical copy of the website
-  -update       updates copy of existing website
-  -continue     continues creating mirror copy of a website, if the process was interrupted or stopped
-  -skeleton     copies only HTML files of the website
+  --mirror       creates almost identical copy of the website
+  --update       updates copy of existing website
+  --continue     continues creating mirror copy of a website, if the process was interrupted or stopped
+  --skeleton     copies only HTML files of the website
   -O            Output file
 
 Informational:
