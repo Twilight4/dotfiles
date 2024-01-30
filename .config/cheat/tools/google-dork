@@ -8,10 +8,10 @@ Commands:
 
 Examples:
   site      site:example.com
-  -site     -site:example.com 	
-	inurl     inurl:admin
-	filetype  filetype:pdf
-	intitle   intitle:admin
+  -site     -site:example.com
+      inurl     inurl:admin
+	  filetype  filetype:pdf
+	  intitle   intitle:admin
   ""        "search phrase"  
 
 Examples of confidential information extracted by search engines include:
