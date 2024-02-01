@@ -43,6 +43,17 @@ h() {
     "$@" --help 2>&1 | bat --plain --language=help
 }
 
+# Simplify trans command
+tre() {
+  result=$(command trans en:pl "$*")
+  echo "\"$result\""
+}
+
+trp() {
+  result=$(command trans pl:en "$*")
+  echo "\"$result\""
+}
+
 # Prettify org mode files output
 cato() {
 	sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' "$@" | command bat --language=org --style=plain --color=always
