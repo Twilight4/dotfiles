@@ -136,10 +136,6 @@ alias mpa='mpv --no-input-builtin-bindings --no-video'
 alias mpapl='mpv --no-input-builtin-bindings --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "$1")"'
 alias ytfzf-random='ytfzf -f -A -r -n 10'
 
-# Trans
-alias tre='trans en:pl'
-alias trp='trans pl:en'
-
 # Wifi
 alias wifi-on='nmcli r wifi on'
 alias wifi-off='nmcli r wifi off'
