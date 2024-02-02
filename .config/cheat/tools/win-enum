@@ -1,11 +1,11 @@
 Windows Enumeration techniques using cmd terminal for Red Team Operations
 
 System:
-   systeminfo           Systeminfo can read: Hostname, OS Version, which hotfixes have been installed
-   wmic qfe get Caption, Description   
-                        Check installed updates
-   net start            Check the installed and started Windows services
-   wmic product get name,version,vendor
+  systeminfo           Systeminfo can read: Hostname, OS Version, which hotfixes have been installed
+  wmic qfe get Caption, Description   
+                       Check installed updates
+  net start            Check the installed and started Windows services
+  wmic product get name,version,vendor
                         If you are only interested in installed apps
 
 Users:
