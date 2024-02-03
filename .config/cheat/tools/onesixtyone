@@ -1,6 +1,6 @@
 SNMP sweep usually requires internal access to a network, but it can be valuable once you have penetrated the exterior defenses of an organization. Conducting *SNMP Sweep* requires you to acquire the *community string* used by the network devices, and a lack of response from a system does not main there isn't a system at that IP address, there are four possible reasons a lack of response may occur:
-  - you may have the wrong community string
-  - the system may be unreachable (firewalled or offline)
-  - the SNMP server service may not be running
-  - SNMP uses UDP is working against you and the response wasn't
-    received yet (and may never be received at all)
+  you may have the wrong community string
+  the system may be unreachable (firewalled or offline)
+  the SNMP server service may not be running
+  SNMP uses UDP is working against you and the response wasn't
+  received yet (and may never be received at all)
