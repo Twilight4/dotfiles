@@ -1,8 +1,8 @@
 Usefull information from the nmap scan:
-  - hostname 
-  - database instance name 
-  - software version of MSSQL 
-  - named pipes are enabled
+  hostname 
+  database instance name 
+  software version of MSSQL 
+  named pipes are enabled
 
 # Metasploit - auxiliary scanner called mssql_ping that will scan the MSSQL service and provide helpful information in our footprinting process
 # MSSQL Ping in Metasploit
