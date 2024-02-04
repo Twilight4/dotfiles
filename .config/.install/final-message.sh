@@ -10,7 +10,7 @@ echo '    sudo npm install git-file-downloader cli-fireplace git-stats'
 echo "3. Check if profile sync daemon is running:"
 echo '    psd p'
 echo "4. Set up browser settings"
-echo "Import the ~/.config/superProductivity/config.json in: Settings > Sync & Export > Import From File"
+echo "5. Import the ~/.config/superProductivity/config.json in: Settings > Sync & Export > Import From File"
 echo "Add pub key to github: Settings > SSH > New:"
 echo '    ssh-keygen -t ed25519 -C "your_email@example.com"'
 echo "Clone relevant repos via SSH:"
