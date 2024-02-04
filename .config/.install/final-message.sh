@@ -7,7 +7,7 @@ echo "1. Check Default Network for virt-manager status"
 echo "    sudo virsh net-list --all"
 echo "2. Install more packages:"
 echo '    sudo npm install git-file-downloader cli-fireplace git-stats'
-echo "Check if profile sync daemon is running:"
+echo "3. Check if profile sync daemon is running:"
 echo '    psd p'
 echo "Set up browser settings"
 echo "Import the ~/.config/superProductivity/config.json in: Settings > Sync & Export > Import From File"
