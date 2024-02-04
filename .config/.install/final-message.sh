@@ -3,7 +3,7 @@
 # Post-install message
 echo "DONE, Please logout and reboot your system."
 echo "------------------------------ AFTER REBOOT ------------------------------"
-echo "Check Default Network for virt-manager status"
+echo "1. Check Default Network for virt-manager status"
 echo "    sudo virsh net-list --all"
 echo "Install more packages:"
 echo '    sudo npm install git-file-downloader cli-fireplace git-stats'
