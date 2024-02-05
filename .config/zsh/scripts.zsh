@@ -485,12 +485,12 @@ pom() {
     bc <<< "(($HOURS * 60) + $MINUTES) / $POMODORO_DURATION"
 }
 
-# Display the time for the prompt to appear when opening a new zsh instance. - promptspeed
+# Display the time for the prompt to appear when opening a new zsh instance - promptspeed
 promptspeed() {
     for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
 }
 
-# Display all autocompleted command in zsh, First column: command name Second column: completion function - zshcomp 
+# Display all autocompleted command in zsh, First column: command name Second column: completion function
 zshcomp() {
     for command completion in ${(kv)_comps:#-*(-|-,*)}
     do
