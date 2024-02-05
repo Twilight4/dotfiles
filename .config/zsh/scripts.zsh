@@ -476,7 +476,7 @@ reposize() {
   | numfmt --to=iec --from-unit=1024
 }
 
-# Calculate number of pomodoro done for a specific time in hour(s) and minute(s). -pom <hours> <minutes> <duration=25>
+# Calculate number of pomodoro done for a specific time in hour(s) and minute(s) - pom <hours> <minutes> <duration=25>
 pom() {
     local -r HOURS=${1:?}
     local -r MINUTES=${2:-0}
