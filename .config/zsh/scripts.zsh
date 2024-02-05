@@ -540,11 +540,12 @@ mdrender() {
     xdg-open "$HTMLFILE"
 }
 
-# Display command cheatsheet from cheat.sh. - cheat <command>
+# Display command cheatsheet from cheat.sh - cheat <command>
 cht() {
     curl cheat.sh/$1
 }
 
+# Backup directories from dir.csv to cloud directory
 backup() {
     "$XDG_CONFIG_HOME/.local/bin/backup/backup.sh" "$@" "$XDG_CONFIG_HOME/.local/bin/backup/dir.csv"
 }
