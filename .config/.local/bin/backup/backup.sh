@@ -6,8 +6,7 @@
 # x - output each line (debug)
 set -uo pipefail
 
-function output-help()
-{
+function output-help() {
     echo "Usage :  $0 [options] [--]
 
     Options:
