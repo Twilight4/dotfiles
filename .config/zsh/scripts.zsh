@@ -503,6 +503,7 @@ path() {
     echo $PATH | tr ':' '\n'
 }
 
+# Create new git repository
 gitnewrepo() { 
 	mkdir "$*" && cd "$*" && git init && hub create && touch README.md && echo "# " "$*" >>README.md && git add . && git commit -m "init" && git push -u origin HEAD; 
 }
