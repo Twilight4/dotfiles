@@ -464,7 +464,7 @@ pass() {
     cat /dev/random | tr -dc '[:graph:]' | head -c$size
 }
 
-# Calculate repo size
+# Calculate repo size - reposize <URL>
 reposize() {
   url=`echo $1 \
     | perl -pe 's#(?:https?://github.com/)([\w\d.-]+\/[\w\d.-]+).*#\1#g' \
