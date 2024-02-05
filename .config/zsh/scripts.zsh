@@ -453,11 +453,6 @@ historystat() {
     history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
 }
 
-# Connect my NAS to $HOME/Network
-nas() {
-    sshfs -o idmap=user,default_permissions nas:/share ~/Network
-}
-
 # Launch a program in a terminal without getting any output,
 gtfo() {
     "$@" &> /dev/null & disown
