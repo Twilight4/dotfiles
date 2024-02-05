@@ -380,7 +380,7 @@ mkcd() {
 
 
 # Configure cd on quit for nnn
-n () {
+n() {
     # Block nesting of nnn in subshells
     if [[ "${NNNLVL:-0}" -ge 1 ]]; then
         echo "nnn is already running"
