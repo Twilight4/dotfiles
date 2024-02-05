@@ -411,7 +411,7 @@ n() {
 }
 
 # Backup all files in cwd
-back() {
+backall() {
     for file in "$@"; do
         cp "$file" "$file".bak
     done
