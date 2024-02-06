@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Function to check if 'mercury' process is running
-is_mercury_running() {
-	pgrep -a "mercury" | grep -i 'work' >/dev/null
+# Function to check if 'mullvad' process is running
+is_mullvad_running() {
+	pgrep -a "mullvad" | grep -i 'work' >/dev/null
 }
 
-# Focus on ws "3" if 'mercury-browser' is not running, else just focus
-if ! is_mercury_running; then
-    # Spawn 'mercury-browser' only if it was not running
-    hyprctl dispatch exec 'mercury-browser -P work'
+# Focus on ws "3" if 'mullvad-browser' is not running, else just focus
+if ! is_mullvad_running; then
+    # Spawn 'mullvad-browser' only if it was not running
+    hyprctl dispatch exec 'mullvad-browser -P work'
 else
-    hyprctl dispatch focuswindow 'mercury-default'
+    hyprctl dispatch focuswindow 'mullvad-default'
 fi
