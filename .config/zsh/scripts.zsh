@@ -279,7 +279,7 @@ extract() {
     done
 }
 
-# Create a folder with the name of the archive, extract the archive in.
+# Create a folder with the name of the archive, extract the archive in
 # Usage: mkextract <archive_file>
 mkextract() {
     for file in "$@"
@@ -298,7 +298,8 @@ mkextract() {
     done
 }
 
-# Compress one or multiple folder or files. - compress <files>...
+# Compress one or multiple folder or files
+# Usage: compress <files>
 compress() {
     local DATE="$(date +%Y%m%d-%H%M%S)"
     tar cvzf "$DATE.tar.gz" "$@"
