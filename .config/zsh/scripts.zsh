@@ -469,7 +469,7 @@ gtfo() {
     "$@" &> /dev/null & disown
 }
 
-# Generate a password - default 20 characters
+# Generate a password (default 20 characters)
 pass() {
     local size=${1:-20}
     cat /dev/random | tr -dc '[:graph:]' | head -c$size
@@ -534,7 +534,7 @@ gcl() {
 }
 
 # Use tinyurl to shorten the
-# Usage: tunyurl <url>
+# Usage: tinyurl <url>
 tiny() {
     local URL=${1:?}
     curl -s "http://tinyurl.com/api-create.php?url=$1"
@@ -545,7 +545,7 @@ scrape-url() {
     wget --adjust-extension --convert-links --page-requisites --span-hosts --no-host-directories "$1"
 }
 
-# mdrender README.md
+# Usage: mdrender README.md
 mdrender() {
     HTMLFILE="$(mktemp -u).html"
         jq --slurp --raw-input '{"text": "\(.)", "mode": "markdown"}' "$1" |
@@ -554,7 +554,8 @@ mdrender() {
     xdg-open "$HTMLFILE"
 }
 
-# Display command cheatsheet from cheat.sh - cheat <command>
+# Display command cheatsheet from cheat.sh
+# Usage: cht <command>
 cht() {
     curl cheat.sh/$1
 }
