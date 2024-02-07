@@ -426,7 +426,8 @@ backall() {
     done
 }
 
-# Move a file or a folder, and create the filepath if it doesn't exist. - mkmv
+# Move a file or a folder, and create the filepath if it doesn't exist
+# Usage: mkmv
 mkmv() {
     local dir="$2"
     local tmp="$2"; tmp="${tmp: -1}"
@@ -436,7 +437,8 @@ mkmv() {
         mv "$@"
 }
 
-# Copy a file or a folder, and create the filepath if it doesn't exist. - mkcp
+# Copy a file or a folder, and create the filepath if it doesn't exist
+# Usage: mkcp
 mkcp() {
     local dir="$2"
     local tmp="$2"; tmp="${tmp: -1}"
@@ -462,7 +464,7 @@ historystat() {
     history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
 }
 
-# Launch a program in a terminal without getting any output,
+# Launch a program in a terminal without getting any output
 gtfo() {
     "$@" &> /dev/null & disown
 }
@@ -473,7 +475,8 @@ pass() {
     cat /dev/random | tr -dc '[:graph:]' | head -c$size
 }
 
-# Calculate repo size - reposize <URL>
+# Calculate repo size
+# Usage: reposize <URL>
 reposize() {
   url=`echo $1 \
     | perl -pe 's#(?:https?://github.com/)([\w\d.-]+\/[\w\d.-]+).*#\1#g' \
@@ -485,7 +488,8 @@ reposize() {
   | numfmt --to=iec --from-unit=1024
 }
 
-# Calculate number of pomodoro done for a specific time in hour(s) and minute(s) - pom <hours> <minutes> <duration=25>
+# Calculate number of pomodoro done for a specific time in hour(s) and minute(s)
+# Usage: pom <hours> <minutes> <duration=25>
 pom() {
     local -r HOURS=${1:?}
     local -r MINUTES=${2:-0}
@@ -494,7 +498,7 @@ pom() {
     bc <<< "(($HOURS * 60) + $MINUTES) / $POMODORO_DURATION"
 }
 
-# Display the time for the prompt to appear when opening a new zsh instance - promptspeed
+# Display the time for the prompt to appear when opening a new zsh instance
 promptspeed() {
     for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
 }
@@ -529,7 +533,8 @@ gcl() {
     fi
 }
 
-# Use tinyurl to shorten the <url>.
+# Use tinyurl to shorten the
+# Usage: tunyurl <url>
 tiny() {
     local URL=${1:?}
     curl -s "http://tinyurl.com/api-create.php?url=$1"
