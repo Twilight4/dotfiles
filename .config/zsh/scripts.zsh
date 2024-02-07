@@ -305,12 +305,13 @@ compress() {
     tar cvzf "$DATE.tar.gz" "$@"
 }
 
-# List of port opens, fuzzy searchable via fzf - require net-tools
+# List of port opens, fuzzy searchable via fzf, require net-tools
 ports() {
     sudo netstat -tulpn | grep LISTEN | fzf;
 }
 
-# Download all videos in mp3 from a youtube channel - ytdlall <channel_URL>
+# Download all videos in mp3 from a youtube channel
+# Usage: ytdlall <channel_URL>
 ytdlall() {
     if [ ! -z $1 ]; then
         yt-dlp -x --audio-format mp3 --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
