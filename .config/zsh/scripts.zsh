@@ -240,8 +240,8 @@ dback () {
     fi
 }
 
-# # ex = EXtractor for all kinds of archives
-# # usage: ex <file>
+# ex = EXtractor for all kinds of archives
+# usage: ex <file>
 ex () {
   if [ -f $1 ] ; then
     case $1 in
