@@ -72,7 +72,6 @@ diffd() {
 imgsize() {
     local width=$(identify -format "%w" "$1")> /dev/null
     local height=$(identify -format "%h" "$1")> /dev/null
-
     echo -e "Size of $1: $width*$height"
 }
 
