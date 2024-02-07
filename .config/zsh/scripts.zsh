@@ -320,7 +320,8 @@ ytdlall() {
     fi
 }
 
-# Download a playlist from Youtube - ydlp <playlist_url> 
+# Download a playlist from Youtube
+# Usage: ydlp <playlist_url> 
 ydlp() {
     if ; then
         yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
