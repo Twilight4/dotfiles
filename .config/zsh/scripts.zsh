@@ -241,7 +241,7 @@ dback () {
 }
 
 # ex = EXtractor for all kinds of archives
-# usage: ex <file>
+# Usage: ex <file>
 ex () {
   if [ -f $1 ] ; then
     case $1 in
@@ -279,7 +279,8 @@ extract() {
     done
 }
 
-# Create a folder with the name of the archive, extract the archive in. - mkextract <archive_file>
+# Create a folder with the name of the archive, extract the archive in.
+# Usage: mkextract <archive_file>
 mkextract() {
     for file in "$@"
     do
