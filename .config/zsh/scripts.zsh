@@ -340,7 +340,8 @@ ydlap() {
     fi
 }
 
-# Download a video from Youtube in mp4 format - ydl <video_url>
+# Download a video from Youtube in mp4 format
+# Usage: ydl <video_url>
 ydl() {
     if [ ! -z $1 ]; then
         yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(title)s.%(ext)s" "$1"
@@ -349,7 +350,8 @@ ydl() {
     fi
 }
 
-# Download a video with best quality in mp4 format from Youtube - ydlb <video_url>
+# Download a video with best quality in mp4 format from Youtube
+# Usage: ydlb <video_url>
 ydlb() {
     if [ ! -z $1 ]; then
         yt-dlp --restrict-filenames -f bestvideo+bestaudio/best --merge-output-format mp4 -P ~/videos -o "%(title)s.%(ext)s" "$1"
@@ -358,7 +360,8 @@ ydlb() {
     fi
 }
 
-# Download audio from Youtube video with best quality - ydl <video_url>
+# Download audio from Youtube video with best quality
+# Usage: ydl <video_url>
 ydlab() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
@@ -367,7 +370,8 @@ ydlab() {
     fi
 }
 
-# Download audio from Youtube video - ydla <video_url>
+# Download audio from Youtube video
+# Usage: ydla <video_url>
 ydla() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
@@ -376,7 +380,8 @@ ydla() {
     fi
 }
 
-# Create a folder like mkdir -p and jump to it. - mkcd
+# Create a folder like mkdir -p and jump to it
+# Usage: mkcd <direcory>
 mkcd() {
     local dir="$*"
     mkdir -p "$dir" && cd "$dir"
