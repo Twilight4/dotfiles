@@ -330,7 +330,8 @@ ydlp() {
     fi
 }
 
-# Download a playlist from Youtube only audio with best quality - ydlp <playlist_url> 
+# Download a playlist from Youtube only audio with best quality
+# Usage: ydlp <playlist_url> 
 ydlap() {
     if ; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
