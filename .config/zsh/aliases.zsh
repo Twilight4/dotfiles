@@ -58,7 +58,7 @@ alias blackcat="sudo pacman -Sg | grep blackarch"                             # 
 # Aliases to modified commands
 alias mkdir="mkdir -p"
 alias ping="prettyping -c 3"
-alias pg='prettyping -c 3 8.8.8.8'
+#alias pg='prettyping -c 3 8.8.8.8'
 #alias less="less -R"   # have function as 'less'
 alias kill='killall -q'
 alias fkill='~/.config/zsh/fzf-scripts/fkill'
