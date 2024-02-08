@@ -86,12 +86,12 @@ alias wget='wget -c --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 alias cats='highlight -O ansi --force'
 alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias icat='kitty +kitten icat'
-alias news="newsboat"
+#alias news="newsboat"
 alias tailf="tail -f"
 alias truncate="truncate -s 0"
 alias grubup="sudo update-grub"
 alias ginxi="garuda-inxi"
-alias gup="garuda-update"
+#alias gup="garuda-update"
 alias lsall="lspci"
 
 # Rust replacements
