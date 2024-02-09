@@ -438,7 +438,7 @@ mkmv() {
 }
 
 # Copy a file or a folder, and create the filepath if it doesn't exist
-# Usage: mkcp
+# Usage: mkcp <path>
 mkcp() {
     local dir="$2"
     local tmp="$2"; tmp="${tmp: -1}"
