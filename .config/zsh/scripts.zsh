@@ -380,7 +380,7 @@ ydla() {
     fi
 }
 
-# Create a folder and jump to it
+# Create a directory and jump to it
 # Usage: mkcd <direcory>
 mkcd() {
     local dir="$*"
