@@ -427,7 +427,7 @@ backall() {
 }
 
 # Move a file or a folder, and create the filepath if it doesn't exist
-# Usage: mkmv
+# Usage: mkmv <path>
 mkmv() {
     local dir="$2"
     local tmp="$2"; tmp="${tmp: -1}"
