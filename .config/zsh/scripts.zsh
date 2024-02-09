@@ -266,7 +266,7 @@ ex () {
   fi
 }
 
-# Extract any archive automatically. Require tar and unzip
+# Extract any archive automatically - require tar and unzip
 # Usage: extract <archive_file>
 extract() {
     for file in "$@"
