@@ -279,7 +279,7 @@ extract() {
     done
 }
 
-# Create a folder with the name of the archive, extract the archive in
+# Create a folder with the name of the archive and extract the archive in
 # Usage: mkextract <archive_file>
 mkextract() {
     for file in "$@"
