@@ -28,10 +28,10 @@ ${GREEN}
            ~~\ ' . /~~
          ,::: ;   ; :::,
         ':::::::::::::::'
- ____________/_ __ \_____________
-|                                |
-| Welcome to Twilight4s dotfiles |
-|________________________________|
+ ____________/_ __ \______________
+|                                 |
+| Welcome to Twilight4's dotfiles |
+|_________________________________|
 "
 echo ""
 echo "${YELLOW} Please make sure that your system and your packages are up to date."
@@ -43,7 +43,6 @@ echo ""
 ################
 # Installation #
 ################
-
 source .config/.install/confirm-start.sh
 source .config/.install/dependencies.sh
 source .config/.install/hyprland.sh
