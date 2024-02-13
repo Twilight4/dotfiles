@@ -3,7 +3,6 @@
 #####################
 # Installation mode #
 #####################
-
 source .config/.install/colors.sh
 source .config/.install/library.sh
 clear
