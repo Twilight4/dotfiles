@@ -9,7 +9,9 @@ cat <<"EOF"
 
 EOF
 
-if [ ! $mode == "dev" ]; then
+# Function to install dotfiles using symlinks
+install_symlinks() {
+    echo "Installing dotfiles using symlinks..."
     _installSymLink kitty ~/.config/kitty ~/desktop/workspace/dotfiles/.config/kitty/ ~/.config
     _installSymLink btop ~/.config/btop ~/desktop/workspace/dotfiles/.config/btop/ ~/.config
     _installSymLink cava ~/.config/cava ~/desktop/workspace/dotfiles/.config/cava/ ~/.config
@@ -40,11 +42,35 @@ if [ ! $mode == "dev" ]; then
     _installSymLink wlogout ~/.config/wlogout ~/desktop/workspace/dotfiles/.config/wlogout/ ~/.config
     _installSymLink swappy ~/.config/swappy ~/desktop/workspace/dotfiles/.config/swappy/ ~/.config
     _installSymLink gtk-3.0 ~/.config/gtk-3.0 ~/desktop/workspace/dotfiles/.config/gtk-3.0/ ~/.config/
-    _installSymLink gtk-4.0 ~/.config/gtk-4.0 ~/desktop/workspace/dotfiles/.config/gtk-4.0/ ~/.config/            
-else
-    echo "Skipped: DEV MODE!"
-fi
+    _installSymLink gtk-4.0 ~/.config/gtk-4.0 ~/desktop/workspace/dotfiles/.config/gtk-4.0/ ~/.config/
+}
 
-# Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
-update-mime-database ~/.config/.local/share/mime
-xdg-mime default emacs.desktop text/org
+# Function to install dotfiles by copying files to ~/.config
+install_by_copy() {
+    echo "Installing dotfiles by copying files to ~/.config..."
+    mv ~/.config ~/.config.bak
+	cp -r ~/downloads/dotfiles/.config ~
+}
+
+# Main function
+main() {
+    echo "Choose installation method:"
+    echo "1. Install using symlinks"
+    echo "2. Install by copying files to ~/.config"
+    echo "3. Skip installation"
+
+    read -p "Enter your choice: " choice
+
+    case $choice in
+        1) install_symlinks ;;
+        2) install_by_copy ;;
+        3) echo "Skipping installation" ;;
+        *) echo "Invalid choice. Please enter a number between 1 and 3." ;;
+    esac
+
+	# Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
+	update-mime-database ~/.config/.local/share/mime
+	xdg-mime default emacs.desktop text/org
+}
+
+main
