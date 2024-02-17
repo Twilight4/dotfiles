@@ -6,6 +6,7 @@ if [[ "$create_entry_choice" =~ ^[Yy]$ ]]; then
     if command -v Hyprland >/dev/null; then
         echo "Creating Hyprland desktop entry..."
 
+        sudo rm -v /usr/share/wayland-sessions/*
 		curl -LJO https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/hyprland.desktop && sudo mv hyprland.desktop /usr/share/wayland-sessions/
 
         echo "Hyprland desktop entry created."

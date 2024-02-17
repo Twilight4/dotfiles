@@ -222,6 +222,7 @@ packagesParu=(
 	# Hyprland-specific
 	"grimblast-git"
 	"sddm-git"
+	"sddm-theme-astronaut"
 	"numix-cursor-theme"
 	"zsh-theme-powerlevel10k-git"
 	"hyprland-git"
