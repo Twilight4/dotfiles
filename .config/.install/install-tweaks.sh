@@ -152,29 +152,23 @@ sed -i 's/\(LINUX_OPTIONS="zswap.enabled=0 nowatchdog\)/\1 mitigations=off amd_p
 # Disabling Split Lock Mitigate
 echo "kernel.split_lock_mitigate=0" | tee /etc/sysctl.d/99-splitlock.conf
 
+
 ######################################################################
 # Configuring the System
 ######################################################################
-
-# Warning: These configs are correct ONLY for ext4 and GRUB bootloader.
-#curl https://raw.githubusercontent.com/Twilight4/arch-setup-old/main/grub > /etc/default/grub
-#grub-mkconfig -o /boot/grub/grub.cfg
-# lz4 for fast compression - improved boot time performance
-#curl https://raw.githubusercontent.com/Twilight4/arch-setup-old/master/mkinitcpio.conf > /etc/mkinitcpio.conf
-#mkinitcpio -P
+# Warning: Use if using GRUB bootloader
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/grub > /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
 
 # Parallel compilation and building from files in memory tweak
-curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/makepkg.conf >/etc/makepkg.conf
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/makepkg.conf > /etc/makepkg.conf
 
 # Giving wheel user sudo access
-curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sudoers >/etc/sudoers
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sudoers > /etc/sudoers
 
 # Blacklist beep
 rmmod pcspkr
-echo "blacklist pcspkr" >/etc/modprobe.d/nobeep.conf
+echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
 
 # Change audit logging group
-echo "log_group = audit" >>/etc/audit/auditd.conf
-
-# Finishing up
-echo "Done, you may now run system-setup/ scripts in correct order - check README."
+echo "log_group = audit" >> /etc/audit/auditd.conf
