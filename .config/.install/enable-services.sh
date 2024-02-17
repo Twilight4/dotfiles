@@ -55,28 +55,32 @@ function check_service_status {
 
 # Define services
 services=(
-	sddm
-	apparmor
-	firewalld
-	irqbalance
-	chronyd
-	systemd-oomd
-	systemd-resolved
-	paccache.timer
-	fstrim.timer
-	ananicy-cpp
-	NetworkManager
-	nohang
-	preload
-	tor
-	supergfxd # needed in order to use VFIO - https://wiki.archlinux.org/title/Supergfxctl
-	vnstat    # network traffic monitor
+	"sddm"
+	"apparmor"
+	"firewalld"
+	"irqbalance"
+	"chronyd"
+	"paccache.timer"
+	"fstrim.timer"
+	"systemd-oomd"
+	"systemd-resolved"
+	"ananicy-cpp"
+	"NetworkManager"
+	"nohang"
+	"preload"
+	"tor"
+	"supergfxd" # needed in order to use VFIO - https://wiki.archlinux.org/title/Supergfxctl
+	"vnstat"    # network traffic monitor
 	#docker
 )
 
 # Enable services
 for service in "${services[@]}"; do
 	enable_service "$service"
+
+	# In case it didn't work
+	#sudo systemctl enable paccache.timer
+	#sudo systemctl enable fstrim.timer
 done
 
 # Other services
