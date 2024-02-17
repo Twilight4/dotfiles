@@ -69,7 +69,7 @@
         "return-type": "json",       
         "exec": "~/.config/waybar/scripts/updates.sh",
         "restart-interval": 60,
-        "on-click": "footclient -e ~/.config/.local/bin/sys-update.sh",
+        "on-click": "kitty -1 -e ~/.config/.local/bin/sys-update.sh",
         "tooltip": false
     },
     
@@ -186,7 +186,7 @@
     // CPU
     "cpu": {
 		"format": "<span font='13'></span> <span font='13'>{usage}%</span>",
-        "on-click": "footclient -e cpufetch"
+        "on-click": "kitty -1 -e cpufetch"
     },
 
     // Memory
@@ -223,7 +223,6 @@
         "interval": 30,
         "format": " {percentage_used}%",
         "path": "/",
-        "on-click": "footclient -e btop"
     }, 
     
     // Network
