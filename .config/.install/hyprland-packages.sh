@@ -9,6 +9,7 @@ packagesPacman=(
 	"hp-omen-wmi-dkms"
 	"xfce4-power-manager"
 	"git"
+	"floorp"
 	"ccache"
 	"pipewire"
 	"pipewire-alsa"
