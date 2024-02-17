@@ -18,6 +18,6 @@ echo "6. Import the ~/.config/superProductivity/config.json in: Settings > Sync 
 echo "7. Add pub key to github: Settings > SSH > New:"
 echo '    ssh-keygen -t ed25519 -C "your_email@example.com"'
 echo "8. Clone relevant repos via SSH:"
-echo '    git clone --depth 1 git@github.com:Twilight4/dotfiles.git ~/desktop/workspace'
-echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents'
+echo '    git clone --depth 1 git@github.com:Twilight4/dotfiles.git ~/desktop/workspace/dotfiles'
+echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents/org'
 echo ""
