@@ -45,6 +45,8 @@ packagesPacman=(
 	"supergfxctl"
 	"openbsd-netcat"
 	"wofi"
+	"ananicy-cpp"
+	"preload"
 	"libnotify"
 	"qt5ct"
 	"qt5-wayland"
