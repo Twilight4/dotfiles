@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Function to check if 'floorp' process is running
+is_floorp_running() {
+	pgrep -a "floorp" | grep -i 'work' >/dev/null
+}
+
+# Focus on ws "3" if 'floorp-browser' is not running, else just focus
+if ! is_floorp_running; then
+    # Spawn 'floorp-browser' only if it was not running
+    hyprctl dispatch exec 'floorp -P work'
+else
+    hyprctl dispatch focuswindow 'floorp'
+fi
