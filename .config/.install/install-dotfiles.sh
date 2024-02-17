@@ -1,5 +1,14 @@
 #!/bin/bash
 
+cat <<"EOF"
+ _           _        _ _       _       _    __ _ _           
+(_)_ __  ___| |_ __ _| | |   __| | ___ | |_ / _(_) | ___  ___ 
+| | '_ \/ __| __/ _` | | |  / _` |/ _ \| __| |_| | |/ _ \/ __|
+| | | | \__ \ || (_| | | | | (_| | (_) | |_|  _| | |  __/\__ \
+|_|_| |_|___/\__\__,_|_|_|  \__,_|\___/ \__|_| |_|_|\___||___/
+
+EOF
+
 if [ ! $mode == "dev" ]; then
     _installSymLink kitty ~/.config/kitty ~/desktop/workspace/dotfiles/.config/kitty/ ~/.config
     _installSymLink btop ~/.config/btop ~/desktop/workspace/dotfiles/.config/btop/ ~/.config

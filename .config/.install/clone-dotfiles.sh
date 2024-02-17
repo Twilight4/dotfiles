@@ -9,22 +9,14 @@ cat <<"EOF"
                                                              
 EOF
 
-echo "The script will now remove existing directories and files from ~/.config/"
-echo "and copy your prepared configuration from ~/downloads/dotfiles/ to ~/desktop/workspace/dotfiles"
-echo "Symbolic links will then be created from ~/desktop/workspace/dotfiles into your ~/.config/ directory."
-echo ""
-
 while true; do
 	read -p "Do you want to install the dotfiles now? (Yy/Nn): " yn
 	case $yn in
 	[Yy]*)
 		if [ ! $mode == "dev" ]; then
-			echo "Copying dotfiles..."
-			if [ ! -d ~/desktop/workspace/dotfiles ]; then
-				mkdir -p ~/desktop/workspace/dotfiles
-			fi
-			cp -rf ~/downloads/dotfiles ~/desktop/workspace/dotfiles/
-			echo "Dotfiles copied successfully."
+			echo "Cloning dotfiles..."
+			git clone --depth 1 https://github.com/Twilight4/dotfiles ~/downloads/dotfiles
+			echo "Dotfiles cloned successfully."
 		else
 			echo "Skipped: DEV MODE!"
 		fi
