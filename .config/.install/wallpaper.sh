@@ -12,24 +12,26 @@ EOF
 
 echo "Do you want to download the wallpapers from repository https://github.com/Twilight4/wallpapers/ ?"
 while true; do
-    read -p "(Yy/Nn): " yn
-    case $yn in
-        [Yy]* )
-            git clone --depth 1 https://github.com/Twlight4/wallpapers ~/pictures/wallpapers
-	    rm -rf ~/pictures/wallpapers/.git
-            echo "Wallpapers installed successfully."
-        break;;
-        [Nn]* ) 
-            if [ -d ~/pictures/wallpapers/ ]; then
-                echo "Wallpaper directory already exists."
-            else
-                mkdir -p ~/pictures/wallpapers
-		cp .config/wallpapers/* ~/pictures/wallpapers
-		echo "Default wallpapers installed successfully."
-            fi
-        break;;
-        * ) echo "Please answer yes or no.";;
-    esac
+	read -p "(Yy/Nn): " yn
+	case $yn in
+	[Yy]*)
+		git clone --depth 1 https://github.com/Twlight4/wallpapers ~/pictures/wallpapers
+		rm -rf ~/pictures/wallpapers/.git
+		echo "Wallpapers installed successfully."
+		break
+		;;
+	[Nn]*)
+		if [ -d ~/pictures/wallpapers/ ]; then
+			echo "Wallpaper directory already exists."
+		else
+			mkdir -p ~/pictures/wallpapers
+			curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/wm-wallpapers/default.jpg && mv default.jpg ~/pictures/wallpapers/default.jpg
+			echo "Default wallpaper installed successfully."
+		fi
+		break
+		;;
+	*) echo "Please answer yes or no." ;;
+	esac
 done
 echo ""
 
