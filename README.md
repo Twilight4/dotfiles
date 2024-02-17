@@ -6,7 +6,8 @@
 </div>
 
 ## Installation
-**Warning**: Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility and customize responsibly to ensure a stable and secure computing environment before running `install.sh` script. Use at your own risk.
+> [!CAUTION]
+> **Warning**: Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility and customize responsibly to ensure a stable and secure computing environment before running `install.sh` script. Use at your own risk.
 
 ```bash
 # Clone the repository
