@@ -42,8 +42,8 @@ color: @base04;
 }
  
 #window {
-animation-name: fadeIn;
-animation-duration: 0.6s;
+/*animation-name: fadeIn; */
+/*animation-duration: 0.6s; */
 background-color: base10;
 font-family: Ubuntu Mono;
 /* font-size:14; */
