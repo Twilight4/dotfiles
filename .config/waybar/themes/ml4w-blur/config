@@ -42,7 +42,6 @@
     // Modules Right    
     "modules-right": [
         "custom/updates",
-        "bluetooth",
         "pulseaudio",
         "network",
         "group/hardware",
