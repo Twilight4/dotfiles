@@ -105,7 +105,7 @@
     // Mercury Launcher
     "custom/browser": {
         "format": "",
-        "on-click": "~/.config/hypr/ws-scripts/ws-mercury",
+        "on-click": "~/.config/hypr/ws-scripts/ws-floorp",
         "tooltip": false
     },
 
