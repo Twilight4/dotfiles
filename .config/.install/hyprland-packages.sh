@@ -1,8 +1,8 @@
 #!/bin/bash
 
 packagesPacman=(
-	"linux-and-znver3"
-	"linux-and-znver3-headers"
+	"linux-amd-znver3"
+	"linux-amd-znver3-headers"
 	"pacman-contrib"
 	"trizen"
 	"zenpower3-dkms"
