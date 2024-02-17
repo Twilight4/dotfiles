@@ -226,7 +226,6 @@ packagesParu=(
 	"hyprland-git"
 	"xdg-desktop-portal-hyprland-git"
 	"xdg-desktop-portal"
-	"waybar-hyprland-git"
 	"hyprpicker-git"
 )
 
