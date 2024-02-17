@@ -166,11 +166,8 @@ packagesPacman=(
 	"evince"
 
 	# Hyprland-specific
-	"gtklock "
+	"swaylock-effects-git"
 	"fuzzel"
-	"gtklock-playerctl-module "
-	"gtklock-powerbar-module "
-	"gtklock-userinfo-module"
 	"gnome-keyring"
 	"polkit-gnome"
 	"swww-git"
