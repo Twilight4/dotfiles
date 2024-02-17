@@ -221,6 +221,7 @@ packagesParu=(
 
 	# Hyprland-specific
 	"grimblast-git"
+	"sddm-git"
 	"numix-cursor-theme"
 	"zsh-theme-powerlevel10k-git"
 	"hyprland-git"
@@ -247,8 +248,6 @@ nonessentialpackagesParu=(
 	"ookla-speedtest-bin"
 	"nitch-git"
 	"caffeine-ng"
-	"nvchad-git"
 	"polychromatic-git"
 	"asciiquarium-transparent-git"
-	"universal-android-debloater"
 )
