@@ -31,7 +31,6 @@ directories=(
     ~/.config/.local/share/pki
     ~/.config/.local/share/cache
     ~/cachyos-repo
-    ~/documents/org
 )
 
 for directory in "${directories[@]}"; do
