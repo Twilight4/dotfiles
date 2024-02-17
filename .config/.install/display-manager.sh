@@ -24,7 +24,9 @@ EOF
 
 				echo "/etc/sddm.conf file created."
             break;;
-            [Nn]* ) 
+            [Nn]* )
+				# The default garuda theme
+				_installPackagesParu sweet-gtk-theme
                 echo "SDDM setup skipped."
             break;;
             * ) echo "Please answer yes or no.";;
