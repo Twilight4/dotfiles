@@ -3,7 +3,6 @@
 #####################################################################
 # Pacman Configuration
 #####################################################################
-
 # Warning: This script is supposed to be run on top of fresh arch linux installation upon reboot as ROOT. The sequence order is substantial.
 #pacman-key --init
 #pacman-key --populate
@@ -42,25 +41,16 @@ echo '
 Include = /etc/pacman.d/chaotic-mirrorlist' | tee --append /etc/pacman.conf
 pacman -Syy
 
+
 #####################################################################
 # Security Enhancments
 #####################################################################
-
-##### Comment out if you are using systemd-boot instead of grub #######
-# Enabling CPU Mitigations
-#curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_cpu_mitigations.cfg >> /etc/grub.d/40_cpu_mitigations.cfg
-# Distrusting the CPU
-#curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_distrust_cpu.cfg >> /etc/grub.d/40_distrust_cpu.cfg
-# Enabling IOMMU
-#curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_enable_iommu.cfg >> /etc/grub.d/40_enable_iommu.cfg
 # Enabling NTS
 curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/chrony.conf >>/etc/chrony.conf
-# Setting GRUB configuration file permissions
-#chmod 755 /etc/grub.d/*
 
 # Blacklisting kernel modules
 curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/modprobe.d/30_security-misc.conf >>/etc/modprobe.d/30_security-misc.conf
-sed -i '14,15 s/^/#/' /etc/modprobe.d/30_security-misc.conf # don't disable bluetooth
+sed -i '14,15 s/^/#/' /etc/modprobe.d/30_security-misc.conf  # don't disable bluetooth
 chmod 600 /etc/modprobe.d/*
 
 # Security kernel settings
@@ -117,10 +107,10 @@ EOF
 
 chmod 600 /etc/NetworkManager/conf.d/ip6-privacy.conf
 
+
 #####################################################################
 # System Performance Tweaks
 #####################################################################
-
 # ZRAM configuration
 bash -c 'cat > /etc/systemd/zram-generator.conf' <<-'EOF'
 	[zram0]
