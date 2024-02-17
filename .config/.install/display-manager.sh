@@ -11,14 +11,15 @@ ____  _           _               __  __
 EOF
 
     while true; do
-        read -p "Do you want to install SDDM display manager (Yy/Nn): " yn
+        read -p "Do you want to install SDDM with theme (Yy/Nn): " yn
         case $yn in
             [Yy]* )
 				_installPackagesParu sddm-git
 				_installPackagesParu sddm-theme-astronaut
 
 				echo "Creating /etc/sddm.conf file..."
-
+                
+                mv /etc/sddm.conf /etc/sddm.conf.bak
 				curl -LJO https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sddm.conf && sudo mv sddm.conf /etc/sddm.conf
 
 				echo "/etc/sddm.conf file created."
