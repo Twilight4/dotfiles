@@ -11,7 +11,7 @@
 ```bash
 # Clone the repository
 cd ~/downloads
-git clone --depth 1 https://github.com/Twilight4/dotfiles.git
+git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/downloads/dotfiles
 
 # Script install-tweaks.sh involves system-wide changes hence must be run as root
 su
