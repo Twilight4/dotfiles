@@ -49,7 +49,7 @@ alias w3='ngrok http 4444'
 alias s="kitty +kitten ssh"
 alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
-alias ai='tgpt'
+#alias ai='tgpt'
 alias watch-lt='watch lsd --tree --hyperlink=auto'
 
 # Blackarch repo packages
@@ -312,7 +312,7 @@ alias sden="sudo systemctl enable --now"
 alias sdds="sudo systemctl disable"
 
 # Amass config alias
-alias Amass='amass enum -config ~/.config/amass/config.ini -d $1'
+alias amassc='amass enum -config ~/.config/amass/config.ini -d $1'
 
 # Search running processes
 alias psa="ps auxf"
