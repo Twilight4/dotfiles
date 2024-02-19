@@ -14,6 +14,7 @@ alias l.='lsd -A $* | grep "^\."'                    # List hidden files
 
 # HOME dirs
 alias dw='cd "$HOME/downloads" ; clear ; lsd -l --hyperlink=auto'
+alias dt='cd "$HOME/desktop" ; clear ; lsd -l --hyperlink=auto'
 alias pc='cd "$HOME/pictures" ; clear ; lsd -l --hyperlink=auto'
 alias vd='cd "$HOME/videos" ; clear ; lsd -l --hyperlink=auto'
 alias dc='cd "$HOME/documents" ; clear ; lsd -l --hyperlink=auto'
