@@ -79,7 +79,6 @@ tooltip label {
 /* -----------------------------------------------------
  * Window
  * ----------------------------------------------------- */
-
 #window {
     background: @backgroundlight;
     margin: 8px 15px 8px 0px;
@@ -95,10 +94,10 @@ window#waybar.empty #window {
     background-color:transparent;
 }
 
+
 /* -----------------------------------------------------
  * Taskbar
  * ----------------------------------------------------- */
-
 #taskbar {
     background: @backgroundlight;
     margin: 6px 15px 6px 0px;
@@ -116,6 +115,7 @@ window#waybar.empty #window {
     padding: 0px 5px 0px 5px;
 }
 
+
 /* -----------------------------------------------------
  * Modules
  * ----------------------------------------------------- */
@@ -128,10 +128,10 @@ window#waybar.empty #window {
     margin-right: 0;
 }
 
+
 /* -----------------------------------------------------
  * Custom Quicklinks
  * ----------------------------------------------------- */
-
 #custom-browser, 
 #custom-keepass,
 #custom-uptime,
