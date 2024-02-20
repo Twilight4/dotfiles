@@ -210,10 +210,10 @@ window#waybar.empty #window {
     color: @iconcolor;
 }
 
+
 /* -----------------------------------------------------
  * Custom Updates
  * ----------------------------------------------------- */
-
 #custom-updates {
     background-color: @backgroundlight;
     font-size: 16px;
@@ -238,10 +238,10 @@ window#waybar.empty #window {
     color: #FFFFFF;
 }
 
+
 /* -----------------------------------------------------
  * Custom Youtube
  * ----------------------------------------------------- */
-
 #custom-youtube {
     background-color: @backgroundlight;
     font-size: 16px;
@@ -252,10 +252,10 @@ window#waybar.empty #window {
     opacity:0.8;
 }
 
+
 /* -----------------------------------------------------
  * Hardware Group
  * ----------------------------------------------------- */
-
 #disk,#memory,#cpu,#custom-cputemp {
     font-size:16px;
     color: @textcolor2;
@@ -283,10 +283,10 @@ window#waybar.empty #window {
     margin-right:5px;
 }
 
+
 /* -----------------------------------------------------
  * Clock
  * ----------------------------------------------------- */
-
 #clock {
     background-color: @backgrounddark;
     font-size: 16px;
@@ -298,10 +298,10 @@ window#waybar.empty #window {
     border:3px solid @bordercolor;   
 }
 
+
 /* -----------------------------------------------------
  * Pulseaudio
  * ----------------------------------------------------- */
-
 #pulseaudio {
     background-color: @backgroundlight;
     font-size: 16px;
@@ -317,10 +317,10 @@ window#waybar.empty #window {
     color: @textcolor1;
 }
 
+
 /* -----------------------------------------------------
  * Network
  * ----------------------------------------------------- */
-
 #network {
     background-color: @backgroundlight;
     font-size: 16px;
@@ -341,11 +341,11 @@ window#waybar.empty #window {
     color: @textcolor2;
 }
 
+
 /* -----------------------------------------------------
  * Bluetooth
  * ----------------------------------------------------- */
-
- #bluetooth, #bluetooth.on, #bluetooth.connected {
+#bluetooth, #bluetooth.on, #bluetooth.connected {
     background-color: @backgroundlight;
     font-size: 16px;
     color: @textcolor2;
@@ -361,10 +361,10 @@ window#waybar.empty #window {
     margin: 0px;
 }
 
+
 /* -----------------------------------------------------
  * Battery
  * ----------------------------------------------------- */
-
 #battery {
     background-color: @backgroundlight;
     font-size: 16px;
@@ -397,10 +397,10 @@ window#waybar.empty #window {
     animation-direction: alternate;
 }
 
+
 /* -----------------------------------------------------
  * Tray
  * ----------------------------------------------------- */
-
 #tray {
     background-color: #2980b9;
 }
@@ -414,10 +414,10 @@ window#waybar.empty #window {
     background-color: #eb4d4b;
 }
 
+
 /* -----------------------------------------------------
  * Other
  * ----------------------------------------------------- */
-
 label:focus {
     background-color: #000000;
 }
@@ -433,4 +433,3 @@ label:focus {
 #network.disconnected {
     background-color: #f53c3c;
 }
-
