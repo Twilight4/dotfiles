@@ -1,7 +1,6 @@
 /* -----------------------------------------------------
  * General 
  * ----------------------------------------------------- */
-
 * {
     font-family: "JetBrains Mono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     border: none;
@@ -15,6 +14,7 @@ window#waybar {
     transition-property: background-color;
     transition-duration: .5s;
 }
+
 
 /* -----------------------------------------------------
  * Workspaces 
