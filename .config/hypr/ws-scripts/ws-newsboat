@@ -8,7 +8,7 @@ is_newsboat_running() {
 # Focus on ws "6" and spawn 'newsboat' if it's not running, else only focus
 if ! is_newsboat_running; then
     # Spawn 'newsboat' only if it was not running
-    hyprctl dispatch exec 'footclient -a newsboat -e newsboat'
+    hyprctl dispatch exec 'kitty --class newsboat -e newsboat'
 else
     hyprctl dispatch focuswindow 'newsboat'
 fi
