@@ -118,7 +118,7 @@ function list_marks()
    end
 end
 
-mp.add_key_binding("ctrl+DEL", "delete_file", mark_delete)
-mp.add_key_binding("alt+DEL", "list_marks", list_marks)
+mp.add_key_binding("DEL", "delete_file", mark_delete)
+mp.add_key_binding("ctrl+DEL", "list_marks", list_marks)
 mp.add_key_binding("ctrl+shift+DEL", "clear_list", function() mp.osd_message("Undelete all"); del_list = {}; end)
 mp.register_event("shutdown", delete)
