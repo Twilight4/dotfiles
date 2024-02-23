@@ -173,7 +173,7 @@ packagesPacman=(
 	"fuzzel"
 	"gnome-keyring"
 	"polkit-gnome"
-	"swww-git"
+	"swww"
 	"python-pywal"
 	"dunst"
 )
