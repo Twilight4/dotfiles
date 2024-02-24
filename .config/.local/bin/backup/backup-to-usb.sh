@@ -6,8 +6,6 @@ rsync -aAXvz --ignore-errors --delete --progress \
 	--exclude documents/BlackmagicDesign \
 	--exclude GPUCache \
 	--exclude music \
-	--exclude roms \
-	--exclude snap \
 	--exclude torrents \
 	--exclude videos \
 	--exclude libvirt \
