@@ -12,7 +12,4 @@ rsync -aAXvz --ignore-errors --delete --progress \
 	--exclude .cache \
 	--exclude .dbus \
 	--exclude .floorp \
-	--exclude .var \
-	--exclude .googleearth \
-	--exclude .local/share/flatpak \
 	/home/twilight /mnt/usb
