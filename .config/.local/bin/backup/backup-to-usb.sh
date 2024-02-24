@@ -8,8 +8,7 @@ rsync -aAXvz --ignore-errors --delete --progress \
 	--exclude music \
 	--exclude torrents \
 	--exclude videos \
-	--exclude libvirt \
-	--exclude .config/xmonad \
+	--exclude .config \
 	--exclude .cache \
 	--exclude .dbus \
 	--exclude .floorp \
