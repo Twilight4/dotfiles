@@ -12,4 +12,4 @@ rsync -aAXvz --ignore-errors --delete --progress \
 	--exclude .cache \
 	--exclude .dbus \
 	--exclude .floorp \
-	/home/twilight /mnt/usb
+	/home/$USER /mnt/usb
