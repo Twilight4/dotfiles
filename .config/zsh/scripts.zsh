@@ -36,11 +36,11 @@ c() {
 }
 
 help() {
-    "$@" --help 2>&1 | bat --plain --language=help
+  "$@" --help 2>&1 | bat --plain --language=help
 }
 
 h() {
-    "$@" --help 2>&1 | bat --plain --language=help
+  "$@" --help 2>&1 | bat --plain --language=help
 }
 
 # Simplify trans command
