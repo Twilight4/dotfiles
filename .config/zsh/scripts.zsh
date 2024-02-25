@@ -387,7 +387,6 @@ mkcd() {
     mkdir -p "$dir" && cd "$dir"
 }
 
-
 # Configure cd on quit for nnn
 n() {
     # Block nesting of nnn in subshells
