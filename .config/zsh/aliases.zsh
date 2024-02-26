@@ -107,7 +107,7 @@ alias digs='dig +short'        # Uses dog alias first if installed
 alias du='dust'
 alias ncdu="ncdu --color dark"
 
-# Grep - rg
+# Ripgrep
 alias rg='rg -i'
 alias rgv='rg -v -i'
 alias rgf='rg -l -i'
