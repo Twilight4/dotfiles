@@ -215,7 +215,7 @@ alias net-ps="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
 alias ubackup='udiskie-umount $MEDIA/BACKUP'
 alias umedia='udiskie-umount $MEDIA/*'
 
-# Count all files (recursively) in the current folder
+# Count all files recursively in the current folder
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
 
 # Show current network connections to the server
