@@ -137,7 +137,7 @@ alias mpa='mpv --no-input-builtin-bindings --no-video'
 alias mpapl='mpv --no-input-builtin-bindings --no-video "$(yt-dlp -g -x --audio-format mp3 --flat-playlist "$1")"'
 alias ytfzf-random='ytfzf -f -A -r -n 10'
 
-# Wifi
+# Wi-fi
 alias wifi-on='nmcli r wifi on'
 alias wifi-off='nmcli r wifi off'
 
@@ -162,7 +162,7 @@ alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | n
 alias big="expac -H M '%m\t%n' | sort -h | nl"
 alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
 
-# Refreshing mirrorlists
+# Refresh mirrorlists
 alias rank-mirrors="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrolist"
 alias rank-mirrors-quick="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup && sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup && sudo rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist"
 
