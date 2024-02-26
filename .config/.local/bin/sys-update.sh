@@ -15,7 +15,7 @@ while true; do
     case $yn in
         [Yy]* )
 			notify-send -u low -t 4000 -i "$HOME/.config/mako/icons/update.png" "Updating system..." 
-            sudo pacman --noconfirm -Syu
+            paru --noconfirm -Syu
 			echo Done - Press enter to exit; read _
 			notify-send "Update completed"
         break;;
