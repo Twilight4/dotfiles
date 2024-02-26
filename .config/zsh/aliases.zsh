@@ -95,7 +95,7 @@ alias ginxi="garuda-inxi"
 #alias gup="garuda-update"
 alias lsall="lspci"
 
-# Rust replacements
+# Rust utilities
 alias cp='xcp -v'
 alias http='xh'                # Curl replacement
 #alias httpd='http --download'  # Uses xh alias first if installed
