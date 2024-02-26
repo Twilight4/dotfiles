@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Call emacsclient as a pager.
-# First, read in the content of stdin into a temporary file
+# First, read in the content of stdin into a temporary file.
 
 t=$(mktemp /tmp/emacsclient.XXXXXX) || exit 1
 
