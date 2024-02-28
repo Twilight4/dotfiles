@@ -1827,8 +1827,7 @@ Dired (short for "directory editor") is a built-in file management mode in Emacs
 #+end_src
 
 ** Pdf-tools
-Emacs support library for PDF files.
-Source: https://github.com/vedang/pdf-tools
+[[https://github.com/vedang/pdf-tools][Pdf-tools]] is an Emacs support library for PDF files.
 
 #+begin_src emacs-lisp
 ;; Install and configure pdf-tools
