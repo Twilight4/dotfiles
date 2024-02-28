@@ -1292,7 +1292,9 @@ This is useful when followed by an immediate kill."
 #+end_src
 
 ** Selection Adjustments
-Function =smarter-move-beginning-of-line= moves the cursor to the indentation of the beginning of the current line. If the cursor is already at the indentation, it moves to the actual beginning of the line. The function also accepts an argument =ARG= which, if non-nil or non-zero, moves the cursor forward =ARG= - 1 lines before executing the main logic.
+Function =smarter-move-beginning-of-line= moves the cursor to the indentation of the beginning of the current line.
+If the cursor is already at the indentation, it moves to the actual beginning of the line.
+The function also accepts an argument =ARG= which, if non-nil or non-zero, moves the cursor forward =ARG= - 1 lines before executing the main logic.
 This configuration also remaps =C-a= the =smarter-move-beginning-of-line= function using the =global-set-key= function.
 
 #+begin_src emacs-lisp
