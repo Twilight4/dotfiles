@@ -1173,8 +1173,7 @@ appropriate.  In tables, insert a new row or end the table."
 #+end_src
 
 ** Hungry-delete
-Hungry Delete is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. 
-Source: [[][hungry-delete]
+[[https://github.com/nflath/hungry-delete][Hungry Delete]] is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. 
 
 #+begin_src emacs-lisp
 (use-package hungry-delete
