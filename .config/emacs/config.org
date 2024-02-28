@@ -1380,6 +1380,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
 #+end_src
 
 ** Pdf links Automation
+
 #+begin_src emacs-lisp
 (defun open-pdf (path)
   "open pdf: links in org mode using zathura"
@@ -1450,7 +1451,7 @@ Adding rainbow coloring to parentheses.
 #+end_src
 
 ** Buffer-move
-Creating some functions to allow easily moving windows around. Source: [[https://www.emacswiki.org/emacs/buffer-move.el][EmacsWiki]]
+[[https://www.emacswiki.org/emacs/buffer-move.el][Buffer-move]] - Functions to allow easily moving windows around.
 
 #+begin_src emacs-lisp
 (require 'windmove)
