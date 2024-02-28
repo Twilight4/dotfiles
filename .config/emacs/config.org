@@ -1199,7 +1199,7 @@ appropriate.  In tables, insert a new row or end the table."
 #+end_src
 
 ** I-Search
-Show number of matches while searching
+Show number of matches while searching.
 
 #+begin_src emacs-lisp
 (use-package anzu
