@@ -994,7 +994,7 @@ When we have the default file encoding (LF UTF-8), it really isn’t worth notin
 #+end_src
 
 ** Ansi Colours
-It’s nice to see ANSI colour codes displayed, however we don’t want to disrupt ANSI codes in Org src blocks. 
+It’s nice to see ANSI colour codes displayed, however I don’t want to disrupt ANSI codes in =Org= src blocks. 
 
 #+begin_src emacs-lisp
 (add-hook 'text-mode-hook
