@@ -856,7 +856,10 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 #+end_src
 
 ** Toggle Mode Line
-Function =toggle-mode-line= toggles the display of the mode line on and off. When called interactively, it checks if the mode line is currently visible by comparing it to nil. If it is visible, it sets the mode-line-format to the default value, effectively hiding the mode line. If it is not visible, it sets the mode-line-format to nil, showing the mode line. Finally, it redraws the display to reflect the changes.
+Function =toggle-mode-line= toggles the display of the mode line on and off.
+When called interactively, it checks if the mode line is currently visible by comparing it to nil.
+If it is visible, it sets the mode-line-format to the default value, effectively hiding the mode line.
+If it is not visible, it sets the mode-line-format to nil, showing the mode line. Finally, it redraws the display to reflect the changes.
 
 #+begin_src emacs-lisp
 (defun toggle-mode-line ()
