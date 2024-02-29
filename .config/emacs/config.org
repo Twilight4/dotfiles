@@ -1006,7 +1006,7 @@ It’s nice to see ANSI colour codes displayed, however I don’t want to disrup
 #+end_src
 
 ** YouTube link export
-The =[[yt:...]]= links preview nicely, but don’t export nicely. Thankfully, we can fix that.
+The =[[yt:...]]= links preview nicely, but don’t export nicely.
 
 #+begin_src emacs-lisp
 (org-link-set-parameters "yt" :export #'+org-export-yt)
