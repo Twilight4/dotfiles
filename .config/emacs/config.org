@@ -859,7 +859,8 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 Function =toggle-mode-line= toggles the display of the mode line on and off.
 When called interactively, it checks if the mode line is currently visible by comparing it to nil.
 If it is visible, it sets the mode-line-format to the default value, effectively hiding the mode line.
-If it is not visible, it sets the mode-line-format to nil, showing the mode line. Finally, it redraws the display to reflect the changes.
+If it is not visible, it sets the mode-line-format to nil, showing the mode line.
+Finally, it redraws the display to reflect the changes.
 
 #+begin_src emacs-lisp
 (defun toggle-mode-line ()
@@ -948,8 +949,8 @@ It's always better to set transparency in option for respective applications tha
 #+end_src
 
 ** Centaur-tabs
-Centaur Tabs is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. 
-Source: [[https://github.com/ema2159/centaur-tabs][centaur-tabs]]. They are causing many problems for now so I had to disable them.
+[[https://github.com/ema2159/centaur-tabs][Centaur Tabs]] is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. 
+[][centaur-tabs]]. They are causing many problems for now so I had to disable them.
 
 #+begin_src emacs-lisp
 ;(use-package centaur-tabs
