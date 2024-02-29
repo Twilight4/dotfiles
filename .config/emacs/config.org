@@ -950,7 +950,7 @@ It's always better to set transparency in option for respective applications tha
 
 ** Centaur-tabs
 [[https://github.com/ema2159/centaur-tabs][Centaur Tabs]] is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. 
-[][centaur-tabs]]. They are causing many problems for now so I had to disable them.
+They are causing many problems for now so I had to disable them.
 
 #+begin_src emacs-lisp
 ;(use-package centaur-tabs
