@@ -1430,7 +1430,8 @@ I like to have a view of undo changes but I don't wanna save the undo history li
 #+end_src
 
 ** Rainbow-mode
-Display the actual color as a background for any hex color value (ex. #ffffff). The code block below enables =rainbow-mode= in all programming modes (=prog-mode=) as well as =org-mode=, which is why rainbow works in this document.
+Display the actual color as a background for any hex color value (ex. #ffffff).
+The code block below enables =rainbow-mode= in all programming modes (=prog-mode=) as well as =org-mode=, which is why rainbow works in this document.
 
 #+begin_src emacs-lisp
 (use-package rainbow-mode
@@ -1459,7 +1460,7 @@ Adding rainbow coloring to parentheses.
 #+end_src
 
 ** Buffer-move
-[[https://www.emacswiki.org/emacs/buffer-move.el][Buffer-move]] - Functions to allow easily moving windows around.
+[[https://www.emacswiki.org/emacs/buffer-move.el][Buffer-move]] functions allow easily moving windows around.
 
 #+begin_src emacs-lisp
 (require 'windmove)
