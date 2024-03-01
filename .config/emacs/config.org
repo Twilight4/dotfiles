@@ -1610,7 +1610,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** Embark
-[[https://github.com/oantolin/embark][Embark]] is a emacs Mini-Buffer Actions Rooted in Keymaps.
+[[https://github.com/oantolin/embark][Embark]] is a emacs mini-buffer actions Rooted in keymaps.
 
 #+begin_src emacs-lisp
 (use-package embark
