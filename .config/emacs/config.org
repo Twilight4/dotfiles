@@ -1546,7 +1546,8 @@ The following configuration will add a few improvements:
 #+end_src
 
 ** Marginalia
-Marginalia is nice, but the file metadata annotations are a little too plain. Specifically, I have these gripes
+Marginalia is nice, but the file metadata annotations are a little too plain.
+Specifically, I have these gripes:
 - File attributes would be nicer if coloured
 - I don’t care about the user/group information if the user/group is me
 - When a file time is recent, a relative age (e.g. 2h ago) is more useful than the date
