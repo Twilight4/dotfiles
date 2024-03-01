@@ -1738,7 +1738,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** Dired
-=Dired= aka. _directory editor_ is a built-in file management mode in emacs.
+=Dired= aka _directory editor_ is a built-in file management mode in emacs.
 
 #+begin_src emacs-lisp
 (use-package dired-open
@@ -2064,7 +2064,7 @@ Adding highlights to =TODO= and related words.
 #+end_src
 
 *** Org-noter
-[[https://github.com/weirdNox/org-noter][Org-noter]] is an emacs document annotator compatible with =pdf-tools=, using Org-mode.
+[[https://github.com/weirdNox/org-noter][Org-noter]] is an emacs document annotator compatible with =pdf-tools=, using org-mode.
 
 #+begin_src emacs-lisp
 ;; A custom org link type for pdf-tools 
