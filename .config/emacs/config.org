@@ -2123,7 +2123,12 @@ With a prefix ARG, remove start location."
 #+end_src
 
 ** Bibliography Management
-Emacs ships with =bibtex-mode=, which helps to create and manage bibliographies. This mode, as the name suggests, uses the BibTeX file format as your default literature database. BibTeX is a plain text format to manage literature and citations and is typically used for LaTeX typesetting, but also perfectly integrates with Org mode. You can also link another bibliographic database, such as Zotero, to Emacs. You can export your library in Zotero, or parts thereof, as a BibTeX file. The Better BibTeX package in Zotero can automate this process so that you remain synchronised.
+Emacs ships with =bibtex-mode=, which helps to create and manage bibliographies.
+This mode, as the name suggests, uses the BibTeX file format as your default literature database.
+BibTeX is a plain text format to manage literature and citations and is typically used for LaTeX typesetting, but also perfectly integrates with Org mode.
+You can also link another bibliographic database, such as Zotero, to Emacs.
+You can export your library in Zotero, or parts thereof, as a BibTeX file.
+The Better BibTeX package in Zotero can automate this process so that you remain synchronised.
 
 Basic tools of bibliographic management from the =emacs= end are the venerable [[https://github.com/tmalsburg/helm-bibtex][helm-bibtex]] and [[https://github.com/jkitchin/org-ref/][org-ref]]. 
 Basic requirements for my Zotero settings are:
