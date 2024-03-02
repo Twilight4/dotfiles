@@ -1409,7 +1409,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
 #+end_src
 
 ** No-littering
-I use the =no-littering= package to keep folders where I edit files and the Emacs configuration folder clean.
+I use the =no-littering= package to keep folders where I edit files and the emacs configuration folder clean.
 
 #+begin_src emacs-lisp
 ;; Change the user-emacs-directory to keep unwanted things out of ~/config/emacs
