@@ -1961,7 +1961,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 *** Org-transclusion
-There’s a really cool package to transclude Org document content.
+There’s a really cool package to transclude =Org= document content.
 
 #+begin_src emacs-lisp
 (use-package org-transclusion
