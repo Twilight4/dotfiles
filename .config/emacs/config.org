@@ -37,7 +37,7 @@
   - [[#selection-adjustments][Selection Adjustments]]
   - [[#kill-whole-line-adjustment][Kill-whole-line Adjustment]]
   - [[#screenshot-automation][Screenshot Automation]]
-  - [[#pdf-links-automation][Pdf links Automation]]
+  - [[#pdf-links-automation][Pdf-links Automation]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
@@ -1387,7 +1387,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
     (insert (format "[[%s]]" full-path))))
 #+end_src
 
-** Pdf links Automation
+** Pdf-links Automation
 
 #+begin_src emacs-lisp
 (defun open-pdf (path)
