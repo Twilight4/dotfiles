@@ -2081,8 +2081,8 @@ Adding highlights to =TODO= and related words.
 #+end_src
 
 *** Org-pdftools and org-noter-pdftools
-A custom org link type for =pdf-tools=. Integration with =org-noter=.
-Source: https://github.com/fuxialexander/org-pdftools
+[[https://github.com/fuxialexander/org-pdftools][Org-pdftools]] is a A custom org link type for =pdf-tools=. Integration with =org-noter=.
+Source: 
 
 #+begin_src emacs-lisp
 (use-package org-pdftools
