@@ -2510,7 +2510,7 @@ Skip default buffers like **Messages** when using =buffer-prev=/=next=
 #+end_src
 
 *** Source code block tag expansion
-Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
+=Org-tempo= allows for =<s= followed by TAB to expand to a =begin_src= tag.
 
 #+begin_src emacs-lisp
 (with-eval-after-load 'org
@@ -2521,7 +2521,9 @@ Org-tempo allows for =<s= followed by TAB to expand to a =begin_src= tag.
 #+end_src
 
 *** Zero-width spaces
-Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. Zero width spaces are hacky but because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map. Add filter to stop the space from being included in exports.
+Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space.
+For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block.
+Zero width spaces are hacky but because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map. Add filter to stop the space from being included in exports.
 
 #+begin_src emacs-lisp
 (defun org-export-remove-zero-width-space (text backend info)
