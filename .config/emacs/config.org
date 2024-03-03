@@ -2312,7 +2312,7 @@ Looking at =org-link-parameters=, we can see that the ="file"= link type uses th
 #+end_src
 
 *** Style formatting
-This controls the color of bold, italic, underline, verbatim, strikethrough in Org mode.
+This controls the color of bold, italic, underline, verbatim, strikethrough in =org-mode=.
 
 #+begin_src emacs-lisp
 (setq org-emphasis-alist
@@ -2325,7 +2325,7 @@ This controls the color of bold, italic, underline, verbatim, strikethrough in O
 #+end_src
 
 *** Style formatting automation
-This automates the surround of word for style formatting with respective keys in visual mode.
+These functions automates the surround of word for style formatting with respective keys in visual mode.
 
 #+begin_src emacs-lisp
 (defun surround-with-bold (beg end)
