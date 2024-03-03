@@ -2523,7 +2523,8 @@ Skip default buffers like **Messages** when using =buffer-prev=/=next=
 *** Zero-width spaces
 Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space.
 For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block.
-Zero width spaces are hacky but because this is Emacs, we can make this feel much less hacky by making a minor addition to the Org key map. Add filter to stop the space from being included in exports.
+Zero width spaces are hacky but because this is emacs, we can make this feel much less hacky by making a minor addition to the org key map.
+Add filter to stop the space from being included in exports.
 
 #+begin_src emacs-lisp
 (defun org-export-remove-zero-width-space (text backend info)
