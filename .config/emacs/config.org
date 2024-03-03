@@ -2230,7 +2230,8 @@ This just makes citations much more meaningful in =org-mode=.
 *** Citar
 Several emacs packages are available that can link bibliography files to notes.
 The =Citar= package uses the standard minibuffer completion mechanism to access your bibliographies.
-This package provides access to hyperlinks, notes, attachments and the source bibliography file. Citar also integrates with =org-cite=, Org mode’s citation module.
+This package provides access to hyperlinks, notes, attachments and the source bibliography file.
+=Citar= also integrates with =org-cite=, org mode’s citation module.
 
 #+begin_src emacs-lisp
 (use-package citar
