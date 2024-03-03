@@ -2064,7 +2064,7 @@ Adding highlights to =TODO= and related words.
 #+end_src
 
 *** Org-noter
-[[https://github.com/weirdNox/org-noter][Org-noter]] is an emacs document annotator compatible with =pdf-tools=, using org-mode.
+[[https://github.com/weirdNox/org-noter][Org-noter]] is an emacs document annotator compatible with =pdf-tools=, using =org-mode=.
 
 #+begin_src emacs-lisp
 ;; A custom org link type for pdf-tools 
