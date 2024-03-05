@@ -3,11 +3,12 @@ Source: https://github.com/openwall/john
 
 Commands:
   john --wordlist=/tmp/single-password-list.txt --rules=best64 --stdout | wc -l
-                                                            Rule-Based attack
+                                                            Create Rule-Based wordlist
 
 Options:
   --rules             Specify which rule or rules to use
   --rules=best64      best64 rule, which contains the best 64 built-in John rules
+  --rules=KoreLogic   KoreLogic uses various built-in and custom rules to generate complex password lists
   --wordlist          Specify the wordlist or dictionary file.
   --stdout            Print the output to the terminal
   --format            The format the hash is in. if you're dealing with a standard hash type,
@@ -65,5 +66,3 @@ Informational:
   given password policy and should, in theory, only generate valid passwords.
   Using pre-existing wordlists may be useful when generating passwords that fit 
   a policy — manipulating or 'mangling' a password such as 'password': `p@ssword`, `Pa$$word`, `Passw0rd`, and so on.
-
-  "KoreLogic" rule uses various built-in and custom rules to generate complex password lists
