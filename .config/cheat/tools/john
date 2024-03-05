@@ -1,9 +1,13 @@
 John - advanced offline password cracker
 Source: https://github.com/openwall/john
 
-Commands:
+Creating Rule-Based Password Wordslists Commands:
   john --wordlist=/tmp/single-password-list.txt --rules=best64 --stdout | wc -l
                                                             Create Rule-Based wordlist
+
+  john --wordlist=single-password-list.txt --rules=KoreLogic --stdout |grep "Tryh@ckm3"
+                                                            Use this rule and check whether the Tryh@ckm3 is available in our list
+
 
 Options:
   --rules             Specify which rule or rules to use
