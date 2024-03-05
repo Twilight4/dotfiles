@@ -8,7 +8,6 @@ Creating Rule-Based Password Wordslists Commands:
   john --wordlist=single-password-list.txt --rules=KoreLogic --stdout |grep "Tryh@ckm3"
                                                             Use this rule and check whether the Tryh@ckm3 is available in our list
 
-
 Options:
   --rules             Specify which rule or rules to use
   --rules=best64      best64 rule, which contains the best 64 built-in John rules
