@@ -1,7 +1,7 @@
 CUPP - automatic and interactive tool written in Python for creating custom wordlists
-Source: https://github.com/Mebus/cupp)
+Source: https://github.com/Mebus/cupp
 
 Commands:
-  cupp -i         Interactive mode
+  cupp -i         Interactive mode - asks questions about the target and based on the provided answers, it creates a custom wordlist
   cupp            Download Pre-created wordlists
   cupp -a         Provide default usernames and passwords from the Alecto database
