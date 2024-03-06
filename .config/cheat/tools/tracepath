@@ -1,1 +1,0 @@
-traceroute or tracepath - explore the route to the IP. you will typically find that the last few respones stay the same. These are often local routers and other network device in an organization's network, knowing that can give you insight into their internal network topology
