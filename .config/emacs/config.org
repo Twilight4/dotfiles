@@ -1968,8 +1968,7 @@ There’s a really cool package to transclude =Org= document content.
 #+end_src
 
 *** Org-appear
-While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which occur at the border a bit more fiddley.
-We can improve this situation without sacrificing visual amenities with the =org-appear= package. 
+While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which occur at the border a bit more fiddley. We can improve this situation without sacrificing visual amenities with the =org-appear= package. 
 
 #+begin_src emacs-lisp
 (use-package org-appear
