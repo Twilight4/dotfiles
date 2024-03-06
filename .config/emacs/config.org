@@ -1510,9 +1510,7 @@ Function for toggling maximization of window split.
 
 * Minibuffer / Completion Framework
 ** Vertico
-Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options.
-One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top.
-This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
+Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options. One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top. This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
 
 The following configuration will add a few improvements: 
 - Additional key bindings for users that like Vim-style movement keys
