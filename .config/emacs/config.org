@@ -2683,8 +2683,7 @@ Let’s make creating an Org buffer just that little bit easier.
 #+end_src
 
 *** Org-modern
-Fontifying org-mode buffers to be as pretty as possible is of paramount importance, 
-and Minad’s lovely =org-modern= goes a long way in this regard.
+Fontifying org-mode buffers to be as pretty as possible is of paramount importance, and Minad’s lovely =org-modern= goes a long way in this regard.
 
 #+begin_src emacs-lisp
 (use-package org-modern
@@ -3154,8 +3153,7 @@ this with to-do items than with projects or headings."
 #+end_src
 
 *** Org-roam-dailies
-Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day.
-The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
+Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day. The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
 
 #+begin_src emacs-lisp
 (defun tl/org-roam-copy-todo-to-today ()
