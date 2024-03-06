@@ -2284,8 +2284,7 @@ Several emacs packages are available that can link bibliography files to notes. 
 
 ** Editing Features for Org
 *** File links automation
-While =org-insert-link= is all very well and good, a large portion of the time I want to insert a file, and so it would be good to have a way to skip straight to that and avoid the description prompt.
-Looking at =org-link-parameters=, we can see that the ="file"= link type uses the completion function =org-link-complete-file=, so let's use that to make a little file-link inserting function.
+While =org-insert-link= is all very well and good, a large portion of the time I want to insert a file, and so it would be good to have a way to skip straight to that and avoid the description prompt. Looking at =org-link-parameters=, we can see that the ="file"= link type uses the completion function =org-link-complete-file=, so let's use that to make a little file-link inserting function.
 
 #+begin_src emacs-lisp
 (defun org-insert-file-link ()
