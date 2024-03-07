@@ -3838,8 +3838,7 @@ This is nice in case I open an org file that uses =#+LATEX_COMPILER= for example
 it should still work.
 
 **** Nicer checkboxes
-We'll assume that thanks to the clever preamble the various custom =\checkbox...=
-commands below are defined.
+We'll assume that thanks to the clever preamble the various custom =\checkbox...= commands below are defined.
 
 #+begin_src emacs-lisp
 (defun +org-export-latex-fancy-item-checkboxes (backend)
@@ -3861,9 +3860,8 @@ commands below are defined.
 #+end_src
 
 **** Pretty code blocks
-We could just use minted for syntax highlighting --- however, we can do better!
-The =engrave-faces= package lets us use Emacs' font-lock for syntax highlighting,
-exporting that as LaTeX commands.
+We could just use minted for syntax highlighting --- however, we can do better! The =engrave-faces= package lets us use Emacs' font-lock for syntax highlighting, exporting that as LaTeX commands.
+
 #+begin_src emacs-lisp
 (use-package engrave-faces
   :ensure t
