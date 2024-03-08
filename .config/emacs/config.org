@@ -3811,17 +3811,14 @@ Now we just need to actually implement that metadata extraction function.
 
 *** LaTeX Export
 **** Compiling
-By default Org uses ~pdflatex~ \times 3 + ~bibtex~. This simply won't do in our
-modern world. ~latexmk~ + ~biber~ (which is used automatically with ~latexmk~) is a
-simply superior combination.
+By default Org uses ~pdflatex~ \times 3 + ~bibtex~. This simply won't do in our modern world. ~latexmk~ + ~biber~ (which is used automatically with ~latexmk~) is a simply superior combination.
 
 #+begin_src emacs-lisp
 ;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 #+end_src
 
-While ~org-latex-pdf-process~ does support a function, and we could use that
-instead, this would no longer use the log buffer --- it's a bit blind, you give
+While ~org-latex-pdf-process~ does support a function, and we could use that instead, this would no longer use the log buffer --- it's a bit blind, you give
 it the file name and expect it to do its thing.
 
 The default values of ~org-latex-compilers~ is given in commented form to see how
