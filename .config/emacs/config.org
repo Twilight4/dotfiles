@@ -3736,9 +3736,7 @@ We can do this without too much trouble by adding a new link type ever so slight
                          :export #'org-url-fancy-export)
 #+end_src
 
-Then, if we can fetch a plist of the form src_elisp{(:title "..." :description
-"..." :image "...")} for such links via a function ~org-url-unfurl-metadata~, we
-can make a fancy export.
+Then, if we can fetch a plist of the form src_elisp{(:title "..." :description "..." :image "...")} for such links via a function ~org-url-unfurl-metadata~, we can make a fancy export.
 
 #+begin_src emacs-lisp
 (defun org-url-fancy-export (url _desc backend)
