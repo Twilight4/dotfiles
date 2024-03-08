@@ -3305,6 +3305,7 @@ the vast majority of the change in behaviour comes from switch statements in:
 We want to tack on a few more bits to the start of the body. Unfortunately, there doesn’t seem to be any nice variable or hook, so we’ll just override the relevant function.
 
 This is done to allow me to add the date and author to the page header, implement a CSS-only light/dark theme toggle, and a sprinkle of Open Graph metadata.
+
 #+begin_src emacs-lisp
 (defun tl/org-html-template-fancier (orig-fn contents info)
   "Return complete document string after HTML conversion.
