@@ -3404,6 +3404,7 @@ compared to the default implementation."
 #+end_src
 
 I think it would be nice if “Table of Contents” brought you back to the top of the page. Well, since we’ve done this much advising already…
+
 #+begin_src emacs-lisp
 (defun tl/org-html-toc-linked (depth info &optional scope)
   "Build a table of contents.
