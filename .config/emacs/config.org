@@ -3726,11 +3726,9 @@ I want to add GitHub-style links on hover for headings.
 #+end_src
 
 **** Link previews
-Sometimes it's nice to make a link particularly prominent, an embed/preview like
-Twitter does would be nice I think.
+Sometimes it's nice to make a link particularly prominent, an embed/preview like Twitter does would be nice I think.
 
-We can do this without too much trouble by adding a new link type ever so
-slightly different from =https= --- =Https=.
+We can do this without too much trouble by adding a new link type ever so slightly different from =https= --- =Https=.
 
 #+begin_src emacs-lisp
 (org-link-set-parameters "Https"
