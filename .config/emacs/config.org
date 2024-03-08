@@ -3694,9 +3694,7 @@ org provides.
 **** Make verbatim different to code
 Since we have =verbatim= and ~code~, let's make use of the difference.
 
-We can use ~code~ exclusively for code snippets and commands like: "calling
-src_elisp{(message "Hello")} in batch-mode Emacs prints to stdout like ~echo~".
-Then we can use =verbatim= for miscellaneous 'other monospace' like keyboard
+We can use ~code~ exclusively for code snippets and commands like: "calling src_elisp{(message "Hello")} in batch-mode Emacs prints to stdout like ~echo~". Then we can use =verbatim= for miscellaneous 'other monospace' like keyboard
 shortcuts: "either =C-c C-c= or =C-g= is likely the most useful keybinding in Emacs",
 or file names: "I keep my configuration in =~/.config/doom/=", among other things.
 
