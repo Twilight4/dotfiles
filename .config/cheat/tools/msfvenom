@@ -25,6 +25,7 @@ Commands:
   msfvenom -l payloads      Show all payloads available
   msfvenom -l encoders      Show all encoders available
   msfvenom -l payloads | grep meterpreter   Show all payloads available for meterpreter
+  msfvenom -l encoders | grep excellent     Show all excellent encoders available
   msfvenom --list formats   List supported output formats. You can either generate stand-alone payloads 
                             (Windows executable for Meterpreter) or get a usable raw format (e.g. python)
   msfvenom -f raw -e php/base64
