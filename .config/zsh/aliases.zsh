@@ -94,7 +94,7 @@ alias grubup="sudo update-grub"
 alias ginxi="garuda-inxi"
 #alias gup="garuda-update"
 alias lsall="lspci"
-alias rec-audio="pw-record ~/recording.mp3"
+alias record-mic="pw-record ~/recording.mp3"
 
 # Rust utilities
 alias cp='xcp -v'
