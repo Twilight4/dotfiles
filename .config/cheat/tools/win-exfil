@@ -1,7 +1,0 @@
-  One of the benefits of HTTPS is encrypting the transmitted data using SSL keys stored on a server.
-  If you apply the same technique we showed previously on a web server with SSL enabled, then we can see that all transmitted data will be encrypted.
-  To set up HTTPS Server visit: https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-apache-in-ubuntu-18-04
-
-  [ICMPDoor](https://github.com/krabelize/icmpdoor) is an open-source reverse-shell written in Python3 and scapy. 
-  The methodology is the same with the only difference that an attacker sends a command that needs to be executed
-  on a victim's machine. Once the command is executed, a victim machine sends the execution output within the `ICMP` packet in the `Data` section.
