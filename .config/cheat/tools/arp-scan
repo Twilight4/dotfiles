@@ -4,10 +4,14 @@ Source: https://github.com/royhills/arp-scan
 Usage:
   arp-scan [options]
 
-Example Usage:
+Example Usage 1:
   arp-scan -l -N
 
+Example Usage 2:
+  arp-scan -I wlan0 -l
+
 Options:
+  -I, --interface       Choose the network interface e.g. wlan0
   -l, --localnet        Generate addresses from interface configuration.
             			Generates list from interface address and netmask
             			(network and broadcast included). You cannot use the
