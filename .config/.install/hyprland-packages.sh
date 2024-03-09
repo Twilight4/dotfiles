@@ -167,6 +167,7 @@ packagesPacman=(
 	"megacmd"
 	"nautilus-megasync"
 	"evince"
+	"git-delta"
 
 	# Hyprland-specific
 	"swaylock-effects-git"
