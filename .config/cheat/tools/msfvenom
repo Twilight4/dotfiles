@@ -7,6 +7,8 @@ Options:
   -p                   payload
   -f                   format
   -e                   encoder type
+  --encrypt xor --encrypt-key 
+                       build XOR encrypted payload (you need to specify a key)
   -i                   number of iterations for encoding e.g. 3
   -o                   output-file
   -k                   keep functionality in the binary (if using e.g. wget.exe as obfuscation template)
@@ -24,6 +26,7 @@ Payload formats:
 Commands:
   msfvenom -l payloads      Show all payloads available
   msfvenom -l encoders      Show all encoders available
+  msfvenom -l encrypt       List the available encryption algorithms
   msfvenom -l payloads | grep meterpreter   Show all payloads available for meterpreter
   msfvenom -l encoders | grep excellent     Show all excellent encoders available
   msfvenom --list formats   List supported output formats. You can either generate stand-alone payloads 
