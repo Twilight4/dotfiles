@@ -1,13 +1,4 @@
-Windows Data Exfiltration techniques using CMD for Red Team Operations
-
 HTTP POST Request Data Exfiltration:
-<?php 
-if (isset($_POST['file'])) {
-        $file = fopen("/tmp/http.bs64","w");
-        fwrite($file, $_POST['file']);
-        fclose($file);
-   }
-?>
                                         As a requirement for this technique, an attacker needs control over a webserver with a server-side programming language installed and enabled
                                         Prepare a webserver with a data handler for this task. The following code snapshot is of PHP code to handle POST
                                         requests via a `file` parameter and stores the received data in the `/tmp` directory as `http.bs64` file name
