@@ -2,7 +2,7 @@ UACME - tool provides an up to date repository of UAC bypass techniques that can
 Source: https://github.com/hfiref0x/UACME
 
 Commands:
-UACME-Akagi64.exe 33     If you want to test for method 33, you can do the following
+  UACME-Akagi64.exe 33     If you want to test for method 33, you can do the following
                          from a command prompt, and a high integrity cmd.exe will pop up
 
 Options:
