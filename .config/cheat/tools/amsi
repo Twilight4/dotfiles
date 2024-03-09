@@ -1,5 +1,15 @@
 Microsoft released AMSI (Anti-Malware Scan Interface), a runtime monitoring solution designed to stop and monitor ongoing threats.
 
+Powershell Downgrade
+Most PowerShell sessions will start with the most recent PowerShell engine, but attackers can manually change the version with a one-liner.
+By "downgrading" the PowerShell version to 2.0, you bypass security features since they were not implemented until version 5.0.
+Source: https://github.com/trustedsec/unicorn
+
+The attack only requires a one-liner to execute in our session.
+We can launch a new PowerShell process with the flags -Version to specify the version (2):
+Usage:
+  PowerShell -Version 2
+
 amsi.fail will compile and generate a PowerShell bypass from a collection of known bypasses, generates obfuscated
 PowerShell snippets that break or disable AMSI for the current process
 Source: http://amsi.fail/
@@ -14,7 +24,7 @@ This method of bypassing AMSI is more consistent than others because you are mak
 Source: https://github.com/RythmStick/AMSITrigger
 
 Usage:
-AmsiTrigger_x64.exe -i "bypass.ps1" -f 3
+  AmsiTrigger_x64.exe -i "bypass.ps1" -f 3
 
 Informational:
 Syntax for using amsitrigger is relatively straightforward; you need to specify the file or URL and what format to scan the file
