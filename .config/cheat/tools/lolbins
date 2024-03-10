@@ -1,3 +1,5 @@
+Certutil is a Windows built-in utility for handling certification services. It is used to dump and display Certification Authority (CA) configuration information and other CA components.
+
 BITSAdmin - System administrator utility that can be used to create, download or upload Background Intelligent Transfer Service (BITS) jobs and check their progress.
 
 Certutil Options:
