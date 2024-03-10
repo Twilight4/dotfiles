@@ -1,12 +1,15 @@
 Ncat - networking utility which reads and writes data across networks
 Source: https://nmap.org/ncat/
 
-Usage:
-  nc -lvnp PORT_NUM        To listen using TCP where port number is the port you want to listen to
-                           If the port number is less than `1024`, you need to run `nc` as root
-  nc TARGET_IP PORT_NUM    To connect to an Ncat instance listening on a TCP port
-  -c or --sh-exec          Executes the given command via /bin/sh
-  ncat TARGET_SERVER 25    Connects to the target server at port 25
+Listen using TCP where port number is the port you want to listen to.
+If the port number is less than `1024`, you need to run `nc` as root.
+  nc -lvnp PORT_NUM        
+
+Connect to an Ncat instance listening on a TCP port:
+  nc TARGET_IP PORT_NUM
+
+Connects to the target server at port 25:
+  ncat TARGET_SERVER 25
 
 Options:
   -l   Tells ncat to listen for incoming connections
@@ -14,5 +17,6 @@ Options:
   -n   Avoids resolving hostnames
   -p   Specifies the port number that ncat will listen on
   -u   Listen using UDP
-  -e, --exec    Executes the given command
-  /bin/bash     Location of the command we want to execute
+  -c, --sh-exec  Executes the given command via /bin/sh
+  -e, --exec     Executes the given command
+  /bin/bash      Location of the command we want to execute
