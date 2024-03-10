@@ -14,6 +14,8 @@ Options:
   -n   Avoids resolving hostnames
   -p   Specifies the port number that ncat will listen on
   -u   Listen using UDP
+  -e, --exec    Executes the given command
+  /bin/bash     Location of the command we want to execute
 
 Evasion Using Non-Standard Ports:
   ncat -lvnp PORT_NUMBER -e /bin/bash
@@ -24,6 +26,3 @@ Evasion Using Non-Standard Ports:
                     unless we can connect to the listening port number. Moreover, unless we run `ncat` as a
                     privileged user, `root`, or using `sudo`, we cannot use port numbers below `1024`
 
-Options:
-  -e, --exec  Executes the given command
-  /bin/bash   Location of the command we want to execute
