@@ -3,10 +3,10 @@ Source: https://nmap.org/ncat/
 
 Listen using TCP where port number is the port you want to listen to.
 If the port number is less than `1024`, you need to run `nc` as root.
-  nc -lvnp PORT_NUM        
+  nc -lvnp PORT_NUMBER
 
 Connect to an Ncat instance listening on a TCP port:
-  nc TARGET_IP PORT_NUM
+  nc TARGET_IP PORT_NUMBER
 
 Connects to the target server at port 25:
   ncat TARGET_SERVER 25
