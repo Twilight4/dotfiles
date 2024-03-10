@@ -4,6 +4,8 @@ BITSAdmin - System administrator utility that can be used to create, download or
 
 Findstr is a Microsoft built-in tool used to find text and string patterns in files. 
 
+Windows Management Instrumentation (WMIC) is used to execute binaries for evading defensive measures. The MITRE ATT&CK framework refers to this technique as Signed Binary Proxy Execution (T1218)
+
 Certutil Options:
   -urlcache   Display URL, enables the URL option to use in the command
   -split -f   Split and force fetching files from the provided URL
@@ -23,19 +25,6 @@ FindStr Options:
 
 
 
-File Execution/Arbitrary code execution:
-  explorer.exe /root,"C:\Windows\System32\calc.exe"
-                                Create a child process of `explorer.exe` parent (calculator)
-                                This technique is called Signed Binary Proxy Execution or Indirect Command
-                                Execution, where the attacker leverages other system tools to spawn malicious payloads.
-                                File Explorer can execute other .exe files. This technique is called Indirect 
-                                Command Execution, where the explorer.exe tool can be used and abused to
-                                launch malicious scripts or executables from a trusted parent process
-  wmic.exe process call create calc
-                                WMIC command creates a new process of a binary of our choice, `calc.exe`
-                                Windows Management Instrumentation (WMIC) is used to execute binaries for
-                                evading defensive measures. The MITRE ATT&CK framework refers to this 
-                                technique as Signed Binary Proxy Execution (T1218)
   rundll32.exe javascript:"\..\mshtml.dll,RunHTMLApplication ";eval("w=new ActiveXObject(\"WScript.Shell\");w.run(\"calc\");window.close()");
                                 Execute a calc.exe binary (embeds a JavaScript component, `eval()`, to execute the `calc.exe` binary)
                                 rundll32.exe can run arbitrary payloads and execute JavaScript and PowerShell scripts.
