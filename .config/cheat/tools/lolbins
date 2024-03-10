@@ -32,22 +32,3 @@ Informational:
   Windows Management Instrumentation (WMIC) is used to execute binaries for evading defensive measures. The MITRE ATT&CK framework refers to this technique as Signed Binary Proxy Execution (T1218).
 
   Application Whitelisting is a Microsoft endpoint security feature that prevents malicious and unauthorized programs from executing in real-time.
-
-LOLBAS Website search:
-It is straightforward to look for a binary; including the binary name will show the result. 
-To look for a specific function, we require providing a `/` before the function name. For instance, to look for 
-all execute functions, we should use `/execute`. 
-In order to look based on types, we should use the `#` symbol followed by the type name.
-The following are the types included in the project:
-  Script
-  Binary
-  Libraries
-  OtherMSBinaries
-
-The explorer.exe binary is located at:
-  C:\Windows\explorer.exe for the Windows 32 bits version
-  C:\Windows\SysWOW64\explorer.exe for the Windows 64 bits version
-
-The rundll32.exe binary is located at:
-  C:\Windows\System32\rundll32.exe for the Windows 32 bits version
-  C:\Windows\SysWOW64\rundll32.exe for the Windows 64 bits version
