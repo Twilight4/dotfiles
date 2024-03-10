@@ -2,6 +2,8 @@ Certutil is a Windows built-in utility for handling certification services. It i
 
 BITSAdmin - System administrator utility that can be used to create, download or upload Background Intelligent Transfer Service (BITS) jobs and check their progress.
 
+Findstr is a Microsoft built-in tool used to find text and string patterns in files. 
+
 Certutil Options:
   -urlcache   Display URL, enables the URL option to use in the command
   -split -f   Split and force fetching files from the provided URL
