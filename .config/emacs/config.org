@@ -3697,7 +3697,6 @@ Since we have =verbatim= and ~code~, let's make use of the difference.
 We can use ~code~ exclusively for code snippets and commands like: "calling src_elisp{(message "Hello")} in batch-mode emacs prints to stdout like ~echo~". Then we can use =verbatim= for miscellaneous 'other monospace' like keyboard shortcuts: "either =C-c C-c= or =C-g= is likely the most useful keybinding in Emacs", or file names: "I keep my configuration in =~/.config/emacs/=", among other things.
 
 Then, styling these two cases differently can help improve clarity in a document.
-
 #+begin_src emacs-lisp
 (setq org-html-text-markup-alist
       '((bold . "<b>%s</b>")
@@ -3729,7 +3728,6 @@ I want to add GitHub-style links on hover for headings.
 Sometimes it's nice to make a link particularly prominent, an embed/preview like Twitter does would be nice I think.
 
 We can do this without too much trouble by adding a new link type ever so slightly different from =https= --- =Https=.
-
 #+begin_src emacs-lisp
 (org-link-set-parameters "Https"
                          :follow (lambda (url arg) (browse-url (concat "https:" url) arg))
@@ -3737,7 +3735,6 @@ We can do this without too much trouble by adding a new link type ever so slight
 #+end_src
 
 Then, if we can fetch a plist of the form src_elisp{(:title "..." :description "..." :image "...")} for such links via a function ~org-url-unfurl-metadata~, we can make a fancy export.
-
 #+begin_src emacs-lisp
 (defun org-url-fancy-export (url _desc backend)
   (let ((metadata (org-url-unfurl-metadata (concat "https:" url))))
