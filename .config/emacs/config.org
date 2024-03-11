@@ -3757,7 +3757,6 @@ Then, if we can fetch a plist of the form src_elisp{(:title "..." :description "
 #+end_src
 
 Now we just need to actually implement that metadata extraction function.
-
 #+begin_src emacs-lisp
 (setq org-url-unfurl-metadata--cache nil)
 (defun org-url-unfurl-metadata (url)
