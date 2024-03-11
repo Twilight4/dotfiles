@@ -3152,7 +3152,9 @@ this with to-do items than with projects or headings."
 #+end_src
 
 *** Org-roam-dailies
-Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day. The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
+Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day.
+
+The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
 
 #+begin_src emacs-lisp
 (defun tl/org-roam-copy-todo-to-today ()
