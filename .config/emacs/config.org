@@ -3848,7 +3848,7 @@ We could just use minted for syntax highlighting --- however, we can do better! 
   :after ox-latex)
 #+end_src
 
-Using this as in LaTeX exports is now as easy as
+Using this as in LaTeX exports is now as easy as:
 #+begin_src emacs-lisp
 (setq org-latex-listings 'engraved)
 #+end_src
