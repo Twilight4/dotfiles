@@ -3866,15 +3866,7 @@ environments. Protrusion is not desirable here. Thankfully, we can patch the
 (add-hook 'org-export-before-parsing-hook #'tl/org-latex-no-protrusion-in-code)
 #+end_src
 
-At some point it would be nice to make the box colours easily customisable. At
-the moment it's fairly easy to change the syntax highlighting colours with
-src_elisp{(setq engrave-faces-preset-styles (engrave-faces-generate-preset))},
-but perhaps a toggle which specifies whether to use the default values, the
-current theme, or any named theme could be a good idea. It should also possible
-to set the box background dynamically to match. The named theme could work by
-looking for a style definition with a certain name in a cache dir, and then
-switching to that theme and producing (and saving) the style definition if it
-doesn't exist.
+At some point it would be nice to make the box colours easily customisable. At the moment it's fairly easy to change the syntax highlighting colours with src_elisp{(setq engrave-faces-preset-styles (engrave-faces-generate-preset))}, but perhaps a toggle which specifies whether to use the default values, the current theme, or any named theme could be a good idea. It should also possible to set the box background dynamically to match. The named theme could work by looking for a style definition with a certain name in a cache dir, and then switching to that theme and producing (and saving) the style definition if it doesn't exist.
 
 Now let's have the example block be styled similarly.
 #+begin_src emacs-lisp
