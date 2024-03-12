@@ -3806,7 +3806,6 @@ Now we just need to actually implement that metadata extraction function.
 *** LaTeX Export
 **** Compiling
 By default Org uses ~pdflatex~ \times 3 + ~bibtex~. This simply won't do in our modern world. ~latexmk~ + ~biber~ (which is used automatically with ~latexmk~) is a simply superior combination.
-
 #+begin_src emacs-lisp
 ;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
