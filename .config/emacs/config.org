@@ -3623,7 +3623,6 @@ directly to the ~table~ element, so we have to wrap it in a ~div~.
 
 While we're at it, we can a link gutter, as we did with src blocks, and show the
 ~#+name~, if one is given.
-
 #+begin_src emacs-lisp
 ;; Define the advice
 (defadvice org-html-table (around org-html-table-wrapped activate)
