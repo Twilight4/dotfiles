@@ -3614,8 +3614,7 @@ By enabling these modes in ~htmlize-before-hook~ we can correct this behaviour.
 #+end_src
 
 **** Handle table overflow
-In order to accommodate wide tables ---particularly on mobile devices--- we want
-to set a maximum width and scroll overflow. Unfortunately, this cannot be applied
+In order to accommodate wide tables ---particularly on mobile devices--- we want to set a maximum width and scroll overflow. Unfortunately, this cannot be applied
 directly to the ~table~ element, so we have to wrap it in a ~div~.
 
 While we're at it, we can a link gutter, as we did with src blocks, and show the
