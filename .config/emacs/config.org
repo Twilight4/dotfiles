@@ -3605,8 +3605,7 @@ By wrapping the ~<pre>~ element in a ~<details>~ block, we can obtain collapsabl
 **** Include extra font-locking in htmlize
 Org uses [[https://github.com/hniksic/emacs-htmlize][htmlize.el]] to export buffers with syntax highlighting.
 
-The works fantastically, for the most part. Minor modes that provide
-font-locking are /not/ loaded, and so do not impact the result.
+The works fantastically, for the most part. Minor modes that provide font-locking are /not/ loaded, and so do not impact the result.
 
 By enabling these modes in ~htmlize-before-hook~ we can correct this behaviour.
 #+begin_src emacs-lisp
