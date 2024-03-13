@@ -3441,8 +3441,7 @@ of contents as a string, or nil if it is empty."
 #+end_src
 
 **** Collapsable src and example blocks
-By wrapping the ~<pre>~ element in a ~<details>~ block, we can obtain collapsable
-blocks with no CSS, though we will toss a little in anyway to have this looking
+By wrapping the ~<pre>~ element in a ~<details>~ block, we can obtain collapsable blocks with no CSS, though we will toss a little in anyway to have this looking
 somewhat spiffy.
 
 #+begin_src emacs-lisp
