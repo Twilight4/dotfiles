@@ -3647,8 +3647,7 @@ The TOC is much nicer to navigate as a collapsable tree. Unfortunately we cannot
 
 To add this, we need to change one line in ~org-html--format-toc-headline~.
 
-Since we can actually accomplish the desired effect by adding advice /around/ the
-function, without overriding it --- let's do that to reduce the bug surface of
+Since we can actually accomplish the desired effect by adding advice /around/ the function, without overriding it --- let's do that to reduce the bug surface of
 this config a tad.
 #+begin_src emacs-lisp
 (defun tl/org-html--format-toc-headline-collapseable (orig-fn headline info)
