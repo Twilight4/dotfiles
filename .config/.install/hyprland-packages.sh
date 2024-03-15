@@ -163,7 +163,6 @@ packagesPacman=(
 	"python-pywhat"
 	"megasync-bin"
 	"megacmd"
-	"nautilus-megasync"
 	"evince"
 	"git-delta"
 
@@ -210,7 +209,6 @@ packagesParu=(
 	"cpupower"
 	"cloneit-git"
 	"boxes"
-	"session-desktop"
 	"wire-desktop"
 	"sysz"
 	"shellcheck-bin"
@@ -230,6 +228,8 @@ packagesParu=(
 )
 
 nonessentialpackages=(
+	"nautilus-megasync"
+	"session-desktop"
 	"musikcube-bin"
 	"webcord"
 	"tty-clock-git"
