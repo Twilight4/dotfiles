@@ -206,7 +206,6 @@ packagesParu=(
 	"ascii-image-converter-git"
 	"cpufetch-git"
 	"cpupower"
-	"gitsome"
 	"cloneit-git"
 	"boxes"
 	"session-desktop"
