@@ -142,7 +142,6 @@ packagesPacman=(
 	"hblock"
 	"nyancat"
 	"ffmpeg4.4"
-	"webcord"
 	"superproductivity-bin"
 	"zotero-bin"
 	"gnome-maps"
@@ -238,7 +237,7 @@ nonessentialpackagesPacman=(
 
 nonessentialpackagesParu=(
 	"musikcube-bin"
-	"webcord-bin"
+	"webcord"
 	"tty-clock-git"
 	"toilet"
 	"cmatrix-git"
