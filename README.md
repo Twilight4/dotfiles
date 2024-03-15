@@ -15,7 +15,7 @@ git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/downloads/dotfil
 
 # Script install-tweaks.sh involves system-wide changes hence must be run as root
 su
-./dotfiles/.install/install-tweaks.sh
+./dotfiles/.config/.install/install-tweaks.sh
 exit
 
 # Install dotfiles
