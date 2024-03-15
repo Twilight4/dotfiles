@@ -55,7 +55,6 @@ source .config/.install/set-user-groups.sh
 source .config/.install/wallpaper.sh
 source .config/.install/display-manager.sh
 source .config/.install/tty-login.sh
-source .config/.install/clone-dotfiles.sh
 source .config/.install/cleanup-homedir.sh
 source .config/.install/init-pywal.sh
 source .config/.install/install-dotfiles.sh
