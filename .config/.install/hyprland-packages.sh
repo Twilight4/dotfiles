@@ -182,7 +182,6 @@ packagesPacman=(
 packagesParu=(
 	"pfetch"
 	"yt-dlp"
-	"mpv-git"
 	"tabbed-git"
 	"nohang-git"
 	"btop-git"
