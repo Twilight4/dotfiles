@@ -17,8 +17,7 @@ pacman -Syy
 garuda-update
 
 # Clone the repository
-cd ~/downloads
-git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/downloads/dotfiles
+git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/
 
 # Script install-tweaks.sh involves system-wide changes hence must be run as root
 su
@@ -28,6 +27,10 @@ exit
 # Install dotfiles
 cd dotfiles
 ./install.sh
+
+# Clean up and reboot
+rm -rf ~/dotfiles
+#reboot
 ```
 
 ## Contents
