@@ -60,8 +60,6 @@ services=(
 	"firewalld"
 	"irqbalance"
 	"chronyd"
-	"paccache.timer"
-	"fstrim.timer"
 	"systemd-oomd"
 	"systemd-resolved"
 	"ananicy-cpp"
@@ -78,9 +76,9 @@ services=(
 for service in "${services[@]}"; do
 	enable_service "$service"
 
-	# In case it didn't work
-	#sudo systemctl enable paccache.timer
-	#sudo systemctl enable fstrim.timer
+	# Must be set seperately to work
+	sudo systemctl enable paccache.timer
+	sudo systemctl enable fstrim.timer
 done
 
 # Other services
@@ -90,6 +88,9 @@ playerctld daemon  # if it doesn't work try installing volumectl
 
 # Check service status
 check_service_status "${services[@]}"
+echo "Check status of services:"
+echo "    paccache.timer"
+echo "    fstrim.timer"
 
 # Commented out cuz playerctl does the job instead, not need the mpd service
 # Enable mpd service as user if service exists
