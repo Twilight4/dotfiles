@@ -11,6 +11,9 @@
 ```bash
 # After first boot of Garuda
 sudo pacman -Sy archlinux-keyring 
+pacman-key --init
+pacman-key --populate
+pacman -Syy
 garuda-update
 
 # Clone the repository
