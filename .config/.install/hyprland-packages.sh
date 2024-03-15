@@ -26,6 +26,7 @@ packagesPacman=(
 	"irqbalance"
 	"pkgfile"
 	"firewalld"
+	"diff-so-fancy"
 	"mcfly"
 	"mkinitcpio"
 	"neovim"
