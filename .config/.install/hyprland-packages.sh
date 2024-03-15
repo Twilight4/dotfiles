@@ -131,7 +131,6 @@ packagesPacman=(
 	"torsocks"
 	"openvpn"
 	"protonvpn-cli"
-	"ntop"
 	"gnome-calculator"
 	"inetutils"
 	"xh"
@@ -220,7 +219,6 @@ packagesParu=(
 
 	# Hyprland-specific
 	"grimblast-git"
-	"numix-cursor-theme"
 	"zsh-theme-powerlevel10k-git"
 	"hyprland-git"
 	"xdg-desktop-portal-hyprland-git"
