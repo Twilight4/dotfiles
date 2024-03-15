@@ -41,7 +41,6 @@ echo '
 Include = /etc/pacman.d/chaotic-mirrorlist' | tee --append /etc/pacman.conf
 pacman -Syy
 
-
 #####################################################################
 # Security Enhancments
 #####################################################################
@@ -50,7 +49,7 @@ curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/chrony.con
 
 # Blacklisting kernel modules
 curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/modprobe.d/30_security-misc.conf >>/etc/modprobe.d/30_security-misc.conf
-sed -i '14,15 s/^/#/' /etc/modprobe.d/30_security-misc.conf  # don't disable bluetooth
+sed -i '14,15 s/^/#/' /etc/modprobe.d/30_security-misc.conf # don't disable bluetooth
 chmod 600 /etc/modprobe.d/*
 
 # Security kernel settings
@@ -107,7 +106,6 @@ EOF
 
 chmod 600 /etc/NetworkManager/conf.d/ip6-privacy.conf
 
-
 #####################################################################
 # System Performance Tweaks
 #####################################################################
@@ -133,32 +131,31 @@ echo "vm.overcommit_memory=1" | tee -a /etc/sysctl.conf
 sh -c 'echo zstd > /sys/module/zswap/parameters/compressor'
 sh -c 'echo 10 > /sys/module/zswap/parameters/max_pool_percent'
 # Disabling mitigations
-sed -i 's/\(LINUX_OPTIONS="zswap.enabled=0 nowatchdog\)/\1 mitigations=off/' /etc/sdboot-manage.conf
+#sed -i 's/\(LINUX_OPTIONS="zswap.enabled=0 nowatchdog\)/\1 mitigations=off/' /etc/sdboot-manage.conf
 # AMD P-State EPP Driver
 echo active | tee /sys/devices/system/cpu/amd_pstate/status
 # AMD P-State Preferred Core Handling
-sed -i 's/\(LINUX_OPTIONS="zswap.enabled=0 nowatchdog\)/\1 mitigations=off amd_prefcore=enable/' /etc/sdboot-manage.conf
+#sed -i 's/\(LINUX_OPTIONS="zswap.enabled=0 nowatchdog\)/\1 mitigations=off amd_prefcore=enable/' /etc/sdboot-manage.conf
 #cat /sys/devices/system/cpu/amd_pstate/prefcore        # You can check if it is enabled with following command
 # Disabling Split Lock Mitigate
 echo "kernel.split_lock_mitigate=0" | tee /etc/sysctl.d/99-splitlock.conf
-
 
 ######################################################################
 # Configuring the System
 ######################################################################
 # Warning: Use if using GRUB bootloader
-curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/grub > /etc/default/grub
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/grub >/etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Parallel compilation and building from files in memory tweak
-curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/makepkg.conf > /etc/makepkg.conf
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/makepkg.conf >/etc/makepkg.conf
 
 # Giving wheel user sudo access
-curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sudoers > /etc/sudoers
+curl https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sudoers >/etc/sudoers
 
 # Blacklist beep
 rmmod pcspkr
-echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
+echo "blacklist pcspkr" >/etc/modprobe.d/nobeep.conf
 
 # Change audit logging group
-echo "log_group = audit" >> /etc/audit/auditd.conf
+echo "log_group = audit" >>/etc/audit/auditd.conf
