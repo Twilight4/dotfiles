@@ -6,7 +6,7 @@ echo "------------------------------ AFTER REBOOT ------------------------------
 echo "1. Check Default Network for virt-manager status"
 echo "    sudo virsh net-list --all"
 echo "2. Install more packages:"
-echo '    sudo npm install git-file-downloader git-stats'
+echo '    npm i -g git-stats'
 echo "3. Check if profile sync daemon is running:"
 echo '    psd p'
 echo "4. Configure browser settings"
