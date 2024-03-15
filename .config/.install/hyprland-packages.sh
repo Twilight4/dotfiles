@@ -215,7 +215,7 @@ packagesParu=(
 	"gitleaks"
 	"net-snmp"
 	"xcp-git"
-	"anki-bin"
+	"nodejs-git-stats"
 	"noise-suppression-for-voice-git"
 
 	# Hyprland-specific
