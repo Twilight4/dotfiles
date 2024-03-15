@@ -186,6 +186,7 @@ packagesParu=(
 	"tabbed-git"
 	"nohang-git"
 	"btop-git"
+	"exa-git"
 	"rofi-lbonn-wayland-git"
 	"sway-audio-idle-inhibit-git"
 	"wdisplays"
