@@ -175,6 +175,9 @@ packagesPacman=(
 	"swww"
 	"python-pywal"
 	"dunst"
+	"fortune-mod"
+	"lolcat"
+	"figlet"
 )
 
 packagesParu=(
@@ -226,15 +229,7 @@ packagesParu=(
 	"hyprpicker-git"
 )
 
-nonessentialpackagesPacman=(
-	"cyberchef-electron"
-	"papirus-icon-theme"
-	"fortune-mod"
-	"lolcat"
-	"figlet"
-)
-
-nonessentialpackagesParu=(
+nonessentialpackages=(
 	"musikcube-bin"
 	"webcord"
 	"tty-clock-git"
