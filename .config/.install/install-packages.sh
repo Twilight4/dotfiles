@@ -17,8 +17,7 @@ _installPackagesParu "${packagesParu[@]}"
 
 read -p "Do you want to proceed with the installation of non-essential packages? (y/n): " choice
 if [ "$choice" == "y" ]; then
-	_installPackagesPacman "${nonessentialpackagesPacman[@]}"
-	_installPackagesParu "${nonessentialpackagesParu[@]}"
+	_installPackagesParu "${nonessentialpackages[@]}"
 else
 	echo "Installation of non-essential packages skipped."
 fi
