@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "sleep 0.1; gtklock",
+    "action" : "sleep 0.1; lock",
     "text" : "Lock",
     "keybind" : "l"
 }
@@ -12,8 +12,8 @@
 }
 {
     "label" : "logout",
-    "action" : "sleep 0.1; hyprctl dispatch exit",
-    "text" : "Logout",
+    "action" : "$HOME/dotfiles/hypr/scripts/exit-hyprland",
+    "text" : "Exit",
     "keybind" : "e"
 }
 {
