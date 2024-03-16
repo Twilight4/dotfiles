@@ -16,7 +16,7 @@ while true; do
 	case $yn in
 	[Yy]*)
 		mkdir -p ~/pictures
-		git clone --depth 1 https://github.com/Twlight4/wallpapers ~/pictures/wallpapers
+		git clone --depth 1 https://github.com/Twilight4/wallpapers ~/pictures/wallpapers
 		rm -rf ~/pictures/wallpapers/.git
 		echo "Wallpapers installed successfully."
 		break
