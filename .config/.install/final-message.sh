@@ -14,7 +14,4 @@ echo '    ssh-keygen -t ed25519'
 echo "6. Clone relevant repos via SSH:"
 echo '    git clone --depth 1 git@github.com:Twilight4/dotfiles.git ~/desktop/workspace/dotfiles'
 echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents/org'
-echo "7. Set waybar and pywal theme:"
-echo "    SUPER+ALT+B"
-echo "    SUPER+CTRL+T - M4LW Blur Colored"
 echo ""
