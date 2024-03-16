@@ -1,33 +1,10 @@
 #!/bin/sh
 
-# ----------------------------------------------------- 
-# Quit all running waybar instances
-# ----------------------------------------------------- 
-killall waybar
-sleep 0.2
-# ----------------------------------------------------- 
-# Default theme: /THEMEFOLDER;/VARIATION
-# ----------------------------------------------------- 
-themestyle="/ml4w;/theme/colored"
+# Terminate already running bar instances
+killall -q waybar
 
-# ----------------------------------------------------- 
-# Get current theme information from .cache/.themestyle.sh
-# ----------------------------------------------------- 
-if [ -f ~/.cache/.themestyle.sh ]; then
-    themestyle=$(cat ~/.cache/.themestyle.sh)
-else
-    touch ~/.cache/.themestyle.sh
-    echo "$themestyle" > ~/.cache/.themestyle.sh
-fi
+# Wait until the waybar processes have been shut down
+while pgrep -x waybar >/dev/null; do sleep 1; done
 
-IFS=';' read -ra arrThemes <<< "$themestyle"
-echo ${arrThemes[0]}
-
-if [ ! -f ~/.config/waybar/theme${arrThemes[1]}/style.css ]; then
-    themestyle="/ml4w;/theme/colored"
-fi
-
-# ----------------------------------------------------- 
-# Loading the configuration
-# ----------------------------------------------------- 
-waybar -c ~/.config/waybar/theme${arrThemes[0]}/config -s ~/.config/waybar/theme${arrThemes[1]}/style.css &
+# Launch waybar
+waybar -c ~/.config/waybar/theme/config -s ~/.config/waybar/theme/style.css &
