@@ -9,11 +9,11 @@
 > Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility and customize responsibly to ensure a stable and secure computing environment before running `install.sh` script. Use at your own risk.
 
 ```bash
-# After first boot of Garuda
+# First boot of Garuda Linux
 sudo pacman -Sy archlinux-keyring 
-pacman-key --init
-pacman-key --populate
-pacman -Syy
+sudo pacman-key --init
+sudo pacman-key --populate
+sudo pacman -Syy
 garuda-update
 
 # Clone the repository
