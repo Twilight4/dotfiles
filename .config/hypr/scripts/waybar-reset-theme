@@ -7,4 +7,4 @@ killall -q waybar
 while pgrep -x waybar >/dev/null; do sleep 1; done
 
 # Launch waybar
-waybar -c ~/.config/waybar/theme/config -s ~/.config/waybar/theme/style.css &
+waybar -c ~/.config/waybar/theme/config -s ~/.config/waybar/theme/colored/style.css &
