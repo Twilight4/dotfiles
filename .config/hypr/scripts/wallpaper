@@ -1,11 +1,29 @@
 #!/bin/bash
 
+# Cache file for holding the current wallpaper
+cache_file="$HOME/.cache/current_wallpaper"
+rasi_file="$HOME/.cache/current_wallpaper.rasi"
+
+# Create cache file if not exists
+if [ ! -f $cache_file ] ;then
+    touch $cache_file
+    echo "$HOME/pictures/wallpapers/default.jpg" > "$cache_file"
+fi
+
+# Create rasi file if not exists
+if [ ! -f $rasi_file ] ;then
+    touch $rasi_file
+    echo "* { current-image: url(\"$HOME/pictures/wallpapers/default.jpg\", height); }" > "$rasi_file"
+fi
+
+current_wallpaper=$(cat "$cache_file")
+
 case $1 in
 
     # Load wallpaper from .cache of last session 
     "init")
         if [ -f ~/.cache/current_wallpaper.jpg ]; then
-            wal -q -i ~/.cache/current_wallpaper.jpg
+            wal -q -i $current_wallpaper
         else
             wal -q -i ~/pictures/wallpapers/wm-wallpapers
         fi
@@ -37,7 +55,8 @@ echo "Wallpaper: $wallpaper"
 # ----------------------------------------------------- 
 # Copy selected wallpaper into .cache folder
 # ----------------------------------------------------- 
-cp $wallpaper ~/.cache/current_wallpaper.jpg
+echo "$wallpaper" > "$cache_file"
+echo "* { current-image: url(\"$wallpaper\", height); }" > "$rasi_file"
 
 # ----------------------------------------------------- 
 # Get wallpaper image name to display
@@ -66,7 +85,11 @@ swww img $wallpaper \
 # ----------------------------------------------------- 
 # Send notification
 # ----------------------------------------------------- 
-sleep 1
-notify-send "Colors and Wallpaper updated" "with image $newwall"
+if [ "$1" == "init" ] ;then
+    echo ":: Init"
+else
+    sleep 1
+    notify-send "Colors and Wallpaper updated" "with image $newwall"
+fi
 
 echo "DONE!"
