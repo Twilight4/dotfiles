@@ -31,11 +31,15 @@ case $1 in
 
     # Select wallpaper with rofi
     "select")
-        selected=$(ls -1 ~/pictures/wallpapers/wm-wallpapers | grep "jpg" | rofi -dmenu -replace -config ~/.config/rofi/configs/config-wallpaper.rasi)
+        selected=$( find "$HOME/pictures/wallpapers" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec basename {} \; | sort -R | while read rfile
+        do
+            echo -en "$rfile\x00icon\x1f$HOME/pictures/wallpapers/${rfile}\n"
+        done | rofi -dmenu -replace -config ~/.config/rofi/configs/config-wallpaper.rasi)
         if [ ! "$selected" ]; then
             echo "No wallpaper selected"
             exit
         fi
+
         wal -q -i ~/pictures/wallpapers/wm-wallpapers/$selected
 		;;
 
