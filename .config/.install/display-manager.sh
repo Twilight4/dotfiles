@@ -15,11 +15,19 @@ EOF
 		case $yn in
 		[Yy]*)
 			_installPackagesParu sddm-git
-			_installPackagesParu sddm-theme-astronaut
+			_installPackagesParu sddm-sugar-dark
 
 			echo "Creating /etc/sddm.conf file..."
 			mv /etc/sddm.conf /etc/sddm.conf.bak
+
+			# Clone the sddm.d dir
 			curl -LJO https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/sddm.conf && sudo mv sddm.conf /etc/sddm.conf
+
+			# Apply the wallpaper background to sddm
+			curl -LJO https://raw.githubusercontent.com/Twilight4/wallpapers/main/wm-wallpapers/default.jpg && sudo mv default.jpg /usr/share/sddm/themes/sugar-dark/default.jpg
+
+			# Clone the theme.conf config file
+			curl -LJO https://raw.githubusercontent.com/Twilight4/arch-setup/main/config-files/theme.conf && sudo mv theme.conf /usr/share/sddm/themes/sugar-dark/theme.conf
 
 			echo "/etc/sddm.conf file created."
 			break
