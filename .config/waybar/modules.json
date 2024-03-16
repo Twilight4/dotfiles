@@ -140,7 +140,7 @@
     // Windows VM
     "custom/windowsvm": {
         "format": "",
-        "on-click": "~/.config/.local/bin/run-vm.sh",
+        "on-click": "~/.config/.hypr/scripts/launch-vm",
         "tooltip": false
     },
 
