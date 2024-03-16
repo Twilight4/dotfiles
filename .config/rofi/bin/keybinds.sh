@@ -4,6 +4,8 @@
 # Define keybindings.conf location
 # -----------------------------------------------------
 config_file=~/.config/hypr/configs/keybinds.conf
+config_file=${config_file/source = ~/}
+config_file=${config_file/source=~/}
 
 # -----------------------------------------------------
 # Parse keybindings
