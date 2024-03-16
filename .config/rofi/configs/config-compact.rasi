@@ -1,7 +1,7 @@
 /* ---- Configuration ---- */
 configuration {
     modi:                       "drun,run";
-    font:                       "Fira Sans Bold 10";
+    font:                       "JetBrainsMono Nerd Font Bold 11";
     show-icons:                 false;
     icon-theme:                 "kora";
     display-drun:               "APPS";
@@ -18,6 +18,7 @@ configuration {
 
 /* ---- Load pywal colors (custom wal template) ---- */
 @import "~/.cache/wal/colors-rofi-pywal"
+@import "~/.cache/current_wallpaper.rasi"
 
 /* ---- Window ---- */
 window {
@@ -28,15 +29,15 @@ window {
     padding:                      0px;
     margin:                       0px; 
     color:                        #FFFFFF;
-    border:                       3px;
-    border-color:                 #FFFFFF;
+    border:                       1px;
+    border-color:                 @background;
     cursor:                       "default";
     transparency:                 "real";
     location:                     north;
     anchor:                       north;
     fullscreen:                   false;
     enabled:                      true;
-    border-radius:                10px;
+    border-radius:                15px;
     background-color:             transparent;
 }
 
@@ -47,7 +48,7 @@ mainbox {
     spacing:                      0px;
     margin:                       0px;
     background-color:             @background;
-    background-image:             url("~/.cache/current_wallpaper.jpg", height);
+    background-image:             @current-image;
     children:                     ["listbox"];
 }
 
@@ -75,10 +76,11 @@ dummy {
 /* ---- Inputbar ---- */
 inputbar {
     enabled:                      true;
+	width:                        640px;
     text-color:                   @foreground;
     spacing:                      10px;
     padding:                      15px;
-    border-radius:                0px;
+    border-radius:                10px;
     border-color:                 @foreground;
     background-color:             @background;
     children:                     [ "textbox-prompt-colon", "entry" ];
@@ -105,13 +107,16 @@ entry {
 mode-switcher{
     enabled:                      true;
     spacing:                      20px;
-    background-color:             transparent;
+    width:                        68px;
+	background-color:             transparent;
     text-color:                   @foreground;
 }
 
 button {
     padding:                      10px;
-    border-radius:                10px;
+    border-radius:                20px;
+    vertical-align:               0.50;
+    horizontal-align:             0.45;
     background-color:             @background;
     text-color:                   inherit;
     cursor:                       pointer;
@@ -145,12 +150,11 @@ listview {
 /* ---- Element ---- */
 element {
     enabled:                      true;
-    padding:                      10px;
+    padding:                      13px;
     margin:                       5px;
     cursor:                       pointer;
     background-color:             @background;
     border-radius:                10px;
-    border:                       2px;
 }
 
 element normal.normal {
