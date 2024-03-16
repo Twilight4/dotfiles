@@ -19,7 +19,7 @@ garuda-update
 # Clone the repository
 git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/
 
-# Script install-tweaks.sh involves system-wide changes hence must be run as root
+# Run install-tweaks.sh script as root (system-wide changes)
 su
 ./dotfiles/.config/.install/install-tweaks.sh
 exit
