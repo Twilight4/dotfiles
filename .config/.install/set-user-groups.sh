@@ -12,6 +12,7 @@ EOF
 groups_to_create=(
     "plugdev"
     "autologin"
+	"libvirt"
     "video"
     "input"
     "disk"
