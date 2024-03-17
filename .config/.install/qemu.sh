@@ -25,12 +25,8 @@ prompt_yes_no() {
 install_qemu=false
 if prompt_yes_no "Do you want to install QEMU and related packages?"; then
 	# Install all necessary packages
-	sudo pacman -S --needed virt-manager virt-viewer qemu-base edk2-ovmf ebtables \
-		dnsmasq vde2 ebtables bridge-utils openbsd-netcat libguestfs libvirt
+	sudo pacman -S --needed virt-manager virt-viewer qemu-base edk2-ovmf dnsmasq vde2 ebtables bridge-utils openbsd-netcat libguestfs libvirt
 
-	paru -S --needed qemu-arch-extra-git
-
-	# Conflicts with qemu-base
 	install_qemu=true
 fi
 
