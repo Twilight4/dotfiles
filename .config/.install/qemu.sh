@@ -30,6 +30,7 @@ if prompt_yes_no "Do you want to install QEMU and related packages?"; then
 
 	paru -S --needed qemu-arch-extra-git
 
+	# Conflicts with qemu-base
 	install_qemu=true
 fi
 
