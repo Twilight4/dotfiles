@@ -21,13 +21,16 @@ Options:
   --stdout                          Print the result to the terminal
   -O, --optimized-kernel-enable     Enable optimized kernels (limits password length)
 
+Common hashtypes:
+  5600 - NTLMv2-SSP
+
 Informational:
-NEVER (I repeat, NEVER!) use "--force" for hashcat. It can lead to false positives 
-(wrong passwords being given to you) and false negatives (skips over the correct hash).
+  NEVER use "--force" for hashcat. It can lead to false positives 
+  (wrong passwords being given to you) and false negatives (skips over the correct hash).
 
-DO NOT encrypt passwords unless you’re doing something like a password manager. 
-Passwords should not be stored in plaintext, and you should use hashing to manage them safely.
+  DO NOT encrypt passwords unless you’re doing something like a password manager. 
+  Passwords should not be stored in plaintext, and you should use hashing to manage them safely.
 
-When you connect to your bank, there’s a certificate that uses cryptography to prove that it is actually your bank rather than a hacker.
+  When you connect to your bank, there’s a certificate that uses cryptography to prove that it is actually your bank rather than a hacker.
 
-When you download a file, how do you check if it downloaded right? You can use cryptography here to verify a checksum of the data.
+  When you download a file, how do you check if it downloaded right? You can use cryptography here to verify a checksum of the data.
