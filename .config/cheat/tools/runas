@@ -1,0 +1,15 @@
+In security assessments, you will often have network access and have just discovered AD credentials but have no means or privileges to create a new domain-joined machine. So we need the ability to use those credentials on a Windows machine we control.
+
+If we have the AD credentials in the format of :, we can use Runas, a legitimate Windows binary, to inject the credentials into memory. The usual Runas command would look something like this:
+
+Usage:
+  runas.exe /netonly /user:<domain>\<username> cmd.exe
+
+Options:
+  /netonly       Since we are not domain-joined, we want to load the credentials for network authentication but not authenticate
+                 against a domain controller. So commands executed locally on the computer will run in the context of your standard
+                 Windows account, but any network connections will occur using the account specified here.
+  /user          Here, we provide the details of the domain and the username. It is always a safe bet to use the Fully Qualified 
+                 Domain Name (FQDN) instead of just the NetBIOS name of the domain since this will help with resolution.
+  cmd.exe        This is the program we want to execute once the credentials are injected. This can be changed to anything, but
+                 the safest bet is cmd.exe since you can then use that to launch whatever you want, with the credentials injected.
