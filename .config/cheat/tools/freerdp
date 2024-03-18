@@ -1,0 +1,2 @@
+Usage:
+  wlfreerdp /u:<USER> /p:<PASSWORD> /v:<TARGET_IP>
