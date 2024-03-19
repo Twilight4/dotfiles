@@ -79,6 +79,7 @@ alias ungron="gron --ungron"
 alias open='xdg-open'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
+alias start-neo4j-db='sudo neo4j console'
 alias jctl="journalctl -p 3 -xb"
 alias jctle="journalctl --user -xeu"    # show error messages, specify a unit
 alias notif="cat /tmp/notify.log"
