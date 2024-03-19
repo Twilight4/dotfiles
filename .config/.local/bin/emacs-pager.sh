@@ -13,5 +13,5 @@ cat - \
    | sed 's/\x1b\][0-9;:]*[AC]\x1b\\//g' \
     >> $t
 
-emacsclient "$t"
+emacsclient -nw "$t"
 rm -f $t
