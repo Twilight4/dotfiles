@@ -1375,21 +1375,21 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
 #+end_src
 
 ** Backward/Forward Word Adjustment
-Skip whole words when using =alt+f=/=alt+b= - don't stop at uppercase letters.
+Skip whole words when using =alt+f=/=alt+b=. Skip over sequences of uppercase/digits/hyphens characters.
 
 #+begin_src emacs-lisp
 (defun tl-backward-word ()
   (interactive)
   (backward-word 1)
   (while (and (not (bobp))
-              (looking-back "[[:upper:][:digit:]]" (line-beginning-position)))
+              (looking-back "[[:upper:][:digit:]-]" (line-beginning-position)))
     (backward-word 1)))
 
 (defun tl-forward-word ()
   (interactive)
   (forward-word 1)
   (while (and (not (eobp))
-              (looking-at "[[:upper:][:digit:]]"))
+              (looking-at "[[:upper:][:digit:]-]"))
     (forward-word 1)))
 #+end_src
 
