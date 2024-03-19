@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Function to check if 'bloodhound' process is running
+is_bloodhound_running() {
+	hyprctl clients | grep 'bloodhound' >/dev/null
+}
+
+# Focus on ws "4" and spawn bloodhound if it's not running, else only focus
+if ! is_bloodhound_running; then
+	# Spawn 'bloodhound' only if it was not running
+	hyprctl dispatch exec 'bloodhound --no-sandbox'
+else
+	hyprctl dispatch focuswindow 'bloodhound'
+fi
+
