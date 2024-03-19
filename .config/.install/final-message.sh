@@ -15,4 +15,5 @@ echo "6. Clone relevant repos via SSH:"
 echo '    git clone --depth 1 git@github.com:Twilight4/dotfiles.git ~/desktop/workspace/dotfiles'
 echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents/org'
 echo "7. Install more tools from arch-setup/tools-installation directory"
+echo "8. If the waybar workspaces icons are not in proper sequence, in modules.json change the numbers temporarily and restart waybar again, they will flal in place"
 echo ""
