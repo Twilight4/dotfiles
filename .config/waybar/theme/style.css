@@ -21,8 +21,8 @@ window#waybar {
  * ----------------------------------------------------- */
 #workspaces {
     background: @workspacesbackground1;
-    margin: 5px 1px 6px 1px;
-    padding: 0px 1px;
+    margin: 5px 1px 5px 1px;
+    padding: 0px 0px;
     border-radius: 15px;
     border: 0px;
     font-weight: bold;
@@ -52,11 +52,11 @@ window#waybar {
     opacity:1.0;
 }
 
-#workspaces button:hover {
+#workspaces button.visible {
     color: @textcolor1;
     background: @workspacesbackground2;
     border-radius: 15px;
-    opacity:0.7;
+    opacity:1.0;
 }
 
 
