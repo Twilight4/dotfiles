@@ -1378,7 +1378,7 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
 Skip whole words when using =alt+f=/=alt+b= - don't stop at uppercase letters.
 
 #+begin_src emacs-lisp
-(defun tl-ackward-word ()
+(defun tl-backward-word ()
   (interactive)
   (backward-word 1)
   (while (and (not (bobp))
