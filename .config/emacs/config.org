@@ -2292,6 +2292,10 @@ While =org-insert-link= is all very well and good, a large portion of the time I
   (insert (format "[[%s]]" (org-link-complete-file))))
 #+end_src
 
+*** Moving around
+Skip whole words when using =alt+f=/=alt+b= - don't stop at uppercase letters.
+
+
 *** Insert all links to directory
 
 #+begin_src emacs-lisp
