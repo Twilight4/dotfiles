@@ -43,6 +43,8 @@ bindkey '^[[Z' reverse-menu-complete
 #bindkey '^[g' get-line            # M-g
 #bindkey '^X^E' edit-command-line  # Open in emacs
 
+# bindkey C-x s/r - search through current command - C-c to cancel, C-f/b to move cursor
+
 # Function to paste from system clipboard so I don't have to bind it in kitty config and affect other terminal tools keybinds
 function paste_from_clipboard() {
     wl-paste -n
