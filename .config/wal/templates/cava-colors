@@ -21,13 +21,9 @@
 
 # The number of bars (0-200). 0 sets it to auto (fill up console).
 # Bars' width and space between bars in number of characters.
-; bars = 0
-; bar_width = 2
-; bar_spacing = 1
-
-# For SDL width and space between bars is in pixels, defaults are:
-; bar_width = 20
-; bar_spacing = 5
+bars = 0
+bar_width = 4
+bar_spacing = 1
 
 
 # Lower and higher cutoff frequencies for lowest and highest bars
