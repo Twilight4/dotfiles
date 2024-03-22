@@ -44,6 +44,7 @@
         "custom/updates",
         "pulseaudio",
         "network",
+		//"bluetooth",
         "group/hardware",
         "battery", 
         "custom/exit",
