@@ -23,29 +23,29 @@ case $1 in
     # Load wallpaper from .cache of last session 
     "init")
         if [ -f ~/.cache/current_wallpaper.jpg ]; then
-            wal -q -i $current_wallpaper
+            wal -q -i $current_wallpaper -s -t
         else
-            wal -q -i ~/pictures/wallpapers/wm-wallpapers
+            wal -q -i ~/pictures/wallpapers/ -s -t
         fi
 		;;
 
     # Select wallpaper with rofi
     "select")
-        selected=$( find "$HOME/pictures/wallpapers/wm-wallpapers" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec basename {} \; | sort -R | while read rfile
+        selected=$( find "$HOME/pictures/wallpapers/" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec basename {} \; | sort -R | while read rfile
         do
-            echo -en "$rfile\x00icon\x1f$HOME/pictures/wallpapers/wm-wallpapers/${rfile}\n"
+            echo -en "$rfile\x00icon\x1f$HOME/pictures/wallpapers/${rfile}\n"
         done | rofi -dmenu -replace -config ~/.config/rofi/configs/config-wallpaper.rasi)
         if [ ! "$selected" ]; then
             echo "No wallpaper selected"
             exit
         fi
 
-        wal -q -i ~/pictures/wallpapers/wm-wallpapers/$selected
+        wal -q -i ~/pictures/wallpapers/$selected -s -t
 		;;
 
     # Randomly select wallpaper 
     *)
-        wal -q -i ~/pictures/wallpapers/wm-wallpapers
+        wal -q -i ~/pictures/wallpapers/ -s -t
 		;;
 
 esac
@@ -65,7 +65,7 @@ echo "* { current-image: url(\"$wallpaper\", height); }" > "$rasi_file"
 # ----------------------------------------------------- 
 # Get wallpaper image name to display
 # ----------------------------------------------------- 
-newwall=$(echo $wallpaper | sed "s|$HOME/pictures/wallpapers/wm-wallpapers||g")
+newwall=$(echo $wallpaper | sed "s|$HOME/pictures/wallpapers||g")
 
 # ----------------------------------------------------- 
 # Reload waybar with new colors
