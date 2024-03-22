@@ -5,32 +5,32 @@
     "keybind" : "l"
 }
 {
-    "label" : "hibernate",
-    "action" : "sleep 0.1; systemctl hibernate",
-    "text" : "Hibernate",
-    "keybind" : "h"
-}
-{
-    "label" : "logout",
-    "action" : "$HOME/dotfiles/hypr/scripts/exit-hyprland",
-    "text" : "Exit",
-    "keybind" : "e"
+    "label" : "reboot",
+    "action" : "systemctl reboot",
+    "text" : "Reboot",
+    "keybind" : "r"
 }
 {
     "label" : "shutdown",
-    "action" : "sleep 0.1; systemctl poweroff",
+    "action" : "systemctl poweroff",
     "text" : "Shutdown",
     "keybind" : "s"
 }
 {
+    "label" : "logout",
+    "action" : "loginctl kill-session $XDG_SESSION_ID",
+    "text" : "Exit",
+    "keybind" : "e"
+}
+{
     "label" : "suspend",
-    "action" : "sleep 0.1; systemctl suspend",
+    "action" : "lock -f && systemctl suspend",
     "text" : "Suspend",
     "keybind" : "u"
 }
 {
-    "label" : "reboot",
-    "action" : "sleep 0.1; systemctl reboot",
-    "text" : "Reboot",
-    "keybind" : "r"
+    "label" : "hibernate",
+    "action" : "lock -f && systemctl hibernate",
+    "text" : "Hibernate",
+    "keybind" : "h"
 }
