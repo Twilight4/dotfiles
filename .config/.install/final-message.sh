@@ -16,6 +16,4 @@ echo '    git clone --depth 1 git@github.com:Twilight4/dotfiles.git ~/desktop/wo
 echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents/org'
 echo "7. Install more tools from arch-setup/tools-installation directory"
 echo "8. If the waybar workspaces icons are not in proper sequence, in modules.json change the numbers temporarily and restart waybar again, they will flal in place"
-echo "9. For pywal colors in cava, you need to symlink the pywal template file as config in cava dir:"
-echo '    ln -s ~/.cache/wal/cava-colors ~/.config/cava/config'
 echo ""
