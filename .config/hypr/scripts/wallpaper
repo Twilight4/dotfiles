@@ -72,6 +72,9 @@ newwall=$(echo $wallpaper | sed "s|$HOME/pictures/wallpapers||g")
 # -----------------------------------------------------
 ~/.config/hypr/scripts/waybar-reset-theme
 
+# Reload cava-pywal (note, need to manually restart cava once wallpaper changes)
+ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config" || true
+
 # ----------------------------------------------------- 
 # Set the new wallpaper
 # -----------------------------------------------------
