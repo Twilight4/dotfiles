@@ -73,7 +73,6 @@ packagesPacman=(
 	"swappy"
 	"bleachbit"
 	"pamixer"
-	"foot"
 	"zathura"
 	"zathura-pdf-mupdf"
 	"wf-recorder"
