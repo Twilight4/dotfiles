@@ -79,7 +79,7 @@ newwall=$(echo $wallpaper | sed "s|$HOME/pictures/wallpapers||g")
 #transition_type="outer"
 transition_type="random"
 
-swww img $wallpaper \
+swww query || swww init && swww img $wallpaper \
     --transition-bezier .43,1.19,1,.4 \
     --transition-fps=60 \
     --transition-type=$transition_type \
