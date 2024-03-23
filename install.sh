@@ -64,7 +64,7 @@ source .config/.install/auto-cpufreq.sh
 #source .config/.install/systemd-boot.sh
 source .config/.install/locales.sh
 source .config/.install/nnn.sh
-#source .config/.install/install-grub-theme.sh
+#source .config/.install/install-grub-theme.sh     # (run as root)
 source .config/.install/supergfxd.sh
 source .config/.install/button-layout.sh
 source .config/.install/zsh.sh
