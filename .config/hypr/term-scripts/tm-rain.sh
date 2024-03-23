@@ -5,8 +5,8 @@ is_kitty_running() {
 	hyprctl clients | grep 'rain' >/dev/null
 }
 
-# Focus on ws "7" and spawn footclient if it's not running, else only focus
-if ! is_foot_running; then
+# Focus on ws "7" and spawn kitty if it's not running, else only focus
+if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
     hyprctl dispatch exec 'kitty -1 --class rain -e ~/.config/zsh/bash-scripts/rain'
 else
