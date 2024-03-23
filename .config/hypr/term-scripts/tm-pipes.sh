@@ -8,7 +8,7 @@ is_foot_running() {
 # Focus on ws "7" and spawn footclient if it's not running, else only focus
 if ! is_foot_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'footclient -a pipes -e ~/.config/.local/bin/pipes.sh'
+    hyprctl dispatch exec 'kitty -1 --class pipes -e ~/.config/zsh/bash-scripts/pipes'
 else
     hyprctl dispatch focuswindow '^pipes$'
 fi
