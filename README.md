@@ -40,7 +40,7 @@ rm -rf ~/dotfiles
 |  **Operating System**          | [Arch Linux](https://archlinux.org/)                       |
 |  **Compositor**                | [Hyprland](https://github.com/hyprwm/Hyprland)             |
 |  **Status Bar**                | [Waybar](https://github.com/Alexays/Waybar/)               |
-|  **App Launcher**              | [Wofi](https://hg.sr.ht/~scoopta/wofi)                     |
+|  **App Launcher**              | [Rofi-wayland](https://github.com/lbonn/rofi)              |
 |  **Session Manager**           | [Wlogout](https://github.com/ArtsyMacaw/wlogout)           |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
 |  **Web Browser**               | [Floorp](https://floorp.app/en/)                   |
