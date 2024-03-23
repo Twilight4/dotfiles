@@ -8,7 +8,7 @@ is_webcam_running() {
 # Spawn webcam if it's not running, else only focus
 if ! is_webcam_running; then
     # Spawn 'webcam.sh' only if it was not running
-    hyprctl dispatch exec 'webcam.sh'
+    hyprctl dispatch exec '~/.config/.local/bin/webcam.sh'
 else
     hyprctl dispatch focuswindow '^ffplay$'
 fi
