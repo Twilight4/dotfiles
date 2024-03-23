@@ -8,7 +8,7 @@ is_foot_running() {
 # Focus on ws "7" and spawn footclient if it's not running, else only focus
 if ! is_foot_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'footclient -a cmatrix -e cmatrix -a'
+    hyprctl dispatch exec 'kitty -1 --class cmatrix -e cmatrix'
 else
     hyprctl dispatch focuswindow '^cmatrix$'
 fi
