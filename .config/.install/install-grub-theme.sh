@@ -55,6 +55,11 @@ if [ "$UID" -eq "$ROOT_UID" ]; then
   [[ -d ${THEME_DIR}/${THEME_NAME} ]] && rm -rf ${THEME_DIR}/${THEME_NAME}
   mkdir -p "${THEME_DIR}/${THEME_NAME}"
 
+  # Get the theme
+  git clone --depth 1 https://github.com/Twilight4/arch-setup
+  mv arch-setup/config-files/CyberEXS .
+  rm -rf arch-setup
+
   # Copy theme
   prompt -i "\nInstalling ${THEME_NAME} theme...\n"
 
