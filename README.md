@@ -43,7 +43,7 @@ rm -rf ~/dotfiles
 |  **App Launcher**              | [Rofi-wayland](https://github.com/lbonn/rofi)              |
 |  **Session Manager**           | [Wlogout](https://github.com/ArtsyMacaw/wlogout)           |
 |  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
-|  **Web Browser**               | [Floorp](https://floorp.app/en/)                   |
+|  **Web Browser**               | [Floorp](https://floorp.app/en/)                           |
 |  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/) / [Foot](https://codeberg.org/dnkl/foot)    |
 |  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
 |  **Text Editor**            	 | [Emacs](https://www.gnu.org/software/emacs/)               |
