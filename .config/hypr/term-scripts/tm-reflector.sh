@@ -1,3 +1,3 @@
 #!bin/bash
 
-footclient --title reflector -a reflector -e ~/.config/.local/bin/reflector.sh
+kitty --title reflector --class reflector -e ~/.config/.local/bin/reflector.sh
