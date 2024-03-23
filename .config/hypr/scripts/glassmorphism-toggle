@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STATE=$(hyprctl -j getoption decoration:blur_passes | jq ".int")
+STATE=$(hyprctl -j getoption decoration:blur:passes | jq ".int")
 
 if [ "${BLUR_SIZE}" == "5" ]; then
 	hyprctl keyword decoration:blur:size 5
