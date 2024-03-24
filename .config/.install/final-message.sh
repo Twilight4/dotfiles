@@ -16,4 +16,5 @@ echo '    git clone --depth 1 git@github.com:Twilight4/dotfiles.git ~/desktop/wo
 echo '    git clone --depth 1 git@github.com:Twilight4/org.git ~/documents/org'
 echo "7. Install more tools from arch-setup/tools-installation directory"
 echo "8. If the waybar workspaces icons are not in proper sequence, in modules.json change the numbers temporarily and restart waybar again, they will flal in place"
+echo "9. If you're trying dual/triple boot and OS is not listed in grub bootloader, run gparted and check partition information if it's readable or you need to install some package"
 echo ""
