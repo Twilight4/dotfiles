@@ -2587,6 +2587,15 @@ Let’s make creating an Org buffer just that little bit easier.
         (setq-local doom-real-buffer-p t)))))
 #+end_src
 
+*** Create new org buffer for emacsclient command in kitty.conf
+#+begin_src emacs-lisp
+(defun tl/create-org-buffer ()
+  "Create a new Org mode buffer and switch to it."
+  (interactive)
+  (switch-to-buffer (generate-new-buffer "temporary org"))
+  (org-mode))
+#+end_src
+
 ** Org Configuraion
 *** Org-mode font faces
 
