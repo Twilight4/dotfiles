@@ -2592,7 +2592,7 @@ Let’s make creating an Org buffer just that little bit easier.
 (defun tl/create-org-buffer ()
   "Create a new Org mode buffer and switch to it."
   (interactive)
-  (switch-to-buffer (generate-new-buffer "temporary org"))
+  (switch-to-buffer (generate-new-buffer "*org scratchpad*"))
   (org-mode))
 #+end_src
 
