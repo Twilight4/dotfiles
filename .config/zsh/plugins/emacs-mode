@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 
+# This file contains emacs-like keybindings and doesn't include the default keybindings that should be built-in zsh
+# The default keybindings are in bindings.zsh file
+
 # Emacs-like bindings
+bindkey -e
+bindkey ' ' magic-space                           # do history expansion on space
 # Movement
 bindkey '^B' backward-char
 bindkey '^F' forward-char
