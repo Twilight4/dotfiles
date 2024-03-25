@@ -114,8 +114,7 @@ bindkey '^[h' custom-run-help
 # Function to clear the screen or cancel selection mode based on the context
 cancel-or-clear() {
   if [[ $REGION_ACTIVE -eq 1 ]]; then
-        zle .self-insert
-        zle .backward-delete-char
+        zle set-mark-command -n -1
     else
         printf '\n%.0s' {1..$LINES}
         zle clear-screen
@@ -125,11 +124,3 @@ cancel-or-clear() {
 # Bind the custom widget to Ctrl+G
 zle -N cancel-or-clear
 bindkey '^G' cancel-or-clear
-
-# Function to clear the screen (used in cancel-or-clear)
-#scroll-and-clear-screen() {
-#    printf '\n%.0s' {1..$LINES}
-#    zle clear-screen
-#}
-#zle -N scroll-and-clear-screen
-#bindkey '^G' scroll-and-clear-screen
