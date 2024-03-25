@@ -22,8 +22,8 @@ export HISTCONTROL=ignoreboth       		                 # Ignore commands that st
 export HISTIGNORE="&:[bf]g:clear:history:exit:q:pwd:* --help"    # Dont add certain commands to the history file
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"  		 # Make new shells get the history lines from all previous shells instead of the default "last window closed" history
 export HISTFILE="$ZDOTDIR/.zhistory"                 		 # History filepath
-export HISTSIZE=1000                                		 # Maximum events for internal history
-export SAVEHIST=2000                                		 # Maximum events in history file
+export HISTSIZE=10000                                		 # Maximum events for internal history
+export SAVEHIST=10000                                		 # Maximum events in history file
 
 # NPM
 export NPM_PATH="$XDG_CONFIG_HOME/node_modules"
