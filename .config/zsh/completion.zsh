@@ -102,19 +102,19 @@ compdef _cheat cheat
 # load wrapper script for hyperlinked grep
 compdef _rg hg
 
-# +---------+
-# | Options |
-# +---------+
 
+###########
+# Options #
+###########
 # setopt GLOB_COMPLETE      # Show autocompletion menu with globs
 setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
 setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
 setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
 
-# +---------+
-# | zstyles |
-# +---------+
 
+###########
+# zstyles #
+###########
 # Ztyle pattern
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 
