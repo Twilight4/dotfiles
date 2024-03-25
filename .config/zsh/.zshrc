@@ -32,6 +32,10 @@ setopt extendedglob         # Extended globbing. Allows using regular expression
 setopt INTERACTIVE_COMMENTS # Enable comments when running an interactive session
 setopt CORRECT              # Spelling correction
 setopt nobeep               # No beep
+#setopt magicequalsubst      # Enable filename expansion for arguments of the form ‘anything=expression’
+#setopt nonomatch            # Hide error message if there is no match for the pattern
+#setopt notify               # Report the status of background jobs immediately
+#setopt promptsubst          # Enable command substitution in prompt
 
 # Uncomment the following line if pasting URLs and other text is messed up
 DISABLE_MAGIC_FUNCTIONS="true"
