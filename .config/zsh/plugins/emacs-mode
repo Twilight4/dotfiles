@@ -25,8 +25,6 @@ bindkey '^W' backward-kill-word
 # Full keyboard keys
 bindkey '^?' backward-delete-char
 bindkey '^H' backward-kill-word
-bindkey 'Home' beginning-of-line
-bindkey 'End' end-of-line
 bindkey '^[[1~' beginning-of-line
 bindkey '^[[4~' end-of-line
 bindkey '^[[1;5C' forward-word
