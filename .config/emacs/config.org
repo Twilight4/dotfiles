@@ -36,6 +36,7 @@
   - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-adjustments][Selection Adjustments]]
   - [[#kill-whole-line-adjustment][Kill-whole-line Adjustment]]
+  - [[#copy-current-line][Copy current line]]
   - [[#backwardforward-word-adjustment][Backward/Forward Word Adjustment]]
   - [[#screenshot-automation][Screenshot Automation]]
   - [[#pdf-links-automation][Pdf-links Automation]]
@@ -196,9 +197,12 @@
 ;; Skip whole words keys
 (global-set-key (kbd "M-b") 'tl-backward-word)
 (global-set-key (kbd "M-f") 'tl-forward-word)
-;; Non-essential keys
+;; Forward/Backward paragraph
 (global-set-key (kbd "M-.") 'org-forward-paragraph)
 (global-set-key (kbd "M-,") 'org-backward-paragraph)
+;; Copy current line
+;(global-set-key (kbd "M-W") 'tl/copy-current-line)
+(global-set-key (kbd "M-W") 'copy-current-line-to-clipboard)
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
@@ -1373,6 +1377,21 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
         (call-process-region (point-min) (point-max) "wl-copy" nil nil nil)))
     (kill-whole-line))
   (message "Line copied to clipboard"))
+#+end_src
+
+** Copy current line
+
+#+begin_src emacs-lisp
+(defun copy-current-line-to-clipboard ()
+  "Copy the current line to the system clipboard using wl-copy."
+  (interactive)
+  (let ((line (buffer-substring-no-properties
+               (line-beginning-position)
+               (line-end-position))))
+    (with-temp-buffer
+      (insert line)
+      (call-process-region (point-min) (point-max) "wl-copy")))
+  (message "Line copied to clipboard."))
 #+end_src
 
 ** Backward/Forward Word Adjustment
