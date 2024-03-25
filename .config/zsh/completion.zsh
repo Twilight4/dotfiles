@@ -1,7 +1,6 @@
-# +---------+
-# | General |
-# +---------+
-
+###########
+# General #
+###########
 # Load more completions
 fpath=($XDG_CONFIG_HOME/zsh/plugins/zsh-completions/src $fpath)
 
