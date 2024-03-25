@@ -92,8 +92,8 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # FZF
 if [ $(command -v "fzf") ]; then
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
+    source /usr/share/fzf/key-bindings.zsh
 fi
 
 # Enable color support of ls, less and man, and also add handy aliases
