@@ -1383,14 +1383,18 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
 ** Copy current line
 
 #+begin_src emacs-lisp
-(defun tl/copy-current-line ()
+(defun copy-current-line-to-clipboard ()
   "Copy the current line to the system clipboard using wl-copy and display a message."
   (interactive)
   (let ((line (buffer-substring-no-properties
                (line-beginning-position)
                (line-end-position))))
-    (start-process "wl-copy-process" nil "wl-copy" line))
+    (with-temp-buffer
+      (insert line)
+      (call-process-region (point-min) (point-max) "wl-copy")))
   (message "Line copied to clipboard."))
+
+(global-set-key (kbd "C-c C-y") 'copy-current-line-to-clipboard)
 #+end_src
 
 ** Backward/Forward Word Adjustment
