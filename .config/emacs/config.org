@@ -421,6 +421,7 @@
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "s" '(basic-save-buffer :wk "Save buffer")
+    "C-a" '(mark-whole-buffer :wk "Mark whole buffer")
 	  "C-p" '(find-file-at-point :wk "Find file at point")
 	  "TAB" '(comment-dwim :wk "Comment lines")
 	  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
@@ -1207,12 +1208,12 @@ appropriate.  In tables, insert a new row or end the table."
   :bind ;; Mark one more occurrence
         (("M-Q" . mc/mark-previous-like-this)
          ("M-A" . mc/mark-next-like-this)
-		 ("C-x C-a" . mc/mark-all-like-this)
+		 ("C-x x A" . mc/mark-all-like-this)
 		 ;; From active region to multiple cursors
          ("C-x x c" . mc/edit-lines)
 		 ("C-x x a" . mc/edit-beginnings-of-lines)
 		 ("C-x x e" . mc/edit-ends-of-lines)
-         ("C-x x e" . mc/mark-all-in-region)
+         ("C-x x l" . mc/mark-all-in-region)
 		 ("C-x x r" . set-rectangular-region-anchor)))
 #+end_src
 
