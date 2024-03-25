@@ -1,0 +1,43 @@
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title btop btop
+
+# Create a new tab
+new_tab dns
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/downloads
+# Create a window (title sets the tab title)
+launch --title vpn sh -c "echo 'sudo openvpn <FILE.ovpn>' && exec zsh"
+# Focus the current tab
+focus
+
+# Create a new tab
+new_tab dns
+# Set the layout in this tab
+layout grid
+# Create a window
+cd ~/
+launch sh -c "echo 'resolvectl dns <IFACE> <IP_ADDR>' && exec zsh"
+# Create a second window
+cd ~/
+launch sh -c "echo 'resolvectl domain <IFACE> <DOMAIN>' && exec zsh"
+# Create a third window
+cd ~/
+launch sh -c "echo 'resolvectl status <IFACE>' && exec zsh"
+# Create a forth window
+cd ~/
+launch sh -c "echo 'nslookup <DOMAIN>' && exec zsh"
+
+# Create a new tab
+new_tab ip
+# Set the layout in this tab
+layout tall
+# Set the working directory
+cd ~/
+# Create a window
+launch sh -c "ip --color=auto address && exec zsh"
