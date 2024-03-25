@@ -6,6 +6,7 @@
 # Emacs-like bindings
 bindkey -e
 bindkey ' ' magic-space                           # do history expansion on space
+
 # Movement
 bindkey '^B' backward-char
 bindkey '^F' forward-char
@@ -94,14 +95,6 @@ delete-or-cut-backward() {
 zle -N delete-or-cut-backward
 bindkey '^H' delete-or-cut-backward
 
-# Function to clear the screen
-scroll-and-clear-screen() {
-    printf '\n%.0s' {1..$LINES}
-    zle clear-screen
-}
-zle -N scroll-and-clear-screen
-bindkey '^G' scroll-and-clear-screen
-
 # Function for new command
 function _new_command {
     zle push-input
@@ -117,3 +110,26 @@ custom-run-help() {
 }
 zle -N custom-run-help
 bindkey '^[h' custom-run-help
+
+# Function to clear the screen or cancel selection mode based on the context
+cancel-or-clear() {
+  if [[ $REGION_ACTIVE -eq 1 ]]; then
+        zle .self-insert
+        zle .backward-delete-char
+    else
+        printf '\n%.0s' {1..$LINES}
+        zle clear-screen
+    fi
+}
+
+# Bind the custom widget to Ctrl+G
+zle -N cancel-or-clear
+bindkey '^G' cancel-or-clear
+
+# Function to clear the screen (used in cancel-or-clear)
+#scroll-and-clear-screen() {
+#    printf '\n%.0s' {1..$LINES}
+#    zle clear-screen
+#}
+#zle -N scroll-and-clear-screen
+#bindkey '^G' scroll-and-clear-screen
