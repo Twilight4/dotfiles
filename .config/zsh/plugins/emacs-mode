@@ -125,13 +125,15 @@ cancel-or-clear() {
 zle -N cancel-or-clear
 bindkey '^G' cancel-or-clear
 
-# Cancel selection mode based on the context
-cancel-or-clear() {
+# Toggle selection mode
+toggle-selection-mode() {
   if [[ $REGION_ACTIVE -eq 1 ]]; then
-        zle set-mark-command -n -1
+    zle set-mark-command -n -1
+  else
+    zle set-mark-command
   fi
 }
 
-# Bind the custom widget to Ctrl+G
-zle -N cancel-or-clear
-bindkey '^G' cancel-or-clear
+# Bind Ctrl+Space to toggle-selection-mode
+zle -N toggle-selection-mode
+bindkey '^ ' toggle-selection-mode
