@@ -36,7 +36,7 @@
   - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-adjustments][Selection Adjustments]]
   - [[#kill-whole-line-adjustment][Kill-whole-line Adjustment]]
-  - [[#copy-current-line][Copy current line]]
+  - [[#copy-current-line][Copy Current Line]]
   - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#backwardforward-word-adjustment][Backward/Forward Word Adjustment]]
   - [[#screenshot-automation][Screenshot Automation]]
@@ -1381,7 +1381,7 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
     (message "Line copied to clipboard")))
 #+end_src
 
-** Copy current line
+** Copy Current Line
 
 #+begin_src emacs-lisp
 (defun tl/copy-current-line ()
