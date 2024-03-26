@@ -37,7 +37,7 @@
   - [[#selection-adjustments][Selection Adjustments]]
   - [[#kill-whole-line-adjustment][Kill-whole-line Adjustment]]
   - [[#copy-current-line][Copy Current Line]]
-  - [[#toggle-selection-mode][Toggle selection mode]]
+  - [[#toggle-selection-mode][Toggle Selection Mode]]
   - [[#backwardforward-word-adjustment][Backward/Forward Word Adjustment]]
   - [[#screenshot-automation][Screenshot Automation]]
   - [[#pdf-links-automation][Pdf-links Automation]]
@@ -1396,27 +1396,17 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
   (message "Line copied to clipboard."))
 #+end_src
 
-** Toggle selection mode
+** Toggle Selection Mode
 #+begin_src emacs-lisp
-(defvar my-selection-mode nil
-  "Variable to keep track of selection mode status.")
-
-(defun toggle-selection-mode ()
-  "Toggle selection mode."
+(defun toggle-mark-command ()
+  "Toggle the mark using `set-mark-command'."
   (interactive)
-  (setq my-selection-mode (not my-selection-mode))
-  (if my-selection-mode
-      (progn
-        (setq cursor-type 'box)
-        (setq transient-mark-mode t)
-        (message "Selection mode enabled"))
-    (progn
-      (setq cursor-type 'bar)
-      (setq transient-mark-mode nil)
-      (setq deactivate-mark t)
-      (message "Selection mode disabled"))))
+  (if (region-active-p)
+      (deactivate-mark)
+    (set-mark-command nil)))
 
-(global-set-key (kbd "C-SPC") 'toggle-selection-mode)
+(global-unset-key (kbd "C-@"))
+(global-set-key (kbd "C-@") 'toggle-mark-command)
 #+end_src
 
 ** Backward/Forward Word Adjustment
