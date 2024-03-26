@@ -125,7 +125,7 @@ cancel-or-clear() {
 zle -N cancel-or-clear
 bindkey '^G' cancel-or-clear
 
-# Function to clear the screen or cancel selection mode based on the context
+# Cancel selection mode based on the context
 cancel-or-clear() {
   if [[ $REGION_ACTIVE -eq 1 ]]; then
         zle set-mark-command -n -1
