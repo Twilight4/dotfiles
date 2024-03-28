@@ -101,7 +101,7 @@ window#waybar.empty #window {
     background: @backgroundlight;
     margin: 8px 0px 8px 0px;
     padding:0px;
-    border-radius: 15px 0px 0px 15px;
+    border-radius: 0px 0px 0px 0px;
     font-weight: normal;
     font-style: normal;
     opacity:0.8;
@@ -207,10 +207,10 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #custom-exit {
     background-color: @backgroundlight;
-    font-size:20px;
+    font-size:21px;
     color: @iconcolor;
     border-radius: 0px 15px 15px 0px;
-    padding: 0px 15px 0px 10px;
+    padding: 0px 15px 0px 0px;
     margin: 8px 10px 8px 0px;
     opacity:0.8;
 }
@@ -410,8 +410,8 @@ window#waybar.empty #window {
     background-color: @backgroundlight;
     font-size: 20;
     color: @iconcolor;
-    border-radius: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
+    border-radius: 15px 0px 0px 15px;
+    padding: 2px 0px 0px 10px;
     margin: 8px 0px 8px 0px;
     opacity:0.8;
 }
