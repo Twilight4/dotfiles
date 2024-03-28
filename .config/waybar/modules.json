@@ -52,15 +52,6 @@
         "separate-outputs": true
     },
 
-    // Cliphist
-    "custom/cliphist": {
-        "format": "",
-        "on-click": "sleep 0.1 && ~/.config/rofi/applets/bin/cliphist.sh",
-        "on-click-right": "sleep 0.1 && ~/.config/rofi/applets/bin/cliphist.sh d",
-        "on-click-middle": "sleep 0.1 && ~/.config/rofi/applets/bin/cliphist.sh w",
-        "tooltip": false
-    },
-
     // Updates Count
     "custom/updates": {
         "format": " {}",
@@ -172,6 +163,7 @@
 
     // System tray
     "tray": {
+        "show-passive-items": true,
         "icon-size": 21,
         "spacing": 10
     },
