@@ -3,7 +3,7 @@
 
     // Position TOP
     "layer": "top",
-	"output": "eDP-1",
+  	"output": "eDP-1",
     "margin-top": 0,
     "margin-bottom": 0,
 
@@ -22,31 +22,31 @@
 
     // Modules Left
     "modules-left": [
-    "wlr/taskbar",
-    "custom/filemanager",
-		"custom/windowsvm",
-		"custom/chatgpt",
-		"custom/qemu",
-		"custom/keepass",
+        "custom/filemanager",
+		    "custom/windowsvm",
+		    "custom/chatgpt",
+		    "custom/qemu",
+		    "custom/keepass",
         "hyprland/window",
     ],
 
     // Modules Center
     "modules-center": [
-		"custom/uptime",
-		"custom/weather",
+		    "custom/uptime",
+		    "custom/weather",
         "hyprland/workspaces",
         "clock",
     ],
 
     // Modules Right    
     "modules-right": [
-        "custom/updates",
-        "pulseaudio",
-        "network",
-		//"bluetooth",
+        //"custom/updates",
+        //"network",
+		    //"bluetooth",
         "group/hardware",
+        "pulseaudio",
         "battery", 
+        "wlr/taskbar",
         "tray",
         "custom/exit",
     ],
