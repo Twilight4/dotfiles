@@ -22,7 +22,6 @@
 
     // Modules Left
     "modules-left": [
-        "custom/appmenu",
         "wlr/taskbar",
         "custom/filemanager",
 		"custom/windowsvm",
