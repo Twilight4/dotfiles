@@ -1372,16 +1372,16 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
 
 #+begin_src emacs-lisp
 (defun tl/kill-copy-whole-line ()
-  "Copy the entire line at point to the clipboard using wl-copy and kill the line."
+  "Kill the current line and copy its content to the system clipboard using wl-copy."
   (interactive)
   (let ((line-text (buffer-substring-no-properties
                     (line-beginning-position)
                     (line-end-position))))
-    (unless (zerop (length line-text))
-      (let ((process-connection-type nil)) ; Ensure synchronous process execution
-        (start-process "wl-copy" nil "wl-copy" line-text)))
     (kill-whole-line)
-    (message "Line copied to clipboard")))
+    (with-temp-buffer
+      (insert line-text)
+      (when (= 0 (call-process-region (point-min) (point-max) "wl-copy"))
+        (message "Line copied to clipboard.")))))
 #+end_src
 
 ** Copy Current Line
