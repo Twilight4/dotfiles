@@ -193,10 +193,13 @@ window#waybar.empty #window {
  * Custom Exit
  * ----------------------------------------------------- */
 #custom-exit {
-    margin: 0px 20px 0px 0px;
-    padding:0px;
+    background-color: @backgroundlight;
     font-size:20px;
     color: @iconcolor;
+    border-radius: 15px;
+    padding: 0px 15px 0px 10px;
+    margin: 8px 10px 8px 0px;
+    opacity:0.8;
 }
 
 
@@ -257,7 +260,7 @@ window#waybar.empty #window {
 }
 
 #memory {
-    margin-right:10px;
+    margin-right:15px;
 }
 
 #disk {
