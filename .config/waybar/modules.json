@@ -71,13 +71,6 @@
         "tooltip": false
     },
 
-    // Mercury Launcher
-    "custom/browser": {
-        "format": "",
-        "on-click": "~/.config/hypr/ws-scripts/ws-floorp",
-        "tooltip": false
-    },
-
     // ChatGPT Launcher
     "custom/chatgpt": {
         "format": "",
@@ -102,7 +95,7 @@
     // Windows VM
     "custom/windowsvm": {
         "format": "",
-        "on-click": "~/.config/.hypr/scripts/launch-vm",
+        "on-click": "~/.config/hypr/scripts/launch-vm",
         "tooltip": false
     },
     
