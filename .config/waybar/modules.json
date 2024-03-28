@@ -72,13 +72,6 @@
         "tooltip": false
     },
 
-    // Keybindings
-    "custom/keybindings": {
-        "format": "",
-        "on-click": "~/.config/rofi/applets/bin/keybinds.sh",
-        "tooltip": false
-    },
-
     // Filemanager Launcher
     "custom/filemanager": {
         "format": "",
