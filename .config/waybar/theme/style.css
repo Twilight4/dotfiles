@@ -160,17 +160,6 @@ window#waybar.empty #window {
 /* -----------------------------------------------------
  * Custom Modules
  * ----------------------------------------------------- */
-#custom-appmenu {
-    background-color: @backgrounddark;
-    font-size: 16px;
-    color: @textcolor1;
-    border-radius: 15px;
-    padding: 0px 10px 0px 10px;
-    margin: 6px 15px 6px 14px;
-    opacity:0.8;
-    border:3px solid @bordercolor;
-}
-
 #custom-qemu {
     margin: 6px 5px 6px 0px;
 }
