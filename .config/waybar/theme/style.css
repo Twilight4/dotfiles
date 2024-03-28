@@ -144,7 +144,7 @@ window#waybar.empty #window {
 #custom-qemu {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
-    padding: 2px 5px 0px 10px;
+    padding: 2px 0px 0px 10px;
     margin: 8px 0px 8px 0px;
     font-size: 23px;
     opacity:0.8;
@@ -153,7 +153,7 @@ window#waybar.empty #window {
 #custom-filemanager {
     background-color: @backgroundlight;
     border-radius: 15px 0px 0px 15px;
-    padding: 2px 15px 0px 10px;
+    padding: 2px 10px 0px 10px;
     margin: 8px 0px 8px 10px;
     font-size: 20px;
     opacity:0.8;
@@ -162,7 +162,7 @@ window#waybar.empty #window {
 #custom-chatgpt {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
-    padding: 2px 15px 0px 10px;
+    padding: 2px 12px 0px 10px;
     margin: 8px 0px 8px 0px;
     font-size: 20px;
     opacity:0.8;
@@ -171,7 +171,7 @@ window#waybar.empty #window {
 #custom-windowsvm {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
-    padding: 2px 14px 0px 10px;
+    padding: 2px 10px 0px 10px;
     margin: 8px 0px 8px 0px;
     font-size: 23px;
     opacity:0.8;
