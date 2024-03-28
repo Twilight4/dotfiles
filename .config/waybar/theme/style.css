@@ -21,7 +21,7 @@ window#waybar {
  * ----------------------------------------------------- */
 #workspaces {
     background: @workspacesbackground1;
-    margin: 5px 1px 5px 1px;
+    margin: 8px 1px 8px 1px;
     padding: 0px 0px;
     border-radius: 15px;
     border: 0px;
@@ -174,7 +174,7 @@ window#waybar.empty #window {
     color: @textcolor2;
     border-radius: 15px;
     padding: 2px 10px 0px 10px;
-    margin: 8px 15px 8px 0px;
+    margin: 8px 10px 8px 0px;
     opacity:0.8;
 }
 
@@ -184,7 +184,7 @@ window#waybar.empty #window {
     color: @textcolor2;
     border-radius: 15px;
     padding: 2px 16px 0px 10px;
-    margin: 8px 15px 8px 10px;
+    margin: 8px 10px 8px 0px;
     opacity:0.8;
 }
 
@@ -281,10 +281,10 @@ window#waybar.empty #window {
     font-size: 16px;
     color: @textcolor1;
     border-radius: 15px;
-    padding: 1px 10px 0px 10px;
-    margin: 6px 15px 6px 10px;
+    padding: 0px 10px 0px 10px;
+    margin: 8px 15px 8px 10px;
     opacity:0.8;
-    border:3px solid @bordercolor;   
+    border:3px @bordercolor;   
 }
 
 
