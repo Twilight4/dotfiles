@@ -196,7 +196,7 @@ window#waybar.empty #window {
     background-color: @backgroundlight;
     font-size:20px;
     color: @iconcolor;
-    border-radius: 15px;
+    border-radius: 0px 15px 15px 0px;
     padding: 0px 15px 0px 10px;
     margin: 8px 10px 8px 0px;
     opacity:0.8;
@@ -394,7 +394,13 @@ window#waybar.empty #window {
  * Tray
  * ----------------------------------------------------- */
 #tray {
-    background-color: #2980b9;
+    background-color: @backgroundlight;
+    font-size: 20;
+    color: @iconcolor;
+    border-radius: 15px 0px 0px 15px;
+    padding: 0px 0px 0px 10px;
+    margin: 8px 0px 8px 0px;
+    opacity:0.8;
 }
 
 #tray > .passive {
