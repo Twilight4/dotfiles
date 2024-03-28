@@ -22,8 +22,8 @@
 
     // Modules Left
     "modules-left": [
-        "wlr/taskbar",
-        "custom/filemanager",
+    "wlr/taskbar",
+    "custom/filemanager",
 		"custom/windowsvm",
 		"custom/chatgpt",
 		"custom/qemu",
@@ -47,6 +47,7 @@
 		//"bluetooth",
         "group/hardware",
         "battery", 
+        "tray",
         "custom/exit",
     ],
 
