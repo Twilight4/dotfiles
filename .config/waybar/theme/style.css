@@ -135,40 +135,45 @@ window#waybar.empty #window {
 #custom-keepass {
     background-color: @backgroundlight;
     border-radius: 0px 15px 15px 0px;
-    padding: 2px 16px 0px 0px;
+    padding: 2px 15px 0px 0px;
     margin: 8px 10px 8px 0px;
+    font-size: 20px;
     opacity:0.8;
     color: @iconcolor;
 }
 #custom-qemu {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
-    padding: 2px 16px 0px 10px;
+    padding: 2px 5px 0px 10px;
     margin: 8px 0px 8px 0px;
+    font-size: 20px;
     opacity:0.8;
     color: @iconcolor;
 }
 #custom-filemanager {
     background-color: @backgroundlight;
     border-radius: 15px 0px 0px 15px;
-    padding: 2px 16px 0px 10px;
+    padding: 2px 15px 0px 10px;
     margin: 8px 0px 8px 10px;
+    font-size: 20px;
     opacity:0.8;
     color: @iconcolor;
 }
 #custom-chatgpt {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
-    padding: 2px 16px 0px 10px;
+    padding: 2px 15px 0px 10px;
     margin: 8px 0px 8px 0px;
+    font-size: 20px;
     opacity:0.8;
     color: @iconcolor;
 }
 #custom-windowsvm {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
-    padding: 2px 16px 0px 10px;
+    padding: 2px 14px 0px 10px;
     margin: 8px 0px 8px 0px;
+    font-size: 23px;
     opacity:0.8;
     color: @iconcolor;
 }
