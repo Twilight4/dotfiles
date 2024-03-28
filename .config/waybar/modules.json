@@ -72,13 +72,6 @@
         "tooltip": false
     },
 
-    // Waybar Themes
-    "custom/waybarthemes": {
-        "format": "",
-        "on-click": "~/.config/hypr/scripts/waybar-switch-theme.sh",
-        "tooltip": false
-    },
-
     // Keybindings
     "custom/keybindings": {
         "format": "",
