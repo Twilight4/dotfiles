@@ -132,35 +132,58 @@ window#waybar.empty #window {
 /* -----------------------------------------------------
  * Custom Quicklinks
  * ----------------------------------------------------- */
-#custom-browser, 
-#custom-keepass,
-#custom-uptime,
-#custom-weather,
-#custom-keybindings, 
-#custom-filemanager, 
-#custom-chatgpt, 
-#custom-calculator, 
-#custom-windowsvm, 
-#custom-waybarthemes {
+#custom-keepass {
+    background-color: @backgroundlight;
+    border-radius: 0px 15px 15px 0px;
+    padding: 2px 16px 0px 0px;
+    margin: 8px 10px 8px 0px;
+    opacity:0.8;
+    color: @iconcolor;
+}
+#custom-qemu {
+    background-color: @backgroundlight;
+    border-radius: 0px 0px 0px 0px;
+    padding: 2px 16px 0px 10px;
+    margin: 8px 0px 8px 0px;
+    opacity:0.8;
+    color: @iconcolor;
+}
+#custom-filemanager {
+    background-color: @backgroundlight;
+    border-radius: 15px 0px 0px 15px;
+    padding: 2px 16px 0px 10px;
+    margin: 8px 0px 8px 10px;
+    opacity:0.8;
+    color: @iconcolor;
+}
+#custom-chatgpt {
+    background-color: @backgroundlight;
+    border-radius: 0px 0px 0px 0px;
+    padding: 2px 16px 0px 10px;
+    margin: 8px 0px 8px 0px;
+    opacity:0.8;
+    color: @iconcolor;
+}
+#custom-windowsvm {
+    background-color: @backgroundlight;
+    border-radius: 0px 0px 0px 0px;
+    padding: 2px 16px 0px 10px;
+    margin: 8px 0px 8px 0px;
+    opacity:0.8;
+    color: @iconcolor;
+}
+/*#custom-waybarthemes {
     margin-right: 20px;
     font-size: 20px;
     font-weight: bold;
     opacity: 0.8;
     color: @iconcolor;
-}
+}*/
 
 
 /* -----------------------------------------------------
  * Custom Modules
  * ----------------------------------------------------- */
-#custom-qemu {
-    margin: 6px 5px 6px 0px;
-}
-
-#custom-keepass {
-    margin: 6px 10px 6px 0px;
-}
-
 #custom-uptime {
     background-color: @backgrounddark;
     font-size: 16px;
