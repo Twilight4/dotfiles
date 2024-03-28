@@ -64,18 +64,10 @@
         "tooltip": false
     },
     
-    // Wallpaper
-    "custom/wallpaper": {
-        "format": "",
-        "on-click": "~/.config/hypr/scripts/wallpaper select",
-        "on-click-right": "~/.config/hypr/scripts/wallpaper",
-        "tooltip": false
-    },
-
     // Filemanager Launcher
     "custom/filemanager": {
         "format": "",
-        "on-click": "nautilus",
+        "on-click": "thunar",
         "tooltip": false
     },
 
