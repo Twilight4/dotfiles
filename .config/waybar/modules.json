@@ -107,13 +107,6 @@
         "tooltip": false
     },
 
-    // Calculator
-    "custom/calculator": {
-        "format": "",
-        "on-click": "gnome-calculator",
-        "tooltip": false
-    },
-
     // Windows VM
     "custom/windowsvm": {
         "format": "",
