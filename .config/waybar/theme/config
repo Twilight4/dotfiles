@@ -46,8 +46,8 @@
         "group/hardware",
         "pulseaudio",
         "battery", 
-        "wlr/taskbar",
         "tray",
+        "wlr/taskbar",
         "custom/exit",
     ],
 
