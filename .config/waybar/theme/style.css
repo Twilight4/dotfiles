@@ -177,13 +177,6 @@ window#waybar.empty #window {
     opacity:0.8;
     color: @iconcolor;
 }
-/*#custom-waybarthemes {
-    margin-right: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    opacity: 0.8;
-    color: @iconcolor;
-}*/
 
 
 /* -----------------------------------------------------
