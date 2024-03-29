@@ -45,6 +45,10 @@ new_tab fcheat
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
-cd ~/desktop/workspace/dotfiles/.config/cheat/tools/
+cd ~/
+# Create a third window
+launch --title cheat sh -c "lsd -l --hyperlink=auto ~/.config/cheat/tools/* && exec zsh"
+# Set the working directory for windows in the current tab
+cd ~/
 # Create a window (title sets the tab title)
 launch --title fcheat sh -c "file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return && [ -n "$file" ] && cheat --edit "$file" && exec zsh"
