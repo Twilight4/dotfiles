@@ -2,7 +2,7 @@ arp-scan - The ARP Scanner
 Source: https://github.com/royhills/arp-scan
 
 Usage:
-  arp-scan [options]
+  sudo arp-scan [options]
 
 Example Usage 1:
   arp-scan -l -N
