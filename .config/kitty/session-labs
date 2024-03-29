@@ -6,7 +6,7 @@ cd ~/
 launch --title btop btop
 
 # Create a new tab
-new_tab dns
+new_tab vpn
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
@@ -22,16 +22,16 @@ new_tab dns
 layout grid
 # Create a window
 cd ~/
-launch sh -c "echo 'resolvectl dns <IFACE> <IP_ADDR>' && exec zsh"
+launch --title dns sh -c "echo 'resolvectl dns <IFACE> <IP_ADDR>' && exec zsh"
 # Create a second window
 cd ~/
-launch sh -c "echo 'resolvectl domain <IFACE> <DOMAIN>' && exec zsh"
+launch --title domain sh -c "echo 'resolvectl domain <IFACE> <DOMAIN>' && exec zsh"
 # Create a third window
 cd ~/
-launch sh -c "echo 'resolvectl status <IFACE>' && exec zsh"
+launch --title status sh -c "echo 'resolvectl status <IFACE>' && exec zsh"
 # Create a forth window
 cd ~/
-launch sh -c "echo 'nslookup <DOMAIN>' && exec zsh"
+launch --title nslookup sh -c "echo 'nslookup <DOMAIN>' && exec zsh"
 
 # Create a new tab
 new_tab ip
@@ -40,4 +40,4 @@ layout tall
 # Set the working directory
 cd ~/
 # Create a window
-launch sh -c "ip --color=auto address && exec zsh"
+launch --title ip sh -c "ip --color=auto address && exec zsh"
