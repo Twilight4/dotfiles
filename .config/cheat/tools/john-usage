@@ -7,7 +7,7 @@ Check if you need to add the "raw-" prefix or not to --format:
 Classic john usage:
   john --format=<FORMAT_TYPE> --wordlist=<PATH_TO_WORDLIST> <PATH_TO_FILE>
 
-sing Single Crack Mode:
+Single Crack Mode:
   john --single --format=<FORMAT> <PATH_TO_FILE>
 
 Convert linux password to john-readable format (/etc/passwd and /etc/shadow files):
