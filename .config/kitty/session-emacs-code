@@ -47,7 +47,7 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a third window
-launch --title cheat sh -c "lsd -l --hyperlink=auto ~/.config/cheat/tools/* && exec zsh"
+launch --title cheat sh -c "lsd -l --hyperlink=auto ~/.config/cheat/tools/ && exec zsh"
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
