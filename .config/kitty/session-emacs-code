@@ -1,6 +1,41 @@
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title ssh sh -c "echo 'ssh <USER>@<TARGET_IP>' && exec zsh"
+# Set the working directory for windows in the current tab
+cd ~/desktop/server/
+# Create a second window
+launch --title server sh -c "lsd -l --hyperlink=auto && exec zsh"
+# Set the working directory for windows in the current tab
+cd ~/desktop/projects/
+# Create a third window
+launch --title project sh -c "lsd -l --hyperlink=auto && exec zsh"
+
+# Create a new tab
+new_tab empire
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title empire sh -c "sudo powershell-empire client"
+
+# Create a new tab
+new_tab meth
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title meth sh -c "emacsclient -nw \"$HOME/documents/org/roam/red-team/methodology.org\""
+
+# Create a new tab
+new_tab workflow
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
 cd ~/documents/org/agenda/
 # Create a window (title sets the tab title)
 launch --title workflow sh -c "echo 'enter current workflow type in emacs:' && lsd -l --hyperlink=auto && exec zsh"
@@ -9,14 +44,7 @@ launch --title workflow sh -c "echo 'enter current workflow type in emacs:' && l
 new_tab fcheat
 # Set the layout in this tab
 layout tall
-cd ~/desktop/workspace/dotfiles/.config/cheat/tools/
-launch sh -c "file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return && [ -n "$file" ] && cheat --edit "$file" && exec zsh"
-
-# Create a new tab
-new_tab template
-# Set the layout in this tab
-layout tall
 # Set the working directory for windows in the current tab
-cd ~/desktop/workspace/dotfiles/.config/cheat/templates/
+cd ~/desktop/workspace/dotfiles/.config/cheat/tools/
 # Create a window (title sets the tab title)
-launch --title templates sh -c "bat --plain --language help cheat && exec zsh"
+launch --title fcheat sh -c "file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return && [ -n "$file" ] && cheat --edit "$file" && exec zsh"
