@@ -66,6 +66,7 @@ alias kill='sudo killall -q'
 alias fkill='~/.config/zsh/fzf-scripts/fkill'
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
+alias empire="sudo powershell-empire client"
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
 alias matrix="cmatrix -a"
 alias clock="tty-clock -c -C 4 -r -s -f \"%A, %B, %d\""
