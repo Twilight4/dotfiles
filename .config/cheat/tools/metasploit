@@ -12,6 +12,7 @@ Searchspliot:
 
 Searchsploit Options:
   -w         Show links to ExploitDB
+  -m <EDB_ID>  Mirror an exploit to the current working directory
 
 Commands:
   help set   Help command can be used on its own or for a specific command.
