@@ -30,7 +30,7 @@ cheatpaths:
     tags: [ tools ]
     readonly: false
 
-#  - name: new
-#    path: /home/twilight/.config/cheat/new
-#    tags: [ new ]
-#    readonly: false
+  - name: org
+    path: /home/twilight/.config/cheat/org
+    tags: [ org ]
+    readonly: false
