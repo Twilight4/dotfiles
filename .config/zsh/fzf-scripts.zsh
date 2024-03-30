@@ -440,16 +440,29 @@ falias() {
 }
 
 # List and edit cheatsheet
-fcheat() {
-    file=$(cheat -l | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+fchtce() {
+    file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
 	[ -n "$file" ] && command cheat --edit "$file"
 }
 
-# List and cat out cheatsheet
-fcheatc() {
-  file=$(cheat -l | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+# List and edit org note
+fchtoe() {
+    file=$(cheat -l -t org | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+	[ -n "$file" ] && command cheat --edit "$file"
+}
+
+# List cheatsheets and cat out cheatsheet
+fchtc() {
+  file=$(cheat -l -t tools| tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
 	[ -n "$file" ] && command cheat "$file" | bat --style header --style snip --style changes --style header --plain --language=help
 }
+
+# List org notes and cat out org note
+fchto() {
+  file=$(cheat -l -t org| tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+	[ -n "$file" ] && command cheat "$file" | bat --style header --style snip --style changes --style header --plain --language=help
+}
+
 
 # List workspace projects
 fwork() {
