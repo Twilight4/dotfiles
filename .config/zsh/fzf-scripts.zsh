@@ -347,7 +347,7 @@ cecho() (
 # Package Managers #
 ####################
 
-# Package management
+# Pacman
 fpac() {
     pacman -Slq | fzf --multi --reverse --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
 }
@@ -358,6 +358,15 @@ fpar() {
 
 fparr() {
     paru -Qq | fzf --multi --reverse --preview 'paru -Si {1}' | xargs -ro paru -Rns
+}
+
+# Apt-get
+fapti() {
+    apt-cache search . | cut -d' ' -f1 | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -r sudo apt-get install
+}
+
+faptr() {
+    dpkg --get-selections | awk '$2 == "install" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -ro sudo apt-get purge
 }
 
 
