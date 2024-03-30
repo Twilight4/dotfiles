@@ -373,7 +373,6 @@ faptr() {
 #######
 # Git #
 #######
-
 # Git log browser with FZF
 fgl() {
   git log --graph --color=always \
@@ -462,6 +461,12 @@ fdev() {
 fproj() {
     result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
     [ -n "$result" ] && cd ~/desktop/projects/$result
+}
+
+# List templates for work
+ftemp() {
+    result=$(find ~/documents/org/projects/* -type f -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
+    [ -n "$result" ] && eval "$EDITOR" $result
 }
 
 # List pdfs
