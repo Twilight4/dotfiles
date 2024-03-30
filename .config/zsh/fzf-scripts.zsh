@@ -441,8 +441,14 @@ falias() {
 
 # List and edit cheatsheet
 fcheat() {
-    file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return
-	[ -n "$file" ] && cheat --edit "$file"
+    file=$(cheat -l | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+	[ -n "$file" ] && command cheat --edit "$file"
+}
+
+# List and cat out cheatsheet
+fcheatc() {
+  file=$(cheat -l | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+	[ -n "$file" ] && command cheat "$file" | bat --style header --style snip --style changes --style header --plain --language=help
 }
 
 # List workspace projects
