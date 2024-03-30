@@ -298,13 +298,6 @@ mkextract() {
     done
 }
 
-# Compress one or multiple folder or files
-# Usage: compress <files>
-compress() {
-    local DATE="$(date +%Y%m%d-%H%M%S)"
-    tar cvzf "$DATE.tar.gz" "$@"
-}
-
 # List of port opens, fuzzy searchable via fzf, require net-tools
 ports() {
     sudo netstat -tulpn | grep LISTEN | fzf;
@@ -331,7 +324,7 @@ ydlp() {
 }
 
 # Download a playlist from Youtube only audio with best quality
-# Usage: ydlp <playlist_url> 
+# Usage: ydlap <playlist_url> 
 ydlap() {
     if ; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
@@ -361,7 +354,7 @@ ydlb() {
 }
 
 # Download audio from Youtube video with best quality
-# Usage: ydl <video_url>
+# Usage: ydlab <video_url>
 ydlab() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
