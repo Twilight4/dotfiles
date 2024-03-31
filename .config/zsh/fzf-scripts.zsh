@@ -439,30 +439,29 @@ falias() {
     eval $CMD
 }
 
-# List and edit cheatsheet
+# List cheatsheets and edit
 fchtce() {
     file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
 	[ -n "$file" ] && command cheat --edit "$file"
 }
 
-# List and edit org note
+# List org notes and edit
 fchtoe() {
     file=$(cheat -l -t org | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
 	[ -n "$file" ] && command cheat --edit "$file"
 }
 
-# List cheatsheets and cat out cheatsheet
+# List cheatsheets and cat
 fchtc() {
   file=$(cheat -l -t tools| tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
 	[ -n "$file" ] && command cheat "$file" | bat --style header --style snip --style changes --style header --plain --language=help
 }
 
-# List org notes and cat out org note
+# List org notes and cat
 fchto() {
   file=$(cheat -l -t org| tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
 	[ -n "$file" ] && command cheat "$file" | cato
 }
-
 
 # List workspace projects
 fwork() {
