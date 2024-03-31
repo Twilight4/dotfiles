@@ -52,7 +52,8 @@ alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
 #alias ai='tgpt'
 alias watch-lt='watch lsd --tree --hyperlink=auto'
-alias cptocht='find ~/documents/org/roam/ -type f -name "*.org" -exec rsync -av {} ~/.config/cheat/org \;'
+#alias cptocht='find ~/documents/org/roam/ -type f -name "*.org" -exec rsync -av {} ~/.config/cheat/org \;'
+alias cptocht='\fdfind . $HOME/documents/org/roam/ -t f -e org | xargs -I{} rsync -av {} ~/.config/cheat/org/'
 alias fd='fdfind'
 
 # Blackarch repo packages
