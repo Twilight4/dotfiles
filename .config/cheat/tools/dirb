@@ -1,5 +1,0 @@
-dirb - Web Content Scanner
-Source: https://www.kali.org/tools/dirb/
-
-Usage:
-  dirb [options] <TARGET_IP> <WORDLIST>

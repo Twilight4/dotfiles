@@ -1,9 +1,0 @@
-Commands:
-  -f, --file <FILE_GNMAP_JSON_or_XML> file to parse
-  -o, --output <OUTPUT>
-  -t, --threads <THREADS>
-                        number of medusa threads
-  -c, --continuous      keep brute-forcing after success
-  -i, --interactive     interactive mode
-  -v, --verbose <VERBOSE>
-                        verbose output from medusa [0-6], default=5

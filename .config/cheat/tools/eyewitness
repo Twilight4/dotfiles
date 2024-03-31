@@ -1,2 +1,0 @@
-Usage:
-  python eyewitness.py -f <HTTPROBE-DOMAINS_TXT> -d eyewit --web

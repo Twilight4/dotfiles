@@ -1,9 +1,0 @@
-Cewl - create custom password lists from the target website
-
-Commands:
-  cewl -w list.txt -d 5 -m 5 <DOMAIN>
-
-Options:
-  -w    Write the contents to a file.
-  -m 5  Gathers strings (words) that are 5 characters or more
-  -d 5  Depth level of web crawling/spidering (default 2)

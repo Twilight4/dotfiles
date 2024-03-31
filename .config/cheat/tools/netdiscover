@@ -1,7 +1,0 @@
-The netdiscover is a powerful command-line tool for network scanning and device discovery in Linux. With its ability to quickly identify devices connected to a wireless access point, netdiscover provides a convenient method for gaining insights into the network.
-
-Usage:
-  sudo netdiscover -r 192.168.0.1/24
-
-Options:
-  -r        scan the range for listing connected devices in the network

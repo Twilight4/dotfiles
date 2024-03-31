@@ -1,7 +1,0 @@
-host - provides information about system's IPv4 and IPv6 addresses as well as its email (MX) servers
-
-Usage:
-  host [commands] [options]
-
-Informational:
-  Many domain owners reduce thee amount of visible data after their domains have been registered for some time, historical domain registration information can be treasure trove for useful details. Srvices like https://domainhistory.net and https://whoismind.com provice a historical view of the domain registration infromation
