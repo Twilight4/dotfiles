@@ -71,13 +71,6 @@
         "tooltip": false
     },
 
-    // ChatGPT Launcher
-    "custom/chatgpt": {
-        "format": "",
-        "on-click": "xdg-open https://chat.openai.com",
-        "tooltip": false
-    },
-
     // QEMU Launcher
     "custom/qemu": {
         "format": "<span font='18'></span> <span font='16'></span>",

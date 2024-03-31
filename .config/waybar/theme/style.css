@@ -158,15 +158,6 @@ window#waybar.empty #window {
     opacity:0.8;
     color: @iconcolor;
 }
-#custom-chatgpt {
-    background-color: @backgroundlight;
-    border-radius: 0px 0px 0px 0px;
-    padding: 2px 12px 0px 10px;
-    margin: 8px 0px 8px 0px;
-    font-size: 20px;
-    opacity:0.8;
-    color: @iconcolor;
-}
 #custom-windowsvm {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;

@@ -24,7 +24,6 @@
     "modules-left": [
         "custom/filemanager",
 		    "custom/windowsvm",
-		    "custom/chatgpt",
 		    "custom/qemu",
 		    "custom/keepass",
         "hyprland/window",
