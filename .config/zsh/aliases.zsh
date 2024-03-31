@@ -52,9 +52,14 @@ alias m='service postgresql start ; msfdb init ; msfconsole'
 alias ce='cheat --edit'
 #alias ai='tgpt'
 alias watch-lt='watch lsd --tree --hyperlink=auto'
-#alias cptocht='find ~/documents/org/roam/ -type f -name "*.org" -exec rsync -av {} ~/.config/cheat/org \;'
-alias cptocht='\fdfind . $HOME/documents/org/roam/ -t f -e org | xargs -I{} rsync -av {} ~/.config/cheat/org/'
 alias fd='fdfind'
+
+# Updates
+#alias cptocht='find ~/documents/org/roam/ -type f -name "*.org" -exec rsync -av {} ~/.config/cheat/org \;'
+alias cptocht='rm ~/.config/cheat/org/org.org && \fdfind . $HOME/documents/org/roam/ -t f -e org | xargs -I{} rsync -av {} ~/.config/cheat/org/'
+alias gu='git add . && git commit -m "update" && git push'
+alias guorg='cd ~/documents/org/ && git add . && git commit -m "update" && git push'
+alias gucht='rm -rf --noconfirm ~/.config/cheat/org/* && touch ~/.config/cheat/org/org.org && cd ~/.config/cheat/ && git add . && git commit -m "update" && git push'
 
 # Blackarch repo packages
 alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # List all available tools
