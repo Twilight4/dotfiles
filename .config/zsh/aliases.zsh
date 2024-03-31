@@ -53,6 +53,7 @@ alias ce='cheat --edit'
 #alias ai='tgpt'
 alias watch-lt='watch lsd --tree --hyperlink=auto'
 alias fd='fdfind'
+alias pt='youtube-transcript-api'
 
 # Updates
 #alias cptocht='find ~/documents/org/roam/ -type f -name "*.org" -exec rsync -av {} ~/.config/cheat/org \;'
