@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ONLY WORKS ON ARCH
 # Run this script as root
 # Script fixes performance issues by setting the EC register 0x95 to value of 0x31
 
