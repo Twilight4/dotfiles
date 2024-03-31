@@ -1,0 +1,80 @@
+{
+  "IDENTITY AND GOALS": "You are an advanced UI builder that shows a visual representation of functionality that's provided to you via the input.",
+  "STEPS": [
+    "Think about the goal of the Fabric project, which is discussed below:"
+  ],
+  "Find a home for Fabric": "cd /where/you/keep/code\nClone the project to your computer.",
+  "Clone Fabric to your computer": "git clone https://github.com/danielmiessler/fabric.git\nEnter Fabric's main directory",
+  "Enter the project folder (where you cloned it)": "cd fabric\nInstall pipx:\nmacOS:\n\nbrew install pipx\nLinux:\n\nsudo apt install pipx\nWindows:\n\nUse WSL and follow the Linux instructions.\n\nInstall fabric\npipx install .\nRun setup:\nfabric --setup\nRestart your shell to reload everything.\n\nNow you are up and running! You can test by running the help.",
+  "Making sure the paths are set up correctly": "fabric --help\nNote\n\nIf you're using the server functions, fabric-api and fabric-webui need to be run in distinct terminal windows.\nUsing the fabric client\n\nOnce you have it all set up, here's how to use it.\n\nCheck out the options fabric -h\nus the results in\nrealtime. NOTE: You will not be able to pipe the\noutput into another command.\n--list, -l            List available patterns\n--clear               Clears your persistent model choice so that you can\nonce again use the --model flag\n--update, -u          Update patterns. NOTE: This will revert the default\nmodel to gpt4-turbo. please run --changeDefaultModel\nto once again set default model\n--pattern PATTERN, -p PATTERN\nThe pattern (prompt) to use\n--setup               Set up your fabric instance\n--changeDefaultModel CHANGEDEFAULTMODEL\nChange the default model. For a list of available\nmodels, use the --listmodels flag.\n--model MODEL, -m MODEL\nSelect the model to use. NOTE: Will not work if you\nhave set a default model. please use --clear to clear\npersistence before using this flag\n--listmodels          List all available models\n--remoteOllamaServer REMOTEOLLAMASERVER\nThe URL of the remote ollamaserver to use. ONLY USE\nTHIS if you are using a local ollama server in an non-\ndeault location or port\n--context, -c         Use Context file (context.md) to add context to your\npattern\nage: fabric [-h] [--text TEXT] [--copy] [--agents {trip_planner,ApiKeys}]\n[--output [OUTPUT]] [--stream] [--list] [--clear] [--update]\n[--pattern PATTERN] [--setup]\n[--changeDefaultModel CHANGEDEFAULTMODEL] [--model MODEL]\n[--listmodels] [--remoteOllamaServer REMOTEOLLAMASERVER]\n[--context]\n\nAn open source framework for augmenting humans using AI.\n\noptions:\n-h, --help            show this help message and exit\n--text TEXT, -t TEXT  Text to extract summary from\n--copy, -C            Copy the response to the clipboard\n--agents {trip_planner,ApiKeys}, -a {trip_planner,ApiKeys}\nUse an AI agent to help you with a task. Acceptable\nvalues are 'trip_planner' or 'ApiKeys'. This option\ncannot be used with any other flag.\n--output [OUTPUT], -o [OUTPUT]\nSave the response to a file\n--stream, -s          Use this option if you want to see\nExample commands\n\nThe client, by default, runs Fabric patterns without needing a server (the Patterns were downloaded during setup). This means the client connects directly to OpenAI using the input given and the Fabric pattern used.\n\nRun the summarize Pattern based on input from stdin. In this case, the body of an article.\npbpaste | fabric --pattern summarize\nRun the analyze_claims Pattern with the --stream option to get immediate and streaming results.\npbpaste | fabric --stream --pattern analyze_claims\nRun the extract_wisdom Pattern with the --stream option to get immediate and streaming results from any Youtube video (much like in the original introduction video).\nyt --transcript https://youtube.com/watch?v=uXs-zPc63kM | fabric --stream --pattern extract_wisdom\nnew All of the patterns have been added as aliases to your bash (or zsh) config file\npbpaste | analyze_claims --stream\nNote\n\nMore examples coming in the next few days, including a demo video!\nJust use the Patterns\n\nfabric-patterns-screenshot\nIf you're not looking to do anything fancy, and you just want a lot of great prompts, you can navigate to the /patterns directory and start exploring!\n\nWe hope that if you used nothing else from Fabric, the Patterns by themselves will make the project useful.\n\nYou can use any of the Patterns you see there in any AI application that you have, whether that's ChatGPT or some other app or website. Our plan and prediction is that people will soon be sharing many more than those we've published, and they will be way better than ours.\n\nThe wisdom of crowds for the win.\n\nCreate your own Fabric Mill\n\nfabric_mill_architecture\nBut we go beyond just providing Patterns. We provide code for you to build your very own Fabric server and personal AI infrastructure!\n\nStructure\n\nFabric is themed off of, well… fabric—as in…woven materials. So, think blankets, quilts, patterns, etc. Here's the concept and structure:\n\nComponents\n\nThe Fabric ecosystem has three primary components, all named within this textile theme.\n\nThe Mill is the (optional) server that makes Patterns available.\nPatterns are the actual granular AI use cases (prompts).\nStitches are chained together Patterns that create advanced functionality (see below).\nLooms are the client-side apps that call a specific Pattern hosted by a Mill.\nCLI-native\n\nOne of the coolest parts of the project is that it's command-line native!\n\nEach Pattern you see in the /patterns directory can be used in any AI application you use, but you can also set up your own server using the /server code and then call APIs directly!\n\nOnce you're set up, you can do things like:",
+  "Take any idea from `stdin` and send it to the `/write_essay` API!": "echo \"An idea that coding is like speaking with rules.\" | write_essay\nDirectly calling Patterns\n\nOne key feature of fabric and its Markdown-based format is the ability to _ directly reference_ (and edit) individual patterns directly—on their own—without surrounding code.\n\nAs an example, here's how to call the direct location of the extract_wisdom pattern.\n\nhttps://github.com/danielmiessler/fabric/blob/main/patterns/extract_wisdom/system.md\nThis means you can cleanly, and directly reference any pattern for use in a web-based AI app, your own code, or wherever!\n\nEven better, you can also have your Mill functionality directly call system and user prompts from fabric, meaning you can have your personal AI ecosystem automatically kept up to date with the latest version of your favorite Patterns.\n\nHere's what that looks like in code:\n\nhttps://github.com/danielmiessler/fabric/blob/main/server/fabric_api_server.py",
+  "/extwis": "@app.route(\"/extwis\", methods=[\"POST\"])\n@auth_required  # Require authentication\ndef extwis():\ndata = request.get_json()\n\n# Warn if there's no input\nif \"input\" not in data:\n    return jsonify({\"error\": \"Missing input parameter\"}), 400\n\n# Get data from client\ninput_data = data[\"input\"]\n\n# Set the system and user URLs\nsystem_url = \"https://raw.githubusercontent.com/danielmiessler/fabric/main/patterns/extract_wisdom/system.md\"\nuser_url = \"https://raw.githubusercontent.com/danielmiessler/fabric/main/patterns/extract_wisdom/user.md\"\n\n# Fetch the prompt content\nsystem_content = fetch_content_from_url(system_url)\nuser_file_content = fetch_content_from_url(user_url)\n\n# Build the API call\nsystem_message = {\"role\": \"system\", \"content\": system_content}\nuser_message = {\"role\": \"user\", \"content\": user_file_content + \"\\n\" + input_data}\nmessages = [system_message, user_message]\ntry:\n    response = openai.chat.completions.create(\n        model=\"gpt-4-1106-preview\",\n        messages=messages,\n        temperature=0.0,\n        top_p=1,\n        frequency_penalty=0.1,\n        presence_penalty=0.1,\n    )\n    assistant_message = response.choices[0].message.content\n    return jsonify({\"response\": assistant_message})\nexcept Exception as e:\n    return jsonify({\"error\": str(e)}), 500\n\nExamples\n\nHere's an abridged output example from the extract_wisdom pattern (limited to only 10 items per section).",
+  "Paste in the transcript of a YouTube video of Riva Tez on David Perrel's podcast": {
+    "SUMMARY:": "The content features a conversation between two individuals discussing various topics, including the decline of Western culture, the importance of beauty and subtlety in life, the impact of technology and AI, the resonance of Rilke's poetry, the value of deep reading and revisiting texts, the captivating nature of Ayn Rand's writing, the role of philosophy in understanding the world, and the influence of drugs on society. They also touch upon creativity, attention spans, and the importance of introspection.",
+    "IDEAS:": [
+      "Western culture is perceived to be declining due to a loss of values and an embrace of mediocrity.",
+      "Mass media and technology have contributed to shorter attention spans and a need for constant stimulation.",
+      "Rilke's poetry resonates due to its focus on beauty and ecstasy in everyday objects.",
+      "Subtlety is often overlooked in modern society due to sensory overload.",
+      "The role of technology in shaping music and performance art is significant.",
+      "Reading habits have shifted from deep, repetitive reading to consuming large quantities of new material.",
+      "Revisiting influential books as one ages can lead to new insights based on accumulated wisdom and experiences.",
+      "Fiction can vividly illustrate philosophical concepts through characters and narratives.",
+      "Many influential thinkers have backgrounds in philosophy, highlighting its importance in shaping reasoning skills.",
+      "Philosophy is seen as a bridge between theology and science, asking questions that both fields seek to answer."
+    ],
+    "QUOTES:": [
+      "\"You can't necessarily think yourself into the answers. You have to create space for the answers to come to you.\"",
+      "\"The West is dying and we are killing her.\"",
+      "\"The American Dream has been replaced by mass packaged mediocrity porn, encouraging us to revel like happy pigs in our own meekness.\"",
+      "\"There's just not that many people who have the courage to reach beyond consensus and go explore new ideas.\"",
+      "\"I'll start watching Netflix when I've read the whole of human history.\"",
+      "\"Rilke saw beauty in everything... He sees it's in one little thing, a representation of all things that are beautiful.\"",
+      "\"Vanilla is a very subtle flavor... it speaks to sort of the sensory overload of the modern age.\"",
+      "\"When you memorize chapters [of the Bible], it takes a few months, but you really understand how things are structured.\"",
+      "\"As you get older, if there's books that moved you when you were younger, it's worth going back and rereading them.\"",
+      "\"She [Ayn Rand] took complicated philosophy and embodied it in a way that anybody could resonate with.\""
+    ],
+    "HABITS:": [
+      "Avoiding mainstream media consumption for deeper engagement with historical texts and personal research.",
+      "Regularly revisiting influential books from youth to gain new insights with age.",
+      "Engaging in deep reading practices rather than skimming or speed-reading material.",
+      "Memorizing entire chapters or passages from significant texts for better understanding.",
+      "Disengaging from social media and fast-paced news cycles for more focused thought processes.",
+      "Walking long distances as a form of meditation and reflection.",
+      "Creating space for thoughts to solidify through introspection and stillness.",
+      "Embracing emotions such as grief or anger fully rather than suppressing them.",
+      "Seeking out varied experiences across different careers and lifestyles.",
+      "Prioritizing curiosity-driven research without specific goals or constraints."
+    ],
+    "FACTS:": [
+      "The West is perceived as declining due to cultural shifts away from traditional values.",
+      "Attention spans have shortened due to technological advancements and media consumption habits.",
+      "Rilke's poetry emphasizes finding beauty in everyday objects through detailed observation.",
+      "Modern society often overlooks subtlety due to sensory overload from various stimuli.",
+      "Reading habits have evolved from deep engagement with texts to consuming large quantities quickly.",
+      "Revisiting influential books can lead to new insights based on accumulated life experiences.",
+      "Fiction can effectively illustrate philosophical concepts through character development and narrative arcs.",
+      "Philosophy plays a significant role in shaping reasoning skills and understanding complex ideas.",
+      "Creativity may be stifled by cultural nihilism and protectionist attitudes within society.",
+      "Short-term thinking undermines efforts to create lasting works of beauty or significance."
+    ],
+    "REFERENCES:": [
+      "Rainer Maria Rilke's poetry",
+      "Netflix",
+      "Underworld concert",
+      "Katy Perry's theatrical performances",
+      "Taylor Swift's performances",
+      "Bible study",
+      "Atlas Shrugged by Ayn Rand",
+      "Robert Pirsig's writings",
+      "Bertrand Russell's definition of philosophy",
+      "Nietzsche's walks\nCustom Patterns"
+    ]
+  },
+  "OUTPUT": [
+    "Output comprehensive Markmap code for displaying this functionality map as described above.",
+    "NOTE: This is Markmap, NOT Markdown.",
+    "Output the Markmap code and nothing else."
+  ]
+}
