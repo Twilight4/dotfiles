@@ -460,7 +460,7 @@ fchtc() {
 # List org notes and cat out org note
 fchto() {
   file=$(cheat -l -t org| tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
-	[ -n "$file" ] && command cheat "$file" | bat --style header --style snip --style changes --style header --plain --language=help
+	[ -n "$file" ] && command cheat "$file" | cato
 }
 
 
