@@ -447,8 +447,11 @@ fchtce() {
 
 # List org notes and edit
 fchtoe() {
-    file=$(cheat -l -t org | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
-	[ -n "$file" ] && command cheat --edit "$file"
+  file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap)
+
+  if [[ -n "$file" ]]; then
+    eval $EDITOR ~/documents/org/roam/"$file"
+  fi
 }
 
 # List cheatsheets and cat
@@ -459,7 +462,7 @@ fchtc() {
 
 # List org notes and cat
 fchto() {
-  file=$(cheat -l -t org| tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+  file=$(cheat -l -t org | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
 	[ -n "$file" ] && command cheat "$file" | cato
 }
 
