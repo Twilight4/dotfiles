@@ -441,7 +441,7 @@ falias() {
 
 # List cheatsheets and edit
 fchtce() {
-    file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+    file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style header --style snip --style changes --style header --plain --language=help --color=always ~/.config/cheat/tools/{}') || return
 	[ -n "$file" ] && command cheat --edit "$file"
 }
 
@@ -454,9 +454,9 @@ fchtoe() {
   fi
 }
 
-# List cheatsheets and cat
+# List cheatsheets and cat with preview
 fchtc() {
-  file=$(cheat -l -t tools| tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf | cut -f 2) || return
+  file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style header --style snip --style changes --style header --plain --language=help --color=always ~/.config/cheat/tools/{}') || return
 	[ -n "$file" ] && command cheat "$file" | bat --style header --style snip --style changes --style header --plain --language=help
 }
 
