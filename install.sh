@@ -49,7 +49,6 @@ source .config/.install/remove-bloat.sh
 source .config/.install/hyprland-packages.sh
 source .config/.install/install-packages.sh
 source .config/.install/enable-services.sh
-source .config/.install/qemu.sh
 source .config/.install/bluetooth.sh
 source .config/.install/set-user-groups.sh
 source .config/.install/wallpaper.sh
@@ -60,10 +59,8 @@ source .config/.install/init-pywal.sh
 source .config/.install/install-dotfiles.sh
 source .config/.install/hyprland-entry.sh
 source .config/.install/auto-cpufreq.sh
-#source .config/.install/systemd-boot.sh
 source .config/.install/locales.sh
 source .config/.install/nnn.sh
-#source .config/.install/install-grub-theme.sh     # run as root
 source .config/.install/supergfxd.sh
 source .config/.install/button-layout.sh
 source .config/.install/zsh.sh
