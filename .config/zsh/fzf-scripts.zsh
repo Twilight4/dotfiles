@@ -454,6 +454,40 @@ fchtoe() {
   fi
 }
 
+# List org notes based on content and cat
+frgo() {
+  pushd ~/documents/org/roam/ &> /dev/null
+
+  if [ ! "$#" -gt 0 ]; then return 1; fi
+  selected_file=$(rg --files-with-matches --no-messages "$1" \
+    | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
+    | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' \
+    || rg --ignore-case --pretty --context 10 '$1' {}")
+
+  if [[ -n "$selected_file" ]]; then
+    sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' "$selected_file" | command bat --language=org --style=plain --color=always
+  fi
+
+  popd &> /dev/null
+}
+
+# List org notes based on content and edit
+frgoe() {
+  pushd ~/documents/org/roam/ &> /dev/null
+
+  if [ ! "$#" -gt 0 ]; then return 1; fi
+  selected_file=$(rg --files-with-matches --no-messages "$1" \
+    | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
+    | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' \
+    || rg --ignore-case --pretty --context 10 '$1' {}")
+
+  if [ -n "$selected_file" ]; then
+    eval $EDITOR "$selected_file"
+  fi
+
+  popd &> /dev/null
+}
+
 # List cheatsheets and cat with preview
 fchtc() {
   file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style header --style snip --style changes --style header --plain --language=help --color=always ~/.config/cheat/tools/{}') || return
