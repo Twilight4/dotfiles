@@ -41,3 +41,5 @@ layout tall
 cd ~/
 # Create a window
 launch --title ip sh -c "ip --color=auto address && exec zsh"
+# Create a second window
+launch --title ping sh -c "echo 'ping <IP_ADDR>' && exec zsh"
