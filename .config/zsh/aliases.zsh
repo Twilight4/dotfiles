@@ -30,9 +30,7 @@ alias meth='emacsclient -nw "$HOME/documents/org/roam/red-team/methodology.org"'
 alias privacy='emacsclient -nw "$HOME/documents/org/roam/nothing-personal/privacy.org"'
 alias psych='emacsclient -nw "$HOME/documents/org/roam/nothing-personal/dark_psychology.org"'
 
-# Enhancd: cd, cd-, cd <jump_to_dir>, .., .
-alias cd-="cd -"
-alias .="cd ."
+# Enhancd: cd <dir>, cd, cd -, ..
 alias ..="cd .."
 alias ...='cd ../..'
 alias ....='cd ../../..'
