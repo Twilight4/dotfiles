@@ -1,17 +1,13 @@
 #!/bin/bash
 
-# Function to check if 'floorp' process is running for a specific profile
+# Function to check if 'floorp' process is running
 is_floorp_running() {
-    pgrep -a "floorp" | grep "$1" >/dev/null
+    pgrep -x "floorp" >/dev/null
 }
 
-# Check if any of the 3 floorp profiles is running then focus it
-if is_floorp_running 'default-default'; then
-    hyprctl dispatch exec 'floorp -P default-default'
-elif is_floorp_running 'default-work'; then
-    hyprctl dispatch exec 'floorp -P default-work'
-elif is_floorp_running 'default-osint'; then
-    hyprctl dispatch exec 'floorp -P default-osint'
-else
+# Check if any instance of 'floorp' is running then focus it, otherwise open it
+if is_floorp_running; then
     hyprctl dispatch focuswindow 'floorp'
+else
+    hyprctl dispatch exec 'floorp -P default-default'
 fi
