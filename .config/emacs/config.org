@@ -889,6 +889,12 @@ Finally, it redraws the display to reflect the changes.
              (if (equal mode-line-format nil)
                  (default-value 'mode-line-format)))
        (redraw-display))
+
+;; Disable mode line on emacs startup
+(defun disable-mode-line ()
+  (setq mode-line-format nil))
+
+(add-hook 'after-change-major-mode-hook 'disable-mode-line)
 #+end_src
 
 ** File Names for Org-roam
