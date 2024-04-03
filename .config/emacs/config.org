@@ -3087,7 +3087,7 @@ this with to-do items than with projects or headings."
      ("re" "External Pentest" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/external-pentest/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
@@ -3098,7 +3098,7 @@ this with to-do items than with projects or headings."
      ("ri" "Internal Pentest" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/internal-pentest/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
@@ -3109,7 +3109,7 @@ this with to-do items than with projects or headings."
      ("rr" "Red Team Engagement" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/red-team-engagement/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
@@ -3120,7 +3120,7 @@ this with to-do items than with projects or headings."
      ("rs" "Social Engineering Pentest" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/social-engineering-pentest/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
@@ -3131,7 +3131,7 @@ this with to-do items than with projects or headings."
      ("rw" "Wireless Pentest" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/wireless-pentest/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
@@ -3144,7 +3144,7 @@ this with to-do items than with projects or headings."
      ("ss" "Social Engineering Pentest" entry
       (file (lambda ()
              (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/social-engineering-pentest/" filename ".org"))
+                    (full-path (concat "~/documents/org/projects/" filename ".org"))
                     (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
                (with-temp-buffer
                  (insert "#+title: " filename "\n")
