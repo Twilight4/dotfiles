@@ -220,14 +220,16 @@ alias net-routes="netstat -r --numeric-hosts"
 alias net-ss="sudo ss -plaunt4"
 alias net-lsof="sudo lsof -P -i -n "
 alias net-pubip="curl -s \"https://icanhazip.com\" "
-alias net-pvpn-update="sudo pip install protonvpn-cli --upgrade"
-alias net-pvpn-status="sudo protonvpn status"
-alias net-pvpn-connect-tcp="sudo protonvpn c -f"
-alias net-pvpn-connect-udp="sudo protonvpn c -f -p udp"
-alias net-disconnect="sudo protonvpn disconnect"
 alias net-adapter="inxi -Na"
 alias net-lspci="lspci -nn | grep -i net"
 alias net-ps="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
+
+# Proton vpn
+alias net-pvpn-update="sudo pip install protonvpn-cli --upgrade"
+alias net-pvpn-connect-tcp="sudo protonvpn c -f"
+alias net-pvpn-connect-udp="sudo protonvpn c -f -p udp"
+alias net-pvpn-status="sudo protonvpn status"
+alias net-disconnect="sudo protonvpn disconnect"
 
 # Udiskie-umount
 alias ubackup='udiskie-umount $MEDIA/BACKUP'
