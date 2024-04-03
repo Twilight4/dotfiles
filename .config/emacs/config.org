@@ -825,9 +825,9 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
         doom-themes-enable-italic t))   ; if nil, italics is universally disabled
 
-;; Load my custom theme
-;(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-;(load-theme 'moonlight t)
+;; Set background color to the same as in kitty background
+(custom-set-faces
+ '(default ((t (:background "#040305")))))
 
 ;; Use pywal auto-generated color scheme
 ;; (use-package ewal
