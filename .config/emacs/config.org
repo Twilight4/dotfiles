@@ -495,6 +495,7 @@
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "t t" '(visual-line-mode :wk "Toggle truncated lines")
     "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
+	"t i" '(org-indent-mode :wk "Toggle indentation mode")
     "t m" '(toggle-mode-line :wk "Toggle mode line")
     "t H" '(global-hl-line-mode :wk "Toggle line highlight globally")
     "t T" '(org-transclusion-mode :wk "Org Transclusion mode"))
@@ -2004,7 +2005,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (use-package org-superstar
   :ensure t
   :config
-  (setq org-superstar-headline-bullets-list '("🞛 " "◉" "○" "◈" "◆" "◇")
+  (setq org-superstar-headline-bullets-list '("◉" "○" "◈" "◇" "◆")
 		  org-superstar-item-bullet-alist '((?- . ?•) (?+ . ?➤) (?* . ?▷))))
 
 ;; Hide leading stars
@@ -2676,7 +2677,7 @@ Let’s make creating an Org buffer just that little bit easier.
     (setq-local jit-lock-defer-time 0.05
                 jit-lock-stealth-time 1)))
 
-(add-hook 'org-mode-hook #'locally-defer-font-lock)
+;(add-hook 'org-mode-hook #'locally-defer-font-lock)
 
 ;; Using org-src-font-lock-fontify-block we can apply language-appropriate syntax highlighting. Then, continuing on to {{{results(...)}}} , it can have the org-block face applied to match, and then the value-surrounding constructs hidden by mimicking the behaviour of prettify-symbols-mode. 
 (setq org-inline-src-prettify-results '("⟨" . "⟩"))
