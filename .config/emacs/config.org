@@ -829,7 +829,8 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 (custom-set-faces
  '(default ((t (:background "#040305"))))
  '(line-number ((t (:background "#040305"))))
- '(mode-line ((t (:background "#040305")))))
+ '(mode-line ((t (:background "#040305"))))
+ '(mode-line-inactive ((t (:background "#040305")))))
 
 ;; Use pywal auto-generated color scheme
 ;; (use-package ewal
