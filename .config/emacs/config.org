@@ -495,7 +495,7 @@
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "t t" '(visual-line-mode :wk "Toggle truncated lines")
     "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
-    "t m" '(hl-mode-mode :wk "Toggle mode line")
+    "t m" '(toggle-mode-line :wk "Toggle mode line")
     "t H" '(global-hl-line-mode :wk "Toggle line highlight globally")
     "t T" '(org-transclusion-mode :wk "Org Transclusion mode"))
 
@@ -711,7 +711,7 @@
 (tool-bar-mode -1)                                ; Disable tool bar
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
-(global-display-line-numbers-mode 1)              ; Display line numbers
+(global-display-line-numbers-mode -1)             ; Disable displaying line numbers
 (global-visual-line-mode t)                       ; Display truncated lines
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
