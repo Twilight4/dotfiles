@@ -34,10 +34,10 @@ new_tab empire
 layout tall
 # Set the working directory for windows in the current tab
 cd ~/
-# Create a window (title sets the tab title)
-launch --title empire sh -c "pgrep -a -f 'powershell-empire' || sudo powershell-empire server"
-# Create a second window (title sets the tab title)
-launch --title empire sh -c "sleep 5; sudo powershell-empire client; exec zsh"
+# Run powershell-empire server - if it's already running the window will close automatically
+launch --title empire sh -c "sudo powershell-empire server"
+# Loop to check if powershell-empire (server) is running then wait 2 seconds for it to start and run the client
+launch --title empire sh -c "while ! sudo ps aux | grep -q '[p]owershell-empire'; do sleep 1; done; sleep 2; sudo powershell-empire client"
 
 # Create a new tab
 new_tab meth
