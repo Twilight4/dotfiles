@@ -1,35 +1,18 @@
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
-cd ~/
+cd ~/documents/org/projects
 # Create a window (title sets the tab title)
-launch --title ssh sh -c "echo 'ssh <USER>@<TARGET_IP>' && exec zsh"
-# Set the working directory for windows in the current tab
-cd ~/desktop/server/
-# Create a second window
-launch --title server sh -c "lsd -l --hyperlink=auto && exec zsh"
-# Set the working directory for windows in the current tab
-cd ~/desktop/projects/
-# Create a third window
-launch --title project sh -c "lsd -l --hyperlink=auto && exec zsh"
+launch --title report sh -c 'result=$(find ~/documents/org/projects/ -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/projects/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$result" ] && eval "$EDITOR" ~/documents/org/projects/"$result"; exec zsh'
 
 # Create a new tab
-new_tab empire
+new_tab RoE/SoW
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
-cd ~/
+cd ~/documents/org/projects
 # Create a window (title sets the tab title)
-launch --title empire sh -c "sudo powershell-empire client"
-
-# Create a new tab
-new_tab meth
-# Set the layout in this tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a window (title sets the tab title)
-launch --title meth sh -c "emacsclient -nw \"$HOME/documents/org/roam/red-team/methodology.org\""
+launch --title RoE/SoW sh -c 'result=$(find ~/documents/org/projects/ -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/projects/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$result" ] && eval "$EDITOR" ~/documents/org/projects/"$result"; exec zsh'
 
 # Create a new tab
 new_tab workflow
@@ -38,17 +21,4 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/documents/org/agenda/
 # Create a window (title sets the tab title)
-launch --title workflow sh -c "echo 'enter current workflow type in emacs:' && lsd -l --hyperlink=auto && exec zsh"
-
-# Create a new tab for cheat.sh
-new_tab fcheat
-# Set the layout in this tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a third window
-launch --title cheat sh -c "lsd -l --hyperlink=auto ~/.config/cheat/tools/ && exec zsh"
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a window (title sets the tab title)
-launch --title fcheat sh -c "file=$(find ~/.config/cheat/tools/* -maxdepth 1 -type f -prune -exec basename {} ';' | sort | uniq | fzf | cut -f 2) || return && [ -n "$file" ] && cheat --edit "$file" && exec zsh"
+launch --title workflow sh -c 'echo "Press "C-x v" to create a workflow and "C-x a a w" for agenda view" && emacsclient -nw --eval "(progn (org-agenda) (delete-other-windows))"; exec zsh'
