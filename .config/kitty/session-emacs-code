@@ -21,4 +21,4 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/documents/org/agenda/
 # Create a window (title sets the tab title)
-launch --title workflow sh -c 'echo "Press "C-x v" to create a workflow and "C-x a a w" for agenda view" && emacsclient -nw --eval "(progn (org-agenda) (delete-other-windows))"; exec zsh'
+launch --title workflow sh -c 'echo "Press \"C-x v\" to create a workflow and \"C-x a a w\" for agenda view" && emacsclient -nw --eval "(progn (org-agenda) (delete-other-windows))"; exec zsh'

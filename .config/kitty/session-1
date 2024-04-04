@@ -20,6 +20,14 @@ launch --title fchtc sh -c "file=\$(cheat -l -t tools | tail -n +2 | cut -d' ' -
 # Create a second window (title sets the tab title)
 launch --title fchto sh -c 'file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$file" ] && command sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/"$file" | command bat --language=org --style=plain --color=always; exec zsh'
 
+new_tab nb-log
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window window (title sets the tab title)
+launch --title nb-log sh -c "echo 'nb-log-*'"
+
 # Create a new tab
 new_tab empire
 # Set the layout in this tab
@@ -29,7 +37,7 @@ cd ~/
 # Create a window (title sets the tab title)
 launch --title empire sh -c "pgrep -a -f 'powershell-empire' || sudo powershell-empire server"
 # Create a second window (title sets the tab title)
-launch --title empire sh -c "sleep 5; sudo powershell-empire client"
+launch --title empire sh -c "sleep 5; sudo powershell-empire client; exec zsh"
 
 # Create a new tab
 new_tab meth
