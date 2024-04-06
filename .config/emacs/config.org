@@ -2634,10 +2634,13 @@ Let’s make creating an Org buffer just that little bit easier.
 *** Create new org buffer for emacsclient command in kitty.conf
 #+begin_src emacs-lisp
 (defun tl/create-org-buffer ()
-  "Create a new Org mode buffer and switch to it."
+  "Switch to an existing Org mode buffer named *org scratchpad*, or create a new one."
   (interactive)
-  (switch-to-buffer (generate-new-buffer "*org scratchpad*"))
-  (org-mode))
+  (let ((buffer (get-buffer "*org scratchpad*")))
+    (if buffer
+        (switch-to-buffer buffer)
+      (switch-to-buffer (generate-new-buffer "*org scratchpad*"))
+      (org-mode))))
 #+end_src
 
 ** Org Configuraion
