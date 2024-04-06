@@ -27,8 +27,6 @@ alias pj='cd "$HOME/desktop/projects" ; clear'
 alias lpj='lsd --tree --hyperlink=auto ~/desktop/projects'
 alias ws='cd "$HOME/desktop/workspace" ; clear'
 alias meth='emacsclient -nw "$HOME/documents/org/roam/red-team/methodology.org"'
-alias privacy='emacsclient -nw "$HOME/documents/org/roam/nothing-personal/privacy.org"'
-alias psych='emacsclient -nw "$HOME/documents/org/roam/nothing-personal/dark_psychology.org"'
 
 # Enhancd: cd <dir>, cd, cd -, ..
 alias ..="cd .."
