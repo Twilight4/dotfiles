@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # This file contains emacs-like keybindings and doesn't include the default keybindings that should be built-in zsh
-# The default keybindings are in bindings.zsh file
+# Other default bindings are in bindings.zsh file
 
 ######################
 # DEFAULT BINDINGS   #
@@ -42,10 +42,6 @@ bindkey '^[[6~' end-of-buffer-or-history
 bindkey '^[[3~' delete-char
 bindkey '^[[Z' reverse-menu-complete
 
-# Emacs has it's own clipboard buffer which to normally the text is copied, same with zsh
-# By default keys M-w for copy and C-y for paste are set in emacs and zsh
-# My custom functions make it easy to copy text to system clipboard using M-w and paste using C-y
-
 # Open in external editor command
 autoload -U edit-command-line
 zle -N edit-command-line
@@ -56,6 +52,12 @@ bindkey '^X^E' edit-command-line
 # ALT + ... KEYS     #
 ######################
 ### FZF SCRIPTS ###
+# ctrl+key - mostly taken by zsh and the same are used by emacs
+# alt+key - mostly taken by emacs
+# ctrl+shift+key - some taken by kitty
+# alt+shift+key - all available
+# ctrl+alt+key - all avialable
+
 # Check available keybinds: bindkey
 # List whole commands for keybinds: bindkey -L
 # List all the bindings in a given keymap: bindkey -M <keymap>
@@ -83,8 +85,7 @@ bindkey -M emacs -s '^[,' 'ff\r'
 bindkey -M emacs -s '^[.' 'cd .\r'
 bindkey -M emacs -s '^[<' 'ffp\r'
 bindkey -M emacs -s '^[>' 'ffh\r'
-# Other tools
-#bindkey -M emacs -s '^[n' 'fqli\r'
+#bindkey -M emacs -s '^[n'
 # Git
 #bindkey -M emacs -s '^[z' 
 #bindkey -M emacs -s '^[v' 
@@ -98,13 +99,11 @@ bindkey -M emacs -s '^['\' 'gcl\r'
 #map ctrl+[ send_text normal
 #map ctrl+] send_text normal
 
-
-
 # fapti
 #bindkey -M emacs -s '^;' 'fapti\r'
 #map ctrl+; launch sh -c "apt-cache search . | cut -d' ' -f1 | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -r sudo apt-get install"
 # faptr
-#bindkey -M emacs -s '^'\' 'faptr\r'
+#bindkey -M emacs -s '^[;' 'faptr\r'
 #map alt+; launch sh -c "dpkg --get-selections | awk '$2 == \"install\" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -ro sudo apt-get purge"
 
 
@@ -122,6 +121,9 @@ bindkey -M emacs -s '^['\' 'gcl\r'
 
 
 
+# Emacs has it's own clipboard buffer which to normally the text is copied, same with zsh
+# By default keys M-w for copy and C-y for paste are set in emacs and zsh
+# My custom functions make it easy to copy text to system clipboard using M-w and paste using C-y
 # Function to paste from system clipboard so I don't have to bind it in kitty config and affect other terminal tools keybinds
 function paste_from_clipboard() {
     wl-paste -n
