@@ -50,9 +50,57 @@ zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
 ### FZF SCRIPTS ###
-#bindkey -M emacs -r "^[u"
-#zle -N "fwork\r"
-bindkey -M emacs -s "^[u" "fwork\r"
+# Check available keybinds: bindkey
+#bindkey -M emacs -r "^[u"          # Remove a key
+#zle -N "fwork\r"                   # Create zle function
+
+# Command line
+bindkey -M emacs -s '^[z' 'fpop\r'
+bindkey -M emacs -s '^[x' 'fkill\r'
+bindkey -M emacs -s '^[g' 'frm\r'
+bindkey -M emacs -s '^[j' 'fmv\r'
+bindkey -M emacs -s '^[k' 'fman\r'
+# Listing files
+bindkey -M emacs -s '^[a' 'falias\r'
+bindkey -M emacs -s '^[e' 'fcheat\r'
+bindkey -M emacs -s '^[u' 'fwork\r'
+bindkey -M emacs -s '^[i' 'fproj\r'
+bindkey -M emacs -s '^[p' 'fpdf\r'
+bindkey -M emacs -s '^[t' 'ftrack\r'
+bindkey -M emacs -s '^[y' 'fclip\r'
+bindkey -M emacs -s '^[l' 'fqli\r'
+# Cd/Search
+bindkey -M emacs -s '^[,' 'ff\r'
+bindkey -M emacs -s '^[.' 'cd .\r'
+bindkey -M emacs -s '^[<' 'ffp\r'
+bindkey -M emacs -s '^[>' 'ffh\r'
+# Other tools
+#bindkey -M emacs -s '^[n' 'fqli\r'
+# Git
+#bindkey -M emacs -s '^[z' 
+#bindkey -M emacs -s '^[v' 
+bindkey -M emacs -s '^[]' 'fgcom\r'
+bindkey -M emacs -s '^[[' 'fgs\r'
+bindkey -M emacs -s '^['\' 'gcl\r'
+### CTRL + ... KEYS ###
+#map ctrl+' send_text normal
+#map ctrl+. send_text normal
+#map ctrl+, send_text normal
+#map ctrl+[ send_text normal
+#map ctrl+] send_text normal
+
+
+
+# fapti
+#bindkey -M emacs -s '^;' 'fapti\r'
+#map ctrl+; launch sh -c "apt-cache search . | cut -d' ' -f1 | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -r sudo apt-get install"
+# faptr
+#bindkey -M emacs -s '^'\' 'faptr\r'
+#map alt+; launch sh -c "dpkg --get-selections | awk '$2 == \"install\" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -ro sudo apt-get purge"
+
+
+
+
 
 
 
