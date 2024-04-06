@@ -90,9 +90,9 @@ bindkey -M emacs -s '^[e' 'fchtc\r'
 bindkey -M emacs -s '^[e' 'fchtce\r'
 bindkey -M emacs -s '^[e' 'fchto\r'
 bindkey -M emacs -s '^[e' 'fchtoe\r'
-bindkey -M emacs -s '^[e' 'frgo'
-bindkey -M emacs -s '^[e' 'frgoe'
-bindkey -M emacs -s '^[e' 'frg'
+#bindkey -M emacs -s '^[e' 'frgo'
+#bindkey -M emacs -s '^[e' 'frgoe'
+#bindkey -M emacs -s '^[e' 'frg'
 # Cd/Search
 bindkey -M emacs -s '^[,' 'ff\r'
 bindkey -M emacs -s '^[.' 'ffh\r'
@@ -102,7 +102,7 @@ bindkey -M emacs -s '^[<' 'ffp\r'
 # Git
 bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
-bindkey -M emacs -s '^['\' 'gcl\r'
+#bindkey -M emacs -s '^['\' 'gcl\r'
 # ctrl+... keys
 bindkey -M emacs -s '^[' 'fgs\r'
 bindkey -M emacs -s '^]' 'fgcom\r'
@@ -116,7 +116,7 @@ bindkey "^Xa" alias-expension
 bindkey "^Xm" _most_recent_file
 bindkey "^Xr" history-incremental-search-backward
 bindkey "^Xs" history-incremental-search-forward
-#bindkey "^['" quote-region
+bindkey "^['" quote-region
 bindkey "^[," _history-complete-newer
 bindkey "^[/" _history-complete-older
 bindkey "^[?" which-command
@@ -132,9 +132,6 @@ zle -N fzf-cd-widget && bindkey -M emacs '^[v' fzf-cd-widget
 # ALT+CTRL + ... KEYS  #
 ########################
 bindkey -M emacs -s "^[^M" 'cd\r'
-
-
-
 
 
 
