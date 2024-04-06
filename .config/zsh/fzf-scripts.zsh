@@ -700,8 +700,3 @@ fimg() {
 	EXTERNAL_COLUMNS=235 \
 	fzf --preview='kitten icat --clear --transfer-mode=memory --place="80"x"180"@"$(($EXTERNAL_COLUMNS-155))"x2 --align center --stdin=no {} > /dev/tty' --preview-window "right,50%,border-left"
 }
-
-# Fuzzy search file output
-fcat() {
-  command cat "$@" | fzf --reverse
-}
