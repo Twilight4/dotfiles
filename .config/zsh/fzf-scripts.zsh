@@ -48,8 +48,7 @@ fpath() {
 
 # Image preview
 fimg() {
-	EXTERNAL_COLUMNS=235 \
-	fzf --preview='kitten icat --clear --transfer-mode=memory --place="80"x"180"@"$(($EXTERNAL_COLUMNS-155))"x2 --align center --stdin=no {} > /dev/tty' --preview-window "right,50%,border-left"
+  find . -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --preview='kitten icat --clear --transfer-mode=memory --place="80"x"180"@"$((200-120))"x2 --align center --stdin=no {}' --preview-window "right,50%,border-left"
 }
 
 frm() {
