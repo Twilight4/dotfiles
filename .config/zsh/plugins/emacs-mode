@@ -107,7 +107,6 @@ bindkey -M emacs -s '^['\' 'gcl\r'
 bindkey -M emacs -s '^[' 'fgs\r'
 bindkey -M emacs -s '^]' 'fgcom\r'
 
-
 # Maybe useful zsh default bindnigs
 bindkey "^L" insert-last-word
 bindkey "^S" insert-last-word
@@ -117,7 +116,7 @@ bindkey "^Xa" alias-expension
 bindkey "^Xm" _most_recent_file
 bindkey "^Xr" history-incremental-search-backward
 bindkey "^Xs" history-incremental-search-forward
-bindkey "^['" quote-region
+#bindkey "^['" quote-region
 bindkey "^[," _history-complete-newer
 bindkey "^[/" _history-complete-older
 bindkey "^[?" which-command
@@ -137,10 +136,9 @@ bindkey -M emacs -s "^[^M" 'cd\r'
 
 
 
-# Emacs has it's own clipboard buffer which to normally the text is copied, same with zsh
-# By default keys M-w for copy and C-y for paste are set in emacs and zsh
-# My custom functions make it easy to copy text to system clipboard using M-w and paste using C-y
-# Using xterm-paste "paste_from_selection" in kitty config for pasting from terminal
+
+
+
 
 # Function to copy selected text to system clipboard
 copy-region-and-kill() {
