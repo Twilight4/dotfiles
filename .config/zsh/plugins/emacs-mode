@@ -53,7 +53,7 @@ bindkey '^X^E' edit-command-line
 ######################
 ### FZF SCRIPTS ###
 # ctrl+key - mostly taken by zsh and the same are used by emacs
-# alt+key - mostly taken by emacs
+# alt+key - all available
 # ctrl+shift+key - some taken by kitty
 # alt+shift+key - all available
 # ctrl+alt+key - all avialable
@@ -69,20 +69,21 @@ bindkey '^X^E' edit-command-line
 # Command line
 bindkey -M emacs -s '^[z' 'fpop\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
-bindkey -M emacs -s '^[g' 'frm\r'
 bindkey -M emacs -s '^[j' 'fmv\r'
+bindkey -M emacs -s '^[k' 'frm\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
 # Listing files
-bindkey -M emacs -s '^[e' 'fnp\r'
+bindkey -M emacs -s '^[n' 'fnp\r'
 bindkey -M emacs -s '^[u' 'fwork\r'
 bindkey -M emacs -s '^[a' 'falias\r'
 bindkey -M emacs -s '^[p' 'fproj\r'
-#bindkey -M emacs -s '^[p' 'fdev\r'
+#bindkey -M emacs -s '^[p' 'fpath\r'
+bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[t' 'ftemp\r'
 #bindkey -M emacs -s '^[i' 'fpdf\r'
-#bindkey -M emacs -s '^[v' 'ftrack\r'
-#bindkey -M emacs -s '^[v' 'fimg\r'
-#bindkey -M emacs -s '^[v' 'fcat\r'
+#bindkey -M emacs -s '^[g' 'ftrack\r'
+bindkey -M emacs -s '^[I' 'fimg\r'
+bindkey -M emacs -s '^[i' 'fbat'
 bindkey -M emacs -s '^[y' 'fclip\r'
 bindkey -M emacs -s '^[l' 'fqli\r'
 # Cheatsheets/Notes
@@ -97,8 +98,7 @@ bindkey -M emacs -s '^[e' 'fchtoe\r'
 bindkey -M emacs -s '^[,' 'ff\r'
 bindkey -M emacs -s '^[.' 'ffh\r'
 bindkey -M emacs -s '^[<' 'ffp\r'
-#bindkey -M emacs -s '^[>' 'ffh\r'
-#bindkey -M emacs -s '^[n'
+bindkey -M emacs -s '^[>' 'ffh\r'
 # Git
 bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
@@ -117,9 +117,9 @@ bindkey "^Xm" _most_recent_file
 bindkey "^Xr" history-incremental-search-backward
 bindkey "^Xs" history-incremental-search-forward
 bindkey "^['" quote-region
-bindkey "^[," _history-complete-newer
-bindkey "^[/" _history-complete-older
-bindkey "^[?" which-command
+#bindkey "^[," _history-complete-newer
+#bindkey "^[?" _history-complete-older       # set something to this
+bindkey "^[/" which-command
 bindkey "^[A" accept-and-hold
 bindkey "^[N" history-search-forward
 bindkey "^[P" history-search-backward
