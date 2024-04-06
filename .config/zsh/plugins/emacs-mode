@@ -71,7 +71,7 @@ bindkey -M emacs -s '^[k' 'frm\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
 # Change directory
 bindkey -M emacs -s '^[\' 'cd ..\r'
-bindkey -M emacs -s '^\' 'cd -\r'   # ctrl+\
+bindkey -M emacs -s '^\' 'cd -\r'
 zle -N fzf-cd-widget && bindkey -M emacs '^[v' fzf-cd-widget
 bindkey -M emacs -s '^[z' 'fpop\r'
 # Search and act
@@ -88,8 +88,8 @@ bindkey -M emacs -s '^[a' 'falias\r'
 bindkey -M emacs -s '^[p' 'fproj\r'
 bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[t' 'ftemp\r'
+bindkey -M emacs -s '^[T' 'ftrack\r'
 #bindkey -M emacs -s '^[i' 'fpdf\r'
-#bindkey -M emacs -s '^[g' 'ftrack\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
 bindkey -M emacs -s '^[l' 'fqli\r'
 # Cheatsheets/Notes
@@ -112,22 +112,18 @@ bindkey -M emacs -s '^]' 'fzf-eval '
 # Useful default zsh bindnigs
 bindkey "^['" quote-region
 bindkey "^L" insert-last-word
-bindkey "^[N" vi-find-next-char
-bindkey "^[P" vi-find-prev-char
-bindkey "^X^A" exchange-point-and-mark
-bindkey "^X^X" alias-expension
-
-#bindkey -M emacs -s "^[^M" 'cd\r'
+#bindkey "^[N" vi-find-next-char
+#bindkey "^[P" vi-find-prev-char
+bindkey "^Xa" exchange-point-and-mark
+bindkey "^Xx" alias-expension
 bindkey "^Xm" _most_recent_file
 bindkey "^Xr" history-incremental-search-backward
 bindkey "^Xs" history-incremental-search-forward
-#bindkey "^[," _history-complete-newer
-#bindkey "^[?" _history-complete-older       # set something to this
+bindkey "^[?" _history-complete-newer
 bindkey "^[/" which-command
 bindkey "^[A" accept-and-hold
-#bindkey "^[N" history-search-forward
-#bindkey "^[P" history-search-backward
-bindkey "^[T" transpose-words
+bindkey "^[N" history-search-forward
+bindkey "^[P" history-search-backward
 bindkey "^[_" insert-last-word
 
 
