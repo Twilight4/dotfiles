@@ -52,8 +52,9 @@ bindkey '^X^E' edit-command-line
 ### FZF SCRIPTS ###
 # Check available keybinds: bindkey
 # List all the bindings in a given keymap: bindkey -M <keymap>
+# Lists all registered zle commands: zle -al
 #bindkey -M emacs -r "^[u"          # Remove a key
-#zle -N "fwork\r"                   # Create zle function
+#zle -N "fwork\r"                   # Register zle command
 
 # Command line
 bindkey -M emacs -s '^[z' 'fpop\r'
