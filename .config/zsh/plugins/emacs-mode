@@ -101,10 +101,13 @@ bindkey -M emacs -s '^[>' 'ffh\r'
 # Git
 bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
-#bindkey -M emacs -s '^['\' 'gcl\r'
+bindkey -M emacs -s '^[{' 'gcl\r'
+bindkey -M emacs -s '^[}' 'fgl\r'
+bindkey -M emacs -s '^\'
+bindkey -M emacs -s '^[\'
 # ctrl+... keys
-bindkey -M emacs -s '^[' 'fgs\r'
-bindkey -M emacs -s '^]' 'fgcom\r'
+#bindkey -M emacs -s '^['
+#bindkey -M emacs -s '^]'
 
 # Maybe useful zsh default bindnigs
 bindkey "^L" insert-last-word
