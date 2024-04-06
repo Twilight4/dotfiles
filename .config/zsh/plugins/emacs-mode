@@ -91,6 +91,7 @@ bindkey -M emacs -s '^[e' 'fchto\r'
 bindkey -M emacs -s '^[e' 'fchtoe\r'
 bindkey -M emacs -s '^[e' 'frgo\r'
 bindkey -M emacs -s '^[e' 'frgoe\r'
+#bindkey -M emacs -s '^[e' 'frg\r'
 # Cd/Search
 bindkey -M emacs -s '^[,' 'ff\r'
 bindkey -M emacs -s '^[.' 'ffh\r'
