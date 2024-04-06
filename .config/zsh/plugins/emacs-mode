@@ -109,19 +109,6 @@ bindkey -M emacs -s '^['\' 'gcl\r'
 #map ctrl+[ send_text normal
 #map ctrl+] send_text normal
 
-# fapti
-#bindkey -M emacs -s '^;' 'fapti\r'
-#map ctrl+; launch sh -c "apt-cache search . | cut -d' ' -f1 | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -r sudo apt-get install"
-# faptr
-#bindkey -M emacs -s '^[;' 'faptr\r'
-#map alt+; launch sh -c "dpkg --get-selections | awk '$2 == \"install\" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -ro sudo apt-get purge"
-
-
-
-
-
-
-
 
 
 
@@ -134,12 +121,7 @@ bindkey -M emacs -s '^['\' 'gcl\r'
 # Emacs has it's own clipboard buffer which to normally the text is copied, same with zsh
 # By default keys M-w for copy and C-y for paste are set in emacs and zsh
 # My custom functions make it easy to copy text to system clipboard using M-w and paste using C-y
-# Function to paste from system clipboard so I don't have to bind it in kitty config and affect other terminal tools keybinds
-function paste_from_clipboard() {
-    wl-paste -n
-}
-zle -N paste_from_clipboard
-#bindkey '^Y' paste_from_clipboard   # broken, using xterm-paste in kitty config
+# Using xterm-paste "paste_from_selection" in kitty config for pasting from terminal
 
 # Function to copy selected text to system clipboard
 copy-region-and-kill() {
