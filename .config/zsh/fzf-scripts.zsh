@@ -500,6 +500,15 @@ fchto() {
 	[ -n "$file" ] && command sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/"$file" | command bat --language=org --style=plain --color=always
 }
 
+# List specific org notes and edit
+fnp() {
+  file=$(find ~/documents/org/roam/nothing-personal/ -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/nothing-personal/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap)
+
+  if [[ -n "$file" ]]; then
+    eval $EDITOR ~/documents/org/roam/"$file"
+  fi
+}
+
 # List workspace projects
 fwork() {
     result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
