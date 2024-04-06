@@ -52,7 +52,7 @@ bindkey '^X^E' edit-command-line
 # ALT + ... KEYS     #
 ######################
 ### FZF SCRIPTS ###
-# ctrl+key - mostly taken by zsh and the same are used by emacs
+# ctrl+key - used by zsh and the same are used by emacs
 # alt+key - all available
 # ctrl+shift+key - some taken by kitty
 # alt+shift+key - all available
@@ -75,6 +75,7 @@ bindkey -M emacs -s '^[,' 'ff\r'
 bindkey -M emacs -s '^[.' 'ffh\r'
 bindkey -M emacs -s '^[<' 'fpath\r'
 bindkey -M emacs -s '^[>' 'ffh\r'
+bindkey -M emacs -s '^[\' 'cd ..\r'
 # Listing files
 bindkey -M emacs -s '^[n' 'fnp\r'
 bindkey -M emacs -s '^[u' 'fwork\r'
@@ -101,15 +102,13 @@ bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
 bindkey -M emacs -s '^[{' 'fgl\r'
 bindkey -M emacs -s '^[}' 'gcl\r'
-# Available keys
-#bindkey -M emacs -s '^[\'
 # ctrl+... keys
 #bindkey -M emacs -s '^\'
 #bindkey -M emacs -s '^['
 #bindkey -M emacs -s '^]'
 
 # Useful default zsh bindnigs
-bindkey "^L" insert-last-word
+#bindkey "^L" insert-last-word
 bindkey "^S" insert-last-word
 bindkey "^X^F" vi-find-next-char
 bindkey "^X^X" exchange-point-and-mark
