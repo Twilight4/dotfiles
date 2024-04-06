@@ -22,22 +22,6 @@ ffh() {
     lsd -l --hyperlink=auto
 }
 
-# Find Dirs (not hidden) (using cd . - improved version from enhancd with hidden)
-# fdd() {
-#     local dir
-#     dir=$(find ${1:-.} -path '*/\.*' -prune \
-#         -o -type d -print 2>/dev/null | fzf +m --reverse --preview 'exa --tree --group-directories-first --git-ignore --level 1 {}') &&
-#         cd "$dir"
-#     lsd -l --hyperlink=auto
-# }
-
-# Find Dirs + Hidden (using cd . - improved version from enhancd with hidden)
-# fdh() {
-#     local dir
-#     dir=$(find ${1:-.} -type d 2>/dev/null | fzf +m) && cd "$dir"
-#     lsd -l --hyperlink=auto
-# }
-
 
 ################
 # Command Line #
@@ -52,9 +36,14 @@ fbat() {
   fi
 }
 
-# Copy file path to clipboard
+# Copy file path to clipboard (without hidden files)
 fpath() {
-
+  file=$(find ~ -type f -not -path '*/\.*' | fzf --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
+      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+  if [[ -n "$file" ]]; then
+    printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
+    echo "$file copied to clipboard."
+  fi
 }
 
 # Image preview
