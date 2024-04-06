@@ -47,6 +47,22 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
+# Other useful bindings
+bindkey "^['" quote-region
+bindkey "^L" insert-last-word
+bindkey "^[F" vi-find-next-char
+bindkey "^[B" vi-find-prev-char
+bindkey "^Xa" exchange-point-and-mark
+bindkey "^Xx" alias-expension
+bindkey "^Xm" _most_recent_file
+bindkey "^Xr" history-incremental-search-backward
+bindkey "^Xs" history-incremental-search-forward
+bindkey "^[?" _history-complete-newer
+bindkey "^[/" which-command
+bindkey "^[A" accept-and-hold
+bindkey "^[N" history-search-forward
+bindkey "^[P" history-search-backward
+
 
 ######################
 # ALT + ... KEYS     #
@@ -108,23 +124,6 @@ bindkey -M emacs -s '^[}' 'gcl\r'
 # ctrl+... keys
 bindkey -M emacs -s '^[' 'vars\r'
 bindkey -M emacs -s '^]' 'fzf-eval '
-
-# Useful default zsh bindnigs
-bindkey "^['" quote-region
-bindkey "^L" insert-last-word
-#bindkey "^[N" vi-find-next-char
-#bindkey "^[P" vi-find-prev-char
-bindkey "^Xa" exchange-point-and-mark
-bindkey "^Xx" alias-expension
-bindkey "^Xm" _most_recent_file
-bindkey "^Xr" history-incremental-search-backward
-bindkey "^Xs" history-incremental-search-forward
-bindkey "^[?" _history-complete-newer
-bindkey "^[/" which-command
-bindkey "^[A" accept-and-hold
-bindkey "^[N" history-search-forward
-bindkey "^[P" history-search-backward
-bindkey "^[_" insert-last-word
 
 
 ########################
