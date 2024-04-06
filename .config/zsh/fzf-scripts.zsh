@@ -14,16 +14,6 @@ ff() {
   fi
 }
 
-# Preview file and copy the path to clipboard
-ffp() {
-  file=$(find . -type f | fzf --height 95% --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
-  if [[ -n "$file" ]]; then
-    printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
-    echo "Copied to clipboard: $file"
-  fi
-}
-
 # Find file and cd there
 ffh() {
     local file
@@ -53,7 +43,27 @@ ffh() {
 # Command Line #
 ################
 
-frm() (
+# Select file and output using bat
+fbat() {
+  file=$(find . -type f -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" | fzf --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
+      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+  if [[ -n "$file" ]]; then
+    bat --style header --color always --style snip --style changes --style header "$file"
+  fi
+}
+
+# Copy file path to clipboard
+fpath() {
+
+}
+
+# Image preview
+fimg() {
+	EXTERNAL_COLUMNS=235 \
+	fzf --preview='kitten icat --clear --transfer-mode=memory --place="80"x"180"@"$(($EXTERNAL_COLUMNS-155))"x2 --align center --stdin=no {} > /dev/tty' --preview-window "right,50%,border-left"
+}
+
+frm() {
     local SOURCES
     local REPLY
     local ERRORMSG
@@ -85,7 +95,7 @@ frm() (
             echo "removed file/folder"
         fi
     fi
-)
+}
 
 # mv wrapper. if no command provided prompt user to
 # interactively select multiple files with tab + fuzzy search
@@ -139,7 +149,7 @@ fmv() {
 }
 
 # Man without options will use fzf to select a page
-fman() (
+fman() {
     MAN="/usr/bin/man"
     if [ -n "$1" ]; then
         $MAN "$@"
@@ -148,7 +158,7 @@ fman() (
         $MAN -k . | fzf --reverse --prompt='Man> ' --preview="echo {1} | sed 's/(.*//' | xargs $MAN -P cat" | awk '{print $1}' | sed 's/(.*//' | xargs $MAN
         return $?
     fi
-)
+}
 
 # Docker
 ssh-docker() {
@@ -693,10 +703,4 @@ fifa() {
     file="$(rga --max-count=1 --ignore-case --files-with-matches --no-messages "$*" \
         | fzf-tmux -p +m --preview="rga --ignore-case --pretty --context 10 '"$*"' {}")" \
         && print -z "./$file" || return 1;
-}
-
-# Image preview
-fimg() {
-	EXTERNAL_COLUMNS=235 \
-	fzf --preview='kitten icat --clear --transfer-mode=memory --place="80"x"180"@"$(($EXTERNAL_COLUMNS-155))"x2 --align center --stdin=no {} > /dev/tty' --preview-window "right,50%,border-left"
 }
