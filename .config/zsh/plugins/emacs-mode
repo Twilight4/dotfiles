@@ -65,18 +65,23 @@ bindkey '^X^E' edit-command-line
 # Debug which keys are being sent to the shell from your terminal: showkey -a
 
 # Command line
-bindkey -M emacs -s '^[z' 'fpop\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
 bindkey -M emacs -s '^[j' 'fmv\r'
 bindkey -M emacs -s '^[k' 'frm\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
-# Cd/Search
+# Change directory
+bindkey -M emacs -s '^[\' 'cd ..\r'
+bindkey -M emacs -s '^\' 'cd -\r'   # ctrl+\
+zle -N fzf-cd-widget && bindkey -M emacs '^[v' fzf-cd-widget
+bindkey -M emacs -s '^[z' 'fpop\r'
+# Search and act
 bindkey -M emacs -s '^[,' 'ff\r'
 bindkey -M emacs -s '^[.' 'ffh\r'
 bindkey -M emacs -s '^[<' 'fpath\r'
 bindkey -M emacs -s '^[>' 'ffh\r'
-bindkey -M emacs -s '^[\' 'cd ..\r'
-# Listing files
+bindkey -M emacs -s '^[I' 'fimg\r'
+bindkey -M emacs -s '^[i' 'fbat\r'
+# List files
 bindkey -M emacs -s '^[n' 'fnp\r'
 bindkey -M emacs -s '^[u' 'fwork\r'
 bindkey -M emacs -s '^[a' 'falias\r'
@@ -85,8 +90,6 @@ bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[t' 'ftemp\r'
 #bindkey -M emacs -s '^[i' 'fpdf\r'
 #bindkey -M emacs -s '^[g' 'ftrack\r'
-bindkey -M emacs -s '^[I' 'fimg\r'
-bindkey -M emacs -s '^[i' 'fbat\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
 bindkey -M emacs -s '^[l' 'fqli\r'
 # Cheatsheets/Notes
@@ -103,9 +106,8 @@ bindkey -M emacs -s '^[[' 'fgs\r'
 bindkey -M emacs -s '^[{' 'fgl\r'
 bindkey -M emacs -s '^[}' 'gcl\r'
 # ctrl+... keys
-#bindkey -M emacs -s '^\'
-#bindkey -M emacs -s '^['
-#bindkey -M emacs -s '^]'
+bindkey -M emacs -s '^[' 'vars\r'
+bindkey -M emacs -s '^]' 'fzf-eval '
 
 # Useful default zsh bindnigs
 #bindkey "^L" insert-last-word
@@ -125,7 +127,6 @@ bindkey "^[N" history-search-forward
 bindkey "^[P" history-search-backward
 bindkey "^[T" transpose-words
 bindkey "^[_" insert-last-word
-zle -N fzf-cd-widget && bindkey -M emacs '^[v' fzf-cd-widget
 
 
 ########################
