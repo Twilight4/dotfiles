@@ -3,6 +3,9 @@
 # This file contains emacs-like keybindings and doesn't include the default keybindings that should be built-in zsh
 # The default keybindings are in bindings.zsh file
 
+######################
+# DEFAULT BINDINGS   #
+######################
 # Emacs-like bindings
 bindkey -e
 bindkey ' ' magic-space                           # do history expansion on space
@@ -44,15 +47,19 @@ bindkey '^[[Z' reverse-menu-complete
 # My custom functions make it easy to copy text to system clipboard using M-w and paste using C-y
 
 # Open in external editor command
-#bindkey '^[g' get-line            # M-g  # idk what's this for
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^X^E' edit-command-line
 
+
+######################
+# ALT + ... KEYS     #
+######################
 ### FZF SCRIPTS ###
 # Check available keybinds: bindkey
+# List whole commands for keybinds: bindkey -L
 # List all the bindings in a given keymap: bindkey -M <keymap>
-# Lists all registered zle commands: zle -al
+# List all registered zle commands: zle -al
 #bindkey -M emacs -r "^[u"          # Remove a key
 #zle -N "fwork\r"                   # Register zle command
 
