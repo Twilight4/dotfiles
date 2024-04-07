@@ -85,18 +85,17 @@ bindkey -M emacs -s '^[x' 'fkill\r'
 bindkey -M emacs -s '^[j' 'fmv\r'
 bindkey -M emacs -s '^[k' 'frm\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
-# Change directory
-bindkey -M emacs -s '^[\' 'cd ..\r'
-bindkey -M emacs -s '^\' 'cd -\r'
-         # USE LS AFTER         # FZF DONT DO HIDDEN # FFH
-bindkey -M emacs -s '^[z' 'fpop\r'
-# Search and act
 bindkey -M emacs -s '^[,' 'ff\r'
-bindkey -M emacs -s '^[.' 'fzf-cd\r'
 bindkey -M emacs -s '^[<' 'fccp\r'
-bindkey -M emacs -s '^[>' 'ffh\r'
 bindkey -M emacs -s '^[I' 'fimg\r'
 bindkey -M emacs -s '^[i' 'fbat\r'
+# Change directory
+bindkey -M emacs -s "^[^M" 'cd\r'
+bindkey -M emacs -s '^[\' 'cd ..\r'
+bindkey -M emacs -s '^\' 'cd -\r'
+bindkey -M emacs -s '^[z' 'fpop\r'
+bindkey -M emacs -s '^[.' 'fzf-cd\r'
+bindkey -M emacs -s '^[>' 'ffh\r'
 # List files
 bindkey -M emacs -s '^[n' 'fnp\r'
 bindkey -M emacs -s '^[u' 'fwork\r'
@@ -129,7 +128,6 @@ bindkey -M emacs -s '^]' 'fzf-eval '
 ########################
 # ALT+CTRL + ... KEYS  #
 ########################
-bindkey -M emacs -s "^[^M" 'cd\r'
 
 
 ########################
