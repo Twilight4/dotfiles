@@ -624,7 +624,7 @@ zshcomp() {
 }
 
 # Print PATH
-path() {
+paths() {
     echo $PATH | tr ':' '\n'
 }
 

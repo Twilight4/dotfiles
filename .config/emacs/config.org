@@ -375,25 +375,8 @@
   (define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
 
   ;; Node Visit Keybinds
-  (define-key treemacs-mode-map (kbd "ov") 'treemacs-visit-node-vertical-split)
-  (define-key treemacs-mode-map (kbd "oh") 'treemacs-visit-node-horizontal-split)
-  (define-key treemacs-mode-map (kbd "oo") 'treemacs-visit-node-no-split)
-  (define-key treemacs-mode-map (kbd "RET") 'treemacs-visit-node-no-split) ; Added for o/RET
+  (define-key treemacs-mode-map (kbd "RET") 'treemacs-visit-node-no-split) 
   (define-key treemacs-mode-map (kbd "oc") 'treemacs-visit-node-close-treemacs)
-  (define-key treemacs-mode-map (kbd "oaa") 'treemacs-visit-node-ace)
-  (define-key treemacs-mode-map (kbd "oah") 'treemacs-visit-node-ace-horizontal-split)
-  (define-key treemacs-mode-map (kbd "oav") 'treemacs-visit-node-ace-vertical-split)
-  (define-key treemacs-mode-map (kbd "or") 'treemacs-visit-node-in-most-recently-used-window)
-  (define-key treemacs-mode-map (kbd "ox") 'treemacs-visit-node-in-external-application)
-
-  ;; Workspaces Keybinds
-  (define-key treemacs-mode-map (kbd "C-c C-w r") 'treemacs-rename-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-w a") 'treemacs-create-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-w d") 'treemacs-remove-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-w s") 'treemacs-switch-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-w e") 'treemacs-edit-workspaces)
-  (define-key treemacs-mode-map (kbd "C-c C-w n") 'treemacs-next-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-w f") 'treemacs-set-fallback-workspace)
 
   ;; Project Keybinds
   (define-key treemacs-mode-map (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
