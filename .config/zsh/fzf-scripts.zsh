@@ -167,7 +167,7 @@ fhistory() {
 }
 
 # Search env variables
-vars() {
+fvars() {
     local out
     out=$(env | fzf)
     echo $(echo $out | cut -d= -f2)

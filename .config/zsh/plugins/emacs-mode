@@ -88,12 +88,12 @@ bindkey -M emacs -s '^[k' 'frm\r'
 # Change directory
 bindkey -M emacs -s '^[\' 'cd ..\r'
 bindkey -M emacs -s '^\' 'cd -\r'
-zle -N fzf-cd-widget && bindkey -M emacs '^[v' fzf-cd-widget
+         # USE LS AFTER         # FZF DONT DO HIDDEN # FFH
 bindkey -M emacs -s '^[z' 'fpop\r'
 # Search and act
 bindkey -M emacs -s '^[,' 'ff\r'
-bindkey -M emacs -s '^[.' 'ffh\r'
-bindkey -M emacs -s '^[<' 'fpath\r'
+bindkey -M emacs -s '^[.' 'fzf-cd\r'
+bindkey -M emacs -s '^[<' 'fccp\r'
 bindkey -M emacs -s '^[>' 'ffh\r'
 bindkey -M emacs -s '^[I' 'fimg\r'
 bindkey -M emacs -s '^[i' 'fbat\r'
@@ -105,7 +105,7 @@ bindkey -M emacs -s '^[p' 'fproj\r'
 bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[t' 'ftemp\r'
 bindkey -M emacs -s '^[T' 'ftrack\r'
-#bindkey -M emacs -s '^[i' 'fpdf\r'
+#bindkey -M emacs -s '^[v' 'fpdf\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
 bindkey -M emacs -s '^[l' 'fqli\r'
 # Cheatsheets/Notes
@@ -116,13 +116,13 @@ bindkey -M emacs -s '^[R' 'fchtoe\r'
 bindkey -M emacs -s '^[g' 'frgo '
 bindkey -M emacs -s '^[G' 'frgoe '
 #bindkey -M emacs -s '^[e' 'frg '
+#bindkey -M emacs -s '^[e' 'fvars\r'
 # Git
 bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
 bindkey -M emacs -s '^[{' 'fgl\r'
 bindkey -M emacs -s '^[}' 'gcl\r'
 # ctrl+... keys
-bindkey -M emacs -s '^[' 'vars\r'
 bindkey -M emacs -s '^]' 'fzf-eval '
 
 
