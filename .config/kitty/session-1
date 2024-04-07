@@ -3,7 +3,7 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title scans sh -c "result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2); [ -n \"$result\" ] && cd ~/desktop/projects/\"$result\"; exec zsh"
+launch --title scans sh -c "result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | ~/.fzf/bin/fzf | cut -f 2); [ -n \"$result\" ] && cd ~/desktop/projects/\"$result\"; exec zsh"
 # Set the working directory for windows in the current tab
 #cd ~/desktop/projects/
 # Create a second window
@@ -16,9 +16,9 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window window (title sets the tab title)
-launch --title fchtc sh -c "file=\$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style header --style snip --style changes --style header --plain --language=help --color=always ~/.config/cheat/tools/{}') || return; [ -n \"\$file\" ] && command cheat \"\$file\" | bat --style header --style snip --style changes --style header --plain --language=help; exec zsh"
+launch --title fchtc sh -c "file=\$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | ~/.fzf/bin/fzf --preview 'command bat --style header --style snip --style changes --style header --plain --language=help --color=always ~/.config/cheat/tools/{}') || return; [ -n \"\$file\" ] && command cheat \"\$file\" | bat --style header --style snip --style changes --style header --plain --language=help; exec zsh"
 # Create a second window (title sets the tab title)
-launch --title fchto sh -c 'file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$file" ] && command sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/"$file" | command bat --language=org --style=plain --color=always; exec zsh'
+launch --title fchto sh -c 'file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | ~/.fzf/bin/fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$file" ] && command sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/"$file" | command bat --language=org --style=plain --color=always; exec zsh'
 
 # Create a new tab
 new_tab emacs
