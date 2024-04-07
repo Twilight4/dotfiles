@@ -20,13 +20,15 @@ launch --title fchtc sh -c "file=\$(cheat -l -t tools | tail -n +2 | cut -d' ' -
 # Create a second window (title sets the tab title)
 launch --title fchto sh -c 'file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$file" ] && command sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/"$file" | command bat --language=org --style=plain --color=always; exec zsh'
 
-new_tab nb-log
+# Create a new tab
+new_tab emacs
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
-cd ~/
-# Create a window window (title sets the tab title)
-launch --title nb-log sh -c "echo 'nb-log-*'"
+cd ~/desktop/projects/
+# Create a window (title sets the tab title)
+launch --title emacs sh -c "emacsclient -nw --eval \"(treemacs)\"; exec zsh"
+#launch --title meth sh -c "emacsclient -nw \"$HOME/documents/org/roam/red-team/methodology.org\""
 
 # Create a new tab
 new_tab empire
@@ -39,11 +41,12 @@ launch --title empire sh -c "sudo powershell-empire server"
 # Loop to check if powershell-empire (server) is running then wait 2 seconds for it to start and run the client
 launch --title empire sh -c "while ! sudo ps aux | grep -q '[p]owershell-empire'; do sleep 1; done; sleep 2; sudo powershell-empire client"
 
-# Create a new tab
-new_tab meth
+# Create new tab
+new_tab nb-log
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
 cd ~/
-# Create a window (title sets the tab title)
-launch --title meth sh -c "emacsclient -nw \"$HOME/documents/org/roam/red-team/methodology.org\""
+# Create a window window (title sets the tab title)
+launch --title nb-log sh -c "echo 'nb-log-*'"
+
