@@ -22,6 +22,14 @@ ffh() {
     lsd -l --hyperlink=auto
 }
 
+# Cd into the selected directory (upgrade fzf-cd-widget without zle and with lsd)
+fzf-cd() {
+  setopt localoptions pipefail no_aliases 2> /dev/null
+  local dir="$(FZF_DEFAULT_COMMAND=${FZF_ALT_C_COMMAND:-} FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse --walker=dir,follow,hidden --scheme=path --bind=ctrl-z:ignore ${FZF_DEFAULT_OPTS-} ${FZF_ALT_C_OPTS-}" $(__fzfcmd) +m < /dev/tty)"
+
+  cd "$dir" && lsd -l --hyperlink=auto
+}
+
 
 ################
 # Command Line #
@@ -37,7 +45,7 @@ fbat() {
 }
 
 # Copy file path to clipboard (without hidden files)
-fpath() {
+fccp() {
   file=$(find ~ -type f -not -path '*/\.*' | fzf --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
       --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
