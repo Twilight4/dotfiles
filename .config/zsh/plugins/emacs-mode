@@ -104,7 +104,7 @@ bindkey -M emacs -s '^[p' 'fproj\r'
 bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[t' 'ftemp\r'
 bindkey -M emacs -s '^[T' 'ftrack\r'
-#bindkey -M emacs -s '^[v' 'fpdf\r'
+bindkey -M emacs -s '^[v' 'fpdf\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
 bindkey -M emacs -s '^[l' 'fqli\r'
 # Cheatsheets/Notes
