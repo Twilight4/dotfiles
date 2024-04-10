@@ -6,13 +6,13 @@ cd ~/documents/org/projects
 launch --title report sh -c 'result=$(find ~/documents/org/projects/ -type f -name "*.org" -printf "%P\n" | sort | uniq | ~/.fzf/bin/fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/projects/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$result" ] && eval "$EDITOR" ~/documents/org/projects/"$result"; exec zsh'
 
 # Create a new tab
-new_tab RoE/SoW
+new_tab ROE
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
 cd ~/documents/org/projects
 # Create a window (title sets the tab title)
-launch --title RoE/SoW sh -c 'result=$(find ~/documents/org/projects/ -type f -name "*.org" -printf "%P\n" | sort | uniq | ~/.fzf/bin/fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/projects/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$result" ] && eval "$EDITOR" ~/documents/org/projects/"$result"; exec zsh'
+launch --title RoE sh -c 'result=$(find ~/documents/org/projects/ -type f -name "*.org" -printf "%P\n" | sort | uniq | ~/.fzf/bin/fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/projects/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$result" ] && eval "$EDITOR" ~/documents/org/projects/"$result"; exec zsh'
 
 # Create a new tab
 new_tab workflow
