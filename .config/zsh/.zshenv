@@ -93,15 +93,27 @@ export NNN_PLUG='b:bulknew;o:fzopen;c:fzcd;j:autojump;p:preview-tui;i:imgview;u:
 export NNN_FIFO='/tmp/nnn.fifo'
 export SPLIT='v'
 
-# Payloads vars
-export PAYLOADS="/usr/share/payloads"
-export SECLISTS="$PAYLOADS/SecLists"
-export PAYLOADSALLTHETHINGS="$PAYLOADS/PayloadsAllTheThings"
-export FUZZDB="$PAYLOADS/FuzzDB"
-export AUTOWORDLISTS="$PAYLOADS/Auto_Wordlists"
-export SECURITYWORDLIST="$PAYLOADS/Security-Wordlist"
-export MIMIKATZ="/usr/share/windows/mimikatz/"
-export POWERSPLOIT="/usr/share/windows/powersploit/"
+# Project vars
+export PJ="$HOME/desktop/projects/"
+export WS="$HOME/desktop/workspace/"
+export SV="$HOME/desktop/server/"
+export DW="$HOME/desktop/server/"
+export VD="$HOME/desktop/server/"
+export PC="$HOME/desktop/server/"
+export DT="$HOME/desktop/server/"
+export SC="$HOME/desktop/server/"
+export DC="$HOME/desktop/server/"
+export ORG="$HOME/desktop/server/"
+
+
+export WORDLISTS="/usr/share/wordlists/"
+export SECLISTS="$WORDLISTS/seclists"
+export PAYLOADSALLTHETHINGS="$WORDLISTS/PayloadsAllTheThings"
+export FUZZDB="$WORDLISTS/FuzzDB"
+export AUTOWORDLISTS="$WORDLISTS/Auto_Wordlists"
+export SECURITYWORDLIST="$WORDLISTS/Security-Wordlist"
+export MIMIKATZ="/usr/share/windows-resources/mimikatz/"
+export POWERSPLOIT="/usr/share/windows-resources/powersploit/"
 export ROCKYOU="$SECLISTS/Passwords/Leaked-Databases/rockyou.txt"
 export DIRSMALL="$SECLISTS/Discovery/Web-Content/directory-list-2.3-small.txt"
 export DIRMEDIUM="$SECLISTS/Discovery/Web-Content/directory-list-2.3-medium.txt"
