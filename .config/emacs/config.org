@@ -1432,7 +1432,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
          (category (read-string "Category (p/n for project/notes): "))
          (category (if (string= category "p") "project" "notes"))
          (save-path (if (string= category "project")
-                         "~/desktop/projects/screenshots/"
+                         "~/documents/org/projects/screenshots/"
                        "~/documents/org/roam/screenshots/"))
          (full-path (expand-file-name (concat save-path filename ".png"))))
     (make-directory (file-name-directory full-path) t) ; Ensure the directory exists
@@ -3701,15 +3701,15 @@ To add this, we need to change one line in ~org-html--format-toc-headline~.
 
 Since we can actually accomplish the desired effect by adding advice /around/ the function, without overriding it --- let's do that to reduce the bug surface of this config a tad.
 #+begin_src emacs-lisp
-(defun tl/org-html--format-toc-headline-collapseable (orig-fn headline info)
+(defun tl/org-html--format-toc-headline-collapseable (headline info)
   "Add a label and checkbox to `org-html--format-toc-headline's usual output,
 to allow the TOC to be a collapsible tree."
   (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
-      (funcall orig-fn headline info)
+      (org-html--format-toc-headline headline info)
     (let ((id (or (org-element-property :CUSTOM_ID headline)
                   (org-export-get-reference headline info))))
       (format "<input type='checkbox' id='toc--%s'/><label for='toc--%s'>%s</label>"
-              id id (funcall orig-fn headline info)))))
+              id id (org-html--format-toc-headline headline info)))))
 
 (advice-add 'org-html--format-toc-headline :around #'tl/org-html--format-toc-headline-collapseable)
 #+end_src
@@ -3874,46 +3874,10 @@ We'll assume that thanks to the clever preamble the various custom =\checkbox...
 (add-hook 'org-export-before-parsing-hook #'+org-export-latex-fancy-item-checkboxes)
 #+end_src
 
-**** Class templates
+**** Class template
 #+begin_src emacs-lisp
 (unless (boundp 'org-latex-classes)
   (setq org-latex-classes nil))
-
-(add-to-list 'org-latex-classes
-             '("ethz"
-               "\\documentclass[a4paper,11pt,titlepage]{memoir}
-\\usepackage[utf8]{inputenc}
-\\usepackage[T1]{fontenc}
-\\usepackage{fixltx2e}
-\\usepackage{graphicx}
-\\usepackage{longtable}
-\\usepackage{float}
-\\usepackage{wrapfig}
-\\usepackage{rotating}
-\\usepackage[normalem]{ulem}
-\\usepackage{amsmath}
-\\usepackage{textcomp}
-\\usepackage{marvosym}
-\\usepackage{wasysym}
-\\usepackage{amssymb}
-\\usepackage{hyperref}
-\\usepackage{mathpazo}
-\\usepackage{color}
-\\usepackage{enumerate}
-\\definecolor{bg}{rgb}{0.95,0.95,0.95}
-\\tolerance=1000
-      [NO-DEFAULT-PACKAGES]
-      [PACKAGES]
-      [EXTRA]
-\\linespread{1.1}
-\\hypersetup{pdfborder=0 0 0}"
-               ("\\chapter{%s}" . "\\chapter*{%s}")
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
 
 (add-to-list 'org-latex-classes
              '("article"
@@ -3947,20 +3911,147 @@ We'll assume that thanks to the clever preamble the various custom =\checkbox...
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+#+end_src
 
+**** Remove non-ascii chars
+When using ~pdflatex~, almost non-ascii characters are generally problematic, and
+don't appear in the pdf. It's preferable to see that there was /some/ character
+which wasn't displayed as opposed to nothing.
 
-(add-to-list 'org-latex-classes '("ebook"
-                                  "\\documentclass[11pt, oneside]{memoir}
-\\setstocksize{9in}{6in}
-\\settrimmedsize{\\stockheight}{\\stockwidth}{*}
-\\setlrmarginsandblock{2cm}{2cm}{*} % Left and right margin
-\\setulmarginsandblock{2cm}{2cm}{*} % Upper and lower margin
-\\checkandfixthelayout
-% Much more laTeX code omitted
-"
-                                  ("\\chapter{%s}" . "\\chapter*{%s}")
-                                  ("\\section{%s}" . "\\section*{%s}")
-                                  ("\\subsection{%s}" . "\\subsection*{%s}")))
+We check every non-ascii character to make sure it's not a character encoded by
+the =inputenc= packages when loaded with the =utf8= option. We'll also allow
+box-drawing characters since they can be mostly supported with =pmboxdraw=.
+Finally, we see if we have our own LaTeX conversion we can apply and if there is
+none we replace the non-ascii char with =¿=.
+
+No to make sure we only remove characters that can't be displayed, we check
+=/usr/share/texmf/tex/latex/base/utf8enc.dfu=.
+
+Now, there are some symbols that aren't included in =inputenc=, but we should be
+able to handle anyway. For them we define a table of LaTeX translations
+
+#+name: latex-non-ascii-char-substitutions
+| Character | LaTeX |
+|-----------+-------|
+| ɑ         | \(\alpha\) |
+| β         | \(\beta\) |
+| γ         | \(\gamma\) |
+| δ         | \(\delta\) |
+| ε         | \(\epsilon\) |
+| ϵ         | \(\varepsilon\) |
+| ζ         | \(\zeta\) |
+| η         | \(\eta\) |
+| θ         | \(\theta\) |
+| ϑ         | \(\vartheta\) |
+| ι         | \(\iota\) |
+| κ         | \(\kappa\) |
+| λ         | \(\lambda\) |
+| μ         | \(\mu\) |
+| ν         | \(\nu\) |
+| ξ         | \(\xi\) |
+| π         | \(\pi\) |
+| ϖ         | \(\varpi\) |
+| ρ         | \(\rho\) |
+| ϱ         | \(\varrho\) |
+| σ         | \(\sigma\) |
+| ς         | \(\varsigma\) |
+| τ         | \(\tau\) |
+| υ         | \(\upsilon\) |
+| ϕ         | \(\phi\) |
+| φ         | \(\varphi\) |
+| ψ         | \(\psi\) |
+| ω         | \(\omega\) |
+| Γ         | \(\Gamma\) |
+| Δ         | \(\Delta\) |
+| Θ         | \(\Theta\) |
+| Λ         | \(\Lambda\) |
+| Ξ         | \(\Xi\) |
+| Π         | \(\Pi\) |
+| Σ         | \(\Sigma\) |
+| Υ         | \(\Upsilon\) |
+| Φ         | \(\Phi\) |
+| Ψ         | \(\Psi\) |
+| Ω         | \(\Omega\) |
+| א         | \(\aleph\) |
+| ב         | \(\beth\) |
+| ד         | \(\daleth\) |
+| ג         | \(\gimel\) |
+
+#+name: gen-latex-non-ascii-char-substitutions
+#+begin_src emacs-lisp :noweb-ref none :var latex-non-ascii-char-substitutions=latex-non-ascii-char-substitutions
+(replace-regexp-in-string
+ " '((" "\n   '(("
+ (replace-regexp-in-string
+  ") (" ")\n     ("
+  (prin1-to-string
+   `(defvar +org-latex-non-ascii-char-substitutions
+      ',(mapcar
+         (lambda (entry)
+           (cons (car entry) (replace-regexp-in-string "\\\\" "\\\\\\\\" (cadr entry))))
+         latex-non-ascii-char-substitutions)))))
+#+end_src
+
+#+begin_src emacs-lisp :noweb no-export
+<<gen-latex-non-ascii-char-substitutions()>>
+#+end_src
+
+**** Extra special strings
+LaTeX already recognises =---= and =--= as em/en-dashes, =\-= as a shy hyphen, and the
+conversion of =...= to =\ldots{}= is hardcoded into ~org-latex-plain-text~ (unlike
+~org-html-plain-text~).
+
+I'd quite like to also recognise =->= and =<-=, so let's set come up with some advice.
+
+#+begin_src emacs-lisp
+(defvar org-latex-extra-special-string-regexps
+  '(("<->" . "\\\\(\\\\leftrightarrow{}\\\\)")
+    ("->" . "\\\\textrightarrow{}")
+    ("<-" . "\\\\textleftarrow{}")))
+
+(defun org-latex-convert-extra-special-strings (string)
+  "Convert special characters in STRING to LaTeX."
+  (dolist (a org-latex-extra-special-string-regexps string)
+    (let ((re (car a))
+          (rpl (cdr a)))
+      (setq string (replace-regexp-in-string re rpl string t)))))
+
+(defun tl/org-latex-plain-text-extra-special-a (orig-fn text info)
+  "Make `org-latex-plain-text' handle some extra special strings."
+  (let ((output (funcall orig-fn text info)))
+    (when (plist-get info :with-special-strings)
+      (setq output (org-latex-convert-extra-special-strings output)))
+    output))
+
+(advice-add 'org-latex-plain-text :around #'tl/org-latex-plain-text-extra-special-a)
+#+end_src
+
+**** Chameleon aka. match theme
+#+call: confpkg("!Pkg ox-chameleon")
+
+Once I had the idea of having the look of the LaTeX document produced match the
+current Emacs theme, I was enraptured. The result is the pseudo-class ~chameleon~,
+which I have implemented in the package =ox-chameleon=.
+
+#+begin_src emacs-lisp
+(use-package ox-chameleon
+  :ensure t
+  :after ox)
+#+end_src
+
+**** Make verbatim different to code
+Since have just gone to so much effort above let's make the most of it by making
+=verbatim= use ~verb~ instead of ~protectedtexttt~ (default).
+
+This gives the same advantages as mentioned in the [[*Make verbatim different to code][HTML export section]].
+
+#+begin_src emacs-lisp
+(setq org-latex-text-markup-alist
+      '((bold . "\\textbf{%s}")
+        (code . protectedtexttt)
+        (italic . "\\emph{%s}")
+        (strike-through . "\\sout{%s}")
+        (underline . "\\uline{%s}")
+        (verbatim . verb)))
 #+end_src
 
 **** Pretty code blocks
