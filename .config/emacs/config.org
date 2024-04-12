@@ -3077,64 +3077,7 @@ this with to-do items than with projects or headings."
      ("ws" "Social Engineering Pentest" entry (file "~/documents/org/agenda/social-engineering-workflow.org")
          "* NOW Social Engineering\n- [ ] [[id:88f783b1-fae0-49c2-95e3-913bd17cde7a][cloned-auth-pages]]\n- [ ] [[id:6d0dd6fe-f280-44eb-b417-ac999163b0c7][other-phishing-techniques]]\n- [ ] [[id:e0f65d77-a897-45f8-b0f1-cc5be581dbd0][se-mitigations]]\n\n* PLAN Pretext to use for Vishing (choose one)\n- [ ] Confused employee\n- [ ] IT stocktaking\n- [ ] Transparency survey")
      ("ww" "Wireless Pentest" entry (file "~/documents/org/agenda/wireless-workflow.org")
-         "* NOW Wireless\n- [ ] [[id:27212c56-9d60-4fc4-90ea-f568e67c0663][man-in-the-middle]]\n- [ ] [[id:f8c56377-9da5-4640-8a8f-9f79e505b55a][evil_twin]]")
-
-    ("r" "Report Template")
-     ("re" "External Pentest" entry
-      (file (lambda ()
-             (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/" filename ".org"))
-                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
-               (with-temp-buffer
-                 (insert "#+title: " filename "\n")
-                 (insert "#+date: " current-date "\n\n")
-                 (write-file full-path)
-                 full-path))))
-     "* EPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools")
-     ("ri" "Internal Pentest" entry
-      (file (lambda ()
-             (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/" filename ".org"))
-                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
-               (with-temp-buffer
-                 (insert "#+title: " filename "\n")
-                 (insert "#+date: " current-date "\n\n")
-                 (write-file full-path)
-                 full-path))))
-     "* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* IPT\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools")
-     ("rr" "Red Team Engagement" entry
-      (file (lambda ()
-             (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/" filename ".org"))
-                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
-               (with-temp-buffer
-                 (insert "#+title: " filename "\n")
-                 (insert "#+date: " current-date "\n\n")
-                 (write-file full-path)
-                 full-path))))
-     "* Red Team\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Physical Assessment\n\n* Social-Engineering")
-     ("rs" "Social Engineering Pentest" entry
-      (file (lambda ()
-             (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/" filename ".org"))
-                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
-               (with-temp-buffer
-                 (insert "#+title: " filename "\n")
-                 (insert "#+date: " current-date "\n\n")
-                 (write-file full-path)
-                 full-path))))
-     "\n* Introduction\n<CLIENT_NAME> zlecil <YOUR_OR_YOUR_COMPANY> przeprowadzenie testow bezpieczenstwa informacji, ktore obejmowaly <ALL_VALUABLE_ELEMENTS> phishing, vishing, trash diving, information gathering OSINT, baiting, physical security testing and <INNE_TESTY_W_RAMACH_ZAKRESY_PRAC>. Terminy wykonania ustalono na: od <DATA_ROZPOCZECIA> do <DATA_ZAKONCZENIA>.\n\n* Streszczenie wykonawcze\nZespol przeprowadzil nastepujace testy <TU_TEKST_Z_INTRODUCTION> przeciwko <CLIENT_NAME>. Zaobserwowano nastepujace wyniki:\n- <ODKRYTE_RUZUKO_NR_1>\n- <ODKRYTE_RUZUKO_NR_2>\n- <ODKRYTE_RUZUKO_NR_3>\n\nNastepujace wyniki zostaly natychmiast odkryte przez zespol:\n- <WYNIK_POZTYTYWNY_1>\n- <WYNIK_POZTYTYWNY_2>\n- <WYNIK_NEGATYWNY_1>\n- <WYNIK_NEGATYWNY_2>\n\nOceniony poziom ryzyka dla <CLIENT_NAME> jest <NISKI_|_SREDNI_|_WYSOKI_|_KRYTYCZNY> (use bold and uppercase word).\n\n* Wykaz prac do zrealizowania\nSkopiuj i wklej calosc lub fragmenty rzeczywistego wykazu prac do zrealizowania pochodzacego z umowy\n\n** Ustalenie zakresu prac\nZakres dzialan socjotechnicznych, w tym OSINT, phishing i vishing pomiedzy <CLIENT_NAME> a <TY_LUB_TWOJA_FIRMA> obejmuje <GODZINY_PRZEZNACZONE_NA_OSINT>, phishing obejmuje <LICZBA_SCENARIUSZY> scenariuszy w ilosci <ILOSC_MAKSYMALNA> | <ILOSC_MINIMALNA> <LICZBA_EMAILI> e-maili, ktore zostana wyslane w ciagu <OKRES_TWOJEGO_DZIALANIA> (dni i godziny), oraz vishing obejmujacy <LICZBA_SCENARIUSZY> scenariuszy w ilosci <ILOSC_MAKSYMALNA> | <ILOSC_MINIMALNA> <LICZBA_ROZMOW_TELEFONICZNYCH> rozmow telefonicznych, ktore zostana przeprowadzone w ciagu <OKRES_TWOJEGO_DZIALANIA> (dni i godziny).\n\nNastepujace pozycje sa wyraznie obecne w zakresie prac:\n- <POZYCJE_W_ZAKRESIE>\n\nNastepujace pozycje sa wyraznie poza zakresem prac:\n- <POZYCJE_POZA_ZAKRESEM>\n\n** Data ukonczenia pracy\nWszystkie prace maja byc wykonane do <DATA>, a raport koncowy i spotkanie lub rozmowa podsumowujaca maja byc wokonane w ciagu 10 dni roboczych od daty ukonczenia pracy.\n\n** Miejsce wykonywania pracy\n- <MIEJSCE_LUB_MIEWJSCA_WYKONYWANIA_PRACY>\n- <ADRESY_IP_Z_KTORYCH_BEDZIE_WYKONYWANA_PRACA>\n\n* O <NAZWA_FIRMY>\n<NAZWA_FIRMY> jest firma dzialjaca w branzy <BRANZA_FIRMY> z siedziba w <MIEJSCOWOSC>, <WOJEWODZTWO_LUB_KRAJ>, nalezaca do <WLASICICELE> (jesli jest w obrocie publicznym, nalezy rowniez wspomniec o notowaniach pod symbolem xxx). <WIECEJ_SZCZEGOLOWYCH_INFORMACJI_O_FIRMIE>.\n<WSZELKIE_FUZJE_i/lub_PRZESUNIECIA>.\n\nFirma ma wiele fizycznych lokalizacji. Placowki znajduja sie w nastepujacych lokalizacjach:\n- <PLACOWKA_1>\n- <PLACOWOKA_2>\n\n<FIRMA_BEDACA_CELEM> wprowadzila standardowy format adresu e-mail:\n- imie.nazwisko@<DOMENA_FIRMY>\n\n* Narzedzia i metodologie\nOpowiedz o tym, z jakich narzedzi korzystales i jak analizowales to, co znalazles. Nie powinienes jescze zbytnio zaglebiac sie w to, co rzeczywiscie znalazles.\n\n* Wskazowki\nW tym miejscu powninienes przeprowadzic analize matematyczna lub liczbowa, aby pomoc klientowi zrozumiec, jak odkryte ryzyja sumuja sie i co nalezy poprawic.\n\n*** Phishing\n- informacje od [[id:28bd851e-9312-4d0c-9162-2cf2ac7b29f3][se-reporting]]\n\n*** Vishing\n\n*** SMShing\n\n* Odkryte ryzyka\n** Klasyfikacja powagi ryzyka\n*** Ryzyka krytyczne\n\n*** Ryzyka wysokie\n\n*** Ryzyka umiarkowane\n\n*** Ryzyka niskie\n\n*** Ryzyka informacyjne\n\n*** Dyskusja\nCo znalazles\n\n** Problem\nDlaczego jest to problem\n\n*** Udowodnienie isteninia problemu\nDane wyjsciowe z narzedzi i/lub zrzuty ekranu, udowodniajace, ze to jest problem.\n\n*** Potencjalne wyniki twojej pracy\nCo moze sie stac (badz realistyczny)\n\n*** Lagodzenie skutkow lub dzialania naprawcze\nJak rozwiazac problem. Przytocz wszelkie obowiazujace normy branzowe.\n\n* Mitigations\nJak twoj klient moze dzialaclepiej i uniknac kolejnych udanych atakow phishingowych.\n\n* Podsumowanie\n** Odkryte numery telefonow\n\n** Odkryte strony internetowe\n\n** Odkryte adresy e-mail\n\n** Odkryte aktywa o wysokiej wartosci\n\n** Wykorzystane preteksty\nWymien preteksty wykorzystane w phishingu i vishingu.")
-     ("rw" "Wireless Pentest" entry
-      (file (lambda ()
-             (let* ((filename (read-string "Enter filename: "))
-                    (full-path (concat "~/documents/org/projects/" filename ".org"))
-                    (current-date (format-time-string "%Y-%m-%d %a %H:%M")))
-               (with-temp-buffer
-                 (insert "#+title: " filename "\n")
-                 (insert "#+date: " current-date "\n\n")
-                 (write-file full-path)
-                 full-path))))
-     "* Wireless\n** Evidence\n*** Credentials\n*** Data\n*** Screenshots\n** Logs\n** Scans\n** Scope\n** Tools\n\n* Physical Assessment\n\n* Social-Engineering")))
+         "* NOW Wireless\n- [ ] [[id:27212c56-9d60-4fc4-90ea-f568e67c0663][man-in-the-middle]]\n- [ ] [[id:f8c56377-9da5-4640-8a8f-9f79e505b55a][evil_twin]]")))
 
 (setq org-gtd-capture-templates
   `(("t" "Todo" entry (file "~/documents/org/agenda/inbox.org")
@@ -3173,8 +3116,12 @@ this with to-do items than with projects or headings."
     (file "~/documents/org/roam/templates/note.org")
     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
     :unnarrowed t)
-   ("r" "Report" plain
+   ("r" "Pentest Report" plain
     (file "~/documents/org/roam/templates/report.org")
+    :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+    :unnarrowed t)
+   ("s" "SE Findings Report" plain
+    (file "~/documents/org/roam/templates/se.org")
     :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
     :unnarrowed t)
    ("N" "literature note" plain
