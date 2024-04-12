@@ -3173,6 +3173,10 @@ this with to-do items than with projects or headings."
     (file "~/documents/org/roam/templates/note.org")
     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
     :unnarrowed t)
+   ("r" "Report" plain
+    (file "~/documents/org/roam/templates/report.org")
+    :if-new (file+head "${slug}.org" "#+title: ${title}\n")
+    :unnarrowed t)
    ("N" "literature note" plain
     "%?"
     :target
@@ -4023,19 +4027,6 @@ I'd quite like to also recognise =->= and =<-=, so let's set come up with some a
     output))
 
 (advice-add 'org-latex-plain-text :around #'tl/org-latex-plain-text-extra-special-a)
-#+end_src
-
-**** Chameleon aka. match theme
-#+call: confpkg("!Pkg ox-chameleon")
-
-Once I had the idea of having the look of the LaTeX document produced match the
-current Emacs theme, I was enraptured. The result is the pseudo-class ~chameleon~,
-which I have implemented in the package =ox-chameleon=.
-
-#+begin_src emacs-lisp
-(use-package ox-chameleon
-  :ensure t
-  :after ox)
 #+end_src
 
 **** Make verbatim different to code
