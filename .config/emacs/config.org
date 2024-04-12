@@ -3852,7 +3852,29 @@ By default Org uses ~pdflatex~ \times 3 + ~bibtex~. ~latexmk~ + ~biber~ (which i
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 #+end_src
 
-**** LaTeX better defaults
+**** Nicer checkboxes
+We'll assume that thanks to the clever preamble the various custom =\checkbox...= commands below are defined.
+
+#+begin_src emacs-lisp
+(defun +org-export-latex-fancy-item-checkboxes (backend)
+  "Replace LaTeX item with fancy checkboxes."
+  (when (org-export-derived-backend-p backend 'latex)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward
+              "\\\\item\\[{$\\\\\\(\\w+\\)$}\\]" nil t)
+        (replace-match
+         (pcase (match-string 1)
+           ("square"   "\\\\checkboxUnchecked")
+           ("boxminus" "\\\\checkboxTransitive")
+           ("boxtimes" "\\\\checkboxChecked")
+           (_ (match-string 1)))
+         t t)))))
+
+(add-hook 'org-export-before-parsing-hook #'+org-export-latex-fancy-item-checkboxes)
+#+end_src
+
+**** Class templates
 #+begin_src emacs-lisp
 (unless (boundp 'org-latex-classes)
   (setq org-latex-classes nil))
@@ -3941,28 +3963,6 @@ By default Org uses ~pdflatex~ \times 3 + ~bibtex~. ~latexmk~ + ~biber~ (which i
                                   ("\\subsection{%s}" . "\\subsection*{%s}")))
 #+end_src
 
-**** Nicer checkboxes
-We'll assume that thanks to the clever preamble the various custom =\checkbox...= commands below are defined.
-
-#+begin_src emacs-lisp
-(defun +org-export-latex-fancy-item-checkboxes (backend)
-  "Replace LaTeX item with fancy checkboxes."
-  (when (org-export-derived-backend-p backend 'latex)
-    (save-excursion
-      (goto-char (point-min))
-      (while (re-search-forward
-              "\\\\item\\[{$\\\\\\(\\w+\\)$}\\]" nil t)
-        (replace-match
-         (pcase (match-string 1)
-           ("square"   "\\\\checkboxUnchecked")
-           ("boxminus" "\\\\checkboxTransitive")
-           ("boxtimes" "\\\\checkboxChecked")
-           (_ (match-string 1)))
-         t t)))))
-
-(add-hook 'org-export-before-parsing-hook #'+org-export-latex-fancy-item-checkboxes)
-#+end_src
-
 **** Pretty code blocks
 We could just use minted for syntax highlighting --- however, we can do better! The =engrave-faces= package lets us use Emacs' font-lock for syntax highlighting, exporting that as LaTeX commands.
 
@@ -3977,9 +3977,7 @@ Using this as in LaTeX exports is now as easy as:
 (setq org-latex-listings 'engraved)
 #+end_src
 
-One little annoyance with this is the interaction between microtype and =Verbatim=
-environments. Protrusion is not desirable here. Thankfully, we can patch the
-=Verbatim= environment to turn off protrusion locally.
+One little annoyance with this is the interaction between microtype and =Verbatim= environments. Protrusion is not desirable here. Thankfully, we can patch the =Verbatim= environment to turn off protrusion locally.
 #+begin_src emacs-lisp
 (defun tl/org-latex-no-protrusion-in-code (backend)
   "Conditionally modify LaTeX export for code blocks."
