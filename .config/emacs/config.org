@@ -3832,7 +3832,7 @@ We'll assume that thanks to the clever preamble the various custom =\checkbox...
 
 (add-to-list 'org-latex-classes
              '("article"
-               "\\documentclass[11pt,a4paper]{article}
+               "\\documentclass[11pt,a4paper,titlepage]{article}
 \\usepackage[utf8]{inputenc}
 \\usepackage[T1]{fontenc}
 \\usepackage{fixltx2e}
@@ -3842,6 +3842,7 @@ We'll assume that thanks to the clever preamble the various custom =\checkbox...
 \\usepackage{wrapfig}
 \\usepackage{rotating}
 \\usepackage[normalem]{ulem}
+\\usepackage[margin=0.8in]{geometry}
 \\usepackage{amsmath}
 \\usepackage{textcomp}
 \\usepackage{marvosym}
