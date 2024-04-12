@@ -2578,7 +2578,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
   '(add-to-list 'org-export-filter-final-output-functions #'org-export-remove-zero-width-space t))
 #+end_src
 
-*** Insert Date
+*** Insert date
 Some custom functions to insert the date.
 
  #+begin_src emacs-lisp
@@ -3328,7 +3328,7 @@ With all our Org config and hooks, exporting an Org code block when using a font
 (add-hook 'org-export-before-processing-hook #'+org-export-babel-mask-org-config)
 #+end_src
 
-*** HTML Export
+*** HTML export
 I want to tweak a whole bunch of things. While I’ll want my tweaks almost all the time, occasionally I may want to test how something turns out using a more default config. With that in mind, a global minor mode seems like the most appropriate architecture to use.
 
 #+begin_src emacs-lisp
@@ -3844,12 +3844,16 @@ Now we just need to actually implement that metadata extraction function.
                  org-url-unfurl-metadata--cache)))))
 #+end_src
 
-*** LaTeX Export
-**** Latex better defaults
+*** LaTeX export
+**** Compiling
+By default Org uses ~pdflatex~ \times 3 + ~bibtex~. ~latexmk~ + ~biber~ (which is used automatically with ~latexmk~) is superior combination.
 #+begin_src emacs-lisp
-(setq org-latex-pdf-process
-      '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
+;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+#+end_src
 
+**** LaTeX better defaults
+#+begin_src emacs-lisp
 (unless (boundp 'org-latex-classes)
   (setq org-latex-classes nil))
 
@@ -3935,13 +3939,6 @@ Now we just need to actually implement that metadata extraction function.
                                   ("\\chapter{%s}" . "\\chapter*{%s}")
                                   ("\\section{%s}" . "\\section*{%s}")
                                   ("\\subsection{%s}" . "\\subsection*{%s}")))
-#+end_src
-
-**** Compiling
-By default Org uses ~pdflatex~ \times 3 + ~bibtex~. ~latexmk~ + ~biber~ (which is used automatically with ~latexmk~) is superior combination.
-#+begin_src emacs-lisp
-;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
-(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 #+end_src
 
 **** Nicer checkboxes
