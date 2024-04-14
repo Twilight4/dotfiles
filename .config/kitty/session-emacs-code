@@ -6,6 +6,9 @@ cd ~/documents/org/reports/
 launch --title report sh -c 'result=$(find ~/documents/org/reports/ -type f -name "*.org" -printf "%P\n" | sort | uniq | ~/.fzf/bin/fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/reports/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return; [ -n "$result" ] && eval "$EDITOR" ~/documents/org/reports/"$result"; exec zsh'
 launch --title logbook sh -c 'echo "Use logbook for report writing: nb-log-edit"; exec zsh'
 
+#################################
+# Do not use/have ROE templates #
+#################################
 # Create a new tab
 #new_tab ROE
 # Set the layout in this tab
