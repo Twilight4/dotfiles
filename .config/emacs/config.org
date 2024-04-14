@@ -3143,40 +3143,6 @@ this with to-do items than with projects or headings."
      (file "~/documents/org/templates/wireless-workflow.org")
      :if-new (file+head "${slug}.org" "#+title: ${title}\n")
      :unnarrowed t)))
-;(setq org-roam-capture-templates
-; '(("d" "default" plain "%?"
-;    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-;    :unnarrowed t)
-;   ("r" "Pentest Findings Report" plain
-;    (file "~/documents/org/roam/templates/pen-report.org")
-;    :if-new (file+head "${slug}.org" "#+title: ${title}\n")
-;    :unnarrowed t)
-;   ("s" "SE Findings Report" plain
-;    (file "~/documents/org/roam/templates/se-report.org")
-;    :if-new (file+head "${slug}.org" "#+title: ${title}\n")
-;    :unnarrowed t))
-;
-; `(("w" "Workflow Template") 
-;   ("wi" "Internal Pentest" plain
-;    (file "~/documents/org/roam/templates/ipt-workflow.org")
-;    :if-new (file+head "${slug}.org" "#+title: ${title}\n")
-;    :unnarrowed t)
-;   ("we" "External Pentest" plain
-;    (file "~/documents/org/roam/templates/ept-workflow.org")
-;    :if-new (file+head "${slug}.org" "#+title: ${title}\n")
-;    :unnarrowed t)
-;   ("wr" "Red Team Engagement" entry
-;    (file "~/documents/org/roam/templates/red-team-workflow.org")
-;    :if-new (file+head "${slug}.org" "#+title: ${title}\n")
-;    :unnarrowed t)    
-;   ("ws" "Social Engineering Pentest" entry
-;    (file "~/documents/org/roam/templates/se-workflow.org")
-;    :if-new (file+head "${slug}.org" "#+title: ${title}\n")
-;    :unnarrowed t)
-;   ("ww" "Wireless Pentest" entry
-;    (file "~/documents/org/roam/templates/wireless-workflow.org")
-;    :if-new (file+head "${slug}.org" "#+title: ${title}\n")
-;    :unnarrowed t)))
 
 
 
