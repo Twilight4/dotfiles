@@ -2882,14 +2882,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 (setq org-agenda-files
       (directory-files "~/documents/org/agenda" t "\\.org$"))
 
-;(setq org-agenda-files
-;      '("~/documents/org/agenda/org-gtd-tasks.org"
-;        "~/documents/org/agenda/wireless-workflow.org"
-;        "~/documents/org/agenda/internal-pen-workflow.org"
-;        "~/documents/org/agenda/external-pen-workflow.org"
-;        "~/documents/org/agenda/social-engineering-workflow.org"
-;        "~/documents/org/agenda/red-team-workflow.org"))
-
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
       org-agenda-include-deadlines t
