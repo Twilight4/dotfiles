@@ -3089,7 +3089,7 @@ this with to-do items than with projects or headings."
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/documents/org/roam/")
+  (org-roam-directory "~/documents/org/roam/red-team")
   (org-roam-dailies-directory "~/documents/org/roam/journal/")
   (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/floorp")
