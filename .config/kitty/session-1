@@ -41,10 +41,12 @@ cd ~/
 #launch --title empire sh -c "while ! sudo ps aux | grep -q '[p]owershell-empire'; do sleep 1; done; sleep 2; sudo powershell-empire client"
 
 # Create new tab
-new_tab nb-log
+new_tab notes/logbook
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window window (title sets the tab title)
-launch --title nb-log sh -c "echo 'Make notes in logbook: nb-log-*'; exec zsh"
+launch --title findings sh -c "echo 'Make notes in notebook: nb-log-notes'; exec zsh"
+# Create a window window (title sets the tab title)
+launch --title nb-log sh -c "echo 'Make logs in logbook: nb-log'; exec zsh"
