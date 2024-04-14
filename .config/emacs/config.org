@@ -3115,38 +3115,39 @@ this with to-do items than with projects or headings."
 #+end_src
 
 *** Org-roam-capture
+
 #+begin_src emacs-lisp
 ;; Org-roam templates
 (setq org-roam-capture-templates
   '(("r" "Report Templates")
     ("rp" "Pentest Findings Report" plain
      (file "~/documents/org/templates/reports/pen-report.org")
-     :if-new (file+head "${slug}.org" "#+title: ${title}\n")
+     :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
     ("rs" "SE Findings Report" plain
      (file "~/documents/org/templates/reports/se-report.org")
-     :if-new (file+head "${slug}.org" "#+title: ${title}\n")
+     :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
     ("w" "Workflow Templates") 
     ("wi" "Internal Pentest" plain
      (file "~/documents/org/templates/workflows/ipt-workflow.org")
-     :if-new (file+head "${slug}.org")
+     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
      :unnarrowed t)
     ("we" "External Pentest" plain
      (file "~/documents/org/templates/workflows/ept-workflow.org")
-     :if-new (file+head "${slug}.org")
+     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
      :unnarrowed t)
     ("wr" "Red Team Engagement" entry
      (file "~/documents/org/templates/workflows/red-team-workflow.org")
-     :if-new (file+head "${slug}.org")
+     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
      :unnarrowed t)    
     ("ws" "Social Engineering Pentest" entry
      (file "~/documents/org/templates/workflows/se-workflow.org")
-     :if-new (file+head "${slug}.org")
+     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
      :unnarrowed t)
     ("ww" "Wireless Pentest" entry
      (file "~/documents/org/templates/workflows/wireless-workflow.org")
-     :if-new (file+head "${slug}.org")
+     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
      :unnarrowed t)))
 
 ;; Org-roam dailies capture templates
