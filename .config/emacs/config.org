@@ -1429,15 +1429,24 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
   "Copy a screenshot from /tmp/screenshot.png to a specified directory and insert an org-mode link to it at point"
   (interactive)
   (let* ((filename (read-string "Enter filename: "))
-         (category (read-string "Category (p/n for project/notes): "))
-         (category (if (string= category "p") "project" "notes"))
+         (category (tl/read-char-visible "Category (p/n for project/notes): "))
+         (category (if (char-equal category ?p) "project" "notes"))
          (save-path (if (string= category "project")
-                         "~/documents/org/projects/screenshots/"
-                       "~/documents/org/roam/screenshots/"))
+                        (concat (tl/get-zsh-env-path) "../screenshots/")
+                      "~/documents/org/roam/screenshots/"))
          (full-path (expand-file-name (concat save-path filename ".png"))))
-    (make-directory (file-name-directory full-path) t) ; Ensure the directory exists
     (copy-file "/tmp/screenshot.png" full-path)
     (insert (format "[[%s]]" full-path))))
+
+(defun tl/get-zsh-env-path ()
+  "Get the path from Zsh environment variable __SCREENSHOTS."
+  (replace-regexp-in-string "\n$" "" (shell-command-to-string "echo $__SCREENSHOTS")))
+
+(defun tl/read-char-visible (prompt)
+  "Read a single visible character from the minibuffer with PROMPT."
+  (let ((char (read-char-exclusive prompt)))
+    (message "%c" char)
+    char))
 #+end_src
 
 ** Pdf-links Automation
@@ -3112,11 +3121,7 @@ this with to-do items than with projects or headings."
  '(("d" "default" plain "%?"
     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
     :unnarrowed t)
-   ("n" "note" plain
-    (file "~/documents/org/roam/templates/note.org")
-    :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-    :unnarrowed t)
-   ("r" "Pentest Report" plain
+   ("r" "Pentest Findings Report" plain
     (file "~/documents/org/roam/templates/report.org")
     :if-new (file+head "${slug}.org" "#+title: ${title}\n")
     :unnarrowed t)
