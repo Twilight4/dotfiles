@@ -3110,10 +3110,7 @@ this with to-do items than with projects or headings."
 #+begin_src emacs-lisp
 ;; Org-roam templates
 (setq org-roam-capture-templates
-  '(("d" "default" plain "%?"
-     :if-new (file+head "${slug}.org" "#+title: ${title}\n#+date: %U\n")
-     :unnarrowed t)
-    ("r" "Report Templates")
+  '(("r" "Report Templates")
     ("rp" "Pentest Findings Report" plain
      (file "~/documents/org/templates/pen-report.org")
      :if-new (file+head "${slug}.org" "#+title: ${title}\n")
