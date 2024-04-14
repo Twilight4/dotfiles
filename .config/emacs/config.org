@@ -400,8 +400,6 @@
   (tl/leader-keys
     "," '(consult-recent-file :wk "Find recent files")
     "." '(find-file :wk "Find file")
-    "v" '(org-capture :wk "Capture to workflow")
-    "C" '(org-gtd-capture :wk "Capture to inbox")     ;; for tasks in inbox.org
     "p" '(org-gtd-process-inbox :wk "Process inbox")  ;; process inbox.org
     "b" '(consult-buffer :wk "Switch to buffer")
     "w" '(elfeed :wk "Newsfeed")
@@ -563,7 +561,8 @@
  "l" '(org-roam-node-insert-immediate :wk "Insert Org roam node immediatelly")
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
- "c" '(org-roam-capture :wk "Capture to node")
+ "c" '(org-gtd-capture :wk "Capture to inbox")
+ "C" '(org-roam-capture :wk "Capture to node")
  "u" '(org-roam-ui-open :wk "Open Org roam UI")
  "s" '(org-roam-db-sync :wk "Sync Org roam db")
  ;; Org-Roam dailies
