@@ -2880,7 +2880,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 
 ;; Doesn't affect anything since I use org-gtd package
 (setq org-agenda-files
-      (directory-files "~/documents/org/agenda" t "\\.org$"))
+      (directory-files "~/documents/org/agenda"))
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
