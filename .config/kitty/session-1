@@ -16,7 +16,7 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title sgpt sh -c 'echo "use aliases: ss, sc, ssr, scr"; exec zsh'
+launch --title sgpt sh -c 'echo "\033[0;33muse aliases: ss, sc, ssr, scr\033[0m"; exec zsh'
 
 # Create a new tab for cheat
 new_tab fchtc
@@ -56,6 +56,6 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window window (title sets the tab title)
-launch --title findings sh -c "echo 'Make notes in notebook: nb-log-notes'; exec zsh"
+launch --title findings sh -c 'echo "\033[0;33mMake notes in notebook: nb-log-notes\033[0m"; exec zsh'
 # Create a window window (title sets the tab title)
-launch --title nb-log sh -c "echo 'Make logs in logbook: nb-log'; exec zsh"
+launch --title nb-log sh -c 'echo "\033[0;33mMake logs in logbook: nb-log\033[0m"; exec zsh'
