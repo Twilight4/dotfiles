@@ -404,6 +404,7 @@
     "b" '(consult-buffer :wk "Switch to buffer")
     "w" '(elfeed :wk "Newsfeed")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
+    "o" '(other-window :wk "switch window")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "s" '(basic-save-buffer :wk "Save buffer")
     "C-a" '(mark-whole-buffer :wk "Mark whole buffer")
@@ -3128,7 +3129,7 @@ this with to-do items than with projects or headings."
      (file "~/documents/org/templates/reports/se-report.org")
      :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
-    ("w" "Workflow Templates") 
+    ("w" "Workflow Templates")
     ("wi" "Internal Pentest" plain
      (file "~/documents/org/templates/workflows/ipt-workflow.org")
      :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
@@ -3148,12 +3149,16 @@ this with to-do items than with projects or headings."
     ("ww" "Wireless Pentest" entry
      (file "~/documents/org/templates/workflows/wireless-workflow.org")
      :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
+     :unnarrowed t)
+    ("l" "Logbook Templates")
+	  ("le" "Log Entry" plain
+     (file "~/documents/org/templates/logbook/log-entry.org")
+     :if-new (file "~/documents/org/reports/${slug}_logbook.org")
+     :unnarrowed t)
+	  ("lf" "Log Full Entry" plain
+     (file "~/documents/org/templates/logbook/log-full-entry.org")
+     :if-new (file "~/documents/org/reports/${slug}_logbook.org")
      :unnarrowed t)))
-
-;; Org-roam dailies capture templates
-(setq org-roam-dailies-capture-templates
-      '(("d" "default" entry "* %<%I:%M %p>: %?"
-         :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
 #+end_src
 
 *** Org-roam-dailies
@@ -3162,6 +3167,11 @@ Automatically move completed tasks to dailies - one interesting use for daily fi
 The following snippet sets up a hook for all Org task state changes and then moves the completed (DONE) entry to today’s note file.
 
 #+begin_src emacs-lisp
+;; Org-roam dailies capture templates
+(setq org-roam-dailies-capture-templates
+      '(("d" "default" entry "* %<%I:%M %p>: %?"
+         :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+
 (defun tl/org-roam-copy-todo-to-today ()
   (interactive)
   (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
