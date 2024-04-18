@@ -3153,12 +3153,12 @@ this with to-do items than with projects or headings."
     ("l" "Logbook Templates")
 	  ("le" "Log Entry" plain
      (file "~/documents/org/templates/logbook/log-entry.org")
-     :if-new (file "~/documents/org/reports/${slug}_logbook.org")
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("logbook"))
      :unnarrowed t)
 	  ("lf" "Log Full Entry" plain
      (file "~/documents/org/templates/logbook/log-full-entry.org")
-     :if-new (file "~/documents/org/reports/${slug}_logbook.org")
-     :unnarrowed t)))
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("logbook")
+     :unnarrowed t))))
 #+end_src
 
 *** Org-roam-dailies
