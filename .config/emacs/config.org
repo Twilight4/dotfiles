@@ -59,6 +59,7 @@
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#avy][Avy]]
+  - [[#spelling][Spelling]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#pdf-tools][Pdf-tools]]
   - [[#desktop-mode][Desktop-mode]]
@@ -66,7 +67,7 @@
   - [[#essential-packages][Essential Packages]]
   - [[#bibliography-management][Bibliography Management]]
   - [[#editing-features-for-org][Editing Features for Org]]
-  - [[#org-configuraion][Org Configuraion]]
+  - [[#org-configuration][Org Configuration]]
   - [[#exporting][Exporting]]
 
 * Elpaca and Keybindings
@@ -211,6 +212,10 @@
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 (global-set-key (kbd "C-M-a") 'backward-kill-sentence)
 (global-set-key (kbd "C-M-e") 'kill-sentence)
+;; Spelling
+(global-set-key (kbd "C-M-i") 'flyspell-auto-correct-word)
+(global-set-key (kbd "C-M-v") 'flyspell-correct-word-before-point)
+(global-set-key (kbd "C-M-_") 'flyspell-goto-next-error)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -1888,6 +1893,36 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (command-execute 'open-line))
 #+end_src
 
+** Spelling
+#+begin_src emacs-lisp
+(use-package ispell
+  :ensure nil
+  :custom
+  (ispell-program-name "aspell")
+  (ispell-personal-dictionary (concat user-emacs-directory "etc/.aspell.lang.pws"))
+  (ispell-dictionary nil)
+  (ispell-local-dictionary nil)
+  (ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"
+                       "--run-together" "--run-together-limit=16"
+                       "--camel-case"))
+  :init
+  (defun tl/add-word-to-dictionary ()
+    (interactive)
+    (let ((word (word-at-point)))
+      (append-to-file (concat word "\n") nil ispell-personal-dictionary)
+      (message "Added '%s' to %s" word ispell-personal-dictionary))))
+
+(use-package flyspell
+  :ensure nil
+  :defer
+  :hook ((prog-mode . flyspell-prog-mode)
+         (org-mode . flyspell-mode)
+         (text-mode . flyspell-mode)
+         (flyspell-mode . (lambda ()
+                            (set-face-attribute 'flyspell-incorrect nil :underline '(:style wave :color "Red1"))
+                            (set-face-attribute 'flyspell-duplicate nil :underline '(:style wave :color "DarkOrange"))))))
+#+end_src
+
 ** Drag-stuff
 
 #+begin_src emacs-lisp
@@ -2635,7 +2670,7 @@ Let’s make creating an Org buffer just that little bit easier.
       (org-mode))))
 #+end_src
 
-** Org Configuraion
+** Org Configuration
 *** Org-mode font faces
 
 #+begin_src emacs-lisp
