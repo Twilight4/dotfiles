@@ -213,10 +213,10 @@
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-;(global-set-key (kbd "C-M-h") 'backward-kill-sentence)
-;(global-set-key (kbd "C-M-d") 'kill-sentence)
+(global-set-key (kbd "C-M-o") 'backward-kill-sentence)
+(global-set-key (kbd "C-M-u") 'kill-sentence)
 ;; Spelling
-(global-set-key (kbd "C-M-i") 'flyspell-auto-correct-word)
+(global-set-key (kbd "C-M-a") 'flyspell-auto-correct-word)
 (global-set-key (kbd "C-M-v") 'flyspell-correct-word-before-point)
 (global-set-key (kbd "C-M-_") 'flyspell-goto-next-error)
 ;; Upgraded clipboard functions
@@ -274,10 +274,10 @@
 (define-key org-mode-map (kbd "C-M-p") 'org-shiftup)
 (define-key org-mode-map (kbd "C-M-n") 'org-shiftdown)
 ;; Org todo navigation
-(eval-after-load 'hl-todo
-  '(progn
-     (define-key hl-todo-mode-map (kbd "C-M-j") #'hl-todo-next)
-     (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)))
+;(eval-after-load 'hl-todo
+;  '(progn
+;     (define-key hl-todo-mode-map (kbd "C-M-j") #'hl-todo-next)
+;     (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)))
 ;; Org promote/demote headings
 (define-key org-mode-map (kbd "M-H") #'org-metaleft)
 (define-key org-mode-map (kbd "M-J") #'org-metadown)
@@ -574,7 +574,7 @@
  "N" '(org-roam-dailies-goto-today :wk "Go to daily today")
  "y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
  "Y" '(org-roam-dailies-goto-yesterday :wk "Go to daily yesterday")
- "t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
+ ;"t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
  "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
  "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
@@ -1942,28 +1942,30 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 
 Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
 #+begin_src emacs-lisp
+;; Keybinds that can't be set cuz they're bugged in 'gptel-menu': 'm' 'b'
+
 ;; Prompt from
-(keymap-global-set "C-M-o" "M-g M-RET m RET")
-(keymap-global-set "C-M-e" "M-g M-RET y RET")
-(keymap-global-set "C-M-a" "M-g M-RET i RET")
+(keymap-global-set "C-M-k" "M-g ESC RET y RET")
+(keymap-global-set "C-M-i" "M-g ESC RET i RET")
 
 ;; Response to
-(keymap-global-set "C-M-d" "M-g M-RET e RET")
-;(keymap-global-set "C-M-x" "M-g M-RET b *scratch* RET RET")
-(keymap-global-set "C-M-g" "M-g M-RET g RET RET")
-;(keymap-global-set "C-M-g" "M-g M-RET g RET RET")
+(keymap-global-set "C-M-e" "M-g ESC RET e RET")
+(keymap-global-set "C-M-d" "M-g ESC RET g RET RET")
 
-;; Normal keybinds
-(global-set-key (kbd "M-RET") 'gptel-send) ;
-(global-set-key (kbd "C-M-c") 'gptel)       ;; TODO bind it to kitty session instead of shellgpt
-;(global-set-key (kbd "M-RET") 'gptel-mode)   ;; not useful - gptel automates it
-(global-set-key (kbd "M-\\") 'gptel-abort)
-(global-set-key (kbd "C-M-l") 'gptel-org-set-topic)
+;; Rewrite
 (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
 (global-set-key (kbd "C-M-s") 'gptel--suffix-rewrite)
+
+;; Normal keybinds
+(global-set-key (kbd "M-RET") 'gptel-send)
+(global-set-key (kbd "C-M-c") 'gptel)       ;; TODO bind it to kitty session instead of shellgpt
+(global-set-key (kbd "M-\\") 'gptel-abort)   ;; 'M-'' is available
+
+;; Other
+(global-set-key (kbd "C-M-l") 'gptel-system-prompt)
+(global-set-key (kbd "C-M-o") 'gptel--suffix-system-message)
 (global-set-key (kbd "M-i r") 'gptel--mark-response)
-(global-set-key (kbd "M-'") 'gptel--suffix-system-message)
-(global-set-key (kbd "C-M-u") 'gptel-system-prompt)
+(global-set-key (kbd "C-c t") 'gptel-org-set-topic)
 #+end_src
 
 ** Drag-stuff
