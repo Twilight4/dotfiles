@@ -1941,6 +1941,19 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
  (setq gptel-default-mode 'org-mode))
+#+end_src
+
+Custom ChatGBT prompts.
+#+begin_src emacs-lisp
+(gptel-request
+ "my prompt"                                ; the prompt to send to ChatGPT
+ ;; The below keys are all optional
+ :buffer   some-buffer-or-name              ; defaults to (current-buffer)
+ :system   "Chat directive here"            ; defaults to gptel--system-message
+ :position some-pt                          ; defaults to (point)
+ :context  (list "any other info")          ; will be available to the callback
+ :callback (lambda (response info) ...))         ; called with the response and an info plist
+                                            ; defaults to inserting the response at :position
 
 ;; TODO Set custom desired prompts are using =gptel-request=.
  ;(gptel-request
