@@ -1,3 +1,9 @@
+:PROPERTIES:
+:GPTEL_MODEL: gpt-3.5-turbo
+:GPTEL_BACKEND: ChatGPT
+:GPTEL_SYSTEM: You are a large language model living in Emacs and a helpful assistant. Respond concisely.
+:GPTEL_BOUNDS: nil
+:END:
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
@@ -1925,20 +1931,29 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** GPTel
-Auto-scroll and go to end of response. My custom prompts are set in =gptel-request=.
+Auto-scroll and go to end of response.
 #+begin_src emacs-lisp
 (use-package gptel
  :ensure t
  :config
  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
- (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
+ (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+ (setq gptel-default-mode org-mode))
+#+end_src
 
+Set custom prompts are set in =gptel-request=.
+#+begin_src emacs-lisp
 (gptel-request
  "my prompt"
  :system "Respond ..."
  :callback (lambda (response info)
              "Whatever LLM RESPONSE."
              (frob response)))
+#+end_src
+
+Keyboard macros to invoke specific options from =gptel-menu=.
+#+begin_src emacs-lisp
+
 #+end_src
 
 ** Drag-stuff
