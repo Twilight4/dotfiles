@@ -217,6 +217,9 @@
 (global-set-key (kbd "C-M-i") 'flyspell-auto-correct-word)
 (global-set-key (kbd "C-M-v") 'flyspell-correct-word-before-point)
 (global-set-key (kbd "C-M-_") 'flyspell-goto-next-error)
+;; GPTel
+;(global-set-key (kbd "M-RET") 'gptel-send)
+(global-set-key (kbd "C-M-m") 'gptel-send)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -1925,29 +1928,28 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** GPTel
-Auto-scroll and go to end of response.
+Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
 #+begin_src emacs-lisp
 (use-package gptel
  :ensure t
  :config
  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
- (setq gptel-default-mode org-mode))
-#+end_src
+ ;(setq gptel-default-mode org-mode)          ;; WRONG SYNTAX
 
-Set custom prompts are set in =gptel-request=.
-#+begin_src emacs-lisp
-(gptel-request
+ ;; Set custom desired prompts are using =gptel-request=.
+ (gptel-request
  "my prompt"
  :system "Respond ..."
  :callback (lambda (response info)
              "Whatever LLM RESPONSE."
-             (frob response)))
+             (frob response))))
 #+end_src
 
 Keyboard macros to invoke specific options from =gptel-menu=.
 #+begin_src emacs-lisp
-
+;; Replace with your key to invoke the transient menu:
+(keymap-global-set "<f6>" "M-g C-c <return> <return>")
 #+end_src
 
 ** Drag-stuff
