@@ -218,8 +218,8 @@
 (global-set-key (kbd "C-M-v") 'flyspell-correct-word-before-point)
 (global-set-key (kbd "C-M-_") 'flyspell-goto-next-error)
 ;; GPTel
-;(global-set-key (kbd "M-RET") 'gptel-send)
-(global-set-key (kbd "C-M-m") 'gptel-send)
+(global-set-key (kbd "M-RET") 'gptel-send)
+;(global-set-key (kbd "C-M-m") 'gptel-send)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -257,18 +257,13 @@
 (global-set-key (kbd ".") 'insert-period)
 (global-set-key (kbd "/") 'insert-slash)
 
-;; Org Mode Keybindings
+;; Org Mode Keybindings - commented out won't work in terminal
 ;; Org heading structure - M-Ret keys for headings
-(define-key org-mode-map (kbd "M-<return>") 'org-insert-heading-respect-content)
-(define-key org-mode-map (kbd "M-S-<return>") 'org-insert-subheading)
-(define-key org-mode-map (kbd "S-<return>") 'org-toggle-item)
-(define-key org-mode-map (kbd "C-<return>") 'org-meta-return)
-(define-key org-mode-map (kbd "C-S-<return>") 'org-insert-todo-heading)
-(define-key org-mode-map (kbd "M-RET") 'org-insert-heading-respect-content)
-(define-key org-mode-map (kbd "M-S-RET") 'org-insert-subheading)
-(define-key org-mode-map (kbd "S-RET") 'org-toggle-item)
-(define-key org-mode-map (kbd "C-RET") 'org-meta-return)
-(define-key org-mode-map (kbd "C-S-RET") 'org-insert-todo-heading)
+;(define-key org-mode-map (kbd "M-RET") 'org-insert-heading-respect-content)
+;(define-key org-mode-map (kbd "M-S-RET") 'org-insert-subheading)
+;(define-key org-mode-map (kbd "S-RET") 'org-toggle-item)
+;(define-key org-mode-map (kbd "C-RET") 'org-meta-return)
+;(define-key org-mode-map (kbd "C-S-RET") 'org-insert-todo-heading)
 ;; Org heading navigation
 (define-key org-mode-map (kbd "M-h") #'org-previous-visible-heading)
 (define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)
