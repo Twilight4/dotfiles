@@ -1939,11 +1939,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
  :ensure t
  :config
  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
- (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
- ;(setq gptel-default-mode org-mode)          ;; WRONG SYNTAX
+ (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+ (setq gptel-default-mode 'org-mode))
 
- ;; TODO Set custom desired prompts are using =gptel-request=.
-										;(gptel-request
+;; TODO Set custom desired prompts are using =gptel-request=.
+ ;(gptel-request
  ;"my prompt"
  ;:system "Respond ..."
  ;:callback (lambda (response info)
@@ -1980,7 +1980,7 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 
 ;; Normal keybinds
 (global-set-key (kbd "M-RET") 'gptel-send)
-(global-set-key (kbd "C-M-c") 'gptel)       ;; TODO bind it to kitty session instead of shellgpt
+(global-set-key (kbd "C-M-c") 'gptel)
 (global-set-key (kbd "M-\\") 'gptel-abort)
 
 ;; Other
