@@ -1932,6 +1932,13 @@ Auto-scroll and go to end of response. My custom prompts are set in =gptel-reque
  :config
  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
  (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
+
+(gptel-request
+ "my prompt"
+ :system "Respond ..."
+ :callback (lambda (response info)
+             "Whatever LLM RESPONSE."
+             (frob response)))
 #+end_src
 
 ** Drag-stuff
