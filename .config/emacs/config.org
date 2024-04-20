@@ -1972,7 +1972,7 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 ;; Option 'b' in 'gptel-menu' can't be set so u need to do: "M-g C-M-RET b"
 (keymap-global-set "C-M-e" "M-g ESC RET e RET")
 (keymap-global-set "C-M-d" "M-g ESC RET g RET RET")
-(keymap-global-set "C-M-l" "M-g ESC RET k RET")      ;; Run 'M-'' to copy it to system clipboard
+(keymap-global-set "C-M-l" "M-g ESC RET k RET")      ;; Use 'M-'' to copy it to system clipboard
 
 ;; Rewrite
 (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
@@ -1984,8 +1984,8 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 (global-set-key (kbd "M-\\") 'gptel-abort)
 
 ;; Other
-;(global-set-key (kbd "C-M-") 'gptel-system-prompt)              ;; BIND IT
-;(global-set-key (kbd "C-M-") 'gptel--suffix-system-message)     ;; BIND IT
+(global-set-key (kbd "C-c e") 'gptel-system-prompt)
+(global-set-key (kbd "C-c E") 'gptel--suffix-system-message)
 (global-set-key (kbd "M-i r") 'gptel--mark-response)
 (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
 #+end_src
