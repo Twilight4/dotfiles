@@ -7,6 +7,8 @@ echo "1. Check if profile sync daemon is running:"
 echo '    psd p'
 echo "2. Configure browser settings"
 echo "3. Import the ~/.config/superProductivity/config.json in: Settings > Sync & Export > Import From File"
+echo "4. Import your OpenAI API key for emacs in '~/.authinfo':"
+echo '    machine api.openai.com login apikey password <TOKEN_HERE>'
 echo "4. Add pub key to github: Settings > SSH > New:"
 echo '    ssh-keygen -t ed25519'
 echo "5. Clone relevant repos via SSH:"
