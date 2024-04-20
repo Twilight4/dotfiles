@@ -151,6 +151,7 @@
 (define-key global-map (kbd "M-f") nil)
 (define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "C-@") nil)
+(define-key global-map (kbd "M-RET") nil)
 
 ;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
@@ -160,6 +161,7 @@
 (define-key org-mode-map (kbd "M-h") nil)
 (define-key org-mode-map (kbd "M-t") nil)
 (define-key org-mode-map (kbd "C-,") nil)
+(define-key org-mode-map (kbd "M-RET") nil)
 
 ;; Tried my best but couldn't make it work
 ;; (add-hook 'calendar-mode-hook
@@ -219,7 +221,6 @@
 (global-set-key (kbd "C-M-_") 'flyspell-goto-next-error)
 ;; GPTel
 (global-set-key (kbd "M-RET") 'gptel-send)
-;(global-set-key (kbd "C-M-m") 'gptel-send)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -1929,16 +1930,16 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
  :ensure t
  :config
  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
- (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+ (add-hook 'gptel-post-response-functions 'gptel-end-of-response))
  ;(setq gptel-default-mode org-mode)          ;; WRONG SYNTAX
 
- ;; Set custom desired prompts are using =gptel-request=.
- (gptel-request
- "my prompt"
- :system "Respond ..."
- :callback (lambda (response info)
-             "Whatever LLM RESPONSE."
-             (frob response))))
+ ;; TODO Set custom desired prompts are using =gptel-request=.
+ ;(gptel-request
+ ;"my prompt"
+ ;:system "Respond ..."
+ ;:callback (lambda (response info)
+ ;            "Whatever LLM RESPONSE."
+ ;            (frob response))))
 #+end_src
 
 Keyboard macros to invoke specific options from =gptel-menu=.
