@@ -1942,15 +1942,37 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 
 Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
 #+begin_src emacs-lisp
-;; Keybinds that can't be set cuz they're bugged in 'gptel-menu': 'm' 'b'
+;; I set default options in gptel-menu to ALWAYS be 'm' to prompt for minibuffer (saved using 'C-xC-s')
+;; This is because I do not run elgpt-menu, cuz I set every keybind to each option
+;; Function to run gptel-send with the default options in gptel-menu
+(defun gptel-send-with-options (&optional arg)
+  "Send query.  With prefix ARG open gptel's menu instead."
+  (interactive "P")
+  (if arg
+      (call-interactively 'gptel-menu)
+    (gptel--suffix-send (transient-args 'gptel-menu))))
+
+;; Function to copy last entry from kill-ring buffer to the system clipboard
+(defun copy-last-entry-to-clipboard ()
+  (interactive)
+  (when kill-ring
+    (with-temp-buffer
+      (insert (car kill-ring))
+      (call-process-region (point-min) (point-max) "wl-copy"))
+    (message "Last entry copied to system clipboard.")))
+
+(global-set-key (kbd "M-'") 'copy-last-entry-to-clipboard)
 
 ;; Prompt from
+(global-set-key (kbd "C-M-o") 'gptel-send-with-options)
 (keymap-global-set "C-M-k" "M-g ESC RET y RET")
 (keymap-global-set "C-M-i" "M-g ESC RET i RET")
 
 ;; Response to
+;; Option 'b' in 'gptel-menu' can't be set so u need to do: "M-g C-M-RET b"
 (keymap-global-set "C-M-e" "M-g ESC RET e RET")
 (keymap-global-set "C-M-d" "M-g ESC RET g RET RET")
+(keymap-global-set "C-M-l" "M-g ESC RET k RET")      ;; Run 'M-'' to copy it to system clipboard
 
 ;; Rewrite
 (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
@@ -1959,11 +1981,11 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 ;; Normal keybinds
 (global-set-key (kbd "M-RET") 'gptel-send)
 (global-set-key (kbd "C-M-c") 'gptel)       ;; TODO bind it to kitty session instead of shellgpt
-(global-set-key (kbd "M-\\") 'gptel-abort)   ;; 'M-'' is available
+(global-set-key (kbd "M-\\") 'gptel-abort)
 
 ;; Other
-(global-set-key (kbd "C-M-l") 'gptel-system-prompt)
-(global-set-key (kbd "C-M-o") 'gptel--suffix-system-message)
+;(global-set-key (kbd "C-M-") 'gptel-system-prompt)              ;; BIND IT
+;(global-set-key (kbd "C-M-") 'gptel--suffix-system-message)     ;; BIND IT
 (global-set-key (kbd "M-i r") 'gptel--mark-response)
 (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
 #+end_src
