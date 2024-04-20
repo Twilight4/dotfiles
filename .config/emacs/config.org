@@ -1945,7 +1945,10 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 Keyboard macros to invoke specific options from =gptel-menu=.
 #+begin_src emacs-lisp
 ;; Replace with your key to invoke the transient menu:
-(keymap-global-set "<f6>" "M-g C-c <return> <return>")
+(keymap-global-set "<f6>" "M-g M-RET i RET")
+(keymap-global-set "<f6>" "M-g M-RET i RET")
+(keymap-global-set "<f6>" "M-g M-RET i RET")
+(keymap-global-set "<f6>" "M-g M-RET i RET")
 #+end_src
 
 ** Drag-stuff
