@@ -60,6 +60,7 @@
   - [[#dired][Dired]]
   - [[#avy][Avy]]
   - [[#spelling][Spelling]]
+  - [[#gptel][GPTel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#pdf-tools][Pdf-tools]]
   - [[#desktop-mode][Desktop-mode]]
@@ -1921,6 +1922,12 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
          (flyspell-mode . (lambda ()
                             (set-face-attribute 'flyspell-incorrect nil :underline '(:style wave :color "Red1"))
                             (set-face-attribute 'flyspell-duplicate nil :underline '(:style wave :color "DarkOrange"))))))
+#+end_src
+
+** GPTel
+#+begin_src emacs-lisp
+(use-package gptel
+ :ensure t)
 #+end_src
 
 ** Drag-stuff
