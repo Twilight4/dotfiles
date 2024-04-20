@@ -1,9 +1,3 @@
-:PROPERTIES:
-:GPTEL_MODEL: gpt-3.5-turbo
-:GPTEL_BACKEND: ChatGPT
-:GPTEL_SYSTEM: You are a large language model living in Emacs and a helpful assistant. Respond concisely.
-:GPTEL_BOUNDS: nil
-:END:
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
