@@ -213,14 +213,12 @@
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-(global-set-key (kbd "C-M-a") 'backward-kill-sentence)
-(global-set-key (kbd "C-M-e") 'kill-sentence)
+;(global-set-key (kbd "C-M-h") 'backward-kill-sentence)
+;(global-set-key (kbd "C-M-d") 'kill-sentence)
 ;; Spelling
 (global-set-key (kbd "C-M-i") 'flyspell-auto-correct-word)
 (global-set-key (kbd "C-M-v") 'flyspell-correct-word-before-point)
 (global-set-key (kbd "C-M-_") 'flyspell-goto-next-error)
-;; GPTel
-(global-set-key (kbd "M-RET") 'gptel-send)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -1934,7 +1932,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
  ;(setq gptel-default-mode org-mode)          ;; WRONG SYNTAX
 
  ;; TODO Set custom desired prompts are using =gptel-request=.
- ;(gptel-request
+										;(gptel-request
  ;"my prompt"
  ;:system "Respond ..."
  ;:callback (lambda (response info)
@@ -1942,13 +1940,30 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
  ;            (frob response))))
 #+end_src
 
-Keyboard macros to invoke specific options from =gptel-menu=.
+Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
 #+begin_src emacs-lisp
-;; Replace with your key to invoke the transient menu:
-(keymap-global-set "<f6>" "M-g M-RET i RET")
-(keymap-global-set "<f6>" "M-g M-RET i RET")
-(keymap-global-set "<f6>" "M-g M-RET i RET")
-(keymap-global-set "<f6>" "M-g M-RET i RET")
+;; Prompt from
+(keymap-global-set "C-M-o" "M-g M-RET m RET")
+(keymap-global-set "C-M-e" "M-g M-RET y RET")
+(keymap-global-set "C-M-a" "M-g M-RET i RET")
+
+;; Response to
+(keymap-global-set "C-M-d" "M-g M-RET e RET")
+;(keymap-global-set "C-M-x" "M-g M-RET b *scratch* RET RET")
+(keymap-global-set "C-M-g" "M-g M-RET g RET RET")
+;(keymap-global-set "C-M-g" "M-g M-RET g RET RET")
+
+;; Normal keybinds
+(global-set-key (kbd "M-RET") 'gptel-send) ;
+(global-set-key (kbd "C-M-c") 'gptel)       ;; TODO bind it to kitty session instead of shellgpt
+;(global-set-key (kbd "M-RET") 'gptel-mode)   ;; not useful - gptel automates it
+(global-set-key (kbd "M-\\") 'gptel-abort)
+(global-set-key (kbd "C-M-l") 'gptel-org-set-topic)
+(global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
+(global-set-key (kbd "C-M-s") 'gptel--suffix-rewrite)
+(global-set-key (kbd "M-i r") 'gptel--mark-response)
+(global-set-key (kbd "M-'") 'gptel--suffix-system-message)
+(global-set-key (kbd "C-M-u") 'gptel-system-prompt)
 #+end_src
 
 ** Drag-stuff
