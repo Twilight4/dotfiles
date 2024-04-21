@@ -1933,6 +1933,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** GPTel
+*** GPTel config
 Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
 #+begin_src emacs-lisp
 (use-package gptel
@@ -1941,20 +1942,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
  (setq gptel-default-mode 'org-mode))
-#+end_src
-
-Custom ChatGBT prompts/patterns/roles.
-#+begin_src emacs-lisp
-;; TODO Set custom prompts are using =gptel-request=.
-;(gptel-request
- ;"my prompt"                                 ;the prompt to send to ChatGPT
- ;; The below keys are all optional
- ;:buffer   some-buffer-or-name              ;defaults to (current-buffer)
- ;:system   "Chat directive here"            ;defaults to gptel--system-message
- ;:position some-pt                          ;defaults to (point)
- ;:context  (list "any other info")          ;will be available to the callback
- ;:callback (lambda (response info) ...))    ;called with the response and an info plist
-                                             ;defaults to inserting the response at :position
 #+end_src
 
 Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
@@ -1995,6 +1982,71 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 (global-set-key (kbd "M-i r") 'gptel--mark-response)
 (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
 #+end_src
+
+*** Custom ChatGBT prompts/patterns/roles
+**** Clean-text
+#+begin_src emacs-lisp
+(defun gptel-clean-text (bounds &optional directive)
+  (interactive
+   (list
+    (cond
+     ((use-region-p) (cons (region-beginning) (region-end)))
+     ((derived-mode-p 'text-mode)
+      (list (bounds-of-thing-at-point 'sentence)))
+     (t (cons (line-beginning-position) (line-end-position))))
+    (and current-prefix-arg
+         (read-string "ChatGPT Directive: "
+                      "# IDENTITY and PURPOSE
+
+You are an expert at cleaning up broken and, malformatted, text, for example: line breaks in weird places, etc. 
+
+# Steps
+
+- Read the entire document and fully understand it.
+- Remove any strange line breaks that disrupt formatting.
+- Do NOT change any content or spelling whatsoever.
+
+# OUTPUT INSTRUCTIONS
+
+- Output the full, properly-formatted text.
+- Do not output warnings or notes—just the requested sections."))))
+  (gptel-request
+   (buffer-substring-no-properties (car bounds) (cdr bounds)) ;the prompt
+   :system (or directive "# IDENTITY and PURPOSE
+
+You are an expert at cleaning up broken and, malformatted, text, for example: line breaks in weird places, etc. 
+
+# Steps
+
+- Read the entire document and fully understand it.
+- Remove any strange line breaks that disrupt formatting.
+- Do NOT change any content or spelling whatsoever.
+
+# OUTPUT INSTRUCTIONS
+
+- Output the full, properly-formatted text.
+- Do not output warnings or notes—just the requested sections.")
+   :buffer (current-buffer)
+   :context (cons (set-marker (make-marker) (car bounds))
+                  (set-marker (make-marker) (cdr bounds)))
+   :callback
+   (lambda (response info)
+     (if (not response)
+         (message "ChatGPT response failed with: %s" (plist-get info :status))
+       (let* ((bounds (plist-get info :context))
+              (beg (car bounds))
+              (end (cdr bounds))
+              (buf (plist-get info :buffer)))
+         (with-current-buffer buf
+           (save-excursion
+             (goto-char beg)
+             (kill-region beg end)
+             (insert response)
+             (set-marker beg nil)
+             (set-marker end nil)
+             (message "Rewrote line. Original line saved to kill-ring."))))))))
+#+end_src
+
 
 ** Drag-stuff
 
