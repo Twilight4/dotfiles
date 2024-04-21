@@ -213,12 +213,8 @@
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-;(global-set-key (kbd "C-M-o") 'kill-sentence)
-;(global-set-key (kbd "C-M-u") 'backward-kill-sentence)
-;; Spelling
-;(global-set-key (kbd "C-M-a") 'flyspell-auto-correct-word)
-;(global-set-key (kbd "C-M-v") 'flyspell-correct-word-before-point)
-;(global-set-key (kbd "C-M-_") 'flyspell-goto-next-error)
+(global-set-key (kbd "C-M-o") 'kill-sentence)
+(global-set-key (kbd "C-M-u") 'backward-kill-sentence)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -1930,17 +1926,17 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
          (flyspell-mode . (lambda ()
                             (set-face-attribute 'flyspell-incorrect nil :underline '(:style wave :color "Red1"))
                             (set-face-attribute 'flyspell-duplicate nil :underline '(:style wave :color "DarkOrange")))))
-  ;; Disable conflicting keybinds
   :bind (:map flyspell-mode-map
+              ;; Disabled ones don't work in emacs in terminal
+			  ;; Bind flyspell-correct-word-before-point
               ("C-;" . nil)
               ("C-," . nil)
               ("C-." . nil)
-              ("C-c $" . nil)
-              ("C-M-i" . nil)))
+              ("C-c _" . flyspell-goto-next-error)
+              ("C-M-i" . flyspell-auto-correct-word)))
 #+end_src
 
 ** GPTel
-*** GPTel config
 Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
 #+begin_src emacs-lisp
 (use-package gptel
@@ -2029,15 +2025,17 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
     (gptel--suffix-send (transient-args 'gptel-menu))))
 
 ;; Prompt from
-(global-set-key (kbd "C-M-o") 'gptel-send-with-options)
-(keymap-global-set "C-M-k" "M-g ESC RET y RET")
-(keymap-global-set "C-M-i" "M-g ESC RET i RET")
+(global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer
+(keymap-global-set "C-M-d" "M-g ESC RET i RET")          ;; delete in place (like delete on C-d)
 
 ;; Response to
 ;; Option 'b' in 'gptel-menu' can't be set so u need to do: "M-g C-M-RET b"
-(keymap-global-set "C-M-u" "M-g ESC RET e RET")
-(keymap-global-set "C-M-d" "M-g ESC RET g RET RET")
-(keymap-global-set "C-M-l" "M-g ESC RET k RET")      ;; Use 'M-'' to copy it to system clipboard
+;(keymap-global-set "C-M-i" "M-g ESC RET e RET")       ;; to echo area (I use gptel command instead)
+(keymap-global-set "C-M-v" "M-g ESC RET g RET RET")    ;; send to gpt session (like gptel on C-M-c)
+
+;; To/out of clipboard
+(keymap-global-set "C-M-k" "M-g ESC RET y RET")      ;; prompt from kill ring
+(keymap-global-set "C-M-l" "M-g ESC RET k RET")      ;; response to kill ring (use 'M-'' to copy it to system clipboard)
 
 ;; Rewrite
 (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
@@ -2049,7 +2047,7 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 (global-set-key (kbd "M-\\") 'gptel-abort)
 
 ;; Other
-(global-set-key (kbd "C-M-e") 'gptel-system-prompt)
+(global-set-key (kbd "C-M-e") 'gptel-system-prompt)             ;; edit/choose prompt
 ;(global-set-key (kbd "C-c e") 'gptel--suffix-system-message)   ;; I don't use it
 (global-set-key (kbd "M-i r") 'gptel--mark-response)
 (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
