@@ -1202,8 +1202,7 @@ appropriate.  In tables, insert a new row or end the table."
 #+begin_src emacs-lisp
 (use-package multiple-cursors
   :bind ;; Mark one more occurrence
-        (("M-Q" . mc/mark-previous-like-this)
-         ("M-A" . mc/mark-next-like-this)
+        (("M-Q" . mc/mark-next-like-this)
 		 ("C-x x A" . mc/mark-all-like-this)
 		 ;; From active region to multiple cursors
          ("C-x x c" . mc/edit-lines)
@@ -1987,7 +1986,7 @@ Never apologize.  Ask questions when unsure.")
                              (explain_code "explain_code.md")
                              (extract_book_recommendations "extract_book_recommendations.md")
                              (extract_videoid "extract_videoid.md"))
-						       ;; I RAN OUT OF KEY PLACEHOLDERS
+						     ;; I RAN OUT OF KEY PLACEHOLDERS
                              ;(summarize_newsletter "summarize_newsletter.md")
                              ;(write_micro_essay "write_micro_essay.md")
                              ;(summarize_git_changes "summarize_git_changes.md")
@@ -2030,8 +2029,8 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 
 ;; Response to
 ;; Option 'b' in 'gptel-menu' can't be set so u need to do: "M-g C-M-RET b"
-;(keymap-global-set "C-M-i" "M-g ESC RET e RET")       ;; to echo area (I use gptel command instead)
-(keymap-global-set "C-M-v" "M-g ESC RET g RET RET")    ;; send to gpt session (like gptel on C-M-c)
+(keymap-global-set "C-M-q" "M-g ESC RET e RET")      ;; to echo area (I preferably use gptel command)
+(keymap-global-set "C-M-v" "M-g ESC RET g RET RET")  ;; send to gpt session (like gptel on C-M-c)
 
 ;; To/out of clipboard
 (keymap-global-set "C-M-k" "M-g ESC RET y RET")      ;; prompt from kill ring
