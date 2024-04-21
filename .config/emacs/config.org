@@ -1946,15 +1946,15 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 Custom ChatGBT prompts/patterns/roles.
 #+begin_src emacs-lisp
 ;; TODO Set custom prompts are using =gptel-request=.
-(gptel-request
- "my prompt"                                 ;the prompt to send to ChatGPT
+;(gptel-request
+ ;"my prompt"                                 ;the prompt to send to ChatGPT
  ;; The below keys are all optional
- :buffer   some-buffer-or-name              ;defaults to (current-buffer)
- :system   "Chat directive here"            ;defaults to gptel--system-message
- :position some-pt                          ;defaults to (point)
- :context  (list "any other info")          ;will be available to the callback
- :callback (lambda (response info) ...))         ;called with the response and an info plist
-                                            ;defaults to inserting the response at :position
+ ;:buffer   some-buffer-or-name              ;defaults to (current-buffer)
+ ;:system   "Chat directive here"            ;defaults to gptel--system-message
+ ;:position some-pt                          ;defaults to (point)
+ ;:context  (list "any other info")          ;will be available to the callback
+ ;:callback (lambda (response info) ...))    ;called with the response and an info plist
+                                             ;defaults to inserting the response at :position
 #+end_src
 
 Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
