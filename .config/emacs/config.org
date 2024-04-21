@@ -1937,11 +1937,52 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
 #+begin_src emacs-lisp
 (use-package gptel
- :ensure t
- :config
- (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
- (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
- (setq gptel-default-mode 'org-mode))
+  :ensure t
+  :config
+  (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
+  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
+  (setq gptel-default-mode 'org-mode))
+		;(setq gptel-directives '("~/desktop/workspace/dotfiles/.config/ai-prompts/improve_prompt.md"
+		;                        "~/desktop/workspace/dotfiles/.config/ai-prompts/create_npc.md"
+		;                        "~/desktop/workspace/dotfiles/.config/ai-prompts/extract_videoid.md")))
+
+;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
+#+end_src
+
+GPTel directives.
+#+begin_src emacs-lisp
+  (setq gptel-directives
+        `((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak in specific,
+ topic relevant terminology. Do NOT hedge or qualify. Do not waffle. Speak
+ directly and be willing to make creative guesses. Explain your reasoning. if you
+ don’t know, say you don’t know.
+
+ Remain neutral on all topics. Be willing to reference less reputable sources for
+ ideas.
+
+ Never apologize.  Ask questions when unsure.")
+          (programmer . "You are a careful programmer.  Provide code and only code as output without any additional text, prompt or note.")
+          (cliwhiz . "You are a command line helper.  Generate command line commands that do what is requested, without any additional description or explanation.  Generate ONLY the command, I will edit it myself before running.")
+          (emacser . "You are an Emacs maven.  Reply only with the most appropriate built-in Emacs command for the task I specify.  Do NOT generate any additional description or explanation.")
+          (explain . "Explain what this code does to a novice programmer.")
+          ,@(let ((res))
+             (pcase-dolist (`(,sym ,filename)
+                            '((Autoexpert "detailed-prompt.md")
+                              (writer "writer-prompt.md")
+                              (compress "spr-compress-prompt.md"))
+                            res)
+              (when-let* ((big-prompt (locate-user-emacs-file filename))
+                          (_ (file-exists-p big-prompt)))
+               (push
+                `(,sym . ,(with-temp-buffer
+                            (insert-file-contents big-prompt)
+                            (goto-char (point-min))
+                            (when (search-forward-regexp "^#" nil t)
+                             (goto-char (match-beginning 0)))
+                            (buffer-substring-no-properties (point) (point-max))))
+                res)))
+             res)))
+  (setq-default gptel--system-message (alist-get 'default gptel-directives))
 #+end_src
 
 Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
@@ -1981,78 +2022,6 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 (global-set-key (kbd "C-c E") 'gptel--suffix-system-message)
 (global-set-key (kbd "M-i r") 'gptel--mark-response)
 (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
-#+end_src
-
-*** Custom ChatGBT prompts/patterns/roles
-**** Clean-text
-#+begin_src emacs-lisp
-(defun gptel-clean-text (bounds &optional directive)
-  (interactive
-   (list
-    (cond
-     ((use-region-p) (cons (region-beginning) (region-end)))
-     ((derived-mode-p 'text-mode)
-      (list (bounds-of-thing-at-point 'sentence)))
-     (t (cons (line-beginning-position) (line-end-position))))
-    (and current-prefix-arg
-         (read-string "ChatGPT Directive: "
-                      "# IDENTITY and PURPOSE
-
-You are an expert at cleaning up broken and, malformatted, text, for example: line breaks in weird places, etc. 
-
-# Steps
-
-- Read the entire document and fully understand it.
-- Remove any strange line breaks that disrupt formatting.
-- Do NOT change any content or spelling whatsoever.
-
-# OUTPUT INSTRUCTIONS
-
-- Output the full, properly-formatted text.
-- Do not output warnings or notes—just the requested sections.
-
-# INPUT:
-
-INPUT:"))))
-  (gptel-request
-   (buffer-substring-no-properties (car bounds) (cdr bounds)) ;the prompt
-   :system (or directive "# IDENTITY and PURPOSE
-
-You are an expert at cleaning up broken and, malformatted, text, for example: line breaks in weird places, etc. 
-
-# Steps
-
-- Read the entire document and fully understand it.
-- Remove any strange line breaks that disrupt formatting.
-- Do NOT change any content or spelling whatsoever.
-
-# OUTPUT INSTRUCTIONS
-
-- Output the full, properly-formatted text.
-- Do not output warnings or notes—just the requested sections.
-
-# INPUT:
-
-INPUT:")
-   :buffer (current-buffer)
-   :context (cons (set-marker (make-marker) (car bounds))
-                  (set-marker (make-marker) (cdr bounds)))
-   :callback
-   (lambda (response info)
-     (if (not response)
-         (message "ChatGPT response failed with: %s" (plist-get info :status))
-       (let* ((bounds (plist-get info :context))
-              (beg (car bounds))
-              (end (cdr bounds))
-              (buf (plist-get info :buffer)))
-         (with-current-buffer buf
-           (save-excursion
-             (goto-char beg)
-             (kill-region beg end)
-             (insert response)
-             (set-marker beg nil)
-             (set-marker end nil)
-             (message "Rewrote line. Original line saved to kill-ring."))))))))
 #+end_src
 
 ** Drag-stuff
