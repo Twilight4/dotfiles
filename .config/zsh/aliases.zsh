@@ -51,17 +51,6 @@ alias watch-lt='watch lsd --tree --hyperlink=auto'
 alias fd='fdfind'
 alias pt='youtube_transcript_api'
 
-# ShellGPT - check sgpt-roles cheat note
-alias ss='sgpt --shell'
-alias sc='sgpt --code'
-alias ssr='sgpt --shell --repl temp --no-cache'
-alias scr='sgpt --code --repl temp --no-cache'
-alias write_essay="sgpt --role write_essay"
-alias extract_wisdom="sgpt --role extract_wisdom"
-alias extract_book_recommendations="sgpt --role extract_book_recommendations"
-alias extract_poc="sgpt --role extract_poc"
-alias label_and_rate="sgpt --role label_and_rate"
-
 # Updates
 alias gu='git add . && git commit -m "update" && git push'
 alias guorg='\cd ~/documents/org/ && git add . && git commit -m "update" && git push && \cd -'
