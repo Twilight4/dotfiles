@@ -1984,15 +1984,16 @@ Never apologize.  Ask questions when unsure.")
                              (analyze_malware "analyze_malware.md")
                              (analyze_incident "analyze_incident.md")
                              (create_summary "create_summary.md")
-                             (explain_code.md "explain_code.md")
+                             (explain_code "explain_code.md")
                              (extract_book_recommendations "extract_book_recommendations.md")
-                             (extract_videoid "extract_videoid.md")
-                             (summarize_newsletter "summarize_newsletter.md")
-                             (write_micro_essay "write_micro_essay.md")
-                             (summarize_git_changes "summarize_git_changes.md")
-                             (improve_academic_writing "improve_academic_writing.md")
-                             (rate_content.md "rate_content.md")
-                             (get_youtube_rss.md "get_youtube_rss.md"))
+                             (extract_videoid "extract_videoid.md"))
+						       ;; I RAN OUT OF KEY PLACEHOLDERS
+                             ;(summarize_newsletter "summarize_newsletter.md")
+                             ;(write_micro_essay "write_micro_essay.md")
+                             ;(summarize_git_changes "summarize_git_changes.md")
+                             ;(improve_academic_writing "improve_academic_writing.md")
+                             ;(rate_content "rate_content.md")
+                             ;(get_youtube_rss "get_youtube_rss.md"))
                            res)
               (when-let* ((big-prompt (locate-user-emacs-file filename))
                           (_ (file-exists-p big-prompt)))
@@ -3403,6 +3404,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
 *** Org-gtd
 
 #+begin_src emacs-lisp
+(setq org-gtd-update-ack "3.0.0")
 (use-package org-gtd
   :after org
   ;:quelpa (org-gtd :fetcher github :repo "trevoke/org-gtd.el"
