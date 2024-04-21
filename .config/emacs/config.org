@@ -32,6 +32,7 @@
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#hungry-delete][Hungry-delete]]
   - [[#multiple-cursors][Multiple-cursors]]
+  - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
   - [[#i-search][I-Search]]
   - [[#clipboard-adjustments][Clipboard Adjustments]]
   - [[#selection-adjustments][Selection Adjustments]]
@@ -196,8 +197,8 @@
 ;; Movement keys
 (global-set-key (kbd "C-p") 'previous-line)
 (global-set-key (kbd "C-n") 'next-line)
-(global-set-key (kbd "M-a") 'org-backward-sentence)
-(global-set-key (kbd "M-e") 'org-forward-sentence)
+(global-set-key (kbd "M-a") 'tl/previous-sentence)
+(global-set-key (kbd "M-e") 'tl/next-sentence)
 (global-set-key (kbd "M-<") 'beginning-of-buffer)
 (global-set-key (kbd "M->") 'end-of-buffer)
 ;; Skip whole words keys
@@ -1212,6 +1213,25 @@ appropriate.  In tables, insert a new row or end the table."
 		 ("C-x x r" . set-rectangular-region-anchor)))
 #+end_src
 
+** Buffer-switching adjustment
+Skip default buffers like **Messages** when using =buffer-prev=/=next=
+
+#+begin_src emacs-lisp
+(defun tl/better-next-buffer ()
+  "Switch to the next buffer, skipping those with names starting with an asterisk."
+  (interactive)
+  (next-buffer)
+  (while (string-prefix-p "*" (buffer-name (current-buffer)))
+    (next-buffer)))
+
+(defun tl/better-previous-buffer ()
+  "Switch to the previous buffer, skipping those with names starting with an asterisk."
+  (interactive)
+  (previous-buffer)
+  (while (string-prefix-p "*" (buffer-name (current-buffer)))
+    (previous-buffer)))
+#+end_src
+
 ** I-Search
 Show number of matches while searching.
 
@@ -1931,7 +1951,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
               ("C-;" . nil)
               ("C-," . nil)
               ("C-." . nil)
-              ("C-c _" . flyspell-goto-next-error)
+              ("C-M-_" . flyspell-goto-next-error)
               ("C-M-i" . flyspell-auto-correct-word)))
 #+end_src
 
@@ -2708,23 +2728,27 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (org-narrow-to-subtree))
 #+end_src
 
-*** Better buffer-switching
-Skip default buffers like **Messages** when using =buffer-prev=/=next=
+*** Next/previous sentence adjustment
 
 #+begin_src emacs-lisp
-(defun tl/better-next-buffer ()
-  "Switch to the next buffer, skipping those with names starting with an asterisk."
+(defun tl/next-sentence ()
+  "Move point forward to the next sentence.
+Start by moving to the next period, question mark or exclamation.
+If this punctuation is followed by one or more whitespace
+characters followed by a capital letter, or a '\', stop there. If
+not, assume we're at an abbreviation of some sort and move to the
+next potential sentence end"
   (interactive)
-  (next-buffer)
-  (while (string-prefix-p "*" (buffer-name (current-buffer)))
-    (next-buffer)))
+  (re-search-forward "[.?!]")
+  (if (looking-at "[    \n]+[A-Z]\\|\\\\")
+      nil
+    (tl/next-sentence)))
 
-(defun tl/better-previous-buffer ()
-  "Switch to the previous buffer, skipping those with names starting with an asterisk."
+(defun tl/previous-sentence ()
+  "Does the same as 'tl/next-sentence' except it goes in reverse"
   (interactive)
-  (previous-buffer)
-  (while (string-prefix-p "*" (buffer-name (current-buffer)))
-    (previous-buffer)))
+  (re-search-backward "[.?!][   \n]+[A-Z]\\|\\.\\\\" nil t)
+  (forward-char))
 #+end_src
 
 *** Source code block tag expansion
@@ -3294,6 +3318,10 @@ this with to-do items than with projects or headings."
      :unnarrowed t)
     ("rs" "SE Findings Report" plain
      (file "~/documents/org/templates/reports/se-report.org")
+     :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
+     :unnarrowed t)
+    ("rw" "Wireless Findings Report" plain
+     (file "~/documents/org/templates/reports/wir-report.org")
      :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
     ("w" "Workflow Templates")
