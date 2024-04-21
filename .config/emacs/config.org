@@ -1942,14 +1942,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (setq gptel-default-mode 'org-mode))
-		;(setq gptel-directives '("~/desktop/workspace/dotfiles/.config/ai-prompts/improve_prompt.md"
-		;                        "~/desktop/workspace/dotfiles/.config/ai-prompts/create_npc.md"
-		;                        "~/desktop/workspace/dotfiles/.config/ai-prompts/extract_videoid.md")))
 
 ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 #+end_src
 
-GPTel directives, find more prompts [[https://github.com/f/awesome-chatgpt-prompts][here]].
+GPTel directives, find more prompts [[https://github.com/f/awesome-chatgpt-prompts][here]] and [[https://github.com/danielmiessler/fabric/tree/main/patterns][here]].
 #+begin_src emacs-lisp
 (setq gptel-directives
       `((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak in specific,
