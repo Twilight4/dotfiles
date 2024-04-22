@@ -34,11 +34,11 @@
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
   - [[#i-search][I-Search]]
-  - [[#clipboard-adjustments][Clipboard Adjustments]]
-  - [[#selection-adjustments][Selection Adjustments]]
-  - [[#kill-whole-line-adjustment][Kill-whole-line Adjustment]]
-  - [[#copy-current-line][Copy Current Line]]
-  - [[#toggle-selection-mode][Toggle Selection Mode]]
+  - [[#clipboard-adjustments][Clipboard adjustments]]
+  - [[#selection-adjustments][Selection adjustments]]
+  - [[#kill-whole-line-adjustment][Kill-whole-line adjustment]]
+  - [[#copy-current-line][Copy current line]]
+  - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#backwardforward-word-adjustment][Backward/Forward word adjustment]]
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
@@ -1266,7 +1266,7 @@ This is useful when followed by an immediate kill."
     (isearch-search-and-update)))
 #+end_src
 
-** Clipboard Adjustments
+** Clipboard adjustments
 
 #+begin_src emacs-lisp
 (defun kill-region-or-backward-delete ()
@@ -1336,7 +1336,7 @@ This is useful when followed by an immediate kill."
 (global-set-key (kbd "M-'") 'copy-last-entry-to-clipboard)
 #+end_src
 
-** Selection Adjustments
+** Selection adjustments
 Function =smarter-move-beginning-of-line= moves the cursor to the indentation of the beginning of the current line.
 If the cursor is already at the indentation, it moves to the actual beginning of the line.
 The function also accepts an argument =ARG= which, if non-nil or non-zero, moves the cursor forward =ARG= - 1 lines before executing the main logic.
@@ -1390,7 +1390,7 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
   (kill-line 0))
 #+end_src
 
-** Kill-whole-line Adjustment
+** Kill-whole-line adjustment
 
 #+begin_src emacs-lisp
 (defun tl/kill-copy-whole-line ()
@@ -1406,7 +1406,7 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
         (message "Line copied to clipboard.")))))
 #+end_src
 
-** Copy Current Line
+** Copy current line
 
 #+begin_src emacs-lisp
 (defun tl/copy-current-line ()
@@ -1421,7 +1421,7 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
   (message "Line copied to clipboard."))
 #+end_src
 
-** Toggle Selection Mode
+** Toggle selection mode
 #+begin_src emacs-lisp
 (defun toggle-mark-command ()
   "Toggle the mark using `set-mark-command'."
