@@ -5,7 +5,7 @@
 #+OPTIONS: TOC:4
 
 * Table of Contents :toc:
-- [[#elpaca-and-keybindings][Elpaca and keybindings]]
+- [[#elpaca-and-keybindings][Elpaca and Keybindings]]
   - [[#elpaca-package-manager][Elpaca package manager]]
   - [[#global-keybindings][Global keybindings]]
   - [[#general-keybindings][General keybindings]]
@@ -16,7 +16,7 @@
   - [[#color-theme][Color theme]]
   - [[#mode-line][Mode line]]
   - [[#toggle-mode-line][Toggle mode line]]
-  - [[#file-names-for-org-roam][File Names for org-roam]]
+  - [[#file-names-for-org-roam][File names for org-roam]]
   - [[#good-scroll][Good-scroll]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
@@ -66,13 +66,13 @@
   - [[#pdf-tools][Pdf-tools]]
   - [[#desktop-mode][Desktop-mode]]
 - [[#org-mode][Org Mode]]
-  - [[#essential-packages][Essential Packages]]
-  - [[#bibliography-management][Bibliography Management]]
-  - [[#editing-features-for-org][Editing Features for Org]]
-  - [[#org-configuration][Org Configuration]]
+  - [[#essential-packages][Essential packages]]
+  - [[#bibliography-management][Bibliography management]]
+  - [[#editing-features-for-org][Editing features for org]]
+  - [[#org-configuration][Org configuration]]
   - [[#exporting][Exporting]]
 
-* Elpaca and keybindings
+* Elpaca and Keybindings
 ** Elpaca package manager
 
 #+begin_src emacs-lisp
@@ -389,7 +389,7 @@
 #+end_src
 
 ** General keybindings
-*** C-x Leader key
+*** C-x leader key
 #+begin_src emacs-lisp
 (use-package general
   :config
@@ -518,7 +518,7 @@
       "r SPC" '(point-to-register :wk "Point to register"))
 #+end_src
 
-*** C-c Leader key
+*** C-c leader key
 
 #+begin_src emacs-lisp
 ;; Set up 'C-c' as the global leader key
@@ -591,7 +591,7 @@
  ;"" '(citar-open-links :wk "Open links associated with citekeys"))
 #+end_src
 
-*** C-l Leader key
+*** C-l leader key
 
 #+begin_src emacs-lisp
 (general-define-key
@@ -628,7 +628,7 @@
  "C-x" '(zap-to-char :wk "Kill up to, but not including char"))
 #+end_src
 
-*** M-i Leader key
+*** M-i leader key
 
 #+begin_src emacs-lisp
 (general-define-key
@@ -880,7 +880,7 @@ Finally, it redraws the display to reflect the changes.
 (add-hook 'after-change-major-mode-hook 'disable-mode-line)
 #+end_src
 
-** File Names for org-roam
+** File names for org-roam
 Adjust org-roam file names in similary way I have in the window title.
 
 #+begin_src emacs-lisp
@@ -2167,7 +2167,7 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 #+end_src
 
 * Org Mode
-** Essential Packages
+** Essential packages
 *** Org-toc
 
 #+begin_src emacs-lisp
@@ -2363,7 +2363,7 @@ With a prefix ARG, remove start location."
     (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 #+end_src
 
-** Bibliography Management
+** Bibliography management
 Emacs ships with =bibtex-mode=, which helps to create and manage bibliographies.
 This mode, as the name suggests, uses the BibTeX file format as your default literature database.
 BibTeX is a plain text format to manage literature and citations and is typically used for LaTeX typesetting, but also perfectly integrates with Org mode.
@@ -2527,7 +2527,7 @@ Several emacs packages are available that can link bibliography files to notes. 
 (setq citar-org-roam-capture-template-key "N")
 #+end_src
 
-** Editing Features for Org
+** Editing features for org
 *** File links automation
 While =org-insert-link= is all very well and good, a large portion of the time I want to insert a file, and so it would be good to have a way to skip straight to that and avoid the description prompt. Looking at =org-link-parameters=, we can see that the ="file"= link type uses the completion function =org-link-complete-file=, so let's use that to make a little file-link inserting function.
 
@@ -2823,7 +2823,7 @@ Let’s make creating an Org buffer just that little bit easier.
       (org-mode))))
 #+end_src
 
-** Org Configuration
+** Org configuration
 *** Org-mode font faces
 
 #+begin_src emacs-lisp
