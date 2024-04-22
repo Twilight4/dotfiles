@@ -214,8 +214,8 @@
 ;; Deleting keys
 (global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-(global-set-key (kbd "C-M-o") 'kill-sentence)
-(global-set-key (kbd "C-M-u") 'backward-kill-sentence)
+(global-set-key (kbd "C-M-o") 'tl/kill-sentence)
+(global-set-key (kbd "C-M-u") 'tl/backward-kill-sentence)
 ;; Upgraded clipboard functions
 (global-set-key (kbd "M-w") 'copy-to-system-clipboard)
 (global-set-key (kbd "C-w") 'backward-kill-word)
@@ -2750,13 +2750,13 @@ next potential sentence end"
   (re-search-backward "[.?!][   \n]+[A-Z]\\|\\.\\\\" nil t)
   (forward-char))
 
-(defun tl/kill-to-end-of-sentence ()
+(defun tl/kill-sentence ()
   "Kill from point to the end of the current sentence."
   (interactive)
   (let ((end-of-sentence (save-excursion (re-search-forward "[.?!]") (point))))
     (kill-region (point) end-of-sentence)))
 
-(defun tl/kill-to-start-of-sentence ()
+(defun tl/backward-kill-sentence ()
   "Kill back to the start of the current sentence."
   (interactive)
   (let ((start-of-sentence (save-excursion (re-search-backward "[.?!]") (point))))
