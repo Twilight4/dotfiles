@@ -10,24 +10,24 @@
   - [[#global-keybindings][Global Keybindings]]
   - [[#general-keybindings][General Keybindings]]
 - [[#ui-configuration][UI Configuration]]
-  - [[#better-defaults][Better Defaults]]
-  - [[#setting-the-font-face][Setting the Font Face]]
+  - [[#better-defaults][Better defaults]]
+  - [[#setting-the-font-face][Setting the font face]]
   - [[#all-the-icons][All-the-icons]]
-  - [[#color-theme][Color Theme]]
-  - [[#mode-line][Mode Line]]
-  - [[#toggle-mode-line][Toggle Mode Line]]
-  - [[#file-names-for-org-roam][File Names for Org-roam]]
+  - [[#color-theme][Color theme]]
+  - [[#mode-line][Mode line]]
+  - [[#toggle-mode-line][Toggle mode line]]
+  - [[#file-names-for-org-roam][File Names for org-roam]]
   - [[#good-scroll][Good-scroll]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
   - [[#centaur-tabs][Centaur-tabs]]
-  - [[#file-encoding][File Encoding]]
-  - [[#ansi-colours][Ansi Colours]]
+  - [[#file-encoding][File encoding]]
+  - [[#ansi-colours][Ansi colours]]
   - [[#youtube-link-export][YouTube link export]]
 - [[#editing-features][Editing Features]]
-  - [[#improved-file-management][Improved File Management]]
-  - [[#nicer-org-return][Nicer Org-Return]]
+  - [[#improved-file-management][Improved file management]]
+  - [[#nicer-org-return][Nicer org-return]]
   - [[#expand-region][Expand-region]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#hungry-delete][Hungry-delete]]
@@ -671,7 +671,7 @@
 #+end_src
 
 * UI Configuration
-** Better Defaults
+** Better defaults
 
 #+begin_src emacs-lisp
 (setq-default
@@ -748,7 +748,7 @@
 ;(setq x-select-enable-clipboard t)
 #+end_src
 
-** Setting the Font Face
+** Setting the font face
 
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
@@ -797,7 +797,7 @@ This is an icon set that can be used with dashboard, dired, ibuffer and other Em
   :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
 #+end_src
 
-** Color Theme
+** Color theme
 I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs theme generator to match my pywal-based setup.
 
 #+begin_src emacs-lisp
@@ -838,7 +838,7 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 ;;             (enable-theme 'ewal-spacemacs-modern)))
 #+end_src
 
-** Mode Line
+** Mode line
 
 #+begin_src emacs-lisp
 (use-package doom-modeline
@@ -857,7 +857,7 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 ;  '(mode-line-inactive ((t (:family "JetBrains Mono Nerd Font" :height 0.95)))))
 #+end_src
 
-** Toggle Mode Line
+** Toggle mode line
 Function =toggle-mode-line= toggles the display of the mode line on and off.
 When called interactively, it checks if the mode line is currently visible by comparing it to nil.
 If it is visible, it sets the mode-line-format to the default value, effectively hiding the mode line.
@@ -880,7 +880,7 @@ Finally, it redraws the display to reflect the changes.
 (add-hook 'after-change-major-mode-hook 'disable-mode-line)
 #+end_src
 
-** File Names for Org-roam
+** File Names for org-roam
 Adjust org-roam file names in similary way I have in the window title.
 
 #+begin_src emacs-lisp
@@ -980,7 +980,7 @@ Not worth when using TUI Emacs.
 ;; (setq x-underline-at-descent-line t)
 #+end_src
 
-** File Encoding
+** File encoding
 When we have the default file encoding (LF UTF-8), it really isn’t worth noting in the modeline.
 
 #+begin_src emacs-lisp
@@ -1001,7 +1001,7 @@ When we have the default file encoding (LF UTF-8), it really isn’t worth notin
 (add-hook 'after-change-major-mode-hook 'doom-modeline-conditional-buffer-encoding)
 #+end_src
 
-** Ansi Colours
+** Ansi colours
 It’s nice to see ANSI colour codes displayed, however I don’t want to disrupt ANSI codes in =Org= src blocks. 
 
 #+begin_src emacs-lisp
@@ -1031,7 +1031,7 @@ allowfullscreen>%s</iframe>" path (or "" desc)))
 #+end_src
 
 * Editing Features
-** Improved File Management
+** Improved file management
 Function =delete-this-file= deletes the current file and kills the buffer associated with it.
 It first checks if there is a file being edited in the buffer.
 If not, it throws an error.
@@ -1065,7 +1065,7 @@ It takes user input for the new name using the interactive keyword, checks if th
       (rename-buffer new-name))))
 #+end_src
 
-** Nicer Org-Return
+** Nicer org-return
 
 #+begin_src emacs-lisp
 (defun unpackaged/org-element-descendant-of (type element)
