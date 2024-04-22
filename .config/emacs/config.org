@@ -642,7 +642,7 @@
  "M-f" '(symbol-overlay-switch-forward :wk "Symbol switch forward")
  "M-b" '(symbol-overlay-switch-backward :wk "Symbol switch backward")
  "M-a" '(symbol-overlay-remove-all :wk "Symbol remove all")
- "M-s" '(symbol-overlay-save-symbol :wk "Symbol save")
+ ;"M-s" '(symbol-overlay-save-symbol :wk "Symbol save")
  "M-t" '(symbol-overlay-toggle-in-scope :wk "Symbol toggle in scope")
  "M-e" '(symbol-overlay-echo-mark :wk "Symbol echo mark")
  "M-d" '(symbol-overlay-jump-to-definition :wk "Symbol jump to definition")
