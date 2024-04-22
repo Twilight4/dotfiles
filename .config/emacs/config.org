@@ -164,7 +164,7 @@
 (define-key org-mode-map (kbd "C-,") nil)
 (define-key org-mode-map (kbd "M-RET") nil)
 
-;; Tried my best but couldn't make it work
+;; Tried my best to make it work
 ;; (add-hook 'calendar-mode-hook
 ;;           (lambda ()
 ;;             (local-unset-key (kbd "M-h"))
