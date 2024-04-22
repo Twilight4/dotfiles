@@ -39,9 +39,9 @@
   - [[#kill-whole-line-adjustment][Kill-whole-line Adjustment]]
   - [[#copy-current-line][Copy Current Line]]
   - [[#toggle-selection-mode][Toggle Selection Mode]]
-  - [[#backwardforward-word-adjustment][Backward/Forward Word Adjustment]]
-  - [[#screenshot-automation][Screenshot Automation]]
-  - [[#pdf-links-automation][Pdf-links Automation]]
+  - [[#backwardforward-word-adjustment][Backward/Forward word adjustment]]
+  - [[#screenshot-automation][Screenshot automation]]
+  - [[#pdf-links-automation][Pdf-links automation]]
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
@@ -642,7 +642,7 @@
  "M-f" '(symbol-overlay-switch-forward :wk "Symbol switch forward")
  "M-b" '(symbol-overlay-switch-backward :wk "Symbol switch backward")
  "M-a" '(symbol-overlay-remove-all :wk "Symbol remove all")
- ;"M-s" '(symbol-overlay-save-symbol :wk "Symbol save")
+ ;"M-s" '(symbol-overlay-save-symbol :wk "Symbol save")      ;; taken by kitty
  "M-t" '(symbol-overlay-toggle-in-scope :wk "Symbol toggle in scope")
  "M-e" '(symbol-overlay-echo-mark :wk "Symbol echo mark")
  "M-d" '(symbol-overlay-jump-to-definition :wk "Symbol jump to definition")
@@ -1431,7 +1431,7 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
     (set-mark-command nil)))
 #+end_src
 
-** Backward/Forward Word Adjustment
+** Backward/Forward word adjustment
 Skip whole words when using =alt+f=/=alt+b=. Skip over sequences of uppercase/digits/hyphens characters.
 
 #+begin_src emacs-lisp
@@ -1450,7 +1450,7 @@ Skip whole words when using =alt+f=/=alt+b=. Skip over sequences of uppercase/di
     (forward-word 1)))
 #+end_src
 
-** Screenshot Automation
+** Screenshot automation
 Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, prompt for filename, location of the screenshot and insert link to it at point.
 
 #+begin_src emacs-lisp
@@ -1478,7 +1478,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
     char))
 #+end_src
 
-** Pdf-links Automation
+** Pdf-links automation
 
 #+begin_src emacs-lisp
 (defun open-pdf (path)
