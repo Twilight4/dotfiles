@@ -49,7 +49,7 @@
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
   - [[#maximize-window-split][Maximize-window-split]]
-- [[#minibuffer--completion-framework][Minibuffer / Completion Framework]]
+- [[#completion-framework][Completion Framework]]
   - [[#vertico][Vertico]]
   - [[#orderless][Orderless]]
   - [[#marginalia][Marginalia]]
@@ -1598,7 +1598,7 @@ Function for toggling maximization of window split.
     (delete-other-windows)))
 #+end_src
 
-* Minibuffer / Completion Framework
+* Completion Framework
 ** Vertico
 Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options. One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top. This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
 
@@ -2728,7 +2728,7 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (org-narrow-to-subtree))
 #+end_src
 
-*** Next/previous sentence adjustment
+*** Next/Previous sentence adjustment
 
 #+begin_src emacs-lisp
 (defun tl/next-sentence ()
@@ -2749,6 +2749,18 @@ next potential sentence end"
   (interactive)
   (re-search-backward "[.?!][   \n]+[A-Z]\\|\\.\\\\" nil t)
   (forward-char))
+
+(defun tl/kill-to-end-of-sentence ()
+  "Kill from point to the end of the current sentence."
+  (interactive)
+  (let ((end-of-sentence (save-excursion (re-search-forward "[.?!]") (point))))
+    (kill-region (point) end-of-sentence)))
+
+(defun tl/kill-to-start-of-sentence ()
+  "Kill back to the start of the current sentence."
+  (interactive)
+  (let ((start-of-sentence (save-excursion (re-search-backward "[.?!]") (point))))
+    (kill-region (point) start-of-sentence)))
 #+end_src
 
 *** Source code block tag expansion
