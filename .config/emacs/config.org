@@ -5,10 +5,10 @@
 #+OPTIONS: TOC:4
 
 * Table of Contents :toc:
-- [[#elpaca-and-keybindings][Elpaca and Keybindings]]
-  - [[#elpaca-package-manager][Elpaca Package Manager]]
-  - [[#global-keybindings][Global Keybindings]]
-  - [[#general-keybindings][General Keybindings]]
+- [[#elpaca-and-keybindings][Elpaca and keybindings]]
+  - [[#elpaca-package-manager][Elpaca package manager]]
+  - [[#global-keybindings][Global keybindings]]
+  - [[#general-keybindings][General keybindings]]
 - [[#ui-configuration][UI Configuration]]
   - [[#better-defaults][Better defaults]]
   - [[#setting-the-font-face][Setting the font face]]
@@ -72,8 +72,8 @@
   - [[#org-configuration][Org Configuration]]
   - [[#exporting][Exporting]]
 
-* Elpaca and Keybindings
-** Elpaca Package Manager
+* Elpaca and keybindings
+** Elpaca package manager
 
 #+begin_src emacs-lisp
 (defvar elpaca-installer-version 0.7)
@@ -125,8 +125,8 @@
 (elpaca-wait)
 #+end_src
 
-** Global Keybindings
-*** Disable Conflicting Keybindings
+** Global keybindings
+*** Disable conflicting keybindings
 
 #+begin_src emacs-lisp
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
@@ -177,7 +177,7 @@
 ;;             (local-set-key (kbd "M-l") 'calendar-forward-day)))
 #+end_src
 
-*** Keybindings Without a Leader Key
+*** Keybindings without a leader key
 
 #+begin_src emacs-lisp
 ;; Global Keybindings
@@ -388,8 +388,8 @@
   (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects))
 #+end_src
 
-** General Keybindings
-*** C-x Leader Key
+** General keybindings
+*** C-x Leader key
 #+begin_src emacs-lisp
 (use-package general
   :config
@@ -518,7 +518,7 @@
       "r SPC" '(point-to-register :wk "Point to register"))
 #+end_src
 
-*** C-c Leader Key
+*** C-c Leader key
 
 #+begin_src emacs-lisp
 ;; Set up 'C-c' as the global leader key
@@ -591,7 +591,7 @@
  ;"" '(citar-open-links :wk "Open links associated with citekeys"))
 #+end_src
 
-*** C-l Leader Key
+*** C-l Leader key
 
 #+begin_src emacs-lisp
 (general-define-key
@@ -628,7 +628,7 @@
  "C-x" '(zap-to-char :wk "Kill up to, but not including char"))
 #+end_src
 
-*** M-i Leader Key
+*** M-i Leader key
 
 #+begin_src emacs-lisp
 (general-define-key
