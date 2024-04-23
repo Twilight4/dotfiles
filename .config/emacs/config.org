@@ -3324,8 +3324,8 @@ this with to-do items than with projects or headings."
       :target (file+head "${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
     ("r" "Report Templates")
-    ("rp" "Pentest Findings Report" plain
-     (file "~/documents/org/templates/reports/pen-report.org")
+    ("ri" "Internal Pentest Findings Report" plain
+     (file "~/documents/org/templates/reports/ipt-report.org")
      :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
     ("rs" "SE Findings Report" plain
