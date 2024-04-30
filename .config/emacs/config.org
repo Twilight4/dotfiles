@@ -2230,6 +2230,11 @@ While =org-hide-emphasis-markers= is very nice, it can sometimes make edits whic
 I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] to center =org-mode= buffers for centering the contents of the buffer horizontally to seem more like you are editing a document.
 
 #+begin_src emacs-lisp
+(defun tl/visual-fill-column-agenda ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+    (visual-fill-column-mode 1))
+
 (defun tl/visual-fill-column ()
   (setq visual-fill-column-width 130
         visual-fill-column-center-text t)
@@ -2241,7 +2246,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
   :hook ((org-mode text-mode) . tl/visual-fill-column))
 
 ;; Enable visual-fill specifically for agenda buffers
-(add-hook 'org-agenda-mode-hook #'visual-fill-column-mode)
+(add-hook 'org-agenda-mode-hook #'tl/visual-fill-column-agenda)
 #+end_src
 
 *** Org-alert
