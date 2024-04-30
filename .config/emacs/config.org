@@ -3180,7 +3180,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name " To Buy"
                            :tag "@Purchase"
                            :order 32)
-                          (:name " Habits"
+                          (:name " Daily Habits"
                            :tag "@Habit"
                            :order 60)
                           (:name "Trivial"
