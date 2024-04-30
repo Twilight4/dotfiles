@@ -3091,12 +3091,17 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
       org-return-follows-link t
       org-use-speed-commands t
       org-agenda-compact-blocks t
-	    org-agenda-time-grid
-		'((daily today require-timed)
-		  (800 1000 1200 1400 1600 1800 2000)
-		  " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+	    ;org-agenda-time-grid
+		;'((daily today require-timed)
+		  ;(800 1000 1200 1400 1600 1800 2000)
+		  ;" ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
 		org-agenda-current-time-string
 		"◀── now ─────────────────────────────────────────────────")
+
+(setq org-agenda-time-grid '((daily) () " ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄"))
+
+;; Hide tags from agenda view
+(setq org-agenda-hide-tags-regexp ".*")
 
 ;; It seems reasonable to have deadlines in the error face when they’re passed.
 (setq org-agenda-deadline-faces
@@ -3110,58 +3115,58 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
                       (org-super-agenda-groups
-                       '((:name "Today"
+                       '((:name "󰃶 Today"
                           :time-grid t
                           :date today
                           :scheduled today
                           :order 1)))))
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
-                        '((:name "Overdue"
+                        '((:name "󰚌 Overdue"
                            :deadline past
                            :face error
                            :order 1)
-                          (:name "Due Today"
+                          (:name "󰃶 Due Today"
                            :deadline today
                            :order 2)
-                          (:name "Important"
+                          (:name " Important"
                            :tag "@Important"
                            :priority "A"
                            :order 3)
-                          (:name "Red Team Tasks"
+                          (:name " Career-Related"
                            :tag "@RedTeam"
                            :order 4)
-                          (:name "Osint Tasks"
+                          (:name "󰥖 Osint Tasks"
                            :tag "@Osint"
                            :order 5)
-                          (:name "Privacy"
+                          (:name "󰈈 Privacy"
                            :tag "@Privacy"
                            :order 6)
-                          (:name "Assignments"
+                          (:name " Assignments"
                            :tag "@Assignment"
                            :order 7)
-                          (:name "Issues"
+                          (:name "Issues"
                            :tag "@Issue"
                            :order 8)
-                          (:name "Projects"
+                          (:name " Projects"
                            :tag "@Project"
                            :order 9)
-                          (:name "Research"
+                          (:name " Research"
                            :tag "@Research"
                            :order 10)
-                          (:name "Due Soon"
+                          (:name " Due Soon"
                            :deadline future
                            :order 20)
-                          (:name "To Read"
+                          (:name " To Read"
                            :tag "@Read"
                            :order 30)
-                          (:name "To Watch"
+                          (:name " To Watch"
                            :tag "@Watch"
                            :order 31)
-                          (:name "To Buy"
+                          (:name " To Buy"
                            :tag "@Purchase"
                            :order 32)
-                          (:name "Habits"
+                          (:name " Habits"
                            :tag "@Habit"
                            :order 60)
                           (:name "Trivial"
@@ -3449,13 +3454,13 @@ The following snippet sets up a hook for all Org task state changes and then mov
   (org-gtd-directory "~/documents/org/agenda")
   (org-gtd-areas-of-focus '("Work" "Social Life" "Side-hustle" "Habit"))
   (org-edna-use-inheritance t)
-  (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command org-set-effort))
+  (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command))
   :config
   (org-edna-mode)
   :bind
   (("C-x i" . org-gtd-clarify-item)  ;; Used in org-gtd-tasks.org buffer for quick changes
-   ("C-c a" . org-gtd-clarify-agenda-item)  ;; Used in agenda-view
-   ("C-c A" . org-gtd-area-of-focus-set-on-agenda-item)  ;; Used in agenda-view
+   ;("C-c a" . org-gtd-clarify-agenda-item)  ;; Used in org-gtd-agenda-view
+   ;("C-c A" . org-gtd-area-of-focus-set-on-agenda-item)  ;; Used in org-gtd-agenda-view
    :map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src
