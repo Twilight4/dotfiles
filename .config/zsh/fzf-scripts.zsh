@@ -395,8 +395,8 @@ fclip() {
 
 # Browser quicklinks menu
 fqli () {
-    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Proton Mail" " MEGA" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " HTB Academy" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
-    local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}") 
+    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Proton Mail" "󰅟 MEGA" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " HTB Academy" " THM" " TCM Academy" " OffSec" "󰚌 Root Me" " PWNX") 
+    local choice=$(printf "%s\n" "${options[@]}" | fzf) 
     case $choice in
         (" Google") echo -n "Search Google: "
             read query
@@ -432,11 +432,9 @@ fqli () {
             fi ;;
         (" Github Trending") xdg-open "https://github.com/trending" &
             ;;
-        (" Gmail") xdg-open "https://mail.google.com" &
-            ;;
         (" Proton Mail") xdg-open "https://mail.proton.me" &
             ;;
-        (" MEGA") xdg-open "https://mega.nz" &
+        ("󰅟 MEGA") xdg-open "https://mega.nz" &
             ;;
 		(" Open Shopping Websites") echo -n "Search Shopping Websites: "
             read query
@@ -485,21 +483,17 @@ fqli () {
             ;;
         (" HTB") xdg-open "https://app.hackthebox.com" &
             ;;
-        (" HTB Academy") xdg-open "https://www.hackthebox.eu" &
+        (" HTB Academy") xdg-open "https://academy.hackthebox.com/dashboard" &
             ;;
         (" THM") xdg-open "https://tryhackme.com" &
             ;;
-        (" TCM") xdg-open "https://academy.tcm-sec.com" &
+        (" TCM Academy") xdg-open "https://academy.tcm-sec.com" &
             ;;
         (" OffSec") xdg-open "https://www.offensive-security.com" &
             ;;
         ("󰚌 Root-me") xdg-open "https://www.root-me.org" &
             ;;
-        (" PentesterLab") xdg-open "https://www.pentesterlab.com" &
-            ;;
         (" PWNX") xdg-open "https://www.pwnx.io" &
-            ;;
-        (" ChatGBT") xdg-open "https://www.chat.openai.com" &
             ;;
     esac
 }
