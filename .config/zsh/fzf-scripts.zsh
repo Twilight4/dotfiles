@@ -395,7 +395,7 @@ fclip() {
 
 # Browser quicklinks menu
 fqli () {
-    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Proton Mail" " MEGA" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
+    local options=(" Google" " Google (Private Tab)" " YouTube" " Github" " Github Trending" " Gmail" " Proton Mail" " MEGA" " Open Shopping Websites" " Amazon (US)" " Amazon (PL)" "󰒚 Allegro" "󰒚 OLX" " Helion" " HTB" " HTB Academy" " THM" " TCM" " OffSec" "󰚌 Root-me" " PentesterLab" " PWNX" " ChatGBT") 
     local choice=$(printf "%s\n" "${options[@]}" | fzf --preview "echo {}") 
     case $choice in
         (" Google") echo -n "Search Google: "
@@ -483,7 +483,9 @@ fqli () {
             fi ;;
         (" Helion") xdg-open "https://helion.pl/kategorie/ksiazki/hacking" &
             ;;
-        (" HTB") xdg-open "https://www.hackthebox.eu" &
+        (" HTB") xdg-open "https://app.hackthebox.com" &
+            ;;
+        (" HTB Academy") xdg-open "https://www.hackthebox.eu" &
             ;;
         (" THM") xdg-open "https://tryhackme.com" &
             ;;
