@@ -4,28 +4,25 @@
 cache_file="$HOME/.cache/current_wallpaper"
 rasi_file="$HOME/.cache/current_wallpaper.rasi"
 
-# Create cache file if not exists
-if [ ! -f $cache_file ] ;then
-    touch $cache_file
-    echo "$HOME/pictures/wallpapers/default.jpg" > "$cache_file"
-fi
-
-# Create rasi file if not exists
-if [ ! -f $rasi_file ] ;then
-    touch $rasi_file
-    echo "* { current-image: url(\"$HOME/pictures/wallpapers/default.jpg\", height); }" > "$rasi_file"
-fi
-
 current_wallpaper=$(cat "$cache_file")
+DIR=$HOME/pictures/wallpapers/
+PICS=($(find ${DIR} -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" \)))
+RANDOMPICS=${PICS[ $RANDOM % ${#PICS[@]} ]}
+newwall=$(echo $RANDOMPICS | sed "s|$HOME/pictures/wallpapers/||g")
 
 case $1 in
 
     # Load wallpaper from .cache of last session 
     "init")
-        if [ -f ~/.cache/current_wallpaper.jpg ]; then
-            wal -q -i $current_wallpaper -s -t
+        if [ -f ~/.cache/current_wallpaper ]; then
+            swaybg -m fill -i $current_wallpaper&
+            notify-send "Colors and Wallpaper updated" "with image $(cat "$cache_file" | sed "s|$HOME/pictures/wallpapers/||g")"
         else
-            wal -q -i ~/pictures/wallpapers/ -s -t
+            swaybg -m fill -i ${RANDOMPICS}&
+            notify-send "Colors and Wallpaper updated" "with image $newwall"
+
+            echo "$RANDOMPICS" > "$cache_file"
+            echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
         fi
 		;;
 
@@ -40,63 +37,30 @@ case $1 in
             exit
         fi
 
-        wal -q -i ~/pictures/wallpapers/$selected -s -t
+        swaybg -m fill -i ~/pictures/wallpapers/$selected&
+        notify-send "Colors and Wallpaper updated" "with image $selected"
+
+        echo "$HOME/pictures/wallpapers/$selected" > "$cache_file"
+        echo "* { current-image: url(\"$HOME/pictures/wallpapers/$selected\", height); }" > "$rasi_file"
 		;;
 
     # Randomly select wallpaper 
     *)
-        wal -q -i ~/pictures/wallpapers/ -s -t
-		;;
-
+        swaybg -m fill -i ${RANDOMPICS}&
+        notify-send "Colors and Wallpaper updated" "with image $newwall"
+        
+        echo "$RANDOMPICS" > "$cache_file"
+        echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
+        ;;
 esac
 
-# ----------------------------------------------------- 
 # Load current pywal color scheme
-# ----------------------------------------------------- 
 source "$HOME/.cache/wal/colors.sh"
-echo "Wallpaper: $wallpaper"
 
-# ----------------------------------------------------- 
-# Copy selected wallpaper into .cache folder
-# ----------------------------------------------------- 
-echo "$wallpaper" > "$cache_file"
-echo "* { current-image: url(\"$wallpaper\", height); }" > "$rasi_file"
-
-# ----------------------------------------------------- 
-# Get wallpaper image name to display
-# ----------------------------------------------------- 
-newwall=$(echo $wallpaper | sed "s|$HOME/pictures/wallpapers||g")
-
-# ----------------------------------------------------- 
 # Reload waybar with new colors
-# -----------------------------------------------------
 ~/.config/hypr/scripts/waybar-reset-theme
 
 # Reload cava-pywal (note, need to manually restart cava once wallpaper changes)
 ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config" || true
-
-# ----------------------------------------------------- 
-# Set the new wallpaper
-# -----------------------------------------------------
-#transition_type="wipe"
-#transition_type="outer"
-transition_type="random"
-
-swww query || swww init && swww img $wallpaper \
-    --transition-bezier .43,1.19,1,.4 \
-    --transition-fps=60 \
-    --transition-type=$transition_type \
-    --transition-duration=0.7
-#    --transition-pos "$( hyprctl cursorpos )"
-
-# ----------------------------------------------------- 
-# Send notification
-# ----------------------------------------------------- 
-if [ "$1" == "init" ] ;then
-    echo ":: Init"
-else
-    sleep 1
-    notify-send "Colors and Wallpaper updated" "with image $newwall"
-fi
 
 echo "DONE!"
