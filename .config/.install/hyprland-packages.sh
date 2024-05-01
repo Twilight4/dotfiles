@@ -171,7 +171,7 @@ packagesPacman=(
 	"fuzzel"
 	"gnome-keyring"
 	"polkit-gnome"
-	"swww"
+	"swaybg"
 	"python-pywal"
 	"dunst"
 	"fortune-mod"
