@@ -531,7 +531,7 @@
  "C-_" '(org-set-tags-command :wk "Org set tag")
  "C-p" '(org-set-property :wk "Org set property")
  "C-e" '(org-set-effort :wk "Org set effort")
- "C-f" '(org-insert-file-link :wk "Org insert file link")
+ "C-f" '(tl/org-insert-file-link :wk "Org insert file link")
  "F" '(org-insert-links-to-directory :wk "Insert all links to directory")
  "C-w" '(org-insert-link :wk "Org insert link")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
@@ -1461,7 +1461,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
          (category (tl/read-char-visible "Category (p/n for project/notes): "))
          (category (if (char-equal category ?p) "project" "notes"))
          (save-path (if (string= category "project")
-                        (concat (tl/get-zsh-env-path) "../screenshots/")
+                        (concat (tl/get-zsh-env-path) "../reports/screenshots/")
                       "~/documents/org/roam/screenshots/"))
          (full-path (expand-file-name (concat save-path filename ".png"))))
     (copy-file "/tmp/screenshot.png" full-path)
@@ -2540,7 +2540,7 @@ Several emacs packages are available that can link bibliography files to notes. 
 While =org-insert-link= is all very well and good, a large portion of the time I want to insert a file, and so it would be good to have a way to skip straight to that and avoid the description prompt. Looking at =org-link-parameters=, we can see that the ="file"= link type uses the completion function =org-link-complete-file=, so let's use that to make a little file-link inserting function.
 
 #+begin_src emacs-lisp
-(defun org-insert-file-link ()
+(defun tl/org-insert-file-link ()
   "Insert a file link.  At the prompt, enter the filename."
   (interactive)
   (insert (format "[[%s]]" (org-link-complete-file))))
@@ -2698,8 +2698,9 @@ If you want to see other headings while you are edit the current one, I found a 
 (defun tl/open-image-external-from-org ()
   "Open the image at point in an external viewer like swappy."
   (interactive)
-  (let ((file (org-element-property :path (org-element-context))))
-    (start-process "swappy" nil "swappy" "-f" file)))
+  (let* ((file (org-element-property :path (org-element-context)))
+         (full-path (expand-file-name file)))
+    (start-process "swappy" nil "swappy" "-f" full-path)))
 #+end_src
 
 *** Open videos in mpv
@@ -3373,15 +3374,15 @@ this with to-do items than with projects or headings."
     ("l" "Logbook Templates")
 	  ("le" "Log Entry" plain
      (file "~/documents/org/templates/logbook/log-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Technical Findings"))
      :unnarrowed t)
 	  ("ls" "Log Scan Entry" plain
      (file "~/documents/org/templates/logbook/log-scan-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Technical Findings"))
      :unnarrowed t)
 	  ("lf" "Log Full Entry" plain
      (file "~/documents/org/templates/logbook/log-full-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Technical Findings"))
      :unnarrowed t)))
 #+end_src
 
