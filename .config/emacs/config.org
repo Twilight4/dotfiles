@@ -2270,16 +2270,10 @@ Adding highlights to =TODO= and related words.
   (setq hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
         `(("TODO"       warning bold)
-          ("DOING"      success bold)
-          ("NEXT"     . "#ffcb6b")
+          ("DOING"      "#5af78e")
+          ("NEXT"     . "#fac863")
           ("SOMEDAY"  . "#81a2be")
           ("DONE"       font-lock-doc-face bold)
-          ("WAIT"     . "#fac863")
-          ("REVIEW"   . "#51afef")
-          ("PLAN"     . "#46d9ff")
-          ("BACKLOG"    font-lock-constant-face bold)
-          ("READY"    . "#2aa198")
-          ("NOW"      . "#5af78e")
           ("FINISHED"   font-lock-doc-face bold)
           ("CANC"       error bold))))
 #+end_src
@@ -2922,18 +2916,10 @@ Let’s make creating an Org buffer just that little bit easier.
            "DOING(d)"
            "NEXT(n)"
            "SOMEDAY(s)"
-           "|"                 ; The pipe necessary to separate "active" states and "inactive" states
-           "DONE(D)")
-          (sequence
-           "WAIT(w)"
-           "REVIEW(R)"
-           "PLAN(p)"
-           "BACKLOG(b)"
-           "READY(r)"
-           "NOW(N)"
-           "|"
-           "FINISHED(f)"
-           "CANC(c)")))
+           "FINISHED(f)"   ; I keep these as active cuz I want to keep them in agenda view
+           "CANC(c)"       ; I keep these as active cuz I want to keep them in agenda view
+           "|"             ; The pipe necessary to separate "active" states and "inactive" states
+           "DONE(D)")))
 
 ;; Org-habit config
 (require 'org-habit)
@@ -2942,21 +2928,31 @@ Let’s make creating an Org buffer just that little bit easier.
 ;; Org-tags config
 (setq org-tag-alist
   '((:startgroup)
-     ; Put mutually exclusive tags here
-     (:endgroup)
-     ("@RedTeam" . ?r)
-     ("@Osint" . ?o)
+     ;; Overview agenda
+     ("@Work" . ?w)
      ("@Important" . ?i)
      ("@Assignment" . ?a)
-     ("@Issue" . ?I)
+     ("@Issue" . ?U)
      ("@Research" . ?e)
      ("@Habit" . ?h)
      ("@Privacy" . ?p)
-     ("@Project" . ?P)
-     ("@Watch" . ?w)
+     ("@Project" . ?j)
+     ("@Watch" . ?W)
      ("@Purchase" . ?u)
      ("@Read" . ?R)
-     ("@Trivial" . ?t)))
+     ("@Trivial" . ?t)
+     ;; SE Project Tags
+     ("@Campaign_Setup" . ?C)
+     ("@Phishing_Method" . ?h)
+     ;; EPT Project Tags
+     ("@Osint" . ?o)
+     ;; IPT Project Tags
+     ("@AD_Exploitation" . ?E)
+     ("@AD_Internal_Enumeration" . ?n)
+     ("@AD_Post_Exploitation" . ?P)
+     ("@AD_Post_Domain_Compromise" . ?D)
+     (:endgroup)
+))
 #+end_src
 
 *** Org-modern
@@ -2979,12 +2975,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
           ("NEXT" :inverse-video t :inherit +org-todo-active)
           ("SOMEDAY" :inverse-video t :inherit +org-todo-onhold)
           ("DONE" :inverse-video t :inherit +org-todo-cancel)
-          ("WAIT" :inverse-video t :inherit +org-todo-onhold)
-          ("REVIEW" :inverse-video t :inherit +org-todo-onhold)
-          ("PLAN" :inverse-video t :inherit +org-todo-active)
-          ("BACKLOG" :inverse-video t :inherit +org-todo-onhold)
-          ("READY" :inverse-video t :inherit +org-todo-onhold)
-          ("NOW" :inverse-video t :inherit +org-todo-active)
           ("FINISHED" :inverse-video t :inherit +org-todo-onhold)
           ("CANC" :inverse-video t :inherit +org-todo-onhold))
         org-modern-footnote
@@ -3122,6 +3112,12 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline)))
 
+;; Define command to run it directly
+(defun my-org-agenda-o ()
+  "Run org agenda command 'o'."
+  (interactive)
+  (org-agenda nil "o"))
+
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
@@ -3145,7 +3141,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                            :priority "A"
                            :order 3)
                           (:name " Career-Related"
-                           :tag "@RedTeam"
+                           :tag "@Work"
                            :order 4)
                           (:name "󰥖 Osint Tasks"
                            :tag "@Osint"
@@ -3201,36 +3197,29 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                 (org-agenda-max-todos 20)
                 (org-agenda-files org-agenda-files))))
 
+;; Use only the workflow/checklist agenda file for this command
+(defun my-org-agenda-i ()
+  "Run org agenda command 'w' with a specific agenda file."
+  (interactive)
+  (let ((org-agenda-files '("~/documents/org/agenda/ipt_workflow.org")))
+    (org-agenda nil "i")))
+
 (add-to-list 'org-agenda-custom-commands
-             '("w" "Workflow Status"
-               (
-                (todo "WAIT"
-                      ((org-agenda-overriding-header "Waiting on External")
-                       (org-agenda-files org-agenda-files)))
-                (todo "REVIEW"
-                      ((org-agenda-overriding-header "In Review")
-                       (org-agenda-files org-agenda-files)))
-                (todo "PLAN"
-                      ((org-agenda-overriding-header "In Planning")
-                       (org-agenda-todo-list-sublevels nil)
-                       (org-agenda-files org-agenda-files)))
-                (todo "BACKLOG"
-                      ((org-agenda-overriding-header "Backlog Tasks")
-                       (org-agenda-todo-list-sublevels nil)
-                       (org-agenda-files org-agenda-files)))
-                (todo "READY"
-                      ((org-agenda-overriding-header "Ready for Work")
-                       (org-agenda-files org-agenda-files)))
-                (todo "NOW"
-                      ((org-agenda-overriding-header "Active Tasks")
-                       (org-agenda-files org-agenda-files)))
-                (todo "FINISHED"
-                      ((org-agenda-overriding-header "Completed Tasks")
-                       (org-agenda-files org-agenda-files)))
-                (todo "CANC"
-                      ((org-agenda-overriding-header "Cancelled Tasks")
-                       (org-agenda-files org-agenda-files)))
-                )))
+      '("i" "IPT Workflow"
+        ((alltodo "" ((org-agenda-overriding-header "")
+                      (org-super-agenda-groups
+                       '((:name "󰚌 AD Exploitation"
+                          :tag "@AD_Exploitation"
+                          :order 1)
+                         (:name " Internal Enumeration"
+                          :tag "@AD_Internal_Enumeration"
+                          :order 2)
+                         (:name " Post Exploitation"
+                          :tag "@AD_Post_Exploitation"
+                          :order 3)
+                         (:name " Post Domain Compromise"
+                          :tag "@AD_Post_Domain_Compromise"
+                          :order 4))))))))
 #+end_src
 
 *** Org-agenda
