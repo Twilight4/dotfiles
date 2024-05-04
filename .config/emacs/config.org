@@ -1461,15 +1461,11 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
          (category (tl/read-char-visible "Category (p/n for project/notes): "))
          (category (if (char-equal category ?p) "project" "notes"))
          (save-path (if (string= category "project")
-                        (concat (tl/get-zsh-env-path) "../reports/screenshots/")
+                        "~/documents/org/reports/screenshots/"
                       "~/documents/org/roam/screenshots/"))
          (full-path (expand-file-name (concat save-path filename ".png"))))
     (copy-file "/tmp/screenshot.png" full-path)
     (insert (format "[[%s]]" full-path))))
-
-(defun tl/get-zsh-env-path ()
-  "Get the path from Zsh environment variable __SCREENSHOTS."
-  (replace-regexp-in-string "\n$" "" (shell-command-to-string "echo $__SCREENSHOTS")))
 
 (defun tl/read-char-visible (prompt)
   "Read a single visible character from the minibuffer with PROMPT."
