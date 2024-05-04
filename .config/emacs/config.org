@@ -3371,13 +3371,9 @@ this with to-do items than with projects or headings."
      (file "~/documents/org/templates/workflows/wireless-workflow.org")
      :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
      :unnarrowed t)
-    ("l" "Logbook Templates")
-	  ("le" "Log Entry" plain
+    ("l" "Logbook Entry")
+	  ("le" "Log Quick Entry" plain
      (file "~/documents/org/templates/logbook/log-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Technical Findings"))
-     :unnarrowed t)
-	  ("ls" "Log Scan Entry" plain
-     (file "~/documents/org/templates/logbook/log-scan-entry.org")
      :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Technical Findings"))
      :unnarrowed t)
 	  ("lf" "Log Full Entry" plain
