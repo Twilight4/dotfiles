@@ -3338,23 +3338,23 @@ this with to-do items than with projects or headings."
     ("w" "Workflow Templates")
     ("wi" "Internal Pentest" plain
      (file "~/documents/org/templates/workflows/ipt-workflow.org")
-     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
+     :if-new (file "~/documents/org/agenda/ipt_workflow.org")
      :unnarrowed t)
     ("we" "External Pentest" plain
      (file "~/documents/org/templates/workflows/ept-workflow.org")
-     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
+     :if-new (file "~/documents/org/agenda/ept_workflow.org")
      :unnarrowed t)
     ("wr" "Red Team Engagement" entry
      (file "~/documents/org/templates/workflows/red-team-workflow.org")
-     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
+     :if-new (file "~/documents/org/agenda/red-team_workflow.org")
      :unnarrowed t)    
     ("ws" "Social Engineering Pentest" entry
      (file "~/documents/org/templates/workflows/se-workflow.org")
-     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
+     :if-new (file "~/documents/org/agenda/se_workflow.org")
      :unnarrowed t)
     ("ww" "Wireless Pentest" entry
      (file "~/documents/org/templates/workflows/wireless-workflow.org")
-     :if-new (file "~/documents/org/agenda/${slug}_workflow.org")
+     :if-new (file "~/documents/org/agenda/wireless_workflow.org")
      :unnarrowed t)
     ("l" "Logbook Entry")
 	  ("le" "Log Quick Entry" plain
