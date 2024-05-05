@@ -139,4 +139,6 @@ eval "$(mcfly init zsh)"
 #fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat
 
 # Load nobility variables quietly
-nb-vars-load >/dev/null
+if [ -f "$HOME/.config/zsh/plugins/nobility" ]; then
+    nb-vars-load >/dev/null
+fi
