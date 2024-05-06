@@ -454,12 +454,16 @@
 
 	(tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
-    "a a" '(org-agenda :wk "General agenda")
-    "a o" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
-    "a g" '(org-gtd-engage :wk "GTD agenda")
-    "a m" '(org-gtd-oops :wk "Missed appointments")
-    "a f" '(org-gtd-review-area-of-focus :wk "Area of focus")
-    "a t" '(org-gtd-review-stuck-* :wk "Any action types"))
+    "a o" '(tl/org-agenda-o :wk "Agenda overview")
+    "a i" '(tl/org-agenda-i :wk "Agenda IPT workflow")
+    "a t" '(tl/org-agenda-t :wk "Agenda today")
+    "a e" '(tl/org-agenda-e :wk "Agenda by low efforts")
+    "a f" '(org-gtd-review-area-of-focus :wk "Area of focus"))
+    ;; I don't use those at the moment
+    ;"a o" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
+    ;"a g" '(org-gtd-engage :wk "GTD agenda")
+    ;"a m" '(org-gtd-oops :wk "Missed appointments")
+    ;"a t" '(org-gtd-review-stuck-* :wk "Any action types"))
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
@@ -3112,11 +3116,27 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
         (0.5 . org-upcoming-deadline)
         (0.0 . org-upcoming-distant-deadline)))
 
-;; Define command to run it directly
-(defun my-org-agenda-o ()
+;; Agenda commands
+(defun tl/org-agenda-t ()
+  "Run org agenda command 'o'."
+  (interactive)
+  (org-agenda nil "t"))
+
+(defun tl/org-agenda-e ()
+  "Run org agenda command 'o'."
+  (interactive)
+  (org-agenda nil "e"))
+
+(defun tl/org-agenda-o ()
   "Run org agenda command 'o'."
   (interactive)
   (org-agenda nil "o"))
+
+(defun tl/org-agenda-i ()
+  "Run org agenda command 'w' with a specific agenda file."
+  (interactive)
+  (let ((org-agenda-files '("~/documents/org/agenda/ipt_workflow.org")))
+    (org-agenda nil "i")))
 
 (setq org-agenda-custom-commands
       '(("o" "Overview"
@@ -3196,13 +3216,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                 (org-agenda-overriding-header "Low Effort Tasks")
                 (org-agenda-max-todos 20)
                 (org-agenda-files org-agenda-files))))
-
-;; Use only the workflow/checklist agenda file for this command
-(defun my-org-agenda-i ()
-  "Run org agenda command 'w' with a specific agenda file."
-  (interactive)
-  (let ((org-agenda-files '("~/documents/org/agenda/ipt_workflow.org")))
-    (org-agenda nil "i")))
 
 (add-to-list 'org-agenda-custom-commands
       '("i" "IPT Workflow"
