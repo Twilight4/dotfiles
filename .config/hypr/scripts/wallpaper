@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Remove the 'other' directory to fix rofi wallpaper selector
+directory="$HOME/pictures/wallpapers"
+# Check if the 'other' subdirectory exists
+if [ -d "$directory/other" ]; then
+    # Remove the 'other' subdirectory
+    rm -rf "$directory/other"
+    echo "The 'other' subdirectory in '$directory' has been removed."
+else
+    echo "The 'other' subdirectory does not exist in '$directory'."
+fi
+
 # Cache file for holding the current wallpaper
 cache_file="$HOME/.cache/current_wallpaper"
 rasi_file="$HOME/.cache/current_wallpaper.rasi"
