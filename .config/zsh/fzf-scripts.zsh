@@ -377,12 +377,6 @@ ftrack() {
     [ -n "$file" ] && eval "$EDITOR" "$file"
 }
 
-# List ai prompts
-fai() {
-    file=$(find ~/desktop/workspace/dotfiles/.config/ai-prompts/* -type f -prune -exec basename {} ';' | sort | uniq | fzf --preview 'command bat --style header --style snip --style changes --plain --language=md --color=always ~/desktop/workspace/dotfiles/.config/ai-prompts/{}') || return
-    [ -n "$file" ] && cat ~/desktop/workspace/dotfiles/.config/ai-prompts/"$file" | wl-copy && echo "\033[0;34m[*] "$file" copied to clipboard.\033[0m"
-}
-
 # List clipboard history
 fclip() {
     cliphist list | fzf | cliphist decode | wl-copy
