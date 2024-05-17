@@ -456,6 +456,7 @@
     "a" '(:ignore t :wk "Agenda")
     "a o" '(tl/org-agenda-o :wk "Agenda overview")
     "a i" '(tl/org-agenda-i :wk "Agenda IPT workflow")
+    "a S" '(tl/org-agenda-S :wk "Agenda Sabotage workflow")
     "a t" '(tl/org-agenda-t :wk "Agenda today")
     "a e" '(tl/org-agenda-e :wk "Agenda by low efforts")
     "a f" '(org-gtd-review-area-of-focus :wk "Area of focus"))
@@ -3138,6 +3139,12 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
   (let ((org-agenda-files '("~/documents/org/agenda/ipt_workflow.org")))
     (org-agenda nil "i")))
 
+(defun tl/org-agenda-S ()
+  "Run org agenda command 'w' with a specific agenda file."
+  (interactive)
+  (let ((org-agenda-files '("~/documents/org/agenda/sabotage_workflow.org")))
+    (org-agenda nil "i")))
+
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
@@ -3217,11 +3224,31 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                 (org-agenda-max-todos 20)
                 (org-agenda-files org-agenda-files))))
 
+
 (add-to-list 'org-agenda-custom-commands
       '("i" "IPT Workflow"
         ((alltodo "" ((org-agenda-overriding-header "")
                       (org-super-agenda-groups
                        '((:name "󰚌 AD Exploitation"
+                          :tag "@AD_Exploitation"
+                          :order 1)
+                         (:name " Internal Enumeration"
+                          :tag "@AD_Internal_Enumeration"
+                          :order 2)
+                         (:name " Post Exploitation"
+                          :tag "@AD_Post_Exploitation"
+                          :order 3)
+                         (:name " Post Domain Compromise"
+                          :tag "@AD_Post_Domain_Compromise"
+                          :order 4))))))))
+(add-to-list 'org-agenda-custom-commands
+      '("S" "Sabotage Workflow"
+        ((alltodo "" ((org-agenda-overriding-header "")
+                      (org-super-agenda-groups
+                       '((:name "󰚌 Initial Access"
+                          :tag "@"
+                          :order 1)
+                         (:name "󰚌 AD Exploitation"
                           :tag "@AD_Exploitation"
                           :order 1)
                          (:name " Internal Enumeration"
@@ -3360,7 +3387,11 @@ this with to-do items than with projects or headings."
     ("wr" "Red Team Engagement" entry
      (file "~/documents/org/templates/workflows/red-team-workflow.org")
      :if-new (file "~/documents/org/agenda/red-team_workflow.org")
-     :unnarrowed t)    
+     :unnarrowed t)
+    ("wS" "Sabotage Delivery Service" entry
+     (file "~/documents/org/templates/workflows/sabotage-workflow.org")
+     :if-new (file "~/documents/org/agenda/sabotage_workflow.org")
+     :unnarrowed t)
     ("ws" "Social Engineering Pentest" entry
      (file "~/documents/org/templates/workflows/se-workflow.org")
      :if-new (file "~/documents/org/agenda/se_workflow.org")
