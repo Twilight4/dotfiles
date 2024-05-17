@@ -3227,18 +3227,21 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
       '("i" "IPT Workflow"
         ((alltodo "" ((org-agenda-overriding-header "")
                       (org-super-agenda-groups
-                       '((:name "󰚌 AD Exploitation"
-                          :tag "@AD_Exploitation"
+                       '((:name " Pre-Engagement"
+                          :tag "@Pre_Engagement"
                           :order 1)
+                         (:name "󰚌 AD Exploitation"
+                          :tag "@AD_Exploitation"
+                          :order 2)
                          (:name "󰈈 Internal Enumeration"
                           :tag "@AD_Internal_Enumeration"
-                          :order 2)
+                          :order 3)
                          (:name " Post Exploitation"
                           :tag "@AD_Post_Exploitation"
-                          :order 3)
+                          :order 4)
                          (:name " Post Domain Compromise"
                           :tag "@AD_Post_Domain_Compromise"
-                          :order 4))))))))
+                          :order 5))))))))
 
 (add-to-list 'org-agenda-custom-commands
       '("S" "Sabotage Workflow"
