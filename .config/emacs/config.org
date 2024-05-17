@@ -2947,10 +2947,11 @@ Let’s make creating an Org buffer just that little bit easier.
      ("@Read" . ?R)
      ("@Trivial" . ?t)
      ;; SE Project Tags
-     ("@Campaign_Setup" . ?C)
-     ("@Phishing_Method" . ?h)
+     ;("@Campaign_Setup" . ?C)
+     ;("@Phishing_Method" . ?h)
      ;; EPT Project Tags
-     ("@Osint" . ?o)
+     ("@Open_Source_Intelligence" . ?o)
+	   ("@Weaponization" . ?A)
      ;; IPT Project Tags
      ("@AD_Exploitation" . ?E)
      ("@AD_Internal_Enumeration" . ?n)
@@ -3143,7 +3144,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
   "Run org agenda command 'w' with a specific agenda file."
   (interactive)
   (let ((org-agenda-files '("~/documents/org/agenda/sabotage_workflow.org")))
-    (org-agenda nil "i")))
+    (org-agenda nil "S")))
 
 (setq org-agenda-custom-commands
       '(("o" "Overview"
@@ -3241,25 +3242,29 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                          (:name " Post Domain Compromise"
                           :tag "@AD_Post_Domain_Compromise"
                           :order 4))))))))
+
 (add-to-list 'org-agenda-custom-commands
       '("S" "Sabotage Workflow"
         ((alltodo "" ((org-agenda-overriding-header "")
                       (org-super-agenda-groups
-                       '((:name "󰚌 Initial Access"
-                          :tag "@"
+                       '((:name "󰖟 Open-Source Intelligence"
+                          :tag "@Open_Source_Intelligence"
                           :order 1)
+                         (:name "󰄻 Weaponization"
+                          :tag "@Weaponization"
+                          :order 2)
                          (:name "󰚌 AD Exploitation"
                           :tag "@AD_Exploitation"
-                          :order 1)
-                         (:name " Internal Enumeration"
-                          :tag "@AD_Internal_Enumeration"
-                          :order 2)
-                         (:name " Post Exploitation"
-                          :tag "@AD_Post_Exploitation"
                           :order 3)
-                         (:name " Post Domain Compromise"
+                         (:name "󰈈 Internal Enumeration"
+                          :tag "@AD_Internal_Enumeration"
+                          :order 4)
+                         (:name " Host Post Exploitation"
+                          :tag "@AD_Post_Exploitation"
+                          :order 5)
+                         (:name " Action on Objectives"
                           :tag "@AD_Post_Domain_Compromise"
-                          :order 4))))))))
+                          :order 6))))))))
 #+end_src
 
 *** Org-agenda
