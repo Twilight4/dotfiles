@@ -2223,7 +2223,7 @@ While =org-hide-emphasis-markers= is very nice, it can sometimes make edits whic
  :config
  (setq org-appear-autoemphasis t
        org-appear-autosubmarkers t
-       org-appear-autolinks nil)
+       org-appear-autolinks t)
  (run-at-time nil nil #'org-appear--set-elements))
 #+end_src
 
@@ -2920,7 +2920,7 @@ Automatically save the buffer to /tmp/ and load the last saved version if it exi
       org-ellipsis " ▼ "                           ; Elipsis character for folding headings
       org-log-done 'time                           ; Having the time a item is done sounds
       org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("1." . "*") ("1." . "a."))
-      org-hide-emphasis-markers t
+      org-hide-emphasis-markers nil
       ;; ex. of org-link-abbrev-alist in action
       ;; [[arch-wiki:Name_of_Page][Description]]
       org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
