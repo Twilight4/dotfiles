@@ -2830,13 +2830,37 @@ Let’s make creating an Org buffer just that little bit easier.
 *** Create new org buffer for emacsclient command in kitty.conf
 #+begin_src emacs-lisp
 (defun tl/create-org-buffer ()
-  "Switch to an existing Org mode buffer named *org scratchpad*, or create a new one."
+  "Switch to an existing Org mode buffer named *org scratchpad*, or create a new one.
+Automatically save the buffer to /tmp/ and load the last saved version if it exists."
   (interactive)
-  (let ((buffer (get-buffer "*org scratchpad*")))
-    (if buffer
-        (switch-to-buffer buffer)
-      (switch-to-buffer (generate-new-buffer "*org scratchpad*"))
-      (org-mode))))
+  (let ((buffer-name "*org scratchpad*")
+        (file-path "/tmp/org-scratchpad.org"))
+    (if (get-buffer buffer-name)
+        (switch-to-buffer buffer-name)
+      (if (file-exists-p file-path)
+          (progn
+            (find-file file-path)
+            (rename-buffer buffer-name))
+        (switch-to-buffer (generate-new-buffer buffer-name))
+        (org-mode)
+        (write-file file-path)))
+    (add-hook 'after-save-hook
+              (lambda ()
+                (when (string= (buffer-name) buffer-name)
+                  (let ((file-path "/tmp/org-scratchpad.org"))
+                    (save-buffer)
+                    (message "Auto-saved *org scratchpad* to %s" file-path))))
+              nil t)))
+
+(defun tl/save-scratchpad ()
+  "Save the *org scratchpad* buffer to /tmp/org-scratchpad.org."
+  (let ((buffer-name "*org scratchpad*")
+        (file-path "/tmp/org-scratchpad.org"))
+    (when (get-buffer buffer-name)
+      (with-current-buffer buffer-name
+        (save-buffer)
+        (write-file file-path)
+        (message "Manually saved *org scratchpad* to %s" file-path)))))
 #+end_src
 
 ** Org configuration
