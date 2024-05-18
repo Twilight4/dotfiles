@@ -26,6 +26,7 @@
 		    "custom/windowsvm",
 		    "custom/qemu",
 		    "custom/keepass",
+		    "custom/pvpn",
         "hyprland/window",
     ],
 

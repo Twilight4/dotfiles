@@ -85,6 +85,13 @@
         "tooltip": false
     },
 
+    // PVPN Launcher
+    "custom/pvpn": {
+        "format": "<span font='16'></span> <span font='16'></span>",
+        "on-click": "protonvpn-app",
+        "tooltip": false
+    },
+
     // Windows VM
     "custom/windowsvm": {
         "format": "",
