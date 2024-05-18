@@ -2845,11 +2845,11 @@ Automatically save the buffer to /tmp/ and load the last saved version if it exi
         (org-mode)
         (write-file file-path)))
     (add-hook 'after-save-hook
-              (lambda ()
-                (when (string= (buffer-name) buffer-name)
-                  (let ((file-path "/tmp/org-scratchpad.org"))
-                    (save-buffer)
-                    (message "Auto-saved *org scratchpad* to %s" file-path))))
+              `(lambda ()
+                 (when (string= (buffer-name) ,buffer-name)
+                   (let ((file-path ,file-path))
+                     (save-buffer)
+                     (message "Auto-saved *org scratchpad* to %s" file-path))))
               nil t)))
 
 (defun tl/save-scratchpad ()
@@ -2861,6 +2861,10 @@ Automatically save the buffer to /tmp/ and load the last saved version if it exi
         (save-buffer)
         (write-file file-path)
         (message "Manually saved *org scratchpad* to %s" file-path)))))
+
+
+;; Enable lexical binding for the lambda function to capture variables.
+(setq-default lexical-binding t)
 #+end_src
 
 ** Org configuration
