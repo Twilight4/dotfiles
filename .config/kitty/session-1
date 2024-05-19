@@ -9,23 +9,29 @@ launch --title scans sh -c "result=$(find ~/desktop/projects/* -type d -prune -e
 # Create a second window
 #launch --title project sh -c "lsd -l --hyperlink=auto && exec zsh"
 
-# Create a new tab for gptel
-new_tab gptel
-# Set the layout in this tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a window (title sets the tab title)
-launch --title gptel sh -c 'echo "\033[0;33mPress: "C-M-c" to run gptel\033[0m"; emacsclient -nw; exec zsh'
-
 # Create a new tab for cheat
-new_tab fcht
+new_tab fcht/nobility
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window window (title sets the tab title)
+launch --title fcht sh -c "exec zsh"
+# Create a second window window (title sets the tab title)
+cd ~/desktop/workspace/nobility/modules/
+launch --title nobility sh -c "lsd -l --hyperlink=auto; exec zsh"
+
+# Create a new tab
+new_tab empire
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
 launch sh -c "exec zsh"
+# Run powershell-empire server - if it's already running the window will close automatically
+#launch --title empire sh -c "sudo powershell-empire server"
+# Loop to check if powershell-empire (server) is running then wait 2 seconds for it to start and run the client
+#launch --title empire sh -c "while ! sudo ps aux | grep -q '[p]owershell-empire'; do sleep 1; done; sleep 2; sudo powershell-empire client"
 
 # Create a new tab
 new_tab emacs
@@ -36,13 +42,11 @@ cd ~/desktop/projects/
 # Create a window (title sets the tab title)
 launch --title emacs sh -c "emacsclient -nw --eval \"(treemacs)\"; exec zsh"
 
-# Create a new tab
-new_tab empire
+# Create a new tab for gptel
+new_tab gptel
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
 cd ~/
-# Run powershell-empire server - if it's already running the window will close automatically
-#launch --title empire sh -c "sudo powershell-empire server"
-# Loop to check if powershell-empire (server) is running then wait 2 seconds for it to start and run the client
-#launch --title empire sh -c "while ! sudo ps aux | grep -q '[p]owershell-empire'; do sleep 1; done; sleep 2; sudo powershell-empire client"
+# Create a window (title sets the tab title)
+launch --title gptel sh -c 'echo "\033[0;33mPress: "C-M-c" to run gptel\033[0m"; emacsclient -nw; exec zsh'
