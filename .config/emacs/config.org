@@ -2834,7 +2834,7 @@ Let’s make creating an Org buffer just that little bit easier.
 Automatically save the buffer to /tmp/ and load the last saved version if it exists."
   (interactive)
   (let ((buffer-name "*org scratchpad*")
-        (file-path "/tmp/org-scratchpad.org"))
+        (file-path "~/.cache/org-scratchpad.org"))
     (if (get-buffer buffer-name)
         (switch-to-buffer buffer-name)
       (if (file-exists-p file-path)
@@ -2853,9 +2853,9 @@ Automatically save the buffer to /tmp/ and load the last saved version if it exi
               nil t)))
 
 (defun tl/save-scratchpad ()
-  "Save the *org scratchpad* buffer to /tmp/org-scratchpad.org."
+  "Save the *org scratchpad* buffer to ~/.cache/org-scratchpad.org."
   (let ((buffer-name "*org scratchpad*")
-        (file-path "/tmp/org-scratchpad.org"))
+        (file-path "~/.cache/org-scratchpad.org"))
     (when (get-buffer buffer-name)
       (with-current-buffer buffer-name
         (save-buffer)
