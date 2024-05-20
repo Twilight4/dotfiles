@@ -23,7 +23,7 @@ bindkey '^N' down-line-or-history
 bindkey '^U' backward-kill-line
 bindkey '^O' kill-line
 bindkey '^[d' kill-word
-bindkey '^L' insert-last-word
+#bindkey "^L" insert-last-word      # history-search is sufficient
 bindkey '^W' backward-kill-word
 
 # Full keyboard keys
@@ -45,11 +45,10 @@ bindkey '^[[Z' reverse-menu-complete
 # Open in external editor command
 autoload -U edit-command-line
 zle -N edit-command-line
-bindkey '^X^E' edit-command-line
+bindkey '^V' edit-command-line
 
 # Other useful bindings
 bindkey "^['" quote-region
-#bindkey "^L" insert-last-word      # history-search is sufficient
 # use the 'x' prefix key
 bindkey "^Xa" exchange-point-and-mark
 bindkey "^Xx" alias-expension
@@ -179,12 +178,12 @@ zle -N delete-or-cut-backward
 bindkey '^H' delete-or-cut-backward
 
 # Function for new command
-function _new_command {
-    zle push-input
-    BUFFER=""
-}
-zle -N _new_command
-bindkey '^V' _new_command
+#function _new_command {
+#    zle push-input
+#    BUFFER=""
+#}
+#zle -N _new_command
+#bindkey '^V' _new_command      # some command is already bound to ^Z which does the same thing
 
 # Function to open help page
 custom-run-help() {
