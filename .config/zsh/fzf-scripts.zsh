@@ -71,8 +71,6 @@ frm() {
     fi
 }
 
-# mv wrapper. if no command provided prompt user to
-# interactively select multiple files with tab + fuzzy search
 fmv() {
     local SOURCES
     local TARGET
@@ -95,6 +93,31 @@ fmv() {
         echo "$SOURCES" | xargs -I '{}' mv -v {} '/'$TARGET'/'
     else
         echo "There's error happened for some reason. Files not moved."
+    fi
+}
+
+fcp() {
+    local SOURCES
+    local TARGET
+    if [[ "$#" -eq 0 ]]; then
+        vared -p 'Files destination: ' -c TARGET
+        if [ -z "$TARGET" ]; then
+            echo 'no target specified'
+            return 1
+        fi
+
+        # This corrects issue where directory is not found as ~ is
+        # not expanded properly when stored directly from user input
+        if echo "$TARGET" | grep -q "~"; then
+            TARGET=$(echo $TARGET | sed 's/~//')
+            TARGET=~/$TARGET
+        fi
+
+        SOURCES=$(find . -maxdepth 1 | fzf --multi)
+        # We use xargs to capture filenames with spaces in them properly
+        echo "$SOURCES" | xargs -I '{}' xcp -v {} '/'$TARGET'/'
+    else
+        echo "There's error happened for some reason. Files not copied. Do you have xcp installed?"
     fi
 }
 
@@ -151,7 +174,47 @@ fapti() {
 }
 
 faptr() {
-    dpkg --get-selections | awk '$2 == "install" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -ro sudo apt-get purge
+    #dpkg --get-selections | awk '$2 == "install" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -ro sudo apt-get purge
+    selected_packages=$(dpkg --get-selections | awk '$2 == "install" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}')
+
+    # Check if package to uninstall is selected
+    if [ -z "$selected_packages" ]; then
+        echo "No package selected. Exiting."
+        return
+    fi
+
+    # Confirmation for uninstalling the package
+    echo "You have selected the following packages for removal: $selected_packages"
+    echo -n "Are you sure you want to purge these packages? (y/N): "
+    read confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+        echo "Operation cancelled."
+        return
+    fi
+
+    # Uninstall the package
+    echo "$selected_packages" | xargs -ro sudo apt-get purge -y
+
+    # Search for leftovers
+    echo
+    echo -n "Do you want to search for leftover files related to the removed packages? (y/N): " 
+    read confirm_search
+    if [[ "$confirm_search" =~ ^[Yy]$ ]]; then
+        echo "Searching for leftover files..."
+        echo
+        echo "$selected_packages" | while read -r package; do
+            sudo find / -name "*$package*"
+        done
+    else
+        echo "Skipping search for leftover files."
+    fi
+
+    echo
+    echo "Optional additional cleanup steps:"
+    echo "Run 'cleanup' to run remove unused dependencies"
+    echo "Run 'aptcache' to check the size of package cache"
+    echo "Run 'aptcache-clean' to clean all package cache"
+    echo "Operation completed."
 }
 
 
