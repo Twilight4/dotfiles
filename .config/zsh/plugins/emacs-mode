@@ -61,7 +61,7 @@ bindkey "^[/" which-command
 # Ctrl+Alt+key
 bindkey "^[^F" vi-find-next-char
 bindkey "^[^B" vi-find-prev-char
-bindkey "^[^A" accept-and-hold
+bindkey "^[^M" accept-and-hold
 # Ctrl+key
 bindkey '^N' history-search-forward
 bindkey '^P' history-search-backward
@@ -109,8 +109,9 @@ bindkey -M emacs -s '^[p' 'fproj\r'
 bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[t' 'frep\r'
 bindkey -M emacs -s '^[T' 'ftrack\r'
-bindkey -M emacs -s '^[v' 'fpdf\r'
+bindkey -M emacs -s '^[v' 'fovpn\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
+bindkey -M emacs -s '^[P' 'fpdf\r'
 bindkey -M emacs -s '^[N' 'fqli\r'
 # Cheatsheets/Notes
 bindkey -M emacs -s '^[e' 'fchtc\r'

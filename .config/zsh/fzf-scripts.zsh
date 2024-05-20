@@ -422,6 +422,12 @@ fpdf() {
     [ -n "$result" ] && zathura "$result" &
 }
 
+# List vpn files
+fovpn() {
+    result=$(find ~ -type f -not -path '*/\.*' -name '*.ovpn' -prune -exec basename {} ';' | sort | nl | fzf)
+    [ -n "$result" ] && sudo openvpn "$result" &
+}
+
 # List tracking spreadsheets (productivity, money ...)
 ftrack() {
     file=$(find ~/documents/org/roam/metrics/* -type f -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2) || return
