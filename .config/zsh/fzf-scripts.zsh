@@ -76,49 +76,25 @@ frm() {
 fmv() {
     local SOURCES
     local TARGET
-    local REPLY
-    local ERRORMSG
     if [[ "$#" -eq 0 ]]; then
-        echo -n "would you like to use the force young padawan? y/n: "
-        read -r REPLY
-
-        # NOTE. THIS IS A ZSH IMPLEMENTATION ONLY FOR NOW. VARED IS ZSH BUILTIN.
-        # FOR BASH use something like read -p "enter a directory: "
-        echo "Use full path i.e /Users/admin/Git_Downloads/blog-sites"
-        vared -p 'to whence shall be the files moved. state your target: ' -c TARGET
+        vared -p 'Files destination: ' -c TARGET
         if [ -z "$TARGET" ]; then
             echo 'no target specified'
             return 1
         fi
 
         # This corrects issue where directory is not found as ~ is
-        # not expanded  properly When stored directly from user input
+        # not expanded properly when stored directly from user input
         if echo "$TARGET" | grep -q "~"; then
             TARGET=$(echo $TARGET | sed 's/~//')
             TARGET=~/$TARGET
         fi
 
         SOURCES=$(find . -maxdepth 1 | fzf --multi)
-        #we use xargs to capture filenames with spaces in them properly
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            echo "using the force..."
-            echo "$SOURCES" | xargs -I '{}' mv -f {} '/'$TARGET'/'
-        else
-            echo "$SOURCES" | xargs -I '{}' mv {} '/'$TARGET'/'
-        fi
-        echo "moved selected file/folder(s)"
+        # We use xargs to capture filenames with spaces in them properly
+        echo "$SOURCES" | xargs -I '{}' mv -v {} '/'$TARGET'/'
     else
-        ERRORMSG=$(command mv "$@" 2>&1)
-        #if error msg is not empty, prompt the user
-        if [ -n "$ERRORMSG" ]; then
-            echo "$ERRORMSG"
-            echo -n "mv failed, would you like to use the force young padawan? y/n: "
-            read -r REPLY
-            if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-                echo "using the force..."
-                command mv -f "$@"
-            fi
-        fi
+        echo "There's error happened for some reason. Files not moved."
     fi
 }
 
