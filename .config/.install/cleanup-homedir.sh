@@ -19,8 +19,8 @@ rm -rf .config/.gsd-keyboard.settings-ported
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
 	~/videos/elfeed-youtube
+	~/documents/openvpn
     ~/desktop/{workspace,projects,server}
-    ~/desktop/projects/company-name/{EPT,IPT}
     ~/.config/.local/share/gnupg
     ~/.config/.local/share/cargo
     ~/.config/.local/share/go
@@ -30,7 +30,6 @@ directories=(
     ~/.config/.local/share/nimble
     ~/.config/.local/share/pki
     ~/.config/.local/share/cache
-    ~/cachyos-repo
 )
 
 for directory in "${directories[@]}"; do
@@ -59,7 +58,5 @@ rm -r ~/.local
 rm -rf ~/.git
 rm -r ~/{Documents,Pictures,Desktop,Downloads,Templates,Music,Videos,Public}
 rm ~/.viminfo
-sudo rm ~/cachyos-repo*
-rm -r ~/cachyos-repo
 rm ~/.zsh*
 rm ~/.zcompdummp*
