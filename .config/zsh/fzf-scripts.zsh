@@ -168,13 +168,39 @@ fparr() {
     paru -Qq | fzf --multi --reverse --preview 'paru -Si {1}' | xargs -ro paru -Rns
 }
 
-# Apt-get
+# Apt package manager
 fapti() {
-    apt-cache search . | cut -d' ' -f1 | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -r sudo apt-get install
+    selected_packages=$(apt-cache search . | cut -d' ' -f1 | fzf --multi --reverse --preview 'apt-cache show {1}')
+
+    # Check if package to install is selected
+    if [ -z "$selected_packages" ]; then
+        echo "No package selected. Exiting."
+        return
+    fi
+
+    # Confirmation for installing the package
+    echo "You have selected the following packages for installation: $selected_packages"
+    echo -n "Are you sure you want to install these packages? (y/N): "
+    read confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+        echo "Operation cancelled."
+        return
+    fi
+
+    # Install the selected package(s)
+    sudo apt-get update && echo "$selected_packages" | xargs -ro sudo apt-get install -y
+
+    # Check if installation was successful
+    if [ $? -eq 0 ]; then
+        echo
+        echo "Installation completed successfully."
+    else
+        echo
+        echo "Installation failed. Please check the error messages above."
+    fi
 }
 
 faptr() {
-    #dpkg --get-selections | awk '$2 == "install" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}' | xargs -ro sudo apt-get purge
     selected_packages=$(dpkg --get-selections | awk '$2 == "install" { print $1 }' | fzf --multi --reverse --preview 'apt-cache show {1}')
 
     # Check if package to uninstall is selected
@@ -193,7 +219,16 @@ faptr() {
     fi
 
     # Uninstall the package
-    echo "$selected_packages" | xargs -ro sudo apt-get purge -y
+    sudo apt-get update && echo "$selected_packages" | xargs -ro sudo apt-get purge -y
+
+    # Check if purge was successful
+    if [ $? -eq 0 ]; then
+        echo
+        echo "Purging completed successfully."
+    else
+        echo
+        echo "Purging failed. Please check the error messages above."
+    fi
 
     # Search for leftovers
     echo
@@ -214,7 +249,6 @@ faptr() {
     echo "Run 'cleanup' to run remove unused dependencies"
     echo "Run 'aptcache' to check the size of package cache"
     echo "Run 'aptcache-clean' to clean all package cache"
-    echo "Operation completed."
 }
 
 
