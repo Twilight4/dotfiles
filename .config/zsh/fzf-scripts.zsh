@@ -44,9 +44,9 @@ fbat() {
   fi
 }
 
-# Copy file path to clipboard (without hidden files)
+# Copy file path to clipboard
 fccp() {
-  file=$(find ~ -type f -not -path '*/\.*' | fzf --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
+  file=$(find ~ -type f | fzf --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
       --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
@@ -115,7 +115,7 @@ fcp() {
 
         SOURCES=$(find . -maxdepth 1 | fzf --multi)
         # We use xargs to capture filenames with spaces in them properly
-        echo "$SOURCES" | xargs -I '{}' xcp -v {} '/'$TARGET'/'
+        echo "$SOURCES" | xargs -I '{}' xcp -r -v {} '/'$TARGET'/'
     else
         echo "There's error happened for some reason. Files not copied. Do you have xcp installed?"
     fi
