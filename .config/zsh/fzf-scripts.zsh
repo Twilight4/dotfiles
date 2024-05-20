@@ -61,35 +61,13 @@ fimg() {
 
 frm() {
     local SOURCES
-    local REPLY
-    local ERRORMSG
     if [[ "$#" -eq 0 ]]; then
-        echo -n "would you like to use the force young padawan? y/n: "
-        read -r REPLY
-        #prompt user interactively to select multiple files with tab + fuzzy search
+        # prompt user interactively to select multiple files with tab + fuzzy search
         SOURCES=$(find . -maxdepth 1 | fzf --multi)
-        #we use xargs to capture filenames with spaces in them properly
-        if [[ $REPLY =~ ^[Yy]$ ]]; then
-            echo "using the force..."
-            echo "$SOURCES" | xargs -I '{}' rm -rf {}
-        else
-            echo "$SOURCES" | xargs -I '{}' rm {}
-        fi
-        echo "removed selected file/folder(s)"
+        # we use xargs to capture filenames with spaces in them properly
+        echo "$SOURCES" | xargs -I '{}' trash -rfv {}
     else
-        ERRORMSG=$(command rm "$@" 2>&1)
-        #if error msg is not empty, prompt the user
-        if [ -n "$ERRORMSG" ]; then
-            echo "$ERRORMSG"
-            echo -n "rm failed, would you like to use the force young padawan? y/n: "
-            read -r REPLY
-            if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-                echo "using the force..."
-                command rm -rf "$@"
-            fi
-        else
-            echo "removed file/folder"
-        fi
+        echo "There's error happened for some reason. Files not removed. Do you have trash installed?"
     fi
 }
 
