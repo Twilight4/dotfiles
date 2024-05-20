@@ -12,7 +12,7 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/downloads
 # Create a window (title sets the tab title)
-launch --title vpn sh -c 'echo "\033[0;33msudo openvpn <FILE.ovpn>\033[0m" && exec zsh'
+launch --title vpn sh -c 'file=$(find ~/documents/openvpn/* -type f -name "*.ovpn" -prune -exec basename {} \; | sort | uniq | nl | ~/.fzf/bin/fzf | cut -f 2) && [ -n "$file" ] && sudo openvpn "$HOME/documents/openvpn/$file" && exec zsh'
 # Focus the current tab
 focus
 

@@ -424,8 +424,8 @@ fpdf() {
 
 # List vpn files
 fovpn() {
-    result=$(find ~ -type f -not -path '*/\.*' -name '*.ovpn' -prune -exec basename {} ';' | sort | nl | fzf)
-    [ -n "$result" ] && sudo openvpn "$result" &
+    file=$(find ~/documents/openvpn/* -type f -name '*.ovpn' -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2) || return
+    [ -n "$file" ] && sudo openvpn "$HOME"/documents/openvpn/"$file" &
 }
 
 # List tracking spreadsheets (productivity, money ...)
