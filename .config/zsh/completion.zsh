@@ -135,6 +135,12 @@ zstyle ':completion:alias-expension:*' completer _expand_alias
 # Allow you to select in a menu
 zstyle ':completion:*' menu select
 
+# Use fzf-tab plugin instead of default menu
+zstyle ':completion:*' menu no
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}     # Colors for files and directory
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+
 # Autocomplete options for cd instead of directory stack
 zstyle ':completion:*' complete-options true
 
@@ -145,8 +151,6 @@ zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %D %d --%f'
 zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
 zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
 # zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-# Colors for files and directory
-zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Only display some tags for the command cd
 zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
@@ -158,7 +162,6 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
 
 # See ZSHCOMPWID "completion matching control"
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' rehash true                              # automatically find new executables in path 
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 
