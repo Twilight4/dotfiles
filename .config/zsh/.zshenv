@@ -24,6 +24,7 @@ export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"  		 # Make new shells get th
 export HISTFILE="$ZDOTDIR/.zhistory"                 		 # History filepath
 export HISTSIZE=10000                                		 # Maximum events for internal history
 export SAVEHIST=10000                                		 # Maximum events in history file
+export HISTDUP=erase                                     # Remove duplicates from history file
 
 # NPM
 export NPM_PATH="$XDG_CONFIG_HOME/node_modules"
