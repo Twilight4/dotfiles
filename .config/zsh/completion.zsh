@@ -146,10 +146,11 @@ zstyle ':completion:*' complete-options true
 
 zstyle ':completion:*' file-sort modification
 
-zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
-zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %D %d --%f'
-zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
+# Must be off when uzing fzf-tab
+#zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
+#zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %D %d --%f'
+#zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
+#zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
 # zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 
 # Only display some tags for the command cd

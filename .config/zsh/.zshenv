@@ -52,7 +52,7 @@ export BAT_THEME="tokyonight_night"
 # FZF
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=header,grid {}'"
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=header,grid --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'exa --tree --icons --group-directories-first --git-ignore --level 2 {} | head -n 100'"
 export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
 export LESSOPEN='| ~/.config/zsh/fzf-scripts/less-filter-fzf.sh %s'
