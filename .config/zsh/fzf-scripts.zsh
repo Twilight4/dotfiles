@@ -549,14 +549,6 @@ fqli () {
     esac
 }
 
-# Display the directory stack with fzf. Jump to the directory when one selected
-fpop() {
-    # Only work with alias d (in zsh-aliases) defined as:
-    # alias d='dirs -v'
-    # for index ({1..9}) alias "$index"="cd +${index}"; unset index
-    d | fzf --height="20%" | cut -f 1 | source /dev/stdin
-}
-
 # Find in File using ripgrep and open in editor
 frg() {
   if [ ! "$#" -gt 0 ]; then return 1; fi
