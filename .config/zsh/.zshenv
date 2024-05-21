@@ -62,15 +62,15 @@ export ENHANCD_HYPHEN_NUM="15"
 # Colorize FZF
 FZF_COLORS="bg+:-1,\
 fg:gray,\
-fg+:white,\
+fg+:#87afff,\
 border:black,\
 spinner:0,\
 hl:yellow,\
 header:blue,\
-info:green,\
+info:cyan,\
 pointer:red,\
 marker:red,\
-prompt:gray,\
+prompt:blue,\
 hl+:red"
 
 export FZF_DEFAULT_OPTS="--height 60% \
@@ -80,11 +80,12 @@ export FZF_DEFAULT_OPTS="--height 60% \
 --reverse \
 --margin=0,1 \
 --color='$FZF_COLORS' \
---bind \"ctrl-d:preview-down,ctrl-u:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,ctrl-/:toggle-preview\" \
---bind \"pgdn:preview-page-down,pgup:preview-page-up\" \
+--bind 'ctrl-d:preview-down,ctrl-u:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,ctrl-/:toggle-preview' \
+--bind 'pgdn:preview-page-down,pgup:preview-page-up' \
 --prompt '❯ ' \
+--no-separator --scrollbar="█" \
 --pointer ▶ \
---marker \"✚ \""
+--marker '✚ '"
 export FZF_ALT_C_OPTS="--preview 'exa --tree --group-directories-first --git-ignore --level 2 {} | head -n 100'"
 export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
 
