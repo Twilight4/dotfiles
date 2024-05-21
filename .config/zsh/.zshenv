@@ -46,6 +46,9 @@ export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
 export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 
+# Bat theme
+export BAT_THEME="tokyonight_night"
+
 # FZF
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -53,6 +56,7 @@ export LESSOPEN='| ~/.config/zsh/fzf-scripts/less-filter-fzf.sh %s'
 export ENHANCD_FILTER="fzf --reverse --preview 'exa --tree --group-directories-first --git-ignore --level 2 {}'"
 export ENHANCD_DIR="$HOME/.config/.enhancd"
 export ENHANCD_HOOK_AFTER_CD="ls"
+export ENHANCD_USE_ABBREV="true"
 
 # Colorize FZF
 FZF_COLORS="bg+:-1,\

@@ -61,11 +61,11 @@ cato() {
 
 # Better diff
 diff() {
-  command diff -u "$@" | diff-so-fancy
+  command diff -u "$@" | delta --features side-by-side
 }
 
 diffd() {
-  command diff -r -u "$@" | diff-so-fancy
+  command diff -r -u "$@" | delta --features side-by-side
 }
 
 # Display width / height of an image
