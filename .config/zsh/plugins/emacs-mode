@@ -84,6 +84,8 @@ bindkey '^P' history-search-backward
 # Debug which keys are being sent to the shell from your terminal: showkey -a
 
 # Command line
+bindkey -M emacs -s '^[F' 'fapti\r'
+bindkey -M emacs -s '^[D' 'faptr\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
 bindkey -M emacs -s '^[j' 'fmv\r'
 bindkey -M emacs -s '^[k' 'frm\r'
@@ -99,6 +101,7 @@ bindkey -M emacs -s "^L" 'cd\r'
 bindkey -M emacs -s '^[\' '\\cd ..\r'
 bindkey -M emacs -s '^\' 'cd -\r'
 #bindkey -M emacs -s '^[z'
+#bindkey -M emacs -s '^[;'
 bindkey -M emacs -s '^[.' 'fzf-cd\r'
 bindkey -M emacs -s '^[>' 'ffh\r'
 # List files
@@ -106,7 +109,7 @@ bindkey -M emacs -s '^[n' 'fnp\r'
 bindkey -M emacs -s '^[u' 'fwork\r'
 bindkey -M emacs -s '^[a' 'falias\r'
 bindkey -M emacs -s '^[p' 'fproj\r'
-bindkey -M emacs -s '^[D' 'fdev\r'
+#bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[t' 'frep\r'
 bindkey -M emacs -s '^[T' 'ftrack\r'
 bindkey -M emacs -s '^[v' 'fovpn\r'

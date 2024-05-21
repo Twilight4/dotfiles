@@ -52,12 +52,15 @@ export BAT_THEME="tokyonight_night"
 # FZF
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=header,grid {}'"
+export FZF_ALT_C_OPTS="--preview 'exa --tree --icons --group-directories-first --git-ignore --level 2 {} | head -n 100'"
+export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
 export LESSOPEN='| ~/.config/zsh/fzf-scripts/less-filter-fzf.sh %s'
-export ENHANCD_FILTER="fzf --reverse --preview 'exa --tree --group-directories-first --git-ignore --level 2 {}'"
+export ENHANCD_FILTER="fzf --preview 'exa --icons --tree --group-directories-first --git-ignore --level 2 {}'"
 export ENHANCD_DIR="$HOME/.config/.enhancd"
 export ENHANCD_HOOK_AFTER_CD="ls"
 export ENHANCD_HYPHEN_NUM="15"
-#export ENHANCD_USE_ABBREV="true"
+#export ENHANCD_USE_ABBREV="true"          # breaks the fzf preview
 
 # Colorize FZF
 FZF_COLORS="bg+:-1,\
@@ -86,8 +89,6 @@ export FZF_DEFAULT_OPTS="--height 60% \
 --no-separator --scrollbar="█" \
 --pointer ▶ \
 --marker '✚ '"
-export FZF_ALT_C_OPTS="--preview 'exa --tree --group-directories-first --git-ignore --level 2 {} | head -n 100'"
-export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
 
 # Man pages
 export LESS_TERMCAP_mb=$'\e[1;32m'

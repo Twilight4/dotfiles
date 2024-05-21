@@ -7,8 +7,7 @@
 # Search for a file (not hidden) and edit in $EDITOR
 ff() {
   file=$(find . -type f -not -path '*/\.*' -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
-      | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --preview 'bat --style=numbers --color=always --line-range :500 {}')
+      | fzf --query="$1" --no-multi --select-1 --exit-0 --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     eval "$EDITOR" "$file"
   fi
@@ -18,7 +17,7 @@ ff() {
 ffh() {
     local file
     local dir
-    file=$(fzf +m --reverse --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    file=$(fzf +m --reverse --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
     lsd -l --hyperlink=auto
 }
 
@@ -37,7 +36,7 @@ fzf-cd() {
 
 # Select file and output using bat
 fbat() {
-  file=$(find . -type f -not -path '*/\.*' -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" | fzf --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
+  file=$(find . -type f -not -path '*/\.*' -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" | fzf --query="$1" --no-multi --select-1 --exit-0 \
       --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     bat --style header --color always --style snip --style changes --style header "$file"
@@ -46,7 +45,7 @@ fbat() {
 
 # Copy file path to clipboard
 fccp() {
-  file=$(find ~ -type f | fzf --bind "ctrl-q:preview-down,alt-q:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up" --query="$1" --no-multi --select-1 --exit-0 \
+  file=$(find ~ -type f | fzf --query="$1" --no-multi --select-1 --exit-0 \
       --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
@@ -283,7 +282,7 @@ fgcom() {
         git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" |
             fzf --ansi --no-sort --reverse --tiebreak=index --preview \
                 'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 | delta ; }; f {}' \
-                --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,ctrl-m:execute:
+                --bind "ctrl-m:execute:
                     (grep -o '[a-f0-9]\{7\}' | head -1 |
                         xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
                                             {}
