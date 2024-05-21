@@ -56,7 +56,8 @@ export LESSOPEN='| ~/.config/zsh/fzf-scripts/less-filter-fzf.sh %s'
 export ENHANCD_FILTER="fzf --reverse --preview 'exa --tree --group-directories-first --git-ignore --level 2 {}'"
 export ENHANCD_DIR="$HOME/.config/.enhancd"
 export ENHANCD_HOOK_AFTER_CD="ls"
-export ENHANCD_USE_ABBREV="true"
+export ENHANCD_HYPHEN_NUM="15"
+#export ENHANCD_USE_ABBREV="true"
 
 # Colorize FZF
 FZF_COLORS="bg+:-1,\
@@ -74,11 +75,17 @@ hl+:red"
 
 export FZF_DEFAULT_OPTS="--height 60% \
 --border sharp \
+--multi \
+--no-mouse \
+--reverse \
+--margin=0,1 \
 --color='$FZF_COLORS' \
---prompt '∷ ' \
+--bind \"ctrl-d:preview-down,ctrl-u:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,ctrl-/:toggle-preview\" \
+--bind \"pgdn:preview-page-down,pgup:preview-page-up\" \
+--prompt '❯ ' \
 --pointer ▶ \
---marker ⇒"
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 10'"
+--marker \"✚ \""
+export FZF_ALT_C_OPTS="--preview 'exa --tree --group-directories-first --git-ignore --level 2 {} | head -n 100'"
 export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
 
 # Man pages
