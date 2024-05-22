@@ -6,8 +6,7 @@ kind=${mime##*/}
 if [ -d "$1" ]; then
   exa --icons --tree --group-directories-first --git-ignore --level 2 --color=always "$1"
 elif [ "$category" = image ]; then
-  chafa "$1"
-	#exiftool "$1"
+	exiftool "$1"
 elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
 	[ "$kind" = vnd.ms-excel ]; then
 	in2csv "$1" | xsv table | bat -ltsv --color=always
