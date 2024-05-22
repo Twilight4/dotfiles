@@ -16,4 +16,4 @@ keybinds=$(echo "$keybinds" | sed 's/$mainMod/SUPER/g' | sed 's/,\([^,]*\)$/ = \
 # -----------------------------------------------------
 # Show keybindings in rofi
 # -----------------------------------------------------
-rofi -dmenu -replace -p "Keybinds" -config ~/.config/rofi/configs/config-compact.rasi <<<"$keybinds"
+rofi -i -dmenu -replace -p "Keybinds" -config ~/.config/rofi/configs/config-compact.rasi <<<"$keybinds"

@@ -2,7 +2,7 @@
 
 # Theme Elements
 list_col='1'
-list_row='8' # Adjusted for the number of options
+list_row='8'
 
 # Options
 option_1=" Google"
@@ -32,6 +32,7 @@ rofi_cmd() {
     -theme-str "listview {columns: $list_col; lines: $list_row;}" \
 		-theme-str 'textbox-prompt-colon {str: " ";}' \
 		-dmenu \
+    -i \
     -replace \
 		-markup-rows \
     -config ~/.config/rofi/configs/config-compact.rasi
@@ -39,7 +40,7 @@ rofi_cmd() {
 
 # Function to get search query using Rofi
 get_search_query() {
-  echo -n | rofi -dmenu -p "Search Google:" -theme-str 'textbox-prompt-colon {str: " ";}' -config ~/.config/rofi/configs/config-prompt.rasi
+  echo -n | rofi -i -dmenu -p "Search Google:" -theme-str 'textbox-prompt-colon {str: " ";}' -config ~/.config/rofi/configs/config-prompt.rasi
 }
 
 # Pass variables to rofi dmenu
