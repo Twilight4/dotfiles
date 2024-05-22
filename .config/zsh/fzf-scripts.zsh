@@ -6,8 +6,8 @@
 
 # Search for a file (not hidden) and edit in $EDITOR
 ff() {
-  file=$(find . -type f -not -path '*/\.*' -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
-      | fzf --query="$1" --no-multi --select-1 --exit-0 --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+  file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
+      | fzf --query="$1" --no-multi --select-1 --exit-0 --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     eval "$EDITOR" "$file"
   fi
@@ -17,7 +17,7 @@ ff() {
 ffh() {
     local file
     local dir
-    file=$(fzf +m --reverse --preview "bat --style=numbers --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    file=$(fzf +m --reverse --preview "bat --style=snip --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
     lsd -l --hyperlink=auto
 }
 
@@ -37,16 +37,16 @@ fzf-cd() {
 # Select file and output using bat
 fbat() {
   file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+      --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
-    bat --style header --color always --style snip --style changes --style header "$file"
+    bat --color=always --style header,grid,changes "$file"
   fi
 }
 
 # Copy file path to clipboard
 fccp() {
   file=$(find ~ -type f | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}')
+      --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
     echo "$file copied to clipboard."
@@ -322,13 +322,13 @@ falias() {
 
 # List cheatsheets and edit
 fchtce() {
-    file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style header --style snip --style changes --style header --plain --language=help --color=always ~/.config/cheat/tools/{}') || return
+    file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --color=always ~/.config/cheat/tools/{}') || return
 	[ -n "$file" ] && command cheat --edit "$file"
 }
 
 # List org notes and edit
 fchtoe() {
-  file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap)
+  file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/{} | command bat --language=org --style=snip --color=always" --preview-window=right:50%:wrap)
 
   if [[ -n "$file" ]]; then
     eval $EDITOR ~/documents/org/roam/"$file"
@@ -346,7 +346,7 @@ frgo() {
     || rg --ignore-case --pretty --context 10 '$1' {}")
 
   if [[ -n "$selected_file" ]]; then
-    sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' "$selected_file" | command bat --language=org --style=plain --color=always
+    sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' "$selected_file" | command bat --language=org --style=snip --color=always
   fi
 
   popd &> /dev/null
@@ -371,19 +371,19 @@ frgoe() {
 
 # List cheatsheets and cat with preview
 fchtc() {
-  file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style header --style snip --style changes --style header --plain --language=help --color=always ~/.config/cheat/tools/{}') || return
-	[ -n "$file" ] && command cheat "$file" | bat --style header --style snip --style changes --style header --plain --language=help
+  file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --color=always ~/.config/cheat/tools/{}') || return
+	[ -n "$file" ] && command cheat "$file" | bat --style=snip --color=always --language=help
 }
 
 # List org notes and cat
 fchto() {
-  file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return
-	[ -n "$file" ] && command sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/"$file" | command bat --language=org --style=plain --color=always
+  file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/{} | command bat --language=org --style=snip --color=always" --preview-window=right:50%:wrap) || return
+	[ -n "$file" ] && command sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/"$file" | command bat --language=org --style=snip --color=always
 }
 
 # List specific org notes and edit
 fnp() {
-  file=$(find ~/documents/org/roam/nothing-personal/ -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/nothing-personal/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap)
+  file=$(find ~/documents/org/roam/nothing-personal/ -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/nothing-personal/{} | command bat --language=org --style=snip --color=always" --preview-window=right:50%:wrap)
 
   if [[ -n "$file" ]]; then
     eval $EDITOR ~/documents/org/roam/nothing-personal/"$file"
@@ -410,7 +410,7 @@ fproj() {
 
 # List current findings reports
 frep() {
-    result=$(find ~/documents/org/reports/ -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/reports/{} | command bat --language=org --style=plain --color=always" --preview-window=right:50%:wrap) || return
+    result=$(find ~/documents/org/reports/ -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/reports/{} | command bat --language=org --style=snip --color=always" --preview-window=right:50%:wrap) || return
 
     [ -n "$result" ] && eval "$EDITOR" ~/documents/org/reports/"$result"
 }

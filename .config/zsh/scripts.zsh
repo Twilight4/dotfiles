@@ -74,7 +74,7 @@ rmi() {
     echo "Usage: rmi <pattern>"
     echo "Example: rmi '*.mp4'"
   else
-    find . -type f ! -name "$1" -exec rm -vf {} +
+    find . -type f ! -name "$1" -exec trash -rfv {} +
   fi
 }
 
