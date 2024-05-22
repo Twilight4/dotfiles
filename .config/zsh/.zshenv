@@ -55,7 +55,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=snip --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'exa --tree --icons --group-directories-first --git-ignore --level 2 --color=always {} | head -n 100'"
 export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
-export LESSOPEN='| ~/.config/zsh/fzf-scripts/less-filter-fzf.sh %s'
+export LESSOPEN='|~/.config/zsh/fzf-scripts/less-filter %s'
 export ENHANCD_FILTER="fzf --preview 'exa --icons --tree --group-directories-first --git-ignore --level 2 --color=always {}'"
 export ENHANCD_DIR="$HOME/.config/.enhancd"
 export ENHANCD_HOOK_AFTER_CD="ls"
@@ -65,7 +65,7 @@ export ENHANCD_HYPHEN_NUM="15"
 # Colorize FZF
 FZF_COLORS="bg+:-1,\
 fg:gray,\
-fg+:#87afff,\
+fg+:cyan,\
 border:black,\
 spinner:0,\
 hl:yellow,\

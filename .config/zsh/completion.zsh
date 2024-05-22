@@ -135,18 +135,45 @@ zstyle ':completion:alias-expension:*' completer _expand_alias
 # Allow you to select in a menu
 zstyle ':completion:*' menu select
 
-# Use fzf-tab plugin instead of default menu
-zstyle ':completion:*' menu no
+# Completions
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}     # Colors for files and directory
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+#zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}     # Colors for files and directory
+
+# fzf-tab configuration
+# apply to all command minimum popup size
+#zstyle ':fzf-tab:*' popup-min-size 50 8
+# color when there is no group.
+zstyle ':fzf-tab:*' default-color $'\033[0m'
+# show systemd unit status
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+# environment variable
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	fzf-preview 'echo ${(P)word}'
+# tldr
+zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $word'
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+# use fzf-tab with an allowlist commands
+zstyle ':fzf-tab:complete:<command in denylist>:*' disabled-on any
 
 # Autocomplete options for cd instead of directory stack
 zstyle ':completion:*' complete-options true
 
 zstyle ':completion:*' file-sort modification
 
-# Must be off when uzing fzf-tab
+# Must be off when using fzf-tab
 #zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
 #zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %D %d --%f'
 #zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
