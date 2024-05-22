@@ -457,10 +457,10 @@ frg() {
 }
 
 # Find in file using ripgrep-all
-fifa() {
+frga() {
     if [ ! "$#" -gt 0 ]; then return 1; fi
     local file
-    file="$(rga --max-count=1 --ignore-case --files-with-matches --no-messages "$*" \
-        | fzf-tmux -p +m --preview="rga --ignore-case --pretty --context 10 '"$*"' {}")" \
+    file="$(rg --hidden -i --max-count=1 --ignore-case --files-with-matches --no-messages "$*" \
+        | fzf-tmux -p +m --preview="rg --hidden -i --ignore-case --pretty --context 10 '"$*"' {}")" \
         && print -z "./$file" || return 1;
 }
