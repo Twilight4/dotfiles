@@ -114,7 +114,7 @@ fcp() {
 
         SOURCES=$(find . -maxdepth 1 | fzf --multi)
         # We use xargs to capture filenames with spaces in them properly
-        echo "$SOURCES" | xargs -I '{}' xcp -r -v {} '/'$TARGET'/'
+        echo "$SOURCES" | xargs -I '{}' xcp -r -v {} $TARGET
     else
         echo "There's error happened for some reason. Files not copied. Do you have xcp installed?"
     fi

@@ -25,6 +25,7 @@ option_17=" TCM Academy"
 option_18=" OffSec"
 option_19="󰚌 Root Me"
 option_20=" PWNX"
+option_21="󰖟 IppSec Search"
 
 # Rofi CMD
 rofi_cmd() {
@@ -45,7 +46,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21" | rofi_cmd
 }
 
 # Execute Command
@@ -155,6 +156,9 @@ run_cmd() {
     --opt20)
       xdg-open 'https://www.pwnx.io' &
       ;;
+    --opt21)
+      xdg-open 'https://ippsec.rocks/?#' &
+      ;;
     *)
       ;;
   esac
@@ -222,5 +226,8 @@ case "${chosen}" in
     ;;
   $option_20)
     run_cmd --opt20
+    ;;
+  $option_21)
+    run_cmd --opt21
     ;;
 esac
