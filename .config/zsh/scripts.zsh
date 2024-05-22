@@ -68,6 +68,26 @@ diffd() {
   command diff -r -u "$@" | delta --features side-by-side
 }
 
+# rm with exclude (ignore)
+rmi() {
+  if [ -z "$1" ]; then
+    echo "Usage: rmi <pattern>"
+    echo "Example: rmi '*.mp4'"
+  else
+    find . -type f ! -name "$1" -exec rm -vf {} +
+  fi
+}
+
+# rm with exclude (ignore)
+mvi() {
+  if [ -z "$1" ]; then
+    echo "Usage: mvi <pattern> <destination>"
+    echo "Example: mvi '*.mp4' /path/to/destination"
+  else
+    find . -type f ! -name "$1" -exec mv -t "$2" {} +
+  fi
+}
+
 # Display width / height of an image
 imgsize() {
     local width=$(identify -format "%w" "$1")> /dev/null
