@@ -97,7 +97,7 @@ bindkey -M emacs -s '^[I' 'fimg\r'
 bindkey -M emacs -s '^[i' 'fbat\r'
 # Change directory
 #bindkey -M emacs -s "^[^M" 'cd\r'    # alt+return / ctrl+alt+m
-bindkey -M emacs -s "^L" 'cd\r'
+bindkey -M emacs -s "^G" 'cd\r'
 bindkey -M emacs -s '^[\' '\\cd ..\r'
 bindkey -M emacs -s '^\' 'cd -\r'
 #bindkey -M emacs -s '^[z'
@@ -199,7 +199,7 @@ cancel-or-clear() {
     fi
 }
 zle -N cancel-or-clear
-bindkey '^G' cancel-or-clear
+bindkey '^L' cancel-or-clear
 
 # Toggle selection mode
 toggle-selection-mode() {

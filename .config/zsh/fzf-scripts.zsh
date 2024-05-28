@@ -89,7 +89,7 @@ fmv() {
 
         SOURCES=$(find . -maxdepth 1 | fzf --multi)
         # We use xargs to capture filenames with spaces in them properly
-        echo "$SOURCES" | xargs -I '{}' mv -v {} '/'$TARGET'/'
+        echo "$SOURCES" | xargs -I '{}' mv -v {} $TARGET
     else
         echo "There's error happened for some reason. Files not moved."
     fi
