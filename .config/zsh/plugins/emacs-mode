@@ -99,7 +99,7 @@ bindkey -M emacs -s '^[i' 'fbat\r'
 # Change directory
 #bindkey -M emacs -s "^[^M" 'cd\r'    # alt+return / ctrl+alt+m
 #bindkey -M emacs -s "^G" 'cd\r'
-bindkey -M emacs -s '^[\' '\\cd ..\r'
+bindkey -M emacs -s '^[\' '\\cd ..; ls\r'
 bindkey -M emacs -s '^\' 'cd -\r'
 #bindkey -M emacs -s '^[z'
 #bindkey -M emacs -s '^[;'
