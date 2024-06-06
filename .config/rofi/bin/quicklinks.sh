@@ -20,14 +20,15 @@ option_12="󰒚 OLX"
 option_13=" Helion"
 option_14=" HackTheBox Labs"
 option_15=" HackTheBox Academy"
-option_16=" TryHackMe"
+option_16=" TryHackMe"
 option_17=" TCM Academy"
 option_18=" OffSec"
 option_19="󰚌 Root Me"
-option_20=" PWNX"
+option_20=" PWNX"
 option_21="󰖟 IppSec Search"
 option_22="󰁰 Bank"
 option_23=" HackTricks"
+option_24=" PwnedLabs"
 
 # Rofi CMD
 rofi_cmd() {
@@ -48,7 +49,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24" | rofi_cmd
 }
 
 # Execute Command
@@ -243,5 +244,8 @@ case "${chosen}" in
     ;;
   $option_23)
     run_cmd --opt23
+    ;;
+  $option_24)
+    run_cmd --opt24
     ;;
 esac
