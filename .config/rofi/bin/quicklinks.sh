@@ -168,6 +168,9 @@ run_cmd() {
     --opt23)
       xdg-open 'https://book.hacktricks.xyz' &
       ;;
+    --opt24)
+      xdg-open 'https://pwnedlabs.io/dashboard' &
+      ;;
     *)
       ;;
   esac
