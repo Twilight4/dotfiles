@@ -3271,11 +3271,15 @@ this with to-do items than with projects or headings."
     ("l" "Logbook Entry")
 	  ("le" "Log Quick Entry" plain
      (file "~/documents/org/templates/logbook/log-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Technical Findings"))
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
+     :unnarrowed t)
+	  ("ln" "New Logbook" plain
+     (file "~/documents/org/templates/logbook/new-logbook.org")
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
      :unnarrowed t)
 	  ("lf" "Log Full Entry" plain
      (file "~/documents/org/templates/logbook/log-full-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Technical Findings"))
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
      :unnarrowed t)))
 #+end_src
 
