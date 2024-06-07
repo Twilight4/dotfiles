@@ -454,8 +454,6 @@
 	(tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
     "a o" '(tl/org-agenda-o :wk "Agenda overview")
-    "a i" '(tl/org-agenda-i :wk "Agenda IPT workflow")
-    "a S" '(tl/org-agenda-S :wk "Agenda Sabotage workflow")
     "a t" '(tl/org-agenda-t :wk "Agenda today")
     "a e" '(tl/org-agenda-e :wk "Agenda by low efforts")
     "a f" '(org-gtd-review-area-of-focus :wk "Area of focus"))
@@ -2809,14 +2807,6 @@ Automatically save the buffer to /tmp/ and load the last saved version if it exi
      ("@Purchase" . ?u)
      ("@Read" . ?R)
      ("@Trivial" . ?t)
-     ;; Workflow tags
-     ("@Pre_Engagement" . ?q)
-     ("@Open_Source_Intelligence" . ?o)
-	   ("@Weaponization" . ?A)
-     ("@AD_Exploitation" . ?E)
-     ("@AD_Internal_Enumeration" . ?n)
-     ("@AD_Post_Exploitation" . ?P)
-     ("@AD_Post_Domain_Compromise" . ?D)
      (:endgroup)
 ))
 #+end_src
@@ -2994,18 +2984,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
   (interactive)
   (org-agenda nil "o"))
 
-(defun tl/org-agenda-i ()
-  "Run org agenda command 'w' with a specific agenda file."
-  (interactive)
-  (let ((org-agenda-files '("~/documents/org/agenda/ipt_workflow.org")))
-    (org-agenda nil "i")))
-
-(defun tl/org-agenda-S ()
-  "Run org agenda command 'w' with a specific agenda file."
-  (interactive)
-  (let ((org-agenda-files '("~/documents/org/agenda/sabotage_workflow.org")))
-    (org-agenda nil "S")))
-
 (setq org-agenda-custom-commands
       '(("o" "Overview"
          ((agenda "" ((org-agenda-span 'day)
@@ -3084,50 +3062,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                 (org-agenda-overriding-header "Low Effort Tasks")
                 (org-agenda-max-todos 20)
                 (org-agenda-files org-agenda-files))))
-
-
-(add-to-list 'org-agenda-custom-commands
-      '("i" "IPT Workflow"
-        ((alltodo "" ((org-agenda-overriding-header "")
-                      (org-super-agenda-groups
-                       '((:name " Pre-Engagement"
-                          :tag "@Pre_Engagement"
-                          :order 1)
-                         (:name "󰚌 AD Exploitation"
-                          :tag "@AD_Exploitation"
-                          :order 2)
-                         (:name "󰈈 AD Internal Enumeration"
-                          :tag "@AD_Internal_Enumeration"
-                          :order 3)
-                         (:name " AD Post Exploitation"
-                          :tag "@AD_Post_Exploitation"
-                          :order 4)
-                         (:name " Post Domain Compromise"
-                          :tag "@AD_Post_Domain_Compromise"
-                          :order 5))))))))
-
-(add-to-list 'org-agenda-custom-commands
-      '("S" "Sabotage Workflow"
-        ((alltodo "" ((org-agenda-overriding-header "")
-                      (org-super-agenda-groups
-                       '((:name " Pre-Engagement"
-                          :tag "@Pre_Engagement"
-                          :order 1)
-                         (:name "󰖟 Open-Source Intelligence"
-                          :tag "@Open_Source_Intelligence"
-                          :order 2)
-                         (:name "󰄻 Weaponization"
-                          :tag "@Weaponization"
-                          :order 3)
-                         (:name "󰚌 Initial Foothold"
-                          :tag "@AD_Exploitation"
-                          :order 4)
-                         (:name " Host Post Exploitation"
-                          :tag "@AD_Post_Exploitation"
-                          :order 5)
-                         (:name " Action on Objectives"
-                          :tag "@AD_Post_Domain_Compromise"
-                          :order 6))))))))
 #+end_src
 
 *** Org-agenda
@@ -3242,31 +3176,6 @@ this with to-do items than with projects or headings."
     ("rw" "Wireless Findings Report" plain
      (file "~/documents/org/templates/reports/wir-report.org")
      :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
-     :unnarrowed t)
-    ("w" "Workflow Templates")
-    ("wi" "Internal Pentest" plain
-     (file "~/documents/org/templates/workflows/ipt-workflow.org")
-     :if-new (file "~/documents/org/agenda/ipt_workflow.org")
-     :unnarrowed t)
-    ("we" "External Pentest" plain
-     (file "~/documents/org/templates/workflows/ept-workflow.org")
-     :if-new (file "~/documents/org/agenda/ept_workflow.org")
-     :unnarrowed t)
-    ("wr" "Red Team Engagement" entry
-     (file "~/documents/org/templates/workflows/red-team-workflow.org")
-     :if-new (file "~/documents/org/agenda/red-team_workflow.org")
-     :unnarrowed t)
-    ("wS" "Sabotage Delivery Service" entry
-     (file "~/documents/org/templates/workflows/sabotage-workflow.org")
-     :if-new (file "~/documents/org/agenda/sabotage_workflow.org")
-     :unnarrowed t)
-    ("ws" "Social Engineering Pentest" entry
-     (file "~/documents/org/templates/workflows/se-workflow.org")
-     :if-new (file "~/documents/org/agenda/se_workflow.org")
-     :unnarrowed t)
-    ("ww" "Wireless Pentest" entry
-     (file "~/documents/org/templates/workflows/wireless-workflow.org")
-     :if-new (file "~/documents/org/agenda/wireless_workflow.org")
      :unnarrowed t)
     ("l" "Logbook Entry")
 	  ("ln" "New Logbook" plain
