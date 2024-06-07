@@ -2219,8 +2219,7 @@ While =org-hide-emphasis-markers= is very nice, it can sometimes make edits whic
  :hook (org-mode . org-appear-mode)
  :config
  (setq org-appear-autoemphasis t
-       org-appear-autosubmarkers t
-       org-appear-autolinks t)
+       org-appear-autosubmarkers t)
  (run-at-time nil nil #'org-appear--set-elements))
 #+end_src
 
@@ -3176,6 +3175,19 @@ this with to-do items than with projects or headings."
     ("rw" "Wireless Findings Report" plain
      (file "~/documents/org/templates/reports/wir-report.org")
      :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
+     :unnarrowed t)
+    ("c" "Checklist")
+	  ("ci" "Internal Pentest Checklist" plain
+     (file "~/documents/org/templates/checklists/ipt_checklist.org")
+     :if-new (file "~/documents/org/reports/ipt_checklist.org")
+     :unnarrowed t)
+	  ("ce" "External Pentest Checklist" plain
+     (file "~/documents/org/templates/checklists/ept_checklist.org")
+     :if-new (file "~/documents/org/reports/ept_checklist.org")
+     :unnarrowed t)
+	  ("cs" "SDS Checklist" plain
+     (file "~/documents/org/templates/checklists/sds_checklist.org")
+     :if-new (file "~/documents/org/reports/sds_checklist.org")
      :unnarrowed t)
     ("l" "Logbook Entry")
 	  ("ln" "New Logbook" plain
