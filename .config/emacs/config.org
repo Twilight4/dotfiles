@@ -3269,12 +3269,12 @@ this with to-do items than with projects or headings."
      :if-new (file "~/documents/org/agenda/wireless_workflow.org")
      :unnarrowed t)
     ("l" "Logbook Entry")
-	  ("le" "Log Quick Entry" plain
-     (file "~/documents/org/templates/logbook/log-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
-     :unnarrowed t)
 	  ("ln" "New Logbook" plain
      (file "~/documents/org/templates/logbook/new-logbook.org")
+     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
+     :unnarrowed t)
+	  ("le" "Log Quick Entry" plain
+     (file "~/documents/org/templates/logbook/log-entry.org")
      :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
      :unnarrowed t)
 	  ("lf" "Log Full Entry" plain
