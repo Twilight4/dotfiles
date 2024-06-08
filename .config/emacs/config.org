@@ -3193,32 +3193,30 @@ this with to-do items than with projects or headings."
      (file "~/documents/org/templates/checklists/sds_checklist.org")
      :if-new (file "~/documents/org/reports/sds_${slug}_checklist.org")
      :unnarrowed t)))
-	 ; ("of" "Log Full Entry" plain
-  ;   (file "~/documents/org/templates/logbook/log-full-entry.org")
-  ;   :target (file+olp "~/documents/org/reports/logbook-2.org" ("Logbook"))
-  ;   :unnarrowed t)))
 
-;; paste logbook entries
-;(defun insert-snippet ()
-;  (interactive)
-;  (insert-file-contents "/home/twilight/documents/org/templates/logbook/log-entry.org"))
-;
-;(global-set-key (kbd "C-x l") 'insert-snippet)
-
-(defun tl/log-quick-entry ()
+;; Logbook entry snippet
+(defun tl/log-entry ()
   (interactive)
   (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
     (end-of-line)
-    (insert-file-contents "$HOME/documents/org/templates/logbook/log-quick-entry.org")
+    (insert-file-contents "~/documents/org/templates/entry-snippets/log-entry.org")
     (next-line)
     (insert "#+DATE: " current-date-time "\n")
-    (previous-line)
-    (previous-line)))
+    (beginning-of-buffer)))
 
-(global-set-key (kbd "C-x l") 'tl/log-quick-entry)
+(global-set-key (kbd "C-x l") 'tl/log-entry)
 
+;; Report entry snippet
+(defun tl/report-entry ()
+  (interactive)
+  (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
+    (end-of-line)
+    (insert-file-contents "~/documents/org/templates/entry-snippets/report-entry.org")
+    (next-line)
+    (insert "#+DATE: " current-date-time "\n")
+    (beginning-of-buffer)))
 
-;tl/insert-todays-date
+(global-set-key (kbd "C-x k") 'tl/report-entry)
 #+end_src
 
 *** Org-roam-dailies
