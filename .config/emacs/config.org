@@ -3159,6 +3159,10 @@ this with to-do items than with projects or headings."
   '(("d" "default" plain "%?"
       :target (file+head "${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
+	  ("l" "Logbook Template" plain
+     (file "~/documents/org/templates/logbook/new-logbook.org")
+     :if-new (file "~/documents/org/reports/${slug}_logbook.org")
+     :unnarrowed t)
     ("r" "Report Templates")
     ("ri" "Internal Pentest Findings Report" plain
      (file "~/documents/org/templates/reports/ipt-report.org")
@@ -3188,29 +3192,7 @@ this with to-do items than with projects or headings."
 	  ("cs" "SDS Checklist" plain
      (file "~/documents/org/templates/checklists/sds_checklist.org")
      :if-new (file "~/documents/org/reports/sds_${slug}_checklist.org")
-     :unnarrowed t)
-    ("l" "Logbook-1 Entry")
-	  ("ln" "New Logbook" plain
-     (file "~/documents/org/templates/logbook/new-logbook.org")
-     :target (file+olp "~/documents/org/reports/logbook-1.org" ("Logbook"))
-     :unnarrowed t)
-;	  ("le" "Log Quick Entry" plain
-;     (file "~/documents/org/templates/logbook/log-entry.org")
-;     :target (file+olp "~/documents/org/reports/logbook-1.org" ("Logbook"))
-;     :unnarrowed t)
-;	  ("lf" "Log Full Entry" plain
-;     (file "~/documents/org/templates/logbook/log-full-entry.org")
-;     :target (file+olp "~/documents/org/reports/logbook-1.org" ("Logbook"))
-;     :unnarrowed t)
-    ("o" "Logbook-2 Entry")
-	  ("on" "New Logbook" plain
-     (file "~/documents/org/templates/logbook/new-logbook.org")
-     :target (file+olp "~/documents/org/reports/logbook-2.org" ("Logbook"))
      :unnarrowed t)))
-	 ; ("oe" "Log Quick Entry" plain
-  ;   (file "~/documents/org/templates/logbook/log-entry.org")
-  ;   :target (file+olp "~/documents/org/reports/logbook-2.org" ("Logbook"))
-  ;   :unnarrowed t)
 	 ; ("of" "Log Full Entry" plain
   ;   (file "~/documents/org/templates/logbook/log-full-entry.org")
   ;   :target (file+olp "~/documents/org/reports/logbook-2.org" ("Logbook"))
@@ -3227,7 +3209,7 @@ this with to-do items than with projects or headings."
   (interactive)
   (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
     (end-of-line)
-    (insert-file-contents "$HOME/documents/org/templates/logbook/log-entry.org")
+    (insert-file-contents "$HOME/documents/org/templates/logbook/log-quick-entry.org")
     (next-line)
     (insert "#+DATE: " current-date-time "\n")
     (previous-line)
