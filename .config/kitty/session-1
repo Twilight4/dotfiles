@@ -10,16 +10,14 @@ launch --title scans sh -c "result=$(find ~/desktop/projects/* -type d -prune -e
 #launch --title project sh -c "lsd -l --hyperlink=auto && exec zsh"
 
 # Create a new tab for cheat
-new_tab fcht/nobility
+new_tab nobility
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window window (title sets the tab title)
-launch --title fcht sh -c "exec zsh"
-# Create a second window window (title sets the tab title)
 cd ~/desktop/workspace/nobility/modules/
-launch --title nobility sh -c "lsd -l --hyperlink=auto; exec zsh"
+launch --title nobility sh -c "exec zsh"
 
 # Create a new tab
 new_tab empire
