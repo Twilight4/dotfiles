@@ -3162,46 +3162,81 @@ this with to-do items than with projects or headings."
     ("r" "Report Templates")
     ("ri" "Internal Pentest Findings Report" plain
      (file "~/documents/org/templates/reports/ipt-report.org")
-     :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
+     :if-new (file+head "~/documents/org/reports/ipt_${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
     ("re" "External Pentest Findings Report" plain
      (file "~/documents/org/templates/reports/ept-report.org")
-     :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
+     :if-new (file+head "~/documents/org/reports/ept_${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
     ("rs" "SE Findings Report" plain
      (file "~/documents/org/templates/reports/se-report.org")
-     :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
+     :if-new (file+head "~/documents/org/reports/se_${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
     ("rw" "Wireless Findings Report" plain
      (file "~/documents/org/templates/reports/wir-report.org")
-     :if-new (file+head "~/documents/org/reports/${slug}_report.org" "#+title: ${title}\n")
+     :if-new (file+head "~/documents/org/reports/wir_${slug}_report.org" "#+title: ${title}\n")
      :unnarrowed t)
-    ("c" "Checklist")
+    ("c" "Checklist Templates")
 	  ("ci" "Internal Pentest Checklist" plain
      (file "~/documents/org/templates/checklists/ipt_checklist.org")
-     :if-new (file "~/documents/org/reports/ipt_checklist.org")
+     :if-new (file "~/documents/org/reports/ipt_${slug}_checklist.org")
      :unnarrowed t)
 	  ("ce" "External Pentest Checklist" plain
      (file "~/documents/org/templates/checklists/ept_checklist.org")
-     :if-new (file "~/documents/org/reports/ept_checklist.org")
+     :if-new (file "~/documents/org/reports/ept_${slug}_checklist.org")
      :unnarrowed t)
 	  ("cs" "SDS Checklist" plain
      (file "~/documents/org/templates/checklists/sds_checklist.org")
-     :if-new (file "~/documents/org/reports/sds_checklist.org")
+     :if-new (file "~/documents/org/reports/sds_${slug}_checklist.org")
      :unnarrowed t)
-    ("l" "Logbook Entry")
+    ("l" "Logbook-1 Entry")
 	  ("ln" "New Logbook" plain
      (file "~/documents/org/templates/logbook/new-logbook.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
+     :target (file+olp "~/documents/org/reports/logbook-1.org" ("Logbook"))
      :unnarrowed t)
-	  ("le" "Log Quick Entry" plain
-     (file "~/documents/org/templates/logbook/log-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
-     :unnarrowed t)
-	  ("lf" "Log Full Entry" plain
-     (file "~/documents/org/templates/logbook/log-full-entry.org")
-     :if-new (file+olp "~/documents/org/reports/${slug}_logbook.org" ("Logbook"))
+;	  ("le" "Log Quick Entry" plain
+;     (file "~/documents/org/templates/logbook/log-entry.org")
+;     :target (file+olp "~/documents/org/reports/logbook-1.org" ("Logbook"))
+;     :unnarrowed t)
+;	  ("lf" "Log Full Entry" plain
+;     (file "~/documents/org/templates/logbook/log-full-entry.org")
+;     :target (file+olp "~/documents/org/reports/logbook-1.org" ("Logbook"))
+;     :unnarrowed t)
+    ("o" "Logbook-2 Entry")
+	  ("on" "New Logbook" plain
+     (file "~/documents/org/templates/logbook/new-logbook.org")
+     :target (file+olp "~/documents/org/reports/logbook-2.org" ("Logbook"))
      :unnarrowed t)))
+	 ; ("oe" "Log Quick Entry" plain
+  ;   (file "~/documents/org/templates/logbook/log-entry.org")
+  ;   :target (file+olp "~/documents/org/reports/logbook-2.org" ("Logbook"))
+  ;   :unnarrowed t)
+	 ; ("of" "Log Full Entry" plain
+  ;   (file "~/documents/org/templates/logbook/log-full-entry.org")
+  ;   :target (file+olp "~/documents/org/reports/logbook-2.org" ("Logbook"))
+  ;   :unnarrowed t)))
+
+;; paste logbook entries
+;(defun insert-snippet ()
+;  (interactive)
+;  (insert-file-contents "/home/twilight/documents/org/templates/logbook/log-entry.org"))
+;
+;(global-set-key (kbd "C-x l") 'insert-snippet)
+
+(defun tl/log-quick-entry ()
+  (interactive)
+  (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
+    (end-of-line)
+    (insert-file-contents "$HOME/documents/org/templates/logbook/log-entry.org")
+    (next-line)
+    (insert "#+DATE: " current-date-time "\n")
+    (previous-line)
+    (previous-line)))
+
+(global-set-key (kbd "C-x l") 'tl/log-quick-entry)
+
+
+;tl/insert-todays-date
 #+end_src
 
 *** Org-roam-dailies
