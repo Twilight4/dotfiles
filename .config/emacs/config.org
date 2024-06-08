@@ -3202,7 +3202,8 @@ this with to-do items than with projects or headings."
     (insert-file-contents "~/documents/org/templates/entry-snippets/log-entry.org")
     (next-line)
     (insert "#+DATE: " current-date-time "\n")
-    (beginning-of-buffer)))
+    (beginning-of-buffer)
+    (org-end-of-line)))
 
 (global-set-key (kbd "C-x l") 'tl/log-entry)
 
@@ -3214,7 +3215,8 @@ this with to-do items than with projects or headings."
     (insert-file-contents "~/documents/org/templates/entry-snippets/report-entry.org")
     (next-line)
     (insert "#+DATE: " current-date-time "\n")
-    (beginning-of-buffer)))
+    (beginning-of-buffer)
+    (org-end-of-line)))
 
 (global-set-key (kbd "C-x k") 'tl/report-entry)
 #+end_src
