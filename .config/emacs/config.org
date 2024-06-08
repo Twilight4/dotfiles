@@ -331,7 +331,7 @@
   (define-key treemacs-mode-map (kbd "h") 'treemacs-root-up)
   (define-key treemacs-mode-map (kbd "l") 'treemacs-root-down)
   (define-key treemacs-mode-map (kbd "u") 'treemacs-goto-parent-node)
-  (define-key treemacs-mode-map (kbd "H") 'treemacs-collapse-parent-node)
+  ;(define-key treemacs-mode-map (kbd "H") 'treemacs-collapse-parent-node)
   (define-key treemacs-mode-map (kbd "M-j") 'treemacs-next-neighbour)
   (define-key treemacs-mode-map (kbd "M-k") 'treemacs-previous-neighbour)
   (define-key treemacs-mode-map (kbd "M-p") 'treemacs-move-project-up)
@@ -341,22 +341,23 @@
   (define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
   (define-key treemacs-mode-map (kbd "=") 'treemacs-fit-window-width)
   (define-key treemacs-mode-map (kbd "W") 'treemacs-extra-wide-toggle)
-  (define-key treemacs-mode-map (kbd "<") 'treemacs-decrement-width)
-  (define-key treemacs-mode-map (kbd ">") 'treemacs-increment-width)
+  (define-key treemacs-mode-map (kbd "<") 'treemacs-decrease-width)
+  (define-key treemacs-mode-map (kbd ">") 'treemacs-increase-width)
   (define-key treemacs-mode-map (kbd "g") 'treemacs-refresh)
   (define-key treemacs-mode-map (kbd "d") 'treemacs-delete-file)
   (define-key treemacs-mode-map (kbd "r") 'treemacs-rename-file)
-  (define-key treemacs-mode-map (kbd "cf") 'treemacs-create-file)
-  (define-key treemacs-mode-map (kbd "cd") 'treemacs-create-dir)
+  (define-key treemacs-mode-map (kbd "m") 'treemacs-move-file)
+  (define-key treemacs-mode-map (kbd "nf") 'treemacs-create-file)
+  (define-key treemacs-mode-map (kbd "nd") 'treemacs-create-dir)
   (define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
   (define-key treemacs-mode-map (kbd "Q") 'treemacs-kill-buffer)
   (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
-  (define-key treemacs-mode-map (kbd "m") 'treemacs-move-file)
   (define-key treemacs-mode-map (kbd "s") 'treemacs-resort)
   (define-key treemacs-mode-map (kbd "b") 'treemacs-add-bookmark)
   (define-key treemacs-mode-map (kbd "\\!") 'treemacs-run-shell-command-for-current-node)
   (define-key treemacs-mode-map (kbd "M-!") 'treemacs-run-shell-command-in-project-root)
   (define-key treemacs-mode-map (kbd "C") 'treemacs-cleanup-litter)
+  (define-key treemacs-mode-map (kbd "RET") 'treemacs-visit-node-no-split)
 
   ;; Copy Keybinds
   (define-key treemacs-mode-map (kbd "ya") 'treemacs-copy-absolute-path-at-point)
@@ -372,10 +373,6 @@
   (define-key treemacs-mode-map (kbd "ta") 'treemacs-filewatch-mode)
   (define-key treemacs-mode-map (kbd "tv") 'treemacs-fringe-indicator-mode)
   (define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
-
-  ;; Node Visit Keybinds
-  (define-key treemacs-mode-map (kbd "RET") 'treemacs-visit-node-no-split) 
-  (define-key treemacs-mode-map (kbd "oc") 'treemacs-visit-node-close-treemacs)
 
   ;; Project Keybinds
   (define-key treemacs-mode-map (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
