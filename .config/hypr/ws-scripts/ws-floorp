@@ -5,9 +5,15 @@ is_floorp_running() {
     pgrep -x "floorp" >/dev/null
 }
 
+is_brave_running() {
+    pgrep -x "brave" >/dev/null
+}
+
 # Check if any instance of 'floorp' is running then focus it, otherwise open it
 if is_floorp_running; then
     hyprctl dispatch focuswindow 'floorp'
+elif is_brave_running; then
+    hyprctl dispatch focuswindow 'Brave-browser'
 else
     hyprctl dispatch exec 'floorp -P default-default'
 fi
