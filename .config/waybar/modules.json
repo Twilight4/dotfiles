@@ -85,6 +85,13 @@
         "tooltip": false
     },
 
+    // GNOME Authenticator Launcher
+    "custom/authenticator": {
+        "format": "<span font='17'>󰦯</span> <span font='16'></span>",
+        "on-click": "flatpak run com.belmoussaoui.Authenticator",
+        "tooltip": false
+    },
+
     // PVPN Launcher
     "custom/pvpn": {
         "format": "<span font='16'></span> <span font='16'></span>",
