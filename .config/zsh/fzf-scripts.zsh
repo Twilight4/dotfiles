@@ -71,8 +71,8 @@ fimg() {
 frm() {
     local SOURCES
     if [[ "$#" -eq 0 ]]; then
-        # prompt user interactively to select multiple files with tab + fuzzy search
-        SOURCES=$(find . -maxdepth 1 | fzf --multi)
+        # prompt user interactively to select multiple files or directories with tab + fuzzy search
+        SOURCES=$(find . -maxdepth 1 -printf "%P\n" | fzf --multi)
         # we use xargs to capture filenames with spaces in them properly
         echo "$SOURCES" | xargs -I '{}' trash -rfv {}
     else
@@ -97,9 +97,10 @@ fmv() {
             TARGET=~/$TARGET
         fi
 
-        SOURCES=$(find . -maxdepth 1 | fzf --multi)
+        # Include both files and directories
+        SOURCES=$(find . -maxdepth 1 -printf "%P\n" | fzf --multi)
         # We use xargs to capture filenames with spaces in them properly
-        echo "$SOURCES" | xargs -I '{}' mv -v {} $TARGET
+        echo "$SOURCES" | xargs -I '{}' mv -v {} "$TARGET"
     else
         echo "There's error happened for some reason. Files not moved."
     fi
@@ -122,9 +123,10 @@ fcp() {
             TARGET=~/$TARGET
         fi
 
-        SOURCES=$(find . -maxdepth 1 | fzf --multi)
+        # Include both files and directories
+        SOURCES=$(find . -maxdepth 1 -printf "%P\n" | fzf --multi)
         # We use xargs to capture filenames with spaces in them properly
-        echo "$SOURCES" | xargs -I '{}' xcp -r -v {} $TARGET
+        echo "$SOURCES" | xargs -I '{}' xcp -r -v {} "$TARGET"
     else
         echo "There's error happened for some reason. Files not copied. Do you have xcp installed?"
     fi
