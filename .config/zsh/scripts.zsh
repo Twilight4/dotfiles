@@ -23,6 +23,11 @@ mac() {
   ip a | grep ether | awk '{print $2}'
 }
 
+# zoxide
+j() {
+    z "$@" && lsd -l --hyperlink=auto
+}
+
 # Nmap grepping: nmap-services <output-scan.gnmap>
 nmap-services() {
   local file="$1"
