@@ -9,15 +9,8 @@
 > Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility and customize responsibly to ensure a stable and secure computing environment before running `install.sh` script. Use at your own risk.
 
 ```bash
-# First boot of Garuda Linux
-sudo pacman -Sy archlinux-keyring 
-sudo pacman-key --init
-sudo pacman-key --populate
-sudo pacman -Syy
-garuda-update
-
 # Clone the repository
-git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/
+git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/dotfiles
 
 # Run install-tweaks.sh script as root (system-wide changes)
 su
