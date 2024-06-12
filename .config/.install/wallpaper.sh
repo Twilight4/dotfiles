@@ -41,3 +41,8 @@ echo ""
 # ------------------------------------------------------
 cp .config/wallpapers/default.jpg ~/.cache/current_wallpaper.jpg
 echo ""
+
+# GTK Themes for flatpak
+sudo flatpak override --filesystem=$HOME/.config/.local/share/themes
+sudo flatpak override --filesystem=$HOME/.config/.local/share/icons
+sudo flatpak override --filesystem=xdg-config/gtk-4.0
