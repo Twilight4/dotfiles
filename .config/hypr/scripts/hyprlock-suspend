@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+hyprlock&
+sleep 0.4
+systemctl suspend
