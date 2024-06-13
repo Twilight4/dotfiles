@@ -405,19 +405,19 @@ fnp() {
 # List workspace git repos
 fwork() {
     result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/desktop/workspace/$result
+    [ -n "$result" ] && cd ~/desktop/workspace/$result ; lsd -l --hyperlink=auto
 }
 
 # List connected external devices
 fdev() {
     result=$(find /run/media/$USER/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/run/media/$USER/$result
+    [ -n "$result" ] && cd ~/run/media/$USER/$result ; lsd -l --hyperlink=auto
 }
 
 # List projects
 fproj() {
     result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/desktop/projects/$result
+    [ -n "$result" ] && cd ~/desktop/projects/$result ; lsd -l --hyperlink=auto
 }
 
 # List current findings reports
