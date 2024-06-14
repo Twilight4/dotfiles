@@ -2143,7 +2143,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
     (visual-fill-column-mode 1))
 
 (defun tl/visual-fill-column ()
-  (setq visual-fill-column-width 130
+  (setq visual-fill-column-width 150         ;; check 130/150
         visual-fill-column-center-text t)
     (visual-fill-column-mode 1))
   
