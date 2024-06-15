@@ -429,8 +429,8 @@ frep() {
 
 # List pdfs
 fpdf() {
-    result=$(find ~ -type f -not -path '*/\.*' -name '*.pdf' | fzf --bind "ctrl-r:reload(find -type f -name '*.pdf')" --preview "pdftotext {} - | less")
-    [ -n "$result" ] && zathura "$result" &
+    file=$(find ~/documents/pdfs/* -type f -name '*.pdf' -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2) || return
+    [ -n "$file" ] && zathura "$HOME"/documents/pdfs/"$file" &
 }
 
 # List vpn files
