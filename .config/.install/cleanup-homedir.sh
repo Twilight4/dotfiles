@@ -18,8 +18,9 @@ rm -rf .config/.gsd-keyboard.settings-ported
 # Create necessary directories
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
-	~/videos/elfeed-youtube
-	~/documents/openvpn
+  	~/videos/elfeed-youtube
+  	~/documents/openvpn
+  	~/documents/pdfs
     ~/desktop/{workspace,projects,server}
     ~/.config/.local/share/gnupg
     ~/.config/.local/share/cargo
