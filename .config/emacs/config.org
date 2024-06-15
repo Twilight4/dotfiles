@@ -573,19 +573,7 @@
  "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
  "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
  ;; Footnotes
- "z" '(org-footnote-action :wk "Insert footnote")
- ;; Org-roam-bibtex
- "I" '(orb-insert-link :wk "Insert link to a note of bib entry")
- "R" '(orb-note-actions :wk "Access additional commands useful in note's context")
- ;; Citar
- "b" '(org-cite-insert :wk "Insert org citation")
- ;"" '(citar-create-note :wk "Create note associated to bibtex entry")
- "o" '(citar-open-note :wk "Open single note directly")
- ;"O" '(citar-open-notes :wk "Open notes")
- "O" '(citar-dwim :wk "Run the default action on citation keys at point"))
- ;"" '(citar-org-roam-ref-add :wk "Add a roam_ref to the node")
- ;"" '(citar-org-delete-citation :wk "Delete the citation")
- ;"" '(citar-open-links :wk "Open links associated with citekeys"))
+ "z" '(org-footnote-action :wk "Insert footnote"))
 #+end_src
 
 *** C-l leader key
@@ -2717,9 +2705,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
           ("startup" . "⏻")
           ("macro" . "𝓜")
           ("bind" . #("" 0 1 (display (raise -0.1))))
-          ("bibliography" . "")
-          ("print_bibliography" . #("" 0 1 (display (raise -0.1))))
-          ("cite_export" . "⮭")
           ("print_glossary" . #("ᴬᶻ" 0 1 (display (raise -0.1))))
           ("glossary_sources" . #("" 0 1 (display (raise -0.14))))
           ("include" . "⇤")
@@ -2759,16 +2744,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 ;; Enable Org-modern per buffer
 ;(add-hook 'org-mode-hook #'org-modern-mode)
 ;(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
-
-;; Function to disable org-modern-mode for files where it doesn't render properly
-;; But it doesn't work, breaks org-capture functionality
-;(defun disable-org-modern-for-specific-files ()
-;  (when (or (string-match-p "diet.org$" buffer-file-name)
-;            (string-match-p "goals.org$" buffer-file-name)
-;            (string-match-p "reading.org$" buffer-file-name)
-;            (string-match-p "*Org Agenda*$" buffer-file-name)
-;    (org-modern-mode -1))))
-;(add-hook 'org-mode-hook 'disable-org-modern-for-specific-files)
 #+end_src
 
 *** Org-super-agenda
