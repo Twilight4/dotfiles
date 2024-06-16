@@ -12,9 +12,15 @@ read -p "Do you want to install plugins for nnn file manager? (y/n): " install_c
 
 if [[ "$install_choice" =~ ^[Yy]$ ]]; then
     if command -v nnn >/dev/null; then
-	    # Installing nnn
-		echo "Installing nnn cli file manager..."
-		_installPackagesParu nnn-nerd
+	      # Installing nnn
+		    echo "Installing nnn cli file manager..."
+        sudo apt install libreadline-dev
+        git clone --depth 1 https://github.com/jarun/nnn.git
+        cd nnn
+        sudo make CFLAGS+=-march=native O_NORL=1 O_NOMOUSE=1 O_NOBATCH=1 O_NOSSN=1 O_NOFIFO=1 O_QSORT=1 O_NOUG=1 O_NERD=1
+        cd ../
+        sudo mv nnn /opt
+        sudo ln -sf /opt/nnn /bin/nnn
 
         # Installing plugins for nnn file manager if not installed
         echo "Installing plugins for nnn file manager..."
