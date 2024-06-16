@@ -1,9 +1,0 @@
-[Unit]
-Description=Setting the EC register 0x95 to a value of 0x31. This value is noted to be set when enabling Performance mode in the Omen Command Center in Windows. 
-
-[Service]
-ExecStart=/home/twilight/.config/.local/bin/omen-performance-fix.sh
-Type=simple
-
-[Install]
-WantedBy=default.target
