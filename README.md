@@ -3,8 +3,8 @@
 > Blindly copying my personal system settings and configurations without a thorough understanding can result in serious issues such as compatibility, security and performance. Take the time to assess compatibility and customize responsibly to ensure a stable and secure computing environment before running `install.sh` script. Use at your own risk.
 
 ```bash
-git clone --depth 1 https://github.com/Twilight4/dotfiles.git /tmp/dotfiles
-cd /tmp/dotfiles
+git clone --depth 1 https://github.com/Twilight4/dotfiles.git dotfiles
+cd dotfiles
 ./install.sh
 ```
 
