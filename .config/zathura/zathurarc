@@ -28,8 +28,6 @@ set statusbar-v-padding 0
 set page-padding 1
 
 # Keys
-map K zoom in
-map J zoom out
 map i recolor
 map u scroll half-up
 map d scroll half-down
