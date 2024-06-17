@@ -119,7 +119,7 @@ fmv() {
             echo "$SOURCES" | while IFS= read -r file; do
                 sudo mv "$file" "$TARGET"
                 if [[ $? -eq 0 ]]; then
-                    echo -e "\e[34mmoved: '\e[0m\e[33m$file\e[0m\e[34m' -> '\e[0m\e[33m$TARGET$file\e[0m\e[34m'\e[0m"
+                    echo -e "\e[34mmoved: '\e[0m\e[33m$file\e[0m\e[34m' -> '\e[0m\e[33m$TARGET$file/\e[0m\e[34m'\e[0m"
                 else
                     echo -e "\e[31m[X] Error occurred while moving '\e[0m\e[33m$file\e[0m\e[31m'.\e[0m"
                 fi
@@ -157,7 +157,7 @@ fcp() {
             echo "$SOURCES" | while IFS= read -r file; do
                 sudo xcp -r "$file" "$TARGET"
                 if [[ $? -eq 0 ]]; then
-                    echo -e "\e[34mcopied: '\e[0m\e[33m$file\e[0m\e[34m' -> '\e[0m\e[33m$TARGET$file\e[0m\e[34m'\e[0m"
+                    echo -e "\e[34mcopied: '\e[0m\e[33m$file\e[0m\e[34m' -> '\e[0m\e[33m$TARGET$file/\e[0m\e[34m'\e[0m"
                 else
                     echo -e "\e[31m[X] Error occurred while copying '\e[0m\e[33m$file\e[0m\e[31m'.\e[0m"
                 fi
