@@ -72,7 +72,7 @@ frm() {
     local SOURCES
     if [[ "$#" -eq 0 ]]; then
         # prompt user interactively to select multiple files or directories with tab + fuzzy search
-        SOURCES=$(find . -maxdepth 1 -printf "%P\n" | fzf --multi)
+        SOURCES=$(find . -maxdepth 1 -mindepth 1 -printf "%P\n" | fzf --multi)
         # we use xargs to capture filenames with spaces in them properly
         echo "$SOURCES" | xargs -I '{}' trash -rfv {}
     else
@@ -98,7 +98,7 @@ fmv() {
         fi
 
         # Include both files and directories
-        SOURCES=$(find . -maxdepth 1 -printf "%P\n" | fzf --multi)
+        SOURCES=$(find . -maxdepth 1 -mindepth 1 -printf "%P\n" | fzf --multi)
         # We use xargs to capture filenames with spaces in them properly
         echo "$SOURCES" | xargs -I '{}' mv -v {} "$TARGET"
     else
@@ -124,7 +124,7 @@ fcp() {
         fi
 
         # Include both files and directories
-        SOURCES=$(find . -maxdepth 1 -printf "%P\n" | fzf --multi)
+        SOURCES=$(find . -maxdepth 1 -mindepth 1 -printf "%P\n" | fzf --multi)
         # We use xargs to capture filenames with spaces in them properly
         echo "$SOURCES" | xargs -I '{}' xcp -r -v {} "$TARGET"
     else
