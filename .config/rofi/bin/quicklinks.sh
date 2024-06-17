@@ -29,6 +29,7 @@ option_21="󰖟 IppSec Search"
 option_22="󰁰 Bank"
 option_23=" HackTricks"
 option_24=" PwnedLabs"
+option_25="󰥷 Image to Text"
 
 # Rofi CMD
 rofi_cmd() {
@@ -49,7 +50,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25" | rofi_cmd
 }
 
 # Execute Command
@@ -171,6 +172,9 @@ run_cmd() {
     --opt24)
       xdg-open 'https://pwnedlabs.io/dashboard' &
       ;;
+    --opt25)
+      xdg-open 'https://www.imagetotext.info/' &
+      ;;
     *)
       ;;
   esac
@@ -250,5 +254,8 @@ case "${chosen}" in
     ;;
   $option_24)
     run_cmd --opt24
+    ;;
+  $option_25)
+    run_cmd --opt25
     ;;
 esac
