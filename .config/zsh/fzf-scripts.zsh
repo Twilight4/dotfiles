@@ -81,7 +81,7 @@ frm() {
             echo "$SOURCES" | while IFS= read -r file; do
                 sudo trash -rf "$file"
                 if [[ $? -eq 0 ]]; then
-                    echo -e "\e[34mtrashed:\e[0m \e[33m$file\e[0m"
+                    echo -e "\e[34mtrashed:\e[0m \e[33m$file\e[0m \e[34m-> ~/.local/share/Trash\e[0m"
                 else
                     echo -e "\e[31m[X] Error occurred while trashing '\e[0m\e[33m$file\e[0m\e[31m'.\e[0m"
                 fi
@@ -138,23 +138,35 @@ fcp() {
     if [[ "$#" -eq 0 ]]; then
         vared -p 'Files destination: ' -c TARGET
         if [ -z "$TARGET" ]; then
-            echo 'no target specified'
+            echo -e "\e[31mNo target specified.\e[0m"
             return 1
         fi
 
-        # This corrects issue where directory is not found as ~ is
+        # This corrects the issue where the directory is not found as ~ is
         # not expanded properly when stored directly from user input
         if echo "$TARGET" | grep -q "~"; then
-            TARGET=$(echo $TARGET | sed 's/~//')
-            TARGET=~/$TARGET
+            TARGET=$(echo "$TARGET" | sed 's/~//')
+            TARGET=~/"$TARGET"
         fi
 
         # Include both files and directories
         SOURCES=$(find . -maxdepth 1 -mindepth 1 -printf "%P\n" | fzf --multi)
-        # We use xargs to capture filenames with spaces in them properly
-        echo "$SOURCES" | xargs -I '{}' xcp -r -v {} "$TARGET"
+        # Check if any files were selected
+        if [[ -n "$SOURCES" ]]; then
+            # Use xargs to capture filenames with spaces in them properly
+            echo "$SOURCES" | while IFS= read -r file; do
+                sudo xcp -r "$file" "$TARGET"
+                if [[ $? -eq 0 ]]; then
+                    echo -e "\e[34mcopied '\e[0m\e[33m$file\e[0m\e[34m' -> '\e[0m\e[33m$TARGET$file\e[0m\e[34m'\e[0m"
+                else
+                    echo -e "\e[31m[X] Error occurred while copying '\e[0m\e[33m$file\e[0m\e[31m'.\e[0m"
+                fi
+            done
+        else
+            echo -e "\e[31m[X] No files selected.\e[0m"
+        fi
     else
-        echo "There's error happened for some reason. Files not copied. Do you have xcp installed?"
+        echo -e "\e[31m[X] There's an error. Files not copied. Do you have xcp installed?\e[0m"
     fi
 }
 
