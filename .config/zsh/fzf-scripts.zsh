@@ -59,7 +59,9 @@ fccp() {
       --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
-    echo "$file copied to clipboard."
+    echo -e "\e[34m$file\e[0m copied to clipboard."
+  else
+    echo -e "\e[31mNo file selected.\e[0m"
   fi
 }
 
@@ -71,12 +73,22 @@ fimg() {
 frm() {
     local SOURCES
     if [[ "$#" -eq 0 ]]; then
-        # prompt user interactively to select multiple files or directories with tab + fuzzy search
+        # Prompt user interactively to select multiple files or directories with tab + fuzzy search
         SOURCES=$(find . -maxdepth 1 -mindepth 1 -printf "%P\n" | fzf --multi)
-        # we use xargs to capture filenames with spaces in them properly
-        echo "$SOURCES" | xargs -I '{}' trash -rfv {}
+        # Check if any files were selected
+        if [[ -n "$SOURCES" ]]; then
+            # Use xargs to capture filenames with spaces in them properly
+            echo "$SOURCES" | xargs -I '{}' sudo trash -rf {}
+            if [[ $? -eq 0 ]]; then
+                echo -e "\e[34mtrash:\e[0m \e[33m$SOURCES\e[0m trashed in ~/.local/share/Trash"
+            else
+                echo -e "\e[31m[X] Error occurred while trashing files.\e[0m"
+            fi
+        else
+            echo -e "\e[31m[X] No files selected.\e[0m"
+        fi
     else
-        echo "There's error happened for some reason. Files not removed. Do you have trash installed?"
+        echo -e "\e[31mThere's an error. Files not removed. Do you have trash installed?\e[0m"
     fi
 }
 
