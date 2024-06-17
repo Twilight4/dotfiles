@@ -166,35 +166,23 @@ fvars() {
 # Package Managers #
 ####################
 
-# Pacman
-fpac() {
-    pacman -Slq | fzf --multi --reverse --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S
-}
-
-fpar() {
-    paru -Slq | fzf --multi --reverse --preview 'paru -Si {1}' | xargs -ro paru -S
-}
-
-fparr() {
-    paru -Qq | fzf --multi --reverse --preview 'paru -Si {1}' | xargs -ro paru -Rns
-}
-
 # Apt package manager
 fapti() {
     selected_packages=$(apt-cache search . | cut -d' ' -f1 | fzf --multi --reverse --preview 'apt-cache show {1}')
 
     # Check if package to install is selected
     if [ -z "$selected_packages" ]; then
-        echo "No package selected. Exiting."
+        echo -e "\e[31mNo package selected. Exiting.\e[0m"
         return
     fi
 
     # Confirmation for installing the package
-    echo "You have selected the following packages for installation: $selected_packages"
-    echo -n "Are you sure you want to install these packages? (y/N): "
+    echo -e "\e[34mYou have selected the following packages for installation: \e[0m\e[33m$selected_packages\e[0m"
+    echo -ne "\e[34mAre you sure you want to install these packages? (y/N): \e[0m"
     read confirm
+    echo
     if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-        echo "Operation cancelled."
+        echo -e "\e[31mOperation cancelled.\e[0m"
         return
     fi
 
@@ -204,10 +192,10 @@ fapti() {
     # Check if installation was successful
     if [ $? -eq 0 ]; then
         echo
-        echo "Installation completed successfully."
+        echo -e "\e[32mInstallation completed successfully.\e[0m"
     else
         echo
-        echo "Installation failed. Please check the error messages above."
+        echo -e "\e[31mInstallation failed. Please check the error messages above.\e[0m"
     fi
 }
 
@@ -216,16 +204,17 @@ faptr() {
 
     # Check if package to uninstall is selected
     if [ -z "$selected_packages" ]; then
-        echo "No package selected. Exiting."
+        echo -e "\e[31mNo package selected. Exiting.\e[0m"
         return
     fi
 
     # Confirmation for uninstalling the package
-    echo "You have selected the following packages for removal: $selected_packages"
-    echo -n "Are you sure you want to purge these packages? (y/N): "
+    echo -e "\e[34mYou have selected the following packages for removal: \e[0m\e[33m$selected_packages\e[0m"
+    echo -ne "\e[34mAre you sure you want to purge these packages? (y/N): \e[0m"
     read confirm
+    echo
     if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
-        echo "Operation cancelled."
+        echo -e "\e[31mOperation cancelled.\e[0m"
         return
     fi
 
@@ -235,37 +224,38 @@ faptr() {
     # Check if purge was successful
     if [ $? -eq 0 ]; then
         echo
-        echo "Purging completed successfully."
+        echo -e "\e[32mPurging completed successfully.\e[0m"
     else
         echo
-        echo "Purging failed. Please check the error messages above."
+        echo -e "\e[31mPurging failed. Please check the error messages above.\e[0m"
     fi
 
     # Search for leftovers
     echo
-    echo -n "Do you want to search for leftover files related to the removed packages? (y/N): " 
+    echo -ne "\e[34mDo you want to search for leftover files related to the removed packages? (y/N): \e[0m" 
     read confirm_search
     if [[ "$confirm_search" =~ ^[Yy]$ ]]; then
-        echo "Searching for leftover files..."
+        echo -e "\e[34mSearching for leftover files...\e[0m"
         echo
         echo "$selected_packages" | while read -r package; do
             sudo find / -name "*$package*"
         done
     else
-        echo "Skipping search for leftover files."
+        echo -e "\e[31mSkipping search for leftover files.\e[0m"
     fi
 
     echo
-    echo "Optional additional cleanup steps:"
-    echo "Run 'cleanup' to run remove unused dependencies"
-    echo "Run 'aptcache' to check the size of package cache"
-    echo "Run 'aptcache-clean' to clean all package cache"
+    echo -e "\e[34mOptional additional cleanup steps:\e[0m"
+    echo -e "\e[32mRun 'cleanup' to remove unused dependencies\e[0m"
+    echo -e "\e[32mRun 'aptcache' to check the size of package cache\e[0m"
+    echo -e "\e[32mRun 'aptcache-clean' to clean all package cache\e[0m"
 }
 
 
 #######
 # Git #
 #######
+
 # Git log browser with FZF
 fgl() {
   git log --graph --color=always \
