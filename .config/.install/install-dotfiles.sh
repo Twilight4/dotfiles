@@ -49,7 +49,8 @@ install_symlinks() {
 install_by_copy() {
 	echo "Installing dotfiles by copying files to ~/.config..."
 	mv ~/.config ~/.config.bak
-	cp -r ~/downloads/dotfiles/.config ~
+	echo "Current .config directory has been backed up to .config.bak"
+	cp -r ~/dotfiles/.config ~
 }
 
 # Main function
