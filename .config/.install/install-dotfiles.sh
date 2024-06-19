@@ -9,6 +9,14 @@ cat <<"EOF"
 
 EOF
 
+# Prompt the user
+read -p "Do you want to install dotfiles? (y/n): " response
+
+if [[ "$response" != "y" ]]; then
+    echo "Operation cancelled by the user."
+    exit 0
+fi
+
 # Function to install dotfiles using symlinks
 install_symlinks() {
 	echo "Installing dotfiles using symlinks..."

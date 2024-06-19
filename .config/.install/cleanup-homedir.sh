@@ -9,12 +9,20 @@ cat <<"EOF"
                                       |_|                          
 EOF
 
+# Prompt the user
+read -p "Do you want to debloat the \$HOME directory? (y/n): " response
+
+if [[ "$response" != "y" ]]; then
+    echo "Operation cancelled by the user."
+    exit 0
+fi
+
 # Create necessary directories
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
-  	~/videos/elfeed-youtube
-  	~/documents/openvpn
-  	~/documents/pdfs
+    ~/videos/elfeed-youtube
+    ~/documents/openvpn
+    ~/documents/pdfs
     ~/desktop/{workspace,projects,server}
     ~/.config/.local/share/gnupg
     ~/.config/.local/share/cargo
@@ -32,7 +40,7 @@ for directory in "${directories[@]}"; do
         echo "Creating directory: $directory..."
         mkdir -p "$directory"
     else
-        echo "Directory already exists:\n" "$directory"
+        echo "Directory already exists: $directory"
     fi
 done
 

@@ -16,3 +16,13 @@ echo '    git clone git@github.com:Twilight4/debian-setup.git ~/desktop/workspac
 echo '    git clone git@github.com:Twilight4/org.git ~/documents/org'
 echo '    git clone git@github.com:Twilight4/cheats.git ~/.config/cheat'
 echo ""
+
+# Prompt the user to reboot
+read -p "Do you want to reboot the system now? (y/n): " reboot_response
+
+if [[ "$reboot_response" == "y" ]]; then
+    echo "Rebooting the system..."
+    sudo reboot
+else
+    echo "Reboot cancelled. Please reboot manually if needed."
+fi
