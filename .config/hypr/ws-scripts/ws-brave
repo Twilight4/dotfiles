@@ -9,5 +9,5 @@ is_brave_running() {
 if is_brave_running; then
     hyprctl dispatch focuswindow 'Brave-browser'
 else
-    hyprctl dispatch exec 'brave-browser'
+    hyprctl dispatch exec 'flatpak run com.brave.Browser'
 fi
