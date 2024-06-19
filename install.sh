@@ -46,6 +46,7 @@ source .config/.install/cleanup-homedir.sh
 source .config/.install/init-pywal.sh
 source .config/.install/install-dotfiles.sh
 source .config/.install/button-layout.sh
+source .config/.install/zsh.sh
 source .config/.install/final-message.sh
 # Don't use anymore
 #source .config/.install/display-manager.sh
