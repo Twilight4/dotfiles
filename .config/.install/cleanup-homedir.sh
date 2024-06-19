@@ -9,12 +9,6 @@ cat <<"EOF"
                                       |_|                          
 EOF
 
-# Remove auto-generated bloat
-sudo rm -rf /usr/share/fonts/encodings
-sudo fc-cache -fv
-rm -rf .config/{fish,gtk-3.0,ibus,kitty,micro,pulse,paru,user-dirs.dirs,user-dirs.locate,dconf}
-rm -rf .config/.gsd-keyboard.settings-ported
-
 # Create necessary directories
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
@@ -42,22 +36,39 @@ for directory in "${directories[@]}"; do
     fi
 done
 
-# Cleanup home dir bloat
-mv ~/.gnupg ~/.config/.local/share/gnupg
-mv ~/.cargo ~/.config/.local/share/cargo
-mv ~/go ~/.config/.local/share/go
-mv ~/.lesshst ~/.config/.local/state/less/history
-mv ~/.nimble ~/.config/.local/share/nimble
-mv ~/.pki ~/.config/.local/share/pki
-mv ~/.cache ~/.config/.local/share/cache
-mv ~/node_modules ~/.config
-mv ~/package.json ~/package-lock.json ~/.config/node_modules
-mv ~/.local/share* ~/.config/.local/share
-mv ~/.local/state* ~/.config/.local/state
-sudo rm /home/"$(whoami)"/.bash*
-rm -r ~/.local
+# Function to move a file or directory if it exists
+move_if_exists() {
+    if [ -e "$1" ]; then
+        mv "$1" "$2"
+    fi
+}
+
+# Move directories and files if they exist
+move_if_exists ~/.gnupg ~/.config/.local/share/gnupg
+move_if_exists ~/.cargo ~/.config/.local/share/cargo
+move_if_exists ~/go ~/.config/.local/share/go
+move_if_exists ~/.lesshst ~/.config/.local/state/less/history
+move_if_exists ~/.nimble ~/.config/.local/share/nimble
+move_if_exists ~/.pki ~/.config/.local/share/pki
+move_if_exists ~/.cache ~/.config/.local/share/cache
+move_if_exists ~/node_modules ~/.config
+move_if_exists ~/package.json ~/.config/node_modules/package.json
+move_if_exists ~/package-lock.json ~/.config/node_modules/package-lock.json
+
+# Move .local/share* and .local/state* if they exist
+for dir in ~/.local/share*; do
+    move_if_exists "$dir" ~/.config/.local/share
+done
+
+for dir in ~/.local/state*; do
+    move_if_exists "$dir" ~/.config/.local/state
+done
+
+# Remove specific files and directories
+sudo rm -f /home/"$(whoami)"/.bash*
+rm -rf ~/.local
 rm -rf ~/.git
-rm -r ~/{Documents,Pictures,Desktop,Downloads,Templates,Music,Videos,Public}
-rm ~/.viminfo
-rm ~/.zsh*
-rm ~/.zcompdummp*
+rm -rf ~/Documents ~/Pictures ~/Desktop ~/Downloads ~/Templates ~/Music ~/Videos ~/Public
+rm -f ~/.viminfo
+rm -f ~/.zsh*
+rm -f ~/.zcompdump*
