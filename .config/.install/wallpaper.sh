@@ -38,7 +38,8 @@ echo ""
 # ------------------------------------------------------
 # Copy default wallpaper to .cache
 # ------------------------------------------------------
-cp ~/pictures/wallpapers/default.jpg ~/.cache/current_wallpaper.jpg
+[ -f ~/pictures/wallpapers/default.jpg ] && cp ~/pictures/wallpapers/default.jpg ~/.cache/current_wallpaper.jpg && echo "Copied default.jpg" || echo "default.jpg does not exist."
+[ -f ~/pictures/wallpapers/Anime-Lanscape.png ] && cp ~/pictures/wallpapers/Anime-Lanscape.png ~/.cache/Anime-Lanscape.png && echo "Copied Anime-Lanscape.png" || echo "Anime-Lanscape.png does not exist."
 echo ""
 
 # GTK Themes for flatpak
