@@ -10,28 +10,27 @@ __      ____ _| | |_ __   __ _ _ __   ___ _ __ ___
 
 EOF
 
-echo "Do you want to download the wallpapers from repository https://github.com/Twilight4/wallpapers/ ?"
+echo "Do you want to download the wallpapers from repository https://github.com/Twilight4/wallpapers.git ?"
 while true; do
 	read -p "(Yy/Nn): " yn
 	case $yn in
 	[Yy]*)
-		mkdir -p ~/pictures
+    if [ -d ~/pictures/wallpapers ]; then
+        rm -rf ~/pictures/wallpapers 2>&1 | tee -a "$LOG"
+    fi
+		mkdir -p ~/pictures/
 		git clone --depth 1 https://github.com/Twilight4/wallpapers ~/pictures/wallpapers
 		rm -rf ~/pictures/wallpapers/.git
 		echo "Wallpapers installed successfully."
 		break
 		;;
 	[Nn]*)
-		if [ -d ~/pictures/wallpapers/ ]; then
-			echo "Wallpaper directory already exists."
-		else
-			mkdir -p ~/pictures/wallpapers
-			curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/wm-wallpapers/default.jpg && mv default.jpg ~/pictures/wallpapers/default.jpg
-			echo "Default wallpaper installed successfully."
-		fi
+		mkdir -p ~/pictures/wallpapers
+		curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/default.jpg && mv default.jpg ~/pictures/wallpapers/default.jpg
+		echo "Default wallpaper installed successfully."
 		break
 		;;
-	*) echo "Please answer yes or no." ;;
+	*) echo "Please answer y/n." ;;
 	esac
 done
 echo ""
@@ -39,7 +38,7 @@ echo ""
 # ------------------------------------------------------
 # Copy default wallpaper to .cache
 # ------------------------------------------------------
-cp .config/wallpapers/default.jpg ~/.cache/current_wallpaper.jpg
+cp ~/pictures/wallpapers/default.jpg ~/.cache/current_wallpaper.jpg
 echo ""
 
 # GTK Themes for flatpak
