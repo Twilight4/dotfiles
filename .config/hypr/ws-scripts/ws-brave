@@ -7,7 +7,7 @@ is_brave_running() {
 
 # Check if any instance of 'floorp' is running then focus it, otherwise open it
 if is_brave_running; then
-    hyprctl dispatch focuswindow 'Brave-browser'
+    hyprctl dispatch focuswindow 'brave-browser'
 else
-    hyprctl dispatch exec 'flatpak run com.brave.Browser'
+    hyprctl dispatch exec 'flatpak run com.brave.Browser --ignore-gpu-blocklist --enable-gpu-rasterization --enable-zero-copy --disable-gpu-driver-bug-workarounds --ozone-platform-hint=wayland --use-gl=angle --enable-features=VaapiVideoDecoder --enable-features=VaapiIgnoreDriverCheck --disable-features=UseChromeOSDirectVideoDecoder --enable-features=TouchpadOverscrollHistoryNavigation --disable-features=WaylandFractionalScaleV1'
 fi
