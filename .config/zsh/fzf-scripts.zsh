@@ -79,11 +79,12 @@ frm() {
         if [[ -n "$SOURCES" ]]; then
             # Use xargs to capture filenames with spaces in them properly
             echo "$SOURCES" | while IFS= read -r file; do
-                sudo trash -rf "$file"
+                \trash -rf "$file"            # escaping 'trash' alias
                 if [[ $? -eq 0 ]]; then
                     echo -e "\e[34mtrashed:\e[0m \e[33m$file\e[0m \e[34m-> ~/.local/share/Trash\e[0m"
                 else
                     echo -e "\e[31m[X] Error occurred while trashing '\e[0m\e[33m$file\e[0m\e[31m'.\e[0m"
+                    echo -e "\e[31m[X] If it's Permission denied, run: \e[0m\e[32msudo trash -rf $file\e[0m\e[31m\e[0m"
                 fi
             done
         else

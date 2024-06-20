@@ -30,6 +30,7 @@ option_22="󰁰 Bank"
 option_23=" HackTricks"
 option_24=" PwnedLabs"
 option_25="󰥷 Image to Text"
+option_26="󱇱 HackTricks Cloud"
 
 # Rofi CMD
 rofi_cmd() {
@@ -50,7 +51,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26" | rofi_cmd
 }
 
 # Execute Command
@@ -175,6 +176,9 @@ run_cmd() {
     --opt25)
       xdg-open 'https://www.imagetotext.info/' &
       ;;
+    --opt26)
+      xdg-open 'https://cloud.hacktricks.xyz/' &
+      ;;
     *)
       ;;
   esac
@@ -257,5 +261,8 @@ case "${chosen}" in
     ;;
   $option_25)
     run_cmd --opt25
+    ;;
+  $option_26)
+    run_cmd --opt26
     ;;
 esac

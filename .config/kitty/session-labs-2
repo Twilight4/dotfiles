@@ -1,0 +1,45 @@
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title btop btop
+# Focus the current tab
+focus
+
+# Create a new tab
+new_tab neo4j-db
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title vpn sh -c 'echo "\033[0;33mstart-neo4j-db\033[0m" && exec zsh'
+
+# Create a new tab
+new_tab dns
+# Set the layout in this tab
+layout grid
+# Create a window
+cd ~/
+launch --title dns sh -c 'echo "\033[0;33mresolvectl dns <IFACE> <IP_ADDR>\033[0m" && exec zsh'
+# Create a second window
+cd ~/
+launch --title domain sh -c 'echo "\033[0;33mresolvectl domain <IFACE> <DOMAIN>\033[0m" && exec zsh'
+# Create a third window
+cd ~/
+launch --title status sh -c 'echo "\033[0;33mresolvectl status <IFACE>\033[0m" && exec zsh'
+# Create a forth window
+cd ~/
+launch --title nslookup sh -c 'echo "\033[0;33mnslookup <DOMAIN>\033[0m" && exec zsh'
+
+# Create a new tab
+new_tab ip
+# Set the layout in this tab
+layout tall
+# Set the working directory
+cd ~/
+# Create a window
+launch --title ip sh -c 'echo "\033[0;33mip a show\033[0m" && exec zsh'
+# Create a second window
+launch --title ping sh -c 'echo "\033[0;33mping <IP_ADDR>\033[0m" && exec zsh'
