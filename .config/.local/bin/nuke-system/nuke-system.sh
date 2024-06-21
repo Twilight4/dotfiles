@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# This scripts nukes your linux system.
-# The script doesn't touch other than linux partitions.
+# This script nukes your Linux system.
+# The script doesn't touch other than Linux partitions.
 # Execute as root user.
 
 ## Breakdown
 # 1. The script first checks if the /home directory is stored in a different partition, then wipes it first (skips if it is not).
-# 2. The script checks and wipes all other linux partitions except for /home and /root partition.
+# 2. The script checks and wipes all other Linux partitions except for /home and /root partition.
 # 3. The script wipes the /root partition.
 
 # Check if the script is run as root
@@ -33,6 +33,23 @@ is_linux_partition() {
     esac
 }
 
+# Function to prompt for confirmation
+confirm() {
+    read -p "This script will completely wipe your Linux system. Are you sure you want to proceed? (yes/no): " response
+    case "$response" in
+        [yY]|[yY][eE][sS])
+            echo "Bailing out, you are on your own. Good luck."
+            ;;
+        *)
+            echo "Script execution aborted."
+            exit 1
+            ;;
+    esac
+}
+
+# Prompt for confirmation
+confirm
+
 # 1. Wipe the /home partition
 echo "Wiping /home partition..."
 home_partition=$(df /home | tail -1 | awk '{print $1}')
@@ -56,6 +73,7 @@ if [ -z "$root_partition" ]; then
 fi
 
 # 2. Wipe all partitions except for /home and the /root partition
+echo "Wiping all other Linux partitions..."
 partitions=$(lsblk -ln -o NAME,TYPE | grep "part$" | awk '{print "/dev/" $1}')
 for partition in $partitions; do
     if [ "$partition" != "$home_partition" ] && [ "$partition" != "$root_partition" ]; then
