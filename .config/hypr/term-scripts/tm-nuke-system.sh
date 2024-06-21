@@ -8,7 +8,7 @@ is_kitty_running() {
 # Spawn 'kitty' if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'kitty' only if it was not running
-    hyprctl dispatch exec 'kitty -1 -T nuke-system --class nuke-system -e ~/.config/.local/bin/nuke-system/nuke-system.sh'
+    hyprctl dispatch exec 'kitty -1 -T nuke-system --class nuke-system -e sudo ~/.config/.local/bin/nuke-system/nuke-system.sh'
 else
     hyprctl dispatch focuswindow '^nuke-system$'
 fi
