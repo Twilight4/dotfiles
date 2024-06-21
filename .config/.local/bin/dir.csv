@@ -1,1 +1,9 @@
-$HOME/documents,$HOME/MEGA/documents
+$HOME/documents/pdfs,$HOME/MEGA/twilight/documents/pdfs
+$HOME/pictures/dcim,$HOME/MEGA/twilight/pictures/dcim
+$HOME/pictures/screenshots,$HOME/MEGA/twilight/pictures/screenshots
+$HOME/downloads,$HOME/MEGA/twilight/downloads
+$HOME/videos,$HOME/MEGA/twilight/videos
+$HOME/.config/Freetube/profiles.db,$HOME/MEGA/twilight/.config/Freetube/profiles.db
+$HOME/.config/Freetube/settings.db,$HOME/MEGA/twilight/.config/Freetube/settings.db
+$HOME/.config/Freetube/playlists.db,$HOME/MEGA/twilight/.config/Freetube/playlists.db
+$HOME/.config/Freetube/history.db,$HOME/MEGA/twilight/.config/Freetube/history.db
