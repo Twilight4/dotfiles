@@ -354,6 +354,19 @@ compress() {
     echo -e "\e[34m###########################################\e[0m"
 }
 
+# Run a script in the background
+# Usage: ps-dtach <script_path>
+ps-dtach() { 
+    local script_path="$1"
+
+    if [ -z "$script_path" ]; then
+        echo -e "\e[31m[X] Please provide the full path to the script\e[0m"
+        return 1
+    fi
+
+    dtach -A "${script_path}" /bin/zsh
+}
+
 # Extract any archive automatically - require tar and unzip
 # Usage: extract <archive.tar>
 extract() {
