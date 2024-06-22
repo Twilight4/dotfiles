@@ -475,9 +475,12 @@ cecho() (
     -e "s/@u/$(tput sgr 0 1)/g"
 )
 
-# List of port opens, fuzzy searchable via fzf, require net-tools
-ports() {
-    sudo netstat -tulpn | grep LISTEN | fzf;
+# Query if a package is installed or not  
+# Usage: pkg-query <package_name>, <package_name2>
+pkg-query() {
+    for pkg in "$@"; do
+        dpkg -l | grep -qw $pkg && echo -e "\e[32m[+] ${pkg} is installed\e[0m" || echo -e "\e[31m[X] ${pkg} is not installed\e[0m"
+    done 
 }
 
 # Download all videos in mp3 from a youtube channel

@@ -44,6 +44,11 @@ fzf-cd-global() {
 # Command Line #
 ################
 
+# List of port opens
+fports() {
+    sudo netstat -tulpn | grep LISTEN | fzf;
+}
+
 # Select file and output using bat
 fbat() {
   file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.ttf" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" | fzf --query="$1" --no-multi --select-1 --exit-0 \
