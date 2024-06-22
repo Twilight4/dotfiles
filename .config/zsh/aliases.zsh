@@ -183,6 +183,7 @@ alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -  f1 | sed -e's/:\$//g' | grep -v '[0-9]\$' | xargs tail -f"
 
 # File system
+alias fs-top10="sudo du -sk ./* | sort -r -n | head -10"
 alias fs-mounted="sudo mount | column -t"
 alias fs-usage="df -mTh --total"
 alias fs-last3="sudo find /etc -mtime -3"
@@ -192,11 +193,13 @@ alias fs-disk-top10="sudo du -sk ./* | sort -r -n | head -10"
 alias fs-mounted=""
 alias free="free -m"
 alias mem-free="free -th"
+alias mem-top10="sudo ps aux | sort -rk 4,4 | head -n 10 | awk '{print \$4,\$11}'"
 
 # disk usage
-alias du='dust'
+alias dus='dust'
 alias ncdu="ncdu --color dark"
 alias duf="duf --hide special -hide-mp /run/user/1000/psd/twilight-firefox-nlmda6r7.default,/run/user/1000/psd/twilight-firefox-pjxpviu5.default-esr"
+alias watch-duf='watch duf --hide special -hide-mp /run/user/1000/psd/twilight-firefox-nlmda6r7.default,/run/user/1000/psd/twilight-firefox-pjxpviu5.default-esr'
 alias biggest="du -h --max-depth=1 | sort -h"
 alias diskspace="du -S | sort -n -r |less -R"
 alias folders='du -h --max-depth=1'
@@ -206,13 +209,16 @@ alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -
 #################################################################################################
 # Networking                                                                                    #
 #################################################################################################
-alias net-watch="sudo watch -n 0.3 'netstat -pantlu4 | grep \"ESTABLISHED\|LISTEN\"' "
+alias net-watch="sudo watch -n 0.3 'netstat -pantlu4 | grep \"ESTABLISHED\|LISTEN\"'"
 alias net-open4="sudo netstat -pantlu4"
 alias net-open6="sudo netstat -pantlu6"
 alias net-routes="netstat -r --numeric-hosts"
 alias net-ss="sudo ss -plaunt4"
 alias net-lsof="sudo lsof -P -i -n "
 alias net-pubip="curl -s \"https://icanhazip.com\" "
+alias net-wlan0="ifconfig wlan0 | grep 'inet ' | awk '{print \$2}'"
+alias net-tun0="ifconfig tun0 | grep 'inet ' | awk '{print \$2}'"
+alias net-gateway="ip route | grep via | grep wlan0 | cut -d' ' -f3"
 alias net-adapter="inxi -Na"
 alias net-lspci="lspci -nn | grep -i net"
 alias net-ps="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
@@ -279,7 +285,7 @@ alias gco='git checkout'
 ##############################################################################################################
 alias s="kitty +kitten ssh"
 alias ce='cheat --edit'
-alias ping="prettyping -c 3"
+alias pping="prettyping -c 3"
 #alias pg='prettyping -c 3 8.8.8.8'
 #alias less="less -R"   # have function as 'less'
 alias kill='sudo killall -q'
