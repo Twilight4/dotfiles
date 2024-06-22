@@ -80,17 +80,6 @@ h() {
   "$@" --help 2>&1 | bat --plain --language=help
 }
 
-# Simplify trans command
-tre() {
-  result=$(command trans en:pl "$*")
-  echo "\"$result\""
-}
-
-trp() {
-  result=$(command trans pl:en "$*")
-  echo "\"$result\""
-}
-
 # Prettify org mode files output
 cato() {
 	sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' "$@" | command bat --language=org --style=plain --color=always
@@ -108,8 +97,8 @@ diffd() {
 # rm with exclude (ignore)
 rmi() {
   if [ -z "$1" ]; then
-    echo "Usage: rmi <pattern>"
-    echo "Example: rmi '*.mp4'"
+    echo -e "\e[34mUsage: rmi <pattern>\e[0m"
+    echo -e "\e[32mExample: rmi '*.mp4'\e[0m"
   else
     find . -type f ! -name "$1" -exec trash -rfv {} +
   fi
@@ -118,8 +107,8 @@ rmi() {
 # rm with exclude (ignore)
 mvi() {
   if [ -z "$1" ]; then
-    echo "Usage: mvi <pattern> <destination>"
-    echo "Example: mvi '*.mp4' /path/to/destination"
+    echo -e "\e[31mUsage: mvi <pattern> <destination>\e[0m"
+    echo -e "\e[32mExample: mvi '*.mp4' /path/to/destination\e[0m"
   else
     find . -type f ! -name "$1" -exec mv -t "$2" {} +
   fi
@@ -129,7 +118,7 @@ mvi() {
 imgsize() {
     local width=$(identify -format "%w" "$1")> /dev/null
     local height=$(identify -format "%h" "$1")> /dev/null
-    echo -e "Size of $1: $width*$height"
+    echo -e "\e[32mSize of $1: $width*$height\e[0m"
 }
 
 # Resize and create a new image
@@ -143,7 +132,7 @@ imgresize() {
         local finalName="$filename$separator$2.$extension"
     fi
     convert $1 -quality 100 -resize $2 $finalName
-    echo "$finalName resized to $2"
+    echo -e "\e[32m$finalName resized to $2\e[0m"
 }
 
 # Resize every images with the same extension in the current folder
@@ -165,7 +154,7 @@ imgoptimize() {
     local suffix="optimized"
     local finalName="$filename$separator$suffix.$extension"
     convert $1 -strip -interlace Plane -quality 85% $finalName
-    echo "$finalName created"
+    echo -e "\e[32m$finalName created\e[0m"
 }
 
 # Optimize the image 
@@ -175,7 +164,7 @@ Imgoptimize() {
     local separator="_"
     local suffix="optimized"
     local convert $1 -strip -interlace Plane -quality 85% $1
-    echo "$1 created"
+    echo -e "\e[32m$1 created\e[0m"
 }
 
 # Optimize the images with same extension in current folder and create new images
@@ -220,11 +209,11 @@ mnt() {
 
     if [ ! -z $1 ]; then
         sudo mount "$1" "$FILE" -o rw
-        echo "Device in read/write mounted in $FILE"
+        echo -e "\e[32mDevice in read/write mounted in \$FILE\e[0m"
     fi
 
     if [ $# = 0 ]; then
-        echo "You need to provide the device (/dev/sd*) - use lsblk"
+       echo -e "\e[31mYou need to provide the device (/dev/sd*) - use lsblk\e[0m"
     fi
 }
 
@@ -237,7 +226,7 @@ umnt() {
     MOUNTED=$(grep $DIRECTORY /proc/mounts | cut -f2 -d" " | sort -r)
     cd "/mnt"
     sudo umount $MOUNTED
-    echo "$MOUNTED unmounted"
+    echo -e "\e[34m$MOUNTED unmounted\e[0m"
 }
 
 # Mount mtp filesystem
@@ -252,11 +241,11 @@ mntmtp() {
 
     if [ ! -z $1 ]; then
         simple-mtpfs --device "$1" "$DIRECTORY"
-        echo "MTPFS device in read/write mounted in $DIRECTORY"
+        echo -e "\e[32mMTPFS device in read/write mounted in $DIRECTORY\e[0m"
     fi
 
     if [ $# = 0 ]; then
-        echo "You need to provide the device number - use simple-mtpfs -l"
+        echo -e "\e[31mYou need to provide the device number - use simple-mtpfs -l\e[0m"
     fi
 }
 
@@ -268,7 +257,7 @@ umntmtp() {
     fi
     cd $HOME
     umount $DIRECTORY
-    echo "$DIRECTORY with mtp filesystem unmounted"
+    echo -e "\e[32m$DIRECTORY with mtp filesystem unmounted\e[0m"
 }
 
 # Create a new ssh key at ~/.ssh/<name> with permission 700
@@ -293,7 +282,7 @@ dback () {
 
         (sudo pv -n $1 | sudo dd of=$2 bs=$BS conv=notrunc,noerror) 2>&1 | dialog --gauge "Backup from disk $1 to disk $2... please wait" 10 70 0
     else
-        echo "You need to provide an input disk as first argument (i.e /dev/sda) and an output disk as second argument (i.e /dev/sdb)"
+        echo -e "\e[31mYou need to provide an input disk as first argument (i.e /dev/sda) and an output disk as second argument (i.e /dev/sdb)\e[0m"
     fi
 }
 
@@ -305,7 +294,7 @@ compress() {
     baseName=$(basename $1)
 
     if [ -f $1 ]; then
-        echo "It was a file change directory to $dirName"
+        echo -e "\e[34mIt was a file change directory to $dirName\e[0m"
         cd $dirName
         case $2 in
         tar.bz2)
@@ -324,15 +313,15 @@ compress() {
             zip -r $baseName.zip $baseName
             ;;
         *)
-            echo "Method not passed compressing using tar.bz2"
+            echo -e "\e[34mMethod not passed compressing using tar.bz2\e[0m"
             tar cjf $baseName.tar.bz2 $baseName
             ;;
         esac
-        echo "Back to Directory $dirPriorToExe"
+        echo -e "\e[34mBack to Directory $dirPriorToExe\e[0m"
         cd $dirPriorToExe
     else
         if [ -d $1 ]; then
-            echo "It was a Directory change directory to $dirName"
+            echo -e "\e[34mIt was a Directory change directory to $dirName\e[0m"
             cd $dirName
             case $2 in
             tar.bz2)
@@ -351,18 +340,18 @@ compress() {
                 zip -r $baseName.zip $baseName
                 ;;
             *)
-                echo "Method not passed compressing using tar.bz2"
+                echo -e "\e[34mMethod not passed compressing using tar.bz2\e[0m"
                 tar cjf $baseName.tar.bz2 $baseName
                 ;;
             esac
-            echo "Back to Directory $dirPriorToExe"
+            echo -e "\e[34mBack to Directory $dirPriorToExe\e[0m"
             cd $dirPriorToExe
         else
-            echo "'$1' is not a valid file/folder"
+            echo -e "\e[31m'$1' is not a valid file/folder\e[0m"
         fi
     fi
-    echo "Done"
-    echo "###########################################"
+    echo -e "\e[34mDone\e[0m"
+    echo -e "\e[34m###########################################\e[0m"
 }
 
 # Extract any archive automatically - require tar and unzip
@@ -374,10 +363,10 @@ extract() {
     local extract_dir
 
     if (($# == 0)); then
-        echo "Usage: extract [-option] [file ...]"
+        echo -e "\e[34mUsage: extract [-option] [file ...]\e[0m"
         echo
-        echo Options:
-        echo "    -r, --remove    Remove archive."
+        echo -e "\e[34mOptions:\e[0m"
+        echo -e "\e[32m    -r, --remove    Remove archive.\e[0m"
     fi
 
     remove_archive=1
@@ -388,7 +377,7 @@ extract() {
 
     while (($# > 0)); do
         if [[ ! -f "$1" ]]; then
-            echo "extract: '$1' is not a valid file" 1>&2
+            echo -e "\e[31mextract: '$1' is not a valid file\e[0m" 1>&2
             shift
             continue
         fi
@@ -428,7 +417,7 @@ extract() {
             cd ..
             ;;
         *)
-            echo "extract: '$1' cannot be extracted" 1>&2
+            echo -e "\e[31mextract: '$1' cannot be extracted\e[0m" 1>&2
             success=1
             ;;
         esac
@@ -453,7 +442,7 @@ mkextract() {
             rm -f $file
             cd -
         else
-            echo "'$1' is not a valid file"
+            echo -e "\e[31m'$1' is not a valid file\e[0m"
         fi
     done
 }
@@ -489,7 +478,7 @@ ytdlall() {
     if [ ! -z $1 ]; then
         yt-dlp -x --audio-format mp3 --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
-        echo "You need to specify a video url as argument"
+        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -499,7 +488,7 @@ ydlp() {
     if ; then
         yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
-        echo "You need to specify a playlist url as argument"
+        echo -e "\e[31m[X] You need to specify a playlist url as argument\e[0m"
     fi
 }
 
@@ -509,7 +498,7 @@ ydlap() {
     if ; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
-        echo "You need to specify a playlist url as argument"
+        echo -e "\e[31m[X] You need to specify a playlist url as argument\e[0m"
     fi
 }
 
@@ -519,7 +508,7 @@ ydl() {
     if [ ! -z $1 ]; then
         yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(title)s.%(ext)s" "$1"
     else
-        echo "You need to specify a video url as argument"
+        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -529,7 +518,7 @@ ydlb() {
     if [ ! -z $1 ]; then
         yt-dlp --restrict-filenames -f bestvideo+bestaudio/best --merge-output-format mp4 -P ~/videos -o "%(title)s.%(ext)s" "$1"
     else
-        echo "You need to specify a video url as argument"
+        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -539,7 +528,7 @@ ydlab() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
-        echo "You need to specify a video url as argument"
+        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -549,7 +538,7 @@ ydla() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
-        echo "You need to specify a video url as argument"
+        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -564,7 +553,7 @@ mkcd() {
 n() {
     # Block nesting of nnn in subshells
     if [[ "${NNNLVL:-0}" -ge 1 ]]; then
-        echo "nnn is already running"
+        echo -e "\e[31mnnn is already running\e[0m"
         return
     fi
 
@@ -626,7 +615,7 @@ mdtorg() {
         if [ -f "$file" ]; then
             output="${file%.md}.org"
             pandoc "$file" -o "$output"
-            echo "Converted $file to $output"
+            echo -e "\e[32mConverted $file to $output\e[0m"
         fi
     done
 }
@@ -722,7 +711,7 @@ mdrender() {
     HTMLFILE="$(mktemp -u).html"
         jq --slurp --raw-input '{"text": "\(.)", "mode": "markdown"}' "$1" |
         curl -s --data @- https://api.github.com/markdown >"$HTMLFILE"
-    echo Opening "$HTMLFILE"
+    echo -e "\e[32mOpening \"$HTMLFILE\"\e[0m"
     xdg-open "$HTMLFILE"
 }
 
@@ -734,5 +723,5 @@ cht() {
 
 # Backup directories from dir.csv to cloud directory
 backup() {
-    "$XDG_CONFIG_HOME/.local/bin/backup/backup.sh" "$@" "$XDG_CONFIG_HOME/.local/bin/backup/dir.csv"
+    "$XDG_CONFIG_HOME/.local/bin/backup.sh" "$@" "$XDG_CONFIG_HOME/.local/bin/dir.csv"
 }
