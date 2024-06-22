@@ -354,6 +354,36 @@ compress() {
     echo -e "\e[34m###########################################\e[0m"
 }
 
+# Replace an existing value in a file
+# Usage: file-replace <value_to_replace> <replace_with_value> <file>
+file-replace() {
+    if [ "$#" -ne 3 ]; then
+        echo -e "\e[31mError: Usage - file-replace <replace> <with> <file>\e[0m"
+        return 1
+    fi
+    
+    local replace="$1"
+    local with="$2"
+    local file="$3"
+
+    if [ ! -f "$file" ]; then
+        echo -e "\e[31mError: File '$file' not found.\e[0m"
+        return 1
+    fi
+
+    local temp_file=$(mktemp)
+
+    if ! sed "s/${replace}/${with}/g" "$file" > "$temp_file"; then
+        echo -e "\e[31mError: Failed to replace text in '$file'.\e[0m"
+        rm "$temp_file"
+        return 1
+    fi
+
+    mv "$temp_file" "$file"
+    
+    echo -e "\e[32mReplacement complete in '$file'.\e[0m"
+}
+
 # Run a script in the background
 # Usage: ps-dtach <script_path>
 ps-dtach() { 
