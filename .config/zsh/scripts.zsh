@@ -390,7 +390,7 @@ ps-dtach() {
     local script_path="$1"
 
     if [ -z "$script_path" ]; then
-        echo -e "\e[31m[X] Please provide the full path to the script\e[0m"
+        echo -e "\e[31mError: Please provide the full path to the script\e[0m"
         return 1
     fi
 
@@ -511,7 +511,7 @@ cecho() (
 # Usage: pkg-query <package_name>, <package_name2>
 pkg-query() {
     for pkg in "$@"; do
-        dpkg -l | grep -qw $pkg && echo -e "\e[32m[+] ${pkg} is installed\e[0m" || echo -e "\e[31m[X] ${pkg} is not installed\e[0m"
+        dpkg -l | grep -qw $pkg && echo -e "\e[32m[+] ${pkg} is installed\e[0m" || echo -e "\e[31mError: ${pkg} is not installed\e[0m"
     done 
 }
 
@@ -521,7 +521,7 @@ ytdlall() {
     if [ ! -z $1 ]; then
         yt-dlp -x --audio-format mp3 --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
-        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
+        echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -531,7 +531,7 @@ ydlp() {
     if ; then
         yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
-        echo -e "\e[31m[X] You need to specify a playlist url as argument\e[0m"
+        echo -e "\e[31mError: You need to specify a playlist url as argument\e[0m"
     fi
 }
 
@@ -541,7 +541,7 @@ ydlap() {
     if ; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
-        echo -e "\e[31m[X] You need to specify a playlist url as argument\e[0m"
+        echo -e "\e[31mError: You need to specify a playlist url as argument\e[0m"
     fi
 }
 
@@ -551,7 +551,7 @@ ydl() {
     if [ ! -z $1 ]; then
         yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(title)s.%(ext)s" "$1"
     else
-        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
+        echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -561,7 +561,7 @@ ydlb() {
     if [ ! -z $1 ]; then
         yt-dlp --restrict-filenames -f bestvideo+bestaudio/best --merge-output-format mp4 -P ~/videos -o "%(title)s.%(ext)s" "$1"
     else
-        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
+        echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -571,7 +571,7 @@ ydlab() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
-        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
+        echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -581,7 +581,7 @@ ydla() {
     if [ ! -z $1 ]; then
         yt-dlp --extract-audio --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
-        echo -e "\e[31m[X] You need to specify a video url as argument\e[0m"
+        echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
 }
 
@@ -666,6 +666,46 @@ mdtorg() {
 # Display the command more often used in the shell
 historystat() {
     history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
+}
+
+# Sort a file uniq in place 
+sort-uniq() {
+    if [ $# -ne 1 ]; then
+        echo -e "\e[31mError:\e[0m Usage: sort-uniq <filename>"
+        return 1
+    fi
+
+    # Check if file exists
+    if [ ! -f "$1" ]; then
+        echo -e "\e[31mError:\e[0m File $1 not found"
+        return 1
+    fi
+
+    # Create a temporary file
+    tmpfile=$(mktemp) || { echo -e "\e[31mError:\e[0m Failed to create temporary file"; return 1; }
+
+    # Sort and remove duplicates, then overwrite the original file
+    sort -u "$1" > "$tmpfile" && mv "$tmpfile" "$1"
+}
+
+# Sort a file of IP addresses uniq in place 
+sort-uniq-ip() {
+    if [ $# -ne 1 ]; then
+        echo -e "\e[31mError:\e[0m Usage: sort-uniq-ip <filename>"
+        return 1
+    fi
+
+    # Check if file exists
+    if [ ! -f "$1" ]; then
+        echo -e "\e[31mError:\e[0m File $1 not found"
+        return 1
+    fi
+
+    # Create a temporary file
+    tmpfile=$(mktemp) || { echo -e "\e[31mError:\e[0m Failed to create temporary file"; return 1; }
+
+    # Sort and remove duplicates of IP addresses, then overwrite the original file
+    sort -u "$1" | sort -V > "$tmpfile" && mv "$tmpfile" "$1"
 }
 
 # Launch a program in a terminal without getting any output

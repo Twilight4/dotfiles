@@ -173,14 +173,14 @@ alias go-update="go get -u all"
 
 # ps
 alias psa="ps auxf"
-alias psrg="ps aux | grep -v grep | grep -i -e VSZ -e"
+alias psrg="ps aux | rg -i -e VSZ -e"
 alias psmem="ps auxf | sort -nr -k 4"
 alias psmem10="ps auxf | sort -nr -k 4 | head -10"
 alias pscpu="ps auxf | sort -nr -k 3"
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
 # Show all logs in /var/log
-alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -  f1 | sed -e's/:\$//g' | grep -v '[0-9]\$' | xargs tail -f"
+alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:\$//g' | grep -v '[0-9]\$' | xargs tail -f"
 
 # File system
 alias fs-top10="sudo du -sk ./* | sort -r -n | head -10"

@@ -27,18 +27,32 @@ set statusbar-h-padding 0
 set statusbar-v-padding 0
 set page-padding 1
 
-# Keys
+# Default keys
+#F - display link
+#c - copy link
+#a/s -
+#H/L - top/bottom of the page
+#J/K/SPC/S-SPC - PgUp/PgDn
+#gg/G/nG - go to page
+#P - snaps to current page
+#^o/^i - backward/forward in jump list
+#^c - abort
+#o *TAB* - open document
+#D - column/dual page
+#^n - toggle statusbar
+#-/+/= - zoom in/out
+
+# Remapped keys
 map i recolor
 map u scroll half-up
 map d scroll half-down
 map D toggle_page_mode
 map r reload
-map R rotate
-map F follow
-map C display_link
-#map f toggle_fullscreen
-#map [fullscreen] f toggle_fullscreen
 
+
+###############
+# Color theme #
+###############
 # Source Colorscheme
 #include zathura-solorized-dark
 
