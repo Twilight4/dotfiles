@@ -2986,8 +2986,13 @@ this with to-do items than with projects or headings."
   '(("d" "default" plain "%?"
       :target (file+head "${slug}.org" "#+title: ${title}\n")
       :unnarrowed t)
-	  ("l" "Logbook Template" plain
-     (file "~/documents/org/templates/logbook/new-logbook.org")
+    ("l" "Logbook Templates")
+	  ("li" "Internal Pentest Logbook" plain
+     (file "~/documents/org/templates/entry-snippets/ipt-logbook.org")
+     :if-new (file "~/documents/org/reports/${slug}_logbook.org")
+     :unnarrowed t)
+	  ("le" "External Pentest Logbook" plain
+     (file "~/documents/org/templates/entry-snippets/ept-logbook.org")
      :if-new (file "~/documents/org/reports/${slug}_logbook.org")
      :unnarrowed t)
     ("r" "Report Templates")
@@ -3009,15 +3014,15 @@ this with to-do items than with projects or headings."
      :unnarrowed t)
     ("c" "Checklist Templates")
 	  ("ci" "Internal Pentest Checklist" plain
-     (file "~/documents/org/templates/checklists/ipt_checklist.org")
+     (file "~/documents/org/templates/checklists/ipt-checklist.org")
      :if-new (file "~/documents/org/reports/ipt_${slug}_checklist.org")
      :unnarrowed t)
 	  ("ce" "External Pentest Checklist" plain
-     (file "~/documents/org/templates/checklists/ept_checklist.org")
+     (file "~/documents/org/templates/checklists/ept-checklist.org")
      :if-new (file "~/documents/org/reports/ept_${slug}_checklist.org")
      :unnarrowed t)
 	  ("cs" "SDS Checklist" plain
-     (file "~/documents/org/templates/checklists/sds_checklist.org")
+     (file "~/documents/org/templates/checklists/sds-checklist.org")
      :if-new (file "~/documents/org/reports/sds_${slug}_checklist.org")
      :unnarrowed t)))
 
