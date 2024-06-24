@@ -2988,12 +2988,12 @@ this with to-do items than with projects or headings."
       :unnarrowed t)
     ("l" "Logbook Templates")
 	  ("li" "Internal Pentest Logbook" plain
-     (file "~/documents/org/templates/entry-snippets/ipt-logbook.org")
-     :if-new (file "~/documents/org/reports/${slug}_logbook.org")
+     (file "~/documents/org/templates/logbook/ipt-logbook.org")
+     :if-new (file "~/documents/org/reports/ipt_${slug}_logbook.org")
      :unnarrowed t)
 	  ("le" "External Pentest Logbook" plain
-     (file "~/documents/org/templates/entry-snippets/ept-logbook.org")
-     :if-new (file "~/documents/org/reports/${slug}_logbook.org")
+     (file "~/documents/org/templates/logbook/ept-logbook.org")
+     :if-new (file "~/documents/org/reports/ipt_${slug}_logbook.org")
      :unnarrowed t)
     ("r" "Report Templates")
     ("ri" "Internal Pentest Findings Report" plain
@@ -3021,17 +3021,20 @@ this with to-do items than with projects or headings."
      (file "~/documents/org/templates/checklists/ept-checklist.org")
      :if-new (file "~/documents/org/reports/ept_${slug}_checklist.org")
      :unnarrowed t)
-	  ("cs" "SDS Checklist" plain
+	  ("cS" "SDS Checklist" plain
      (file "~/documents/org/templates/checklists/sds-checklist.org")
      :if-new (file "~/documents/org/reports/sds_${slug}_checklist.org")
-     :unnarrowed t)))
+	  ("cs" "SE Checklist" plain
+     (file "~/documents/org/templates/checklists/se-checklist.org")
+     :if-new (file "~/documents/org/reports/se_${slug}_checklist.org")
+     :unnarrowed t))))
 
 ;; Logbook entry snippet
 (defun tl/log-entry ()
   (interactive)
   (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
     (end-of-line)
-    (insert-file-contents "~/documents/org/templates/entry-snippets/log-entry.org")
+    (insert-file-contents "~/documents/org/templates/logbook/log-entry.org")
     (next-line)
     (insert "#+DATE: " current-date-time "\n")
     (previous-line)
@@ -3045,7 +3048,7 @@ this with to-do items than with projects or headings."
   (interactive)
   (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
     (end-of-line)
-    (insert-file-contents "~/documents/org/templates/entry-snippets/report-entry.org")
+    (insert-file-contents "~/documents/org/templates/logbook/report-entry.org")
     (next-line)
     (insert "#+DATE: " current-date-time "\n")
     (previous-line)
