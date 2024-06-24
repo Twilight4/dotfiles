@@ -28,16 +28,16 @@ case $1 in
         if [ -f ~/.cache/current_wallpaper ]; then
             swaybg -m fill -i $current_wallpaper&
             notify-send "Colors and Wallpaper updated" "with image $(cat "$cache_file" | sed "s|$HOME/pictures/wallpapers/||g")"
-			wal -q -i $current_wallpaper -s -t
+            wal -q -i $current_wallpaper -s -t
         else
             swaybg -m fill -i ${RANDOMPICS}&
             notify-send "Colors and Wallpaper updated" "with image $newwall"
-            wal -q -i ${RANDOMPICS} -s -t
+            ~/.local/bin/wal -q -i ${RANDOMPICS} -s -t
 
             echo "$RANDOMPICS" > "$cache_file"
             echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
         fi
-		;;
+    ;;
 
     # Select wallpaper with rofi
     "select")
@@ -52,18 +52,18 @@ case $1 in
 
         swaybg -m fill -i ~/pictures/wallpapers/$selected&
         notify-send "Colors and Wallpaper updated" "with image $selected"
-		wal -q -i $HOME/pictures/wallpapers/$selected -s -t
+        ~/.local/bin/wal -q -i $HOME/pictures/wallpapers/$selected -s -t
 
         echo "$HOME/pictures/wallpapers/$selected" > "$cache_file"
         echo "* { current-image: url(\"$HOME/pictures/wallpapers/$selected\", height); }" > "$rasi_file"
-		;;
+    ;;
 
     # Randomly select wallpaper 
     *)
         swaybg -m fill -i ${RANDOMPICS}&
         notify-send "Colors and Wallpaper updated" "with image $newwall"
 
-        wal -q -i ${RANDOMPICS} -s -t
+        ~/.local/bin/wal -q -i ${RANDOMPICS} -s -t
         
         echo "$RANDOMPICS" > "$cache_file"
         echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
@@ -79,7 +79,6 @@ if [ -f ~/.config/hypr/scripts/waybar-reset-theme ]; then
 else
     echo "Error: The required file does not exist."
 fi
-
 
 # Reload cava-pywal (note, need to manually restart cava once wallpaper changes)
 ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config" || true
