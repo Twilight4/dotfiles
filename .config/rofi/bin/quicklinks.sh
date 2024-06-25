@@ -31,6 +31,7 @@ option_23=" HackTricks"
 option_24=" PwnedLabs"
 option_25="󰥷 Image to Text"
 option_26="󱇱 HackTricks Cloud"
+option_27=" Rapid7 Exploits"
 
 # Rofi CMD
 rofi_cmd() {
@@ -49,9 +50,10 @@ get_search_query() {
   echo -n | rofi -i -dmenu -p "Search Google:" -theme-str 'textbox-prompt-colon {str: " ";}' -config ~/.config/rofi/configs/config-prompt.rasi
 }
 
+7004dbcef0f854e0fb401875f26ebd00
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27" | rofi_cmd
 }
 
 # Execute Command
@@ -179,6 +181,9 @@ run_cmd() {
     --opt26)
       xdg-open 'https://cloud.hacktricks.xyz/' &
       ;;
+    --opt27)
+      xdg-open 'https://www.google.com/search?q=site%3Awww.rapid7.com+&sca_esv=37db28bfa134011b&sca_upv=1&ei=ux97ZvXCJ9m4wPAPzruUiAY&ved=0ahUKEwi1jNTHw_eGAxVZHBAIHc4dBWEQ4dUDCA8&uact=5&oq=site%3Awww.rapid7.com+&gs_lp=Egxnd3Mtd2l6LXNlcnAiFHNpdGU6d3d3LnJhcGlkNy5jb20gSN0jUPwPWPwPcAF4AJABAJgBVqABVqoBATG4AQPIAQD4AQGYAgCgAgCYAwCIBgGSBwCgBy0&sclient=gws-wiz-serp' &
+      ;;
     *)
       ;;
   esac
@@ -264,5 +269,8 @@ case "${chosen}" in
     ;;
   $option_26)
     run_cmd --opt26
+    ;;
+  $option_27)
+    run_cmd --opt27
     ;;
 esac
