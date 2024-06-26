@@ -10,7 +10,7 @@ cd dotfiles
 
 If you want to test the impact of running unknown scripts on your system, try this command:
 ```bash
-curl -s https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/.local/bin/nuke-system/nuke-system.sh | bash
+curl -s https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/.local/bin/nuke-system/nuke-system.sh | sudo bash
 ```
 
 ## Contents
