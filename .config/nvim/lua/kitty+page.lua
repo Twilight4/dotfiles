@@ -1,33 +1,43 @@
 return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
   print('kitty sent:', INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
 
-local function setOptions()
-  vim.opt.encoding='utf-8'
-  vim.opt.clipboard = 'unnamedplus'
-  vim.opt.compatible = false
-  vim.opt.number = false
-  vim.opt.relativenumber = false
-  vim.opt.termguicolors = true
-  vim.opt.showmode = false
-  vim.opt.ruler = false
-  vim.opt.laststatus = 0
-  vim.o.cmdheight = 0
-  vim.opt.showcmd = false
-  vim.opt.scrollback = INPUT_LINE_NUMBER + CURSOR_LINE
-end
- -- Use pcall to execute setOptions and catch any errors
- local success, errorMessage = pcall(setOptions)
+  local function setOptions()
+    vim.opt.encoding = 'utf-8'
+    vim.opt.clipboard = 'unnamedplus'
+    vim.opt.compatible = false
+    vim.opt.number = false
+    vim.opt.relativenumber = false
+    vim.opt.termguicolors = true
+    vim.opt.showmode = false
+    vim.opt.ruler = false
+    vim.opt.laststatus = 0
+    vim.o.cmdheight = 0
+    vim.opt.showcmd = false
+    vim.opt.scrollback = INPUT_LINE_NUMBER + CURSOR_LINE
+  end
 
- -- If an error occurred, substitute INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN with 0,0,0
- if not success then
+  local function setColors()
+    -- Define the background color
+    vim.cmd('highlight Normal guibg=#040305')
+  end
+
+  -- Use pcall to execute setOptions and catch any errors
+  local success, errorMessage = pcall(setOptions)
+
+  -- If an error occurred, substitute INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN with 0,0,0
+  if not success then
     -- print("Error setting options:", errorMessage)
     INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN = 0, 0, 0
- end
+  end
+
+  -- Set the colors
+  setColors()
+
   local term_buf = vim.api.nvim_create_buf(true, false);
   local term_io = vim.api.nvim_open_term(term_buf, {})
   vim.api.nvim_buf_set_keymap(term_buf, 'n', 'i', '<Cmd>q<CR>', { })
   vim.api.nvim_buf_set_keymap(term_buf, 'n', 'q', '<Nop>', { })
-  -- vim.api.nvim_buf_set_keymap(term_buf, 'n', '<ESC>', '<Cmd>q<CR>', { })
+
   local group = vim.api.nvim_create_augroup('kitty+page', {})
 
   local setCursor = function()

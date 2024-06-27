@@ -117,7 +117,8 @@ bindkey -M emacs -s '^[T' 'ftrack\r'
 bindkey -M emacs -s '^[v' 'fovpn\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
 bindkey -M emacs -s '^[P' 'fpdf\r'
-bindkey -M emacs -s '^[N' 'fqli\r'
+bindkey -M emacs -s '^[n' 'nb-^I'
+
 # Cheatsheets/Notes
 bindkey -M emacs -s '^[e' 'fchtc\r'
 bindkey -M emacs -s '^[E' 'fchtce\r'
@@ -125,6 +126,7 @@ bindkey -M emacs -s '^[r' 'fchto\r'
 bindkey -M emacs -s '^[R' 'fchtoe\r'
 bindkey -M emacs -s '^[g' 'frgo '
 bindkey -M emacs -s '^[G' 'frgoe '
+bindkey -M emacs -s '^[N' 'fnp\r'
 #bindkey -M emacs -s '^[e' 'frg '
 #bindkey -M emacs -s '^[e' 'fvars\r'
 # Git

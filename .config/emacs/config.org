@@ -794,12 +794,14 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
         doom-themes-enable-italic t))   ; if nil, italics is universally disabled
 
-;; Set background colors to the same as in kitty background
+;; Set background colors to the same as in kitty terminal background
 (custom-set-faces
  '(default ((t (:background "#040305"))))
  '(line-number ((t (:background "#040305"))))
  '(mode-line ((t (:background "#040305"))))
- '(mode-line-inactive ((t (:background "#040305")))))
+ '(mode-line-inactive ((t (:background "#040305"))))
+ ;; Set the text color in org-mode source code blocks
+ '(org-block ((t (:foreground "#CDD6F4")))))
 
 ;; Use pywal auto-generated color scheme
 ;; (use-package ewal
