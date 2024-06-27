@@ -2623,9 +2623,9 @@ Automatically save the buffer to /tmp/ and load the last saved version if it exi
            "DOING(d)"
            "NEXT(n)"
            "SOMEDAY(s)"
-           "FINISHED(f)"   ; I keep these as active cuz I want to keep them in agenda view
-           "CANC(c)"       ; I keep these as active cuz I want to keep them in agenda view
            "|"             ; The pipe necessary to separate "active" states and "inactive" states
+           "CANC(c)"
+           "FINISHED(f)"
            "DONE(D)")))
 
 ;; Org-habit config
@@ -3071,7 +3071,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
       '(("d" "default" entry "* %<%I:%M %p>: %?"
          :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
 
-(defun tl/org-roam-copy-todo-to-today ()
+(defun tl/org-roam-copy-finished-to-today ()
   (interactive)
   (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
         (org-roam-dailies-capture-templates
@@ -3092,8 +3092,8 @@ The following snippet sets up a hook for all Org task state changes and then mov
 
 (add-to-list 'org-after-todo-state-change-hook
              (lambda ()
-               (when (equal org-state "DONE")
-                 (tl/org-roam-copy-todo-to-today))))
+               (when (equal org-state "FINISHED")
+                 (tl/org-roam-copy-finished-to-today))))
 
 ;; Old settings
 ;(setq org-refile-targets
