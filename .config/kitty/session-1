@@ -1,5 +1,5 @@
 # Set the layout in this tab
-layout tall
+layout fat
 # Set the working directory for windows in the current tab
 cd ~/desktop/projects
 # Create a window (title sets the tab title)
@@ -12,7 +12,7 @@ launch --title scans sh -c "result=$(find ~/desktop/projects/* -type d -prune -e
 # Create a new tab for cheat
 new_tab fcht
 # Set the layout in this tab
-layout tall
+layout fat
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window window (title sets the tab title)
@@ -22,7 +22,7 @@ launch --title fcht sh -c "exec zsh"
 # Create a new tab for cheat
 new_tab nobility
 # Set the layout in this tab
-layout tall
+layout fat
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window window (title sets the tab title)
@@ -32,7 +32,7 @@ launch --title nobility sh -c "exec zsh"
 # Create a new tab
 new_tab sliver
 # Set the layout in this tab
-layout tall
+layout fat
 # Set the working directory for windows in the current tab
 cd ~/
 launch sh -c "exec zsh"
@@ -40,7 +40,7 @@ launch sh -c "exec zsh"
 # Create a new tab
 new_tab emacs
 # Set the layout in this tab
-layout tall
+layout fat
 # Set the working directory for windows in the current tab
 cd ~/desktop/projects/
 # Create a window (title sets the tab title)
@@ -49,7 +49,7 @@ launch --title emacs sh -c "emacsclient -nw --eval \"(treemacs)\"; exec zsh"
 # Create a new tab for gptel
 new_tab gptel
 # Set the layout in this tab
-layout tall
+layout fat
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
