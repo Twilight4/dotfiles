@@ -352,6 +352,8 @@ alias cpu-reset='sudo auto-cpufreq --force=reset'
 alias omen-status='sudo systemctl status omen-performance-fix.service'
 alias cpu-temp='sensors zenpower-pci-00c3'     # Check CPU thermals
 alias watch-fans='watch sensors hp-isa-0000'              # Check Cooling fan speed
+alias fan-boost-on='sudo bash -c "sudo echo 0 > /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable"'
+alias fan-boost-off='sudo bash -c "sudo echo 2 > /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable"'
 #other scripts - run as root: fan-boost-on fan-boost-off omen-keyboard
 
 # Hblock (stop tracking with hblock) - use unhblock to stop using hblock

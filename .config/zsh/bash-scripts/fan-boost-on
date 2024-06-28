@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [[ $(id -u) -ne 0 ]]; then
-    echo "This script must be run as root" 
-    exit 1
-fi
-
-sudo echo 0 > /sys/devices/platform/hp-wmi/hwmon/hwmon*/pwm1_enable
