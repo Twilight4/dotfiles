@@ -3043,7 +3043,21 @@ this with to-do items than with projects or headings."
     (previous-line)
     (org-end-of-line)))
 
-(global-set-key (kbd "C-x l") 'tl/log-entry)
+(global-set-key (kbd "C-x L") 'tl/log-entry)
+
+;; Logbook small entry snippet
+(defun tl/log-entry-small ()
+  (interactive)
+  (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
+    (end-of-line)
+    (insert-file-contents "~/documents/org/templates/logbook/log-entry-small.org")
+    (next-line)
+    (insert "#+DATE: " current-date-time "\n")
+    (previous-line)
+    (previous-line)
+    (org-end-of-line)))
+
+(global-set-key (kbd "C-x l") 'tl/log-entry-small)
 
 ;; Report entry snippet
 (defun tl/report-entry ()
