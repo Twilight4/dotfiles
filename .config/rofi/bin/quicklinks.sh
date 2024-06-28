@@ -31,7 +31,7 @@ option_23=" HackTricks"
 option_24=" PwnedLabs"
 option_25="󰥷 Image to Text"
 option_26="󱇱 HackTricks Cloud"
-option_27=" Rapid7 Exploits"
+option_27=" Google Exploits"
 option_28="󰬎 GTFOBins"
 
 # Rofi CMD
@@ -183,7 +183,14 @@ run_cmd() {
       xdg-open 'https://cloud.hacktricks.xyz/' &
       ;;
     --opt27)
-      xdg-open 'https://www.google.com/search?q=site%3Awww.rapid7.com+&sca_esv=37db28bfa134011b&sca_upv=1&ei=ux97ZvXCJ9m4wPAPzruUiAY&ved=0ahUKEwi1jNTHw_eGAxVZHBAIHc4dBWEQ4dUDCA8&uact=5&oq=site%3Awww.rapid7.com+&gs_lp=Egxnd3Mtd2l6LXNlcnAiFHNpdGU6d3d3LnJhcGlkNy5jb20gSN0jUPwPWPwPcAF4AJABAJgBVqABVqoBATG4AQPIAQD4AQGYAgCgAgCYAwCIBgGSBwCgBy0&sclient=gws-wiz-serp' &
+      query=$(get_search_query)
+      if [ -z "$query" ]; then
+        xdg-open 'https://www.google.com/search?q=site%3Awww.rapid7.com&sca_esv=37db28bfa134011b&sca_upv=1&ei=ux97ZvXCJ9m4wPAPzruUiAY&ved=0ahUKEwi1jNTHw_eGAxVZHBAIHc4dBWEQ4dUDCA8&uact=5&oq=site%3Awww.rapid7.com+&gs_lp=Egxnd3Mtd2l6LXNlcnAiFHNpdGU6d3d3LnJhcGlkNy5jb20gSN0jUPwPWPwPcAF4AJABAJgBVqABVqoBATG4AQPIAQD4AQGYAgCgAgCYAwCIBgGSBwCgBy0&sclient=gws-wiz-serp' &
+        xdg-open 'https://www.google.com/search?q=site%3Awww.exploit-db.com&sca_esv=37db28bfa134011b&sca_upv=1&ei=TxN-ZpGfN4Ljxc8P2YGi8Ag&ved=0ahUKEwjRgriRlP2GAxWCcfEDHdmACI4Q4dUDCA8&uact=5&oq=site%3Awww.exploit-db.com&gs_lp=Egxnd3Mtd2l6LXNlcnAiF3NpdGU6d3d3LmV4cGxvaXQtZGIuY29tSLijAVC6JVijjgFwA3gAkAEAmAGCA6ABpQeqAQUyLTIuMbgBA8gBAPgBAfgBApgCAqACjQPCAgoQABiABBhGGP8BwgIFEAAYgATCAgcQABiABBgKwgIWEAAYgAQYRhj_ARiXBRiMBRjdBNgBAZgDAIgGAboGBggBEAEYE5IHBTEuMy0xoAf3Bg&sclient=gws-wiz-serp' &
+      else
+        xdg-open "https://www.google.com/search?q=site%3Awww.rapid7.com+$query&sca_esv=37db28bfa134011b&sca_upv=1&ei=ux97ZvXCJ9m4wPAPzruUiAY&ved=0ahUKEwi1jNTHw_eGAxVZHBAIHc4dBWEQ4dUDCA8&uact=5&oq=site%3Awww.rapid7.com+&gs_lp=Egxnd3Mtd2l6LXNlcnAiFHNpdGU6d3d3LnJhcGlkNy5jb20gSN0jUPwPWPwPcAF4AJABAJgBVqABVqoBATG4AQPIAQD4AQGYAgCgAgCYAwCIBgGSBwCgBy0&sclient=gws-wiz-serp" &
+        xdg-open "https://www.google.com/search?q=site%3Awww.exploit-db.com+$query&sca_esv=37db28bfa134011b&sca_upv=1&ei=TxN-ZpGfN4Ljxc8P2YGi8Ag&ved=0ahUKEwjRgriRlP2GAxWCcfEDHdmACI4Q4dUDCA8&uact=5&oq=site%3Awww.exploit-db.com&gs_lp=Egxnd3Mtd2l6LXNlcnAiF3NpdGU6d3d3LmV4cGxvaXQtZGIuY29tSLijAVC6JVijjgFwA3gAkAEAmAGCA6ABpQeqAQUyLTIuMbgBA8gBAPgBAfgBApgCAqACjQPCAgoQABiABBhGGP8BwgIFEAAYgATCAgcQABiABBgKwgIWEAAYgAQYRhj_ARiXBRiMBRjdBNgBAZgDAIgGAboGBggBEAEYE5IHBTEuMy0xoAf3Bg&sclient=gws-wiz-serp" &
+      fi
       ;;
     --opt28)
       xdg-open 'https://gtfobins.github.io/' &
