@@ -88,7 +88,7 @@
     // GNOME Authenticator Launcher
     "custom/authenticator": {
         "format": "<span font='17'>󰦯</span> <span font='16'></span>",
-        "on-click": "flatpak run com.belmoussaoui.Authenticator",
+        "on-click": "authenticator",
         "tooltip": false
     },
 

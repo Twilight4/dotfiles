@@ -80,6 +80,9 @@ main() {
 	# Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
 	update-mime-database ~/.config/.local/share/mime
 	xdg-mime default emacs.desktop text/org
+
+  # Update dirs
+  xdg-user-dirs-update
 }
 
 main
