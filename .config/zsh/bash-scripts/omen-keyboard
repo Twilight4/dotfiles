@@ -1,14 +1,8 @@
 #!/bin/bash
 
-# Warning: Before running the script make sure you have installed packages: "zenpower3-dkms" "hp-omen-wmi-dkms", rebooted
-# and read instructions in script: ~/desktop/workspace/arch-setup/tools-installation/omen-keyboard.sh
+# Warning: Before running the script make sure you have installed dkms module and kernel headers packages and rebooted
+# and read instructions in github repo: debian-setup/assets/notes/omen-keyboard.org
 # Otherwise the script will not work
-
-# Check if the script is run as root
-if [ "$EUID" -ne 0 ]; then
-	echo "Please run this script as root."
-	exit 1
-fi
 
 # Prompt the user for a color hex value without a hashtag
 read -p "Enter a color hex value (e.g., RRGGBB): " color_value
@@ -23,9 +17,9 @@ fi
 color_value="$color_value"
 
 # Write the color value to the specified file
-echo "$color_value" >/sys/devices/platform/hp-wmi/rgb_zones/zone00
-echo "$color_value" >/sys/devices/platform/hp-wmi/rgb_zones/zone01
-echo "$color_value" >/sys/devices/platform/hp-wmi/rgb_zones/zone02
-echo "$color_value" >/sys/devices/platform/hp-wmi/rgb_zones/zone03
+sudo bash -c "echo \"$color_value\" >/sys/devices/platform/hp-wmi/rgb_zones/zone00"
+sudo bash -c "echo \"$color_value\" >/sys/devices/platform/hp-wmi/rgb_zones/zone01"
+sudo bash -c "echo \"$color_value\" >/sys/devices/platform/hp-wmi/rgb_zones/zone02"
+sudo bash -c "echo \"$color_value\" >/sys/devices/platform/hp-wmi/rgb_zones/zone03"
 
 echo "Color value set to $color_value successfully."

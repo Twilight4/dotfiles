@@ -2,6 +2,8 @@
 
 # Post-install message
 echo "DONE, Please logout and reboot your system."
+echo "Install appropriate kernel headers"
+echo "    apt search linux-headers-\$(uname -r)"
 echo "------------------------------ AFTER REBOOT ------------------------------"
 echo "1. Import browser bookmarks"
 echo "2. Import your OpenAI API key for emacs in '~/.authinfo':"
