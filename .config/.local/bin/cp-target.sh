@@ -8,7 +8,7 @@ if [ -f ~/.nobility/vars/RHOST ]; then
     RHOST_CONTENT=$(cat ~/.nobility/vars/RHOST)
     # Use notify-send to display the content
     notify-send -t 3000 "RHOST IP Address:" "$RHOST_CONTENT"
-    echo "$RHOST_CONTENT" | wl-copy
+    echo "$RHOST_CONTENT" | wl-copy -n
   else
     # Use notify-send to display a message if the file is empty
     notify-send -t 3000 "RHOST is empty"
