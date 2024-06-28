@@ -1,21 +1,3 @@
-# Set the layout in this tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a window (title sets the tab title)
-launch --title btop btop
-# Focus the current tab
-focus
-
-# Create a new tab
-new_tab neo4j-db
-# Set the layout in this tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a window (title sets the tab title)
-launch --title vpn sh -c 'echo "\033[0;33mstart-neo4j-db\033[0m" && exec zsh'
-
 # Create a new tab
 new_tab dns
 # Set the layout in this tab
