@@ -410,6 +410,9 @@ alias watch-cpu-temp='watch sensors zenpower-pci-00c3'         # Watch the CPU t
 alias watch-fans='watch sudo omen-fan i'                       # Watch the service status and bios control status
 alias omen-fan-on='sudo omen-fan e 1'                          # Start the fan management service (disables BIOS control)
 alias omen-fan-off='sudo omen-fan e 0'                         # Stop the fan management serivce (enables BIOS control)
+alias omen-fan-set='sudo omen-fan e 0 && sudo omen-fan s'      # Stop the fan management service and set fan speed (disables BIOS control)
+alias omen-fan-boost-on='sudo omen-fan x 1'                    # Enable the fan boost (ignores BIOS control and fan management service)
+alias omen-fan-boost-off='sudo omen-fan x 0'                   # Disable the fan boost
 
 # Hblock (stop tracking with hblock) - use unhblock to stop using hblock
 alias unhblock="hblock -S none -D none"
