@@ -26,6 +26,28 @@ _isInstalledParu() {
     return; #false
 }
 
+#####################################
+# Install packages if not installed #
+#####################################
+_uninstallPackagesParu() {
+    toUninstall=();
+    for pkg; do
+        if [[ $(_isInstalledParu "${pkg}") != 0 ]]; then
+            echo ":: ${pkg} is not installed.";
+            continue;
+        fi;
+        toUninstall+=("${pkg}");
+    done;
+
+    if [[ "${toUninstall[@]}" == "" ]] ; then
+        # echo "None of the packages are installed.";
+        return;
+    fi;
+
+    # printf "AUR packages to uninstall:\n%s\n" "${toUninstall[@]}";
+    paru --noconfirm -R "${toUninstall[@]}";
+}
+
 
 #####################################
 # Install packages if not installed #
