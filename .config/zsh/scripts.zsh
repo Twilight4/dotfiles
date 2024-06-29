@@ -87,10 +87,14 @@ cato() {
 
 # Better diff
 diff() {
+  # I want to use less for this commmand
+  PAGER=less
   command diff -u "$@" | delta --features side-by-side
 }
 
 diffd() {
+  # I want to use less for this commmand
+  PAGER=less
   command diff -r -u "$@" | delta --features side-by-side
 }
 

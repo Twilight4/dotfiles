@@ -88,7 +88,7 @@ alias rgs='rg -i --sort'   # Possible sort values: path/modified/accessed/create
 #alias ip='ip --color=auto'   # Already set somewhere
 
 # Find
-alias fd='fdfind'
+#alias fd='fdfind'
 alias fdf='fd --ignore-case --hidden --type f'
 alias fdd="fd --ignore-case --hidden --type d"
 alias fdex="fd --ignore-case --hidden --exclude"
@@ -289,9 +289,7 @@ alias ce='cheat --edit'
 alias pping="prettyping -c 3"
 #alias pg='prettyping -c 3 8.8.8.8'
 #alias less="less -R"   # have function as 'less'
-alias kill='sudo killall -q'
 alias wire-desktop='wire-desktop --password-store="gnome-libsecret"'
-alias fkill='~/.config/zsh/fzf-scripts/fkill'
 alias fetch='clear && neofetch && fortune ~/.config/fortune/quotes'
 alias nfetch='clear && neofetch --kitty ~/pictures/bateman.png && fortune ~/.config/fortune/quotes'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
