@@ -80,3 +80,11 @@ rm -rf ~/Documents ~/Pictures ~/Desktop ~/Downloads ~/Templates ~/Music ~/Videos
 rm -f ~/.viminfo
 rm -f ~/.zsh*
 rm -f ~/.zcompdump*
+rm -f ~/.dircolors
+rm -f ~/.Xresources
+rm -f ~/.zcompdump
+rm -f ~/.profile
+rm -f ~/.gtkrc-2.0
+rm -f ~/.gitconfig
+rm -f ~/.zhistory
+rm -f ~/.zshrc

@@ -85,8 +85,10 @@ bindkey '^P' history-search-backward
 # Debug which keys are being sent to the shell from your terminal: showkey -a
 
 # Command line
-bindkey -M emacs -s '^[F' 'fapti\r'
-bindkey -M emacs -s '^[D' 'faptr\r'
+#bindkey -M emacs -s '^[F' 'fapti\r'
+#bindkey -M emacs -s '^[D' 'faptr\r'
+bindkey -M emacs -s '^[F' 'fpars\r'
+bindkey -M emacs -s '^[D' 'fparr\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
 bindkey -M emacs -s '^[j' 'fmv\r'
 bindkey -M emacs -s '^[k' 'frm\r'
