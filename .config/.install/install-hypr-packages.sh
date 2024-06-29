@@ -55,6 +55,7 @@ packages=(
   "emacs"
   "duf"
   "ncdu"
+  "rlwrap"
   "speedtest-cli"
   "gnome-weather"
   "gnome-maps"
