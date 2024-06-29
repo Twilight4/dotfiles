@@ -210,6 +210,91 @@ fvars() {
 # Package Managers #
 ####################
 
+# Pacman package manager
+fpars() {
+    selected_packages=$(paru -Slq | fzf --multi --reverse --preview 'paru -Si {1}')
+
+    # Check if package to install is selected
+    if [ -z "$selected_packages" ]; then
+        echo -e "\e[31mNo package selected. Exiting.\e[0m"
+        return
+    fi
+
+    # Confirmation for installing the package
+    echo -e "\e[34mYou have selected the following packages for installation: \e[0m\e[33m$selected_packages\e[0m"
+    echo -ne "\e[34mAre you sure you want to install these packages? (y/N): \e[0m"
+    read confirm
+    echo
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+        echo -e "\e[31mOperation cancelled.\e[0m"
+        return
+    fi
+
+    # Install the selected package(s)
+    echo "$selected_packages" | xargs -ro paru -S --noconfirm
+
+    # Check if installation was successful
+    if [ $? -eq 0 ]; then
+        echo
+        echo -e "\e[32mInstallation completed successfully.\e[0m"
+    else
+        echo
+        echo -e "\e[31mInstallation failed. Please check the error messages above.\e[0m"
+    fi
+}
+
+fparr() {
+    # List all explicitly installed packages and use fzf to select packages to uninstall
+    selected_packages=$(paru -Qe | awk '{print $1}' | fzf --multi --reverse --preview 'paru -Qi {1}')
+
+    # Check if package to uninstall is selected
+    if [ -z "$selected_packages" ]; then
+        echo -e "\e[31mNo package selected. Exiting.\e[0m"
+        return
+    fi
+
+    # Confirmation for uninstalling the package
+    echo -e "\e[34mYou have selected the following packages for removal: \e[0m\e[33m$selected_packages\e[0m"
+    echo -ne "\e[34mAre you sure you want to remove these packages? (y/N): \e[0m"
+    read confirm
+    echo
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+        echo -e "\e[31mOperation cancelled.\e[0m"
+        return
+    fi
+
+    # Uninstall the packages
+    echo "$selected_packages" | xargs -ro sudo paru -Rns
+
+    # Check if removal was successful
+    if [ $? -eq 0 ]; then
+        echo
+        echo -e "\e[32mRemoval completed successfully.\e[0m"
+    else
+        echo
+        echo -e "\e[31mRemoval failed. Please check the error messages above.\e[0m"
+    fi
+
+    # Search for leftover files
+    echo
+    echo -ne "\e[34mDo you want to search for leftover files related to the removed packages? (y/N): \e[0m"
+    read confirm_search
+    if [[ "$confirm_search" =~ ^[Yy]$ ]]; then
+        echo -e "\e[34mSearching for leftover files...\e[0m"
+        echo
+        echo "$selected_packages" | while read -r package; do
+            sudo fd "$package" /
+        done
+    else
+        echo -e "\e[31mSkipping search for leftover files.\e[0m"
+    fi
+
+    echo
+    echo -e "\e[34mOptional additional cleanup steps:\e[0m"
+    echo -e "\e[32mRun 'paru -Sc' to clean the package cache\e[0m"
+    echo -e "\e[32mRun 'paru -Rns \$(paru -Qdtq)' to remove unused dependencies\e[0m"
+}
+
 # Apt package manager
 fapti() {
     selected_packages=$(apt-cache search . | cut -d' ' -f1 | fzf --multi --reverse --preview 'apt-cache show {1}')
@@ -282,7 +367,7 @@ faptr() {
         echo -e "\e[34mSearching for leftover files...\e[0m"
         echo
         echo "$selected_packages" | while read -r package; do
-            sudo find / -name "*$package*"
+            sudo fd "$package" /
         done
     else
         echo -e "\e[31mSkipping search for leftover files.\e[0m"
