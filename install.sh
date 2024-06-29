@@ -44,6 +44,7 @@ source .config/.install/confirm-start.sh
 source .config/.install/install-hypr-packages.sh
 source .config/.install/cleanup-homedir.sh
 source .config/.install/wallpaper.sh
+source .config/.install/install-fonts.sh
 source .config/.install/init-pywal.sh
 source .config/.install/install-dotfiles.sh
 source .config/.install/button-layout.sh

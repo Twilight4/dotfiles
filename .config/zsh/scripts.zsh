@@ -519,6 +519,12 @@ pkg-query() {
     done 
 }
 
+pac-query() {
+    for pkg in "$@"; do
+        echo -e "\e[32m[+] ${pkg} is installed\e[0m" && paru -Qs --color always $pkg && echo || echo -e "\e[31mError: ${pkg} is not installed\e[0m"
+    done 
+}
+
 # Download all videos in mp3 from a youtube channel
 # Usage: ytdlall <channel_URL>
 ytdlall() {
