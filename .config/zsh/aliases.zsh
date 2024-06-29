@@ -88,7 +88,6 @@ alias rgs='rg -i --sort'   # Possible sort values: path/modified/accessed/create
 #alias ip='ip --color=auto'   # Already set somewhere
 
 # Find
-#alias fd='fdfind'
 alias fdf='fd --ignore-case --hidden --type f'
 alias fdd="fd --ignore-case --hidden --type d"
 alias fdex="fd --ignore-case --hidden --exclude"
@@ -136,20 +135,6 @@ alias ccp='print -n "${PWD:a}" | wl-copy || return 1; echo ${(%):-"%B${PWD:a}%b 
 ##############################################################################################################
 # System management                                                                                          #
 ##############################################################################################################
-# Apt-get
-alias pacsyu="sudo apt-get update && sudo apt-get upgrade"
-alias kali-version="lsb_release -a"                  # check system version
-alias kali-upgrade="sudo apt update && sudo apt full-upgrade -y"    # Upgrade to the latest kali version
-alias pacs="sudo apt update && sudo apt install"
-alias pacr="sudo apt update && sudo apt purge"          # Remove with its configuration files
-alias cleanup="sudo apt update && sudo apt autoremove"
-alias aptcache="sudo du -sh /var/cache/apt/archives"
-alias aptcache-clean="sudo apt clean"
-alias pacf="sudo apt-cache search"
-alias rip-apt="sudo apt list --installed"
-alias rip-snap="snap list"
-alias apt-history='grep " install " /var/log/apt/history.log'
-
 # Systemd
 alias sdlistall="sudo systemctl list-unit-files --type=service"
 alias sdlisten="sudo systemctl list-unit-files --type=service --state=enabled"
@@ -282,6 +267,81 @@ alias gco='git checkout'
 
 
 ##############################################################################################################
+# DEBIAN SPECIFIC                                                                                            #
+##############################################################################################################
+# Apt-get
+alias pacsyu="sudo apt-get update && sudo apt-get upgrade"
+alias kali-version="lsb_release -a"                  # check system version
+alias kali-upgrade="sudo apt update && sudo apt full-upgrade -y"    # Upgrade to the latest kali version
+alias pacs="sudo apt update && sudo apt install"
+alias pacr="sudo apt update && sudo apt purge"          # Remove with its configuration files
+alias cleanup="sudo apt update && sudo apt autoremove"
+alias aptcache="sudo du -sh /var/cache/apt/archives"
+alias aptcache-clean="sudo apt clean"
+alias pacf="sudo apt-cache search"
+alias rip-apt="sudo apt list --installed"
+alias rip-snap="snap list"
+alias apt-history='grep " install " /var/log/apt/history.log'
+
+# System
+alias grubup="sudo update-grub"
+#alias fd='fdfind'
+
+
+##############################################################################################################
+# ARCH SPECIFIC                                                                                              #
+##############################################################################################################
+# Blackarch repo packages
+alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # List all available tools
+alias blackcat="sudo pacman -Sg | grep blackarch"                             # See the blackarch categories
+alias ginxi="garuda-inxi"
+#alias gup="garuda-update"
+alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
+
+# Refresh mirrorlists
+alias rank-mirrors="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrolist"
+alias rank-mirrors-quick="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup && sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup && sudo rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist"
+
+# Gpg - verify signature for isos
+alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
+alias fix-gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
+# Gpg - receive the key
+alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
+alias fix-gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
+alias fix-keyserver="[ -d ~/.gnupg ] || mkdir ~/.gnupg ; cp /etc/pacman.d/gnupg/gpg. conf ~/.gnupg/ ; echo 'done'"
+
+# Pacman
+alias pacs="sudo pacman -S"                      # Install package faster
+alias pacr="sudo pacman -Rns"                    # Remove package faster
+alias pacf="sudo pacman -F"                      # Search binary package faster
+alias pacu="sudo pacman -U"                      # Install the needed package
+alias pacsyu="sudo pacman -Syuu"     # Update only standard pkgs
+alias pacsyyu="sudo pacman -Syyu"                # Refresh pkglist & update standard pkgs
+alias cleanup="sudo pacman -Rns $(pacman -Qtdq)" # Cleanup orphaned packages
+
+# Pacman issues
+alias rmdblock="sudo rm /var/lib/pacman/db.lck"  # Fix “unable to lock database” Error
+alias fix-keys="sudo pacman-key --init; sudo pacman-key --populate; sudo pacman-key --lsign cachyos"
+
+# Paru
+alias pars="paru -S"                              # Install AUR package faster
+alias parr="paru -Rns"                            # Remove package faster
+alias parf="paru -F"                              # Search binary package faster
+alias parsyu="paru -Syuu"             # Update standard pkgs and AUR pkgs
+alias parsyur="paru -Syuu && sleep 5 && reboot"        # Update and reboot
+alias parsyus="paru -Syuu && sleep 5 && shutdown now"  # Update and shutdown
+alias parhi='paru -Ql'                            # Paru Has Installed - what files where installed in a package
+alias parss='paru -Ss'                            # Search
+alias parc='paru -Sc'                             # Remove pacman's cache
+alias parro='paru -Rns $(pacman -Qtdq)'
+alias parls="paru -Qe"
+
+# Revert to an older version of the package
+alias pkgver="cd /var/cache/pacman/pkg && lsd -l --hyperlink=auto"     # Go into the pacman cache and find the needed package.
+alias paruu="sudo pacman -U package"
+
+
+##############################################################################################################
 # Aliases to modified commands                                                                               #
 ##############################################################################################################
 alias s="kitty +kitten ssh"
@@ -310,9 +370,6 @@ alias jctl="journalctl -p 3 -xb"
 alias jctle="journalctl --user -xeu"    # show error messages, specify a unit
 alias notif="cat /tmp/notify.log"
 alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
-alias grubup="sudo update-grub"
-#alias ginxi="garuda-inxi"
-#alias gup="garuda-update"
 alias lsall="lspci"
 alias mic-record="pw-record ./recording.mp3"
 alias gparted="xhost +SI:localuser:root && gparted"    # Optionally try running ocmmand: "xhost +localhost" and then "sudo gparted"
