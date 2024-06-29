@@ -165,7 +165,7 @@ packages=(
 	"pv"
 )
 
-otherpackages=(
+extra=(
 	"toilet"
 	"caffeine-ng"
 	"asciiquarium-transparent-git"
@@ -216,4 +216,4 @@ _uninstallPackagesParu "${bloat[@]}";
 
 # Insatll packages
 _installPackagesPacman "${packages[@]}";
-#_installPackagesParu "${otherpackages[@]}";
+#_installPackagesParu "${extra[@]}";
