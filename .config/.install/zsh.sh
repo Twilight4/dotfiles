@@ -74,7 +74,7 @@ echo "NVChad configuration installation complete."
 
 # Install fzf
 # Prompt user for input
-read -p "Do you want to install NVChad configuration (y/n)? " answer
+read -p "Do you want to install FZF (y/n)? " answer
 
 # Validate user input
 if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
@@ -90,3 +90,15 @@ else
     echo "Failed to install FZF."
     exit 1
 fi
+
+# Rebuild bat cache
+# Prompt user for input
+read -p "Do you want to rebuild bat cache (y/n)? " answer
+
+# Validate user input
+if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
+    echo "Operation cancelled by the user."
+    exit 0
+fi
+
+bat cache --build
