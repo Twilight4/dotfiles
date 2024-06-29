@@ -14,9 +14,9 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title cpu-temp watch sensors zenpower-pci-00c3
+launch --title cpu-temp watch -n 0.5 sensors zenpower-pci-00c3
 # Create a window (title sets the tab title)
-launch --title fans watch sudo omen-fan i
+launch --title fans watch -n 0.5 sudo omen-fan i
 
 # Create a new tab
 new_tab dns
