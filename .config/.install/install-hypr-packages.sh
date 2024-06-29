@@ -214,6 +214,6 @@ extra=(
 # First you have to uninstall the bloat
 _uninstallPackagesParu "${bloat[@]}";
 
-# Insatll packages
+# Install packages
 _installPackagesPacman "${packages[@]}";
 #_installPackagesParu "${extra[@]}";
