@@ -780,10 +780,16 @@ gitnewrepo() {
 gcl() {
     if [[ $# -gt 0 ]]; then
         git clone "$*" && cd "$(basename "$1" .git)"
+        echo
+        ls
     elif [[ "$(wl-paste)" == *"clone"* ]]; then
         $(wl-paste) && cd "$(basename "$(wl-paste)" .git)"
+        echo
+        ls
     else
         git clone --depth 1 "$(wl-paste)" && cd "$(basename "$(wl-paste)" .git)"
+        echo
+        ls
     fi
 }
 
