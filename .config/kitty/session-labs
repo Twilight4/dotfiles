@@ -17,15 +17,6 @@ cd ~/
 launch --title pdfs sh -c 'file=$(find ~/documents/pdfs/* -type f -name "*.pdf" -prune -exec basename {} \; | sort | uniq | nl | ~/.fzf/bin/fzf | cut -f 2) && [ -n "$file" ] && zathura "$HOME/documents/pdfs/$file" && exec zsh'
 
 # Create a new tab
-new_tab btop
-# Set the layout in this tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a window (title sets the tab title)
-launch --title btop btop
-
-# Create a new tab
 new_tab neo4j-db
 # Set the layout in this tab
 layout tall

@@ -1,4 +1,24 @@
 # Create a new tab
+new_tab btop
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title btop btop
+
+# Create a new tab
+new_tab cpu/fans
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title cpu-temp watch sensors zenpower-pci-00c3
+# Create a window (title sets the tab title)
+launch --title fans watch sudo omen-fan i
+
+# Create a new tab
 new_tab dns
 # Set the layout in this tab
 layout grid
