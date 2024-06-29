@@ -161,7 +161,7 @@ fcp() {
         if [[ -n "$SOURCES" ]]; then
             # Use xargs to capture filenames with spaces in them properly
             echo "$SOURCES" | while IFS= read -r file; do
-                sudo xcp -r "$file" "$TARGET"
+                xcp -r "$file" "$TARGET"
                 if [[ $? -eq 0 ]]; then
                     echo -e "\e[34mcopied: '\e[0m\e[33m$file\e[0m\e[34m' -> '\e[0m\e[33m$TARGET$file/\e[0m\e[34m'\e[0m"
                 else
@@ -417,8 +417,8 @@ frgoe() {
 
 # List cheatsheets and cat with preview
 fchtc() {
-  file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --color=always ~/.config/cheat/tools/{}') || return
-	[ -n "$file" ] && command cheat "$file" | bat --style=snip --color=always --language=help
+  file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --pager less --color=always ~/.config/cheat/tools/{}') || return
+	[ -n "$file" ] && command cheat "$file" | bat --pager less --style=snip --color=always --language=help
 }
 
 # List org notes and cat
