@@ -46,6 +46,7 @@ packages=(
   "ripgrep"
   "the_silver_searcher"
   "irqbalance"
+  "zenpower3-dkms"
   "acpi"
   "dkms"
   "emacs"

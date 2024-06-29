@@ -283,7 +283,7 @@ alias rip-snap="snap list"
 alias apt-history='grep " install " /var/log/apt/history.log'
 
 # System
-alias grubup="sudo update-grub"
+#alias grubup="sudo update-grub"
 #alias fd='fdfind'
 
 
@@ -296,6 +296,7 @@ alias blackcat="sudo pacman -Sg | grep blackarch"                             # 
 alias ginxi="garuda-inxi"
 #alias gup="garuda-update"
 alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
+alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 # Refresh mirrorlists
 alias rank-mirrors="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrolist"
@@ -397,17 +398,17 @@ alias wifi-off='nmcli r wifi off'
 # Check CPU mitigations vulnerabilities in microcode
 alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
 
-# Using AMD P-State EPP scheduler
-alias pstate='cat /sys/devices/system/cpu/amd_pstate/status'   # Check if the p-state driver is active
+# Using AMD P-State EPP scheduler and omen laptop settings
+alias pstate='cat /sys/devices/system/cpu/amd_pstate/status'     # Check if the state of p-state driver
 alias powersave='sudo auto-cpufreq --force=powersave && sudo cpupower --cpu all frequency-set -g powersave'
 alias performance='sudo auto-cpufreq --force=performance && sudo cpupower --cpu all frequency-set -g performance'
 alias cpu-reset='sudo auto-cpufreq --force=reset'
-# Omen laptop settings
-alias cpu-temp='sensors zenpower-pci-00c3'     # Check CPU thermals
-alias watch-fans='watch sensors hp-isa-0000'              # Check Cooling fan speed
+alias cpu-temp='sensors zenpower-pci-00c3'
+alias fans='sensors hp-isa-0000'
+alias watch-cpu-temp='watch sensors zenpower-pci-00c3'
+alias watch-fans='watch sensors hp-isa-0000'
 alias fan-boost-on='sudo bash -c "echo 0 > /sys/class/hwmon/hwmon5/pwm1_enable"'
 alias fan-boost-off='sudo bash -c "echo 2 > /sys/class/hwmon/hwmon5/pwm1_enable"'
-#other scripts - run as root: fan-boost-on fan-boost-off omen-keyboard
 
 # Hblock (stop tracking with hblock) - use unhblock to stop using hblock
 alias unhblock="hblock -S none -D none"
