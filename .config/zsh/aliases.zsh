@@ -136,15 +136,15 @@ alias ccp='print -n "${PWD:a}" | wl-copy || return 1; echo ${(%):-"%B${PWD:a}%b 
 # System management                                                                                          #
 ##############################################################################################################
 # Systemd
-alias sdlistall="sudo systemctl list-unit-files --type=service"
-alias sdlisten="sudo systemctl list-unit-files --type=service --state=enabled"
-alias sdlistds="sudo systemctl list-unit-files --type=service --state=disabled"
-alias sdlista="sudo systemctl list-units --type=service --state=active"
-alias sdstatus="sudo systemctl status"
-alias sdstart="sudo systemctl start"
-alias sdstop="sudo systemctl stop"
-alias sden="sudo systemctl enable --now"
-alias sdds="sudo systemctl disable"
+alias sd-listall="sudo systemctl list-unit-files --type=service"
+alias sd-listen="sudo systemctl list-unit-files --type=service --state=enabled"
+alias sd-listds="sudo systemctl list-unit-files --type=service --state=disabled"
+alias sd-lista="sudo systemctl list-units --type=service --state=active"
+alias sd-status="sudo systemctl status"
+alias sd-start="sudo systemctl start"
+alias sd-stop="sudo systemctl stop"
+alias sd-en="sudo systemctl enable --now"
+alias sd-ds="sudo systemctl disable"
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
@@ -158,12 +158,12 @@ alias hw="hwinfo --short"
 alias go-update="go get -u all"
 
 # ps
-alias psa="ps auxf"
-alias psrg="ps aux | rg -i -e VSZ -e"
-alias psmem="ps auxf | sort -nr -k 4"
-alias psmem10="ps auxf | sort -nr -k 4 | head -10"
-alias pscpu="ps auxf | sort -nr -k 3"
-alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
+alias ps-a="ps auxf"
+alias ps-rg="ps aux | rg -i -e VSZ -e"
+alias ps-mem="ps auxf | sort -nr -k 4"
+alias ps-mem10="ps auxf | sort -nr -k 4 | head -10"
+alias ps-cpu="ps auxf | sort -nr -k 3"
+alias ps-topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
 # Show all logs in /var/log
 alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:\$//g' | grep -v '[0-9]\$' | xargs tail -f"
@@ -270,15 +270,14 @@ alias gco='git checkout'
 # DEBIAN SPECIFIC                                                                                            #
 ##############################################################################################################
 # Apt-get
-alias pacsyu="sudo apt-get update && sudo apt-get upgrade"
-alias kali-version="lsb_release -a"                  # check system version
-alias kali-upgrade="sudo apt update && sudo apt full-upgrade -y"    # Upgrade to the latest kali version
-alias pacs="sudo apt update && sudo apt install"
-alias pacr="sudo apt update && sudo apt purge"          # Remove with its configuration files
+alias deb-version="lsb_release -a"                                 # check system version
+alias deb-upgrade="sudo apt update && sudo apt full-upgrade -y"    # Upgrade to the latest kali version
+alias apti="sudo apt update && sudo apt install"
+alias aptr="sudo apt update && sudo apt purge"          # Remove with its configuration files
 alias cleanup="sudo apt update && sudo apt autoremove"
 alias aptcache="sudo du -sh /var/cache/apt/archives"
 alias aptcache-clean="sudo apt clean"
-alias pacf="sudo apt-cache search"
+alias apts="sudo apt-cache search"
 alias rip-apt="sudo apt list --installed"
 alias rip-snap="snap list"
 alias apt-history='grep " install " /var/log/apt/history.log'
