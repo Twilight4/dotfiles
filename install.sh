@@ -41,12 +41,16 @@ echo ""
 # Installation #
 ################
 source .config/.install/confirm-start.sh
-source .config/.install/wallpaper.sh
+source .config/.install/install-hypr-packages.sh
 source .config/.install/cleanup-homedir.sh
+source .config/.install/wallpaper.sh
 source .config/.install/init-pywal.sh
 source .config/.install/install-dotfiles.sh
 source .config/.install/button-layout.sh
 source .config/.install/zsh.sh
+source .config/.install/auto-cpufreq.sh
+source .config/.install/enable-services.sh
+source .config/.install/locales.sh
 source .config/.install/final-message.sh
 # Don't use anymore
 #source .config/.install/display-manager.sh
