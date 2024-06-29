@@ -403,12 +403,13 @@ alias pstate='cat /sys/devices/system/cpu/amd_pstate/status'     # Check if the 
 alias powersave='sudo auto-cpufreq --force=powersave && sudo cpupower --cpu all frequency-set -g powersave'
 alias performance='sudo auto-cpufreq --force=performance && sudo cpupower --cpu all frequency-set -g performance'
 alias cpu-reset='sudo auto-cpufreq --force=reset'
+# Fan management
+alias fans='watch sudo omen-fan i'
 alias cpu-temp='sensors zenpower-pci-00c3'
-alias fans='sensors hp-isa-0000'
-alias watch-cpu-temp='watch sensors zenpower-pci-00c3'
-alias watch-fans='watch sensors hp-isa-0000'
-alias fan-boost-on='sudo bash -c "echo 0 > /sys/class/hwmon/hwmon5/pwm1_enable"'
-alias fan-boost-off='sudo bash -c "echo 2 > /sys/class/hwmon/hwmon5/pwm1_enable"'
+alias watch-cpu-temp='watch sensors zenpower-pci-00c3'         # Watch the CPU thermals
+alias watch-fans='watch sudo omen-fan i'                       # Watch the service status and bios control status
+alias omen-fan-on='sudo omen-fan e 1'                          # Start the fan management service (disables BIOS control)
+alias omen-fan-off='sudo omen-fan e 0'                         # Stop the fan management serivce (enables BIOS control)
 
 # Hblock (stop tracking with hblock) - use unhblock to stop using hblock
 alias unhblock="hblock -S none -D none"
