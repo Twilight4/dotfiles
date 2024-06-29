@@ -44,6 +44,20 @@ fzf-cd-global() {
 # Command Line #
 ################
 
+fkill() {
+    if [[ $(uname) = Linux ]]; then
+        pid_col=2
+        pids=$(ps -f -u "$USER" | sed 1d | fzf --multi | tr -s "[:blank:]" | cut -d' ' -f"$pid_col")
+    else
+        echo 'Error: unknown platform'
+        return
+    fi
+
+    if [[ -n "$pids" ]]; then
+        echo "$pids" | xargs kill -9 "$@"
+    fi
+}
+
 # List of port opens
 fports() {
     sudo netstat -tulpn | grep LISTEN | fzf;
