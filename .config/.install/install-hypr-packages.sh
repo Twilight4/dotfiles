@@ -35,6 +35,9 @@ bloat=(
 packages=(
   "garuda-blackarch"
   "brave-bin"
+  "python-click"
+  "python-tomlkit"
+  "python-click-aliases"
   "neovim"
   "thefuck"
   "zoxide"
