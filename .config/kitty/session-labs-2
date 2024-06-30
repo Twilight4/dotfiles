@@ -1,13 +1,4 @@
 # Create a new tab
-new_tab btop
-# Set the layout in this tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a window (title sets the tab title)
-launch --title btop btop
-
-# Create a new tab
 new_tab cpu/fans
 # Set the layout in this tab
 layout tall
@@ -17,31 +8,72 @@ cd ~/
 launch --title cpu-temp watch -n 0.5 sensors zenpower-pci-00c3
 # Create a window (title sets the tab title)
 launch --title fans watch -n 0.5 sudo omen-fan i
+# Focus this tab
+focus
 
 # Create a new tab
-new_tab dns
-# Set the layout in this tab
-layout grid
-# Create a window
-cd ~/
-launch --title dns sh -c 'echo "\033[0;33mresolvectl dns <IFACE> <IP_ADDR>\033[0m" && exec zsh'
-# Create a second window
-cd ~/
-launch --title domain sh -c 'echo "\033[0;33mresolvectl domain <IFACE> <DOMAIN>\033[0m" && exec zsh'
-# Create a third window
-cd ~/
-launch --title status sh -c 'echo "\033[0;33mresolvectl status <IFACE>\033[0m" && exec zsh'
-# Create a forth window
-cd ~/
-launch --title nslookup sh -c 'echo "\033[0;33mnslookup <DOMAIN>\033[0m" && exec zsh'
-
-# Create a new tab
-new_tab ip
+new_tab btop
 # Set the layout in this tab
 layout tall
-# Set the working directory
+# Set the working directory for windows in the current tab
 cd ~/
-# Create a window
-launch --title ip sh -c 'echo "\033[0;33mip a show\033[0m" && exec zsh'
-# Create a second window
-launch --title ping sh -c 'echo "\033[0;33mping <IP_ADDR>\033[0m" && exec zsh'
+# Create a window (title sets the tab title)
+launch --title btop btop
+
+# Create a new tab
+new_tab htop
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title htop htop
+
+# Create a new tab
+new_tab nvtop
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title nvtop nvtop
+
+# Create a new tab
+new_tab wavemon
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title wavemon wavemon
+
+
+
+
+# Create a new tab
+#new_tab dns
+## Set the layout in this tab
+#layout grid
+## Create a window
+#cd ~/
+#launch --title dns sh -c 'echo "\033[0;33mresolvectl dns <IFACE> <IP_ADDR>\033[0m" && exec zsh'
+## Create a second window
+#cd ~/
+#launch --title domain sh -c 'echo "\033[0;33mresolvectl domain <IFACE> <DOMAIN>\033[0m" && exec zsh'
+## Create a third window
+#cd ~/
+#launch --title status sh -c 'echo "\033[0;33mresolvectl status <IFACE>\033[0m" && exec zsh'
+## Create a forth window
+#cd ~/
+#launch --title nslookup sh -c 'echo "\033[0;33mnslookup <DOMAIN>\033[0m" && exec zsh'
+#
+## Create a new tab
+#new_tab ip
+## Set the layout in this tab
+#layout tall
+## Set the working directory
+#cd ~/
+## Create a window
+#launch --title ip sh -c 'echo "\033[0;33mip a show\033[0m" && exec zsh'
+## Create a second window
+#launch --title ping sh -c 'echo "\033[0;33mping <IP_ADDR>\033[0m" && exec zsh'
