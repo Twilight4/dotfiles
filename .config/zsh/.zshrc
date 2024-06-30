@@ -236,6 +236,15 @@ if [ -x /usr/bin/dircolors ]; then
     zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 fi
 
+# Enable substring search
+if [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ] || [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
+    if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+        \. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+    else
+        \. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+    fi
+fi
+
 # Enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] || [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -248,9 +257,18 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] || [ -f /usr/sh
 fi
 
 # Enable command-not-found if installed
-if [ -f /etc/zsh_command_not_found ]; then
+# Arch Linux command-not-found support, you must have package pkgfile installed
+# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
+if [ -f /etc/zsh_command_not_found ] || [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
+  if [ -f /etc/zsh_command_not_found ]; then
     \. /etc/zsh_command_not_found
+  else
+    \. /usr/share/doc/pkgfile/command-not-found.zsh
+  fi
 fi
+
+# Advanced command-not-found hook
+[[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
 
 # Load nobility variables quietly
 if [ -d ~/.config/zsh/plugins/nobility ]; then
