@@ -4,8 +4,7 @@
 
 ```bash
 # Attention: clone dotfiles repo to $HOME
-git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/dotfiles && cd dotfiles
-./install.sh
+git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/dotfiles > /dev/null 2>&1 && cd ~/dotfiles && ./install.sh
 ```
 
 If you want to test the impact of running unknown scripts on your system, try this command:
@@ -17,7 +16,7 @@ sudo bash -c "$(curl -sL https://raw.githubusercontent.com/Twilight4/dotfiles/ma
 
 |      Label                     |                         Application                        |
 | :----------------------------: | :--------------------------------------------------------: | 
-|  **Operating System**          | [Debian Trixie](https://www.debian.org/releases/trixie/)   |
+|  **Operating System**          | [Arch Linux](https://archlinux.org/)                       |
 |  **Window Manager**            | [Hyprland](https://github.com/hyprwm/Hyprland)             |
 |  **Status Bar**                | [Waybar](https://github.com/Alexays/Waybar/)               |
 |  **App Launcher**              | [Rofi-wayland](https://github.com/lbonn/rofi)              |
@@ -27,7 +26,7 @@ sudo bash -c "$(curl -sL https://raw.githubusercontent.com/Twilight4/dotfiles/ma
 |  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/)                  |
 |  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
 |  **Text Editor**            	 | [Emacs](https://www.gnu.org/software/emacs/)               |
-|  **GTK Theme**                 | [Tokyonight-Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)          |
+|  **GTK Theme**                 | [Tokyonight-Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)    |
 |  **Shell**                     | [Zsh](https://github.com/zsh-users)                        |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
 |  **Fonts**                     | [Meslo / JetBrains Mono NF](https://github.com/ryanoasis/nerd-fonts/)    |
