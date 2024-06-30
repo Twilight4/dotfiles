@@ -178,6 +178,8 @@ extra=(
 	"toilet"
 	"caffeine-ng"
 	"asciiquarium-transparent-git"
+  "fireplace-git"
+  "musikcube"
 	"trizen"
 	"sushi"
 	"wildmidi"
