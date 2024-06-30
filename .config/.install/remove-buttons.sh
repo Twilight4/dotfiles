@@ -1,13 +1,12 @@
 #!/bin/bash
 
-echo
+clear
 cat <<"EOF"
  ____        _   _                  
 | __ ) _   _| |_| |_ ___  _ __  ___ 
 |  _ \| | | | __| __/ _ \| '_ \/ __|
 | |_) | |_| | |_| || (_) | | | \__ \
 |____/ \__,_|\__|\__\___/|_| |_|___/
-                                    
 
 EOF
                                     
@@ -32,3 +31,6 @@ if [[ "$update_layout_choice" =~ ^[Yy]$ ]]; then
 else
     echo "Button layout update canceled by user."
 fi
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2

@@ -31,3 +31,6 @@ if [ "$install_choice" == "y" ]; then
 else
     echo "Installation of auto-cpufreq canceled by user."
 fi
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2

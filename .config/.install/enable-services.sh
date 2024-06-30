@@ -79,3 +79,6 @@ if [[ "$enable_services" =~ ^[Yy]$ ]]; then
   echo "Check status of services:"
   echo "    fstrim.timer"
 fi
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2

@@ -35,7 +35,11 @@ fi
 
 # Copy custom lua file
 cp "$HOME/dotfiles/.config/nvim/lua/kitty+page.lua" "$HOME/.config/nvim/lua" && \
+echo
 echo "Custom lua file copied successfully."
 
 # End of script
 echo "NVChad configuration installation complete."
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2
