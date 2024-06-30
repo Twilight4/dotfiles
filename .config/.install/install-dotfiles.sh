@@ -57,8 +57,8 @@ install_symlinks() {
 # Function to install dotfiles by copying files to ~/.config
 install_by_copy() {
 	echo "Copying files to ~/.config..."
-	rm -rf ~/.config/
-	cp -r ~/dotfiles/.config ~/
+	rm -vrf ~/.config/
+	cp -vr ~/dotfiles/.config ~/
 }
 
 # Main function
@@ -82,7 +82,7 @@ main() {
 	xdg-mime default emacs.desktop text/org
 
   # Update dirs
-  xdg-user-dirs-update
+  xdg-user-dirs-update >/dev/null
 }
 
 main
