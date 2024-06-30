@@ -22,11 +22,9 @@ bloat=(
   "foot"
   "fsearch"
   "geany"
-  "gestures"
   "meld"
   "pace"
   "ranger"
-  "mako"
   "gnome-system-monitor"
   "gnome-logs"
   "xfce4-terminal"
@@ -219,9 +217,9 @@ extra=(
 )
 
 # First you have to uninstall the bloat
-_uninstallPackagesParu "${bloat[@]}";
+echo "Removing bloat..."
+paru --noconfirm -Rns "${bloat[@]}"
 
 # Install packages
-_installPackagesParu "${packages[@]}";
-#_installPackagesPacman "${packages[@]}";
-#_installPackagesParu "${extra[@]}";
+echo "Installing packages..."
+_installPackagesParu "${packages[@]}"
