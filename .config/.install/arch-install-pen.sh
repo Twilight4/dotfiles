@@ -10,6 +10,7 @@ cat <<"EOF"
                                         
                          
 EOF
+
 read -p "Do you want to install pentesting tools? (y/n) " answer
 
 case ${answer:0:1} in

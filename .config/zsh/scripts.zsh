@@ -282,7 +282,7 @@ umntmtp() {
 ssh-create() {
     if [ ! -z "$1" ]; then
         ssh-keygen -f $HOME/.ssh/$1 -t rsa -N '' -C "$1"
-        chmod 700 $HOME/.ssh/$1*
+        chmod 600 $HOME/.ssh/$1*
     fi
 }
 

@@ -41,17 +41,19 @@ echo ""
 ################
 source .config/.install/confirm-start.sh
 source .config/.install/install-hypr-packages.sh
+source .config/.install/arch-install-pen.sh
 source .config/.install/cleanup-homedir.sh
 source .config/.install/wallpaper.sh
 source .config/.install/install-fonts.sh
 source .config/.install/install-dotfiles.sh
-source .config/.install/button-layout.sh
+source .config/.install/remove-buttons.sh
 source .config/.install/zsh.sh
+source .config/.install/nvchad.sh
+source .config/.install/fzf.sh
 source .config/.install/auto-cpufreq.sh
 source .config/.install/enable-services.sh
 source .config/.install/locales.sh
 source .config/.install/final-message.sh
-source .config/.install/arch-install-pen.sh
 # Don't use anymore
 #source .config/.install/display-manager.sh
 #source .config/.install/tty-login.sh
