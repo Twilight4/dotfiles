@@ -12,7 +12,7 @@ if [ $SCRIPTPATH = "/home/$USER/.config" ]; then
 fi
 
 while true; do
-	read -p "DO YOU WANT TO START THE INSTALLATION NOW? (Yy/Nn): " yn
+	read -p "START THE INSTALLATION? (y/n): " yn
 	case $yn in
 	[Yy]*)
 		echo "Installation started."

@@ -17,8 +17,6 @@ bloat=(
   "garuda-assistant"
   "alacritty"
   "deluge-gtk"
-  "qalculate-gtk"
-  "cmatrix"
   "eog"
   "evince"
   "foot"
@@ -64,7 +62,6 @@ packages=(
   "gnome-weather"
   "gnome-maps"
   "gnome-keyring"
-  "cpufetch"
   "fd"
   "trash-cli"
   "cpupower"
@@ -83,7 +80,6 @@ packages=(
   "chafa"
   "alsa-utils"
   "yt-dlp"
-	"udev-block-notify-git"
   "pipewire"
   "pipewire-alsa"
   "wireplumber"
@@ -100,7 +96,6 @@ packages=(
   "rsync"
   "git"
   "cliphist"
-  "cmatrix-git"
   "fortune-mod"
   "tty-clock"
   "wlr-randr-git"
@@ -132,7 +127,6 @@ packages=(
   "yad"
   "brightnessctl"
   "btop"
-  "cava-git"
   "eog"
   "mpv"
   "mpv-mpris"
@@ -140,12 +134,8 @@ packages=(
   "acpid"
   "nvtop"
   "pamixer"
-  "pywal-git"
   "xcp"
   "xh"
-  "sliver-bin"
-  "moar"
-  "cheat-bin"
   "wire-desktop"
   "exa"
   "bat"
@@ -168,11 +158,18 @@ packages=(
   "git-delta"
   "translate-shell"
   "dust"
-	"xdg-ninja-git"
 	"ngrok"
 	"firewalld"
 	"sd"
 	"pv"
+  "cpufetch"
+	"udev-block-notify-git"
+  "cmatrix-git"
+  "cava-git"
+  "pywal-git"
+  "moar"
+  "cheat-bin"
+	"xdg-ninja-git"
 )
 
 extra=(
@@ -225,5 +222,6 @@ extra=(
 _uninstallPackagesParu "${bloat[@]}";
 
 # Install packages
-_installPackagesPacman "${packages[@]}";
+_installPackagesParu "${packages[@]}";
+#_installPackagesPacman "${packages[@]}";
 #_installPackagesParu "${extra[@]}";
