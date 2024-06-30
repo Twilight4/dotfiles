@@ -1,16 +1,18 @@
 #!/bin/bash
 
 # Post-install message
-echo "DONE, Please logout and reboot your system."
-echo "Install appropriate kernel headers"
+clear
+echo "-------------------------- INSTALLATION FINISHED -------------------------"
+echo "Please reboot your system."
+echo ""
+echo "Post-install reminder:"
+echo "1. Install appropriate kernel headers (if not installed):"
 echo "    apt search linux-headers-\$(uname -r)"
-echo "------------------------------ AFTER REBOOT ------------------------------"
-echo "1. Import browser bookmarks"
 echo "2. Import your OpenAI API key for emacs in '~/.authinfo':"
 echo '    machine api.openai.com login apikey password <TOKEN_HERE>'
-echo '3. Copy ai prompts to emacs dir to source them:'
+echo '3. Copy AI prompts to emacs dir to source them:'
 echo '    cp ~/desktop/workspace/dotfiles/.config/ai-prompts ~/.cache/emacs'
-echo "4. Add pub key to github: Settings > SSH > New:"
+echo "4. Add pub key to github:"
 echo '    ssh-keygen -t ed25519'
 echo "5. Clone relevant repos via SSH:"
 echo '    git clone git@github.com:Twilight4/dotfiles.git ~/desktop/workspace/dotfiles'
