@@ -34,7 +34,6 @@ if [ -f "$zshenv_file" ]; then
   sudo mkdir -pv /etc/zsh/zshenv
 	echo "$line_to_append" | sudo tee -a /etc/zsh/zshenv
 	echo "ZDOTDIR PATH added to zshenv file."
-  source ~/.config/zsh/.zshrc
 else
 	echo "Error. Something went wrong."
 fi

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear
 cat <<"EOF"
              _                                __                
   __ _ _   _| |_ ___         ___ _ __  _   _ / _|_ __ ___  __ _ 
@@ -17,10 +18,11 @@ if [ "$install_choice" == "y" ]; then
         echo "Installing auto-cpufreq..."
 
         git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+        clear
         cd auto-cpufreq && sudo ./auto-cpufreq-installer
         sudo auto-cpufreq --install
         cd -
-        sudo rm -rf ./auto-cpufreq
+        sudo rm -rvf ./auto-cpufreq
 
         echo "auto-cpufreq installed."
     else

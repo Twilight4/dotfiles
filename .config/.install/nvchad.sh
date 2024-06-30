@@ -21,7 +21,7 @@ fi
 
 # Remove existing NVChad configuration if it exists
 if [[ -d "$HOME/.config/nvim" ]]; then
-    rm -rf "$HOME/.config/nvim"
+    rm -rvf "$HOME/.config/nvim"
     echo "Existing NVChad configuration removed."
 fi
 
