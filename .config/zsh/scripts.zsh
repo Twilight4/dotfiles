@@ -28,10 +28,24 @@ j() {
     z "$@" && lsd -l --hyperlink=auto
 }
 
+# Output only ports from masscan-all scan (nb-enum-network-masscan-all)
+# and save in variable $p
+m-ports() {
+  local file="$1"
+  p=$(cat ports | awk -F " " '{print $4}' | awk -F "/" '{print $1}' | sort -n | tr '\n' ',' | sed 's/,$//')
+  echo "ports saved in variable: \$p=$p"
+}
+
+# Search nmap lse scripts: nmap-grep ftp
+nmap-grep() {
+  q="$1"
+  ls /usr/share/nmap/scripts/* | rg -ie $q*
+}
+
 # Nmap grepping: nmap-services <output-scan.gnmap>
 nmap-services() {
   local file="$1"
-  egrep -v "^#|Status: Up" "$file" | cut -d ' ' -f4- | tr ',' '\n' | \
+  grep -E -v "^#|Status: Up" "$file" | cut -d ' ' -f4- | tr ',' '\n' | \
   sed -e 's/^[ \t]*//' | awk -F '/' '{print $7}' | grep -v "^$" | \
   sort | uniq -c | sort -k 1 -nr
 }
@@ -39,7 +53,7 @@ nmap-services() {
 # Nmap grepping: nmap-top-10 <output-scan.gnmap>
 nmap-top-10() {
   local NMAP_FILE="$1"
-  egrep -v "^#|Status: Up" "$NMAP_FILE" | cut -d' ' -f4- | \
+  grep -E -v "^#|Status: Up" "$NMAP_FILE" | cut -d' ' -f4- | \
   sed -n -e 's/Ignored.*//p' | tr ',' '\n' | sed -e 's/^[ \t]*//' | \
   sort -n | uniq -c | sort -k 1 -r | head -n 10
 }
@@ -47,7 +61,7 @@ nmap-top-10() {
 # Source: https://github.com/leonjza/awesome-nmap-grep
 nmap-ports() {
   local NMAP_FILE="$1"
-  egrep -v "^#|Status: Up" "$NMAP_FILE" | cut -d' ' -f2,4- | \
+  grep -E -v "^#|Status: Up" "$NMAP_FILE" | cut -d' ' -f2,4- | \
   sed -n -e 's/Ignored.*//p' | \
   awk '{print "Host: " $1 " Ports: " NF-1; $1=""; for(i=2; i<=NF; i++) { a=a" "$i; }; split(a,s,","); for(e in s) { split(s[e],v,"/"); printf "%-8s %s/%-7s %s\n" , v[2], v[3], v[1], v[5]}; a="" }'
 }
@@ -55,7 +69,7 @@ nmap-ports() {
 # Source: https://github.com/leonjza/awesome-nmap-grep
 nmap-banner() {
   local NMAP_FILE="$1"
-  egrep -v "^#|Status: Up" "$NMAP_FILE" | cut -d' ' -f2,4- | \
+  grep -E -v "^#|Status: Up" "$NMAP_FILE" | cut -d' ' -f2,4- | \
   awk -F, '{split($1,a," "); split(a[2],b,"/"); print a[1] " " b[1]; for(i=2; i<=NF; i++) { split($i,c,"/"); print a[1] c[1] }}' | \
   xargs -L1 nc -v -w1
 }

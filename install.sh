@@ -53,6 +53,7 @@ source .config/.install/auto-cpufreq.sh
 source .config/.install/enable-services.sh
 source .config/.install/locales.sh
 source .config/.install/final-message.sh
+#source .config/.install/arch-install-pen.sh       # TODO
 # Don't use anymore
 #source .config/.install/display-manager.sh
 #source .config/.install/tty-login.sh
