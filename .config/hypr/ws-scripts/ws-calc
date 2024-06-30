@@ -1,0 +1,11 @@
+#!/bin/bash
+
+is_kitty_running() {
+  hyprctl clients | grep 'org.gnome.Calculator' >/dev/null
+}
+
+if ! is_kitty_running; then
+  hyprctl dispatch exec 'gnome-calculator'
+else
+  hyprctl dispatch focuswindow '^org.gnome.Calculator$'
+fi

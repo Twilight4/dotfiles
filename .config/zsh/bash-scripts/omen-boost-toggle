@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Check the current status of the fan boost
+status=$(sudo omen-fan i | grep 'Fan Boost : Enabled')
+
+# Toggle the fan boost based on the current status
+if [ -n "$status" ]; then
+    sudo omen-fan x 0
+    echo "Fan boost turned off."
+    notify-send "Fan Boost" "Fan boost turned off."
+else
+    sudo omen-fan x 1
+    echo "Fan boost turned on."
+    notify-send "Fan Boost" "Fan boost turned on."
+fi
