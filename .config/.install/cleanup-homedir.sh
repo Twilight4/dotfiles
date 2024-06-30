@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear
 cat <<"EOF"
  ____       _     _             _      _  _   _  ___  __  __ _____ 
 |  _ \  ___| |__ | | ___   __ _| |_   | || | | |/ _ \|  \/  | ____|
@@ -47,7 +48,7 @@ done
 # Function to move a file or directory if it exists
 move_if_exists() {
     if [ -e "$1" ]; then
-        mv "$1" "$2"
+        mv -v "$1" "$2"
     fi
 }
 
@@ -66,25 +67,27 @@ move_if_exists ~/package-lock.json ~/.config/node_modules/package-lock.json
 # Move .local/share* and .local/state* if they exist
 for dir in ~/.local/share*; do
     move_if_exists "$dir" ~/.config/.local/share
+    echo "Moving directory: $dir..."
 done
 
 for dir in ~/.local/state*; do
     move_if_exists "$dir" ~/.config/.local/state
+    echo "Moving directory: $dir..."
 done
 
 # Remove specific files and directories
-sudo rm -f /home/"$(whoami)"/.bash*
-rm -rf ~/.local
-rm -rf ~/.git
-rm -rf ~/Documents ~/Pictures ~/Desktop ~/Downloads ~/Templates ~/Music ~/Videos ~/Public
-rm -f ~/.viminfo
-rm -f ~/.zsh*
-rm -f ~/.zcompdump*
-rm -f ~/.dircolors
-rm -f ~/.Xresources
-rm -f ~/.zcompdump
-rm -f ~/.profile
-rm -f ~/.gtkrc-2.0
-rm -f ~/.gitconfig
-rm -f ~/.zhistory
-rm -f ~/.zshrc
+sudo rm -vf /home/"$(whoami)"/.bash*
+rm -vrf ~/.local
+rm -vrf ~/.git
+rm -vrf ~/Documents ~/Pictures ~/Desktop ~/Downloads ~/Templates ~/Music ~/Videos ~/Public
+rm -vf ~/.viminfo
+rm -vf ~/.zsh*
+rm -vf ~/.zcompdump*
+rm -vf ~/.dircolors
+rm -vf ~/.Xresources
+rm -vf ~/.zcompdump
+rm -vf ~/.profile
+rm -vf ~/.gtkrc-2.0
+rm -vf ~/.gitconfig
+rm -vf ~/.zhistory
+rm -vf ~/.zshrc
