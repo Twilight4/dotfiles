@@ -1,8 +1,9 @@
 #!/bin/bash
 
+# Exit on error
+set -e
 
-set -e # Exit on error
-
+clear
 cat <<"EOF"
  _____             _     _                             _               
 | ____|_ __   __ _| |__ | | ___    ___  ___ _ ____   _(_) ___ ___  ___ 
@@ -13,7 +14,7 @@ cat <<"EOF"
 EOF
 
 # Enable services if they exist and are not enabled
-function enable_service {
+enable_service {
 	service=$1
 	if systemctl list-unit-files --type=service | grep -q "^$service.service"; then
 		if ! systemctl is-enabled --quiet "$service"; then
@@ -28,10 +29,10 @@ function enable_service {
 }
 
 # Check what services are not enabled
-function check_service_status {
+check_service_status {
 	services=("$@")
 
-	echo "Checking service status..."
+	echo "Checking not enabled services..."
 
 	for service in "${services[@]}"; do
 		if ! systemctl is-enabled "$service" >/dev/null 2>&1; then
@@ -40,34 +41,41 @@ function check_service_status {
 	done
 }
 
-# Define services
-services=(
-	"apparmor"
-	"firewalld"
-	"irqbalance"
-	"chronyd"
-	"systemd-oomd"
-	"systemd-resolved"
-	"ananicy-cpp"
-	"NetworkManager"
-	"nohang"
-  "acpid"
-	"vnstat"    # network traffic monitor
-	#docker
-)
+# Prompt user to enable services
+read -p "Do you want to enable the necessary services? (y/n): " enable_services
 
-# Enable services
-for service in "${services[@]}"; do
-	enable_service "$service"
+# Not sure:
+#"apparmor"
+#"chronyd"
+#"vnstat"    # network traffic monitor
 
-	# Must be set seperately to work
-	sudo systemctl enable fstrim.timer
-done
+if [[ "$enable_services" =~ ^[Yy]$ ]]; then
+  # Define services
+  services=(
+  	"firewalld"
+  	"irqbalance"
+  	"systemd-oomd"
+  	"systemd-resolved"
+  	"ananicy-cpp"
+    "NetworkManager"
+  	"nohang"
+    "acpid"
+  )
+  
+  # Enable services
+  for service in "${services[@]}"; do
+  	enable_service "$service"
+  done
+  
+  # Must be set seperately to work
+  sudo systemctl enable fstrim.timer
 
-# Other services
-playerctld daemon
-
-# Check service status
-check_service_status "${services[@]}"
-echo "Check status of services:"
-echo "    fstrim.timer"
+  # Other services
+  playerctld daemon
+  
+  # Check service status
+  echo
+  check_service_status "${services[@]}"
+  echo "Check status of services:"
+  echo "    fstrim.timer"
+fi
