@@ -11,7 +11,7 @@ is_kitty_running() {
 # Focus on ws "7" and spawn kitty if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 -T asciiquarium --class asciiquarium -e asciiquarium --transparent'
+    hyprctl dispatch exec 'kitty -o -T asciiquarium --class asciiquarium -e asciiquarium --transparent'
 else
     hyprctl dispatch focuswindow '^asciiquarium$'
 fi
@@ -28,7 +28,7 @@ is_kitty_running() {
 # Focus on ws "7" and spawn kitty if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 -T cava --class cava -e cava'
+    hyprctl dispatch exec 'kitty -o -T cava --class cava -e cava'
 else
     hyprctl dispatch focuswindow '^cava$'
 fi
@@ -45,7 +45,7 @@ is_kitty_running() {
 # Focus on ws "7" and spawn kitty if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 -T clock --class clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d"'
+    hyprctl dispatch exec 'kitty -o -T clock --class clock -e tty-clock -c -C 6 -r -s -f "%A, %B, %d"'
 else
     hyprctl dispatch focuswindow '^clock$'
 fi
@@ -62,7 +62,7 @@ is_kitty_running() {
 # Focus on ws "7" and spawn kitty if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 -T cmatrix --class cmatrix -e cmatrix'
+    hyprctl dispatch exec 'kitty -o -T cmatrix --class cmatrix -e cmatrix'
 else
     hyprctl dispatch focuswindow '^cmatrix$'
 fi
@@ -79,7 +79,7 @@ is_kitty_running() {
 # Focus on ws "7" and spawn kitty if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 -T musikcube --class musikcube -e musikcube'
+    hyprctl dispatch exec 'kitty -o -T musikcube --class musikcube -e musikcube'
 else
     hyprctl dispatch focuswindow '^musikcube$'
 fi
@@ -96,7 +96,7 @@ is_kitty_running() {
 # Focus on ws "7" and spawn kitty if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 -T pipes --class pipes -e ~/.config/zsh/bash-scripts/pipes'
+    hyprctl dispatch exec 'kitty -o -T pipes --class pipes -e ~/.config/zsh/bash-scripts/pipes'
 else
     hyprctl dispatch focuswindow '^pipes$'
 fi
@@ -113,7 +113,7 @@ is_kitty_running() {
 # Focus on ws "7" and spawn kitty if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 -T rain --class rain -e ~/.config/zsh/bash-scripts/rain'
+    hyprctl dispatch exec 'kitty -o -T rain --class rain -e ~/.config/zsh/bash-scripts/rain'
 else
     hyprctl dispatch focuswindow '^rain$'
 fi
@@ -129,7 +129,7 @@ is_kitty_running() {
 
 # Spawn 'kitty' if it's not running, else only focus
 if ! is_kitty_running; then
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 --hold -T fetch --class fetch -e fastfetch --kitty ~/pictures/screenshots/Patrick-Bateman-Profile-Pic_600x600.jpg'
+    hyprctl dispatch exec 'kitty -o --hold -T fetch --class fetch -e fastfetch --kitty ~/pictures/screenshots/Patrick-Bateman-Profile-Pic_600x600.jpg'
 else
     hyprctl dispatch focuswindow '^fetch$'
 fi
@@ -145,7 +145,7 @@ is_kitty_running() {
 
 # Spawn 'kitty' if it's not running, else only focus
 if ! is_kitty_running; then
-    hyprctl dispatch exec 'kitty -o confirm_os_window_close=0 --class fireplace -T fireplace -e fireplace'
+    hyprctl dispatch exec 'kitty -o --class fireplace -T fireplace -e fireplace'
 else
     hyprctl dispatch focuswindow '^fireplace$'
 fi
