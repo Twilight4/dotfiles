@@ -39,9 +39,11 @@ main() {
     read -p "Enter your choice (1/2/3): " choice
     case $choice in
         1)
+            echo
             install_full_repo
             ;;
         2)
+            echo
             install_default_wallpaper
             ;;
         3)
@@ -55,4 +57,6 @@ main() {
 }
 
 main
-echo ""
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2

@@ -22,3 +22,6 @@ case ${answer:0:1} in
       echo "Skipping tools installation..."
       ;;
 esac
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2

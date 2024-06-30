@@ -223,3 +223,6 @@ paru --noconfirm -Rns "${bloat[@]}"
 # Install packages
 echo "Installing packages..."
 _installPackagesParu "${packages[@]}"
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2

@@ -91,3 +91,6 @@ rm -vf ~/.gtkrc-2.0
 rm -vf ~/.gitconfig
 rm -vf ~/.zhistory
 rm -vf ~/.zshrc
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2
