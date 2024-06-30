@@ -1,15 +1,32 @@
 #!/bin/bash
 
-# Check the current status of the fan boost
-status=$(sudo omen-fan i | grep 'Service Status : Running')
+# Path to a temporary file to store the fan status
+STATUS_FILE="/tmp/fan_status"
+
+# Check if the status file exists
+if [ ! -f "$STATUS_FILE" ]; then
+    # If the file doesn't exist, create it and set the initial status to off (0)
+    echo "0" > "$STATUS_FILE"
+fi
+
+# Read the current status from the file
+current_status=$(cat "$STATUS_FILE")
 
 # Toggle the fan boost based on the current status
-if [ -n "$status" ]; then
-    sudo omen-fan e 0
+if [ "$current_status" -eq "0" ]; then
+    sudo omen-fan b 0
+    sleep 0.1
+    sudo omen-fan e 1
     echo "Fan Service Running."
     notify-send "Fan Service" "Fan Service Running."
-else
-    sudo omen-fan e 1
+    # Update the status to on (0)
+    echo "1" > "$STATUS_FILE"
+elif [ "$current_status" -eq "1" ]; then
+    sudo omen-fan e 0
+    sleep 0.1
+    sudo omen-fan b 1
     echo "Fan Service Stopped."
     notify-send "Fan Service" "Fan Service Stopped."
+    # Update the status to off (1)
+    echo "0" > "$STATUS_FILE"
 fi
