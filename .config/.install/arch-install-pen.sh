@@ -16,7 +16,7 @@ read -p "Do you want to install pentesting tools? (y/n) " answer
 case ${answer:0:1} in
     y|Y )
       echo "Installing tools..."
-      paru -S nmap metasploit postgresql gobuster whatweb exploitdb masscan john bloodhound bloodhound-python python-neo4j sliver-bin
+      paru --noconfirm -S nmap metasploit postgresql gobuster whatweb exploitdb masscan john bloodhound bloodhound-python python-neo4j sliver-bin
       ;;
     * )
       echo "Skipping tools installation..."
