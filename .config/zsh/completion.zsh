@@ -88,10 +88,6 @@ _comp_options+=(globdots) # With hidden files
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
 
-HISTFILE=~/.zhistory
-HISTSIZE=50000
-SAVEHIST=10000
-
 # Only work with the Zsh function vman
 # See $DOTFILES/zsh/scripts.zsh
 compdef vman="man"

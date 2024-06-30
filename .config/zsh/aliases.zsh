@@ -82,10 +82,10 @@ alias rgo='rg -o -i'
 alias rgc='rg -c -i'       # count line containing specific string
 alias rgs='rg -i --sort'   # Possible sort values: path/modified/accessed/created
 # Colorize grep output
-#alias grep='ugrep --color=auto'
-#alias fgrep='ugrep -F --color=auto'
-#alias egrep='ugrep -E --color=auto'
-#alias ip='ip --color=auto'   # Already set somewhere
+alias grep='ugrep --color=auto'
+alias fgrep='ugrep -F --color=auto'
+alias egrep='ugrep -E --color=auto'
+alias ip='ip -color'
 
 # Find
 alias fdf='fd --ignore-case --hidden --type f'
@@ -217,7 +217,6 @@ alias net-ps="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
 # Show current network connections to the server
 alias nethog='sudo nethogs'
 alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort  | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
-alias ip='ip -color'
 alias wlo1='echo $(ifconfig wlo1 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
 alias tun0='echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
 
@@ -270,17 +269,17 @@ alias gco='git checkout'
 # DEBIAN SPECIFIC                                                                                            #
 ##############################################################################################################
 # Apt-get
-alias deb-version="lsb_release -a"                                 # check system version
-alias deb-upgrade="sudo apt update && sudo apt full-upgrade -y"    # Upgrade to the latest kali version
-alias apti="sudo apt update && sudo apt install"
-alias aptr="sudo apt update && sudo apt purge"          # Remove with its configuration files
-alias cleanup="sudo apt update && sudo apt autoremove"
-alias aptcache="sudo du -sh /var/cache/apt/archives"
-alias aptcache-clean="sudo apt clean"
-alias apts="sudo apt-cache search"
-alias rip-apt="sudo apt list --installed"
-alias rip-snap="snap list"
-alias apt-history='grep " install " /var/log/apt/history.log'
+#alias deb-version="lsb_release -a"                                 # check system version
+#alias deb-upgrade="sudo apt update && sudo apt full-upgrade -y"    # Upgrade to the latest kali version
+#alias apti="sudo apt update && sudo apt install"
+#alias aptr="sudo apt update && sudo apt purge"          # Remove with its configuration files
+#alias cleanup="sudo apt update && sudo apt autoremove"
+#alias aptcache="sudo du -sh /var/cache/apt/archives"
+#alias aptcache-clean="sudo apt clean"
+#alias apts="sudo apt-cache search"
+#alias rip-apt="sudo apt list --installed"
+#alias rip-snap="snap list"
+#alias apt-history='grep " install " /var/log/apt/history.log'
 
 # System
 #alias grubup="sudo update-grub"
@@ -301,6 +300,11 @@ alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 # Refresh mirrorlists
 alias rank-mirrors="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrolist"
 alias rank-mirrors-quick="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup && sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup && sudo rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist"
+# Get fastest mirrors
+#alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
+#alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
+#alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
+#alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
 
 # Gpg - verify signature for isos
 alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
