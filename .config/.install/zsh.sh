@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear
 cat <<"EOF"
  _____    _       ____  _          _ _ 
 |__  /___| |__   / ___|| |__   ___| | |
@@ -10,7 +11,7 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "Do you want to change shel to Zsh? (y/n): " response
+read -p "Do you want to change shell to Zsh? (y/n): " response
 
 if [[ "$response" != "y" ]]; then
     echo "Operation cancelled by the user."
@@ -20,85 +21,23 @@ fi
 # Zsh as default shell
 default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
 if [ "$default_shell" != "$(which zsh)" ]; then
-	echo "Changing shell to Zsh..."
 	sudo chsh -s "$(which zsh)" "$(whoami)"
-	echo "Shell changed to Zsh."
 else
 	echo "Zsh is already the default shell."
 fi
 
 # Export default PATH to zsh config
-zshenv_file="/etc/zsh/zshenv"
 line_to_append='export ZDOTDIR="$HOME"/.config/zsh'
 
 if [ -f "$zshenv_file" ]; then
 	echo "Creating $zshenv_file..."
-	echo "$line_to_append" | sudo tee "$zshenv_file"
+  sudo mkdir -pv /etc/zsh/zshenv
+	echo "$line_to_append" | sudo tee -a /etc/zsh/zshenv
 	echo "ZDOTDIR PATH added to zshenv file."
   source ~/.config/zsh/.zshrc
 else
 	echo "Error. Something went wrong."
 fi
 
-# Installing NVChad
-# Prompt user for input
-read -p "Do you want to install NVChad configuration (y/n)? " answer
-
-# Validate user input
-if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
-    echo "Operation cancelled by the user."
-    exit 0
-fi
-
-# Remove existing NVChad configuration if it exists
-if [[ -d "$HOME/.config/nvim" ]]; then
-    rm -rf "$HOME/.config/nvim"
-    echo "Existing NVChad configuration removed."
-fi
-
-# Clone the NVChad repository
-if git clone https://github.com/NvChad/starter "$HOME/.config/nvim"; then
-    echo "NVChad configuration cloned successfully."
-else
-    echo "Failed to clone NVChad repository."
-    exit 1
-fi
-
-# Copy custom lua file
-cp "$HOME/dotfiles/.config/nvim/lua/kitty+page.lua" "$HOME/.config/nvim/lua" && \
-echo "Custom lua file copied successfully."
-
-# End of script
-echo "NVChad configuration installation complete."
-
-
-# Install fzf
-# Prompt user for input
-read -p "Do you want to install FZF (y/n)? " answer
-
-# Validate user input
-if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
-    echo "Operation cancelled by the user."
-    exit 0
-fi
-
-# Clone the NVChad repository
-if git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"; then
-    ~/.fzf/install
-    echo "FZF installed successfully."
-else
-    echo "Failed to install FZF."
-    exit 1
-fi
-
 # Rebuild bat cache
-# Prompt user for input
-read -p "Do you want to rebuild bat cache (y/n)? " answer
-
-# Validate user input
-if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
-    echo "Operation cancelled by the user."
-    exit 0
-fi
-
 bat cache --build
