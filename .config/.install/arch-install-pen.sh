@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-paru -S nmap metasploit postgresql gobuster whatweb exploitdb masscan john
+paru -S nmap metasploit postgresql gobuster whatweb exploitdb masscan john bloodhound bloodhound-python python-neo4j
