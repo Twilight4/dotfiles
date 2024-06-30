@@ -1,23 +1,9 @@
 #!/bin/bash
 
-#####################
-# Installation mode #
-#####################
-source .config/.install/colors.sh
-source .config/.install/library.sh
-clear
-
-mode="live"
-if [ ! -z $1 ]; then
-	mode="dev"
-	echo "IMPORTANT: DEV MODE ACTIVATED. "
-	echo "Existing dotfiles folder will not be modified."
-	echo "Symbolic links will not be created."
-fi
-
 ################
 # Presentation #
 ################
+clear
 echo "
           _ ._  _ , _ ._
         (_ ' ( \`  )_  .__)
@@ -31,7 +17,6 @@ echo "
 | Welcome to Twilight4's dotfiles |
 |_________________________________|
 "
-echo ""
 echo "This script will delete all your configuration files."
 echo "Use at your own risk."
 echo ""
@@ -39,6 +24,7 @@ echo ""
 ################
 # Installation #
 ################
+source .config/.install/library.sh
 source .config/.install/confirm-start.sh
 source .config/.install/install-hypr-packages.sh
 source .config/.install/arch-install-pen.sh
