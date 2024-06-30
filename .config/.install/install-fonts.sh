@@ -61,8 +61,6 @@ case ${answer:0:1} in
 
         # Update font cache and log the output
         fc-cache -v
-
-        clear
         ;;
     * )
         echo "Font installation skipped."
