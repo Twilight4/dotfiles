@@ -2,11 +2,11 @@
 
 clear
 cat <<"EOF"
-     _       _    __ _ _           
-  __| | ___ | |_ / _(_) | ___  ___ 
- / _` |/ _ \| __| |_| | |/ _ \/ __|
-| (_| | (_) | |_|  _| | |  __/\__ \
- \__,_|\___/ \__|_| |_|_|\___||___/
+ ____        _    __ _ _           
+|  _ \  ___ | |_ / _(_) | ___  ___ 
+| | | |/ _ \| __| |_| | |/ _ \/ __|
+| |_| | (_) | |_|  _| | |  __/\__ \
+|____/ \___/ \__|_| |_|_|\___||___/
 
 EOF
 
@@ -58,7 +58,8 @@ install_symlinks() {
 install_by_copy() {
 	echo "Copying files to ~/.config..."
 	rm -vrf ~/.config/
-	cp -vr ~/dotfiles/.config ~/
+	cp -r ~/dotfiles/.config ~/
+  echo "Files copied successfully."
 }
 
 # Main function
@@ -82,7 +83,10 @@ main() {
 	xdg-mime default emacs.desktop text/org
 
   # Update dirs
-  xdg-user-dirs-update >/dev/null
+  xdg-user-dirs-update
 }
 
 main
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2

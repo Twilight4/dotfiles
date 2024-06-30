@@ -2,12 +2,12 @@
 
 clear
 cat <<"EOF"
-  __             _       
- / _| ___  _ __ | |_ ___ 
+ _____           _       
+|  ___|__  _ __ | |_ ___ 
 | |_ / _ \| '_ \| __/ __|
 |  _| (_) | | | | |_\__ \
 |_|  \___/|_| |_|\__|___/
-                         
+
 EOF
 
 # Confirmation prompt
@@ -15,6 +15,7 @@ read -p "Do you want to install fonts? (y/n) " answer
 case ${answer:0:1} in
     y|Y )
         # Jetbrains nerd font
+        echo
         echo "Installing fonts..."
         echo "Downloading and Extracting Jetbrains Mono Nerd Font..."
         DOWNLOAD_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
@@ -66,3 +67,6 @@ case ${answer:0:1} in
         echo "Skipping fonts installation..."
         ;;
 esac
+
+# Wait 2 sec before clear so user knows what happened
+sleep 2
