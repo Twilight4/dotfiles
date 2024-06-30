@@ -60,7 +60,6 @@
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#avy][Avy]]
-  - [[#spelling][Spelling]]
   - [[#gptel][GPTel]]
   - [[#drag-stuff][Drag-stuff]]
 - [[#org-mode][Org Mode]]
@@ -1898,44 +1897,6 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (interactive)
   (command-execute 'avy-goto-line)
   (command-execute 'open-line))
-#+end_src
-
-** Spelling
-#+begin_src emacs-lisp
-(use-package ispell
-  :ensure nil
-  :custom
-  (ispell-program-name "aspell")
-  (ispell-personal-dictionary (concat user-emacs-directory "etc/.aspell.lang.pws"))
-  (ispell-dictionary nil)
-  (ispell-local-dictionary nil)
-  (ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"
-                       "--run-together" "--run-together-limit=16"
-                       "--camel-case"))
-  :init
-  (defun tl/add-word-to-dictionary ()
-    (interactive)
-    (let ((word (word-at-point)))
-      (append-to-file (concat word "\n") nil ispell-personal-dictionary)
-      (message "Added '%s' to %s" word ispell-personal-dictionary))))
-
-(use-package flyspell
-  :ensure nil
-  :defer
-  :hook ((prog-mode . flyspell-prog-mode)
-         (org-mode . flyspell-mode)
-         (text-mode . flyspell-mode)
-         (flyspell-mode . (lambda ()
-                            (set-face-attribute 'flyspell-incorrect nil :underline '(:style wave :color "Red1"))
-                            (set-face-attribute 'flyspell-duplicate nil :underline '(:style wave :color "DarkOrange")))))
-  :bind (:map flyspell-mode-map
-              ;; Disabled ones don't work in emacs in terminal
-			  ;; Bind flyspell-correct-word-before-point
-              ("C-;" . nil)
-              ("C-," . nil)
-              ("C-." . nil)
-              ("C-M-_" . flyspell-goto-next-error)
-              ("C-M-i" . flyspell-auto-correct-word)))
 #+end_src
 
 ** GPTel

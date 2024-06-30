@@ -1,15 +1,28 @@
 #!/bin/bash
 
-# Check the current status of the fan boost
-status=$(sudo omen-fan i | grep 'Fan Boost : Enabled')
+# Path to a temporary file to store the fan boost status
+STATUS_FILE="/tmp/fan_boost_status"
+
+# Check if the status file exists
+if [ ! -f "$STATUS_FILE" ]; then
+    # If the file doesn't exist, create it and set the initial status to off (0)
+    echo "0" > "$STATUS_FILE"
+fi
+
+# Read the current status from the file
+current_status=$(cat "$STATUS_FILE")
 
 # Toggle the fan boost based on the current status
-if [ -n "$status" ]; then
-    sudo omen-fan x 0
-    echo "Fan boost turned off."
-    notify-send "Fan Boost" "Fan boost turned off."
-else
+if [ "$current_status" -eq "0" ]; then
     sudo omen-fan x 1
     echo "Fan boost turned on."
     notify-send "Fan Boost" "Fan boost turned on."
+    # Update the status to on (1)
+    echo "1" > "$STATUS_FILE"
+elif [ "$current_status" -eq "1" ]; then
+    sudo omen-fan x 0
+    echo "Fan boost turned off."
+    notify-send "Fan Boost" "Fan boost turned off."
+    # Update the status to off (0)
+    echo "0" > "$STATUS_FILE"
 fi
