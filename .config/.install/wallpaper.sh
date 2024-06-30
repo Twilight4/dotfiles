@@ -22,24 +22,20 @@ while true; do
 		git clone --depth 1 https://github.com/Twilight4/wallpapers ~/pictures/wallpapers
 		rm -rf ~/pictures/wallpapers/.git
 		echo "Wallpapers installed successfully."
+    [ -f ~/pictures/wallpapers/default.jpg ] && cp ~/pictures/wallpapers/default.jpg ~/.cache/current_wallpaper.jpg && echo "Copied default.jpg" || echo "default.jpg does not exist."
+    [ -f ~/pictures/wallpapers/lady.png ] && cp ~/pictures/wallpapers/lady.png ~/.cache/lady.png && echo "Copied lady.png" || echo "lady.png does not exist."
 		break
 		;;
 	[Nn]*)
 		mkdir -p ~/pictures/wallpapers
 		curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/default.jpg && mv default.jpg ~/pictures/wallpapers/default.jpg
+		curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/lady.png && mv lady.png ~/.cache/lady.png
 		echo "Default wallpaper installed successfully."
 		break
 		;;
 	*) echo "Please answer y/n." ;;
 	esac
 done
-echo ""
-
-# ------------------------------------------------------
-# Copy default wallpaper to .cache
-# ------------------------------------------------------
-[ -f ~/pictures/wallpapers/default.jpg ] && cp ~/pictures/wallpapers/default.jpg ~/.cache/current_wallpaper.jpg && echo "Copied default.jpg" || echo "default.jpg does not exist."
-[ -f ~/pictures/wallpapers/Anime-Lanscape.png ] && cp ~/pictures/wallpapers/Anime-Lanscape.png ~/.cache/Anime-Lanscape.png && echo "Copied Anime-Lanscape.png" || echo "Anime-Lanscape.png does not exist."
 echo ""
 
 # GTK Themes for flatpak
