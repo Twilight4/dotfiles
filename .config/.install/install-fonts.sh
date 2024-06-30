@@ -63,6 +63,6 @@ case ${answer:0:1} in
         fc-cache -v
         ;;
     * )
-        echo "Font installation skipped."
+        echo "Skipping fonts installation..."
         ;;
 esac

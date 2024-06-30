@@ -1,11 +1,12 @@
 #!/bin/bash
 
+clear
 cat <<"EOF"
- _           _        _ _       _       _    __ _ _           
-(_)_ __  ___| |_ __ _| | |   __| | ___ | |_ / _(_) | ___  ___ 
-| | '_ \/ __| __/ _` | | |  / _` |/ _ \| __| |_| | |/ _ \/ __|
-| | | | \__ \ || (_| | | | | (_| | (_) | |_|  _| | |  __/\__ \
-|_|_| |_|___/\__\__,_|_|_|  \__,_|\___/ \__|_| |_|_|\___||___/
+     _       _    __ _ _           
+  __| | ___ | |_ / _(_) | ___  ___ 
+ / _` |/ _ \| __| |_| | |/ _ \/ __|
+| (_| | (_) | |_|  _| | |  __/\__ \
+ \__,_|\___/ \__|_| |_|_|\___||___/
 
 EOF
 
@@ -55,17 +56,16 @@ install_symlinks() {
 
 # Function to install dotfiles by copying files to ~/.config
 install_by_copy() {
-	echo "Installing dotfiles by copying files to ~/.config..."
-	mv ~/.config ~/.config.bak
-	echo "Current .config directory has been backed up to .config.bak"
-	cp -r ~/dotfiles/.config ~
+	echo "Copying files to ~/.config..."
+	rm -rf ~/.config/
+	cp -r ~/dotfiles/.config ~/
 }
 
 # Main function
 main() {
 	echo "Choose installation method:"
-	echo "1. Install using symlinks"
-	echo "2. Install by copying files to ~/.config"
+	echo "1. Use symlinks"
+	echo "2. Copy dotfiles to ~/.config"
 	echo "3. Skip installation"
 
 	read -p "Enter your choice: " choice
@@ -73,7 +73,7 @@ main() {
 	case $choice in
 	1) install_symlinks ;;
 	2) install_by_copy ;;
-	3) echo "Skipping installation" ;;
+	3) echo "Skipping installation..." ;;
 	*) echo "Invalid choice. Please enter a number between 1 and 3." ;;
 	esac
 
