@@ -1,7 +1,7 @@
 #!/bin/bash
 
+clear
 if [ $disman == 1 ]; then
-	echo -e "${GREEN}"
 	cat <<"EOF"
  _____ _______   __  _             _       
 |_   _|_   _\ \ / / | | ___   __ _(_)_ __  
@@ -10,8 +10,8 @@ if [ $disman == 1 ]; then
   |_|   |_|   |_|   |_|\___/ \__, |_|_| |_|
                              |___/         
 EOF
-	echo -e "${NONE}"
 	while true; do
+    echo
 		read -p "Do you want to install the custom tty login issue (Yy/Nn): " yn
 		case $yn in
 		[Yy]*)
