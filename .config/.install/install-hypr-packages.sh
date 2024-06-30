@@ -131,7 +131,7 @@ packages=(
   "yad"
   "brightnessctl"
   "btop"
-  "cava"
+  "cava-git"
   "eog"
   "mpv"
   "mpv-mpris"
