@@ -1,0 +1,11 @@
+#!/bin/bash
+
+is_kitty_running() {
+  hyprctl clients | grep 'kitty-labs' >/dev/null
+}
+
+if ! is_kitty_running; then
+  hyprctl dispatch exec 'kitty -1 -T kitty-labs --class kitty-labs --session ~/.config/kitty/session-labs'
+else
+  hyprctl dispatch focuswindow 'kitty-labs'
+fi

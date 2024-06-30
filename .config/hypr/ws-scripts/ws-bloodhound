@@ -1,0 +1,11 @@
+#!/bin/bash
+
+is_kitty_running() {
+  hyprctl clients | grep 'bloodhound' >/dev/null
+}
+
+if ! is_kitty_running; then
+  hyprctl dispatch exec 'bloodhound --no-sandbox'
+else
+  hyprctl dispatch focuswindow 'bloodhound'
+fi
