@@ -220,8 +220,7 @@ extra=(
 
 # First you have to uninstall the bloat
 echo "Removing bloat..."
-_uninstallPackagesParu "${packages[@]}"
-#paru --noconfirm -Rns "${bloat[@]}"
+_uninstallPackagesParu "${bloat[@]}"
 
 # Install packages
 echo "Installing packages..."
