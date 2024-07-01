@@ -81,10 +81,10 @@ pow-enc() {
   echo -n "$@" | iconv -f ASCII -t UTF-16LE | base64
 }
 
-# Prettify help/cheat pages
-c() {
-  command cheat "$@" | bat --plain --language=help
-}
+# Prettify help/cheat pages (using fchtc)
+#c() {
+#  command cheat "$@" | bat --plain --language=help
+#}
 
 help() {
   "$@" --help 2>&1 | bat --plain --language=help
