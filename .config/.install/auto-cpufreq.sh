@@ -15,6 +15,7 @@ read -p "Do you want to install auto-cpufreq? (y/n): " install_choice
 
 if [ "$install_choice" == "y" ]; then
     if ! command -v auto-cpufreq >/dev/null; then
+        echo
         echo "Installing auto-cpufreq..."
 
         git clone https://github.com/AdnanHodzic/auto-cpufreq.git
@@ -26,7 +27,8 @@ if [ "$install_choice" == "y" ]; then
 
         echo "auto-cpufreq installed."
     else
-        echo "auto-cpufreq is already installed."
+        echo
+        echo "auto-cpufreq is already installed. Skipping..."
     fi
 else
     echo "Installation of auto-cpufreq canceled by user."

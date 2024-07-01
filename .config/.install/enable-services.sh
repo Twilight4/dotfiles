@@ -14,7 +14,7 @@ cat <<"EOF"
 EOF
 
 # Enable services if they exist and are not enabled
-enable_service {
+function enable_service {
 	service=$1
 	if systemctl list-unit-files --type=service | grep -q "^$service.service"; then
 		if ! systemctl is-enabled --quiet "$service"; then
@@ -29,7 +29,7 @@ enable_service {
 }
 
 # Check what services are not enabled
-check_service_status {
+function check_service_status {
 	services=("$@")
 
 	echo "Checking not enabled services..."
@@ -43,6 +43,7 @@ check_service_status {
 
 # Prompt user to enable services
 read -p "Do you want to enable the necessary services? (y/n): " enable_services
+echo
 
 # Not sure:
 #"apparmor"

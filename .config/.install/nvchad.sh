@@ -15,12 +15,14 @@ read -p "Do you want to install NVChad configuration (y/n)? " answer
 
 # Validate user input
 if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
+    echo
     echo "Operation cancelled by the user."
     exit 0
 fi
 
 # Remove existing NVChad configuration if it exists
 if [[ -d "$HOME/.config/nvim" ]]; then
+    echo
     rm -rvf "$HOME/.config/nvim"
     echo "Existing NVChad configuration removed."
 fi

@@ -23,6 +23,7 @@ default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
 if [ "$default_shell" != "$(which zsh)" ]; then
 	sudo chsh -s "$(which zsh)" "$(whoami)"
 else
+  echo
 	echo "Zsh is already the default shell."
 fi
 

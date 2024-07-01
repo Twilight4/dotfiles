@@ -28,6 +28,7 @@ install_default_wallpaper() {
     mkdir -vp ~/pictures/wallpapers
     curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/default.jpg && mv default.jpg ~/pictures/wallpapers/default.jpg
     curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/lady.png && mv lady.png ~/.cache/lady.png
+    echo
     echo "Default wallpaper installed successfully."
 }
 
@@ -36,6 +37,7 @@ main() {
     echo "1. Install full wallpapers repository"
     echo "2. Install only the default wallpaper"
     echo "3. Skip installation"
+    echo
     read -p "Enter your choice (1/2/3): " choice
     case $choice in
         1)

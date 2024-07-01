@@ -23,12 +23,15 @@ if [[ "$update_layout_choice" =~ ^[Yy]$ ]]; then
     if [ "$current_button_layout" != "$desired_button_layout" ]; then
         # If they don't match, update the button layout using the gsettings command
         gsettings set org.gnome.desktop.wm.preferences button-layout "$desired_button_layout"
+        echo
         echo "Button layout has been updated."
     else
         # If they match, display a message indicating that the value is already as desired
+        echo
         echo "Button layout is already set as desired."
     fi
 else
+    echo
     echo "Button layout update canceled by user."
 fi
 
