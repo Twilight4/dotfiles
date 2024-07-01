@@ -18,6 +18,8 @@ bloat=(
   "alacritty"
   "deluge-gtk"
   "eog"
+  "gestures"
+  "mako"
   "evince"
   "foot"
   "fsearch"
@@ -218,7 +220,8 @@ extra=(
 
 # First you have to uninstall the bloat
 echo "Removing bloat..."
-paru --noconfirm -Rns "${bloat[@]}"
+_uninstallPackagesParu "${packages[@]}"
+#paru --noconfirm -Rns "${bloat[@]}"
 
 # Install packages
 echo "Installing packages..."

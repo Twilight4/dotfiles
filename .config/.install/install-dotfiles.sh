@@ -57,7 +57,7 @@ install_symlinks() {
 # Function to install dotfiles by copying files to ~/.config
 install_by_copy() {
 	echo "Copying files to ~/.config..."
-	rm -vrf ~/.config/
+	rm -rf ~/.config/
 	cp -r ~/dotfiles/.config ~/
   echo "Files copied successfully."
 }

@@ -68,6 +68,28 @@ _installPackagesParu() {
     paru --noconfirm -S "${toInstall[@]}";
 }
 
+################################
+# Remove packages if installed #
+################################
+_uninstallPackagesParu() {
+    toUninstall=();
+    for pkg; do
+        if [[ $(_isInstalledParu "${pkg}") != 0 ]]; then
+            echo ":: ${pkg} is not installed.";
+            continue;
+        fi;
+        toUninstall+=("${pkg}");
+    done;
+
+    if [[ "${toUninstall[@]}" == "" ]] ; then
+        # echo "None of the packages are installed.";
+        return;
+    fi;
+
+    # printf "AUR packages to be uninstalled:\n%s\n" "${toUninstall[@]}";
+    paru --noconfirm -Rns "${toUninstall[@]}";
+}
+
 
 #########################
 # Create symbolic links #
