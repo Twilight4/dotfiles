@@ -34,7 +34,6 @@ bloat=(
 )
 
 packages=(
-  "garuda-blackarch"
   "brave-bin"
   "python-click"
   "python-tomlkit"
