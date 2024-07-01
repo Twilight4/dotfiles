@@ -22,9 +22,9 @@ fi
 # Create necessary directories
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
+    ~/pictures/{dcim,screenshots}
     ~/videos/elfeed-youtube
-    ~/documents/openvpn
-    ~/documents/pdfs
+    ~/documents/{certs,creds,pdfs,openvpn}
     ~/desktop/{workspace,projects,server}
     ~/.config/.local/share/gnupg
     ~/.config/.local/share/cargo
