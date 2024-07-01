@@ -23,4 +23,4 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title vpn sh -c 'echo "\033[0;33mstart-neo4j-db\033[0m" && exec zsh'
+launch --title vpn sh -c 'echo -e "\033[0;33mstart-neo4j-db\033[0m" && echo && exec zsh'

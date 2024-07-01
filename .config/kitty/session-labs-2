@@ -56,16 +56,16 @@ launch --title wavemon wavemon
 #layout grid
 ## Create a window
 #cd ~/
-#launch --title dns sh -c 'echo "\033[0;33mresolvectl dns <IFACE> <IP_ADDR>\033[0m" && exec zsh'
+#launch --title dns sh -c 'echo -e "\033[0;33mresolvectl dns <IFACE> <IP_ADDR>\033[0m" && exec zsh'
 ## Create a second window
 #cd ~/
-#launch --title domain sh -c 'echo "\033[0;33mresolvectl domain <IFACE> <DOMAIN>\033[0m" && exec zsh'
+#launch --title domain sh -c 'echo -e "\033[0;33mresolvectl domain <IFACE> <DOMAIN>\033[0m" && exec zsh'
 ## Create a third window
 #cd ~/
-#launch --title status sh -c 'echo "\033[0;33mresolvectl status <IFACE>\033[0m" && exec zsh'
+#launch --title status sh -c 'echo -e "\033[0;33mresolvectl status <IFACE>\033[0m" && exec zsh'
 ## Create a forth window
 #cd ~/
-#launch --title nslookup sh -c 'echo "\033[0;33mnslookup <DOMAIN>\033[0m" && exec zsh'
+#launch --title nslookup sh -c 'echo -e "\033[0;33mnslookup <DOMAIN>\033[0m" && exec zsh'
 #
 ## Create a new tab
 #new_tab ip
@@ -74,6 +74,6 @@ launch --title wavemon wavemon
 ## Set the working directory
 #cd ~/
 ## Create a window
-#launch --title ip sh -c 'echo "\033[0;33mip a show\033[0m" && exec zsh'
+#launch --title ip sh -c 'echo -e "\033[0;33mip a show\033[0m" && exec zsh'
 ## Create a second window
-#launch --title ping sh -c 'echo "\033[0;33mping <IP_ADDR>\033[0m" && exec zsh'
+#launch --title ping sh -c 'echo -e "\033[0;33mping <IP_ADDR>\033[0m" && exec zsh'

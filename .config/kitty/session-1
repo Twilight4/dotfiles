@@ -53,4 +53,4 @@ layout fat
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title gptel sh -c 'echo "\033[0;33mPress: "C-M-c" to run gptel\033[0m"; emacsclient -nw; exec zsh'
+launch --title gptel sh -c 'echo -e "\033[0;33mPress: \"C-M-c\" to run gptel\033[0m"; emacsclient -nw; exec zsh'
