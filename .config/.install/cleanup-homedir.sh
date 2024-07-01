@@ -12,6 +12,7 @@ EOF
 
 # Prompt the user
 read -p "Do you want to debloat the \$HOME directory? (y/n): " response
+echo
 
 if [[ "$response" != "y" ]]; then
     echo "Operation cancelled by the user."
