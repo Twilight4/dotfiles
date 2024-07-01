@@ -41,7 +41,7 @@ else
 fi
 
 # Rebuild bat cache
-bat cache --build
+\bat cache --build
 
 # Wait 2 sec before clear so user knows what happened
 sleep 2
