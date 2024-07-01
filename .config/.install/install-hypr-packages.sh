@@ -34,6 +34,9 @@ bloat=(
 )
 
 packages=(
+  "hyprland"
+  "hyprlock"
+  "xdg-desktop-portal-hyprland"
   "brave-bin"
   "python-click"
   "python-tomlkit"
@@ -148,7 +151,6 @@ packages=(
 	"keepassxc"
   "rofi-lbonn-wayland-git"
   "swaybg"
-  "hyprlock"
   "ananicy-cpp"
   "nohang"
   "imagemagick"
