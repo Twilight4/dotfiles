@@ -48,6 +48,7 @@ alias mv='mv -v'
 alias mkdir="mkdir -p"
 
 # cat
+alias c='bat'
 alias bat='bat --color=always --style header,grid,changes'
 alias catl='bat --color=always --paging=never -l log'
 alias icat='kitty +kitten icat'
