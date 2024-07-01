@@ -49,6 +49,7 @@ packages=(
   "wdisplays"
   "ripgrep"
   "perl-image-exiftool"
+  "xorg-xhost"
   "the_silver_searcher"
   "irqbalance"
   "zenpower3-dkms"
