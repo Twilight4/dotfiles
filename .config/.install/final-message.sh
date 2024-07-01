@@ -1,9 +1,21 @@
 #!/bin/bash
 
-# Post-install message
 clear
+
+# Clean up
+if [[ -d "$HOME/dotfiles" ]]; then
+    cd ~/
+    echo "Cleaning up dotfiles directory..."
+    rm -rf "$HOME/dotfiles"
+    echo "Dotfiles directory cleaned up."
+else
+    echo "Error: Dotfiles directory at $HOME/dotfiles not found."
+fi
+
+# Post-install message
 echo "-------------------------- INSTALLATION FINISHED -------------------------"
 echo "Please reboot your system."
+echo "If this is your first install of Linux, disable automatic snapshots in btrfs-assistant (keep only snapshot of base system)."
 echo ""
 echo "Generic post-install reminder:"
 echo " 1. Add myself to /etc/sudoers:"
@@ -28,11 +40,11 @@ echo " 7. Sync files with the cloud: backup.sh"
 echo ""
 
 # Prompt the user to reboot
-read -p "Do you want to reboot the system now? (y/n): " reboot_response
+read -p "Reboot the system? (y/n): " reboot_response
 
 if [[ "$reboot_response" == "y" ]]; then
     echo "Rebooting the system..."
     sudo reboot
 else
-    echo "Reboot cancelled. Please reboot manually if needed."
+    echo "Reboot cancelled by user."
 fi

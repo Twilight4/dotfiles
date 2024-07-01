@@ -34,6 +34,7 @@ if [ -f "$zshenv_file" ]; then
 	echo "Creating zshenv_file..."
   sudo mkdir -pv /etc/zsh/zshenv
 	echo "$line_to_append" | sudo tee /etc/zsh/zshenv
+  echo
 	echo "Zsh PATH added to zshenv file."
 else
 	echo "Error. Something went wrong."
