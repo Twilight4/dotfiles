@@ -85,13 +85,6 @@
         "tooltip": false
     },
 
-    // GNOME Authenticator Launcher
-    "custom/authenticator": {
-        "format": "<span font='17'>󰦯</span> <span font='16'></span>",
-        "on-click": "authenticator",
-        "tooltip": false
-    },
-
     // PVPN Launcher
     "custom/pvpn": {
         "format": "<span font='16'></span> <span font='16'></span>",
