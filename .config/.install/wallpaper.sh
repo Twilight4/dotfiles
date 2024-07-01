@@ -13,21 +13,24 @@ EOF
 
 install_full_repo() {
     if [ -d ~/pictures/wallpapers ]; then
-        rm -rvf ~/pictures/wallpapers 2>&1 | tee -a "$LOG"
+        rm -rvf ~/pictures/wallpapers
     fi
     mkdir -vp ~/pictures/
     mkdir -vp ~/.cache/
     git clone --depth 1 https://github.com/Twilight4/wallpapers ~/pictures/wallpapers
     rm -rvf ~/pictures/wallpapers/.git
-    echo "Wallpapers installed successfully."
     [ -f ~/pictures/wallpapers/default.jpg ] && cp -v ~/pictures/wallpapers/default.jpg ~/.cache/ && echo "Copied default.jpg" || echo "default.jpg does not exist."
     [ -f ~/pictures/wallpapers/lady.png ] && cp -v ~/pictures/wallpapers/lady.png ~/.cache/ && echo "Copied lady.png" || echo "lady.png does not exist."
+    echo
+    echo "Wallpapers installed successfully."
 }
 
 install_default_wallpaper() {
     mkdir -vp ~/pictures/wallpapers
     curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/default.jpg && mv default.jpg ~/pictures/wallpapers/default.jpg
     curl -LO https://raw.githubusercontent.com/Twilight4/wallpapers/main/lady.png && mv lady.png ~/.cache/lady.png
+    [ -f ~/pictures/wallpapers/default.jpg ] && cp -v ~/pictures/wallpapers/default.jpg ~/.cache/ && echo "Copied default.jpg" || echo "default.jpg does not exist."
+    [ -f ~/pictures/wallpapers/lady.png ] && cp -v ~/pictures/wallpapers/lady.png ~/.cache/ && echo "Copied lady.png" || echo "lady.png does not exist."
     echo
     echo "Default wallpaper installed successfully."
 }
