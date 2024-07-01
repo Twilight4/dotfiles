@@ -13,6 +13,8 @@ return function(INPUT_LINE_NUMBER, CURSOR_LINE, CURSOR_COLUMN)
     vim.opt.laststatus = 0
     vim.o.cmdheight = 0
     vim.opt.showcmd = false
+    vim.opt.ignorecase = true
+    vim.opt.smartcase = true
     vim.opt.scrollback = INPUT_LINE_NUMBER + CURSOR_LINE
   end
 
