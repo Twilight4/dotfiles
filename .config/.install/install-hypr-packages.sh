@@ -18,6 +18,7 @@ bloat=(
   "alacritty"
   "deluge-gtk"
   "eog"
+  "qualculate-gtk"
   "gestures"
   "mako"
   "evince"
