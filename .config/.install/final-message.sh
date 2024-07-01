@@ -37,6 +37,7 @@ echo '    git clone git@github.com:Twilight4/debian-setup.git ~/desktop/workspac
 echo '    git clone git@github.com:Twilight4/org.git ~/documents/org'
 echo '    git clone git@github.com:Twilight4/cheats.git ~/.config/cheat'
 echo " 7. Sync files with the cloud: backup.sh"
+echo " 8. Enable blackarch repos: curl -s https://blackarch.org/strap.sh | bash"
 echo ""
 
 # Prompt the user to reboot
