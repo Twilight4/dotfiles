@@ -24,7 +24,6 @@ bindkey '^U' backward-kill-line
 bindkey '^O' kill-line
 bindkey '^[d' kill-word
 bindkey '^L' clear-screen
-#bindkey "^L" insert-last-word      # history-search is sufficient
 bindkey '^W' backward-kill-word
 
 # Full keyboard keys
@@ -207,10 +206,12 @@ zle -N toggle-selection-mode
 bindkey '^ ' toggle-selection-mode
 
 # Function to cancel selection mode
-cancel-selection-mode() {
+last-word-or-cancel-selection-mode() {
   if [[ $REGION_ACTIVE -eq 1 ]]; then
       zle set-mark-command -n -1
+  else
+      zle insert-last-word
   fi
 }
-zle -N cancel-selection-mode
-bindkey '^G' cancel-selection-mode
+zle -N last-word-or-cancel-selection-mode
+bindkey '^G' last-word-or-cancel-selection-mode
