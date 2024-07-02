@@ -48,7 +48,6 @@ alias mv='mv -v'
 alias mkdir="mkdir -p"
 
 # cat
-alias c='bat'
 alias bat='bat --color=always --style header,grid,changes'
 alias catl='bat --color=always --paging=never -l log'
 alias icat='kitty +kitten icat'
@@ -298,6 +297,18 @@ alias ginxi="garuda-inxi"
 #alias gup="garuda-update"
 alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
 alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias crackmapexec='snap run crackmapexec'
+alias cme='snap run crackmapexec'
+# Impacket scripts
+alias impacket-secretsdump='secretsdump.py'
+alias impacket-getadusers='GetADUsers.py'
+alias impacket-smbserver='smbserver.py'
+alias impacket-wmiexec='wmiexec.py'
+alias impacket-getuserspns='GetUserSPNs.py'
+alias impacket-ntlmrelayx='ntlmrelayx.py'
+alias impacket-mssqlclient='mssqlclient.py'
+alias impacket-samrdump='samrdump.py'
+alias impacket-psexec='psexec.py'
 
 # Refresh mirrorlists
 alias rank-mirrors="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrolist"
