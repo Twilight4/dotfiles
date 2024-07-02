@@ -169,7 +169,7 @@ packages=(
 	"udev-block-notify-git"
   "cmatrix-git"
   "cava-git"
-  "pywal-git"
+  "python-pywal"
   "moar"
   "cheat-bin"
 	"xdg-ninja-git"
