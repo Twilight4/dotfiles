@@ -17,8 +17,8 @@ alias lc='lsd -ltrh --hyperlink=auto'                # Sort by date
 #alias ld='lsd -l --hyperlink=auto| grep '^d''        # Directories only
 alias l.='lsd -A $* | rg "^\."'                    # List hidden files
 alias watch='watch -n 0.5'
-alias watch-lt='watch lsd --tree --hyperlink=auto'
-alias watch-ls='watch lsd -alh --hyperlink=auto'
+alias watch-lt='watch tree'
+alias watch-ls='watch ls -alh --hyperlink=auto'
 alias tree='tree -CAhF --dirsfirst'
 alias treed='tree -CAFd'
 
