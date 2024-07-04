@@ -32,7 +32,7 @@ j() {
 # and save in variable $p
 m-ports() {
   local file="$1"
-  p=$(cat ports | awk -F " " '{print $4}' | awk -F "/" '{print $1}' | sort -n | tr '\n' ',' | sed 's/,$//')
+  p=$(awk '/^open/ {print $3}' "$file" | sort -n | uniq | tr '\n' ',' | sed 's/,$//')
   echo "ports saved in variable: \$p=$p"
 }
 

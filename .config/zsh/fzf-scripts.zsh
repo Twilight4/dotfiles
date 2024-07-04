@@ -245,7 +245,7 @@ fpars() {
     fi
 
     # Install the selected package(s)
-    echo "$selected_packages" | xargs -ro paru -S --noconfirm
+    echo "$selected_packages" | xargs -ro paru -S
 
     # Check if installation was successful
     if [ $? -eq 0 ]; then
