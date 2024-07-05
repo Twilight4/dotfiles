@@ -37,6 +37,10 @@ directories=(
     ~/.config/.local/share/cache
 )
 
+if [ ! -d "/opt/tools" ]; then
+  sudo mkdir -p /opt/tools
+fi
+
 for directory in "${directories[@]}"; do
     if [ ! -d "$directory" ]; then
         echo "Creating directory: $directory..."
