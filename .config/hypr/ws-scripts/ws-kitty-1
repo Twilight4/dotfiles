@@ -5,7 +5,7 @@ is_kitty_running() {
 }
 
 if ! is_kitty_running; then
-  hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=0 -T kitty-1 --class kitty-1 --session ~/.config/kitty/session-1'
+  hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T kitty-1 --class kitty-1 --session ~/.config/kitty/session-1'
 else
   hyprctl dispatch focuswindow 'kitty-1'
 fi

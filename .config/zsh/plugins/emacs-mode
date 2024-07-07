@@ -42,10 +42,10 @@ bindkey '^[[6~' end-of-buffer-or-history
 bindkey '^[[3~' delete-char
 bindkey '^[[Z' reverse-menu-complete
 
-# Open in external editor command
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^V' edit-command-line
+# Open in external editor command (breaks the terminal)
+#autoload -U edit-command-line
+#zle -N edit-command-line
+#bindkey '^V' edit-command-line
 
 # Other useful bindings
 bindkey "^['" quote-region
