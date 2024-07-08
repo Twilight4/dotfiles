@@ -543,7 +543,7 @@ pac-query() {
 # Usage: ytdlall <channel_URL>
 ytdlall() {
     if [ ! -z $1 ]; then
-        yt-dlp -x --audio-format mp3 --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
+        yt-dlp -x --audio-format mp3 --restrict-filenames -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
         echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
@@ -553,7 +553,7 @@ ytdlall() {
 # Usage: ydlp <playlist_url> 
 ydlp() {
     if ; then
-        yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
+        yt-dlp --restrict-filenames -P ~/videos -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
         echo -e "\e[31mError: You need to specify a playlist url as argument\e[0m"
     fi
@@ -563,7 +563,7 @@ ydlp() {
 # Usage: ydlap <playlist_url> 
 ydlap() {
     if ; then
-        yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
+        yt-dlp --extract-audio --audio-format best --restrict-filenames -P ~/music -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
         echo -e "\e[31mError: You need to specify a playlist url as argument\e[0m"
     fi
@@ -573,7 +573,7 @@ ydlap() {
 # Usage: ydl <video_url>
 ydl() {
     if [ ! -z $1 ]; then
-        yt-dlp --restrict-filenames -f 22 -P ~/videos -o "%(title)s.%(ext)s" "$1"
+        yt-dlp --restrict-filenames -P ~/videos -o "%(title)s.%(ext)s" "$1"
     else
         echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
@@ -593,7 +593,7 @@ ydlb() {
 # Usage: ydlab <video_url>
 ydlab() {
     if [ ! -z $1 ]; then
-        yt-dlp --extract-audio --audio-format best --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
+        yt-dlp --extract-audio --audio-format best --restrict-filenames -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
         echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi

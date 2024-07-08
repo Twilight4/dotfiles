@@ -137,7 +137,7 @@ fmv() {
         if [[ -n "$SOURCES" ]]; then
             # Use xargs to capture filenames with spaces in them properly
             echo "$SOURCES" | while IFS= read -r file; do
-                sudo mv "$file" "$TARGET"
+                mv "$file" "$TARGET"
                 if [[ $? -eq 0 ]]; then
                     echo -e "\e[34mmoved: '\e[0m\e[33m$file\e[0m\e[34m' -> '\e[0m\e[33m$TARGET$file/\e[0m\e[34m'\e[0m"
                 else
@@ -457,8 +457,8 @@ fgs() {
 falias() {
     CMD=$(
         (
-            (alias)
-            (functions | grep "()" | cut -d ' ' -f1 | grep -v "^_")
+            alias
+            declare -F | cut -d ' ' -f3
         ) | fzf | cut -d '=' -f1
     )
 
