@@ -379,6 +379,7 @@ alias v="nvim"
 #alias docker="sudo docker"
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
+alias exif-rm-data="exiftool -all= yourfile.pdf"
 alias open='xdg-open'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
