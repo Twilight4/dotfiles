@@ -3,11 +3,16 @@ layout fat
 # Set the working directory for windows in the current tab
 cd ~/desktop/projects
 # Create a window (title sets the tab title)
-launch --title scans sh -c "result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | ~/.fzf/bin/fzf | cut -f 2); [ -n \"$result\" ] && cd ~/desktop/projects/\"$result\"; exec zsh"
+launch --title nmap sh -c "result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | ~/.fzf/bin/fzf | cut -f 2); [ -n \"$result\" ] && cd ~/desktop/projects/\"$result\"; exec zsh"
+
+# Create a new tab for cheat
+new_tab scans
+# Set the layout in this tab
+layout fat
 # Set the working directory for windows in the current tab
-#cd ~/desktop/projects/
-# Create a second window
-#launch --title project sh -c "lsd -l --hyperlink=auto && exec zsh"
+cd ~/desktop/projects
+# Create a window (title sets the tab title)
+launch --title scans sh -c "result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | ~/.fzf/bin/fzf | cut -f 2); [ -n \"$result\" ] && cd ~/desktop/projects/\"$result\"; exec zsh"
 
 # Create a new tab for cheat
 new_tab fcht
