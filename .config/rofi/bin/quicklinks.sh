@@ -207,6 +207,9 @@ run_cmd() {
     --opt31)
       xdg-open 'https://www.google.com/maps' &
       ;;
+    --opt32)
+      xdg-open 'https://www.google.com/maps' &
+      ;;
     *)
       ;;
   esac
