@@ -208,7 +208,7 @@ extra=(
 	"megacmd"
 	"tabbed-git"
 	"sway-audio-idle-inhibit-git"
-	"dragon-drop"
+	"dragon-drop-git"
 	"tabbed-git"
 	"ffsend-bin"
 	"ascii-image-converter-git"
