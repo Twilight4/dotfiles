@@ -90,6 +90,8 @@ packages=(
   "gtk-engine-murrine"
   "freerdp2"
   "proxychains"
+  "proton-vpn-gtk-app"
+  "libayatana-appindicator"
   "dunst"
   "libnotify"
   "zsh"

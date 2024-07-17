@@ -13,7 +13,7 @@ else
 fi
 
 # Post-install message
-echo "-------------------------- INSTALLATION FINISHED -------------------------"
+echo "-------------------------- INSTALLATION FINISHED --------------------------"
 echo "Please reboot your system."
 echo "If this is your first install of Linux, disable automatic snapshots in btrfs-assistant (keep only snapshot of base system)."
 echo ""
