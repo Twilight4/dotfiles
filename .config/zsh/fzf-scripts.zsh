@@ -86,7 +86,7 @@ fccp() {
 
 # Image preview
 fimg() {
-  find . -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | fzf --preview='kitten icat --clear --transfer-mode=memory --place="80"x"180"@"$((200-120))"x2 --align center --stdin=no {}' --preview-window "right,50%,border-left"
+  find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) -printf "%f\n" | fzf --preview='kitten icat --clear --transfer-mode=memory --place="80"x"180"@"$((200-120))"x2 --align center --stdin=no {}' --preview-window "right,50%,border-left"
 }
 
 frm() {
