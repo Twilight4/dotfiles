@@ -31,11 +31,11 @@ player "mpv"
 # Macros
 # -----------------------------------------
 # Macro bindings
-browser "brave-browser %u"
-macro m set browser "mpv --no-input-builtin-bindings %u" ; open-in-browser ; set browser "brave-browser %u"
-macro v set browser "setsid -f mpv --no-input-builtin-bindings" ; open-in-browser ; set browser "brave-browser %u"
-macro t set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser "brave-browser %u"
-macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "brave-browser %u"
+browser "brave %u"
+macro m set browser "mpv --no-input-builtin-bindings %u" ; open-in-browser ; set browser "brave %u"
+macro v set browser "setsid -f mpv --no-input-builtin-bindings" ; open-in-browser ; set browser "brave %u"
+macro t set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser "brave %u"
+macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "brave %u"
 
 
 # -----------------------------------------
