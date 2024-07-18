@@ -6,7 +6,7 @@
 
 # Search for a file (not hidden) and edit in $EDITOR
 ff() {
-  file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" \
+  file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" -printf "%P\n" \
       | fzf --query="$1" --no-multi --select-1 --exit-0 --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     eval "$EDITOR" "$file"
