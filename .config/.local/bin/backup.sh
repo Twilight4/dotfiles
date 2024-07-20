@@ -60,12 +60,15 @@ function run() {
         echo -e "${YELLOW}Copying $src to $dest from file $file${NC}"
         
         if [ -d "$src" ]; then
-            rsync "${rsync_opts[@]}" "${src}/" "$dest" 2> /tmp/errors
+            rsync_output=$(rsync "${rsync_opts[@]}" "${src}/" "$dest" 2>/tmp/errors)
         elif [ -f "$src" ]; then
-            rsync "${rsync_opts[@]}" "$src" "$dest" 2> /tmp/errors
+            rsync_output=$(rsync "${rsync_opts[@]}" "$src" "$dest" 2>/tmp/errors)
         else
             echo -e "${RED}The source $src does not exist -- NO BACKUP CREATED${NC}" && continue
         fi
+
+        # Colorize rsync output
+        echo -e "${GREEN}$rsync_output${NC}"
     done < "$file"
 
     echo -e "${RED}ERRORS: ${NC}"
