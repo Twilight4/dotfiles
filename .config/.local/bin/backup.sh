@@ -14,7 +14,7 @@ function output-help() {
     -v|version    Display script version
     -d|dry-run    Run rsync with --dry-run for test
     -x|delete     Run rsync with --delete for mirroring
-    -x|size-only  Run rsync with --size-only (no comparison with timestamps)"
+    -s|size-only  Run rsync with --size-only (no comparison with timestamps)"
 }
 
 function run() {
