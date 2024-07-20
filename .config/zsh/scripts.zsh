@@ -553,7 +553,7 @@ ytdlall() {
 # Usage: ydlp <playlist_url> 
 ydlp() {
     if ; then
-        yt-dlp --restrict-filenames -P ~/videos -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
+        yt-dlp --restrict-filenames -f mp4 -P ~/videos -o "%(autonumber)s-%(title)s.%(ext)s" "$1"
     else
         echo -e "\e[31mError: You need to specify a playlist url as argument\e[0m"
     fi
@@ -573,7 +573,7 @@ ydlap() {
 # Usage: ydl <video_url>
 ydl() {
     if [ ! -z $1 ]; then
-        yt-dlp --restrict-filenames -P ~/videos -o "%(title)s.%(ext)s" "$1"
+        yt-dlp --restrict-filenames -f mp4 -P ~/videos -o "%(title)s.%(ext)s" "$1"
     else
         echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
