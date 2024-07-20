@@ -37,6 +37,7 @@ packages=(
   "hyprland"
   "hyprlock"
   "xdg-desktop-portal-hyprland"
+  "xdg-desktop-portal-gtk"
   "brave-bin"
   "python-click"
   "python-tomlkit"
