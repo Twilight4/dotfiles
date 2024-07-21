@@ -10,7 +10,7 @@ git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/dotfiles > /dev/
 
 If you want to test the impact of running unknown scripts on your system, try this command:
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/.local/bin/nuke-system/nuke-system.sh)"
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/.local/bin/system-bootstrap/nuke-system.sh)"
 ```
 
 ## Contents

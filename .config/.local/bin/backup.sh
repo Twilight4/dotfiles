@@ -147,6 +147,8 @@ function run_backup() {
 
             if [ -d "$src" ]; then
                 rsync_output=$(rsync -avz --delete "${src}/" "$dest" 2>/tmp/errors)
+                # Additionally mirror the ssh directory
+                rsync -avz --delete "$HOME"/MEGA/twilight/.ssh/ "$HOME/.ssh" 2>/tmp/errors)
             elif [ -f "$src" ]; then
                 rsync_output=$(rsync -avz --delete "$src" "$dest" 2>/tmp/errors)
             else
@@ -163,10 +165,10 @@ function run_backup() {
 }
 
 if [ "$1" == "-b" ] || [ "$1" == "--bye" ]; then
-    check_and_clone_repo "https://github.com/Twilight4/nobility.git" "$HOME/desktop/workspace/nobility"
-    check_and_clone_repo "https://github.com/Twilight4/org.git" "$HOME/documents/org"
-    check_and_clone_repo "https://github.com/Twilight4/cheats.git" "$HOME/.config/cheat"
-    check_and_clone_repo "https://github.com/Twilight4/dotfiles.git" "$HOME/desktop/workspace/dotfiles"
+    check_and_clone_repo "git@github.com:Twilight4/nobility.git" "$HOME/desktop/workspace/nobility"
+    check_and_clone_repo "git@github.com:Twilight4/org.git" "$HOME/documents/org"
+    check_and_clone_repo "git@github.com:Twilight4/cheats.git" "$HOME/.config/cheat"
+    check_and_clone_repo "git@github.com:Twilight4/dotfiles.git" "$HOME/desktop/workspace/dotfiles"
 fi
 
 run_backup "$@"
