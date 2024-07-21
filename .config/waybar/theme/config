@@ -32,6 +32,7 @@
 
     // Modules Center
     "modules-center": [
+        "custom/updates",
 		    "custom/uptime",
 		    "custom/weather",
         "hyprland/workspaces",
@@ -40,7 +41,6 @@
 
     // Modules Right    
     "modules-right": [
-        //"custom/updates",
         //"network",
 		    //"bluetooth",
         "group/hardware",
