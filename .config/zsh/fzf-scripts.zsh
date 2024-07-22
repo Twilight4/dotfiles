@@ -65,10 +65,10 @@ fports() {
 
 # Select file and output using bat
 fbat() {
-  file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.ttf" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
+  file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.ttf" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" | sed 's|^\./||' | fzf --query="$1" --no-multi --select-1 --exit-0 \
+      --reverse --preview 'bat --style=snip --color=always --line-range :500 ./{}')
   if [[ -n "$file" ]]; then
-    bat --color=always --style header,grid,changes "$file"
+    bat --color=always --style header,grid,changes "./$file"
   fi
 }
 
