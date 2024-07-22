@@ -11,6 +11,9 @@ cat <<"EOF"
 
 EOF
 
+########################################################
+# PERFORMANCE TWEAKS                                   #
+########################################################
 # Function to check and append a line to a file if not already present
 append_if_not_exists() {
     local line="$1"
@@ -29,6 +32,40 @@ append_if_not_exists() {
     else
         echo "$line" | sudo tee -a "$file" > /dev/null
         echo "Added: $line"
+    fi
+}
+
+# Function to comment out a line if it exists
+comment_out_line() {
+    local pattern="$1"
+    local file="$2"
+    
+    if grep -q "^${pattern}" "$file"; then
+        sudo sed -i "s/^${pattern}/#${pattern}/" "$file"
+        echo "Commented out: $pattern"
+    fi
+}
+
+# Function to uncomment a line if it exists
+uncomment_line() {
+    local pattern="$1"
+    local file="$2"
+    
+    if grep -q "^#${pattern}" "$file"; then
+        sudo sed -i "s/^#${pattern}/${pattern}/" "$file"
+        echo "Uncommented: $pattern"
+    fi
+}
+
+# Function to insert a new line after a specific pattern
+insert_after_pattern() {
+    local pattern="$1"
+    local new_line="$2"
+    local file="$3"
+
+    if grep -q "^${pattern}" "$file"; then
+        sudo sed -i "/^${pattern}/a $new_line" "$file"
+        echo "Inserted: $new_line"
     fi
 }
 
@@ -61,7 +98,51 @@ special_tweak="kernel.split_lock_mitigate=0"
 append_if_not_exists "$special_tweak" "/etc/sysctl.d/99-splitlock.conf"
 
 echo
-echo "Performance tweaks applied."
+echo "Performance tweaks applied in sysctl.conf file."
+
+
+
+########################################################
+# GRUB MENU                                            #
+########################################################
+# Prompt user to optimize GRUB config
+echo
+read -p "Do you want to optimize the GRUB configuration? (y/n) " optimize_grub
+echo
+if [[ "$optimize_grub" == "y" ]]; then
+    grub_file="/etc/default/grub"
+
+    # Comment out existing GRUB_CMDLINE_LINUX_DEFAULT line and add new one below it
+    comment_out_line "GRUB_CMDLINE_LINUX_DEFAULT=" "$grub_file"
+    insert_after_pattern "#GRUB_CMDLINE_LINUX_DEFAULT=" 'GRUB_CMDLINE_LINUX_DEFAULT="zswap.compressor=zstd zswap.max_pool_percent=10 mitigations=off amd-pstate=active"' "$grub_file"
+
+    # Uncomment specific GRUB settings if they exist
+    uncomment_line 'GRUB_DISABLE_RECOVERY="true"' "$grub_file"
+    uncomment_line 'GRUB_DISABLE_SUBMENU="true"' "$grub_file"
+
+    # Prompt user to disable GRUB menu
+    echo
+    read -p "Do you want to disable the GRUB menu? (y/n) " disable_grub_menu
+    if [[ "$disable_grub_menu" == "y" ]]; then
+        comment_out_line "GRUB_TIMEOUT=" "$grub_file"
+        insert_after_pattern "#GRUB_TIMEOUT=" "GRUB_TIMEOUT=0" "$grub_file"
+    fi
+
+    # Update GRUB configuration
+    echo
+    echo "Updating GRUB configuration..."
+    sudo update-grub
+    echo
+    echo "GRUB configuration optimized."
+else
+    echo "No changes made to GRUB configuration."
+fi
+
+
+
+
+
+
 
 # Wait 2 sec before clear so user knows what happened
 sleep 2
