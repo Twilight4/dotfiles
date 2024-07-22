@@ -1,0 +1,34 @@
+* Arch
+** Install the kernel module using DKMS
+#+begin_src shell
+git clone -b rebase-6.2 https://github.com/ranisalt/hp-omen-linux-module
+sudo dkms install --force hp-omen-linux-module
+#+end_src
+Reboot now.
+
+** Automated: Run omen-keyboard script to set a color value to RGB zones
+#+begin_src shell
+omen-keyboard
+#+end_src
+
+** Manually: You can now modify and read the RGB values manually
+#+begin_src shell
+ls /sys/devices/platform/hp-wmi/rgb_zones
+cd /sys/devices/platform/hp-wmi/rgb_zones
+echo db0b0b > zone02
+cat zone02
+#+end_src
+
+
+* Debian
+Install dkms and kernel headers.
+#+begin_src shell
+sudo apt-get install dkms linux-headers-$(uname -r)
+#+end_src
+
+Install the kernel module using DKMS.
+#+begin_src shell
+git clone https://github.com/ranisalt/hp-omen-linux-module
+sudo make install
+#+end_src
+Reboot now.

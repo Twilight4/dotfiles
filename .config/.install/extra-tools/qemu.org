@@ -1,0 +1,261 @@
+#+TITLE: QEMU Installation
+#+AUTHOR: Twilight4
+#+DESCRIPTION: QEMU Installation Guide
+#+STARTUP: show3levels
+#+OPTIONS: TOC:4
+
+* Table of Contents :toc:
+- [[#qemu-and-virt-manager-installation-on-debian][QEMU and Virt-Manager installation on Debian]]
+  - [[#check-support-for-passthrough][Check support for passthrough]]
+  - [[#check-number-of-cpu-cores][Check number of cpu cores]]
+  - [[#install-packages][Install packages]]
+  - [[#libvirt-service][Libvirt service]]
+  - [[#add-user-to-necessary-groups][Add user to necessary groups]]
+  - [[#check-compability][Check compability]]
+  - [[#tuned-service-optional][Tuned service (optional)]]
+  - [[#network-bridge][Network bridge]]
+  - [[#set-acl-on-the-images-directory-optional][Set ACL on the images directory (optional)]]
+- [[#installing-vms-through-cli][Installing VMs through CLI]]
+  - [[#qemu][QEMU]]
+  - [[#virt-install][Virt-install]]
+- [[#enabling-3d-acceleration-in-virt-manager][Enabling 3D acceleration in Virt-Manager]]
+- [[#enable-kvm-gpu-passthrough][Enable KVM GPU passthrough]]
+  - [[#identify-pci-ids][Identify PCI IDs]]
+  - [[#edit-grub-config][Edit grub config]]
+  - [[#update-grub-and-reboot][Update grub and reboot]]
+  - [[#config-files][Config files]]
+  - [[#update-initramfs][Update initramfs]]
+  - [[#verify-isolation-of-gpu][Verify isolation of GPU]]
+- [[#windows-vm-configuration][Windows VM Configuration]]
+  - [[#prerequisites][Prerequisites]]
+  - [[#vm-configuration][VM Configuration]]
+  - [[#start-vm][Start VM]]
+
+* QEMU and Virt-Manager installation on Debian
+** Check support for passthrough
+#+begin_src shell
+lscpu | grep 'Virtualization'
+#+end_src
+
+** Check number of cpu cores
+If the value is =0=, you need to enter the UEFI and enable virtualization.
+#+begin_src shell
+egrep -c '(vmx|svm)' /proc/cpuinfo
+#+end_src
+
+** Install packages
+On Debian:
+#+begin_src shell
+sudo apt update
+sudo apt install -y qemu-system-x86 libvirt-daemon-system virtinst virt-manager virt-viewer ovmf swtpm qemu-utils guestfs-tools libosinfo-bin tuned
+#+end_src
+
+On Arch:
+#+begin_src shell
+sudo pacman -S qemu-desktop virt-manager virt-viewer dnsmasq vde2 bridge-utils
+sudo pacman -S ebtables iptables
+sudo pacman -S libguestfs
+#+end_src
+
+** Libvirt service
+Check status of libvirtd service:
+#+begin_src shell
+sudo systemctl status libvirtd
+#+end_src
+
+Enable and start libvirtd service (if it's not running):
+#+begin_src shell
+sudo systemctl enable libvirtd
+#+end_src
+
+Reboot system:
+#+begin_src shell
+sudo reboot
+#+end_src
+
+** Add user to necessary groups
+#+begin_src shell
+sudo usermod -aG libvirt $USER
+sudo usermod -aG libvirt-qemu $USER
+sudo usermod -aG kvm $USER
+newgrp libvirt       # Refresh group membership in the current shell session
+
+sudo systemctl restart libvirtd
+#+end_src
+
+** Check compability
+Everything should pass:
+#+begin_src shell
+sudo virt-host-validate qemu
+#+end_src
+
+** Tuned service (optional)
+Enable the the service:
+#+begin_src shell
+sudo systemctl enable --now tuned
+#+end_src
+
+Check current profile:
+#+begin_src shell
+tuned-adm active
+#+end_src
+
+List profiles:
+#+begin_src shell
+tuned-adm list
+#+end_src
+
+Change the profile to optimize for running KVM machines:
+#+begin_src shell
+sudo tuned-adm profile virtual-host
+#+end_src
+
+Make sure there are no errors:
+#+begin_src shell
+sudo tuned-adm verify
+#+end_src
+
+** Network bridge
+Check status of network bridge:
+#+begin_src shell
+sudo virsh net-list --all
+#+end_src
+
+Start and autostart network bridge (if it's not running):
+#+begin_src shell
+sudo virsh net-start default
+sudo virsh net-autostart default
+#+end_src
+
+** Set ACL on the images directory (optional)
+Recursively remove any existing ACL permissions:
+#+begin_src shell
+sudo setfacl -R -b /var/lib/libvirt/images/
+#+end_src
+
+Recursively grant user permissions to the directory:
+#+begin_src shell
+sudo setfacl -R -m u:twilight:rwX /var/lib/libvirt/images
+#+end_src
+
+Enable default special permissions:
+#+begin_src shell
+sudo setfacl -m d:u:twilight:rwx /var/lib/libvirt/images
+#+end_src
+
+Review new ACL permissions:
+#+begin_src shell
+sudo getfacl /var/lib/libvirt/images
+#+end_src
+Now you have full access to the image directory without root privileges.
+
+
+* Installing VMs through CLI
+** QEMU
+Create new disk image:
+#+begin_src shell
+qemu-img create -f qcow2 image.qcow2 100G
+#+end_src
+
+Boot the iso image on the new disk image:
+#+begin_src shell
+qemu-system-x86_64 -enable-kvm -cdrom downloads/debian-12.5.0-amd64-netinst.iso -boot d -drive file=image.qcow2 -cpu host -smp 8 -vga virtio -display sql,gl=on -m 8192
+#+end_src
+
+Boot existing disk image:
+#+begin_src shell
+qemu-system-x86_64 -enable-kvm -boot c -drive file=image.qcow2 -cpu host -smp 8 -vga virtio -display sql,gl=on -m 8192
+#+end_src
+
+** Virt-install
+You can also create new VM using virt-manager's CLI interface:
+#+begin_src shell
+sudo virt-install --name debian12 --memory memory=8192 --vcpus vcpus=8 --cpu mode=host-passthrough --network network=default --location downloads/debian-12.5.0-amd64-netinst.iso --os-variant debian12 --disk size=40,format=qcow2,cache=none,discard=unmap --channel type=unix,target.type=virtio,target.name=org.qemu.guest_agent.0 -boot uefi
+#+end_src
+
+Connecting to the VM:
+#+begin_src shell
+virt-viewer --connect qemu:///system --wait debian12
+#+end_src
+
+
+* Enabling 3D acceleration in Virt-Manager
+In VM settings, make sure the =Chipset= is =Q35= and =Firmware= is =UEFI=.
+
+To enable 3d acceleration you have to change the following settings:
+- =Display Spice= > =[X] OpenGL=
+- =Display Spice= > Listen type: =None=
+- =Video Virtio= > Model: =Virtio=
+- =Video Virtio= > =[X] 3D acceleraiton=
+- If you start the VM and the VM screen crashes, you may need to swap the GPU under =[X] OpenGL= the the other one.
+
+
+* Enable KVM GPU passthrough
+** Identify PCI IDs
+Copy the Display Controller - Radeon RX GPU and Audio Device IDs.
+
+#+begin_src shell
+lspci -nn | rg 'RX 6600'
+lspci -nn | rg 'Audio device|AMD/ATI'
+#+end_src
+
+** Edit grub config
+#+begin_src shell
+sudo nvim /etc/default/grub
+
+# Edit the line and remove any existing values (like quiet splash)
+GRUB_CMDLINE_LINUX_DEFAULT="and_iommu iommu=pt vfio-pci.ids=<GPU>:<AUDIO>"
+#+end_src
+
+** Update grub and reboot
+#+begin_src shell
+sudo update-grub
+sudo reboot
+#+end_src
+
+** Config files
+Isolate GPU.
+
+#+begin_src shell
+sudo touch /etc/modprobe.d/vfio.conf
+sudo nvim /etc/modprobe.d/vfio.conf
+
+options vfio-pci ids=<GPU>,<AUDIO>
+#+end_src
+
+** Update initramfs
+#+begin_src shell
+sudo update-initramfs -c -k $(uname -r)
+reboot
+#+end_src
+
+** Verify isolation of GPU
+#+begin_src shell
+lspci -k | rg "vfio-pci|AMD"
+#+end_src
+
+
+* Windows VM Configuration
+** Prerequisites
+- Latest virtio-win [[https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md][VFIO Drivers]]
+- [[https://www.microsoft.com/software-download/windows11][Windows international]] ISO
+
+** VM Configuration
+Tutorial: https://www.youtube.com/watch?v=WmFpwpW6Xko
+
+In VM settings, make sure the =Chipset= is =Q35= and =Firmware= is =UEFI=.
+- =Boot Options= > =Enable boot menu= > =SATA CDROM= > move =up arrow=
+- =SATA Disk= > Disk bus: =VirtIO=
+- =SATA CDROM= > =Browse= > Import VFIO drivers
+- =Add Hardware= > =PCI Host Device= > Select AMD GPU and AMD Audio
+  + check the numbers from the output of =lspci -k | rg vfio-pci= command
+- =Boot Options= > =SATA CDROM_<NUM>= > move =up arrow= - to avoid booting into the installation media
+
+** Start VM
+- Before windows installation choose as language: *English (World)*
+- If you don't have the "I don't have internet" option in the installer, you need to [[https://www.youtube.com/watch?v=6RIpzUBOEA8][bypass microsoft account]]
+- =My Computer= > =Mounted ISO= > =virtio-win-guest-tools=
+- Reboot and install compatible AMD drivers on windows
+- If everything done correctly, the AMD GPU should be displayed within the task manager
+- If your mouse cursor stops working, go to Mounted ISO and run =virtio-win-gt-x64=
+- For optimizing windows you can utilize [[https://atlasos.net/][AtlasOS]] and [[https://github.com/ChrisTitusTech/winutil][winutil]]

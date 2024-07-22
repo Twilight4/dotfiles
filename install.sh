@@ -44,3 +44,6 @@ source .config/.install/prompt-reboot.sh
 #source .config/.install/display-manager.sh
 #source .config/.install/tty-login.sh
 #source .config/.install/nnn.sh
+#source .config/.install/emacs.sh
+#source .config/.install/install-grub-theme.sh
+#source .config/.install/systemd-boot.sh
