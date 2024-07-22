@@ -148,7 +148,7 @@ function run_backup() {
             if [ -d "$src" ]; then
                 rsync_output=$(rsync -avz --delete "${src}/" "$dest" 2>/tmp/errors)
                 # Additionally mirror the ssh directory
-                rsync -avz --delete "$HOME"/MEGA/twilight/.ssh/ "$HOME/.ssh" 2>/tmp/errors)
+                rsync -avz --delete "$HOME"/MEGA/twilight/.ssh/ "$HOME/.ssh" 2>/tmp/errors
             elif [ -f "$src" ]; then
                 rsync_output=$(rsync -avz --delete "$src" "$dest" 2>/tmp/errors)
             else

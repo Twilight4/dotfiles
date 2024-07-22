@@ -78,6 +78,20 @@ main() {
 	*) echo "Invalid choice. Please enter a number between 1 and 3." ;;
 	esac
 
+  # Copy the emacs AI prompts
+  SOURCE_DIR=~/desktop/workspace/dotfiles/.config/ai-prompts
+  DEST_DIR=~/.cache/emacs
+  
+  # Ensure the source directory exists
+  if [ -d "$SOURCE_DIR" ]; then
+    echo "Copying AI prompts from $SOURCE_DIR to $DEST_DIR..."
+    cp -r "$SOURCE_DIR" "$DEST_DIR"
+    echo "Copy completed successfully."
+  else
+    echo "Error: Source directory $SOURCE_DIR does not exist."
+    exit 1
+  fi
+
 	# Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
 	update-mime-database ~/.config/.local/share/mime
 	xdg-mime default emacs.desktop text/org
