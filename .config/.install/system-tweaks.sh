@@ -51,9 +51,13 @@ uncomment_line() {
     local pattern="$1"
     local file="$2"
     
+    # Check if the line is commented out
     if grep -q "^#${pattern}" "$file"; then
+        # Uncomment the line
         sudo sed -i "s/^#${pattern}/${pattern}/" "$file"
-        echo "Uncommented: $pattern"
+        echo "Uncommented: ${pattern}"
+    else
+        echo "Line not commented: ${pattern}"
     fi
 }
 
@@ -101,7 +105,6 @@ echo
 echo "Performance tweaks applied in sysctl.conf file."
 
 
-
 ########################################################
 # GRUB MENU                                            #
 ########################################################
@@ -117,8 +120,8 @@ if [[ "$optimize_grub" == "y" ]]; then
     insert_after_pattern "#GRUB_CMDLINE_LINUX_DEFAULT=" 'GRUB_CMDLINE_LINUX_DEFAULT="zswap.compressor=zstd zswap.max_pool_percent=10 mitigations=off amd-pstate=active"' "$grub_file"
 
     # Uncomment specific GRUB settings if they exist
-    uncomment_line 'GRUB_DISABLE_RECOVERY="true"' "$grub_file"
-    uncomment_line 'GRUB_DISABLE_SUBMENU="true"' "$grub_file"
+    uncomment_line 'GRUB_DISABLE_RECOVERY=true' "$grub_file"
+    uncomment_line 'GRUB_DISABLE_SUBMENU=y' "$grub_file"
 
     # Prompt user to disable GRUB menu
     echo
