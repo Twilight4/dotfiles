@@ -484,7 +484,11 @@ fchtoe() {
 frgo() {
   pushd ~/documents/org/roam/ &> /dev/null
 
-  if [ ! "$#" -gt 0 ]; then return 1; fi
+  if [ ! "$#" -gt 0 ]; then
+    echo "Usage: frgc <search-term>"
+    return 1
+  fi
+
   selected_file=$(rg --files-with-matches --no-messages "$1" \
     | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
     | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' \
@@ -497,11 +501,44 @@ frgo() {
   popd &> /dev/null
 }
 
+# List cheatsheets in specific directory based on content and cat the matching line
+frgc() {
+  pushd ~/.config/cheat/desc/ &> /dev/null
+
+  if [ ! "$#" -gt 0 ]; then
+    echo "Usage: frgc <search-term>"
+    return 1
+  fi
+
+  search_term=$1
+  selected_file=$(rg --files-with-matches --no-messages "$search_term" . \
+    | sed 's|^\./||' \
+    | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
+    | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$search_term' \
+    || rg --ignore-case --pretty --context 10 '$search_term' {}")
+
+  if [[ -n "$selected_file" ]]; then
+    cheat "$selected_file" | rg --ignore-case --pretty "$search_term" | bat --pager less --style=snip --color=always --language=help
+  fi
+
+  popd &> /dev/null
+}
+
+# List cheatsheets in specific directory and cat with preview
+fchtt() {
+  file=$(cheat -l -t desc | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --pager less --color=always ~/.config/cheat/desc/{}') || return
+	[ -n "$file" ] && command cheat "$file" | bat --pager less --style=snip --color=always --language=help
+}
+
 # List org notes based on content and edit
 frgoe() {
   pushd ~/documents/org/roam/ &> /dev/null
 
-  if [ ! "$#" -gt 0 ]; then return 1; fi
+  if [ ! "$#" -gt 0 ]; then
+    echo "Usage: frgc <search-term>"
+    return 1
+  fi
+
   selected_file=$(rg --files-with-matches --no-messages "$1" \
     | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
     | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' \
@@ -590,7 +627,12 @@ fclip() {
 
 # Find in File using ripgrep and open in editor
 frg() {
-  if [ ! "$#" -gt 0 ]; then return 1; fi
+
+  if [ ! "$#" -gt 0 ]; then
+    echo "Usage: frgc <search-term>"
+    return 1
+  fi
+
   selected_file=$(rg --files-with-matches --no-messages "$1" \
     | fzf --preview "highlight -O ansi -l {} 2> /dev/null \
     | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' \
@@ -603,9 +645,15 @@ frg() {
 
 # Find in file using ripgrep-all
 frga() {
-    if [ ! "$#" -gt 0 ]; then return 1; fi
-    local file
-    file="$(rg --hidden -i --max-count=1 --ignore-case --files-with-matches --no-messages "$*" \
-        | fzf-tmux -p +m --preview="rg --hidden -i --ignore-case --pretty --context 10 '"$*"' {}")" \
-        && print -z "./$file" || return 1;
+
+  if [ ! "$#" -gt 0 ]; then
+    echo "Usage: frgc <search-term>"
+    return 1
+  fi
+
+  if [ ! "$#" -gt 0 ]; then return 1; fi
+  local file
+  file="$(rg --hidden -i --max-count=1 --ignore-case --files-with-matches --no-messages "$*" \
+      | fzf-tmux -p +m --preview="rg --hidden -i --ignore-case --pretty --context 10 '"$*"' {}")" \
+      && print -z "./$file" || return 1;
 }

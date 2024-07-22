@@ -42,10 +42,6 @@ bindkey '^[[6~' end-of-buffer-or-history
 bindkey '^[[3~' delete-char
 bindkey '^[[Z' reverse-menu-complete
 
-# Open in external editor command (breaks the terminal)
-#autoload -U edit-command-line
-#zle -N edit-command-line
-#bindkey '^V' edit-command-line
 
 # Other useful bindings
 bindkey "^['" quote-region
@@ -125,8 +121,11 @@ bindkey -M emacs -s '^[e' 'fchtc\r'
 bindkey -M emacs -s '^[E' 'fchtce\r'
 bindkey -M emacs -s '^[r' 'fchto\r'
 bindkey -M emacs -s '^[R' 'fchtoe\r'
-bindkey -M emacs -s '^[g' 'frgo '
-bindkey -M emacs -s '^[G' 'frgoe '
+bindkey -M emacs -s '^[g' 'frgc '
+bindkey -M emacs -s '^[G' 'fchtt\r'
+#bindkey -M emacs -s '^[g' 'frgo '
+#bindkey -M emacs -s '^[G' 'frgoe '
+
 bindkey -M emacs -s '^[N' 'fnp\r'
 #bindkey -M emacs -s '^[e' 'frg '
 #bindkey -M emacs -s '^[e' 'fvars\r'
