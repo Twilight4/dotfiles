@@ -27,17 +27,18 @@ option_19="󰚌 Root Me"
 option_20=" PWNX"
 option_21="󰖟 IppSec Search"
 option_22="󰁰 Bank"
-option_23=" HackTricks"
+option_23=" HackTricks CheatSheet"
 option_24=" PwnedLabs"
 option_25="󰥷 Image to Text"
-option_26="󱇱 HackTricks Cloud"
+option_26="󱇱 HackTricks Cloud CheatSheet"
 option_27=" Google Exploits"
-option_28="󰬎 GTFOBins"
-option_29=" RevShells"
+option_28="󰬎 GTFOBins CheatSheet"
+option_29=" RevShells CheatSheet"
 option_30=" Crackstation"
 option_31=" Google Maps"
-option_32="󰰮 WADComs"
+option_32="󰰮 WADComs CheatSheet"
 option_33="󰩃 BloodHound CheatSheet"
+option_34=" AD CheatSheet PDF"
 
 # Rofi CMD
 rofi_cmd() {
@@ -58,7 +59,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34" | rofi_cmd
 }
 
 # Execute Command
@@ -211,8 +212,11 @@ run_cmd() {
     --opt32)
       xdg-open 'https://www.google.com/maps' &
       ;;
-    --opt34)
+    --opt33)
       xdg-open 'https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/' &
+      ;;
+    --opt34)
+      xdg-open 'file:///home/twilight/documents/pdfs/active-directory-attacks.pdf' &
       ;;
     *)
       ;;
@@ -320,5 +324,8 @@ case "${chosen}" in
     ;;
   $option_33)
     run_cmd --opt33
+    ;;
+  $option_34)
+    run_cmd --opt34
     ;;
 esac
