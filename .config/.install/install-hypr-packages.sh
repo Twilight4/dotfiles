@@ -206,8 +206,6 @@ extra=(
 	"appmenu-gtk-module"
 	"libdbusmenu-glib"
 	"python-pywhat"
-	"megasync-bin"
-	"megacmd"
 	"tabbed-git"
 	"sway-audio-idle-inhibit-git"
 	"dragon-drop-git"

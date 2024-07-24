@@ -92,6 +92,12 @@ main() {
     exit 1
   fi
 
+  # Download mega cmd
+	#"megasync-bin"
+	#"megacmd"
+  wget https://mega.nz/linux/repo/Arch_Extra/x86_64/megacmd-x86_64.pkg.tar.zst && sudo pacman -U "$PWD/megacmd-x86_64.pkg.tar.zst"
+  rm megacmd-x86_64.pkg.tar.zst 
+
 	# Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
 	update-mime-database ~/.config/.local/share/mime
 	xdg-mime default emacs.desktop text/org
