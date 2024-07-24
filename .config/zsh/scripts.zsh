@@ -658,6 +658,61 @@ backall() {
     done
 }
 
+# Function to manage GitHub repositories
+gh-sync() {
+    # List of GitHub repositories with full paths
+    local REPOS=(
+        "$HOME/desktop/workspace/nobility:Twilight4/nobility"
+        "$HOME/desktop/workspace/dotfiles:Twilight4/dotfiles"
+        "$HOME/desktop/workspace/debian-setup:Twilight4/debian-setup"
+        "$HOME/documents/org:Twilight4/org"
+        "$HOME/.config/cheat:Twilight4/cheats"
+    )
+
+    # Commit message for changes
+    local COMMIT_MESSAGE="Auto-commit: local changes"
+
+    # ANSI color codes for colored output
+    local GREEN="\033[0;32m"
+    local YELLOW="\033[0;33m"
+    local RED="\033[0;31m"
+    local NC="\033[0m"  # No Color
+
+    # Iterate over each repository in the list
+    for entry in "${REPOS[@]}"; do
+        local repo_dir="${entry%%:*}"
+        local repo="${entry##*:}"
+
+        # Clone the repository if it does not exist
+        if [ ! -d "$repo_dir" ]; then
+            echo -e "${GREEN}Cloning ${repo} into ${repo_dir}...${NC}"
+            echo
+            git clone "git@github.com:$repo.git" "$repo_dir"
+        else
+            echo
+            echo -e "${YELLOW}$repo already cloned in $repo_dir.${NC}"
+        fi
+
+        # Navigate to the repository directory
+        cd "$repo_dir" || continue
+
+        # Check for any changes in the repository
+        if [ -n "$(git status --porcelain)" ]; then
+            echo -e "${GREEN}Changes detected in $(basename "$repo_dir"). Committing and pushing...${NC}"
+            echo
+            git add .
+            git commit -m "$COMMIT_MESSAGE"
+            git push
+        else
+            echo
+            echo -e "${YELLOW}No changes in $(basename "$repo_dir").${NC}"
+        fi
+    done
+
+    echo
+    echo -e "${GREEN}All repositories processed.${NC}"
+}
+
 # Function to sync data with Mega cloud
 mega-sync-on() {
     # ANSI color codes
