@@ -23,6 +23,10 @@ mac() {
   ip a | grep ether | awk '{print $2}'
 }
 
+net-pubip-country() {
+    whois "$1" | grep -i country | head -n1
+}
+
 # zoxide
 j() {
     z "$@" && lsd -l --hyperlink=auto
