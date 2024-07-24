@@ -658,6 +658,73 @@ backall() {
     done
 }
 
+# Function to sync data with Mega cloud
+mega-sync-on() {
+    # ANSI color codes
+    GREEN='\033[0;32m'
+    RED='\033[0;31m'
+    YELLOW='\033[1;33m'
+    BLUE='\033[0;34m'
+    NC='\033[0m' # No Color
+
+    # Prompt the user to confirm they are logged in
+    echo -e "${YELLOW}Have you logged in to Mega with 'mega-login <email> <pass>'? (y/n)${NC}"
+    read -r logged_in
+
+    if [ "$logged_in" = "y" ]; then
+        echo
+        echo -e "${GREEN}Starting synchronization...${NC}"
+
+        # Synchronize directories
+        mega-sync /home/twilight/desktop/projects /SYNCED-DATA/desktop/projects/
+        mega-sync /home/twilight/documents/creds/ /SYNCED-DATA/documents/creds/
+        mega-sync /home/twilight/documents/openvpn/ /SYNCED-DATA/documents/openvpn/
+        mega-sync /home/twilight/documents/pdfs/ /SYNCED-DATA/documents/pdfs/
+        mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
+
+        # Sync Individual files
+        mega-put ~/.config/FreeTube/history.db ~/.config/FreeTube/playlists.db ~/.config/FreeTube/profiles.db ~/.config/FreeTube/settings.db /SYNCED-DATA/.config/FreeTube
+
+        echo -e "${GREEN}Synchronization completed.${NC}"
+        echo -e "${GREEN}Please run 'mega-sync-off' to turn off syncing in order to keep a backup and log out.${NC}"
+        echo
+        echo -e "${BLUE}You can run 'watch mega-sync' command to check current syncing.${NC}"
+    else
+        echo
+        echo -e "${RED}Please log in using 'mega-login <email> <pass>' and try again.${NC}"
+    fi
+}
+
+# Function to stop syncing data with Mega cloud
+mega-sync-off() {
+    # ANSI color codes
+    GREEN='\033[0;32m'
+    RED='\033[0;31m'
+    YELLOW='\033[1;33m'
+    NC='\033[0m' # No Color
+
+    mega-sync -d /home/twilight/desktop/projects
+    mega-sync -d /home/twilight/documents/creds
+    mega-sync -d /home/twilight/documents/openvpn
+    mega-sync -d /home/twilight/documents/pdfs
+    mega-sync -d /home/twilight/.ssh
+
+    echo
+    echo -e "${GREEN}All specified directories have been unsynced.${NC}"
+
+    # Confirmation prompt before logging out
+    echo -e "${YELLOW}Do you want to log out from Mega? (y/n)${NC}"
+    read -r logout_confirm
+
+    if [ "$logout_confirm" = "y" ]; then
+        echo -e "${YELLOW}Logging out...${NC}"
+        mega-logout
+        echo -e "${GREEN}Logged out successfully.${NC}"
+    else
+        echo -e "${GREEN}Logout cancelled.${NC}"
+    fi
+}
+
 # Move a file or a folder, and create the filepath if it doesn't exist
 # Usage: mkmv <path>
 mkmv() {
