@@ -473,7 +473,7 @@
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "t t" '(visual-line-mode :wk "Toggle truncated lines")
     "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
-	"t i" '(org-indent-mode :wk "Toggle indentation mode")
+    "t i" '(org-indent-mode :wk "Toggle indentation mode")
     "t m" '(toggle-mode-line :wk "Toggle mode line")
     "t H" '(global-hl-line-mode :wk "Toggle line highlight globally")
     "t T" '(org-transclusion-mode :wk "Org Transclusion mode"))
@@ -685,6 +685,7 @@
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 (save-place-mode 1)                               ; Open files back up at same position
 (recentf-mode 1)                                  ; Remember recently edited files
+(global-hl-line-mode t)                           ; Highlights the current line of the point    
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
@@ -801,6 +802,9 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
  '(mode-line-inactive ((t (:background "#040305"))))
  ;; Set the text color in org-mode source code blocks
  '(org-block ((t (:foreground "#CDD6F4")))))
+
+;; Hl-line-mode
+(set-face-background 'hl-line "#141C23")  ;; Set to a dark shade of black
 
 ;; Use pywal auto-generated color scheme
 ;; (use-package ewal
