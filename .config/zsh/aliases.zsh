@@ -121,8 +121,6 @@ alias general='emacsclient -nw "$HOME/documents/org/roam/red-team/general.org"'
 alias ipt='emacsclient -nw "$HOME/documents/org/roam/red-team/ipt.org"'
 alias ept='emacsclient -nw "$HOME/documents/org/roam/red-team/ept.org"'
 alias se='emacsclient -nw "$HOME/documents/org/roam/red-team/se.org"'
-alias physical='emacsclient -nw "$HOME/documents/org/roam/red-team/physical.org"'
-alias wir='emacsclient -nw "$HOME/documents/org/roam/red-team/wir.org"'
 
 # Enhancd: cd <dir>, cd, cd -, ..
 alias ..="cd .."
