@@ -722,13 +722,11 @@ mega-sync-on() {
     BLUE='\033[0;34m'
     NC='\033[0m' # No Color
 
-    # Prompt the user to confirm they are logged in
-    echo -e "${YELLOW}Have you logged in to Mega with 'mega-login <email> <pass>'? (y/n)${NC}"
-    read -r logged_in
+    # Check if the user is already logged in
+    login_status=$(mega-login 2>&1)
 
-    if [ "$logged_in" = "y" ]; then
-        echo
-        echo -e "${GREEN}Starting synchronization...${NC}"
+    if echo "$login_status" | grep -q "Already logged in. Please log out first."; then
+        echo -e "${GREEN}You are already logged in. Starting synchronization...${NC}"
 
         # Synchronize directories
         mega-sync /home/twilight/desktop/projects /SYNCED-DATA/desktop/projects/
@@ -737,7 +735,7 @@ mega-sync-on() {
         mega-sync /home/twilight/documents/pdfs/ /SYNCED-DATA/documents/pdfs/
         mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
 
-        # Sync Individual files
+        # Sync individual files
         mega-put ~/.config/FreeTube/history.db ~/.config/FreeTube/playlists.db ~/.config/FreeTube/profiles.db ~/.config/FreeTube/settings.db /SYNCED-DATA/.config/FreeTube
 
         echo -e "${GREEN}Synchronization completed.${NC}"
@@ -745,7 +743,6 @@ mega-sync-on() {
         echo
         echo -e "${BLUE}You can run 'watch mega-sync' command to check current syncing.${NC}"
     else
-        echo
         echo -e "${RED}Please log in using 'mega-login <email> <pass>' and try again.${NC}"
     fi
 }
@@ -764,16 +761,16 @@ mega-sync-off() {
     mega-sync -d /home/twilight/documents/pdfs
     mega-sync -d /home/twilight/.ssh
 
-    echo
     echo -e "${GREEN}All specified directories have been unsynced.${NC}"
 
     # Confirmation prompt before logging out
-    echo -e "${YELLOW}Do you want to log out from Mega? (y/n)${NC}"
+    echo
+    echo -e "${YELLOW}Do you want to log out from Mega? (y/n)${NC} \c"
     read -r logout_confirm
 
     if [ "$logout_confirm" = "y" ]; then
-        echo -e "${YELLOW}Logging out...${NC}"
         mega-logout
+        echo
         echo -e "${GREEN}Logged out successfully.${NC}"
     else
         echo -e "${GREEN}Logout cancelled.${NC}"
