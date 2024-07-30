@@ -117,7 +117,7 @@ alias sv='cd "$HOME/desktop/server" ; clear ; lsd -l --hyperlink=auto'
 alias pj='cd "$HOME/desktop/projects" ; clear ; lsd -l --hyperlink=auto'
 alias ws='cd "$HOME/desktop/workspace" ; clear ; lsd -l --hyperlink=auto'
 # Note files
-alias general='emacsclient -nw "$HOME/documents/org/roam/red-team/general.org"'
+alias opsec='emacsclient -nw "$HOME/documents/org/roam/red-team/opsec.org"'
 alias ipt='emacsclient -nw "$HOME/documents/org/roam/red-team/ipt.org"'
 alias ept='emacsclient -nw "$HOME/documents/org/roam/red-team/ept.org"'
 alias se='emacsclient -nw "$HOME/documents/org/roam/red-team/se.org"'
@@ -211,7 +211,6 @@ alias net-ps="lsof -i -n | awk '/ESTABLISHED/ {print \$1}' | sort -u"
 #alias w='cd "$HOME/desktop/server" ; echo "$(hip) in $PWD" ; sudo python3 -m http.server 80'
 #alias w2='cd "$HOME/desktop/server" ; echo "$(hip) in $PWD" ; sudo python3 -m http.server 8000'
 #alias w3='ngrok http 4444'
-#alias m='service postgresql start ; msfdb init ; msfconsole'
 
 # Show current network connections to the server
 alias nethog='sudo nethogs'
@@ -396,6 +395,7 @@ alias ssp="searchsploit"
 alias tre="trans en:pl"
 alias trp="trans pl:en"
 alias empire="sudo powershell-empire client"
+alias ms='systemctl postgresql start ; msfdb init ; msfconsole'
 alias start-neo4j-db='sudo neo4j console'
 alias hashid='hashid -m'
 #alias amassc='amass enum -config ~/.config/amass/config.ini -d $1'

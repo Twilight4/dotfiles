@@ -24,7 +24,7 @@ mac() {
 }
 
 net-pubip-country() {
-    whois "$1" | grep -i country | head -n1
+  whois "$(curl -s http://ifconfig.me)" | grep -i country | head -n1
 }
 
 # zoxide

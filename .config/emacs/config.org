@@ -1314,6 +1314,20 @@ This is useful when followed by an immediate kill."
 
 (global-set-key (kbd "C-y") 'paste-from-system-clipboard)
 
+;; Function to paste directly into a code block
+(defun tl/org-paste-powershell-code-block ()
+  "Insert an Org-mode source code block for PowerShell and paste clipboard content using wl-paste."
+  (interactive)
+  (let ((lang "powershell")
+        (clipboard-content (shell-command-to-string "wl-paste -n")))
+    (insert (format "#+begin_src %s\n" lang))
+    (insert clipboard-content)
+    (insert "\n#+end_src")
+    (org-edit-src-code)))  ; Optional: Enter the src block for editing
+
+;; Bind the function to a key, e.g., C-c p
+(global-set-key (kbd "C-c b") 'tl/org-paste-powershell-code-block)
+
 ;; Function to copy last entry from kill-ring buffer to the system clipboard
 (defun copy-last-entry-to-clipboard ()
   (interactive)
