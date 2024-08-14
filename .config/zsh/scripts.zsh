@@ -553,6 +553,56 @@ ytdlall() {
     fi
 }
 
+# Function to convert M4A to MP3 with inline colored output messages
+m4a-to-mp3() {
+  if [[ -z "$1" ]]; then
+    echo -e "\033[33mUsage: m4a_to_mp3 input_audio.m4a\033[0m"
+    return 1
+  fi
+
+  local input_file="$1"
+
+  if [[ ! -f "$input_file" ]]; then
+    echo -e "\033[31mFile not found: $input_file\033[0m"
+    return 1
+  fi
+
+  local output_file="${input_file%.*}.mp3"
+
+  ffmpeg -i "$input_file" -vn -ab 192k -ar 44100 -y "$output_file"
+
+  if [[ $? -eq 0 ]]; then
+    echo -e "\033[32mConversion successful: $output_file\033[0m"
+  else
+    echo -e "\033[31mConversion failed!\033[0m"
+  fi
+}
+
+# Function to convert MP4 to MP3 with inline colored output messages
+mp4-to-mp3() {
+  if [[ -z "$1" ]]; then
+    echo -e "\033[33mUsage: mp4_to_mp3 input_video.mp4\033[0m"
+    return 1
+  fi
+
+  local input_file="$1"
+
+  if [[ ! -f "$input_file" ]]; then
+    echo -e "\033[31mFile not found: $input_file\033[0m"
+    return 1
+  fi
+
+  local output_file="${input_file%.*}.mp3"
+
+  ffmpeg -i "$input_file" -vn -ab 192k -ar 44100 -y "$output_file"
+
+  if [[ $? -eq 0 ]]; then
+    echo -e "\033[32mConversion successful: $output_file\033[0m"
+  else
+    echo -e "\033[31mConversion failed!\033[0m"
+  fi
+}
+
 # Download a playlist from Youtube
 # Usage: ydlp <playlist_url> 
 ydlp() {
@@ -607,7 +657,7 @@ ydlab() {
 # Usage: ydla <video_url>
 ydla() {
     if [ ! -z $1 ]; then
-        yt-dlp --extract-audio --restrict-filenames -f 22 -P ~/music -o "%(title)s.%(ext)s" "$1"
+        yt-dlp --extract-audio --restrict-filenames -P ~/music -o "%(title)s.%(ext)s" "$1"
     else
         echo -e "\e[31mError: You need to specify a video url as argument\e[0m"
     fi
