@@ -410,7 +410,7 @@
     ;"C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     ;"C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
 	  ;"i" '(ibuffer :wk "Ibuffer")                 ; I don't use it
-    "K" '(kill-some-buffers :wk "Kill multiple buffers")
+    ;"K" '(kill-some-buffers :wk "Kill multiple buffers")
     ;; "r" '(revert-buffer :wk "Reload buffer")   ;; Key unavailable
 	  ;"C-s" '(save-some-buffers :wk "Save multiple buffers")
     ;; Bookmarks
@@ -1318,7 +1318,7 @@ This is useful when followed by an immediate kill."
 (defun tl/org-paste-powershell-code-block ()
   "Insert an Org-mode source code block for PowerShell and paste clipboard content using wl-paste."
   (interactive)
-  (let ((lang "powershell")
+  (let ((lang "example")
         (clipboard-content (shell-command-to-string "wl-paste -n")))
     (insert (format "#+begin_src %s\n" lang))
     (insert clipboard-content)
@@ -1459,15 +1459,15 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
 
 #+begin_src emacs-lisp
 (defun tl/org-insert-screenshot ()
-  "Copy a screenshot from /tmp/screenshot.png to a specified directory and insert an org-mode link to it at point"
+  "Copy a screenshot from /tmp/screenshot.png to a specified directory with a timestamp as the filename, and insert an org-mode link to it at point."
   (interactive)
-  (let* ((filename (read-string "Enter filename: "))
+  (let* ((timestamp (format-time-string "%Y%m%d_%H%M%S"))
          (category (tl/read-char-visible "Category (p/n for project/notes): "))
          (category (if (char-equal category ?p) "project" "notes"))
          (save-path (if (string= category "project")
                         "~/documents/org/reports/screenshots/"
                       "~/documents/org/roam/screenshots/"))
-         (full-path (expand-file-name (concat save-path filename ".png"))))
+         (full-path (expand-file-name (concat save-path timestamp ".png"))))
     (copy-file "/tmp/screenshot.png" full-path)
     (insert (format "[[%s]]" full-path))))
 
