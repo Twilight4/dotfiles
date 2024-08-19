@@ -7,7 +7,7 @@ cd ~/
 # Create a window (title sets the tab title)
 launch --title cpu-temp watch -n 0.5 sensors zenpower-pci-00c3
 # Create a window (title sets the tab title)
-launch --title fans watch -n 0.5 sudo omen-fan i
+launch --title fans watch -n 0.5 sudo ~/.config/.local/bin/omen-fan i
 # Focus this tab
 focus
 
