@@ -193,6 +193,8 @@ packages=(
   "moar"
   "cheat-bin"
 	"xdg-ninja-git"
+	"dragon-drop-git"
+	"noise-suppression-for-voice-git"
 )
 
 extra=(
@@ -200,7 +202,6 @@ extra=(
 	"caffeine-ng"
 	"asciiquarium-transparent-git"
   "fireplace-git"
-  "musikcube"
 	"trizen"
 	"sushi"
 	"wildmidi"
@@ -218,6 +219,7 @@ extra=(
 	"graphviz"
 	"nyancat"
 	"superproductivity-bin"
+  "musikcube"
 	"android-tools"
 	"blanket"
 	"swayimg"
@@ -226,7 +228,6 @@ extra=(
 	"python-pywhat"
 	"tabbed-git"
 	"sway-audio-idle-inhibit-git"
-	"dragon-drop-git"
 	"tabbed-git"
 	"ffsend-bin"
 	"ascii-image-converter-git"
@@ -235,7 +236,6 @@ extra=(
 	"shellcheck-bin"
 	"net-snmp"
 	"nodejs-git-stats"
-	"noise-suppression-for-voice-git"
 )
 
 # First you have to uninstall the bloat
@@ -245,6 +245,7 @@ _uninstallPackagesParu "${bloat[@]}"
 # Install packages
 echo "Installing packages..."
 _installPackagesParu "${packages[@]}"
+#_installPackagesParu "${extra[@]}"
 
 # Wait 2 sec before clear so user knows what happened
 sleep 2
