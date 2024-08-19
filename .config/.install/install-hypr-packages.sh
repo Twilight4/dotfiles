@@ -1,5 +1,23 @@
 #!/bin/bash
 
+clear
+cat <<"EOF"
+ ___           _        _ _ _               _____           _     
+|_ _|_ __  ___| |_ __ _| | (_)_ __   __ _  |_   _|__   ___ | |___ 
+ | || '_ \/ __| __/ _` | | | | '_ \ / _` |   | |/ _ \ / _ \| / __|
+ | || | | \__ \ || (_| | | | | | | | (_| |   | | (_) | (_) | \__ \
+|___|_| |_|___/\__\__,_|_|_|_|_| |_|\__, |   |_|\___/ \___/|_|___/
+                                    |___/                         
+
+EOF
+
+# Prompt the user
+read -p "This will take minimum 30 minutes, continue? (y/n) " answer
+if [[ "$answer" != "y" ]]; then
+    echo "No changes made."
+    exit 0
+fi
+
 bloat=(
   "swaylock"
   "swayidle"

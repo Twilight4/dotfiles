@@ -79,7 +79,7 @@ main() {
 	esac
 
   # Copy the emacs AI prompts
-  SOURCE_DIR=~/desktop/workspace/dotfiles/.config/ai-prompts
+  SOURCE_DIR=~/dotfiles/.config/ai-prompts
   DEST_DIR=~/.cache/emacs
   
   # Ensure the source directory exists
@@ -89,7 +89,6 @@ main() {
     echo "Copy completed successfully."
   else
     echo "Error: Source directory $SOURCE_DIR does not exist."
-    exit 1
   fi
 
   # Download mega cmd

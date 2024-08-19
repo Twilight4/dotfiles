@@ -26,8 +26,8 @@ echo ""
 ################
 source .config/.install/library.sh
 source .config/.install/confirm-start.sh
-source .config/.install/system-tweaks.sh
 source .config/.install/install-hypr-packages.sh
+source .config/.install/system-tweaks.sh
 source .config/.install/cleanup-homedir.sh
 source .config/.install/wallpaper.sh
 source .config/.install/install-fonts.sh

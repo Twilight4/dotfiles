@@ -21,23 +21,11 @@ fi
 # Zsh as default shell
 default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
 if [ "$default_shell" != "$(which zsh)" ]; then
+  sudo mkdir -pv /etc/zsh/zshenv
 	sudo chsh -s "$(which zsh)" "$(whoami)"
 else
   echo
 	echo "Zsh is already the default shell."
-fi
-
-# Export default PATH to zsh config
-line_to_append='export ZDOTDIR="$HOME"/.config/zsh'
-
-if [ -f "$zshenv_file" ]; then
-	echo "Creating zshenv_file..."
-  sudo mkdir -pv /etc/zsh/zshenv
-	echo "$line_to_append" | sudo tee /etc/zsh/zshenv
-  echo
-	echo "Zsh PATH added to zshenv file."
-else
-	echo "Error. Something went wrong."
 fi
 
 # Rebuild bat cache

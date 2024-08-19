@@ -15,6 +15,11 @@ fi
 # Prompt the user to reboot
 echo "Installation Finished. Please reboot your system."
 echo ""
+echo "To load Zsh you need tu run this command after reboot:"
+echo "  echo \"export ZDOTDIR=\"\$HOME\"/.config/zsh\" | sudo tee /etc/zsh/zshenv"
+echo ""
+echo "NOTE: After loading Zsh you will need to reboot once again to load Hyprland colors."
+echo ""
 read -p "Reboot the system? (y/n): " reboot_response
 
 if [[ "$reboot_response" == "y" ]]; then

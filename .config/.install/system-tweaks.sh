@@ -110,7 +110,7 @@ echo "Performance tweaks applied in sysctl.conf file."
 ########################################################
 # Prompt user to optimize GRUB config
 echo
-read -p "Do you want to optimize the GRUB configuration? (y/n) " optimize_grub
+read -p "Do you want to optimize AMD CPU in the GRUB configuration? (y/n) " optimize_grub
 echo
 if [[ "$optimize_grub" == "y" ]]; then
     grub_file="/etc/default/grub"
@@ -125,7 +125,7 @@ if [[ "$optimize_grub" == "y" ]]; then
 
     # Prompt user to disable GRUB menu
     echo
-    read -p "Do you want to disable the GRUB menu? (y/n) " disable_grub_menu
+    read -p "Do you want to disable the GRUB menu (not recommended if using snapshots)? (y/n) " disable_grub_menu
     if [[ "$disable_grub_menu" == "y" ]]; then
         comment_out_line "GRUB_TIMEOUT=" "$grub_file"
         insert_after_pattern "#GRUB_TIMEOUT=" "GRUB_TIMEOUT=0" "$grub_file"
@@ -140,12 +140,6 @@ if [[ "$optimize_grub" == "y" ]]; then
 else
     echo "No changes made to GRUB configuration."
 fi
-
-
-
-
-
-
 
 # Wait 2 sec before clear so user knows what happened
 sleep 2
