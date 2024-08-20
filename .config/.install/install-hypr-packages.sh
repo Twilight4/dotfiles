@@ -193,7 +193,7 @@ packages=(
   "moar"
   "cheat-bin"
 	"xdg-ninja-git"
-	"dragon-drop-git"
+	"dragon-drop"
 	"noise-suppression-for-voice-git"
 )
 

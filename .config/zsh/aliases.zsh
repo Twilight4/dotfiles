@@ -22,6 +22,23 @@ alias watch-ls='watch ls -alh --hyperlink=auto'
 alias tree='tree -CAhF --dirsfirst'
 alias treed='tree -CAFd'
 
+# Remote browsing aliases
+alias mput='mega-put -c'
+alias mget='mega-get'
+alias mls='mega-ls -lah'
+alias mlt='mega-ls --tree'
+alias mlta='mega-ls --tree -lah'
+alias mcd='mega-cd'
+alias mrm='mega-rm'
+alias mcat='mega-cat'
+alias mcp='mega-cp'
+alias mdf='mega-df -h'
+alias mwhoami='mega-whoami -l'
+alias mpwd='mega-pwd'
+alias mdu='mega-du -h'
+alias mfdf='mega-find --type=f -l --pattern='
+alias mfdf='mega-find --type=d -l --pattern='
+
 # Count all files recursively in the current folder
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
 
