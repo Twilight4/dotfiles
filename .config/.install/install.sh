@@ -24,26 +24,26 @@ echo ""
 ################
 # Installation #
 ################
-source ./library.sh
-source ./confirm-start.sh
-source ./install-hypr-packages.sh
-source ./system-tweaks.sh
-source ./cleanup-homedir.sh
-source ./wallpaper.sh
-source ./install-fonts.sh
-source ./install-dotfiles.sh
-source ./remove-buttons.sh
-source ./zsh.sh
-source ./nvchad.sh
-source ./fzf.sh
-source ./auto-cpufreq.sh
-source ./enable-services.sh
-source ./locales.sh
-source ./prompt-reboot.sh
+source ~/dotfiles/.config/.install/library.sh
+source ~/dotfiles/.config/.install/confirm-start.sh
+source ~/dotfiles/.config/.install/install-hypr-packages.sh
+source ~/dotfiles/.config/.install/system-tweaks.sh
+source ~/dotfiles/.config/.install/cleanup-homedir.sh
+source ~/dotfiles/.config/.install/wallpaper.sh
+source ~/dotfiles/.config/.install/install-fonts.sh
+source ~/dotfiles/.config/.install/install-dotfiles.sh
+source ~/dotfiles/.config/.install/remove-buttons.sh
+source ~/dotfiles/.config/.install/zsh.sh
+source ~/dotfiles/.config/.install/nvchad.sh
+source ~/dotfiles/.config/.install/fzf.sh
+source ~/dotfiles/.config/.install/auto-cpufreq.sh
+source ~/dotfiles/.config/.install/enable-services.sh
+source ~/dotfiles/.config/.install/locales.sh
+source ~/dotfiles/.config/.install/prompt-reboot.sh
 # Don't use anymore
-#source ./display-manager.sh
-#source ./tty-login.sh
-#source ./nnn.sh
-#source ./emacs.sh
-#source ./install-grub-theme.sh
-#source ./systemd-boot.sh
+#source ~/dotfiles/.config/.install/display-manager.sh
+#source ~/dotfiles/.config/.install/tty-login.sh
+#source ~/dotfiles/.config/.install/nnn.sh
+#source ~/dotfiles/.config/.install/emacs.sh
+#source ~/dotfiles/.config/.install/install-grub-theme.sh
+#source ~/dotfiles/.config/.install/systemd-boot.sh
