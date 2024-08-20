@@ -85,6 +85,7 @@ packages=(
   "gnome-weather"
   "gnome-maps"
   "gnome-keyring"
+  "gnome-clocks"
   "fd"
   "trash-cli"
   "cpupower"
