@@ -3,7 +3,7 @@
 > Launching `install.sh` script without thorough understanding can lead to serious issues with compatibility, security and performance. Use at your own risk.
 
 ```bash
-git clone --depth 1 https://github.com/Twilight4/dotfiles.git ~/dotfiles > /dev/null 2>&1 && cd ~/dotfiles && ./install.sh
+bash <(curl -s "https://github.com/Twilight4/dotfiles/setup.sh")
 ```
 
 ## Contents

@@ -82,13 +82,13 @@
     // KeepassXC Launcher
     "custom/keepass": {
         "format": "<span font='17'>󰌆</span> <span font='16'></span>",
-        "on-click": "keepassxc",
+        "on-click": "keepassxc ~/documents/creds/Passwords.kdbx --keyfile ~/documents/creds/keepass-key",
         "tooltip": false
     },
 
     // PVPN Launcher
     "custom/pvpn": {
-        "format": "<span font='16'></span> <span font='16'></span>",
+        "format": "<span font='16'>󰦝</span> <span font='16'></span>",
         "on-click": "protonvpn-app",
         "tooltip": false
     },
