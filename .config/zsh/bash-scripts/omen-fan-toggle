@@ -14,17 +14,17 @@ current_status=$(cat "$STATUS_FILE")
 
 # Toggle the fan boost based on the current status
 if [ "$current_status" -eq "0" ]; then
-    sudo omen-fan b 0
+    sudo ~/.config/.local/bin/omen-fan b 0
     sleep 0.1
-    sudo omen-fan e 1
+    sudo ~/.config/.local/bin/omen-fan e 1
     echo "Fan Service Running."
     notify-send "Fan Service" "Fan Service Running."
     # Update the status to on (0)
     echo "1" > "$STATUS_FILE"
 elif [ "$current_status" -eq "1" ]; then
-    sudo omen-fan e 0
+    sudo ~/.config/.local/bin/omen-fan e 0
     sleep 0.1
-    sudo omen-fan b 1
+    sudo ~/.config/.local/bin/omen-fan b 1
     echo "Fan Service Stopped."
     notify-send "Fan Service" "Fan Service Stopped."
     # Update the status to off (1)

@@ -14,13 +14,13 @@ current_status=$(cat "$STATUS_FILE")
 
 # Toggle the fan boost based on the current status
 if [ "$current_status" -eq "0" ]; then
-    sudo omen-fan x 1
+    sudo ~/.config/.local/bin/omen-fan x 1
     echo "Fan boost turned on."
     notify-send "Fan Boost" "Fan boost turned on."
     # Update the status to on (1)
     echo "1" > "$STATUS_FILE"
 elif [ "$current_status" -eq "1" ]; then
-    sudo omen-fan x 0
+    sudo ~/.config/.local/bin/omen-fan x 0
     echo "Fan boost turned off."
     notify-send "Fan Boost" "Fan boost turned off."
     # Update the status to off (0)

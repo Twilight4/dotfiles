@@ -64,6 +64,7 @@ packages=(
   "thefuck"
   "zoxide"
   "lsd"
+  "trizen"
   "pkgfile"
   "trash-cli"
   "mtools"
