@@ -36,8 +36,9 @@ alias mdf='mega-df -h'
 alias mwhoami='mega-whoami -l'
 alias mpwd='mega-pwd'
 alias mdu='mega-du -h'
-alias mfdf='mega-find --type=f -l --pattern='
-alias mfdf='mega-find --type=d -l --pattern='
+# Check scripts.zsh
+#alias mfdf=''
+#alias mfdd=''
 
 # Count all files recursively in the current folder
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""

@@ -40,6 +40,16 @@ m-ports() {
   echo "ports saved in variable: \$p=$p"
 }
 
+mfdf() {
+  q="$1"
+  mega-find --type=f -l --pattern=$q
+}
+
+mfdd() {
+  q="$1"
+  mega-find --type=d -l --pattern=$q
+}
+
 # Search nmap lse scripts: nmap-grep ftp
 nmap-grep() {
   q="$1"
