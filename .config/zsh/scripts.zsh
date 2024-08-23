@@ -724,7 +724,6 @@ gh-sync() {
     local REPOS=(
         "$HOME/desktop/workspace/nobility:Twilight4/nobility"
         "$HOME/desktop/workspace/dotfiles:Twilight4/dotfiles"
-        "$HOME/desktop/workspace/debian-setup:Twilight4/debian-setup"
         "$HOME/documents/org:Twilight4/org"
         "$HOME/.config/cheat:Twilight4/cheats"
     )
