@@ -21,6 +21,11 @@ alias watch-lt='watch tree'
 alias watch-ls='watch ls -alh --hyperlink=auto'
 alias tree='tree -CAhF --dirsfirst'
 alias treed='tree -CAFd'
+# ls with ignore
+alias li='lsd --hyperlink=auto --ignore-glob'
+alias lsi='lsd -l --hyperlink=auto --ignore-glob'
+alias lai='lsd -lA --hyperlink=auto --ignore-glob'
+alias lti='lsd --tree --hyperlink=auto --ignore-glob'
 
 # Remote browsing aliases
 alias mput='mega-put -c'
@@ -42,12 +47,6 @@ alias mdu='mega-du -h'
 
 # Count all files recursively in the current folder
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
-
-# ls with ignore
-alias li='lsd --hyperlink=auto --ignore-glob'
-alias lsi='lsd -l --hyperlink=auto --ignore-glob'
-alias lai='lsd -lA --hyperlink=auto --ignore-glob'
-alias lti='lsd --tree --hyperlink=auto --ignore-glob'
 
 # cp
 alias cp='xcp'
