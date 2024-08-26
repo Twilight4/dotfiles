@@ -24,7 +24,7 @@ directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
     ~/pictures/{dcim,screenshots}
     ~/videos/elfeed-youtube
-    ~/documents/{certs,creds,pdfs,openvpn}
+    ~/documents/{pdfs,openvpn}
     ~/desktop/{workspace,projects,server}
     ~/.config/.local/share/gnupg
     ~/.config/.local/share/cargo

@@ -792,7 +792,6 @@ mega-sync-on() {
 
         # Synchronize directories
         mega-sync /home/twilight/desktop/projects /SYNCED-DATA/desktop/projects/
-        mega-sync /home/twilight/documents/creds/ /SYNCED-DATA/documents/creds/
         mega-sync /home/twilight/documents/openvpn/ /SYNCED-DATA/documents/openvpn/
         mega-sync /home/twilight/documents/pdfs/ /SYNCED-DATA/documents/pdfs/
         mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
@@ -818,7 +817,6 @@ mega-sync-off() {
     NC='\033[0m' # No Color
 
     mega-sync -d /home/twilight/desktop/projects
-    mega-sync -d /home/twilight/documents/creds
     mega-sync -d /home/twilight/documents/openvpn
     mega-sync -d /home/twilight/documents/pdfs
     mega-sync -d /home/twilight/.ssh
