@@ -30,6 +30,9 @@ fi
 # Clone the NVChad repository
 if git clone https://github.com/NvChad/starter "$HOME/.config/nvim"; then
     echo "NVChad configuration cloned successfully."
+
+    # Set background color to the same as in kitty and emacs
+    echo -e "\n-- Disable the status line\nvim.opt.laststatus = 0\n\n-- set background color to #040305\nvim.cmd(\"highlight Normal guibg=#040305 ctermbg=black\")" >> ~/.config/nvim/init.lua
 else
     echo "Failed to clone NVChad repository."
     exit 1

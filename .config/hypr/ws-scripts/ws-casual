@@ -1,0 +1,11 @@
+#!/bin/bash
+
+is_kitty_running() {
+  hyprctl clients | grep 'casual-kitty' >/dev/null
+}
+
+if ! is_kitty_running; then
+  hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T casual-kitty --class casual-kitty'
+else
+  hyprctl dispatch focuswindow 'casual-kitty'
+fi
