@@ -134,7 +134,6 @@ alias sv='cd "$HOME/desktop/server" ; clear ; lsd -l --hyperlink=auto'
 alias pj='cd "$HOME/desktop/projects" ; clear ; lsd -l --hyperlink=auto'
 alias ws='cd "$HOME/desktop/workspace" ; clear ; lsd -l --hyperlink=auto'
 # Note files
-alias opsec='emacsclient -nw "$HOME/documents/org/roam/red-team/opsec.org"'
 alias ipt='emacsclient -nw "$HOME/documents/org/roam/red-team/ipt.org"'
 alias ept='emacsclient -nw "$HOME/documents/org/roam/red-team/ept.org"'
 alias se='emacsclient -nw "$HOME/documents/org/roam/red-team/se.org"'

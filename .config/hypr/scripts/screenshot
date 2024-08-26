@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Disable animations to avoid screenshot delay
+hyprctl --batch keyword animations:enabled 0
+
 iDIR="$HOME/.config/mako/icons"
 
 time=$(date +%Y-%m-%d-%H-%M-%S)
@@ -142,5 +145,8 @@ elif [[ "$1" == "--in10" ]]; then
 else
 	echo -e "Available Options : --full --full-save --full-edit --win --win-save --win-edit --area --area-save --area-edit --in5 --in10"
 fi
+
+# Enable back animations
+hyprctl --batch keyword animations:enabled 1
 
 exit 0

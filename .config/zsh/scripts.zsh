@@ -766,6 +766,9 @@ gh-sync() {
             echo
             echo -e "${YELLOW}No changes in $(basename "$repo_dir").${NC}"
         fi
+
+        # Back to the previous directory
+        cd -
     done
 
     echo
