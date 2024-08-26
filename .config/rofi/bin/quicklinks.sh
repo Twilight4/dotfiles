@@ -42,7 +42,7 @@ option_34=" AD CheatSheet PDF"
 option_35=" Digital Ocean"
 option_36=" PayPal"
 option_37=" SharpCollection"
-option_38=" 0bin"     # Check: snippet.host, privatebin.info
+option_38=" 0bin"
 
 # Rofi CMD
 rofi_cmd() {
@@ -82,7 +82,7 @@ run_cmd() {
       if [ -z "$query" ]; then
         exit 0
       else
-        brave-browser --incognito --tor "https://www.google.com/search?q=$query" &
+        brave --incognito --tor "https://www.google.com/search?q=$query" &
       fi
       ;;
     --opt3)

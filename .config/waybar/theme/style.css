@@ -143,9 +143,27 @@ window#waybar.empty #window {
 #custom-pvpn {
     background-color: @backgroundlight;
     border-radius: 0px 15px 15px 0px;
-    padding: 2px 10px 0px 8px;
+    padding: 2px 10px 0px 5px;
     margin: 8px 10px 8px 0px;
     font-size: 2px;
+    opacity:0.8;
+    color: @iconcolor;
+}
+#custom-ppass {
+    background-color: @backgroundlight;
+    border-radius: 0px 0px 0px 0px;
+    padding: 0px 5px 0px 0px;
+    margin: 8px 0px 8px 0px;
+    font-size: 20px;
+    opacity:0.8;
+    color: @iconcolor;
+}
+#custom-pmail {
+    background-color: @backgroundlight;
+    border-radius: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    margin: 8px 0px 8px 0px;
+    font-size: 20px;
     opacity:0.8;
     color: @iconcolor;
 }

@@ -86,10 +86,24 @@
         "tooltip": false
     },
 
-    // PVPN Launcher
+    // Proton VPN Launcher
     "custom/pvpn": {
         "format": "<span font='16'>󰦝</span> <span font='16'></span>",
         "on-click": "protonvpn-app",
+        "tooltip": false
+    },
+
+    // Proton Pass Launcher
+    "custom/ppass": {
+        "format": "<span font='17'>󰌆</span> <span font='17'></span>",
+        "on-click": "proton-pass",
+        "tooltip": false
+    },
+
+    // Proton Mail Launcher
+    "custom/pmail": {
+        "format": "<span font='16'></span> <span font='16'></span>",
+        "on-click": "proton-mail",
         "tooltip": false
     },
 
