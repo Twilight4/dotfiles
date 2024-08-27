@@ -23,7 +23,6 @@ fi
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
     ~/pictures/{dcim,screenshots}
-    ~/videos/elfeed-youtube
     ~/documents/{pdfs,openvpn}
     ~/desktop/{workspace,projects,server}
     ~/.ssh
