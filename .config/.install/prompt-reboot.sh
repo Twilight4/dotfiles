@@ -21,6 +21,7 @@ else
 fi
 
 # Prompt the user to reboot
+echo ""
 echo "Installation Finished. Please reboot your system."
 echo ""
 echo "To load Zsh you need tu run this command after reboot:"
