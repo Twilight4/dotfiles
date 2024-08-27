@@ -37,6 +37,9 @@ case ${answer:0:1} in
         # Extract the new files into the JetBrainsMono folder and log the output
         tar -xJkf JetBrainsMono.tar.xz -C ~/.config/.local/share/fonts/JetBrainsMono
 
+        # Cleanup
+        rm -rf JetBrainsMono.tar.xz
+
 
         # Meslo nerd font
         echo
@@ -59,6 +62,9 @@ case ${answer:0:1} in
 
         # Extract the new files into the Meslo folder and log the output
         tar -xJkf Meslo.tar.xz -C ~/.config/.local/share/fonts/Meslo
+
+        # Cleanup
+        rm -rf Meslo.tar.xz
 
         # Update font cache and log the output
         fc-cache -v
