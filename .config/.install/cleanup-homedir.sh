@@ -26,6 +26,7 @@ directories=(
     ~/videos/elfeed-youtube
     ~/documents/{pdfs,openvpn}
     ~/desktop/{workspace,projects,server}
+    ~/.ssh
     ~/.config/.local/share/gnupg
     ~/.config/.local/share/cargo
     ~/.config/.local/share/go
