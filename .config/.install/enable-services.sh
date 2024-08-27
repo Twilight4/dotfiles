@@ -72,7 +72,7 @@ if [[ "$enable_services" =~ ^[Yy]$ ]]; then
   sudo systemctl enable fstrim.timer
 
   # Other services
-  playerctld daemon
+  #playerctld daemon           # Error: Can not connect to messages bus - connection refused
   
   # Check service status
   echo

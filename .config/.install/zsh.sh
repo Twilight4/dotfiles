@@ -28,8 +28,5 @@ else
 	echo "Zsh is already the default shell."
 fi
 
-# Rebuild bat cache
-\bat cache --build
-
 # Wait 2 sec before clear so user knows what happened
 sleep 2

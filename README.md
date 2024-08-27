@@ -3,6 +3,7 @@
 > Launching `install.sh` script without thorough understanding can lead to serious issues with compatibility, security and performance. Use at your own risk.
 
 ```bash
+# Run the script from tty to avoid crashing Hyprland
 bash <(curl -s "https://raw.githubusercontent.com/Twilight4/dotfiles/main/setup.sh")
 ```
 
