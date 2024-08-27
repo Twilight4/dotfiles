@@ -24,6 +24,9 @@ fi
 if [[ -d "$HOME/.config/nvim" ]]; then
     echo
     rm -rvf "$HOME/.config/nvim"
+    rm -rf ~/.config/nvim
+    rm -rf ~/.local/state/nvim
+    rm -rf ~/.local/share/nvim
     echo "Existing NVChad configuration removed."
 fi
 
