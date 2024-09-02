@@ -797,7 +797,10 @@ mega-sync-on() {
         mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
 
         # Sync individual files
-        mega-put ~/.config/FreeTube/history.db ~/.config/FreeTube/playlists.db ~/.config/FreeTube/profiles.db ~/.config/FreeTube/settings.db /SYNCED-DATA/.config/FreeTube
+        mega-put ~/.config/FreeTube/history.db /SYNCED-DATA/.config/FreeTube 
+        mega-put ~/.config/FreeTube/playlists.db /SYNCED-DATA/.config/FreeTube 
+        mega-put ~/.config/FreeTube/profiles.db /SYNCED-DATA/.config/FreeTube 
+        mega-put ~/.config/FreeTube/settings.db /SYNCED-DATA/.config/FreeTube
 
         echo -e "${GREEN}Synchronization completed.${NC}"
         echo -e "${GREEN}Please run 'mega-sync-off' to turn off syncing in order to keep a backup and log out.${NC}"

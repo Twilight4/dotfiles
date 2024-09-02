@@ -95,6 +95,8 @@ packages=(
   "cpupower"
   "mingw-w64"
   "zathura"
+  "qrencode"
+  "cronie"
   "zathura-pdf-poppler"
   "grc"
   "udiskie"

@@ -60,6 +60,7 @@ if [[ "$enable_services" =~ ^[Yy]$ ]]; then
   	"ananicy-cpp"
     "NetworkManager"
   	"nohang"
+    "cronie"
     "acpid"
   )
   
