@@ -1,0 +1,21 @@
+# TEST THE SCRIPT, THEN ADD THE NEW SCRIPTS TO DOTFILES, THEN ADD KEYBIND AND THIS SESSION FILE TO DOTFILES
+#
+#bind = CTRL ALT, End, exec, kitty -1 --class kitty-sync -T kitty-sync --session ~/.config/kitty/session-sync
+#
+#pane1: gh-sync && watch -n 0.5 mega-sync
+#pane2: mega-sync-on
+#pane3: watch mega-sync         (UNLESS IT WORKS IN PANE1)
+#pane4: echo 'will poweroff in 2 minutes...' && sleep 120 && mega-sync-off (without confirmations) && sudo poweroff
+
+# Set the layout in this tab
+layout grid
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title shutdown sh -c 'echo "will poweroff in 2 minutes..." && sleep 120 && ~/.config/zsh/bash-scripts/kitty-mega-sync-off && sudo poweroff'
+# Create a window (title sets the tab title)
+launch --title gh-sync sh -c '~/.config/zsh/bash-scripts/kitty-gh-sync && exec zsh'
+# Create a window (title sets the tab title)
+launch --title gh-sync sh -c 'watch -n 0.5 mega-sync'
+# Create a window (title sets the tab title)
+launch --title mega-sync sh -c '~/.config/zsh/bash-scripts/kitty-mega-sync-on && exec zsh'

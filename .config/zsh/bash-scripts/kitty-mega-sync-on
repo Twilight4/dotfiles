@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# ANSI color codes
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Check if the user is already logged in
+login_status=$(mega-login 2>&1)
+
+if echo "$login_status" | grep -q "Already logged in. Please log out first."; then
+    echo -e "${GREEN}You are already logged in. Starting synchronization...${NC}"
+
+    # Synchronize directories
+    mega-sync /home/twilight/desktop/projects /SYNCED-DATA/desktop/projects/
+    mega-sync /home/twilight/documents/openvpn/ /SYNCED-DATA/documents/openvpn/
+    mega-sync /home/twilight/documents/pdfs/ /SYNCED-DATA/documents/pdfs/
+    mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
+
+    # Sync individual files
+    mega-put ~/.config/FreeTube/history.db /SYNCED-DATA/.config/FreeTube 
+    mega-put ~/.config/FreeTube/playlists.db /SYNCED-DATA/.config/FreeTube 
+    mega-put ~/.config/FreeTube/profiles.db /SYNCED-DATA/.config/FreeTube 
+    mega-put ~/.config/FreeTube/settings.db /SYNCED-DATA/.config/FreeTube
+
+    echo -e "${GREEN}Synchronization completed.${NC}"
+else
+    echo -e "${RED}Please log in using 'mega-login <email> <pass>' and try again.${NC}"
+fi
