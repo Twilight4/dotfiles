@@ -3,7 +3,7 @@ layout grid
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title shutdown sh -c 'echo -e "\n   \033[1;32mWill power off in 2 minutes...\033[0m \033[1;33m(Press Enter to shut down now)\033[0m" && read -t 120 && ~/.config/zsh/bash-scripts/kitty-mega-sync-off && echo -e "\n   \033[1;31mSystem is shutting down...\033[0m" && sleep 2 && sudo poweroff'
+launch --title shutdown sh -c 'echo -e "\n   \033[1;32mWill power off in 2 minutes...\033[0m \033[1;33m(Press Enter to shut down now)\033[0m" && read -t 120 && ~/.config/zsh/bash-scripts/kitty-mega-sync-off && echo -e "\n   \033[1;31mSystem is shutting down...\033[0m" && sleep 3 && sudo poweroff'
 # Create a window (title sets the tab title)
 launch --title gh-sync sh -c '~/.config/zsh/bash-scripts/kitty-gh-sync && exec zsh'
 # Create a window (title sets the tab title)
