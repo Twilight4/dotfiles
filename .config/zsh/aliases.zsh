@@ -27,6 +27,19 @@ alias lsi='lsd -l --hyperlink=auto --ignore-glob'
 alias lai='lsd -lA --hyperlink=auto --ignore-glob'
 alias lti='lsd --tree --hyperlink=auto --ignore-glob'
 
+# basic
+alias mkdir="mkdir -p"
+alias cp='xcp'
+alias cpi='xcp --exclude'
+alias tailf="tail -f"
+alias headn="head -n"
+alias mv='mv -v'    #mvi is in scripts.zsh
+alias rm='rm -v'    #rmi is in scripts.zsh
+alias trash='trash -rfv'
+alias digs='dig +short'
+alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
+alias truncate="truncate -s 0"
+
 # Remote browsing aliases
 alias mput='mega-put -c'
 alias mget='mega-get'
@@ -42,28 +55,9 @@ alias mdf='mega-df -h'
 alias mwhoami='mega-whoami -l'
 alias mpwd='mega-pwd'
 alias mdu='mega-du -h'
-# Check scripts.zsh
-#alias mfdf=''
-#alias mfdd=''
 
 # Count all files recursively in the current folder
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
-
-# cp
-alias cp='xcp'
-alias cpi='xcp --exclude'
-
-# rm
-alias rm='rm -v'
-#rmi is in scripts.zsh
-alias trash='trash -rfv'
-
-# mv
-alias mv='mv -v'
-#mvi is in scripts.zsh
-
-# mkdir
-alias mkdir="mkdir -p"
 
 # cat
 alias bat='bat --color=always --style header,grid,changes'
@@ -74,21 +68,11 @@ alias cats='highlight -O ansi --force'
 # curl
 alias xhd='xh --download'
 alias wget='wget -c --hsts-file="$XDG_DATA_HOME/wget-hsts"'
-
-# tail
-alias tailf="tail -f"
-
-# head
-alias headn="head -n"
-
-# dig
-alias digs='dig +short'
-
-# sort
-alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
-
-# truncate
-alias truncate="truncate -s 0"
+alias curl-pubip="curl -s http://ifconfig.me"
+alias curl-ipinfo="curl -s ip-api.com"
+alias rickroll="curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash"
+alias termbin="nc termbin.com 9999"     # Usage: echo some text | termbin        (To read the text: curl https://termbin.com/<link>)
+alias qrencodet="qrencode -t ansi256utf8"
 
 # grep
 alias rg='rg -i'
@@ -217,7 +201,7 @@ alias net-open6="sudo netstat -pantlu6"
 alias net-routes="netstat -r --numeric-hosts"
 alias net-ss="sudo ss -plaunt4"
 alias net-lsof="sudo lsof -P -i -n "
-alias net-pubip="curl -s http://ifconfig.me"
+alias net-vnstat="vnstati -L -s -i wlo1 -o ~/vnstat-summary.png && vnstati -L -t -i wlo1 -o ~/vnstat-top.png && vnstati -L -m -i wlo1 -o ~/vnstat-monthly.png && vnstati -L -d -i wlo1 -o ~/vnstat-daily.png && vnstati -L -h -i wlo1 -o ~/vnstat-hourly.png && echo 'Images saved in $HOME.'"
 alias net-wlan0="ifconfig wlan0 | grep 'inet ' | awk '{print \$2}'"
 alias net-tun0="ifconfig tun0 | grep 'inet ' | awk '{print \$2}'"
 alias net-gateway="ip route | grep via | grep wlan0 | cut -d' ' -f3"
@@ -309,7 +293,7 @@ alias gco='git checkout'
 # Blackarch repo packages
 alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # List all available tools
 alias blackcat="sudo pacman -Sg | grep blackarch"                             # See the blackarch categories
-alias btrfs="xhost +SI:localuser:root && sudo btrfs-assistant"                # btrfs-assistant package for restoring snapshats (timeshift replacement)
+alias btrfs-assistant="xhost +SI:localuser:root && sudo btrfs-assistant"                # btrfs-assistant package for restoring snapshats (timeshift replacement)
 alias ginxi="garuda-inxi"
 #alias gup="garuda-update"
 alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
@@ -335,14 +319,6 @@ alias rank-mirrors-quick="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorl
 #alias mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist"
 #alias mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist"
 #alias mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
-
-# Gpg - verify signature for isos
-alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
-alias fix-gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
-# Gpg - receive the key
-alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
-alias fix-gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
-alias fix-keyserver="[ -d ~/.gnupg ] || mkdir ~/.gnupg ; cp /etc/pacman.d/gnupg/gpg. conf ~/.gnupg/ ; echo 'done'"
 
 # Pacman
 alias pacs="sudo pacman -S"                      # Install package faster

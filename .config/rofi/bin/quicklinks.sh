@@ -44,6 +44,7 @@ option_36=" PayPal"
 option_37=" SharpCollection"
 option_38=" 0bin"
 option_39=" Tutanoda Mail"
+option_40="󱅷 Tmpfiles"
 
 # Rofi CMD
 rofi_cmd() {
@@ -64,7 +65,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34\n$option_35\n$option_36\n$option_37\n$option_38\n$option_39" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34\n$option_35\n$option_36\n$option_37\n$option_38\n$option_39\n$option_40" | rofi_cmd
 }
 
 # Execute Command
@@ -238,6 +239,9 @@ run_cmd() {
     --opt39)
       xdg-open 'https://app.tuta.com/mail/' &
       ;;
+    --opt40)
+      xdg-open 'https://tmpfiles.org/' &
+      ;;
     *)
       ;;
   esac
@@ -362,5 +366,8 @@ case "${chosen}" in
     ;;
   $option_39)
     run_cmd --opt39
+    ;;
+  $option_40)
+    run_cmd --opt40
     ;;
 esac

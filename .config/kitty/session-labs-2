@@ -47,6 +47,23 @@ cd ~/
 # Create a window (title sets the tab title)
 launch --title wavemon wavemon
 
+# Create a new tab
+new_tab cpufetch
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title cpufetch sh -c "cpufetch && exec zsh"
+
+# Create a new tab
+new_tab fastfetch
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title fastfetch sh -c "fastfetch --kitty ~/pictures/screenshots/Patrick-Bateman-Profile-Pic_600x600.jpg && fortune ~/.config/fortune/quotes | cowsay | lolcat && exec zsh"
 
 
 

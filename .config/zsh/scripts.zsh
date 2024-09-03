@@ -11,8 +11,14 @@ dns() {
   ip r | grep dhcp | awk '{print $3}'
 }
 
-extip() {
-  curl -s http://ifconfig.me
+# curl-dict <word>
+curl-dict() {
+  curl dict.org/d:$@
+}
+
+# curl-weather <city_name>
+curl-weather() {
+  curl wttr.in/$@
 }
 
 hip() {
@@ -23,7 +29,7 @@ mac() {
   ip a | grep ether | awk '{print $2}'
 }
 
-net-pubip-country() {
+curl-pubip-country() {
   whois "$(curl -s http://ifconfig.me)" | grep -i country | head -n1
 }
 
@@ -993,7 +999,7 @@ gcl() {
     fi
 }
 
-# Use tinyurl to shorten the
+# Use tinyurl to shorten the URL
 # Usage: tinyurl <url>
 tiny() {
     local URL=${1:?}
