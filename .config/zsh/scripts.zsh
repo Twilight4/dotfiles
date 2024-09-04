@@ -11,6 +11,20 @@ dns() {
   ip r | grep dhcp | awk '{print $3}'
 }
 
+supfile() {
+  dir=$(uuidgen | cut -d'-' -f1)
+  mkdir /tmp/$dir
+  cp $1 /tmp/$dir
+  zip -r /tmp/$dir.zip /tmp/$dir
+  zipcloak /tmp/$dir.zip
+  curl -F"file=@/tmp/$dir.zip" http://0x0.st
+}
+
+# File upload: upfile <file>
+upfile() {
+  curl -F"file=@$1" http://0x0.st
+}
+
 # curl-dict <word>
 curl-dict() {
   curl dict.org/d:$@

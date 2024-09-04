@@ -182,7 +182,7 @@ alias mem-free="free -th"
 alias mem-top10="sudo ps aux | sort -rk 4,4 | head -n 10 | awk '{print \$4,\$11}'"
 
 # disk usage
-alias dus='dust'
+alias bdu='dust'
 alias ncdu="ncdu --color dark"
 alias duf="duf --hide special -hide-mp /run/user/1000/psd/twilight-firefox-nlmda6r7.default,/run/user/1000/psd/twilight-firefox-pjxpviu5.default-esr,/var/tmp,/var/log,/var/cache,/srv,/boot/efi"
 alias watch-duf="watch duf --hide special -hide-mp /run/user/1000/psd/twilight-firefox-nlmda6r7.default,/run/user/1000/psd/twilight-firefox-pjxpviu5.default-esr,/var/tmp,/var/log,/var/cache,/srv,/boot/efi"
@@ -356,6 +356,7 @@ alias paruu="sudo pacman -U package"
 ##############################################################################################################
 alias s="kitty +kitten ssh"
 alias ce='cheat --edit'
+alias aliases='nvim ~/.config/zsh/aliases.zsh'
 alias pping="prettyping -c 3"
 #alias pg='prettyping -c 3 8.8.8.8'
 #alias less="less -R"   # have function as 'less'
