@@ -87,6 +87,7 @@ packages=(
   "gnome-maps"
   "gnome-keyring"
   "gnome-clocks"
+  "smassh-bin"
   "fd"
   "trash-cli"
   "tor-browser-bin"

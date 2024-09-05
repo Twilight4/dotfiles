@@ -74,7 +74,7 @@ alias rickroll="curl -s -L https://raw.githubusercontent.com/keroserene/rickroll
 alias termbin="nc termbin.com 9999"     # Usage: echo some text | termbin        (To read the text: curl https://termbin.com/<link>)
 alias qrencodet="qrencode -t ansi256utf8"
 
-# grep
+# ripgrep
 alias rg='rg -i'
 alias rgv='rg -v -i'
 alias rgf='rg -l -i'
@@ -83,6 +83,9 @@ alias rga='rg --hidden -i'
 alias rgo='rg -o -i'
 alias rgc='rg -c -i'       # count line containing specific string
 alias rgs='rg -i --sort'   # Possible sort values: path/modified/accessed/created
+alias rg-emails="grep -oe '[a-zA-Z0-9._]\+@[a-zA-Z]\+\.[a-zA-Z]\+'"  # Find emails
+alias rg-ips_only="grep -oE '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b'"       # Find IPs
+alias rg-ips="grep -E '\b([0-9]{1,3}\.){3}[0-9]{1,3}\b'"             # Find lines that contain an IP
 # Colorize grep output
 alias grep='ugrep --color=auto'
 alias fgrep='ugrep -F --color=auto'
@@ -246,6 +249,7 @@ alias gd='git diff'
 alias gdif="git diff --no-index"          # Diff two files even if not in git repo! Can add -w (don't diff whitespaces)
 alias gshow='git show'   # gshow <commit_id> - show diff from commit
 alias gdiff="git difftool --no-symlinks --dir-diff"
+alias diffbin="cmp"
 alias gs='git status'
 alias gss='git status -s'
 alias grs='git restore --staged'  #grs <file> - remove from staging area
@@ -356,6 +360,7 @@ alias paruu="sudo pacman -U package"
 ##############################################################################################################
 alias s="kitty +kitten ssh"
 alias ce='cheat --edit'
+alias whisper='whisper --language en --output-format srt --model tiny'
 alias aliases='nvim ~/.config/zsh/aliases.zsh'
 alias pping="prettyping -c 3"
 #alias pg='prettyping -c 3 8.8.8.8'
