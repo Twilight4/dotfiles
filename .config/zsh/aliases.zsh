@@ -361,6 +361,7 @@ alias paruu="sudo pacman -U package"
 ##############################################################################################################
 alias s="kitty +kitten ssh"
 alias ce='cheat --edit'
+alias btree="cbonsai --live"
 alias whisper='whisper --language en --output-format srt --model tiny'
 alias aliases='nvim ~/.config/zsh/aliases.zsh'
 alias pping="prettyping -c 3"
