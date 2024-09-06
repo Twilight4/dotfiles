@@ -35,6 +35,7 @@ alias tailf="tail -f"
 alias headn="head -n"
 alias mv='mv -v'    #mvi is in scripts.zsh
 alias rm='rm -v'    #rmi is in scripts.zsh
+alias shred='shred -u'
 alias trash='trash -rfv'
 alias digs='dig +short'
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
