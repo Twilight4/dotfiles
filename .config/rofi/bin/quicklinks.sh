@@ -46,6 +46,9 @@ option_38=" 0bin"
 option_39=" Tutanoda Mail"
 option_40="󱅷 Tmpfiles"
 option_41=" Twitter"
+option_42=" Facebook"
+option_43=" Instagram"
+option_44=" Discord"
 
 # Rofi CMD
 rofi_cmd() {
@@ -66,7 +69,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34\n$option_35\n$option_36\n$option_37\n$option_38\n$option_39\n$option_40\n$option_41" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34\n$option_35\n$option_36\n$option_37\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44" | rofi_cmd
 }
 
 # Execute Command
@@ -246,6 +249,15 @@ run_cmd() {
     --opt41)
       xdg-open 'https://x.com/' &
       ;;
+    --opt42)
+      xdg-open 'https://www.facebook.com/' &
+      ;;
+    --opt43)
+      xdg-open 'https://www.instagram.com/' &
+      ;;
+    --opt44)
+      xdg-open 'https://discord.com/channels/@me' &
+      ;;
     *)
       ;;
   esac
@@ -376,5 +388,14 @@ case "${chosen}" in
     ;;
   $option_41)
     run_cmd --opt41
+    ;;
+  $option_42)
+    run_cmd --opt42
+    ;;
+  $option_43)
+    run_cmd --opt43
+    ;;
+  $option_44)
+    run_cmd --opt44
     ;;
 esac
