@@ -53,6 +53,7 @@ bloat=(
 
 packages=(
   "hyprland"
+  "ninja"
   "hyprlock"
   "xdg-desktop-portal-hyprland"
   "xdg-desktop-portal-gtk"
@@ -258,5 +259,10 @@ echo "Installing packages..."
 _installPackagesParu "${packages[@]}"
 #_installPackagesParu "${extra[@]}"
 
+# Install Hyprland plugins and enable them
+hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm enable hyprexpo
+
 # Wait 2 sec before clear so user knows what happened
+echo
 sleep 2

@@ -28,7 +28,7 @@ is_kitty_running() {
 # Focus on ws "7" and spawn kitty if it's not running, else only focus
 if ! is_kitty_running; then
     # Spawn 'footclient' only if it was not running
-    hyprctl dispatch exec 'kitty -o -T cava --class cava -e cava'
+    hyprctl dispatch exec 'kitty -T cava --class cava -e cava'
 else
     hyprctl dispatch focuswindow '^cava$'
 fi
