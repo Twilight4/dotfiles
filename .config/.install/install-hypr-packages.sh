@@ -52,11 +52,15 @@ bloat=(
 )
 
 packages=(
-  "hyprland"
+  "hyprland-git"
   "ninja"
+  "meson"
+  "cmake"
+  "cpio"
   "hyprlock"
   "xdg-desktop-portal-hyprland"
   "xdg-desktop-portal-gtk"
+  "wob"
   "brave-bin"
   "python-click"
   "python-tomlkit"
@@ -261,7 +265,9 @@ _installPackagesParu "${packages[@]}"
 
 # Install Hyprland plugins and enable them
 hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm add https://github.com/Duckonaut/split-monitor-workspaces
 hyprpm enable hyprexpo
+hyprpm enable split-monitor-workspaces
 
 # Wait 2 sec before clear so user knows what happened
 echo

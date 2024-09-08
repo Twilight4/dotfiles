@@ -4,7 +4,7 @@
 		"format": "{icon}",
         "on-click": "activate",
 		"sort-by-number": true,
-        "all-outputs": true,
+        "all-outputs": false,
         "active-only": false,
 		"sort-by-number": true,
 		"format-icons": {
@@ -13,13 +13,19 @@
 			"3": " ",
 			"4": " ",
 			"5": " ",
-			"6": "󱎫 ",
-			"7": " ",
-			"8": " ",
+			"6": " ",
+			"7": " ",
+			"8": " ",
+			"9": " ",
+			"10": " ",
+			"11": " ",
+			"12": " ",
+			"13": " ",
+			"14": " "
 		},
-        "persistent-workspaces": {
-             "*": 6
-        }
+        //"persistent-workspaces": {
+        //     "*": 7
+        //}
     },
 
     // Taskbar
@@ -110,7 +116,7 @@
     // Windows VM
     "custom/windowsvm": {
         "format": "",
-        "on-click": "~/.config/hypr/scripts/launch-vm",
+        //"on-click": "~/.config/hypr/scripts/launch-vm",
         "tooltip": false
     },
     
