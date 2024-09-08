@@ -264,6 +264,7 @@ _installPackagesParu "${packages[@]}"
 #_installPackagesParu "${extra[@]}"
 
 # Install Hyprland plugins and enable them
+hyprpm update
 hyprpm add https://github.com/hyprwm/hyprland-plugins
 hyprpm add https://github.com/Duckonaut/split-monitor-workspaces
 hyprpm enable hyprexpo

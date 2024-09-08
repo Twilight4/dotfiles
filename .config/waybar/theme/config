@@ -25,7 +25,7 @@
 		    "custom/windowsvm",
 		    "custom/qemu",
 		    "custom/ppass",
-		    "custom/pmail",
+		    //"custom/pmail",
 		    "custom/pvpn",
         "hyprland/window",
     ],
