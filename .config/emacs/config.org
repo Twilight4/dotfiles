@@ -63,6 +63,7 @@
   - [[#gptel][GPTel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
+  - [[#goto-chg][Goto-chg]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential packages]]
   - [[#editing-features-for-org][Editing features for org]]
@@ -135,7 +136,6 @@
 
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "M-,") nil)
-(define-key global-map (kbd "M-q") nil)
 (define-key global-map (kbd "M-C-n") nil)
 (define-key global-map (kbd "M-C-b") nil)
 (define-key global-map (kbd "M-C-f") nil)
@@ -179,7 +179,7 @@
 #+begin_src emacs-lisp
 ;; Global Keybindings
 (global-set-key (kbd "C-q") 'scroll-up-line)
-(global-set-key (kbd "M-q") 'scroll-down-line)
+(global-set-key (kbd "C-o") 'scroll-down-line)
 ;; Rebinding join/new line
 ;;(global-set-key (kbd "C-key") 'join-line)
 ;; Redo
@@ -209,7 +209,6 @@
 ;; Toggle mark command
 (global-set-key (kbd "C-@") 'toggle-mark-command)
 ;; Deleting keys
-(global-set-key (kbd "C-o") 'kill-line)
 (global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
 (global-set-key (kbd "C-M-o") 'tl/kill-sentence)
 (global-set-key (kbd "C-M-u") 'tl/backward-kill-sentence)
@@ -651,7 +650,8 @@
  "l" '(er/mark-sentence :wk "Mark sentence")
  "L" '(er/mark-paragraph :wk "Mark paragraph")
  ;; Copy surround automation
- "m" '(copy-surrounded-by-equals :wk "Copy org command")
+ "," '(copy-surrounded-by-equals :wk "Copy org equals command")
+ "m" '(copy-surrounded-by-stars :wk "Copy org stars command")
 ))
 #+end_src
 
@@ -863,12 +863,6 @@ Finally, it redraws the display to reflect the changes.
              (if (equal mode-line-format nil)
                  (default-value 'mode-line-format)))
        (redraw-display))
-
-;; Disable mode line on emacs startup
-(defun disable-mode-line ()
-  (setq mode-line-format nil))
-
-(add-hook 'after-change-major-mode-hook 'disable-mode-line)
 #+end_src
 
 ** File names for org-roam
@@ -2052,8 +2046,9 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   (god-mode)
   ;; Prefix keys
   (global-set-key (kbd "C-@") #'god-local-mode)
-  (define-key god-local-mode-map (kbd "g") #'beginning-of-buffer)   ;; Replacing the default 'g' - Meta key in god mode
-  (define-key god-local-mode-map (kbd "G") #'end-of-buffer)         ;; Replaceing the default 'G' - Ctrl+Meta key in god mode
+  (define-key god-local-mode-map (kbd "g") #'beginning-of-buffer)     ;; Replacing the default 'g' - Meta key in god mode
+  (define-key god-local-mode-map (kbd "G") #'end-of-buffer)           ;; Replaceing the default 'G' - Ctrl+Meta key in god mode
+  (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
   ;; Ctrl keys
   (define-key god-local-mode-map (kbd "C-i") #'god-local-mode)
   (define-key god-local-mode-map (kbd "C-z") #'repeat)
@@ -2080,6 +2075,16 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   ;; Visual indicators for God mode
   (custom-set-faces
    '(god-mode-lighter ((t (:inherit error))))))
+#+end_src
+
+** Goto-chg
+The goto-chg package provides a direct equivalent to Vim's C-o and C-i keybinds.
+It allows you to jump to the locations of the last changes made in the buffer:
+#+begin_src emacs-lisp
+(use-package goto-chg
+  :init
+  (global-set-key (kbd "M-q") 'goto-last-change)
+  (global-set-key (kbd "M-u") 'goto-last-change-reverse))
 #+end_src
 
 * Org Mode
@@ -2348,14 +2353,30 @@ These functions automates the surround of word for style formatting with respect
 
 #+begin_src emacs-lisp
 (defun copy-surrounded-by-equals ()
-  "Copy text surrounded by equals on the current line to the system clipboard."
+  "Copy text surrounded by equals signs on the current line to the system clipboard."
   (interactive)
-  (let ((text (thing-at-point 'line t)))
-    (when (and text (string-match "=\\(.*?\\)=" text))
-      (setq text (match-string 1 text))
-      (kill-new text)
-      (start-process "wl-copy" "*wl-copy*" "wl-copy" text)
-      (message "Copied to clipboard"))))
+  (let* ((text (thing-at-point 'line t))
+         (equal-text (when (and text (string-match "=\\(.*?\\)=" text))
+                       (match-string 1 text))))
+    (if equal-text
+        (progn
+          (kill-new equal-text)
+          (start-process "wl-copy" "*wl-copy*" "wl-copy" equal-text)
+          (message "Copied to clipboard: %s" equal-text))
+      (message "No text surrounded by equals signs found on the current line."))))
+
+(defun copy-surrounded-by-stars ()
+  "Copy text surrounded by stars on the current line to the system clipboard."
+  (interactive)
+  (let* ((text (thing-at-point 'line t))
+         (starred-text (when (and text (string-match "\\*\\(.*?\\)\\*" text))
+                         (match-string 1 text))))
+    (if starred-text
+        (progn
+          (kill-new starred-text)
+          (start-process "wl-copy" "*wl-copy*" "wl-copy" starred-text)
+          (message "Copied to clipboard: %s" starred-text))
+      (message "No text surrounded by stars found on the current line."))))
 #+end_src
 
 *** Heading focus
