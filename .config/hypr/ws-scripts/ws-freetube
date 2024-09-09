@@ -1,11 +1,24 @@
 #!/bin/bash
 
-is_kitty_running() {
+# Function to check if FreeTube is running
+is_freetube_running() {
   hyprctl clients | grep 'FreeTube' >/dev/null
 }
 
-if ! is_kitty_running; then
+# Check if monitor DP-2 is active
+if hyprctl monitors | grep -q "Monitor DP-2"; then
+    # If DP-2 is active, switch to workspace 13
+    hyprctl dispatch workspace 13
+else
+    # If DP-2 is not active, switch to workspace 6
+    hyprctl dispatch workspace 6
+fi
+
+# Check if FreeTube is running
+if ! is_freetube_running; then
+  # If FreeTube is not running, launch it
   hyprctl dispatch exec 'freetube --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL --gpu-context=wayland'
 else
+  # If FreeTube is running, focus on its window
   hyprctl dispatch focuswindow 'FreeTube'
 fi

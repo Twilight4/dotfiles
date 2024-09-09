@@ -1,11 +1,24 @@
 #!/bin/bash
 
-is_kitty_running() {
-  hyprctl clients | grep 'brave-browser' >/dev/null
+# Function to check if Brave browser is running
+is_brave_running() {
+  hyprctl clients | grep -i 'Brave-browser' >/dev/null
 }
 
-if ! is_kitty_running; then
-  hyprctl dispatch exec 'brave --ignore-gpu-blocklist --enable-gpu-rasterization --enable-zero-copy --disable-gpu-driver-bug-workarounds --ozone-platform-hint=wayland --use-gl=angle --enable-features=VaapiVideoDecoder --enable-features=VaapiIgnoreDriverCheck --disable-features=UseChromeOSDirectVideoDecoder --enable-features=TouchpadOverscrollHistoryNavigation --disable-features=WaylandFractionalScaleV1'
+# Check if monitor DP-2 is active
+if hyprctl monitors | grep -q "Monitor DP-2"; then
+    # If DP-2 is active, switch to workspace 10
+    hyprctl dispatch workspace 10
 else
+    # If DP-2 is not active, switch to workspace 3
+    hyprctl dispatch workspace 3
+fi
+
+# Check if Brave browser is running
+if ! is_brave_running; then
+  # If Brave is not running, launch it
+  hyprctl dispatch exec 'brave'
+else
+  # If Brave is running, focus on its window
   hyprctl dispatch focuswindow 'brave-browser'
 fi

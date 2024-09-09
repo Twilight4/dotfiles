@@ -62,9 +62,10 @@
   - [[#avy][Avy]]
   - [[#gptel][GPTel]]
   - [[#drag-stuff][Drag-stuff]]
+  - [[#god-mode][God-Mode]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential packages]]
-- [[#editing-features-for-org][Editing features for org]]
+  - [[#editing-features-for-org][Editing features for org]]
   - [[#org-configuration][Org configuration]]
   - [[#exporting][Exporting]]
 
@@ -140,8 +141,8 @@
 (define-key global-map (kbd "M-C-f") nil)
 (define-key global-map (kbd "C-z") nil)
 (define-key global-map (kbd "M-SPC") nil)
-(define-key global-map (kbd "M-q") nil)
 (define-key global-map (kbd "C-l") nil)
+(define-key global-map (kbd "C-v") nil)
 (define-key global-map (kbd "M-t") nil)
 (define-key global-map (kbd "M-i") nil)
 (define-key global-map (kbd "C-c TAB") nil)
@@ -612,27 +613,27 @@
  "C-x" '(zap-to-char :wk "Kill up to, but not including char"))
 #+end_src
 
-*** M-i leader key
+*** C-v leader key
 
 #+begin_src emacs-lisp
 (general-define-key
- :prefix "M-i"
+ :prefix "C-v"
  ;; Symbol-overlay
- "M-u" '(symbol-overlay-put :wk "Symbol put")
- "M-n" '(symbol-overlay-jump-next :wk "Symbol jump next")
- "M-p" '(symbol-overlay-jump-prev :wk "Symbol jump prev")
+ "C-u" '(symbol-overlay-put :wk "Symbol put")
+ "C-n" '(symbol-overlay-jump-next :wk "Symbol jump next")
+ "C-p" '(symbol-overlay-jump-prev :wk "Symbol jump prev")
  ;"M-P" '(symbol-overlay-jump-first :wk "Symbol jump first")
  ;"M-N" '(symbol-overlay-jump-last :wk "Symbol jump last")
- "M-f" '(symbol-overlay-switch-forward :wk "Symbol switch forward")
- "M-b" '(symbol-overlay-switch-backward :wk "Symbol switch backward")
- "M-a" '(symbol-overlay-remove-all :wk "Symbol remove all")
+ "C-f" '(symbol-overlay-switch-forward :wk "Symbol switch forward")
+ "C-b" '(symbol-overlay-switch-backward :wk "Symbol switch backward")
+ "C-a" '(symbol-overlay-remove-all :wk "Symbol remove all")
  ;"M-s" '(symbol-overlay-save-symbol :wk "Symbol save")      ;; taken by kitty
- "M-t" '(symbol-overlay-toggle-in-scope :wk "Symbol toggle in scope")
- "M-e" '(symbol-overlay-echo-mark :wk "Symbol echo mark")
- "M-d" '(symbol-overlay-jump-to-definition :wk "Symbol jump to definition")
- "M-i" '(symbol-overlay-query-isearch-literally :wk "Symbol isearch")
- "M-r" '(symbol-overlay-query-replace :wk "Symbol query replace")
- "M-R" '(symbol-overlay-rename :wk "Symbol rename")
+ "C-t" '(symbol-overlay-toggle-in-scope :wk "Symbol toggle in scope")
+ "C-e" '(symbol-overlay-echo-mark :wk "Symbol echo mark")
+ "C-d" '(symbol-overlay-jump-to-definition :wk "Symbol jump to definition")
+ "C-i" '(symbol-overlay-query-isearch-literally :wk "Symbol isearch")
+ "C-r" '(symbol-overlay-query-replace :wk "Symbol query replace")
+ "C-R" '(symbol-overlay-rename :wk "Symbol rename")
  ;; Expand-region
  "w" '(er/mark-word :wk "Mark word")
  "h" '(er/mark-symbol :wk "Mark symbol")
@@ -2043,6 +2044,40 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   (drag-stuff-define-keys))
 #+end_src
 
+** God-Mode
+
+#+begin_src emacs-lisp
+(use-package god-mode  :init
+  (god-mode)
+  ;; Prefix keys
+  (global-set-key (kbd "C-@") #'god-local-mode)
+  (define-key god-local-mode-map (kbd "g") #'beginning-of-buffer)   ;; Replacing the default 'g' - Meta key in god mode
+  (define-key god-local-mode-map (kbd "G") #'end-of-buffer)         ;; Replaceing the default 'G' - Ctrl+Meta key in god mode
+  ;; Ctrl keys
+  (define-key god-local-mode-map (kbd "C-i") #'god-local-mode)
+  (define-key god-local-mode-map (kbd "C-z") #'repeat)
+  (define-key god-local-mode-map (kbd "C-h") #'kill-region-or-backward-delete)
+  (define-key god-local-mode-map (kbd "C-,") #'backward-paragraph)
+  (define-key god-local-mode-map (kbd "C-.") #'forward-paragraph)
+  (define-key god-local-mode-map (kbd "C-[") #'scroll-down-command)
+  (define-key god-local-mode-map (kbd "C-]") #'scroll-up-command)
+  ;; Ctrl+Shift keys
+  (define-key god-local-mode-map (kbd "C-S-f") #'tl-forward-word)
+  (define-key god-local-mode-map (kbd "C-S-b") #'tl-backward-word)
+
+  (require 'god-mode-isearch)
+  (define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
+  (define-key god-mode-isearch-map (kbd "C-@") #'god-mode-isearch-disable)
+  
+  ;; Don't skip any buffers
+  (setq god-exempt-major-modes nil)
+  (setq god-exempt-predicates nil)
+  
+  ;; Visual indicators for God mode
+  (custom-set-faces
+   '(god-mode-lighter ((t (:inherit error))))))
+#+end_src
+
 * Org Mode
 ** Essential packages
 *** Org-toc
@@ -2183,7 +2218,7 @@ Adding highlights to =TODO= and related words.
       (?D . 'all-the-icons-green))))
 #+end_src
 
-* Editing features for org
+** Editing features for org
 *** File links automation
 While =org-insert-link= is all very well and good, a large portion of the time I want to insert a file, and so it would be good to have a way to skip straight to that and avoid the description prompt. Looking at =org-link-parameters=, we can see that the ="file"= link type uses the completion function =org-link-complete-file=, so let's use that to make a little file-link inserting function.
 

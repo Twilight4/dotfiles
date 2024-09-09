@@ -1,11 +1,24 @@
 #!/bin/bash
 
+# Function to check if kitty is running
 is_kitty_running() {
   hyprctl clients | grep 'kitty-2' >/dev/null
 }
 
+# Check if monitor DP-2 is active
+if hyprctl monitors | grep -q "Monitor DP-2"; then
+    # If DP-2 is active, switch to workspace 9
+    hyprctl dispatch workspace 9
+else
+    # If DP-2 is not active, switch to workspace 2
+    hyprctl dispatch workspace 2
+fi
+
+# Check if kitty is running
 if ! is_kitty_running; then
+  # If kitty is not running, launch it
   hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T kitty-2 --class kitty-2'
 else
+  # If kitty is running, focus on its window
   hyprctl dispatch focuswindow 'kitty-2'
 fi
