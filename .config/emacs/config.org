@@ -2047,7 +2047,8 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 ** God-Mode
 
 #+begin_src emacs-lisp
-(use-package god-mode  :init
+(use-package god-mode
+  :init
   (god-mode)
   ;; Prefix keys
   (global-set-key (kbd "C-@") #'god-local-mode)
@@ -2072,6 +2073,9 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   ;; Don't skip any buffers
   (setq god-exempt-major-modes nil)
   (setq god-exempt-predicates nil)
+
+  ;; Don't enable in dired
+  (add-to-list 'god-exempt-major-modes 'dired-mode)
   
   ;; Visual indicators for God mode
   (custom-set-faces
