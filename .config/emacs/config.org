@@ -60,7 +60,6 @@
 - [[#other-packages][Other Packages]]
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
-  - [[#avy][Avy]]
   - [[#gptel][GPTel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
@@ -150,6 +149,13 @@
 (define-key global-map (kbd "C-c TAB") nil)
 (define-key global-map (kbd "M-f") nil)
 (define-key global-map (kbd "M-h") nil)
+(define-key global-map (kbd "C-p") nil)
+(define-key global-map (kbd "C-n") nil)
+(define-key global-map (kbd "C-w") nil)
+(define-key global-map (kbd "C-f") nil)
+(define-key global-map (kbd "C-b") nil)
+(define-key global-map (kbd "M-f") nil)
+(define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "C-y") nil)
 (define-key global-map (kbd "M-j") nil)
 (define-key global-map (kbd "M-k") nil)
@@ -187,18 +193,54 @@
 ;; Global Keybindings
 (global-set-key (kbd "C-q") 'scroll-up-line)
 (global-set-key (kbd "C-o") 'scroll-down-line)
-;; Rebinding join/new line
-;;(global-set-key (kbd "C-key") 'join-line)
-;; Redo
-(global-set-key (kbd "M-/") 'undo-redo)
-;; Indent region
-;(global-set-key (kbd "C-\\") 'indent-region)
 ;; Make escape (C-g) quit prompts
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
-(global-set-key (kbd "C-p") 'previous-line)
-(global-set-key (kbd "C-n") 'next-line)
+(global-set-key (kbd "C-k") 'previous-line)
+(global-set-key (kbd "C-j") 'next-line)
+(global-set-key (kbd "C-h") 'backward-char)
+(global-set-key (kbd "C-l") 'forward-char)
+(global-set-key (kbd "C-f") 'forward-word)
+(global-set-key (kbd "C-b") 'backward-word)
+(global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
+(global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
+;; Centaur tabs/buffers
+(global-set-key (kbd "M-n") 'tl/better-next-buffer)
+(global-set-key (kbd "M-p") 'tl/better-previous-buffer)
+(global-set-key (kbd "C-\\") 'universal-argument)
+;; Execute kmacro
+(global-set-key (kbd "<f5>") 'consult-kmacro)
+;; Org tansclusion package
+(define-key global-map (kbd "<f12>") #'org-transclusion-add)
+;; Zero-width space (this is an exception keybinding)
+(global-set-key (kbd "C-c C-SPC")
+                (lambda () (interactive) (insert "\u200B")))
+
+;; Style formatting automation
+(global-set-key (kbd "m") 'insert-m)
+(global-set-key (kbd ",") 'insert-comma)
+(global-set-key (kbd ".") 'insert-period)
+(global-set-key (kbd "/") 'insert-slash)
+;; Org bullet list navigation
+(define-key org-mode-map (kbd "C-M-f") 'org-shiftright)
+(define-key org-mode-map (kbd "C-M-b") 'org-shiftleft)
+(define-key org-mode-map (kbd "C-M-p") 'org-shiftup)
+(define-key org-mode-map (kbd "C-M-n") 'org-shiftdown)
+;; Org promote/demote headings
+(define-key org-mode-map (kbd "M-H") #'org-metaleft)
+(define-key org-mode-map (kbd "M-J") #'org-metadown)
+(define-key org-mode-map (kbd "M-K") #'org-metaup)
+(define-key org-mode-map (kbd "M-L") #'org-metaright)
+;; Rebinding join/new line
+;;(global-set-key (kbd "C-key") 'join-line)
+;; Redo
+;(global-set-key (kbd "M-/") 'undo-redo)
+;; Indent region
+;(global-set-key (kbd "C-\\") 'indent-region)
+;; Zap to char
+;(global-set-key (kbd "C-z") 'zap-up-to-char)
+;(global-set-key (kbd "C-t") 'zap-to-char)
 ;(global-set-key (kbd "M-a") 'tl/previous-sentence)
 ;(global-set-key (kbd "M-e") 'tl/next-sentence)
 ;(global-set-key (kbd "M-<") 'beginning-of-buffer)
@@ -224,40 +266,17 @@
 ;(global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 ;(global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
 ;(global-set-key (kbd "C-M-h") 'tl/kill-copy-whole-line)
-(global-set-key (kbd "M-y") 'consult-yank-pop)
+;(global-set-key (kbd "M-y") 'consult-yank-pop)
 ;; Zooming keys
 ;(global-set-key (kbd "C-z") 'recenter-top-bottom)
 ;(global-set-key (kbd "M-z") 'move-to-window-line-top-bottom)
-;; Hungry-delete
-(global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
-(global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
-(global-set-key (kbd "C-d") 'forward-word)
-(global-set-key (kbd "C-h") 'backward-word)
 ;(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
 ;(global-set-key (kbd "<delete>") 'hungry-delete-forward)
-;; Centaur tabs/buffers
-(global-set-key (kbd "M-n") 'tl/better-next-buffer)
-(global-set-key (kbd "M-p") 'tl/better-previous-buffer)
 ;(global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
 ;(global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
 ;(global-set-key (kbd "M-u") 'kill-this-buffer)
 ;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
 ;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
-(global-set-key (kbd "C-\\") 'universal-argument)
-;; Execute kmacro
-(global-set-key (kbd "<f5>") 'consult-kmacro)
-;; Org tansclusion package
-(define-key global-map (kbd "<f12>") #'org-transclusion-add)
-;; Zero-width space (this is an exception keybinding)
-(global-set-key (kbd "C-c C-SPC")
-                (lambda () (interactive) (insert "\u200B")))
-
-;; Style formatting automation
-(global-set-key (kbd "m") 'insert-m)
-(global-set-key (kbd ",") 'insert-comma)
-(global-set-key (kbd ".") 'insert-period)
-(global-set-key (kbd "/") 'insert-slash)
-
 ;; Org Mode Keybindings - commented out won't work in terminal
 ;; Org heading structure - M-Ret keys for headings
 ;(define-key org-mode-map (kbd "M-RET") 'org-insert-heading-respect-content)
@@ -270,21 +289,11 @@
 ;(define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)
 ;(define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)
 ;(define-key org-mode-map (kbd "M-l") #'org-next-visible-heading)
-;; Org bullet list navigation
-(define-key org-mode-map (kbd "C-M-f") 'org-shiftright)
-(define-key org-mode-map (kbd "C-M-b") 'org-shiftleft)
-(define-key org-mode-map (kbd "C-M-p") 'org-shiftup)
-(define-key org-mode-map (kbd "C-M-n") 'org-shiftdown)
 ;; Org todo navigation
 ;(eval-after-load 'hl-todo
 ;  '(progn
 ;     (define-key hl-todo-mode-map (kbd "C-M-j") #'hl-todo-next)
 ;     (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)))
-;; Org promote/demote headings
-(define-key org-mode-map (kbd "M-H") #'org-metaleft)
-(define-key org-mode-map (kbd "M-J") #'org-metadown)
-(define-key org-mode-map (kbd "M-K") #'org-metaup)
-(define-key org-mode-map (kbd "M-L") #'org-metaright)
 ;;(define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
 ;;(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 
@@ -584,43 +593,6 @@
  "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
  ;; Footnotes
  "z" '(org-footnote-action :wk "Insert footnote"))
-#+end_src
-
-*** C-l leader key
-
-#+begin_src emacs-lisp
-(general-define-key
- :prefix "C-l"
- ;; Avy jumping
- "C-c" '(avy-goto-char :wk "Jump to a character")
- "c"   '(avy-goto-char-2 :wk "Jump to a two-character char")
- "C-e" '(avy-goto-char-in-line :wk "Jump to a character in line")
- "C-a" '(avy-goto-subword-1 :wk "Jump to a subword")
- "C-l" '(avy-goto-line-below :wk "Jump to line below")
- "l"   '(avy-goto-line-above :wk "Jump to line above")
- "C-o" '(avy-open-line :wk "Jump to line and insert new one above")
- "C-w" '(avy-goto-word-1-below :wk "Jump to a word below")
- "w"   '(avy-goto-word-1-above :wk "Jump to a word above")
- "C-h" '(avy-org-goto-heading-timer :wk "Jump to org heading")
- ;; Avy yanking/killing/moving
- "k"   '(avy-kill-region :wk "Kill region")
- "K"   '(avy-kill-whole-line :wk "Kill whole line")
- "C-s" '(avy-kill-ring-save-region :wk "Save region")
- "s"   '(avy-kill-ring-save-whole-line :wk "Save whole line")
- "C-y" '(avy-copy-region :wk "Copy region")
- "y"   '(avy-copy-line :wk "Copy line")
- "C-m" '(avy-move-region :wk "Move region")
- "m"   '(avy-move-line :wk "Move line")
- ;; Avy navigation
- "C-n" '(avy-next :wk "Next occurance")
- "C-p" '(avy-prev :wk "Previous occurance")
- "C-r" '(avy-resume :wk "Resume last Avy action")
- "C-/" '(avy-pop-mark :wk "Jump to previous Avy location")
- "C-i" '(avy-isearch :wk "iSearch with Avy")
- "C-t" '(avy-transpose-lines-in-region :wk "Transpose lines in region")
- ;; Zap to char
- "C-z" '(zap-up-to-char :wk "Kill up to char")
- "C-x" '(zap-to-char :wk "Kill up to, but not including char"))
 #+end_src
 
 *** C-v leader key
@@ -1923,19 +1895,6 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 ;    "d C"  `(,(tl/dired-link "~/.config") :wk ".config"))
 #+end_src
 
-** Avy
-
-#+begin_src emacs-lisp
-(use-package avy
-  :ensure t)
-
-;; Make newline to were avy say and hold cursor there. You can quit avy and then normal open-line
-(defun avy-open-line ()
-  (interactive)
-  (command-execute 'avy-goto-line)
-  (command-execute 'open-line))
-#+end_src
-
 ** GPTel
 Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
 #+begin_src emacs-lisp
@@ -2081,22 +2040,8 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   (define-key god-local-mode-map (kbd "C-a") #'org-beginning-of-line)
   (define-key god-local-mode-map (kbd "C-S-e") #'org-end-of-line)
   (define-key god-local-mode-map (kbd "C-S-a") #'org-beginning-of-line)
-  (define-key god-local-mode-map (kbd "C-u") #'org-backward-sentence)
-  (define-key god-local-mode-map (kbd "C-k") #'org-forward-sentence)
-  (define-key god-local-mode-map (kbd "C-S-u") #'org-backward-sentence)
-  (define-key god-local-mode-map (kbd "C-S-k") #'org-forward-sentence)
   (define-key god-local-mode-map (kbd "C-w") #'copy-to-system-clipboard)
   (define-key god-local-mode-map (kbd "?") #'undo-redo)
-  (define-key god-local-mode-map (kbd "C-f") #'forward-char)
-  (define-key god-local-mode-map (kbd "C-b") #'backward-char)
-  (define-key god-local-mode-map (kbd "C-S-f") #'forward-char)
-  (define-key god-local-mode-map (kbd "C-S-b") #'backward-char)
-  (define-key god-local-mode-map (kbd "C-d") #'forward-word)
-  (define-key god-local-mode-map (kbd "C-h") #'backward-word)
-  (define-key god-local-mode-map (kbd "C-S-d") #'forward-word)
-  (define-key god-local-mode-map (kbd "C-S-h") #'backward-word)
-  (define-key god-local-mode-map (kbd "C-S-p") #'previous-line)
-  (define-key god-local-mode-map (kbd "C-S-n") #'next-line)
   (define-key god-local-mode-map (kbd "C-<") #'beginning-of-buffer)
   (define-key god-local-mode-map (kbd "C->") #'end-of-buffer)
   (define-key god-local-mode-map (kbd "C-S-q") #'goto-last-change)
@@ -2104,6 +2049,39 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   (define-key god-local-mode-map (kbd "C-;") #'recenter-top-bottom)
   (define-key god-local-mode-map (kbd "C-:") #'move-to-window-line-top-bottom)
   (define-key god-local-mode-map (kbd "C-y") #'paste-from-system-clipboard)
+  ;; BASIC KEYBINDINGS
+  ;(define-key god-local-mode-map (kbd "C-f") #'forward-char)
+  ;(define-key god-local-mode-map (kbd "C-b") #'backward-char)
+  ;(define-key god-local-mode-map (kbd "C-S-f") #'forward-char)
+  ;(define-key god-local-mode-map (kbd "C-S-b") #'backward-char)
+  ;(define-key god-local-mode-map (kbd "C-d") #'forward-word)
+  ;(define-key god-local-mode-map (kbd "C-h") #'backward-word)
+  ;(define-key god-local-mode-map (kbd "C-S-d") #'forward-word)
+  ;(define-key god-local-mode-map (kbd "C-S-h") #'backward-word)
+  ;(define-key god-local-mode-map (kbd "C-p") #'previous-line)
+  ;(define-key god-local-mode-map (kbd "C-n") #'next-line)
+  ;(define-key god-local-mode-map (kbd "C-S-p") #'previous-line)
+  ;(define-key god-local-mode-map (kbd "C-S-n") #'next-line)
+  ;; EXPERIMENTING, free keys: C-d, C-u
+  (define-key god-local-mode-map (kbd "C-l") #'forward-char)
+  (define-key god-local-mode-map (kbd "C-h") #'backward-char)
+  (define-key god-local-mode-map (kbd "C-k") #'previous-line)
+  (define-key god-local-mode-map (kbd "C-j") #'next-line)
+  (define-key god-local-mode-map (kbd "C-S-l") #'forward-char)
+  (define-key god-local-mode-map (kbd "C-S-h") #'backward-char)
+  (define-key god-local-mode-map (kbd "C-f") #'forward-word)
+  (define-key god-local-mode-map (kbd "C-b") #'backward-word)
+  (define-key god-local-mode-map (kbd "C-S-f") #'forward-word)
+  (define-key god-local-mode-map (kbd "C-S-b") #'backward-word)
+  (define-key god-local-mode-map (kbd "C-S-k") #'previous-line)
+  (define-key god-local-mode-map (kbd "C-S-j") #'next-line)
+  (define-key god-local-mode-map (kbd "C-p") #'org-backward-sentence)
+  (define-key god-local-mode-map (kbd "C-n") #'org-forward-sentence)
+  (define-key god-local-mode-map (kbd "C-S-p") #'org-backward-sentence)
+  (define-key god-local-mode-map (kbd "C-S-n") #'org-forward-sentence)
+  (define-key god-local-mode-map (kbd "C-S-d") #'mark-whole-line)
+  (define-key god-local-mode-map (kbd "C-d") #'join-line)
+  (define-key god-local-mode-map (kbd "C-t") #'zap-to-char)
 
   (require 'god-mode-isearch)
   (define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
