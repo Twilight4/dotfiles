@@ -45,6 +45,7 @@
   - [[#no-littering][No-littering]]
   - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
+  - [[#mark-whole-line][Mark whole line]]
   - [[#rainbow-delimeters][Rainbow-delimeters]]
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
@@ -143,10 +144,16 @@
 (define-key global-map (kbd "M-SPC") nil)
 (define-key global-map (kbd "C-l") nil)
 (define-key global-map (kbd "C-v") nil)
+(define-key global-map (kbd "C-t") nil)
 (define-key global-map (kbd "M-t") nil)
 (define-key global-map (kbd "M-i") nil)
 (define-key global-map (kbd "C-c TAB") nil)
 (define-key global-map (kbd "M-f") nil)
+(define-key global-map (kbd "M-h") nil)
+(define-key global-map (kbd "C-y") nil)
+(define-key global-map (kbd "M-j") nil)
+(define-key global-map (kbd "M-k") nil)
+(define-key global-map (kbd "M-l") nil)
 (define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "C-@") nil)
 (define-key global-map (kbd "M-RET") nil)
@@ -185,56 +192,58 @@
 ;; Redo
 (global-set-key (kbd "M-/") 'undo-redo)
 ;; Indent region
-(global-set-key (kbd "C-\\") 'indent-region)
-;; Rectangular selection
-(global-set-key (kbd "C-x C-SPC") 'rectangle-mark-mode)
+;(global-set-key (kbd "C-\\") 'indent-region)
 ;; Make escape (C-g) quit prompts
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
 (global-set-key (kbd "C-p") 'previous-line)
 (global-set-key (kbd "C-n") 'next-line)
-(global-set-key (kbd "M-a") 'tl/previous-sentence)
-(global-set-key (kbd "M-e") 'tl/next-sentence)
-(global-set-key (kbd "M-<") 'beginning-of-buffer)
-(global-set-key (kbd "M->") 'end-of-buffer)
+;(global-set-key (kbd "M-a") 'tl/previous-sentence)
+;(global-set-key (kbd "M-e") 'tl/next-sentence)
+;(global-set-key (kbd "M-<") 'beginning-of-buffer)
+;(global-set-key (kbd "M->") 'end-of-buffer)
 ;; Skip whole words keys
-(global-set-key (kbd "M-b") 'tl-backward-word)
-(global-set-key (kbd "M-f") 'tl-forward-word)
+;(global-set-key (kbd "M-b") 'tl-backward-word)
+;(global-set-key (kbd "M-f") 'tl-forward-word)
 ;; Forward/Backward paragraph
-(global-set-key (kbd "M-.") 'org-forward-paragraph)
-(global-set-key (kbd "M-,") 'org-backward-paragraph)
+;(global-set-key (kbd "M-.") 'org-forward-paragraph)
+;(global-set-key (kbd "M-,") 'org-backward-paragraph)
 ;; Copy current line
-(global-set-key (kbd "M-W") 'tl/copy-current-line)
+;(global-set-key (kbd "M-W") 'tl/copy-current-line)
 ;; Toggle mark command
-(global-set-key (kbd "C-@") 'toggle-mark-command)
+;(global-set-key (kbd "C-@") 'toggle-mark-command)
 ;; Deleting keys
-(global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-(global-set-key (kbd "C-M-o") 'tl/kill-sentence)
-(global-set-key (kbd "C-M-u") 'tl/backward-kill-sentence)
+;(global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
+;(global-set-key (kbd "M-u") 'backward-kill-sentence)
+;(global-set-key (kbd "C-M-o") 'tl/kill-sentence)
+;(global-set-key (kbd "C-M-u") 'tl/backward-kill-sentence)
 ;; Upgraded clipboard functions
-(global-set-key (kbd "M-w") 'copy-to-system-clipboard)
-(global-set-key (kbd "C-w") 'backward-kill-word)
-(global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
-(global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
-(global-set-key (kbd "C-M-h") 'tl/kill-copy-whole-line)
+;(global-set-key (kbd "M-w") 'copy-to-system-clipboard)
+;(global-set-key (kbd "C-w") 'backward-kill-word)
+;(global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
+;(global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
+;(global-set-key (kbd "C-M-h") 'tl/kill-copy-whole-line)
 (global-set-key (kbd "M-y") 'consult-yank-pop)
 ;; Zooming keys
-(global-set-key (kbd "C-z") 'recenter-top-bottom)
-(global-set-key (kbd "M-z") 'move-to-window-line-top-bottom)
+;(global-set-key (kbd "C-z") 'recenter-top-bottom)
+;(global-set-key (kbd "M-z") 'move-to-window-line-top-bottom)
 ;; Hungry-delete
-(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
-(global-set-key (kbd "<delete>") 'hungry-delete-forward)
+(global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
+(global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
+(global-set-key (kbd "C-d") 'forward-word)
+(global-set-key (kbd "C-h") 'backward-word)
+;(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
+;(global-set-key (kbd "<delete>") 'hungry-delete-forward)
 ;; Centaur tabs/buffers
 (global-set-key (kbd "M-n") 'tl/better-next-buffer)
 (global-set-key (kbd "M-p") 'tl/better-previous-buffer)
 ;(global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
 ;(global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
-(global-set-key (kbd "M-u") 'kill-this-buffer)
+;(global-set-key (kbd "M-u") 'kill-this-buffer)
 ;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
 ;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
-(global-set-key (kbd "C-t") 'dashboard-open)
-(global-set-key (kbd "M-g") 'universal-argument)
+(global-set-key (kbd "C-\\") 'universal-argument)
 ;; Execute kmacro
 (global-set-key (kbd "<f5>") 'consult-kmacro)
 ;; Org tansclusion package
@@ -257,10 +266,10 @@
 ;(define-key org-mode-map (kbd "C-RET") 'org-meta-return)
 ;(define-key org-mode-map (kbd "C-S-RET") 'org-insert-todo-heading)
 ;; Org heading navigation
-(define-key org-mode-map (kbd "M-h") #'org-previous-visible-heading)
-(define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)
-(define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)
-(define-key org-mode-map (kbd "M-l") #'org-next-visible-heading)
+;(define-key org-mode-map (kbd "M-h") #'org-previous-visible-heading)
+;(define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)
+;(define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)
+;(define-key org-mode-map (kbd "M-l") #'org-next-visible-heading)
 ;; Org bullet list navigation
 (define-key org-mode-map (kbd "C-M-f") 'org-shiftright)
 (define-key org-mode-map (kbd "C-M-b") 'org-shiftleft)
@@ -399,14 +408,16 @@
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "o" '(other-window :wk "switch window")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
+    "C-v" '(rectangle-mark-mode :wk "Rectange mark mode")
+    "g" '(dashboard-open :wk "Open emacs dashboard")
     "s" '(basic-save-buffer :wk "Save buffer")
     "C-a" '(mark-whole-buffer :wk "Mark whole buffer")
 	  "C-p" '(find-file-at-point :wk "Find file at point")
 	  "TAB" '(comment-dwim :wk "Comment lines")
 	  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
-	  "C-v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
+	  "C-m" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
 	  ;; Buffers
-    "C-q" '(delete-frame :wk "Delete frame")
+    "C-q" '(delete-frame :wk "Delete frame"))
     ;"C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     ;"C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
 	  ;"i" '(ibuffer :wk "Ibuffer")                 ; I don't use it
@@ -414,10 +425,10 @@
     ;; "r" '(revert-buffer :wk "Reload buffer")   ;; Key unavailable
 	  ;"C-s" '(save-some-buffers :wk "Save multiple buffers")
     ;; Bookmarks
-    "C-l" '(list-bookmarks :wk "List bookmarks")
-    "C-m" '(bookmark-set :wk "Set bookmark")
-    "C-d" '(bookmark-delete :wk "Delete bookmark")
-    "C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file"))
+    ;"C-l" '(list-bookmarks :wk "List bookmarks")
+    ;"C-m" '(bookmark-set :wk "Set bookmark")
+    ;"C-d" '(bookmark-delete :wk "Delete bookmark")
+    ;"C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file")
 
   (tl/leader-keys
     "c" '(:ignore t :wk "Consult")
@@ -443,7 +454,7 @@
 	  ;; Registers
     ;"c Y" '(consult-register :wk "Load register and jump to location or insert the stored text")
     ;"c Y" '(consult-register-load :wk "Load a register")
-    ;"c Y" '(consult-register-store :wk "Store a register"))
+    ;"c Y" '(consult-register-store :wk "Store a register")
 
 	(tl/leader-keys
     "a" '(:ignore t :wk "Agenda")
@@ -455,7 +466,7 @@
     ;"a o" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
     ;"a g" '(org-gtd-engage :wk "GTD agenda")
     ;"a m" '(org-gtd-oops :wk "Missed appointments")
-    ;"a t" '(org-gtd-review-stuck-* :wk "Any action types"))
+    ;"a t" '(org-gtd-review-stuck-* :wk "Any action types")
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
@@ -525,9 +536,9 @@
  "," '(org-todo :wk "Org set todo")          ; Can't do C-, in terminal
  "." '(org-priority :wk "Org set priority")  ; Can't do C-. in terminal
  "C-_" '(org-set-tags-command :wk "Org set tag")
- "C-p" '(org-set-property :wk "Org set property")
+ ;"C-p" '(org-set-property :wk "Org set property")
  "C-e" '(org-set-effort :wk "Org set effort")
- "C-f" '(tl/org-insert-file-link :wk "Org insert file link")
+ ;"C-f" '(tl/org-insert-file-link :wk "Org insert file link")
  "F" '(org-insert-links-to-directory :wk "Insert all links to directory")
  "C-w" '(org-insert-link :wk "Org insert link")
  "C--" '(org-table-insert-hline :wk "Insert hline in table")
@@ -540,7 +551,7 @@
  "C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
  "C-i" '(org-toggle-item :wk "Toggle item")
  "C-m" '(org-meta-return :wk "Insert another heading/bullet")
- "C-n" '(org-insert-todo-heading :wk "Insert todo heading")
+ ;"C-n" '(org-insert-todo-heading :wk "Insert todo heading")
  "C-h" '(widen :wk "Widen")
  "j" '(tl/org-narrow-forward :wk "Narrow forward")
  "k" '(tl/org-narrow-backward :wk "Narrow backward")
@@ -647,8 +658,9 @@
  "u" '(er/mark-url :wk "Mark URL")
  "e" '(er/mark-email :wk "Mark email")
  "d" '(er/mark-defun :wk "Mark defun")
- "l" '(er/mark-sentence :wk "Mark sentence")
- "L" '(er/mark-paragraph :wk "Mark paragraph")
+ "l" '(mark-whole-line :wk "Mark whole line")
+ ;"l" '(er/mark-sentence :wk "Mark sentence")
+ ;"L" '(er/mark-paragraph :wk "Mark paragraph")
  ;; Copy surround automation
  "," '(copy-surrounded-by-equals :wk "Copy org equals command")
  "m" '(copy-surrounded-by-stars :wk "Copy org stars command")
@@ -1188,7 +1200,7 @@ appropriate.  In tables, insert a new row or end the table."
 #+begin_src emacs-lisp
 (use-package multiple-cursors
   :bind ;; Mark one more occurrence
-        (("M-Q" . mc/mark-next-like-this)
+        (("C-x C-n" . mc/mark-next-like-this)
 		 ("C-x x A" . mc/mark-all-like-this)
 		 ;; From active region to multiple cursors
          ("C-x x c" . mc/edit-lines)
@@ -1307,7 +1319,7 @@ This is useful when followed by an immediate kill."
         (insert (shell-command-to-string "wl-paste -n")))
     (insert (shell-command-to-string "wl-paste -n"))))
 
-(global-set-key (kbd "C-y") 'paste-from-system-clipboard)
+;(global-set-key (kbd "C-y") 'paste-from-system-clipboard)
 
 ;; Function to paste directly into a code block
 (defun tl/org-paste-powershell-code-block ()
@@ -1522,6 +1534,18 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
 (use-package rainbow-mode
   :diminish
   :hook org-mode prog-mode)
+#+end_src
+
+** Mark whole line
+
+#+begin_src emacs-lisp
+(defun mark-whole-line ()
+  "Mark the whole line from start to end position, with the cursor at the end."
+  (interactive)
+  (let ((start (line-beginning-position))
+        (end (line-end-position)))
+    (goto-char end)                ; Move cursor to the end of the line
+    (set-mark start)))             ; Set the mark at the beginning of the line
 #+end_src
 
 ** Rainbow-delimeters
@@ -2044,22 +2068,42 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
 (use-package god-mode
   :init
   (god-mode)
-  ;; Prefix keys
-  (global-set-key (kbd "C-@") #'god-local-mode)
-  (define-key god-local-mode-map (kbd "g") #'beginning-of-buffer)     ;; Replacing the default 'g' - Meta key in god mode
-  (define-key god-local-mode-map (kbd "G") #'end-of-buffer)           ;; Replaceing the default 'G' - Ctrl+Meta key in god mode
+  ;; Keybinds, free keys: C-t
+  (global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key
+  (define-key god-local-mode-map (kbd "C-i") #'god-local-mode)        ;; Prefix key (only works in god-mode)
   (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
-  ;; Ctrl keys
-  (define-key god-local-mode-map (kbd "C-i") #'god-local-mode)
   (define-key god-local-mode-map (kbd "C-z") #'repeat)
-  (define-key god-local-mode-map (kbd "C-h") #'kill-region-or-backward-delete)
   (define-key god-local-mode-map (kbd "C-,") #'backward-paragraph)
   (define-key god-local-mode-map (kbd "C-.") #'forward-paragraph)
   (define-key god-local-mode-map (kbd "C-[") #'scroll-down-command)
   (define-key god-local-mode-map (kbd "C-]") #'scroll-up-command)
-  ;; Ctrl+Shift keys
-  (define-key god-local-mode-map (kbd "C-S-f") #'tl-forward-word)
-  (define-key god-local-mode-map (kbd "C-S-b") #'tl-backward-word)
+  (define-key god-local-mode-map (kbd "C-e") #'org-end-of-line)
+  (define-key god-local-mode-map (kbd "C-a") #'org-beginning-of-line)
+  (define-key god-local-mode-map (kbd "C-S-e") #'org-end-of-line)
+  (define-key god-local-mode-map (kbd "C-S-a") #'org-beginning-of-line)
+  (define-key god-local-mode-map (kbd "C-u") #'org-backward-sentence)
+  (define-key god-local-mode-map (kbd "C-k") #'org-forward-sentence)
+  (define-key god-local-mode-map (kbd "C-S-u") #'org-backward-sentence)
+  (define-key god-local-mode-map (kbd "C-S-k") #'org-forward-sentence)
+  (define-key god-local-mode-map (kbd "C-w") #'copy-to-system-clipboard)
+  (define-key god-local-mode-map (kbd "?") #'undo-redo)
+  (define-key god-local-mode-map (kbd "C-f") #'forward-char)
+  (define-key god-local-mode-map (kbd "C-b") #'backward-char)
+  (define-key god-local-mode-map (kbd "C-S-f") #'forward-char)
+  (define-key god-local-mode-map (kbd "C-S-b") #'backward-char)
+  (define-key god-local-mode-map (kbd "C-d") #'forward-word)
+  (define-key god-local-mode-map (kbd "C-h") #'backward-word)
+  (define-key god-local-mode-map (kbd "C-S-d") #'forward-word)
+  (define-key god-local-mode-map (kbd "C-S-h") #'backward-word)
+  (define-key god-local-mode-map (kbd "C-S-p") #'previous-line)
+  (define-key god-local-mode-map (kbd "C-S-n") #'next-line)
+  (define-key god-local-mode-map (kbd "C-<") #'beginning-of-buffer)
+  (define-key god-local-mode-map (kbd "C->") #'end-of-buffer)
+  (define-key god-local-mode-map (kbd "C-S-q") #'goto-last-change)
+  (define-key god-local-mode-map (kbd "C-S-o") #'goto-last-change-reverse)
+  (define-key god-local-mode-map (kbd "C-;") #'recenter-top-bottom)
+  (define-key god-local-mode-map (kbd "C-:") #'move-to-window-line-top-bottom)
+  (define-key god-local-mode-map (kbd "C-y") #'paste-from-system-clipboard)
 
   (require 'god-mode-isearch)
   (define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
@@ -2082,9 +2126,7 @@ The goto-chg package provides a direct equivalent to Vim's C-o and C-i keybinds.
 It allows you to jump to the locations of the last changes made in the buffer:
 #+begin_src emacs-lisp
 (use-package goto-chg
-  :init
-  (global-set-key (kbd "M-q") 'goto-last-change)
-  (global-set-key (kbd "M-u") 'goto-last-change-reverse))
+  :ensure t)
 #+end_src
 
 * Org Mode
