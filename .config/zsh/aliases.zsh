@@ -61,7 +61,7 @@ alias mdu='mega-du -h'
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
 
 # cat
-alias bat='bat --color=always --style header,grid,changes'
+alias bat='bat --color=always --style header,grid,changes --paging never'
 alias catl='bat --color=always --paging=never -l log'
 alias icat='kitty +kitten icat'
 alias cats='highlight -O ansi --force'

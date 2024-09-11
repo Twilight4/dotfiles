@@ -544,8 +544,8 @@
  "C-j" '(org-shiftdown :wk "Org metadown")
  "C-k" '(org-shiftup :wk "Org metaup")
  "C-l" '(org-metaright :wk "Org metaright")
- "C-b" '(org-previous-visible-heading :wk "Org metaright")
- "C-f" '(org-next-visible-heading :wk "Org metaright")
+ "C-p" '(org-previous-visible-heading :wk "Org metaright")
+ "C-n" '(org-next-visible-heading :wk "Org metaright")
  "C-." '(org-metaup :wk "Org shift up")
  "C-," '(org-metadown :wk "Org shift down")
  "," '(org-todo :wk "Org set todo")
@@ -565,8 +565,8 @@
  "C-v" '(org-toggle-heading :wk "Toggle heading")
  "C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
  "C-i" '(org-toggle-item :wk "Toggle item")
- "C-m" '(org-meta-return :wk "Insert another heading/bullet")
- "C-n" '(org-insert-todo-heading :wk "Insert todo heading")
+ ;"C-m" '(org-meta-return :wk "Insert another heading/bullet")
+ "C-m" '(org-insert-todo-heading :wk "Insert todo heading")
  "h" '(widen :wk "Widen")
  "j" '(tl/org-narrow-forward :wk "Narrow forward")
  "k" '(tl/org-narrow-backward :wk "Narrow backward")
@@ -636,7 +636,6 @@
  "u" '(er/mark-url :wk "Mark URL")
  "e" '(er/mark-email :wk "Mark email")
  "d" '(er/mark-defun :wk "Mark defun")
- "l" '(mark-whole-line :wk "Mark whole line")
  ;"l" '(er/mark-sentence :wk "Mark sentence")
  ;"L" '(er/mark-paragraph :wk "Mark paragraph")
  ;; Copy surround automation
@@ -1607,7 +1606,6 @@ Function for toggling maximization of window split.
 
 (global-set-key (kbd "C-x C-q") 'delete-frames-until-emacs-closes)
 #+end_src
-
 
 * Completion Framework
 ** Vertico
