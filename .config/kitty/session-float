@@ -1,0 +1,26 @@
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title htop sh -c 'htop'
+# Focus the current tab
+focus
+
+# Create a new tab
+new_tab btop
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title btop sh -c 'btop'
+
+# Create a new tab
+new_tab powertop
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title powertop sh -c 'sudo powertop'

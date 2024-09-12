@@ -152,7 +152,6 @@
 (define-key global-map (kbd "M-h") nil)
 (define-key global-map (kbd "C-p") nil)
 (define-key global-map (kbd "C-n") nil)
-(define-key global-map (kbd "C-w") nil)
 (define-key global-map (kbd "C-f") nil)
 (define-key global-map (kbd "C-b") nil)
 (define-key global-map (kbd "M-f") nil)
@@ -207,10 +206,10 @@
 (global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
 (global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
-;; Centaur tabs/buffers
-(global-set-key (kbd "M-n") 'tl/better-next-buffer)
-(global-set-key (kbd "M-p") 'tl/better-previous-buffer)
 (global-set-key (kbd "C-\\") 'universal-argument)
+;; Centaur tabs/buffers
+;(global-set-key (kbd "M-n") 'tl/better-next-buffer)
+;(global-set-key (kbd "M-p") 'tl/better-previous-buffer)
 ;; Execute kmacro
 (global-set-key (kbd "<f5>") 'consult-kmacro)
 ;; Org tansclusion package
@@ -220,10 +219,10 @@
 ;                (lambda () (interactive) (insert "\u200B")))
 
 ;; Style formatting automation
-(global-set-key (kbd "m") 'insert-m)
-(global-set-key (kbd ",") 'insert-comma)
-(global-set-key (kbd ".") 'insert-period)
-(global-set-key (kbd "/") 'insert-slash)
+;(global-set-key (kbd "m") 'insert-m)
+;(global-set-key (kbd ",") 'insert-comma)
+;(global-set-key (kbd ".") 'insert-period)
+;(global-set-key (kbd "/") 'insert-slash)
 ;; Rebinding join/new line
 ;;(global-set-key (kbd "C-key") 'join-line)
 ;; Redo
@@ -254,7 +253,7 @@
 ;(global-set-key (kbd "C-M-u") 'tl/backward-kill-sentence)
 ;; Upgraded clipboard functions
 ;(global-set-key (kbd "M-w") 'copy-to-system-clipboard)
-;(global-set-key (kbd "C-w") 'backward-kill-word)
+(global-set-key (kbd "C-w") 'backward-kill-word)
 ;(global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
 ;(global-set-key (kbd "C-M-h") 'tl/kill-copy-whole-line)
 ;(global-set-key (kbd "M-y") 'consult-yank-pop)
@@ -407,17 +406,18 @@
     "w" '(elfeed :wk "Newsfeed")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "o" '(other-window :wk "switch window")
+    "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
+    "C-n" '(tl/better-next-buffer :wk "Next Buffer")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
-    "C-v" '(rectangle-mark-mode :wk "Rectange mark mode")
     "g" '(dashboard-open :wk "Open emacs dashboard")
     "s" '(basic-save-buffer :wk "Save buffer")
     "C-a" '(mark-whole-buffer :wk "Mark whole buffer")
 	  "C-p" '(find-file-at-point :wk "Find file at point")
 	  "TAB" '(comment-dwim :wk "Comment lines")
 	  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
-	  "C-m" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
+	  "C-v" '(tl/open-video-link-in-mpv :wk "Open video in mpv"))
 	  ;; Buffers
-    "C-q" '(delete-frame :wk "Delete frame"))
+    ;"C-q" '(delete-frame :wk "Delete frame")
     ;"C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
     ;"C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
 	  ;"i" '(ibuffer :wk "Ibuffer")                 ; I don't use it
@@ -1142,8 +1142,6 @@ appropriate.  In tables, insert a new row or end the table."
   (interactive)
   (end-of-line)                    ; Move to the end of the current line
   (newline-and-indent))            ; Insert a newline and indent according to mode
-
-(global-set-key (kbd "C-d") 'tl/newline-at-end-of-line)
 #+end_src
 
 ** Expand-region
@@ -1177,7 +1175,7 @@ appropriate.  In tables, insert a new row or end the table."
 #+begin_src emacs-lisp
 (use-package multiple-cursors
   :bind ;; Mark one more occurrence
-        (("C-x C-n" . mc/mark-next-like-this)
+        (("C-x RET" . mc/mark-next-like-this)
 		 ("C-x x A" . mc/mark-all-like-this)
 		 ;; From active region to multiple cursors
          ("C-x x c" . mc/edit-lines)
@@ -2052,6 +2050,7 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   (define-key god-local-mode-map (kbd "C-z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-z") #'comment-dwim)
   (define-key god-local-mode-map (kbd "C-S-t") #'kmacro-start-macro-or-insert-counter)
+  (define-key god-local-mode-map (kbd "C-S-i") #'org-cycle)
   (define-key god-local-mode-map (kbd "C-S-y") #'kmacro-end-or-call-macro)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Press 't' to replace chars
   (define-key god-local-mode-map (kbd "C-S-d") #'er/mark-paragraph)
@@ -2094,6 +2093,11 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   (define-key god-local-mode-map (kbd "C-u") #'tl/newline-at-end-of-line)
   (define-key god-local-mode-map (kbd "C-t") #'zap-up-to-char)
   (define-key god-local-mode-map (kbd "C-S-S") #'er/mark-symbol)
+  ;; Need to correct this to work only in visual mode
+  ;;(define-key god-local-mode-map (kbd "m") #'insert-m)
+  ;;(define-key god-local-mode-map (kbd ",") #'insert-comma)
+  ;;(define-key god-local-mode-map (kbd ".") #'insert-period)
+  ;;(define-key god-local-mode-map (kbd "/") #'insert-slash)
 
   (require 'god-mode-isearch)
   (define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)

@@ -64,6 +64,7 @@ packages=(
   "brave-bin"
   "python-click"
   "python-tomlkit"
+  "python-scapy"
   "python-click-aliases"
   "neovim"
   "thefuck"
