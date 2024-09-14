@@ -2053,6 +2053,8 @@ Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds
   (define-key god-local-mode-map (kbd "C-S-z") #'comment-dwim)
   (define-key god-local-mode-map (kbd "C-S-t") #'kmacro-start-macro-or-insert-counter)
   (define-key god-local-mode-map (kbd "C-S-i") #'org-cycle)
+  (define-key god-local-mode-map (kbd "C-{") #'org-shifttab)
+  (define-key god-local-mode-map (kbd "C-}") #'upcase-char)
   (define-key god-local-mode-map (kbd "C-S-y") #'kmacro-end-or-call-macro)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Press 't' to replace chars
   (define-key god-local-mode-map (kbd "C-S-d") #'er/mark-paragraph)
