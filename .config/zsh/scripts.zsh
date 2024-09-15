@@ -766,7 +766,7 @@ gh-sync() {
         if [ ! -d "$repo_dir" ]; then
             echo -e "${GREEN}Cloning ${repo} into ${repo_dir}...${NC}"
             echo
-            git clone "git@github.com:$repo.git" "$repo_dir"
+            git clone "git@github.com:Twilight4/$repo.git" "$repo_dir"
         else
             echo
             echo -e "${YELLOW}$repo already cloned in $repo_dir.${NC}"

@@ -21,6 +21,10 @@ fi
 bloat=(
   "swaylock"
   "swayidle"
+  "grimblast-git"
+  "hyprland"
+  "hyprlang"
+  "xdg-desktop-portal-hyprland"
   "garuda-system-maintenance"
   "garuda-hyprland-settings"
   "garuda-fish-config"
@@ -37,7 +41,6 @@ bloat=(
   "deluge-gtk"
   "eog"
   "qualculate-gtk"
-  "gestures"
   "mako"
   "evince"
   "foot"
@@ -263,13 +266,6 @@ _uninstallPackagesParu "${bloat[@]}"
 echo "Installing packages..."
 _installPackagesParu "${packages[@]}"
 #_installPackagesParu "${extra[@]}"
-
-# Install Hyprland plugins and enable them
-hyprpm update
-hyprpm add https://github.com/hyprwm/hyprland-plugins
-hyprpm add https://github.com/Duckonaut/split-monitor-workspaces
-hyprpm enable hyprexpo
-hyprpm enable split-monitor-workspaces
 
 # Wait 2 sec before clear so user knows what happened
 echo

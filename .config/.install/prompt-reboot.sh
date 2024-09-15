@@ -23,10 +23,5 @@ fi
 # Instructions for a user
 echo ""
 echo "Installation Finished."
-echo ""
-echo "To load Zsh use these commands:"
-echo "  echo \"export ZDOTDIR=\"\$HOME\"/.config/zsh\" | sudo tee /etc/zsh/zshenv"
-echo "  zsh"
-echo ""
 echo "Launch Hyprland with command 'Hyprland' and reboot again to complete the setup."
 echo ""
