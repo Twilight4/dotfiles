@@ -11,24 +11,24 @@ bindkey -e
 bindkey ' ' magic-space                           # do history expansion on space
 
 # Movement
-bindkey '^B' backward-char
-bindkey '^F' forward-char
+bindkey '^H' backward-char
+bindkey '^L' forward-char
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
-bindkey '^[b' backward-word
-bindkey '^[f' forward-word
-bindkey '^P' up-line-or-history
-bindkey '^N' down-line-or-history
+bindkey '^B' backward-word
+bindkey '^F' forward-word
+bindkey '^K' up-line-or-history
+bindkey '^J' down-line-or-history
 # Killing and yanking
-bindkey '^U' backward-kill-line
-bindkey '^O' kill-line
+#bindkey '^U' backward-kill-line
+#bindkey '^O' kill-line
 bindkey '^[d' kill-word
-bindkey '^L' clear-screen
+bindkey '^G' clear-screen
 bindkey '^W' backward-kill-word
 
 # Full keyboard keys
 bindkey '^?' backward-delete-char
-bindkey '^H' backward-kill-word
+#bindkey '^H' backward-kill-word
 bindkey '^[[1~' beginning-of-line
 bindkey '^[[4~' end-of-line
 bindkey '^[[1;5C' forward-word
@@ -41,7 +41,6 @@ bindkey '^[[5~' beginning-of-buffer-or-history
 bindkey '^[[6~' end-of-buffer-or-history
 bindkey '^[[3~' delete-char
 bindkey '^[[Z' reverse-menu-complete
-
 
 # Other useful bindings
 bindkey "^['" quote-region
@@ -59,8 +58,8 @@ bindkey "^[^F" vi-find-next-char
 bindkey "^[^B" vi-find-prev-char
 bindkey "^[^M" accept-and-hold
 # Ctrl+key
-bindkey '^N' history-search-forward
-bindkey '^P' history-search-backward
+bindkey '^J' history-search-forward
+bindkey '^K' history-search-backward
 
 
 ######################
@@ -86,8 +85,8 @@ bindkey -M emacs -s '^[F' 'fpars\r'
 bindkey -M emacs -s '^[D' 'fparr\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
 #bindkey -M emacs -s '^[j' 'fmv\r'
-bindkey -M emacs -s '^k' 'frm\r'
-bindkey -M emacs -s '^[l' 'fcp\r'
+####bindkey -M emacs -s '^k' 'frm\r'
+####bindkey -M emacs -s '^[l' 'fcp\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
 bindkey -M emacs -s '^[,' 'ff\r'
 bindkey -M emacs -s '^[<' 'fccp\r'
@@ -183,7 +182,7 @@ delete-or-cut-backward() {
   fi
 }
 zle -N delete-or-cut-backward
-bindkey '^H' delete-or-cut-backward
+bindkey '^?' delete-or-cut-backward
 
 # Function to open help page
 custom-run-help() {
@@ -213,4 +212,4 @@ last-word-or-cancel-selection-mode() {
   fi
 }
 zle -N last-word-or-cancel-selection-mode
-bindkey '^G' last-word-or-cancel-selection-mode
+#bindkey '^G' last-word-or-cancel-selection-mode
