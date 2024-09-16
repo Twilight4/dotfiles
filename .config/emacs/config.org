@@ -543,8 +543,10 @@
  :keymaps 'org-mode-map
  ;; Org-mode - available keys: C-z, C-x, C-b
  "C-h" '(org-metaleft :wk "Org metaleft")
- "C-j" '(org-shiftdown :wk "Org metadown")
- "C-k" '(org-shiftup :wk "Org metaup")
+ ;"C-j" '(org-shiftdown :wk "Org metadown")
+ ;"C-k" '(org-shiftup :wk "Org metaup")
+ "C-j" '(org-metaup :wk "Org metadown")
+ "C-k" '(org-metadown :wk "Org metaup")
  "C-l" '(org-metaright :wk "Org metaright")
  "C-p" '(org-previous-visible-heading :wk "Org metaright")
  "C-n" '(org-next-visible-heading :wk "Org metaright")

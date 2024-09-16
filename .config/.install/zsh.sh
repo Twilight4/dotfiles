@@ -21,7 +21,7 @@ fi
 # Zsh as default shell
 default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
 if [ "$default_shell" != "$(which zsh)" ]; then
-    echo "export ZDOTDIR="$HOME"/.config/zsh" | sudo tee /etc/zsh/zshenv
+  echo "export ZDOTDIR="$HOME"/.config/zsh" | sudo tee /etc/zsh/zshenv
 	sudo chsh -s "$(which zsh)" "$(whoami)"
 else
   echo
