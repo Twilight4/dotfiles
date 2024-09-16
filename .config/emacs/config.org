@@ -410,6 +410,8 @@
     "o" '(other-window :wk "switch window")
     "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
     "C-n" '(tl/better-next-buffer :wk "Next Buffer")
+    "C-u" '(kill-this-buffer :wk "Kill current buffer")
+    "C-q" '(delete-frames-until-emacs-closes :wk "Exit Emacs")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "g" '(dashboard-open :wk "Open emacs dashboard")
     "s" '(basic-save-buffer :wk "Save buffer")
@@ -1605,8 +1607,6 @@ Function for toggling maximization of window split.
   (interactive)
   (while (> (length (frame-list)) 1)
     (delete-frame)))
-
-(global-set-key (kbd "C-x C-q") 'delete-frames-until-emacs-closes)
 #+end_src
 
 * Completion Framework
