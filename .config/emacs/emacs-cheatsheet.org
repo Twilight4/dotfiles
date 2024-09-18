@@ -2,14 +2,13 @@
 #+AUTHOR: Twilight4
 
 This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimize the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity.
-I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS.
+I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. I actually spend more time customizing my computer than actually using it. 
 
 The philosophy adopted in this configuration prioritizes simplicity and ease of use:
   - Most commonly used keybinds don't have a prefix key.
   - =C-x= prefix key is used for another prefix-keys and non-prefix keys which are particularly used for GTD system.
   - =C-c= prefix key is used particularly for ZK note-taking system in =org-mode=.
-  - =C-l= prefix key is used only for =avy= package.
-  - =M-i= prefix key is used only for =expand-region= and =symbol-overlay= packages.
+  - =C-v= prefix key is used only for =expand-region= and =symbol-overlay= packages.
 
 The world's greatest programmer once said:
 #+begin_quote
@@ -24,12 +23,7 @@ The world's greatest programmer once said:
   - [[#org-mode][Org-mode]]
   - [[#org-roam][Org-Roam]]
   - [[#org-roam-dailies][Org-Roam dailies]]
-- [[#c-l-leader-key][C-l Leader Key]]
-  - [[#avy-jumping][Avy jumping]]
-  - [[#avy-yankingkillingmoving][Avy yanking/killing/moving]]
-  - [[#avy-navigation][Avy navigation]]
-  - [[#zap-to-char][Zap to char]]
-- [[#m-i-leader-key][M-i Leader Key]]
+- [[#c-v-leader-key][C-v Leader Key]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#expand-region][Expand-region]]
 - [[#other-packages][Other Packages]]
@@ -135,73 +129,26 @@ The world's greatest programmer once said:
 | d          | Capture daily in date     |
 | D          | Go to daily in date       |
 
-* C-l Leader Key
-** Avy jumping
-
-| Keybinding | Description                              |
-|------------+------------------------------------------|
-| C-c        | Jump to a character                      |
-| c          | Jump to a two-character char              |
-| C-e        | Jump to a character in line               |
-| C-a        | Jump to a subword                        |
-| C-l        | Jump to line below                       |
-| l          | Jump to line above                       |
-| C-o        | Jump to line and insert new one above    |
-| C-w        | Jump to a word below                     |
-| w          | Jump to a word above                     |
-| C-h        | Jump to org heading                      |
-
-** Avy yanking/killing/moving
-
-| Keybinding | Description                           |
-|------------+---------------------------------------|
-| k          | Kill region                            |
-| K          | Kill whole line                        |
-| C-s        | Save region                            |
-| s          | Save whole line                        |
-| C-y        | Copy region                            |
-| y          | Copy line                              |
-| C-m        | Move region                            |
-| m          | Move line                              |
-
-** Avy navigation
-
-| Keybinding | Description                               |
-|------------+-------------------------------------------|
-| C-n        | Next occurrence                           |
-| C-p        | Previous occurrence                       |
-| C-r        | Resume last Avy action                    |
-| C-/        | Jump to previous Avy location             |
-| C-i        | iSearch with Avy                          |
-| C-t        | Transpose lines in region                 |
-
-** Zap to char
-
-| Keybinding | Description                        |
-|------------+------------------------------------|
-| C-z        | Kill up to char                    |
-| C-x        | Kill up to, but not including char |
-
-* M-i Leader Key
+* C-v Leader Key
 ** Symbol-overlay
 
 | Keybinding | Description               |
 |------------+---------------------------|
-| M-u        | Symbol put                |
-| M-n        | Symbol jump next          |
-| M-p        | Symbol jump prev          |
-| M-P        | Symbol jump first         |
-| M-N        | Symbol jump last          |
-| M-f        | Symbol switch forward     |
-| M-b        | Symbol switch backward    |
-| M-a        | Symbol remove all         |
-| M-s        | Symbol save               |
-| M-t        | Symbol toggle in scope    |
-| M-e        | Symbol echo mark          |
-| M-d        | Symbol jump to definition |
-| M-i        | Symbol isearch            |
-| M-r        | Symbol query replace      |
-| M-N        | Symbol rename             |
+| C-u       | Symbol put                |
+| C-n       | Symbol jump next          |
+| C-p       | Symbol jump prev          |
+| C-P       | Symbol jump first         |
+| C-N       | Symbol jump last          |
+| C-f       | Symbol switch forward     |
+| C-b       | Symbol switch backward    |
+| C-a       | Symbol remove all         |
+| C-s       | Symbol save               |
+| C-t       | Symbol toggle in scope    |
+| C-e       | Symbol echo mark          |
+| C-d       | Symbol jump to definition |
+| C-i       | Symbol isearch            |
+| C-r       | Symbol query replace      |
+| C-N       | Symbol rename             |
 
 ** Expand-region
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Disable animations to avoid screenshot delay
-hyprctl --batch keyword animations:enabled 0
+#hyprctl --batch keyword animations:enabled 0
 
 iDIR="$HOME/.config/mako/icons"
 
@@ -147,6 +147,6 @@ else
 fi
 
 # Enable back animations
-hyprctl --batch keyword animations:enabled 1
+#hyprctl --batch keyword animations:enabled 1
 
 exit 0
