@@ -210,7 +210,7 @@ packages=(
   "cmatrix-git"
   "cava-git"
   "python-pywal"
-  "moar"
+  "moar-git"
   "cheat-bin"
   "xdg-ninja-git"
   "dragon-drop"
