@@ -277,3 +277,6 @@ fi
 
 # Zoxide
 eval "$(zoxide init zsh)"
+
+# Fasd
+eval "$(fasd --init auto)"

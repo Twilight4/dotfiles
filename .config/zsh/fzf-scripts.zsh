@@ -189,6 +189,22 @@ fcp() {
     fi
 }
 
+# List recently edited files using fasd and pipe to fzf for selection
+frec() {
+  local file=$(fasd -Rlf | fzf --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
+
+  # If a file is selected, convert it back to the full path and open it in Neovim
+  [[ -n "$file" ]] && nvim "${file/#~/$HOME}"
+}
+
+# list recently visited directories using fasd and pipe to fzf for selection
+frecd() {
+  local file=$(fasd -rld | fzf --reverse --preview 'exa --tree --icons --group-directories-first --git-ignore --level 2 --color=always {} | head -n 100')
+
+  # if a directory is selected, move into it
+  [[ -n "$file" ]] && cd "$file" ; lsd -l --hyperlink=auto
+}
+
 # Man without options will use fzf to select a page
 fman() {
     MAN="/usr/bin/man"

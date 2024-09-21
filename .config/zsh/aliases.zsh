@@ -35,8 +35,8 @@ alias tailf="tail -f"
 alias headn="head -n"
 alias mv='mv -v'    #mvi is in scripts.zsh
 alias rm='rm -v'    #rmi is in scripts.zsh
+alias rt='trash -rfv'
 alias shred='shred -u'
-alias trash='trash -rfv'
 alias digs='dig +short'
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 alias truncate="truncate -s 0"
@@ -359,6 +359,7 @@ alias paruu="sudo pacman -U package"
 ##############################################################################################################
 # Aliases to modified commands                                                                               #
 ##############################################################################################################
+alias swappy='swappy -f'
 alias s="kitty +kitten ssh"
 alias ce='cheat --edit'
 alias btree="cbonsai --live"
