@@ -2722,6 +2722,7 @@ Automatically save the buffer to /tmp/ and load the last saved version if it exi
      ("@Purchase" . ?u)
      ("@Read" . ?R)
      ("@Trivial" . ?t)
+     ("@Calendar" . ?c)
      (:endgroup)
 ))
 #+end_src
@@ -2944,6 +2945,9 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name " Daily Habits"
                            :tag "@Habit"
                            :order 60)
+                          (:name "󰃶 Calendar"
+                           :tag "@Calendar"
+                           :order 80)
                           (:name "Trivial"
                            :priority<= "C"
                            :tag "@Trivial"
