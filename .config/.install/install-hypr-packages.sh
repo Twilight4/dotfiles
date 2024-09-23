@@ -61,6 +61,7 @@ packages=(
   "cmake"
   "cpio"
   "hyprlock"
+  "espanso-wayland"
   "xdg-desktop-portal-hyprland"
   "xdg-desktop-portal-gtk"
   "wob"
