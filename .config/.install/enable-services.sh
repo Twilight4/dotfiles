@@ -72,6 +72,11 @@ if [[ "$enable_services" =~ ^[Yy]$ ]]; then
   # Must be set seperately to work
   sudo systemctl enable fstrim.timer
 
+  # Espanso service and packages
+  #espanso service register
+  #espanso install typofixer-en
+  #espanso install contractions-en
+
   # Other services
   #playerctld daemon           # Error: Can not connect to messages bus - connection refused
   
