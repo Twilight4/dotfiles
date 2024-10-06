@@ -62,7 +62,7 @@ alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  typ
 
 # cat
 alias bat='bat --color=always --style header,grid,changes --paging never'
-alias brg='PAGER=less batgrep'
+alias brg='PAGER=less batgrep -i'
 alias bman='batman'
 alias bwatch='batwatch'
 alias catl='bat --color=always --paging=never -l log'
