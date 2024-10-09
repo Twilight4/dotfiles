@@ -2947,12 +2947,12 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                            :order 60)
                           (:name "󰃶 Calendar"
                            :tag "@Calendar"
-                           :order 80)
+                           :order 90)
                           (:name "Trivial"
                            :priority<= "C"
                            :tag "@Trivial"
                            :todo ("SOMEDAY")
-                           :order 90)))))))))
+                           :order 80)))))))))
 
 (add-to-list 'org-agenda-custom-commands
              '("t" "Today"
