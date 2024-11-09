@@ -54,7 +54,6 @@ bloat=(
   "xfce4-terminal"
 )
 
-# xdg-desktop-portal-hyprland in owned by hyprland-git
 packages=(
   "hyprland-git"
   "ninja"
@@ -63,6 +62,7 @@ packages=(
   "cpio"
   "hyprlock"
   "espanso-wayland"
+  "xdg-desktop-portal-hyprland-git"
   "xdg-desktop-portal-gtk"
   "wob"
   "brave-bin"
