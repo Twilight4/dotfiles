@@ -68,6 +68,7 @@ packages=(
   "brave-bin"
   "python-click"
   "torbrowser-launcher"
+  "tealdeer"
   "python-tomlkit"
   "python-scapy"
   "python-click-aliases"
