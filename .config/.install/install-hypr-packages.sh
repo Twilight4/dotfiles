@@ -103,7 +103,6 @@ packages=(
   "gnome-clocks"
   "smassh-bin"
   "fd"
-  "trash-cli"
   "nyx"
   "onionshare"
   "cbonsai"
