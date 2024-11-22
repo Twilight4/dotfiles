@@ -10,3 +10,4 @@ hyprctl dispatch exec 'kitty -T rain --class rain -e ~/.config/zsh/bash-scripts/
 hyprctl dispatch exec 'kitty --hold -T fetch --class fetch -e fastfetch --kitty ~/pictures/screenshots/Patrick-Bateman-Profile-Pic_600x600.jpg'
 hyprctl dispatch exec 'kitty -T cpufetch --class cpufetch -e cpufetch'
 hyprctl dispatch exec 'kitty --class fireplace -T fireplace -e fireplace'
+hyprctl dispatch exec 'kitty -T cbonsai --class cbonsai -e cbonsai --live'
