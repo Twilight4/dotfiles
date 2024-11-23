@@ -335,7 +335,7 @@ alias pacf="sudo pacman -F"                      # Search binary package faster
 alias pacu="sudo pacman -U"                      # Install the needed package
 alias pacsyu="sudo pacman -Syuu"     # Update only standard pkgs
 alias pacsyyu="sudo pacman -Syyu"                # Refresh pkglist & update standard pkgs
-alias cleanup="sudo pacman -Rns $(pacman -Qtdq)" # Cleanup orphaned packages
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # Cleanup orphaned packages
 
 # Pacman issues
 alias rmdblock="sudo rm /var/lib/pacman/db.lck"  # Fix “unable to lock database” Error
