@@ -51,6 +51,9 @@ option_43=" Instagram"
 option_44=" Discord"
 option_45=" AD CheatSheet MindMap"
 option_46=" AD Github CheatSheet"
+option_47="󰰦 Temu"
+option_48="󰄐 AliExpress"
+option_49=" Vinted"
 
 # Rofi CMD
 rofi_cmd() {
@@ -71,7 +74,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34\n$option_35\n$option_36\n$option_37\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34\n$option_35\n$option_36\n$option_37\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49" | rofi_cmd
 }
 
 # Execute Command
@@ -266,6 +269,15 @@ run_cmd() {
     --opt46)
       xdg-open 'https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet' &
       ;;
+    --opt47)
+      xdg-open 'https://www.temu.com/pl' &
+      ;;
+    --opt48)
+      xdg-open 'https://best.aliexpress.com/?gatewayAdapt=pol2usa&browser_redirect=true' &
+      ;;
+    --opt49)
+      xdg-open 'https://www.vinted.com/' &
+      ;;
     *)
       ;;
   esac
@@ -411,5 +423,14 @@ case "${chosen}" in
     ;;
   $option_46)
     run_cmd --opt46
+    ;;
+  $option_47)
+    run_cmd --opt47
+    ;7
+  $option_48)
+    run_cmd --opt48
+    ;;
+  $option_49)
+    run_cmd --opt49
     ;;
 esac
