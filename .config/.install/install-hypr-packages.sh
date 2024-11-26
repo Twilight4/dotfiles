@@ -186,7 +186,7 @@ packages=(
   "pamixer"
   "xcp"
   "xh"
-  "wire-desktop"
+  "telegram-desktop"
   "exa"
   "bat"
   "bat-extras"
