@@ -426,7 +426,7 @@ case "${chosen}" in
     ;;
   $option_47)
     run_cmd --opt47
-    ;7
+    ;;
   $option_48)
     run_cmd --opt48
     ;;
