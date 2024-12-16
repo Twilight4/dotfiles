@@ -192,6 +192,7 @@ packages=(
   "bat-extras"
   "expac"
   "freetube"
+  "netflix"
   "gnome-calculator"
   "dog"
   "ripgrep"
