@@ -50,7 +50,6 @@
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
   - [[#maximize-window-split][Maximize-window-split]]
-  - [[#close-frame-properly][Close frame properly]]
 - [[#completion-framework][Completion Framework]]
   - [[#vertico][Vertico]]
   - [[#orderless][Orderless]]
@@ -411,7 +410,7 @@
     "C-n" '(tl/better-previous-buffer :wk "Previous Buffer")
     "C-p" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(kill-this-buffer :wk "Kill current buffer")
-    "C-q" '(delete-frames-until-emacs-closes :wk "Exit Emacs")
+    "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "g" '(dashboard-open :wk "Open emacs dashboard")
     "s" '(basic-save-buffer :wk "Save buffer")
@@ -1597,16 +1596,6 @@ Function for toggling maximization of window split.
         (setq previous-window-config nil))
     (setq previous-window-config (current-window-configuration))
     (delete-other-windows)))
-#+end_src
-
-** Close frame properly
-
-#+begin_src emacs-lisp
-(defun delete-frames-until-emacs-closes ()
-  "Delete the current frame repeatedly until Emacs closes."
-  (interactive)
-  (while (> (length (frame-list)) 1)
-    (delete-frame)))
 #+end_src
 
 * Completion Framework
