@@ -2,16 +2,16 @@
 
 # Function to check if Brave browser is running
 is_brave_running() {
-  hyprctl clients | grep -i 'Brave-browser' >/dev/null
+  hyprctl clients | grep -i 'Spotify' >/dev/null
 }
 
-hyprctl dispatch workspace 2
+hyprctl dispatch workspace 5
 
 # Check if Brave browser is running
 if ! is_brave_running; then
   # If Brave is not running, launch it
-  hyprctl dispatch exec 'brave'
+  hyprctl dispatch exec 'spotify'
 else
   # If Brave is running, focus on its window
-  hyprctl dispatch focuswindow 'brave-browser'
+  hyprctl dispatch focuswindow 'Spotify'
 fi
