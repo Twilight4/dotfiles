@@ -22,11 +22,11 @@
     // Modules Left
     "modules-left": [
         "custom/filemanager",
-		    "custom/windowsvm",
-		    "custom/qemu",
-		    "custom/ppass",
-		    //"custom/pmail",
+		    //"custom/windowsvm",
+		    //"custom/qemu",
+		    "custom/pmail",
 		    "custom/pvpn",
+        "wlr/taskbar",
         "hyprland/window",
     ],
 
@@ -34,7 +34,7 @@
     "modules-center": [
         "custom/updates",
 		    "custom/uptime",
-		    "custom/weather",
+		    //"custom/weather",
         "hyprland/workspaces",
         "clock",
     ],
@@ -47,7 +47,6 @@
         "pulseaudio",
         "battery", 
         "tray",
-        "wlr/taskbar",
         "custom/exit",
     ],
 

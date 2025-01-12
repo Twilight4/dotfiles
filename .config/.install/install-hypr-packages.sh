@@ -136,7 +136,6 @@ packages=(
   "proxychains"
   "proton-vpn-gtk-app"
   "proton-mail-bin"
-  "proton-pass-bin"
   "libayatana-appindicator"
   "dunst"
   "libnotify"

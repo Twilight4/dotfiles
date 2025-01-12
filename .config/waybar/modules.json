@@ -77,24 +77,10 @@
         "tooltip": false
     },
 
-    // KeepassXC Launcher
-    "custom/keepass": {
-        "format": "<span font='17'>󰌆</span> <span font='16'></span>",
-        "on-click": "keepassxc ~/documents/creds/Passwords.kdbx --keyfile ~/documents/creds/keepass-key",
-        "tooltip": false
-    },
-
     // Proton VPN Launcher
     "custom/pvpn": {
         "format": "<span font='16'>󰦝</span> <span font='16'></span>",
         "on-click": "protonvpn-app",
-        "tooltip": false
-    },
-
-    // Proton Pass Launcher
-    "custom/ppass": {
-        "format": "<span font='17'>󰌆</span> <span font='17'></span>",
-        "on-click": "proton-pass",
         "tooltip": false
     },
 

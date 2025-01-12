@@ -80,9 +80,9 @@ tooltip label {
  * ----------------------------------------------------- */
 #window {
     background: @backgroundlight;
-    margin: 8px 15px 8px 0px;
+    margin: 8px 15px 8px 10px;
     padding: 2px 10px 0px 10px;
-    border-radius: 12px;
+    border-radius: 15px;
     color:@textcolor2;
     font-size:16px;
     font-weight:normal;
@@ -101,7 +101,7 @@ window#waybar.empty #window {
     background: @backgroundlight;
     margin: 8px 0px 8px 0px;
     padding:0px;
-    border-radius: 0px 0px 0px 0px;
+    border-radius: 15px 15px 15px 15px;
     font-weight: normal;
     font-style: normal;
     opacity:0.8;
@@ -131,15 +131,6 @@ window#waybar.empty #window {
 /* -----------------------------------------------------
  * Custom Quicklinks
  * ----------------------------------------------------- */
-#custom-keepass {
-    background-color: @backgroundlight;
-    border-radius: 0px 0px 0px 0px;
-    padding: 2px 0px 0px 0px;
-    margin: 8px 0px 8px 0px;
-    font-size: 20px;
-    opacity:0.8;
-    color: @iconcolor;
-}
 #custom-pvpn {
     background-color: @backgroundlight;
     border-radius: 0px 15px 15px 0px;
@@ -149,19 +140,10 @@ window#waybar.empty #window {
     opacity:0.8;
     color: @iconcolor;
 }
-#custom-ppass {
-    background-color: @backgroundlight;
-    border-radius: 0px 0px 0px 0px;
-    padding: 0px 5px 0px 0px;
-    margin: 8px 0px 8px 0px;
-    font-size: 20px;
-    opacity:0.8;
-    color: @iconcolor;
-}
 #custom-pmail {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
+    padding: 4px 0px 0px 5px;
     margin: 8px 0px 8px 0px;
     font-size: 20px;
     opacity:0.8;
@@ -228,7 +210,7 @@ window#waybar.empty #window {
     font-size:21px;
     color: @iconcolor;
     border-radius: 0px 15px 15px 0px;
-    padding: 0px 15px 0px 0px;
+    padding: 0px 15px 0px 5px;
     margin: 8px 10px 8px 0px;
     opacity:0.8;
 }
@@ -429,7 +411,7 @@ window#waybar.empty #window {
     font-size: 20;
     color: @iconcolor;
     border-radius: 15px 0px 0px 15px;
-    padding: 2px 0px 0px 10px;
+    padding: 2px 5px 0px 10px;
     margin: 8px 0px 8px 0px;
     opacity:0.8;
 }
