@@ -4,6 +4,19 @@ configuration {
     show-icons:                  true;
     drun-display-format:         "{name}";
     font:                        "JetBrainsMono Nerd Font 10";
+
+/*---------- Keybindings ----------*/
+    kb-remove-to-eol: "";
+    kb-remove-char-back: "";
+    kb-mode-complete: "";
+    kb-row-tab: "";
+    kb-element-next: "";
+    kb-element-prev: "";
+    kb-accept-entry: "Control+m,Return,KP_Enter";
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+    kb-move-char-back: "Left,Control+h";
+    kb-move-char-forward: "Right,Control+l";
 }
 
 
