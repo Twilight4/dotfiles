@@ -5,7 +5,7 @@ is_freetube_running() {
   hyprctl clients | grep 'FreeTube' >/dev/null
 }
 
-hyprctl dispatch workspace 3
+hyprctl dispatch workspace 4
 
 # Check if FreeTube is running
 if ! is_freetube_running; then
