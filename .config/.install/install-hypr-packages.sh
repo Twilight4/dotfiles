@@ -60,7 +60,7 @@ packages=(
   "meson"
   "cmake"
   "cpio"
-  "hyprlock"
+  "hyprlock-git"
   "espanso-wayland"
   "xdg-desktop-portal-hyprland-git"
   "xdg-desktop-portal-gtk"
