@@ -103,6 +103,7 @@ configuration {
     kb-row-tab: "";
     kb-element-next: "";
     kb-element-prev: "";
+    kb-clear-line: "";
 
     kb-accept-entry: "Control+m,Return,KP_Enter";
     kb-row-up: "Up,Control+k";
@@ -113,7 +114,7 @@ configuration {
     kb-mode-previous: "ISO_Left_Tab";
     kb-remove-char-back: "BackSpace";
     kb-primary-paste: "Control+y";
-    /*kb-remove-word-back: "Control+w";      # Control+w is already bound to something which I need to unbind first to rebind but idk how*/
+    kb-remove-word-back: "Control+w";
 }
 
 /* ---- Load pywal colors (custom wal template) ---- */
