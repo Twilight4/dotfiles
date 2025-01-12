@@ -13,7 +13,26 @@ configuration {
     me-accept-entry:            "MousePrimary";
     drun-display-format:        "{name}";
     window-format:              "{w} · {c} · {t}";
-    
+
+	/*---------- Keybindings ----------*/
+    kb-remove-to-eol: "";
+    kb-remove-char-back: "";
+    kb-mode-complete: "";
+    kb-row-tab: "";
+    kb-element-next: "";
+    kb-element-prev: "";
+    kb-clear-line: "";
+
+    kb-accept-entry: "Control+m,Return,KP_Enter";
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+    kb-move-char-back: "Left,Control+h";
+    kb-move-char-forward: "Right,Control+l";
+    kb-mode-next: "Tab";
+    kb-mode-previous: "ISO_Left_Tab";
+    kb-remove-char-back: "BackSpace";
+    kb-primary-paste: "Control+y";
+    kb-remove-word-back: "Control+w";
 }
 
 /* ---- Load pywal colors (custom wal template) ---- */
