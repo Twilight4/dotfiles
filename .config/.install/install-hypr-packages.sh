@@ -59,6 +59,7 @@ packages=(
   "ninja"
   "meson"
   "cmake"
+  "uwsm"
   "cpio"
   "hyprlock-git"
   "espanso-wayland"
