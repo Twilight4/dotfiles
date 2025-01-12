@@ -88,6 +88,7 @@ packages=(
   "ripgrep"
   "perl-image-exiftool"
   "xorg-xhost"
+  "spotify"
   "the_silver_searcher"
   "irqbalance"
   "zenpower3-dkms"
