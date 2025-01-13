@@ -22,8 +22,7 @@ notification(){
 
 menu(){
   printf "1. Lofi Girl\n"
-  printf "2. 2AM Playlist\n"
-  printf "3. Good Life Radio\n"
+  printf "2. Good Life Radio\n"
 }
 
 main() {
@@ -32,16 +31,12 @@ main() {
   case $choice in
     1)
       notification
-      mpv "https://play.streamafrica.net/lofiradio"
-      return
-      ;;
-    2)
-      notification
-      kitty -1 --class kitty-radio -T kitty-radio --detach mpv --no-input-builtin-bindings --profile=sw-fast --vo=kitty "https://youtube.com/playlist?list=PLf6avsc1ieWNKvqo8iXhRtrpHnU0M7SbI&si=I48eEnZXQEx9_XWs"
+      #mpv "https://play.streamafrica.net/lofiradio" &
+      kitty -1 --class kitty-radio -T kitty-radio --detach mpv --no-input-builtin-bindings --profile=sw-fast --vo=kitty "https://www.youtube.com/watch?v=jfKfPfyJRdk"
       kitty -1 -T cava --class cava -e cava
       return
       ;;
-    3)
+    2)
       notification
       kitty -1 --class kitty-radio -T kitty-radio --detach mpv --no-input-builtin-bindings --profile=sw-fast --vo=kitty "https://www.youtube.com/watch?v=36YnV9STBqc"
       kitty -1 -T cava --class cava -e cava

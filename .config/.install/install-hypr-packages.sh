@@ -75,6 +75,8 @@ packages=(
   "python-scapy"
   "python-click-aliases"
   "neovim"
+  "papirus-icon-theme"
+  "bibata-cursor-theme"
   "thefuck"
   "portmaster-stub-bin"
   "googler"
