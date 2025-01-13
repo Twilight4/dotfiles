@@ -47,6 +47,7 @@
         "pulseaudio",
         "battery", 
         "tray",
+        "custom/screenlock",
         "custom/exit",
     ],
 

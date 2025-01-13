@@ -70,6 +70,13 @@
         "tooltip": false
     },
 
+    // Screenlock button
+    "custom/screenlock": {
+        "format": "󰌾",
+        "on-click": "hyprlock",
+        "tooltip": false
+    },
+
     // QEMU Launcher
     "custom/qemu": {
         "format": "<span font='18'></span> <span font='16'></span>",
