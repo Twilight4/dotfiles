@@ -9,17 +9,20 @@
 
 SERVICE="hypridle"
 if [[ "$1" == "status" ]]; then
-    sleep 1
     if pgrep -x "$SERVICE" >/dev/null ;then
-        echo '{"text": "RUNNING", "class": "active", "tooltip": "Screen locking active"}'
+        #echo '{"text": "RUNNING", "class": "active", "tooltip": "Screen locking active"}'
+        notify-send -u low -t 4000 "Screen Locking" "Disabled"
     else
-        echo '{"text": "NOT RUNNING", "class": "notactive", "tooltip": "Screen locking deactivated"}'
+        #echo '{"text": "NOT RUNNING", "class": "notactive", "tooltip": "Screen locking deactivated"}'
+        notify-send -u critical -t 4000 "Screen Locking" "Enabled"
     fi
 fi
 if [[ "$1" == "toggle" ]]; then
     if pgrep -x "$SERVICE" >/dev/null ;then
         killall hypridle
+        notify-send -u low -t 4000 "Screen Locking" "Disabled"
     else
+        notify-send -u critical -t 4000 "Screen Locking" "Enabled"
         hypridle
     fi
 fi

@@ -73,7 +73,7 @@
     // Screenlock button
     "custom/screenlock": {
         "format": "󰌾",
-        "on-click": "hyprlock",
+        "on-click": "~/.config/hypr/scripts/hypridle-script toggle",
         "tooltip": false
     },
 

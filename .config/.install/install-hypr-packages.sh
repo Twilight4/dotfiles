@@ -62,6 +62,7 @@ packages=(
   "uwsm"
   "cpio"
   "hyprlock-git"
+  "hypridle-git"
   "espanso-wayland"
   "xdg-desktop-portal-hyprland-git"
   "xdg-desktop-portal-gtk"
