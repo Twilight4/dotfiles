@@ -21,6 +21,7 @@ if [ "$install_choice" == "y" ]; then
         git clone https://github.com/AdnanHodzic/auto-cpufreq.git
         clear
         cd auto-cpufreq && sudo ./auto-cpufreq-installer
+        # To disable and remove auto-cpufreq daemon, run: sudo auto-cpufreq --remove
         sudo auto-cpufreq --install
         cd -
         sudo rm -rvf ./auto-cpufreq
