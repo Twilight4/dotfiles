@@ -375,6 +375,9 @@ alias pping="prettyping -c 3"
 #alias less="less -R"   # have function as 'less'
 alias wire-desktop='wire-desktop --password-store="gnome-libsecret"'
 alias fetch='clear && fastfetch --kitty ~/pictures/screeshots/Patrick-Bateman-Profile-Pic_600x600.jpg && echo && fortune ~/.config/fortune/quotes'
+alias mfetch='macchina'
+alias ofetch='onefetch'
+#alias pfetch='pfetch'
 alias devil="fortune ~/.config/fortune/quotes | cowsay -f eyes | lolcat"
 alias matrix="cmatrix -a"
 alias clock="tty-clock -c -C 4 -r -s -f \"%A, %B, %d\""
