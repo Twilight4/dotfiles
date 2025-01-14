@@ -27,6 +27,7 @@
 		    "custom/pmail",
 		    "custom/pvpn",
 		    "custom/telegram",
+		    "custom/steam",
         "wlr/taskbar",
         "hyprland/window",
     ],

@@ -98,6 +98,13 @@
         "tooltip": false
     },
 
+    // Steam Launcher
+    "custom/steam": {
+        "format": "<span font='16'></span> <span font='16'></span>",
+        "on-click": "steam",
+        "tooltip": false
+    },
+
     // Proton Mail Launcher
     "custom/pmail": {
         "format": "<span font='16'></span> <span font='16'></span>",
