@@ -91,6 +91,13 @@
         "tooltip": false
     },
 
+    // Telegram Launcher
+    "custom/telegram": {
+        "format": "<span font='16'></span> <span font='16'></span>",
+        "on-click": "telegram-desktop",
+        "tooltip": false
+    },
+
     // Proton Mail Launcher
     "custom/pmail": {
         "format": "<span font='16'></span> <span font='16'></span>",
@@ -121,9 +128,10 @@
 
     // Clock
     "clock": {
-        // "timezone": "America/New_York",
+        //"timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        //"format-alt": "{:%Y-%m-%d}",
+        "on-click": "gnome-clocks"
     },
 
     // CPU
