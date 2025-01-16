@@ -72,7 +72,7 @@
 
     // Screenlock button
     "custom/screenlock": {
-        "format": "<span font='15'>󰡭</span> <span font='15'></span>",
+        "format": "󰡭",
         "on-click": "~/.config/hypr/scripts/hypridle-script toggle",
         "tooltip": false
     },
@@ -88,8 +88,8 @@
     "custom/ags-sidebar": {
       "on-click": "sleep 0.1 && ags toggle sidebar",
       //"on-click-right": "",
-      "format": "<span font='14'></span> <span font='14'></span>",
-      "tooltip-format": "Open Sidebar"
+      "format": "",
+      "tooltip": false
     },
 
     // Proton VPN Launcher
