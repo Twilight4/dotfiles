@@ -146,8 +146,7 @@
     "clock": {
         //"timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        //"format-alt": "{:%Y-%m-%d}",
-        "on-click": "gnome-clocks"
+        "format-alt": "{:%Y-%m-%d}",
     },
 
     // CPU
@@ -173,6 +172,7 @@
 		"format": " {}",
 		"exec": "~/.config/waybar/scripts/upt.sh",
 		"interval": 60,
+    "on-click": "gnome-clocks"
 	},
 
 	// Weather
@@ -185,7 +185,7 @@
 		"return-type": "json",
 	},
 
-    // Harddisc space used
+    // Hard disk space used
     "disk": {
         "interval": 30,
         "format": " {percentage_used}%",
