@@ -50,6 +50,7 @@
         "battery", 
         "tray",
         "custom/screenlock",
+        "custom/ags-sidebar",
         "custom/exit",
     ],
 

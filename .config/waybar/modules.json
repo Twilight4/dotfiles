@@ -72,7 +72,7 @@
 
     // Screenlock button
     "custom/screenlock": {
-        "format": "󰌾",
+        "format": "<span font='15'>󰡭</span> <span font='15'></span>",
         "on-click": "~/.config/hypr/scripts/hypridle-script toggle",
         "tooltip": false
     },
@@ -82,6 +82,14 @@
         "format": "<span font='18'></span> <span font='16'></span>",
         "on-click": "virt-manager",
         "tooltip": false
+    },
+
+    // AGS Sidebar
+    "custom/ags-sidebar": {
+      "on-click": "sleep 0.1 && ags toggle sidebar",
+      //"on-click-right": "",
+      "format": "<span font='14'></span> <span font='14'></span>",
+      "tooltip-format": "Open Sidebar"
     },
 
     // Proton VPN Launcher
@@ -108,7 +116,7 @@
     // Proton Mail Launcher
     "custom/pmail": {
         "format": "<span font='16'></span> <span font='16'></span>",
-        "on-click": "proton-mail %U",
+        "on-click": "/usr/bin/proton-mail %U",
         "tooltip": false
     },
 

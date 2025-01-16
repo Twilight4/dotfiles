@@ -94,6 +94,7 @@ packages=(
   "pkgfile"
   "trash-cli"
   "mtools"
+  "aylurs-gtk-shell"
   "swaybg"
   "wdisplays"
   "ripgrep"

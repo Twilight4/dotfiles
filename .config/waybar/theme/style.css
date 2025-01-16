@@ -188,7 +188,7 @@ window#waybar.empty #window {
 #custom-screenlock {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
-    padding: 0px 10px 0px 5px;
+    padding: 2px 0px 0px 0px;
     margin: 8px 0px 8px 0px;
     font-size: 21px;
     opacity:0.8;
@@ -201,6 +201,16 @@ window#waybar.empty #window {
     margin: 8px 0px 8px 0px;
     font-size: 23px;
     opacity:0.8;
+    color: @iconcolor;
+}
+
+#custom-ags-sidebar {
+    background-color: @backgroundlight;
+    border-radius: 0px 0px 0px 0px;
+    padding: 2px 0px 5px 0px;
+    margin: 8px 0px 8px 0px;
+    font-size: 23px;
+    opacity: 0.8;
     color: @iconcolor;
 }
 
