@@ -391,7 +391,6 @@ alias norg="gron --ungron"
 alias ungron="gron --ungron"
 alias sidebar-toggle="ags toggle sidebar"
 alias waybar-toggle="killall -SIGUSR1 waybar"
-alias dock-toggle="pkill -f nwg-dock-hyprland || nwg-dock-hyprland -i 32 -w 5 -mb 10 -ml 10 -mr 10 -x -c \"rofi -show drun\""
 alias exif-rm-data="exiftool -all= yourfile.pdf"
 alias open='xdg-open'
 alias da='date "+%Y-%m-%d %A %T %Z"'
