@@ -5,12 +5,12 @@ is_brave_running() {
   hyprctl clients | grep -i 'steam_app_2694490' >/dev/null
 }
 
-hyprctl dispatch workspace 6
+hyprctl dispatch workspace 7
 
 # Check if Brave browser is running
 if ! is_brave_running; then
   # If Brave is not running, launch it
-  hyprctl dispatch exec 'steam -applaunch 2694490 --nologo'
+  hyprctl dispatch exec 'steam -applaunch 2694490 -windowed'
 else
   # If Brave is running, focus on its window
   hyprctl dispatch focuswindow 'steam_app_2694490'
