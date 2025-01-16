@@ -32,14 +32,26 @@ main() {
     1)
       notification
       #mpv "https://play.streamafrica.net/lofiradio" &
+
+      # Launch MPV for the first stream
       kitty -1 --class kitty-radio -T kitty-radio --detach mpv --no-input-builtin-bindings --profile=sw-fast --vo=kitty "https://www.youtube.com/watch?v=jfKfPfyJRdk"
-      kitty -1 -T cava --class cava -e cava
+
+      # Check if cava is running, if not, launch it
+      if ! pgrep -x cava > /dev/null; then
+        kitty -1 -T cava --class cava -e cava
+      fi
       return
       ;;
     2)
       notification
+
+      # Launch MPV for the second stream
       kitty -1 --class kitty-radio -T kitty-radio --detach mpv --no-input-builtin-bindings --profile=sw-fast --vo=kitty "https://www.youtube.com/watch?v=36YnV9STBqc"
-      kitty -1 -T cava --class cava -e cava
+
+      # Check if cava is running, if not, launch it
+      if ! pgrep -x cava > /dev/null; then
+        kitty -1 -T cava --class cava -e cava
+      fi
       return
       ;;	
   esac
