@@ -74,6 +74,7 @@ packages=(
   "cpufetch"
   "macchina"
   "onefetch"
+  "nwg-dock-hyprland"
   "brave-bin"
   "python-click"
   "torbrowser-launcher"
