@@ -66,7 +66,7 @@
     // Filemanager Launcher
     "custom/filemanager": {
         "format": "",
-        "on-click": "thunar",
+        "on-click": "nautilus",
         "tooltip": false
     },
 
@@ -108,7 +108,7 @@
     // Proton Mail Launcher
     "custom/pmail": {
         "format": "<span font='16'></span> <span font='16'></span>",
-        "on-click": "proton-mail",
+        "on-click": "proton-mail %U",
         "tooltip": false
     },
 
