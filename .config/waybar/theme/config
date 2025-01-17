@@ -49,6 +49,7 @@
         "pulseaudio",
         "battery", 
         "tray",
+        "custom/dock-toggle",
         "custom/screenlock",
         "custom/ags-sidebar",
         "custom/exit",

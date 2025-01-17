@@ -84,6 +84,13 @@
         "tooltip": false
     },
 
+    // App dock toggle button
+    "custom/dock-toggle": {
+        "format": "󰀻",
+        "on-click": "~/.config/hypr/scripts/dock-toggle-hyprland",
+        "tooltip": false
+    },
+
     // QEMU Launcher
     "custom/qemu": {
         "format": "<span font='18'></span> <span font='16'></span>",
@@ -145,7 +152,7 @@
     "tray": {
         "show-passive-items": true,
         "icon-size": 21,
-        "spacing": 10
+        "spacing": 5
     },
 
     // Clock

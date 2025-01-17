@@ -194,6 +194,15 @@ window#waybar.empty #window {
     opacity:0.8;
     color: @iconcolor;
 }
+#custom-dock-toggle {
+    background-color: @backgroundlight;
+    border-radius: 0px 0px 0px 0px;
+    padding: 2px 3px 0px 5px;
+    margin: 8px 0px 8px 0px;
+    font-size: 22px;
+    opacity:0.8;
+    color: @iconcolor;
+}
 #custom-windowsvm {
     background-color: @backgroundlight;
     border-radius: 0px 0px 0px 0px;
@@ -448,7 +457,7 @@ window#waybar.empty #window {
     font-size: 20;
     color: @iconcolor;
     border-radius: 15px 0px 0px 15px;
-    padding: 2px 5px 0px 10px;
+    padding: 2px 0px 0px 10px;
     margin: 8px 0px 8px 0px;
     opacity:0.8;
 }
