@@ -35,5 +35,9 @@ else
     echo "Button layout update canceled by user."
 fi
 
+# fix missing icon for Papirus-Dark theme on the nwg-dock-hyprland
+sudo mv /usr/share/nwg-dock-hyprland/images/icon-missing.svg /usr/share/nwg-dock-hyprland/images/icon-missing.svg.bak
+sudo cp /usr/share/icons/Papirus-Dark/16x16/apps/terminal.svg /usr/share/nwg-dock-hyprland/images/icon-missing.svg
+
 # Wait 2 sec before clear so user knows what happened
 sleep 2
