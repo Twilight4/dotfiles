@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THEME='Tokyonight-Dark-BL-LB'
+THEME='Graphite-blue-Dark-compact'
 ICONS='Papirus-Dark'
 CURSOR='Bibata-Modern-Classic'
 FONT='Sans 10'

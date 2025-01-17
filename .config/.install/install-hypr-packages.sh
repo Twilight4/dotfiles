@@ -144,6 +144,7 @@ packages=(
   "pipewire-alsa"
   "wireplumber"
   "gtk-engine-murrine"
+  "graphite-gtk-theme-black-rimless-normal-compact-git"
   "freerdp2"
   "proxychains"
   "proton-vpn-gtk-app"
