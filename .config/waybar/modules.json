@@ -35,7 +35,8 @@
            "fans",
            "htop-btop-ptop",
            "nvtop",
-           "wavemon"
+           "wavemon",
+           "Path of Exile 2"
         ],
         "app_ids-mapping": {
             "firefoxdeveloperedition": "firefox-developer-edition"
