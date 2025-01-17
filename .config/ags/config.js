@@ -137,6 +137,33 @@ const micBox = Widget.Box({
     ]
 })
 
+const btnWallpaper = Widget.Button({
+    className: "midbtn",
+    child: Widget.Label('Wallpapers'),
+    onClicked: () => { 
+        print(':: Start Waypaper')
+        App.closeWindow("sidebar")
+    }
+})
+
+const btnWallpaperEffects = Widget.Button({
+    className: "midbtn",
+    child: Widget.Label('Toggle Appdock'),
+    onClicked: () => { 
+        print(':: Start Toggle AppDock')
+        App.closeWindow("sidebar")
+    }
+})
+
+const btnWaybarThemes = Widget.Button({
+    className: "midbtn",
+    child: Widget.Label('Toggle screensaver'),
+    onClicked: () => { 
+        print(':: Start Waybar Themes')
+        App.closeWindow("sidebar")
+    }
+})
+
 // Sidebar Box
 const Sidebar = Widget.Box({
     spacing: 16,
@@ -150,7 +177,6 @@ const Sidebar = Widget.Box({
                 Widget.Box({
                     className: "row",
                     homogeneous: true,
-                    children:[ml4wWelcomeBox,ml4wSettingsBox,ml4wHyprlandBox]
                 }),
             ]
         }),

@@ -43,17 +43,17 @@ function MicrophoneSlider() {
 }
 
 function openwallpaper() {
-    const proc = subprocess(["bash", "-c", "waypaper"])    
+    const proc = subprocess(["bash", "-c", "~/.config/hypr/scripts/wallpaper select"])    
     App.get_window("sidebar")!.hide()
 }
 
 function openwallpapereffects() {
-    const proc = subprocess(["bash", "-c", "$HOME/.config/hypr/scripts/wallpaper-effects.sh"])    
+    const proc = subprocess(["bash", "-c", "~/.config/hypr/scripts/dock-toggle-hyprland"])    
     App.get_window("sidebar")!.hide()
 }
 
 function openwaybarthemes() {
-    const proc = subprocess(["bash", "-c", "$HOME/.config/waybar/themeswitcher.sh"])    
+    const proc = subprocess(["bash", "-c", "~/.config/hypr/scripts/hypridle-script toggle"])    
     App.get_window("sidebar")!.hide()
 }
 
@@ -102,8 +102,8 @@ export default function Sidebar() {
     <box className="sidebar" vertical>
         <box horizontal homogeneous>
                 <button onClicked={openwallpaper} className="btnbar">Wallpapers</button>
-                <button onClicked={openwallpapereffects} className="btnbar">Effects</button>
-                <button onClicked={openwaybarthemes} className="btnbar">Status Bar</button>
+                <button onClicked={openwallpapereffects} className="btnbar">Toggle Appdock</button>
+                <button onClicked={openwaybarthemes} className="btnbar">Toggle Screensaver</button>
         </box>
         <box css="padding-bottom:20px;"></box>
         <box className="group" halign="left" vertical>
