@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=kitty-2
+Comment=kitty-2
+Icon=/usr/share/icons/Papirus-Dark/128x128/apps/kitty.svg
+Exec=/home/twilight/.config/hypr/ws-scripts/ws-kitty-2
+Terminal=false
+Categories=Tags;Describing;Application
