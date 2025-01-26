@@ -49,6 +49,7 @@
         "pulseaudio",
         "battery", 
         "tray",
+        "custom/notifications",
         "custom/dock-toggle",
         "custom/screenlock",
         "custom/ags-sidebar",
@@ -61,7 +62,7 @@
         "modules": [
             "disk",
             "cpu",
-			"custom/cputemp",
+            "custom/cputemp",
             "memory",
         ]
     }

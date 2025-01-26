@@ -78,6 +78,13 @@
         "tooltip": false
     },
 
+    // Notification center
+    "custom/notifications": {
+        "format": "",
+        "on-click": "kitty -1 -e bat /tmp/notify.log",
+        "tooltip": false
+    },
+
     // Screenlock button
     "custom/screenlock": {
         "format": "󰡭",
@@ -186,7 +193,8 @@
 		"format": " {}",
 		"exec": "~/.config/waybar/scripts/upt.sh",
 		"interval": 60,
-    "on-click": "gnome-clocks"
+    "on-click": "gnome-clocks",
+		"tooltip": false
 	},
 
 	// Weather

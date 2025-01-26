@@ -397,7 +397,7 @@ alias da='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
 alias jctle="journalctl --user -xeu"    # show error messages, specify a unit
-alias notif="cat /tmp/notify.log"
+alias n="bat /tmp/notify.log"
 alias okitty='kitty -o allow_remote_control=yes --single-instance --listen-on unix:@mykitty'
 alias lsall="lspci"
 alias mic-record="pw-record ./recording.mp3"

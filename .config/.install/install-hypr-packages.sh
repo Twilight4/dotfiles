@@ -206,6 +206,7 @@ packages=(
   "bat-extras"
   "expac"
   "freetube"
+  "twitter"
   "netflix"
   "gnome-calculator"
   "dog"

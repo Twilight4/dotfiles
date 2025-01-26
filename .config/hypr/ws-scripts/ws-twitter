@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Function to check if Netflix is running
+is_netflix_running() {
+  hyprctl clients | grep 'Twitter' >/dev/null
+}
+
+hyprctl dispatch workspace 5
+
+# Check if netflix is running
+if ! is_netflix_running; then
+  # If netflix is not running, launch it
+  hyprctl dispatch exec 'twitter'
+else
+  # If netflix is running, focus on its window
+  hyprctl dispatch focuswindow 'Twitter'
+fi
