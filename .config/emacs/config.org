@@ -1917,6 +1917,18 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 #+end_src
 
+Set as the default gptel backend to DeepSeek.
+#+begin_src emacs-lisp
+;; (setq gptel-model   'deepseek-chat
+;;       gptel-backend
+;;       (gptel-make-openai "DeepSeek"     ; any name you want
+;;         :host "api.deepseek.com"
+;;         :endpoint "/chat/completions"
+;;         :stream t
+;;         :key "your-api-key"             ; can be a function that returns the key
+;;         :models '(deepseek-chat deepseek-coder)))
+#+end_src
+
 GPTel directives, find more prompts [[https://github.com/f/awesome-chatgpt-prompts][here]] and [[https://github.com/danielmiessler/fabric/tree/main/patterns][here]]. Check the find prompt script [[https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt][here]].
 #+begin_src emacs-lisp
 (setq gptel-directives
@@ -2571,7 +2583,7 @@ Let’s make creating an Org buffer just that little bit easier.
 Automatically save the buffer to /tmp/ and load the last saved version if it exists."
   (interactive)
   (let ((buffer-name "*org scratchpad*")
-        (file-path "~/.cache/org-scratchpad.org"))
+        (file-path "~/documents/org/org-scratchpad.org"))
     (if (get-buffer buffer-name)
         (switch-to-buffer buffer-name)
       (if (file-exists-p file-path)
@@ -2592,7 +2604,7 @@ Automatically save the buffer to /tmp/ and load the last saved version if it exi
 (defun tl/save-scratchpad ()
   "Save the *org scratchpad* buffer to ~/.cache/org-scratchpad.org."
   (let ((buffer-name "*org scratchpad*")
-        (file-path "~/.cache/org-scratchpad.org"))
+        (file-path "~/documents/org/org-scratchpad.org"))
     (when (get-buffer buffer-name)
       (with-current-buffer buffer-name
         (save-buffer)
