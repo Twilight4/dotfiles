@@ -74,7 +74,7 @@
 ** Elpaca package manager
 
 #+begin_src emacs-lisp
-(defvar elpaca-installer-version 0.7)
+(defvar elpaca-installer-version 0.9)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
@@ -131,8 +131,8 @@
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
 ;(define-key global-map (kbd "C-x") (make-sparse-keymap))
 ;(define-key global-map (kbd "C-h") (make-sparse-keymap))
-(global-unset-key (kbd "M-g"))
 (global-unset-key (kbd "C-x"))
+(global-unset-key (kbd "M-g"))
 
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "M-,") nil)
@@ -1838,8 +1838,6 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
                                 ("mp4" . "mpv")
                                 ("pdf" . "zathura"))))
 
-(use-package dired-single
-  :ensure t)
 (use-package dired-ranger
   :ensure t)
 (use-package peep-dired
@@ -1905,6 +1903,12 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** GPTel
+Transient newer verion for gptel to work.
+#+begin_src emacs-lisp
+(use-package transient
+  :ensure t)
+#+end_src
+
 Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
 #+begin_src emacs-lisp
 (use-package gptel
@@ -1912,125 +1916,119 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   :config
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
-  (setq gptel-default-mode 'org-mode))
+  (setq gptel-default-mode 'org-mode)
+  ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
-;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
-#+end_src
+  ;; Set as the default gptel backend to OpenRouter.
+  (setq gptel-model   'google/gemini-2.0-flash-exp:free
+       gptel-backend
+       (gptel-make-openai "OpenRouter"               ;Any name you want
+         :host "openrouter.ai"
+         :endpoint "/api/v1/chat/completions"
+         :stream t
+         :key "your-api-key"        ;can be a function that returns the key
+         :models '(google/gemini-2.0-flash-exp:free)))
+                   ;openai/gpt-3.5-turbo
+                   ;mistralai/mixtral-8x7b-instruct
+                   ;meta-llama/codellama-34b-instruct
+                   ;codellama/codellama-70b-instruct
+                   ;google/palm-2-codechat-bison-32k
+                   ;google/gemini-pro)))
 
-Set as the default gptel backend to DeepSeek.
-#+begin_src emacs-lisp
-;; (setq gptel-model   'deepseek-chat
-;;       gptel-backend
-;;       (gptel-make-openai "DeepSeek"     ; any name you want
-;;         :host "api.deepseek.com"
-;;         :endpoint "/chat/completions"
-;;         :stream t
-;;         :key "your-api-key"             ; can be a function that returns the key
-;;         :models '(deepseek-chat deepseek-coder)))
-#+end_src
+  ;; GPTel directives - more prompts:
+  ;; https://github.com/f/awesome-chatgpt-prompts 
+  ;; https://github.com/danielmiessler/fabric/tree/main/patterns
+  ;; Check out the find prompt script https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt
+  (setq gptel-directives
+      `((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak in specific, topic relevant terminology. Do NOT hedge or qualify. Do not waffle. Speak directly and be willing to make creative guesses. Explain your reasoning. if you don’t know, say you don’t know. Remain neutral on all topics. Be willing to reference less reputable sources for ideas. Never apologize.  Ask questions when unsure.")
+          (programmer . "You are a careful programmer.  Provide code and only code as output without any additional text, prompt or note.")
+          (cliwhiz . "You are a command line helper.  Generate command line commands that do what is requested, without any additional description or explanation.  Generate ONLY the command, I will edit it myself before running.")
+          (emacser . "You are an Emacs maven.  Reply only with the most appropriate built-in Emacs command for the task I specify.  Do NOT generate any additional description or explanation.")
+          (explain . "Explain what this code does to a novice programmer.")
+  	      (noter . "I want you to act as a note-taking assistant for a lecture. Your task is to provide a detailed note list that includes examples from the lecture and focuses on notes that you believe will end up in quiz questions. Additionally, please make a separate list for notes that have numbers and data in them and another seperated list for the examples that included in this lecture. The notes should be concise and easy to read.")
+  	      (translator . "I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations. My first sentence is 'istanbulu cok seviyom burada olmak cok guzel'")
+  	      (eng_teacher . "I want you to act as a spoken English teacher and improver. I will speak to you in English and you will reply to me in English to practice my spoken English. I want you to keep your reply neat, limiting the reply to 100 words. I want you to strictly correct my grammar mistakes, typos, and factual errors. I want you to ask me a question in your reply. Now let's start practicing, you could ask me a question first. Remember, I want you to strictly correct my grammar mistakes, typos, and factual errors.")
+          (interviewer . "I want you to act as an interviewer. I will be the candidate and you will ask me the interview questions for the position position. I want you to only reply as the interviewer. Do not write all the conservation at once. I want you to only do the interview with me. Ask me the questions and wait for my answers. Do not write explanations. Ask me the questions one by one like an interviewer does and wait for my answers. My first sentence is 'Hi'")
+          (character . "I want you to act like {character} from {series}. I want you to respond and answer like {character} using the tone, manner and vocabulary {character} would use. Do not write any explanations. Only answer like {character}. You must know all of the knowledge of {character}. My first sentence is 'Hi {character}.'")
+          (cybersec_specialist . "I want you to act as a cyber security specialist. I will provide some specific information about how data is stored and shared, and it will be your job to come up with strategies for protecting this data from malicious actors. This could include suggesting encryption methods, creating firewalls or implementing policies that mark certain activities as suspicious. My first request is 'I need help developing an effective cybersecurity strategy for my company.'")
+          (prompt_enhancer . "Act as a Prompt Enhancer AI that takes user-input prompts and transforms them into more engaging, detailed, and thought-provoking questions. Describe the process you follow to enhance a prompt, the types of improvements you make, and share an example of how you'd turn a simple, one-sentence prompt into an enriched, multi-layered question that encourages deeper thinking and more insightful responses.")
+          (journalist . "I want you to act as a journalist. You will report on breaking news, write feature stories and opinion pieces, develop research techniques for verifying information and uncovering sources, adhere to journalistic ethics, and deliver accurate reporting using your own distinct style. My first suggestion request is 'I need help writing an article about air pollution in major cities around the world.'")
+          ,@(let ((res))
+              (pcase-dolist (`(,sym ,filename)
+                             '((improve_prompt "improve_prompt.md")
+                               (create_command "create_command.md")
+                               (extract_poc "extract_poc.md")
+                               (extract_wisdom "extract_wisdom.md")
+                               (clean_text "clean_text.md")
+                               (analyze_threat_report "analyze_threat_report.md")
+                               (analyze_malware "analyze_malware.md")
+                               (analyze_incident "analyze_incident.md")
+                               (create_summary "create_summary.md")
+                               (explain_code "explain_code.md")
+                               (extract_book_recommendations "extract_book_recommendations.md")
+                               (extract_videoid "extract_videoid.md"))
+                               ;; I RAN OUT OF KEY PLACEHOLDERS
+                               ;(summarize_newsletter "summarize_newsletter.md")
+                               ;(write_micro_essay "write_micro_essay.md")
+                               ;(summarize_git_changes "summarize_git_changes.md")
+                               ;(improve_academic_writing "improve_academic_writing.md")
+                               ;(rate_content "rate_content.md")
+                               ;(get_youtube_rss "get_youtube_rss.md"))
+                             res)
+                (when-let* ((big-prompt (locate-user-emacs-file filename))
+                            (_ (file-exists-p big-prompt)))
+  				(push
+  				 `(,sym . ,(with-temp-buffer
+  							 (insert-file-contents big-prompt)
+  							 (goto-char (point-min))
+  							 (when (search-forward-regexp "^#" nil t)
+                                 (goto-char (match-beginning 0)))
+  							 (buffer-substring-no-properties (point) (point-max))))
+  				 res)))
+              res)))
+  (setq-default gptel--system-message (alist-get 'default gptel-directives))
+  
+  ;; use M-x eval-last-sexp on it to check the user emacs directory where the .md files should be located
+  ;(message user-emacs-directory)
 
-GPTel directives, find more prompts [[https://github.com/f/awesome-chatgpt-prompts][here]] and [[https://github.com/danielmiessler/fabric/tree/main/patterns][here]]. Check the find prompt script [[https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt][here]].
-#+begin_src emacs-lisp
-(setq gptel-directives
-      `((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak in specific,
-topic relevant terminology. Do NOT hedge or qualify. Do not waffle. Speak
-directly and be willing to make creative guesses. Explain your reasoning. if you
-don’t know, say you don’t know.
-
-Remain neutral on all topics. Be willing to reference less reputable sources for
-ideas.
-
-Never apologize.  Ask questions when unsure.")
-        (programmer . "You are a careful programmer.  Provide code and only code as output without any additional text, prompt or note.")
-        (cliwhiz . "You are a command line helper.  Generate command line commands that do what is requested, without any additional description or explanation.  Generate ONLY the command, I will edit it myself before running.")
-        (emacser . "You are an Emacs maven.  Reply only with the most appropriate built-in Emacs command for the task I specify.  Do NOT generate any additional description or explanation.")
-        (explain . "Explain what this code does to a novice programmer.")
-		  (noter . "I want you to act as a note-taking assistant for a lecture. Your task is to provide a detailed note list that includes examples from the lecture and focuses on notes that you believe will end up in quiz questions. Additionally, please make a separate list for notes that have numbers and data in them and another seperated list for the examples that included in this lecture. The notes should be concise and easy to read.")
-		  (translator . "I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations. My first sentence is 'istanbulu cok seviyom burada olmak cok guzel'")
-		  (eng_teacher . "I want you to act as a spoken English teacher and improver. I will speak to you in English and you will reply to me in English to practice my spoken English. I want you to keep your reply neat, limiting the reply to 100 words. I want you to strictly correct my grammar mistakes, typos, and factual errors. I want you to ask me a question in your reply. Now let's start practicing, you could ask me a question first. Remember, I want you to strictly correct my grammar mistakes, typos, and factual errors.")
-		  (interviewer . "I want you to act as an interviewer. I will be the candidate and you will ask me the interview questions for the position position. I want you to only reply as the interviewer. Do not write all the conservation at once. I want you to only do the interview with me. Ask me the questions and wait for my answers. Do not write explanations. Ask me the questions one by one like an interviewer does and wait for my answers. My first sentence is 'Hi'")
-		  (character . "I want you to act like {character} from {series}. I want you to respond and answer like {character} using the tone, manner and vocabulary {character} would use. Do not write any explanations. Only answer like {character}. You must know all of the knowledge of {character}. My first sentence is 'Hi {character}.'")
-		  (cybersec_specialist . "I want you to act as a cyber security specialist. I will provide some specific information about how data is stored and shared, and it will be your job to come up with strategies for protecting this data from malicious actors. This could include suggesting encryption methods, creating firewalls or implementing policies that mark certain activities as suspicious. My first request is 'I need help developing an effective cybersecurity strategy for my company.'")
-		  (prompt_enhancer . "Act as a Prompt Enhancer AI that takes user-input prompts and transforms them into more engaging, detailed, and thought-provoking questions. Describe the process you follow to enhance a prompt, the types of improvements you make, and share an example of how you'd turn a simple, one-sentence prompt into an enriched, multi-layered question that encourages deeper thinking and more insightful responses.")
-		  (journalist . "I want you to act as a journalist. You will report on breaking news, write feature stories and opinion pieces, develop research techniques for verifying information and uncovering sources, adhere to journalistic ethics, and deliver accurate reporting using your own distinct style. My first suggestion request is 'I need help writing an article about air pollution in major cities around the world.'")
-        ,@(let ((res))
-            (pcase-dolist (`(,sym ,filename)
-                           '((improve_prompt "improve_prompt.md")
-                             (create_command "create_command.md")
-                             (extract_poc "extract_poc.md")
-                             (extract_wisdom "extract_wisdom.md")
-                             (clean_text "clean_text.md")
-                             (analyze_threat_report "analyze_threat_report.md")
-                             (analyze_malware "analyze_malware.md")
-                             (analyze_incident "analyze_incident.md")
-                             (create_summary "create_summary.md")
-                             (explain_code "explain_code.md")
-                             (extract_book_recommendations "extract_book_recommendations.md")
-                             (extract_videoid "extract_videoid.md"))
-						     ;; I RAN OUT OF KEY PLACEHOLDERS
-                             ;(summarize_newsletter "summarize_newsletter.md")
-                             ;(write_micro_essay "write_micro_essay.md")
-                             ;(summarize_git_changes "summarize_git_changes.md")
-                             ;(improve_academic_writing "improve_academic_writing.md")
-                             ;(rate_content "rate_content.md")
-                             ;(get_youtube_rss "get_youtube_rss.md"))
-                           res)
-              (when-let* ((big-prompt (locate-user-emacs-file filename))
-                          (_ (file-exists-p big-prompt)))
-				(push
-				 `(,sym . ,(with-temp-buffer
-							 (insert-file-contents big-prompt)
-							 (goto-char (point-min))
-							 (when (search-forward-regexp "^#" nil t)
-                               (goto-char (match-beginning 0)))
-							 (buffer-substring-no-properties (point) (point-max))))
-				 res)))
-            res)))
-(setq-default gptel--system-message (alist-get 'default gptel-directives))
-
-;; use M-x eval-last-sexp on it to check the user emacs directory where the .md files should be located
-;(message user-emacs-directory)
-#+end_src
-
-Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
-#+begin_src emacs-lisp
-;; I set default options in gptel-menu to ALWAYS be 'm' to prompt for minibuffer (saved using 'C-xC-s')
-;; This is because I do not run elgpt-menu, cuz I set every keybind to each option
-;; Function to run gptel-send with the default options in gptel-menu
-(defun gptel-send-with-options (&optional arg)
-  "Send query.  With prefix ARG open gptel's menu instead."
-  (interactive "P")
-  (if arg
-      (call-interactively 'gptel-menu)
-    (gptel--suffix-send (transient-args 'gptel-menu))))
-
-;; Prompt from
-(global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer
-(keymap-global-set "C-M-d" "M-g ESC RET i RET")          ;; delete in place (like delete on C-d)
-
-;; Response to
-;; Option 'b' in 'gptel-menu' can't be set so u need to do: "M-g C-M-RET b"
-(keymap-global-set "C-M-q" "M-g ESC RET e RET")      ;; to echo area (I preferably use gptel command)
-(keymap-global-set "C-M-v" "M-g ESC RET g RET RET")  ;; send to gpt session (like gptel on C-M-c)
-
-;; To/out of clipboard
-(keymap-global-set "C-M-k" "M-g ESC RET y RET")      ;; prompt from kill ring
-(keymap-global-set "C-M-l" "M-g ESC RET k RET")      ;; response to kill ring (use 'M-'' to copy it to system clipboard)
-
-;; Rewrite
-(global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
-(global-set-key (kbd "C-M-s") 'gptel--suffix-rewrite)
-
-;; Normal keybinds
-(global-set-key (kbd "M-RET") 'gptel-send)
-(global-set-key (kbd "C-M-c") 'gptel)
-(global-set-key (kbd "M-\\") 'gptel-abort)
-
-;; Other
-(global-set-key (kbd "C-M-e") 'gptel-system-prompt)             ;; edit/choose prompt
-;(global-set-key (kbd "C-c e") 'gptel--suffix-system-message)   ;; I don't use it
-(global-set-key (kbd "M-i r") 'gptel--mark-response)
-(global-set-key (kbd "C-c t") 'gptel-org-set-topic)
+  ;; Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
+  ;; I set default options in gptel-menu to ALWAYS be 'm' to prompt for minibuffer (saved using 'C-xC-s')
+  ;; This is because I do not run elgpt-menu, cuz I set every keybind to each option
+  ;; Function to run gptel-send with the default options in gptel-menu
+  (defun gptel-send-with-options (&optional arg)
+    "Send query.  With prefix ARG open gptel's menu instead."
+    (interactive "P")
+    (if arg
+        (call-interactively 'gptel-menu)
+      (gptel--suffix-send (transient-args 'gptel-menu))))
+  
+  ;; Prompt from
+  (global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer
+  (keymap-global-set "C-M-d" "M-g ESC RET i RET")          ;; delete in place (like delete on C-d)
+  
+  ;; Response to
+  ;; Option 'b' in 'gptel-menu' can't be set so u need to do: "M-g C-M-RET b"
+  (keymap-global-set "C-M-q" "M-g ESC RET e RET")      ;; to echo area (I preferably use gptel command)
+  (keymap-global-set "C-M-v" "M-g ESC RET g RET RET")  ;; send to gpt session (like gptel on C-M-c)
+  
+  ;; To/out of clipboard
+  (keymap-global-set "C-M-k" "M-g ESC RET y RET")      ;; prompt from kill ring
+  (keymap-global-set "C-M-l" "M-g ESC RET k RET")      ;; response to kill ring (use 'M-'' to copy it to system clipboard)
+  
+  ;; Rewrite
+  (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
+  (global-set-key (kbd "C-M-s") 'gptel--suffix-rewrite)
+  
+  ;; Normal keybinds
+  (global-set-key (kbd "M-RET") 'gptel-send)
+  (global-set-key (kbd "C-M-c") 'gptel)
+  (global-set-key (kbd "M-\\") 'gptel-abort)
+  
+  ;; Other
+  (global-set-key (kbd "C-M-e") 'gptel-system-prompt)             ;; edit/choose prompt
+  ;(global-set-key (kbd "C-c e") 'gptel--suffix-system-message)   ;; I don't use it
+  (global-set-key (kbd "C-v r") 'gptel--mark-response)
+  (global-set-key (kbd "C-c t") 'gptel-org-set-topic))
 #+end_src
 
 ** Drag-stuff
@@ -3034,7 +3032,7 @@ this with to-do items than with projects or headings."
 (use-package org-roam
   :ensure t
   :custom
-  (org-roam-directory "~/documents/org/roam/red-team")
+  (org-roam-directory "~/documents/org/roam/")
   (org-roam-dailies-directory "~/documents/org/roam/journal/")
   (org-roam-completion-everywhere t)
   (org-roam-graph-viewer "/usr/bin/brave-browser")
