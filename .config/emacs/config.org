@@ -132,9 +132,10 @@
 ;(define-key global-map (kbd "C-x") (make-sparse-keymap))
 ;(define-key global-map (kbd "C-h") (make-sparse-keymap))
 (global-unset-key (kbd "C-x"))
-(global-unset-key (kbd "M-g"))
+;(global-unset-key (kbd "M-g"))
 
 ;; Unbinding Global Keybindings
+(define-key global-map (kbd "M-g") 'gptel-menu)
 (define-key global-map (kbd "M-,") nil)
 (define-key global-map (kbd "M-C-n") nil)
 (define-key global-map (kbd "M-C-b") nil)
@@ -1992,8 +1993,9 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(message user-emacs-directory)
 
   ;; Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
-  ;; I set default options in gptel-menu to ALWAYS be 'm' to prompt for minibuffer (saved using 'C-xC-s')
-  ;; This is because I do not run elgpt-menu, cuz I set every keybind to each option
+  ;; FIRST SETUP: open 'gptel-menu' and press 'm' and 'e', then press 'C-xC-s' to save the option, then you can use 'C-M-a' keybid for the default option
+  ;; I do not use 'gptel-menu' because I set every keybind to each option
+
   ;; Function to run gptel-send with the default options in gptel-menu
   (defun gptel-send-with-options (&optional arg)
     "Send query.  With prefix ARG open gptel's menu instead."
@@ -2002,22 +2004,18 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
         (call-interactively 'gptel-menu)
       (gptel--suffix-send (transient-args 'gptel-menu))))
   
-  ;; Prompt from
-  (global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer
-  (keymap-global-set "C-M-d" "M-g ESC RET i RET")          ;; delete in place (like delete on C-d)
-  
-  ;; Response to
-  ;; Option 'b' in 'gptel-menu' can't be set so u need to do: "M-g C-M-RET b"
-  (keymap-global-set "C-M-q" "M-g ESC RET e RET")      ;; to echo area (I preferably use gptel command)
-  (keymap-global-set "C-M-v" "M-g ESC RET g RET RET")  ;; send to gpt session (like gptel on C-M-c)
-  
-  ;; To/out of clipboard
-  (keymap-global-set "C-M-k" "M-g ESC RET y RET")      ;; prompt from kill ring
-  (keymap-global-set "C-M-l" "M-g ESC RET k RET")      ;; response to kill ring (use 'M-'' to copy it to system clipboard)
+  ;; Prompt options
+  (global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer to echo area
+  (keymap-global-set "C-M-k" "M-g m y RET")                ;; prompt from kill ring
+  (keymap-global-set "C-M-d" "M-g e m i RET")              ;; respond in place (like delete on C-d)
+  ;(keymap-global-set "C-M-q" "M-g m RET")                 ;; to echo area (I preferably use gptel command)
+  ;(keymap-global-set "C-M-v" "M-g e g RET RET")           ;; send to gpt session
+  ;(keymap-global-set "C-M-l" "M-g k RET")                 ;; response to kill ring (use 'M-'' to copy it to system clipboard)
   
   ;; Rewrite
-  (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
-  (global-set-key (kbd "C-M-s") 'gptel--suffix-rewrite)
+  (global-set-key (kbd "C-M-r") 'gptel-rewrite)
+  ;(global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
+  ;(global-set-key (kbd "C-M-s") 'gptel--suffix-rewrite)
   
   ;; Normal keybinds
   (global-set-key (kbd "M-RET") 'gptel-send)
