@@ -15,7 +15,7 @@ export CXX=/usr/bin/gcc
 
 # Configure and build Emacs
 ./autogen.sh
-./configure --prefix=/usr/local --with-native-compilation --with-pgtk --with-dbus --with-gif --with-jpeg --with-png --with-rsvg --with-tiff --with-xft --with-xpm --with-gpm=no --with-imagemagick --with-json --with-xwidgets --with-modules --without-pop
+./configure --prefix=/usr/local --with-native-compilation --with-pgtk --with-dbus --with-gif --with-jpeg --with-png --with-rsvg --with-tiff --with-xft --with-xpm --with-gpm=no --with-imagemagick --with-modules --without-pop --with-mailutils
 make -j$(nproc)
 sudo make install
 
