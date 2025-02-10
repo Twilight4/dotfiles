@@ -2153,8 +2153,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-c") #'surround-code)
   (define-key god-local-mode-map (kbd "C-S-v") #'surround-underline)
   ;; Same keybinds as without god-mode (S-key instead of M-key)
-  (define-key god-local-mode-map (kbd "S-RET") #'gptel-send)
-  (define-key god-local-mode-map (kbd "C-|") #'gptel-abort)
+  ;(define-key god-local-mode-map (kbd "S-RET") #'gptel-send)
+  ;(define-key god-local-mode-map (kbd "C-|") #'gptel-abort)
 
   (require 'god-mode-isearch)
   (define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
