@@ -213,6 +213,9 @@
 (global-set-key (kbd "C-u") 'tl/newline-at-end-of-line)
 (global-set-key (kbd "C-\\") 'universal-argument)
 (global-set-key (kbd "C-t") 'zap-up-to-char)
+;; Minibuffer
+(define-key minibuffer-local-map (kbd "C-j") 'next-line)
+(define-key minibuffer-local-map (kbd "C-k") 'previous-line)
 ;; Centaur tabs/buffers
 ;(global-set-key (kbd "M-n") 'tl/better-next-buffer)
 ;(global-set-key (kbd "M-p") 'tl/better-previous-buffer)
@@ -630,6 +633,7 @@
  ;; Expand-region
  "e" '(org-mark-element :wk "Mark element")       
  "b" '(org-babel-mark-block :wk "Mark code block")
+ "p" '(er/mark-paragraph :wk "Mark paragraph")
  "w" '(er/mark-word :wk "Mark word")
  "h" '(er/mark-symbol :wk "Mark symbol")
  "H" '(er/mark-symbol-with-prefix :wk "Mark symbol with prefix")
@@ -2053,7 +2057,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   
   ;; Rewrite
   (global-set-key (kbd "C-M-r") 'gptel-rewrite)
-  ;(global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite-and-replace)
   ;(global-set-key (kbd "C-M-s") 'gptel--suffix-rewrite)
   
   ;; Normal keybinds
@@ -2063,9 +2066,15 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   
   ;; Other
   (global-set-key (kbd "C-M-e") 'gptel-system-prompt)             ;; edit/choose prompt
+  (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
   ;(global-set-key (kbd "C-c e") 'gptel--suffix-system-message)   ;; I don't use it
   (global-set-key (kbd "C-v r") 'gptel--mark-response)
-  (global-set-key (kbd "C-c t") 'gptel-org-set-topic))
+
+  ;; Response options
+  ;(global-set-key (kbd "C-x ") 'gptel--regenerate)
+  ;(global-set-key (kbd "C-x ") 'gptel--next-variant)
+  ;(global-set-key (kbd "C-x ") 'gptel--previous-variant)
+)
 #+end_src
 
 ** Drag-stuff
@@ -2130,7 +2139,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-q") #'goto-last-change)
   (define-key god-local-mode-map (kbd "C-S-o") #'goto-last-change-reverse)
   (define-key god-local-mode-map (kbd "C-;") #'recenter-top-bottom)
-  (define-key god-local-mode-map (kbd "C-S-;") #'move-to-window-line-top-bottom)
+  (define-key god-local-mode-map (kbd "C-:") #'move-to-window-line-top-bottom)
   (define-key god-local-mode-map (kbd "C-t") #'zap-up-to-char)
   (define-key god-local-mode-map (kbd "C-u") #'tl/newline-at-end-of-line)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Press 't' to replace chars
