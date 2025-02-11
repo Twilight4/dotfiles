@@ -134,10 +134,10 @@
 ;(define-key global-map (kbd "C-x") (make-sparse-keymap))
 ;(define-key global-map (kbd "C-h") (make-sparse-keymap))
 (global-unset-key (kbd "C-x"))
+(local-unset-key (kbd "C-x n"))
 ;(global-unset-key (kbd "M-g"))
 
 ;; Unbinding Global Keybindings
-(define-key global-map (kbd "M-g") 'gptel-menu)
 (define-key global-map (kbd "M-r") nil)
 (define-key global-map (kbd "M-,") nil)
 (define-key global-map (kbd "M-C-n") nil)
@@ -405,7 +405,7 @@
   (tl/leader-keys
     "," '(consult-recent-file :wk "Find recent files")
     "." '(find-file :wk "Find file")
-    "p" '(org-gtd-process-inbox :wk "Process inbox")  ;; process inbox.org
+    "i" '(org-gtd-process-inbox :wk "Process inbox")  ;; process inbox.org
     "b" '(consult-buffer :wk "Switch to buffer")
     "w" '(elfeed :wk "Newsfeed")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
@@ -580,7 +580,8 @@
  "k" '(tl/org-narrow-backward :wk "Narrow backward")
  "l" '(org-narrow-to-subtree :wk "Narrow to subtree")
  "C-u" '(org-narrow-to-block :wk "Narrow to block")
- "C-g" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
+ ;"C-e" '(org-narrow-to-element :wk "Narrow to element")
+ ;"C-g" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
  "C-q" '(org-insert-subheading :wk "Insert subheading")
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
  ;"I" '(org-toggle-inline-images :wk "Display inline images")    ;; emacs GUI
@@ -1964,14 +1965,14 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
   ;; Set as the default gptel backend to OpenRouter.
-  (setq gptel-model   'google/gemini-2.0-flash-exp:free
+  (setq gptel-model   'google/gemini-2.0-flash-thinking-exp:free
        gptel-backend
        (gptel-make-openai "OpenRouter"               ;Any name you want
          :host "openrouter.ai"
          :endpoint "/api/v1/chat/completions"
          :stream t
          :key "your-api-key"        ;can be a function that returns the key
-         :models '(google/gemini-2.0-flash-exp:free)))
+         :models '(google/gemini-2.0-flash-thinking-exp:free)))
                    ;openai/gpt-3.5-turbo
                    ;mistralai/mixtral-8x7b-instruct
                    ;meta-llama/codellama-34b-instruct
@@ -2047,22 +2048,30 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
         (call-interactively 'gptel-menu)
       (gptel--suffix-send (transient-args 'gptel-menu))))
   
-  ;; Prompt options
-  (global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer to echo area
-  (keymap-global-set "C-M-k" "M-g m y RET")                ;; prompt from kill ring
-  (keymap-global-set "C-M-d" "M-g e m i RET")              ;; respond in place
-  ;(keymap-global-set "C-M-q" "M-g m RET")                 ;; to echo area (I preferably use gptel command)
-  ;(keymap-global-set "C-M-v" "M-g e g RET RET")           ;; send to gpt session
-  ;(keymap-global-set "C-M-l" "M-g k RET")                 ;; response to kill ring (use 'M-'' to copy it to system clipboard)
-  
-  ;; Rewrite
-  (global-set-key (kbd "C-M-r") 'gptel-rewrite)
-  ;(global-set-key (kbd "C-M-s") 'gptel--suffix-rewrite)
-  
-  ;; Normal keybinds
+  ;; Prompt menus
+  (define-key global-map (kbd "C-x g") 'gptel-menu)
+  (define-key global-map (kbd "C-x G") 'gptel-rewrite)
+  (global-set-key (kbd "C-x v") 'gptel)
+
+  ;; Send request
   (global-set-key (kbd "M-RET") 'gptel-send)
-  (global-set-key (kbd "C-M-c") 'gptel)
   (global-set-key (kbd "M-\\") 'gptel-abort)
+  (global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer to echo area
+  (keymap-global-set "C-M-k" "C-x g m y RET")                ;; prompt from kill ring
+  ;(keymap-global-set "C-M-d" "C-x g e i RET")              ;; respond in place
+  ;(keymap-global-set "C-M-q" "C-x g m RET")                 ;; to echo area (I preferably use gptel command)
+  ;(keymap-global-set "C-M-v" "C-x g e g RET RET")           ;; send to gpt session
+  ;(keymap-global-set "C-M-l" "C-x g k RET")                 ;; response to kill ring (use 'M-'' to copy it to system clipboard)
+  
+  ;; Rewrite (applies to all rewrites)
+  (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite)
+  (global-set-key (kbd "C-x E") 'gptel--rewrite-directive-menu)
+  (global-set-key (kbd "C-x n") 'gptel--rewrite-next)
+  (global-set-key (kbd "C-x p") 'gptel--rewrite-previous)
+  (keymap-global-set "C-x C-d" "C-x G D")      ; diff - C-c C-d at point
+  (keymap-global-set "C-x f" "C-x G A")        ; accept - C-c C-a at point
+  (keymap-global-set "C-x d" "C-x G K")        ; reject - C-c C-k at point
+  (keymap-global-set "C-x m" "C-x G M")        ; merge - C-c RET at point
   
   ;; Other
   (global-set-key (kbd "C-M-e") 'gptel-system-prompt)             ;; edit/choose prompt
@@ -2071,9 +2080,9 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (global-set-key (kbd "C-v r") 'gptel--mark-response)
 
   ;; Response options
-  ;(global-set-key (kbd "C-x ") 'gptel--regenerate)
-  ;(global-set-key (kbd "C-x ") 'gptel--next-variant)
-  ;(global-set-key (kbd "C-x ") 'gptel--previous-variant)
+  (global-set-key (kbd "C-x C-r") 'gptel--regenerate)
+  (global-set-key (kbd "C-x C-f") 'gptel--next-variant)
+  (global-set-key (kbd "C-x C-b") 'gptel--previous-variant)
 )
 #+end_src
 
@@ -3291,7 +3300,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
   :config
   (org-edna-mode)
   :bind
-  (("C-x i" . org-gtd-clarify-item)  ;; Used in org-gtd-tasks.org buffer for quick changes
+  (;("C-x i" . org-gtd-clarify-item)  ;; Used in org-gtd-tasks.org buffer for quick changes
    ;("C-c a" . org-gtd-clarify-agenda-item)  ;; Used in org-gtd-agenda-view
    ;("C-c A" . org-gtd-area-of-focus-set-on-agenda-item)  ;; Used in org-gtd-agenda-view
    :map org-gtd-clarify-map
