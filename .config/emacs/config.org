@@ -421,7 +421,7 @@
 	  ;"C-p" '(find-file-at-point :wk "Find file at point")
 	  "TAB" '(comment-dwim :wk "Comment lines")
 	  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
-	  "C-v" '(tl/open-video-link-in-mpv :wk "Open video in mpv"))
+	  "v" '(tl/open-video-link-in-mpv :wk "Open video in mpv"))
 	  ;; Buffers
     ;"C-q" '(delete-frame :wk "Delete frame")
     ;"C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
@@ -639,7 +639,7 @@
  "h" '(er/mark-symbol :wk "Mark symbol")
  "H" '(er/mark-symbol-with-prefix :wk "Mark symbol with prefix")
  "a" '(er/mark-next-accessor :wk "Mark next accessor")
- "c" '(er/mark-method-call :wk "Mark method call")
+ "," '(er/mark-method-call :wk "Mark method call")
  "q" '(er/mark-inside-quotes :wk "Mark inside quotes")
  "Q" '(er/mark-outside-quotes :wk "Mark outside quotes")
  "j" '(er/mark-inside-pairs :wk "Mark inside pairs")
@@ -651,7 +651,7 @@
  ;"l" '(er/mark-sentence :wk "Mark sentence")
  ;"L" '(er/mark-paragraph :wk "Mark paragraph")
  ;; Copy surround automation
- "," '(copy-surrounded-by-equals :wk "Copy org equals command")
+ "c" '(copy-surrounded-by-equals :wk "Copy org equals command")
  "m" '(copy-surrounded-by-stars :wk "Copy org stars command")
 ))
 #+end_src
@@ -2051,7 +2051,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;; Prompt menus
   (define-key global-map (kbd "C-x g") 'gptel-menu)
   (define-key global-map (kbd "C-x G") 'gptel-rewrite)
-  (global-set-key (kbd "C-x v") 'gptel)
+  (global-set-key (kbd "C-x C-v") 'gptel)
 
   ;; Send request
   (global-set-key (kbd "M-RET") 'gptel-send)
