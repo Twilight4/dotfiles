@@ -151,7 +151,7 @@ packages=(
   "proton-vpn-gtk-app"
   "proton-mail-bin"
   "libayatana-appindicator"
-  "dunst"
+  "swaync"
   "libnotify"
   "zsh"
   "zsh-autosuggestions"

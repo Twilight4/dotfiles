@@ -44,7 +44,7 @@ install_symlinks() {
 	_installSymLink zsh ~/.config/zsh ~/dotfiles/.config/zsh/ ~/.config
 	_installSymLink user-dirs.dirs ~/.config/user-dirs.dirs ~/dotfiles/.config/user-dirs.dirs ~/.config
 	_installSymLink rofi ~/.config/rofi ~/dotfiles/.config/rofi/ ~/.config
-	_installSymLink dunst ~/.config/dunst ~/dotfiles/.config/dunst/ ~/.config
+	_installSymLink swaync ~/.config/swaync ~/dotfiles/.config/swaync/ ~/.config
 	_installSymLink hypr ~/.config/hypr ~/dotfiles/.config/hypr/ ~/.config
 	_installSymLink waybar ~/.config/waybar ~/dotfiles/.config/waybar/ ~/.config
 	_installSymLink swaylock ~/.config/swaylock ~/dotfiles/.config/swaylock/ ~/.config

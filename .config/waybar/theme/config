@@ -21,13 +21,13 @@
 
     // Modules Left
     "modules-left": [
-        "custom/filemanager",
+        //"custom/filemanager",
 		    //"custom/windowsvm",
 		    //"custom/qemu",
-		    "custom/pmail",
-		    "custom/pvpn",
-		    "custom/telegram",
-		    "custom/steam",
+		    //"custom/pmail",
+		    //"custom/pvpn",
+		    //"custom/telegram",
+		    //"custom/steam",
         "wlr/taskbar",
         "hyprland/window",
     ],
@@ -50,9 +50,9 @@
         "battery", 
         "tray",
         "custom/notifications",
-        "custom/dock-toggle",
-        "custom/screenlock",
-        "custom/ags-sidebar",
+        //"custom/dock-toggle",
+        //"custom/screenlock",
+        //"custom/ags-sidebar",
         "custom/exit",
     ],
 
