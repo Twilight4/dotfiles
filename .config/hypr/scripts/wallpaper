@@ -30,6 +30,8 @@ case $1 in
             swaybg -m fill -i $current_wallpaper&
             notify-send "Colors and Wallpaper updated" "with image $(cat "$cache_file" | sed "s|$HOME/pictures/wallpapers/||g")"
             wal -q -i $current_wallpaper -s -t
+
+            ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
         else
             swaybg -m fill -i ${RANDOMPICS}&
             notify-send "Colors and Wallpaper updated" "with image $newwall"
@@ -38,6 +40,8 @@ case $1 in
             echo "$RANDOMPICS" > "$cache_file"
             echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
             echo "* { current-image: url(\"$RANDOMPICS\", width); }" > "$rasi_file2"
+
+            ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
         fi
     ;;
 
@@ -59,6 +63,8 @@ case $1 in
         echo "$HOME/pictures/wallpapers/$selected" > "$cache_file"
         echo "* { current-image: url(\"$HOME/pictures/wallpapers/$selected\", height); }" > "$rasi_file"
         echo "* { current-image: url(\"$HOME/pictures/wallpapers/$selected\", width); }" > "$rasi_file2"
+
+        ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
     ;;
 
     # Randomly select wallpaper 
@@ -71,6 +77,8 @@ case $1 in
         echo "$RANDOMPICS" > "$cache_file"
         echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
         echo "* { current-image: url(\"$RANDOMPICS\", width); }" > "$rasi_file2"
+
+        ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
         ;;
 esac
 
