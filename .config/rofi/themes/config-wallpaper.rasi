@@ -1,0 +1,91 @@
+/* config - Wallpaper select */
+
+configuration {
+    modi:                        "drun";
+    show-icons:                  true;
+  	drun-display-format:         "{name}";
+    hover-select:                true;
+    font:                       "JetBrains Mono Nerd Font Bold 11";
+
+	/*---------- Keybindings ----------*/
+    kb-remove-to-eol: "";
+    kb-remove-char-back: "";
+    kb-mode-complete: "";
+    kb-row-tab: "";
+    kb-element-next: "";
+    kb-element-prev: "";
+    kb-clear-line: "";
+
+    kb-accept-entry: "Control+m,Return,KP_Enter";
+    kb-row-up: "Up,Control+k";
+    kb-row-down: "Down,Control+j";
+    kb-move-char-back: "Left,Control+h";
+    kb-move-char-forward: "Right,Control+l";
+    kb-mode-next: "Tab";
+    kb-mode-previous: "ISO_Left_Tab";
+    kb-remove-char-back: "BackSpace";
+    kb-primary-paste: "Control+y";
+    kb-remove-word-back: "Control+w";
+}
+/* Config and colors ----------------------------------------------- */
+
+@import "default.rasi"
+
+/* Main Window ------------------------------------------------ */
+window {
+    width:                       100%;
+    height:                      100%;
+    margin:                      0px;
+    padding:                     0px;
+}
+
+/* Main Box --------------------------------------------------- */
+mainbox {
+    children:                    [ "listview" ];
+    background-color:            transparent;
+
+    spacing:                     24px;
+    margin:                      0px;
+    padding:                     64px;
+}
+
+/* ---- List ---- */
+listview {
+    columns:                     4;
+    lines:                       4;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+
+    background-color:           transparent;
+    text-color:                 @foreground;
+
+    spacing:                     0px;
+    margin:                      0px;
+    padding:                     0px;
+}
+
+/* Elements --------------------------------------------------- */
+element {
+    cursor:                      pointer;
+    border-radius:               36px;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    orientation:                 vertical;
+
+    spacing:                     0px;
+    margin:                      0px;
+    padding:                     0px;
+}
+
+element-icon {
+    expand:                      false;
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        26%;
+    cursor:                      inherit;
+}

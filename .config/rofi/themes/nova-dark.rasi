@@ -4,6 +4,8 @@ configuration {
 	/*---------- Display setting ----------*/
 	  modi:                      "drun,run,filebrowser";
     show-icons:                 true;
+	  display-window:             "Windows";
+	  display-windowcd:           "Window CD";
     display-calc:               " ";
 	  display-run:                "Run";
 	  display-ssh:                "SSH";
@@ -12,7 +14,7 @@ configuration {
 	  display-keys:               "Keys";
 	  display-filebrowser:        "Files";
   	drun-display-format:        "{name}";
-    font:                        "JetBrains Mono Nerd Font Bold 12";
+    font:                       "JetBrains Mono Nerd Font Bold 12";
 
 	/*---------- Keybindings ----------*/
     kb-remove-to-eol: "";
@@ -77,7 +79,7 @@ mainbox {
 
 /* Inputbar --------------------------------------------------- */
 inputbar {
-    children:                    [ "prompt", "entry" ];
+    children:                     [ "textbox-prompt-colon", "entry" ];
 
     border-radius:               12px;
     background-color:            @shade-bg;
@@ -95,7 +97,7 @@ prompt {
 
 textbox-prompt-colon {
     expand:                      false;
-    str:                         "::";
+    str:                         " ";
     background-color:            transparent;
     text-color:                  inherit;
 }
@@ -104,8 +106,8 @@ textbox-prompt-colon {
 entry {
     background-color:            transparent;
     text-color:                  inherit;
-    cursor:                      inherit;
-    placeholder:                 " ";
+    cursor:                      text;
+    placeholder:                 "Search";
     placeholder-color:           inherit;
 }
 

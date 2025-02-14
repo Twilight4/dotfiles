@@ -29,8 +29,8 @@ alias lti='lsd --tree --hyperlink=auto --ignore-glob'
 
 # basic
 alias mkdir="mkdir -p"
-#alias cp='xcp'        # bad idea
-alias cpe='xcp --exclude'
+#alias ci='xcp'     # breaks fzf
+#alias cie='xcp --exclude'
 alias tailf="tail -f"
 alias headn="head -n"
 alias mv='mv -v'    #mvi is in scripts.zsh
