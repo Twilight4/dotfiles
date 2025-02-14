@@ -67,7 +67,7 @@ rofi_cmd() {
     -i \
     -replace \
 		-markup-rows \
-    -config ~/.config/rofi/configs/config-compact.rasi
+    -config ~/.config/rofi/themes/config-compact.rasi
 }
 
 # Function to get search query using Rofi
