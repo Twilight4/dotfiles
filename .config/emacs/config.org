@@ -1971,7 +1971,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
          :host "openrouter.ai"
          :endpoint "/api/v1/chat/completions"
          :stream t
-         :key "your-api-key"        ;can be a function that returns the key
+         :key ""        ;can be a function that returns the key
          :models '(google/gemini-2.0-flash-thinking-exp:free)))
                    ;openai/gpt-3.5-turbo
                    ;mistralai/mixtral-8x7b-instruct
@@ -2053,11 +2053,13 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key global-map (kbd "C-x G") 'gptel-rewrite)
   (global-set-key (kbd "C-x C-v") 'gptel)
 
-  ;; Send request
-  (global-set-key (kbd "M-RET") 'gptel-send)
-  (global-set-key (kbd "M-\\") 'gptel-abort)
-  (global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer to echo area
-  (keymap-global-set "C-M-k" "C-x g m y RET")                ;; prompt from kill ring
+  ;; TODO Send request - change keybindings to work in god-mode
+  ;(global-set-key (kbd "M-RET") 'gptel-send)
+  ;(global-set-key (kbd "M-\\") 'gptel-abort)
+  ;(global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer to echo area
+  ;(keymap-global-set "C-M-k" "C-x g m y RET")                ;; prompt from kill ring
+
+  ;; Doesn't work
   ;(keymap-global-set "C-M-d" "C-x g e i RET")              ;; respond in place
   ;(keymap-global-set "C-M-q" "C-x g m RET")                 ;; to echo area (I preferably use gptel command)
   ;(keymap-global-set "C-M-v" "C-x g e g RET RET")           ;; send to gpt session
