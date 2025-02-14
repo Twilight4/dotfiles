@@ -19,11 +19,6 @@ install_full_repo() {
     mkdir -vp ~/.cache/
     git clone --depth 1 https://github.com/Twilight4/wallpapers ~/pictures/wallpapers
     rm -rvf ~/pictures/wallpapers/.git
-
-    # move non-png wallpapers to other directory so hyprlock always worsk with current wallpaper
-    mkdir -vp ~/pictures/wallpapers-non-png
-    find ~/pictures/wallpapers -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.gif" \) -exec mv {} ~/pictures/wallpapers-non-png \;
-
     [ -f ~/pictures/wallpapers/default.jpg ] && cp -v ~/pictures/wallpapers/default.jpg ~/.cache/ && echo "Copied default.jpg" || echo "default.jpg does not exist."
     echo
     echo "Wallpapers installed successfully."
