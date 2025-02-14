@@ -211,6 +211,16 @@
 ;(global-set-key (kbd "C-c C-SPC")
 ;                (lambda () (interactive) (insert "\u200B")))
 
+;; Info-mode
+(eval-after-load 'info
+  '(progn
+     (define-key Info-mode-map "j" 'next-line)
+     (define-key Info-mode-map "k" 'previous-line)
+     (define-key Info-mode-map "l" 'forward-char)
+     (define-key Info-mode-map "h" 'backward-char)
+     (define-key Info-mode-map "." 'forward-paragraph)
+     (define-key Info-mode-map "," 'backward-paragraph)))
+
 ;; Org-agenda
 ;(add-hook 'org-agenda-mode-hook
 ;          (lambda ()
