@@ -39,7 +39,6 @@
   - [[#kill-whole-line-adjustment][Kill-whole-line adjustment]]
   - [[#copy-current-line][Copy current line]]
   - [[#toggle-selection-mode][Toggle selection mode]]
-  - [[#backwardforward-word-adjustment][Backward/Forward word adjustment]]
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
   - [[#no-littering][No-littering]]
@@ -207,6 +206,7 @@
 (global-set-key (kbd "C-l") 'forward-char)
 (global-set-key (kbd "C-f") 'forward-word)
 (global-set-key (kbd "C-b") 'backward-word)
+(global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
 (global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
@@ -216,76 +216,14 @@
 ;; Minibuffer
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
-;; Centaur tabs/buffers
-;(global-set-key (kbd "M-n") 'tl/better-next-buffer)
-;(global-set-key (kbd "M-p") 'tl/better-previous-buffer)
 ;; Execute kmacro
 (global-set-key (kbd "<f5>") 'consult-kmacro)
 ;; Org tansclusion package
 (define-key global-map (kbd "<f12>") #'org-transclusion-add)
+
 ;; Zero-width space (this is an exception keybinding)
 ;(global-set-key (kbd "C-c C-SPC")
 ;                (lambda () (interactive) (insert "\u200B")))
-
-;; Rebinding join/new line
-;;(global-set-key (kbd "C-key") 'join-line)
-;; Redo
-;(global-set-key (kbd "M-/") 'undo-redo)
-;; Indent region
-;(global-set-key (kbd "C-\\") 'indent-region)
-;; Zap to char
-;(global-set-key (kbd "C-z") 'zap-up-to-char)
-;(global-set-key (kbd "C-t") 'zap-to-char)
-;(global-set-key (kbd "M-a") 'tl/previous-sentence)
-;(global-set-key (kbd "M-e") 'tl/next-sentence)
-;(global-set-key (kbd "M-<") 'beginning-of-buffer)
-;(global-set-key (kbd "M->") 'end-of-buffer)
-;; Skip whole words keys
-;(global-set-key (kbd "M-b") 'tl-backward-word)
-;(global-set-key (kbd "M-f") 'tl-forward-word)
-;; Forward/Backward paragraph
-;(global-set-key (kbd "M-.") 'org-forward-paragraph)
-;(global-set-key (kbd "M-,") 'org-backward-paragraph)
-;; Copy current line
-;(global-set-key (kbd "M-W") 'tl/copy-current-line)
-;; Toggle mark command
-;(global-set-key (kbd "C-@") 'toggle-mark-command)
-;; Deleting keys
-;(global-set-key (kbd "C-u") 'kill-to-beginning-of-line)
-;(global-set-key (kbd "M-u") 'backward-kill-sentence)
-;(global-set-key (kbd "C-M-o") 'tl/kill-sentence)
-;(global-set-key (kbd "C-M-u") 'tl/backward-kill-sentence)
-;; Upgraded clipboard functions
-;(global-set-key (kbd "M-w") 'copy-to-system-clipboard)
-(global-set-key (kbd "C-w") 'backward-kill-word)
-;(global-set-key (kbd "C-h") 'kill-region-or-backward-delete)
-;(global-set-key (kbd "C-M-h") 'tl/kill-copy-whole-line)
-;(global-set-key (kbd "M-y") 'consult-yank-pop)
-;; Zooming keys
-;(global-set-key (kbd "C-z") 'recenter-top-bottom)
-;(global-set-key (kbd "M-z") 'move-to-window-line-top-bottom)
-;(global-set-key (kbd "<backspace>") 'hungry-delete-backward)
-;(global-set-key (kbd "<delete>") 'hungry-delete-forward)
-;(global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
-;(global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
-;(global-set-key (kbd "M-u") 'kill-this-buffer)
-;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
-;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
-;; Org Mode Keybindings - commented out won't work in terminal
-;; Org heading structure - M-Ret keys for headings
-;(define-key org-mode-map (kbd "M-RET") 'org-insert-heading-respect-content)
-;(define-key org-mode-map (kbd "M-S-RET") 'org-insert-subheading)
-;(define-key org-mode-map (kbd "S-RET") 'org-toggle-item)
-;(define-key org-mode-map (kbd "C-RET") 'org-meta-return)
-;(define-key org-mode-map (kbd "C-S-RET") 'org-insert-todo-heading)
-;; Org heading navigation
-;(define-key org-mode-map (kbd "M-h") #'org-previous-visible-heading)
-;(define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)
-;(define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)
-;(define-key org-mode-map (kbd "M-l") #'org-next-visible-heading)
-;; Org roam dailies
-;;(define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
-;;(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 
 ;; Org-agenda
 ;(add-hook 'org-agenda-mode-hook
@@ -294,99 +232,6 @@
 ;	          (local-set-key (kbd "x") 'tl/org-agenda-done)
 ;            (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
 ;            (local-set-key (kbd "N") 'tl/org-agenda-new)))
-
-;; Treemacs global keybinds
-;(global-set-key (kbd "C-c C-w s") 'treemacs-switch-workspace)
-;(global-set-key (kbd "C-c C-w r") 'treemacs-rename-workspace)
-;(global-set-key (kbd "C-c C-w a") 'treemacs-create-workspace)
-;(global-set-key (kbd "C-c C-w d") 'treemacs-remove-workspace)
-;(global-set-key (kbd "C-c C-w e") 'treemacs-edit-workspaces)
-;(global-set-key (kbd "C-c C-w n") 'treemacs-next-workspace)
-;(global-set-key (kbd "C-c C-w f") 'treemacs-set-fallback-workspace)
-;(global-set-key (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
-;(global-set-key (kbd "C-c C-p p") 'treemacs-projectile)
-;(global-set-key (kbd "C-c C-p d") 'treemacs-remove-project-from-workspace)
-;(global-set-key (kbd "C-c C-p r") 'treemacs-rename-project)
-;(global-set-key (kbd "C-c C-p c c") 'treemacs-collapse-project)
-;(global-set-key (kbd "C-c C-p c o") 'treemacs-collapse-all-projects)
-;(global-set-key (kbd "S-TAB") 'treemacs-collapse-all-projects)
-(global-set-key (kbd "M-I") 'treemacs)
-;(global-set-key (kbd "C-c C-w b") 'treemacs-bookmark)
-;(global-set-key (kbd "C-c C-w C-f") 'treemacs-find-file)
-;(global-set-key (kbd "C-c C-w C-t") 'treemacs-find-tag)
-;(global-set-key (kbd "C-c C-w w") 'treemacs-select-window)
-;(global-set-key (kbd "C-c C-w C-d") 'treemacs-select-directory)
-;(global-set-key (kbd "C-c C-w 1") 'treemacs-delete-other-windows)
-;(global-set-key (kbd "C-c C-w C-h") 'treemacs-show-changelog)
-;(global-set-key (kbd "C-c C-w t") 'treemacs-load-theme)
-;(global-set-key (kbd "C-c C-w i") 'treemacs-icon-catalogue)
-;(global-set-key (kbd "C-c C-w n") 'treemacs-narrow-to-current-file)
-;(global-set-key (kbd "C-c C-w p") 'treemacs-create-workspace-from-project)
-;(global-set-key (kbd "C-c C-p P") 'treemacs-projectile)
-;(global-set-key (kbd "C-c C-p C-a") 'treemacs-add-and-display-current-project)
-;(global-set-key (kbd "C-c C-p C-e") 'treemacs-add-and-display-current-project-exclusively)
-;(global-set-key (kbd "C-c C-w C-s") 'treemacs-select-scope-type)
-
-;; Treemacs-mode keybinds
-(with-eval-after-load 'treemacs
-  ;; General Keybinds
-  (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
-  (define-key treemacs-mode-map (kbd "j") 'treemacs-next-line)
-  (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
-  (define-key treemacs-mode-map (kbd "h") 'treemacs-root-up)
-  (define-key treemacs-mode-map (kbd "l") 'treemacs-root-down)
-  (define-key treemacs-mode-map (kbd "u") 'treemacs-goto-parent-node)
-  ;(define-key treemacs-mode-map (kbd "H") 'treemacs-collapse-parent-node)
-  (define-key treemacs-mode-map (kbd "M-j") 'treemacs-next-neighbour)
-  (define-key treemacs-mode-map (kbd "M-k") 'treemacs-previous-neighbour)
-  (define-key treemacs-mode-map (kbd "M-p") 'treemacs-move-project-up)
-  (define-key treemacs-mode-map (kbd "M-n") 'treemacs-move-project-down)
-  (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
-  (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
-  (define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
-  (define-key treemacs-mode-map (kbd "=") 'treemacs-fit-window-width)
-  (define-key treemacs-mode-map (kbd "W") 'treemacs-extra-wide-toggle)
-  (define-key treemacs-mode-map (kbd "<") 'treemacs-decrease-width)
-  (define-key treemacs-mode-map (kbd ">") 'treemacs-increase-width)
-  (define-key treemacs-mode-map (kbd "g") 'treemacs-refresh)
-  (define-key treemacs-mode-map (kbd "d") 'treemacs-delete-file)
-  (define-key treemacs-mode-map (kbd "r") 'treemacs-rename-file)
-  (define-key treemacs-mode-map (kbd "m") 'treemacs-move-file)
-  (define-key treemacs-mode-map (kbd "cf") 'treemacs-create-file)
-  (define-key treemacs-mode-map (kbd "cd") 'treemacs-create-dir)
-  (define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
-  (define-key treemacs-mode-map (kbd "Q") 'treemacs-kill-buffer)
-  (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
-  (define-key treemacs-mode-map (kbd "s") 'treemacs-resort)
-  (define-key treemacs-mode-map (kbd "b") 'treemacs-add-bookmark)
-  (define-key treemacs-mode-map (kbd "\\!") 'treemacs-run-shell-command-for-current-node)
-  (define-key treemacs-mode-map (kbd "M-!") 'treemacs-run-shell-command-in-project-root)
-  (define-key treemacs-mode-map (kbd "C") 'treemacs-cleanup-litter)
-  (define-key treemacs-mode-map (kbd "RET") 'treemacs-visit-node-no-split)
-
-  ;; Copy Keybinds
-  (define-key treemacs-mode-map (kbd "ya") 'treemacs-copy-absolute-path-at-point)
-  (define-key treemacs-mode-map (kbd "yr") 'treemacs-copy-relative-path-at-point)
-  (define-key treemacs-mode-map (kbd "yp") 'treemacs-copy-project-path-at-point)
-  (define-key treemacs-mode-map (kbd "yf") 'treemacs-copy-file)
-
-  ;; Toggle Keybinds
-  (define-key treemacs-mode-map (kbd "th") 'treemacs-toggle-show-dotfiles)
-  (define-key treemacs-mode-map (kbd "ti") 'treemacs-hide-gitignored-files-mode)
-  (define-key treemacs-mode-map (kbd "tw") 'treemacs-toggle-fixed-width)
-  (define-key treemacs-mode-map (kbd "tf") 'treemacs-follow-mode)
-  (define-key treemacs-mode-map (kbd "ta") 'treemacs-filewatch-mode)
-  (define-key treemacs-mode-map (kbd "tv") 'treemacs-fringe-indicator-mode)
-  (define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
-
-  ;; Project Keybinds
-  (define-key treemacs-mode-map (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-p p") 'treemacs-projectile)
-  (define-key treemacs-mode-map (kbd "C-c C-p d") 'treemacs-remove-project-from-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-p r") 'treemacs-rename-project)
-  (define-key treemacs-mode-map (kbd "C-c C-p c c") 'treemacs-collapse-project)
-  (define-key treemacs-mode-map (kbd "C-c C-p c o") 'treemacs-collapse-all-projects)
-  (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects))
 #+end_src
 
 ** General keybindings
@@ -401,11 +246,13 @@
   (tl/leader-keys
     "," '(consult-recent-file :wk "Find recent files")
     "." '(find-file :wk "Find file")
-    "i" '(org-gtd-process-inbox :wk "Process inbox")  ;; process inbox.org
+    "i" '(org-gtd-process-inbox :wk "Process inbox")
     "b" '(consult-buffer :wk "Switch to buffer")
+    "y" '(consult-yank-pop :wk "Clipboard history")
     "w" '(elfeed :wk "Newsfeed")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "o" '(other-window :wk "switch window")
+    "C-l" '(gptel-send-with-options :wk "switch window")  ;; minibuffer to echo area
     "C-n" '(tl/better-previous-buffer :wk "Previous Buffer")
     "C-p" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(kill-this-buffer :wk "Kill current buffer")
@@ -594,9 +441,11 @@
  "u" '(org-roam-ui-open :wk "Open Org roam UI")
  "s" '(org-roam-db-sync :wk "Sync Org roam db")
  ;; Org-Roam dailies
+     ;- org-roam-dailies-goto-next-note
+     ;- org-roam-dailies-goto-previous-note
  "n" '(org-roam-dailies-capture-today :wk "Capture daily today")
  "N" '(org-roam-dailies-goto-today :wk "Go to daily today")
- "y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
+ ;"y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
  "Y" '(org-roam-dailies-goto-yesterday :wk "Go to daily yesterday")
  ;"t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
@@ -960,6 +809,11 @@ Not worth when using TUI Emacs.
 ;  ;; Enable centaur-tabs
 ;  (centaur-tabs-mode t))
 ;; (setq x-underline-at-descent-line t)
+
+;(global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
+;(global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
+;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
+;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
 #+end_src
 
 ** File encoding
@@ -1425,25 +1279,6 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
     (set-mark-command nil)))
 #+end_src
 
-** Backward/Forward word adjustment
-Skip whole words when using =alt+f=/=alt+b=. Skip over sequences of uppercase/digits/hyphens characters.
-
-#+begin_src emacs-lisp
-(defun tl-backward-word ()
-  (interactive)
-  (backward-word 1)
-  (while (and (not (bobp))
-              (looking-back "[[:upper:][:digit:]-]" (line-beginning-position)))
-    (backward-word 1)))
-
-(defun tl-forward-word ()
-  (interactive)
-  (forward-word 1)
-  (while (and (not (eobp))
-              (looking-at "[[:upper:][:digit:]-]"))
-    (forward-word 1)))
-#+end_src
-
 ** Screenshot automation
 Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, prompt for filename, location of the screenshot and insert link to it at point.
 
@@ -1857,6 +1692,100 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 
     (treemacs-hide-gitignored-files-mode nil)))
 
+
+;; Treemacs global keybinds
+;(global-set-key (kbd "C-c C-w s") 'treemacs-switch-workspace)
+;(global-set-key (kbd "C-c C-w r") 'treemacs-rename-workspace)
+;(global-set-key (kbd "C-c C-w a") 'treemacs-create-workspace)
+;(global-set-key (kbd "C-c C-w d") 'treemacs-remove-workspace)
+;(global-set-key (kbd "C-c C-w e") 'treemacs-edit-workspaces)
+;(global-set-key (kbd "C-c C-w n") 'treemacs-next-workspace)
+;(global-set-key (kbd "C-c C-w f") 'treemacs-set-fallback-workspace)
+;(global-set-key (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
+;(global-set-key (kbd "C-c C-p p") 'treemacs-projectile)
+;(global-set-key (kbd "C-c C-p d") 'treemacs-remove-project-from-workspace)
+;(global-set-key (kbd "C-c C-p r") 'treemacs-rename-project)
+;(global-set-key (kbd "C-c C-p c c") 'treemacs-collapse-project)
+;(global-set-key (kbd "C-c C-p c o") 'treemacs-collapse-all-projects)
+;(global-set-key (kbd "S-TAB") 'treemacs-collapse-all-projects)
+(global-set-key (kbd "M-I") 'treemacs)
+;(global-set-key (kbd "C-c C-w b") 'treemacs-bookmark)
+;(global-set-key (kbd "C-c C-w C-f") 'treemacs-find-file)
+;(global-set-key (kbd "C-c C-w C-t") 'treemacs-find-tag)
+;(global-set-key (kbd "C-c C-w w") 'treemacs-select-window)
+;(global-set-key (kbd "C-c C-w C-d") 'treemacs-select-directory)
+;(global-set-key (kbd "C-c C-w 1") 'treemacs-delete-other-windows)
+;(global-set-key (kbd "C-c C-w C-h") 'treemacs-show-changelog)
+;(global-set-key (kbd "C-c C-w t") 'treemacs-load-theme)
+;(global-set-key (kbd "C-c C-w i") 'treemacs-icon-catalogue)
+;(global-set-key (kbd "C-c C-w n") 'treemacs-narrow-to-current-file)
+;(global-set-key (kbd "C-c C-w p") 'treemacs-create-workspace-from-project)
+;(global-set-key (kbd "C-c C-p P") 'treemacs-projectile)
+;(global-set-key (kbd "C-c C-p C-a") 'treemacs-add-and-display-current-project)
+;(global-set-key (kbd "C-c C-p C-e") 'treemacs-add-and-display-current-project-exclusively)
+;(global-set-key (kbd "C-c C-w C-s") 'treemacs-select-scope-type)
+
+;; Treemacs-mode keybinds
+(with-eval-after-load 'treemacs
+  ;; General Keybinds
+  (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
+  (define-key treemacs-mode-map (kbd "j") 'treemacs-next-line)
+  (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
+  (define-key treemacs-mode-map (kbd "h") 'treemacs-root-up)
+  (define-key treemacs-mode-map (kbd "l") 'treemacs-root-down)
+  (define-key treemacs-mode-map (kbd "u") 'treemacs-goto-parent-node)
+  ;(define-key treemacs-mode-map (kbd "H") 'treemacs-collapse-parent-node)
+  (define-key treemacs-mode-map (kbd "M-j") 'treemacs-next-neighbour)
+  (define-key treemacs-mode-map (kbd "M-k") 'treemacs-previous-neighbour)
+  (define-key treemacs-mode-map (kbd "M-p") 'treemacs-move-project-up)
+  (define-key treemacs-mode-map (kbd "M-n") 'treemacs-move-project-down)
+  (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
+  (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
+  (define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
+  (define-key treemacs-mode-map (kbd "=") 'treemacs-fit-window-width)
+  (define-key treemacs-mode-map (kbd "W") 'treemacs-extra-wide-toggle)
+  (define-key treemacs-mode-map (kbd "<") 'treemacs-decrease-width)
+  (define-key treemacs-mode-map (kbd ">") 'treemacs-increase-width)
+  (define-key treemacs-mode-map (kbd "g") 'treemacs-refresh)
+  (define-key treemacs-mode-map (kbd "d") 'treemacs-delete-file)
+  (define-key treemacs-mode-map (kbd "r") 'treemacs-rename-file)
+  (define-key treemacs-mode-map (kbd "m") 'treemacs-move-file)
+  (define-key treemacs-mode-map (kbd "cf") 'treemacs-create-file)
+  (define-key treemacs-mode-map (kbd "cd") 'treemacs-create-dir)
+  (define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
+  (define-key treemacs-mode-map (kbd "Q") 'treemacs-kill-buffer)
+  (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
+  (define-key treemacs-mode-map (kbd "s") 'treemacs-resort)
+  (define-key treemacs-mode-map (kbd "b") 'treemacs-add-bookmark)
+  (define-key treemacs-mode-map (kbd "\\!") 'treemacs-run-shell-command-for-current-node)
+  (define-key treemacs-mode-map (kbd "M-!") 'treemacs-run-shell-command-in-project-root)
+  (define-key treemacs-mode-map (kbd "C") 'treemacs-cleanup-litter)
+  (define-key treemacs-mode-map (kbd "RET") 'treemacs-visit-node-no-split)
+
+  ;; Copy Keybinds
+  (define-key treemacs-mode-map (kbd "ya") 'treemacs-copy-absolute-path-at-point)
+  (define-key treemacs-mode-map (kbd "yr") 'treemacs-copy-relative-path-at-point)
+  (define-key treemacs-mode-map (kbd "yp") 'treemacs-copy-project-path-at-point)
+  (define-key treemacs-mode-map (kbd "yf") 'treemacs-copy-file)
+
+  ;; Toggle Keybinds
+  (define-key treemacs-mode-map (kbd "th") 'treemacs-toggle-show-dotfiles)
+  (define-key treemacs-mode-map (kbd "ti") 'treemacs-hide-gitignored-files-mode)
+  (define-key treemacs-mode-map (kbd "tw") 'treemacs-toggle-fixed-width)
+  (define-key treemacs-mode-map (kbd "tf") 'treemacs-follow-mode)
+  (define-key treemacs-mode-map (kbd "ta") 'treemacs-filewatch-mode)
+  (define-key treemacs-mode-map (kbd "tv") 'treemacs-fringe-indicator-mode)
+  (define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
+
+  ;; Project Keybinds
+  (define-key treemacs-mode-map (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
+  (define-key treemacs-mode-map (kbd "C-c C-p p") 'treemacs-projectile)
+  (define-key treemacs-mode-map (kbd "C-c C-p d") 'treemacs-remove-project-from-workspace)
+  (define-key treemacs-mode-map (kbd "C-c C-p r") 'treemacs-rename-project)
+  (define-key treemacs-mode-map (kbd "C-c C-p c c") 'treemacs-collapse-project)
+  (define-key treemacs-mode-map (kbd "C-c C-p c o") 'treemacs-collapse-all-projects)
+  (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects))
+
 ;(use-package treemacs-projectile
 ;  :after (treemacs projectile)
 ;  :ensure t)
@@ -2048,15 +1977,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key global-map (kbd "C-x g") 'gptel-menu)
   (define-key global-map (kbd "C-x G") 'gptel-rewrite)
   (global-set-key (kbd "C-x C-v") 'gptel)
-
-  ;; TODO Send request - change keybindings to work in god-mode
-  ;(global-set-key (kbd "M-RET") 'gptel-send)
-  ;(global-set-key (kbd "M-\\") 'gptel-abort)
-  ;(global-set-key (kbd "C-M-a") 'gptel-send-with-options)  ;; minibuffer to echo area
-  ;(keymap-global-set "C-M-k" "C-x g m y RET")                ;; prompt from kill ring
+  (global-set-key (kbd "M-\\") 'gptel-abort)
 
   ;; Doesn't work
-  ;(keymap-global-set "C-M-d" "C-x g e i RET")              ;; respond in place
+  ;(keymap-global-set "C-M-k" "C-x g m y RET")               ;; prompt from kill ring
+  ;(keymap-global-set "C-M-d" "C-x g e i RET")               ;; respond in place
   ;(keymap-global-set "C-M-q" "C-x g m RET")                 ;; to echo area (I preferably use gptel command)
   ;(keymap-global-set "C-M-v" "C-x g e g RET RET")           ;; send to gpt session
   ;(keymap-global-set "C-M-l" "C-x g k RET")                 ;; response to kill ring (use 'M-'' to copy it to system clipboard)
@@ -2099,6 +2024,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 (use-package god-mode
   :init
   (god-mode)
+  ;; TODO Commands to bind: indent-region
   ;; Basic Keybinds
   (global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key
   (define-key god-local-mode-map (kbd "C-i") #'god-local-mode)        ;; Prefix key (only works in god-mode)
@@ -2154,14 +2080,13 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
   (define-key god-local-mode-map (kbd "C-S-u") #'mark-whole-line)
   (define-key god-local-mode-map (kbd "C-~") #'capitalize-word)
+  (define-key god-local-mode-map (kbd "C-|") #'gptel-abort)
+  (define-key god-local-mode-map (kbd "C-S-v") #'join-line)
   ;; Syntax highlighting for org-mode
   (define-key god-local-mode-map (kbd "C-S-z") #'surround-bold)
   (define-key god-local-mode-map (kbd "C-S-x") #'surround-italic)
   (define-key god-local-mode-map (kbd "C-S-c") #'surround-code)
-  (define-key god-local-mode-map (kbd "C-S-v") #'surround-underline)
-  ;; Same keybinds as without god-mode (S-key instead of M-key)
-  ;(define-key god-local-mode-map (kbd "S-RET") #'gptel-send)
-  ;(define-key god-local-mode-map (kbd "C-|") #'gptel-abort)
+  ;(define-key god-local-mode-map (kbd "C-S-v") #'surround-underline)   ;; not using
 
   (require 'god-mode-isearch)
   (define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
