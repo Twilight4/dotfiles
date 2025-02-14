@@ -10,7 +10,7 @@ while true; do
         rofi -dmenu \
             -kb-custom-1 "Control-Delete" \
             -kb-custom-2 "Alt-Delete" \
-            -config ~/.config/rofi/themes/config-clipboard.rasi < <(cliphist list | sed 's/[0-9[:space:]]//g')
+            -config ~/.config/rofi/themes/config-clipboard.rasi < <(cliphist list)
     )
 
     case "$?" in

@@ -587,6 +587,26 @@ fnp() {
   fi
 }
 
+# List wallpapers directory and change script to use selected one
+fwal() {
+  result=$(find ~/pictures/wallpapers/* -type d -prune -exec basename {} ';' | sort | uniq | fzf)
+
+  if [ -n "$result" ]; then
+    dir_name="$result"
+    script_path="$HOME/.config/hypr/scripts/wallpaper"
+    full_dir_path="$HOME/pictures/wallpapers/$dir_name"
+
+    if [ -f "$script_path" ]; then
+      sed -i "s#^DIR=\".*\"#DIR=\"$full_dir_path\"#g" "$script_path"
+      echo "Wallpaper script updated to use directory: $dir_name"
+    else
+      echo "Wallpaper script not found: $script_path"
+    fi
+  else
+    echo "No directory selected."
+  fi
+}
+
 # List workspace git repos
 fwork() {
     result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)

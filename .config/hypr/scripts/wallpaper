@@ -1,34 +1,23 @@
 #!/bin/bash
 
-# Remove the 'other' directory to fix rofi wallpaper selector
-directory="$HOME/pictures/wallpapers"
-# Check if the 'other' subdirectory exists
-if [ -d "$directory/other" ]; then
-    # Remove the 'other' subdirectory
-    rm -rf "$directory/other"
-    echo "The 'other' subdirectory in '$directory' has been removed."
-else
-    echo "The 'other' subdirectory does not exist in '$directory'."
-fi
-
 # Cache file for holding the current wallpaper
 cache_file="$HOME/.cache/current_wallpaper"
 rasi_file="$HOME/.cache/current_wallpaper.rasi"
 rasi_file2="$HOME/.cache/current_wallpaper2.rasi"
 
 current_wallpaper=$(cat "$cache_file")
-DIR=$HOME/pictures/wallpapers/
+DIR="$HOME/pictures/wallpapers/landscapes"
 PICS=($(find ${DIR} -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" \)))
 RANDOMPICS=${PICS[ $RANDOM % ${#PICS[@]} ]}
-newwall=$(echo $RANDOMPICS | sed "s|$HOME/pictures/wallpapers/||g")
+newwall=$(echo $RANDOMPICS | sed "s|$DIR||g")
 
 case $1 in
 
-    # Load wallpaper from .cache of last session 
+    # Load wallpaper from .cache of last session
     "init")
         if [ -f ~/.cache/current_wallpaper ]; then
             swaybg -m fill -i $current_wallpaper&
-            notify-send "Colors and Wallpaper updated" "with image $(cat "$cache_file" | sed "s|$HOME/pictures/wallpapers/||g")"
+            notify-send "Colors and Wallpaper updated" "with image $(cat "$cache_file" | sed "s|$DIR/||g")"
             wal -q -i $current_wallpaper -s -t
 
             ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
@@ -47,33 +36,33 @@ case $1 in
 
     # Select wallpaper with rofi
     "select")
-        selected=$( find "$HOME/pictures/wallpapers/" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec basename {} \; | sort -R | while read rfile
+        selected=$( find "$DIR/" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec basename {} \; | sort -R | while read rfile
         do
-            echo -en "$rfile\x00icon\x1f$HOME/pictures/wallpapers/${rfile}\n"
+            echo -en "$rfile\x00icon\x1f$DIR/${rfile}\n"
         done | rofi -dmenu -replace -config ~/.config/rofi/themes/config-wallpaper.rasi)
         if [ ! "$selected" ]; then
             echo "No wallpaper selected"
             exit
         fi
 
-        swaybg -m fill -i ~/pictures/wallpapers/$selected&
+        swaybg -m fill -i $DIR/$selected&
         notify-send "Colors and Wallpaper updated" "with image $selected"
-        wal -q -i $HOME/pictures/wallpapers/$selected -s -t
+        wal -q -i $DIR/$selected -s -t
 
-        echo "$HOME/pictures/wallpapers/$selected" > "$cache_file"
-        echo "* { current-image: url(\"$HOME/pictures/wallpapers/$selected\", height); }" > "$rasi_file"
-        echo "* { current-image: url(\"$HOME/pictures/wallpapers/$selected\", width); }" > "$rasi_file2"
+        echo "$DIR/$selected" > "$cache_file"
+        echo "* { current-image: url(\"$DIR/$selected\", height); }" > "$rasi_file"
+        echo "* { current-image: url(\"$DIR/$selected\", width); }" > "$rasi_file2"
 
         ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
     ;;
 
-    # Randomly select wallpaper 
+    # Randomly select wallpaper
     *)
         swaybg -m fill -i ${RANDOMPICS}&
         notify-send "Colors and Wallpaper updated" "with image $newwall"
 
         wal -q -i ${RANDOMPICS} -s -t
-        
+
         echo "$RANDOMPICS" > "$cache_file"
         echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
         echo "* { current-image: url(\"$RANDOMPICS\", width); }" > "$rasi_file2"
