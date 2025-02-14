@@ -389,7 +389,6 @@ alias v="nvim"
 #alias docker="sudo docker"
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
-alias sidebar-toggle="ags toggle sidebar"
 alias waybar-toggle="killall -SIGUSR1 waybar"
 alias exif-rm-data="exiftool -all= yourfile.pdf"
 alias open='xdg-open'
