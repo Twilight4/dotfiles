@@ -1,14 +1,38 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Clipboard Manager. This script uses cliphist, rofi, and wl-copy.
 
-case $1 in
-    d) cliphist list | rofi -i -dmenu -replace -config ~/.config/rofi/configs/config-compact.rasi | cliphist delete
-       ;;
+# Actions:
+# CTRL Del to delete an entry
+# ALT Del to wipe clipboard contents
 
-    w) if [ `echo -e "Clear\nCancel" | rofi -i -dmenu -config ~/.config/rofi/configs/config-short.rasi` == "Clear" ] ; then
+while true; do
+    result=$(
+        rofi -dmenu \
+            -kb-custom-1 "Control-Delete" \
+            -kb-custom-2 "Alt-Delete" \
+            -config ~/.config/rofi/themes/config-clipboard.rasi < <(cliphist list)
+    )
+
+    case "$?" in
+        1)
+            exit
+            ;;
+        0)
+            case "$result" in
+                "")
+                    continue
+                    ;;
+                *)
+                    cliphist decode <<<"$result" | wl-copy
+                    exit
+                    ;;
+            esac
+            ;;
+        10)
+            cliphist delete <<<"$result"
+            ;;
+        11)
             cliphist wipe
-       fi
-       ;;
-
-    *) cliphist list | rofi -i -dmenu -replace -config ~/.config/rofi/configs/config-compact.rasi | cliphist decode | wl-copy
-       ;;
-esac
+            ;;
+    esac
+done

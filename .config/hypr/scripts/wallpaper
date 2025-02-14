@@ -14,6 +14,7 @@ fi
 # Cache file for holding the current wallpaper
 cache_file="$HOME/.cache/current_wallpaper"
 rasi_file="$HOME/.cache/current_wallpaper.rasi"
+rasi_file2="$HOME/.cache/current_wallpaper2.rasi"
 
 current_wallpaper=$(cat "$cache_file")
 DIR=$HOME/pictures/wallpapers/
@@ -36,6 +37,7 @@ case $1 in
 
             echo "$RANDOMPICS" > "$cache_file"
             echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
+            echo "* { current-image: url(\"$RANDOMPICS\", width); }" > "$rasi_file2"
         fi
     ;;
 
@@ -56,6 +58,7 @@ case $1 in
 
         echo "$HOME/pictures/wallpapers/$selected" > "$cache_file"
         echo "* { current-image: url(\"$HOME/pictures/wallpapers/$selected\", height); }" > "$rasi_file"
+        echo "* { current-image: url(\"$HOME/pictures/wallpapers/$selected\", width); }" > "$rasi_file2"
     ;;
 
     # Randomly select wallpaper 
@@ -67,6 +70,7 @@ case $1 in
         
         echo "$RANDOMPICS" > "$cache_file"
         echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
+        echo "* { current-image: url(\"$RANDOMPICS\", width); }" > "$rasi_file2"
         ;;
 esac
 
