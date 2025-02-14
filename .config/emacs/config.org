@@ -283,11 +283,7 @@
 ;(define-key org-mode-map (kbd "M-j") #'org-forward-heading-same-level)
 ;(define-key org-mode-map (kbd "M-k") #'org-backward-heading-same-level)
 ;(define-key org-mode-map (kbd "M-l") #'org-next-visible-heading)
-;; Org todo navigation
-;(eval-after-load 'hl-todo
-;  '(progn
-;     (define-key hl-todo-mode-map (kbd "C-M-j") #'hl-todo-next)
-;     (define-key hl-todo-mode-map (kbd "C-M-k") #'hl-todo-previous)))
+;; Org roam dailies
 ;;(define-key org-mode-map (kbd "C-M-f") 'org-roam-dailies-goto-next-note)
 ;;(define-key org-mode-map (kbd "C-M-b") 'org-roam-dailies-goto-previous-note)
 
@@ -2296,7 +2292,10 @@ Adding highlights to =TODO= and related words.
           ("SOMEDAY"  . "#81a2be")
           ("DONE"       font-lock-doc-face bold)
           ("FINISHED"   font-lock-doc-face bold)
-          ("CANC"       error bold))))
+          ("CANC"       error bold)))
+  ;; Must be bound here to work
+  (define-key hl-todo-mode-map (kbd "C-x C-j") #'hl-todo-next)
+  (define-key hl-todo-mode-map (kbd "C-x C-k") #'hl-todo-previous))
 #+end_src
 
 *** Org-fancy-priorities
