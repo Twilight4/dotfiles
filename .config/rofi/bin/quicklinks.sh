@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Theme Elements
-list_col='1'
+list_col='2'
 list_row='8'
 
 # Options
@@ -62,12 +62,12 @@ option_52="󰃧 Jakdojade"
 rofi_cmd() {
 	rofi \
     -theme-str "listview {columns: $list_col; lines: $list_row;}" \
-		-theme-str 'textbox-prompt-colon {str: " ";}' \
 		-dmenu \
     -i \
     -replace \
 		-markup-rows \
-    -config ~/.config/rofi/themes/config-compact.rasi
+    -config ~/.config/rofi/themes/config-keybinds.rasi
+    #-config ~/.config/rofi/themes/config-compact.rasi
 }
 
 # Function to get search query using Rofi
