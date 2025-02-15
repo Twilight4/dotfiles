@@ -177,6 +177,12 @@
 (define-key org-mode-map (kbd "M-t") nil)
 (define-key org-mode-map (kbd "C-,") nil)
 (define-key org-mode-map (kbd "M-RET") nil)
+
+;; Calendar-mode
+(define-key calendar-mode-map (kbd "i h") 'nil)
+(define-key calendar-mode-map (kbd "i i") 'nil)
+(define-key calendar-mode-map (kbd "i B") 'nil)
+(define-key calendar-mode-map (kbd "i C") 'nil)
 #+end_src
 
 *** Keybindings without a leader key
@@ -219,7 +225,48 @@
      (define-key Info-mode-map "l" 'forward-char)
      (define-key Info-mode-map "h" 'backward-char)
      (define-key Info-mode-map "." 'forward-paragraph)
-     (define-key Info-mode-map "," 'backward-paragraph)))
+     (define-key Info-mode-map "," 'backward-paragraph)
+     (define-key Info-mode-map ";" 'recenter-top-bottom)
+     (define-key Info-mode-map ":" 'move-to-window-line-top-bottom)
+     (define-key Info-mode-map "e" 'end-of-line)
+     (define-key Info-mode-map "a" 'beginning-of-line)	 
+     (define-key Info-mode-map "{" 'beginning-of-buffer)
+     (define-key Info-mode-map "}" 'end-of-buffer)))
+
+;; Calendar-mode
+; Navigation
+(define-key calendar-mode-map "h" 'calendar-backward-day)
+(define-key calendar-mode-map "k" 'calendar-backward-week)
+(define-key calendar-mode-map "j" 'calendar-forward-week)
+(define-key calendar-mode-map "l" 'calendar-forward-day)
+(define-key calendar-mode-map "a" 'calendar-beginning-of-week)
+(define-key calendar-mode-map "e" 'calendar-end-of-week)
+(define-key calendar-mode-map "A" 'calendar-backward-month)
+(define-key calendar-mode-map "E" 'calendar-forward-month)
+(define-key calendar-mode-map "p" 'calendar-beginning-of-month)
+(define-key calendar-mode-map "n" 'calendar-end-of-month)
+(define-key calendar-mode-map "P" 'calendar-beginning-of-year)
+(define-key calendar-mode-map "N" 'calendar-end-of-year)
+(define-key calendar-mode-map "[" 'calendar-backward-year)
+(define-key calendar-mode-map "]" 'calendar-forward-year)
+(define-key calendar-mode-map "v" 'calendar-scroll-left-three-months)
+(define-key calendar-mode-map "V" 'calendar-scroll-right-three-months)
+; Goto
+(define-key calendar-mode-map "t" 'calendar-goto-today)
+(define-key calendar-mode-map "O" 'calendar-goto-date)
+; Other
+(define-key calendar-mode-map (kbd "SPC") 'calendar-set-mark)
+(define-key calendar-mode-map "C" 'calendar-count-days-region)
+(define-key calendar-mode-map "g" 'calendar-cursor-holidays)
+(define-key calendar-mode-map "G" 'calendar-list-holidays)
+(define-key calendar-mode-map "L" 'calendar-lunar-phases)
+(define-key calendar-mode-map "s" 'calendar-sunrise-sunset)
+(define-key calendar-mode-map "S" 'calendar-sunrise-sunset-month)
+(define-key calendar-mode-map "y" 'calendar-print-day-of-year)
+
+;; Agenda-mode
+;(define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
+;(define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
 
 ;; Org-agenda
 ;(add-hook 'org-agenda-mode-hook
@@ -229,17 +276,6 @@
 ;            (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
 ;            (local-set-key (kbd "N") 'tl/org-agenda-new)))
 
-;; Org-calendar - I tried my best
-;; (add-hook 'calendar-mode-hook
-;;           (lambda ()
-;;             (local-unset-key (kbd "M-h"))
-;;             (local-unset-key (kbd "M-j"))
-;;             (local-unset-key (kbd "M-k"))
-;;             (local-unset-key (kbd "M-l"))
-;;             (local-set-key (kbd "M-h") 'calendar-backward-day)
-;;             (local-set-key (kbd "M-j") 'calendar-forward-week)
-;;             (local-set-key (kbd "M-k") 'calendar-backward-week)
-;;             (local-set-key (kbd "M-l") 'calendar-forward-day)))
 #+end_src
 
 ** General keybindings
@@ -254,30 +290,49 @@
   (tl/leader-keys
     "," '(consult-recent-file :wk "Find recent files")
     "." '(find-file :wk "Find file")
-    "i" '(org-gtd-process-inbox :wk "Process inbox")
-    "b" '(consult-buffer :wk "Switch to buffer")
+    "C-b" '(consult-buffer :wk "Switch to buffer")
     "y" '(consult-yank-pop :wk "Clipboard history")
     "w" '(elfeed :wk "Newsfeed")
+    "i" '(org-gtd-process-inbox :wk "Process inbox")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
-    "o" '(other-window :wk "Switch window")
-    "k" '(consult-kmacro :wk "Select macro to run")	
+    ;"k" '(consult-kmacro :wk "Select macro to run")	
+	  ;"C-p" '(find-file-at-point :wk "Find file at point")
+    ;"C-q" '(delete-frame :wk "Delete frame")
     "C-l" '(gptel-send-with-options :wk "Switch window")  ;; minibuffer to echo area
-    "C-n" '(tl/better-previous-buffer :wk "Previous Buffer")
-    "C-p" '(tl/better-next-buffer :wk "Next Buffer")
+    "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
+    "C-n" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(kill-this-buffer :wk "Kill current buffer")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
     "C-g" '(dashboard-open :wk "Open emacs dashboard")
     "C-s" '(basic-save-buffer :wk "Save buffer")
     "C-a" '(mark-whole-buffer :wk "Mark whole buffer")
-	  ;"C-p" '(find-file-at-point :wk "Find file at point")
 	  "TAB" '(comment-dwim :wk "Comment lines")
 	  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
-	  "v" '(tl/open-video-link-in-mpv :wk "Open video in mpv"))
-	  ;; Buffers
-    ;"C-q" '(delete-frame :wk "Delete frame")
+	  "v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
+    ;; Org-table
+    "\\" '(org-table-create-or-convert-from-region :wk "Create empty table or convert from region")
+    "-" '(org-table-insert-hline :wk "Insert horizontal line")
+    "j" '(org-table-copy-down :wk "Copy the value of the field below")
+    "C-h" '(org-table-insert-row :wk "Insert a new row above the current line")
+    "k" '(org-table-kill-row :wk "Delete the current row or horizontal line")
+    "u" '(org-table-delete-column :wk "Delete a column")
+    ;"q" '(org-table-blank-field :wk "Blank field or active region")
+	  ;; Window management
+    "C-c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
+    "q" '(delete-window :wk "Delete window")
+    "o" '(other-window :wk "Switch window")
+    "m" '(toggle-window-maximize :wk "Toggle window maximization")
+    "b" '(split-window-below :wk "Split window below")
+    ">" '(enlarge-window :wk "Enlarge window")  
+    "<" '(shrink-window :wk "Shrink window")
+    "/" '(balance-windows :wk "Balance windows"))
+    ;"C-c" '(split-window-right :wk "Split window right")
+    ;"C-c" '(split-window-vertically :wk "Split window vertically")
+    ;"C-c" '(split-window-horizontally :wk "Split window horizontally"))
+
+    ;; Unbound
     ;"C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
-    ;"C-b" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
 	  ;"i" '(ibuffer :wk "Ibuffer")                 ; I don't use it
     ;"K" '(kill-some-buffers :wk "Kill multiple buffers")
     ;; "r" '(revert-buffer :wk "Reload buffer")   ;; Key unavailable
@@ -328,8 +383,13 @@
 
   (tl/leader-keys
     "h" '(:ignore t :wk "Help")
+    "h h" '(help-for-help :wk "Get help")
+    "h i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
+    "h I" '(info :wk "Enter info, the documentation browser")
+    "h e" '(info-emacs-manual :wk "Display emacs manual in info mode")
+    "h E" '(info-display-manual :wk "Display info buffer displaying MANUAL")
+    "h m" '(describe-mode :wk "Display documentation of current modes")
     "h f" '(describe-function :wk "Describe function")
-    "h v" '(describe-variable :wk "Describe variable")
     "h k" '(describe-key-briefly :wk "Describe key briefly")
     "h K" '(describe-key :wk "Describe key")
     "h r" '((lambda () (interactive)
@@ -445,7 +505,8 @@
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
  "c" '(org-gtd-capture :wk "Capture to inbox")
- "C" '(org-roam-capture :wk "Capture to node")
+ ;"C" '(org-roam-capture :wk "Capture to node")
+ "C" '(org-goto-calendar :wk "Calendar")
  "u" '(org-roam-ui-open :wk "Open Org roam UI")
  "s" '(org-roam-db-sync :wk "Sync Org roam db")
  ;; Org-Roam dailies
@@ -527,6 +588,11 @@
 (global-goto-address-mode t)
 (setq browse-url-browser-function #'browse-url-xdg-open)
 
+;; Location data for sunrise-sunset commands
+(setq calendar-latitude 52.23)
+(setq calendar-longitude 21.01)
+(setq calendar-location-name "Warsaw, PL")
+
 (delete-selection-mode 1)                         ; You can select text in insert mode (mouse) and delete it by typing
 (electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
 (electric-pair-mode 1)                            ; Turns on automatic parens pairing
@@ -563,7 +629,7 @@
 ;(setq split-height-threshold 40) ; Adjust this value as needed
 
 ;; Prevent Emacs from splitting windows, using kitty for splits instead
-(setq split-window-preferred-function nil)
+;(setq split-window-preferred-function nil)
 
 ;; Don't create automatic backup files in their original directories (e.g. file.el~). Put all backups in the Trash directory
 (setq backup-directory-alist '((".*" . "~/.config/.local/share/Trash/files")))
@@ -975,7 +1041,6 @@ appropriate.  In tables, insert a new row or end the table."
             ;; Non-empty item: Add new item.
             (org-insert-item)
           ;; Empty item: Close the list.
-          ;; TODO: Do this with org functions rather than operating on the text. Can't seem to find the right function.
           (delete-region (line-beginning-position) (line-end-position))
           (insert "\n"))))
 
@@ -1998,14 +2063,15 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite)
   (global-set-key (kbd "C-x E") 'gptel--rewrite-directive-menu)
   (global-set-key (kbd "C-x n") 'gptel--rewrite-next)
-  (global-set-key (kbd "C-x p") 'gptel--rewrite-previous)
-  (keymap-global-set "C-x C-d" "C-x G D")      ; diff - C-c C-d at point
-  (keymap-global-set "C-x f" "C-x G A")        ; accept - C-c C-a at point
-  (keymap-global-set "C-x d" "C-x G K")        ; reject - C-c C-k at point
-  (keymap-global-set "C-x m" "C-x G M")        ; merge - C-c RET at point
+  ;; TODO - change keybinds
+  ;(global-set-key (kbd "C-x p") 'gptel--rewrite-previous)
+  ;(keymap-global-set "C-x C-d" "C-x G D")      ; diff - C-c C-d at point
+  ;(keymap-global-set "C-x f" "C-x G A")        ; accept - C-c C-a at point
+  ;(keymap-global-set "C-x d" "C-x G K")        ; reject - C-c C-k at point
+  ;(keymap-global-set "C-x m" "C-x G M")        ; merge - C-c RET at point
   
   ;; Other
-  (global-set-key (kbd "C-M-e") 'gptel-system-prompt)             ;; edit/choose prompt
+  (global-set-key (kbd "C-x s") 'gptel-system-prompt)
   (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
   ;(global-set-key (kbd "C-c e") 'gptel--suffix-system-message)   ;; I don't use it
   (global-set-key (kbd "C-v r") 'gptel--mark-response)
@@ -2013,7 +2079,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;; Response options
   (global-set-key (kbd "C-x C-r") 'gptel--regenerate)
   (global-set-key (kbd "C-x C-f") 'gptel--next-variant)
-  (global-set-key (kbd "C-x C-b") 'gptel--previous-variant)
+  ;(global-set-key (kbd "C-x C-b") 'gptel--previous-variant)    ; keybind taken
 )
 #+end_src
 
@@ -2227,8 +2293,8 @@ Adding highlights to =TODO= and related words.
           ("FINISHED"   font-lock-doc-face bold)
           ("CANC"       error bold)))
   ;; Must be bound here to work
-  (define-key hl-todo-mode-map (kbd "C-x C-j") #'hl-todo-next)
-  (define-key hl-todo-mode-map (kbd "C-x C-k") #'hl-todo-previous))
+  (define-key hl-todo-mode-map (kbd "C-x n") #'hl-todo-next)
+  (define-key hl-todo-mode-map (kbd "C-x p") #'hl-todo-previous))
 #+end_src
 
 *** Org-fancy-priorities
@@ -2826,9 +2892,19 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 (setq org-agenda-files
       (directory-files "~/documents/org/agenda"))
 
+;; Don't show these holidays
+'(holiday-bahai-holidays nil)
+'(holiday-hebrew-holidays nil)
+'(holiday-islamic-holidays nil)
+'(holiday-solar-holidays nil)
+'(holiday-oriental-holidays nil)
+'(holiday-equinoxes-holidays nil)
+'(holiday-solstices-holidays nil)
+
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
       org-agenda-include-deadlines t
+      org-agenda-include-diary t
       org-agenda-block-separator nil
       org-agenda-tags-column 100
       org-deadline-warning-days 30
