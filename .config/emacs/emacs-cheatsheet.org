@@ -17,8 +17,9 @@ The world's greatest programmer once said:
 
 * Table of Contents :toc:
 - [[#c-x-leader-key][C-x Leader Key]]
-  - [[#common-keybinds][Common keybinds]]
   - [[#prefix-keys][Prefix keys]]
+  - [[#window-management][Window management]]
+  - [[#other-keybinds][Other keybinds]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-mode][Org-mode]]
   - [[#org-roam][Org-Roam]]
@@ -26,28 +27,18 @@ The world's greatest programmer once said:
 - [[#c-v-leader-key][C-v Leader Key]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#expand-region][Expand-region]]
+- [[#modes][Modes]]
+  - [[#calendar-mode][Calendar-mode]]
+  - [[#agenda-mode][Agenda-mode]]
+  - [[#info-mode][Info-mode]]
 - [[#other-packages][Other Packages]]
-  - [[#org-agenda][Org-agenda]]
+  - [[#org-table][Org-table]]
   - [[#org-tempo][Org-tempo]]
   - [[#treemacs][Treemacs]]
   - [[#undo-tree][Undo-tree]]
   - [[#consult-buffer][Consult-buffer]]
 
 * C-x Leader Key
-** Common keybinds
-
-| Keybinding | Description                             |
-|------------+-----------------------------------------|
-| .          | Create or find file                     |
-| ,          | Find recent files                       |
-| t          | Org todo list                           |
-| c          | Org capture                             |
-| s          | Save buffer                             |
-| C-l        | List bookmarks                          |
-| C-m        | Set/Delete bookmark                     |
-| C-s        | Save current bookmarks to bookmark file |
-| u          | =undo-tree-visualise=                     |
-
 ** Prefix keys
 
 | Keybinding | Description    |
@@ -59,6 +50,28 @@ The world's greatest programmer once said:
 | e          | Eval/Edit file |
 | d          | Dired          |
 | r          | Registers      |
+
+** Window management
+| Keybinding | Description                         |
+|------------+-------------------------------------|
+| q          | Delete window                       |
+| o          | Switch window                       |
+| m          | Toggle window maximization          |
+| b          | Split window below                  |
+| >          | Enlarge window                      |
+| <          | Shrink window                       |
+| /          | Balance windows                     |
+|            | Split window right                  |
+|            | Split window vertically             |
+|            | Split window horizontally           |
+| C-c        | Clone indirect buffer in new window |
+
+** Other keybinds
+
+| Keybinding | Description                             |
+|------------+-----------------------------------------|
+| .          | Create or find file                     |
+| ,          | Find recent files                       |
 
 * C-c Leader Key
 ** Org-mode
@@ -170,9 +183,36 @@ The world's greatest programmer once said:
 | l          | Mark sentence           |
 | L          | Mark paragraph          |
 
-* Other Packages
-** Org-agenda
+* Modes
+** Calendar-mode
+| Keybinding | Description                                         |
+|------------+-----------------------------------------------------|
+| h/j/k/l    | Navigation                                          |
+| a/e        | Beginning/end of week                               |
+| A/E        | Forward/Backward month                              |
+| p/n        | Beginning/end of month                              |
+| P/N        | Beginning/end of year                               |
+| [/]        | Forward/Backward year                               |
+| </>        | Scroll left/right                                   |
+| v/V        | Scroll left/right 3 months                          |
+| SPC        | Set mark                                            |
+| C          | Count number of days between the mark and the point |
+| C-x C-x    | Exchange point and mark                             |
+| t          | Go to today                                         |
+| o          | Go to month                                         |
+| O          | Go to date                                          |
+| c          | Go to agenda                                        |
+| ?          | Go to help                                          |
+| q          | Quit                                                |
+| g          | Show holidays at point                              |
+| G          | List holidays                                       |
+| x/u        | Mark/Unmark holidays                                |
+| L          | Lunar phases                                        |
+| s          | Show sunrise-sunset                                 |
+| S          | Show sunrise-sunset for month                       |
+| y          | Print day of year and days til the end of year      |
 
+** Agenda-mode
 | Keybinding | Description                   |
 |------------+-------------------------------|
 | g          | Refresh agenda view           |
@@ -183,6 +223,42 @@ The world's greatest programmer once said:
 | t          | Set tag                       |
 | J/K        | Change priority               |
 | o          | show on full screen           |
+
+** Info-mode
+| Keybinding | Description                 |
+|------------+-----------------------------|
+| h/j/k/l    | Navigation                  |
+| ,/.        | Forward/backward paragraph  |
+| ;/:        | Recenter                    |
+| a/e        | Beginning/end of line       |
+| {/}        | Beginning/end of buffer     |
+| p/n        | Info prev/next              |
+| [/]        | Info backward/forward node  |
+| m          | Menu                        |
+| s          | Search                      |
+| S          | Search case sensitively     |
+| ?          | Info help                   |
+| g          | Info goto node              |
+| L          | Info history                |
+| r          | Info history forward        |
+| f          | Info follow reference       |
+| c          | Info copy current node name |
+
+* Other Packages
+** Org-table
+| Keybinding    | Description                               |
+|---------------+-------------------------------------------|
+| TAB/S-TAB     | Next/previous cell                        |
+| RET           | Go down one cell                          |
+| S-ArrowKeys   | Move table cell up/down/left/right        |
+| C-c C-h/j/k/l | Move table row/column up/down/left/right  |
+| C-x \         | Create empty table or convert from region |
+| C-x -         | Insert horizontal line                    |
+| C-x j         | Copy the value of the field below         |
+| C-x C-h       | Insert a new row above the current line   |
+| C-x k         | Delete the current row or horizontal line |
+| C-x u         | Delete a column                           |
+| C-x q         | Blank field or active region              |
 
 ** Org-tempo
 
