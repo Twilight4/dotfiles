@@ -183,6 +183,7 @@
 (define-key calendar-mode-map (kbd "i i") 'nil)
 (define-key calendar-mode-map (kbd "i B") 'nil)
 (define-key calendar-mode-map (kbd "i C") 'nil)
+(define-key calendar-mode-map (kbd "H") 'nil)
 #+end_src
 
 *** Keybindings without a leader key
@@ -251,8 +252,6 @@
 (define-key calendar-mode-map "]" 'calendar-forward-year)
 (define-key calendar-mode-map "v" 'calendar-scroll-left-three-months)
 (define-key calendar-mode-map "V" 'calendar-scroll-right-three-months)
-; Goto
-(define-key calendar-mode-map "t" 'calendar-goto-today)
 (define-key calendar-mode-map "O" 'calendar-goto-date)
 ; Other
 (define-key calendar-mode-map (kbd "SPC") 'calendar-set-mark)
@@ -260,22 +259,50 @@
 (define-key calendar-mode-map "g" 'calendar-cursor-holidays)
 (define-key calendar-mode-map "G" 'calendar-list-holidays)
 (define-key calendar-mode-map "L" 'calendar-lunar-phases)
-(define-key calendar-mode-map "s" 'calendar-sunrise-sunset)
-(define-key calendar-mode-map "S" 'calendar-sunrise-sunset-month)
+(define-key calendar-mode-map "S" 'calendar-sunrise-sunset)
+(define-key calendar-mode-map "s" 'calendar-sunrise-sunset-month)
 (define-key calendar-mode-map "y" 'calendar-print-day-of-year)
 
-;; Agenda-mode
-;(define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
-;(define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
-
-;; Org-agenda
-;(add-hook 'org-agenda-mode-hook
-;          (lambda ()
-;            ;; Set the default keys for tasks in org-agenda-mode
-;	          (local-set-key (kbd "x") 'tl/org-agenda-done)
-;            (local-set-key (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
-;            (local-set-key (kbd "N") 'tl/org-agenda-new)))
-
+;; Agenda-mode - bind: org-save-all-org-buffers, org-timer-set-timer (and other timer commands - for agenda view), org-agenda-recenter, org-agenda-toggle-time-grid, org-agenda-goto-date, org-agenda-capture, tl/org-agenda-done (x), tl/org-agenda-mark-done-and-add-followup (X), tl/org-agenda-new (N)
+(eval-after-load 'org-agenda
+  '(progn
+     (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
+     (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
+     (define-key org-agenda-mode-map (kbd "n") 'org-agenda-forward-block)
+     (define-key org-agenda-mode-map (kbd "p") 'org-agenda-backward-block)
+     (define-key org-agenda-mode-map (kbd "r") 'beginning-of-buffer)
+     (define-key org-agenda-mode-map (kbd "Y") 'org-agenda-month-view)
+     (define-key org-agenda-mode-map (kbd "SPC") 'org-agenda-bulk-toggle)
+     (define-key org-agenda-mode-map (kbd "m") 'org-agenda-bulk-toggle-all)
+     (define-key org-agenda-mode-map (kbd ";") 'org-agenda-show-tags)
+     (define-key org-agenda-mode-map (kbd "L") 'org-agenda-phases-of-moon)
+     (define-key org-agenda-mode-map (kbd "G") 'org-agenda-holidays)
+     (define-key org-agenda-mode-map (kbd "M") 'org-agenda-bulk-action)
+     (define-key org-agenda-mode-map (kbd "Q") 'org-agenda-exit)
+     ;(define-key org-agenda-mode-map (kbd "Q") 'org-agenda-show-scroll-down)
+     ;(define-key org-agenda-mode-map (kbd "O") 'org-agenda-show-scroll-up)
+     ;; Unbinding the keybinds I don't use
+     (define-key org-agenda-mode-map (kbd "u") 'nil)
+     (define-key org-agenda-mode-map (kbd "E") 'nil)
+     (define-key org-agenda-mode-map (kbd "C") 'nil)
+     (define-key org-agenda-mode-map (kbd "C-j") 'nil)
+     (define-key org-agenda-mode-map (kbd "C-k") 'nil)
+     (define-key org-agenda-mode-map (kbd "P") 'nil)
+     (define-key org-agenda-mode-map (kbd "N") 'nil)
+     (define-key org-agenda-mode-map (kbd "U") 'nil)
+     (define-key org-agenda-mode-map (kbd "u") 'nil)
+     (define-key org-agenda-mode-map (kbd "[") 'nil)
+     (define-key org-agenda-mode-map (kbd "]") 'nil)
+     (define-key org-agenda-mode-map (kbd "~") 'nil)
+     (define-key org-agenda-mode-map (kbd "#") 'nil)
+     (define-key org-agenda-mode-map (kbd "^") 'nil)
+     (define-key org-agenda-mode-map (kbd "?") 'nil)
+     (define-key org-agenda-mode-map (kbd "{") 'nil)
+     (define-key org-agenda-mode-map (kbd "}") 'nil)
+     (define-key org-agenda-mode-map (kbd "x") 'nil)
+     (define-key org-agenda-mode-map (kbd "<") 'nil)
+     (define-key org-agenda-mode-map (kbd "C-c C-w") 'nil)
+     (define-key org-agenda-mode-map (kbd "*") 'nil)))
 #+end_src
 
 ** General keybindings
@@ -482,7 +509,7 @@
  "C-y" '(tl/org-insert-screenshot :wk "Insert current screenshot")
  ;"C-y" '(insert-current-time :wk "Insert current time")      ;; key bound to insert screenshot
  "C-v" '(org-toggle-heading :wk "Toggle heading")
- "C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
+ ;"C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
  "C-i" '(org-toggle-item :wk "Toggle item")
  ;"C-m" '(org-meta-return :wk "Insert another heading/bullet")
  "C-m" '(org-insert-todo-heading :wk "Insert todo heading")
@@ -3037,10 +3064,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 #+end_src
 
 *** Org-agenda
-- =x=: Mark the current task as done.
-- =X=: Mark the current task as done and create a new task at the same level, taking advantage of the capture template.
-- =N=: Create a new note or task at the current position.
-
 Make it easy to mark a task as done.
 #+begin_src emacs-lisp
 ;; Load Org mode
