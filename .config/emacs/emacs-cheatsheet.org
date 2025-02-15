@@ -195,10 +195,12 @@ The world's greatest programmer once said:
 | [/]        | Forward/Backward year                               |
 | </>        | Scroll left/right                                   |
 | v/V        | Scroll left/right 3 months                          |
+|------------+-----------------------------------------------------|
 | SPC        | Set mark                                            |
 | C          | Count number of days between the mark and the point |
 | C-x C-x    | Exchange point and mark                             |
-| t          | Go to today                                         |
+|------------+-----------------------------------------------------|
+| .          | Go to todays date                                   |
 | o          | Go to month                                         |
 | O          | Go to date                                          |
 | c          | Go to agenda                                        |
@@ -213,16 +215,41 @@ The world's greatest programmer once said:
 | y          | Print day of year and days til the end of year      |
 
 ** Agenda-mode
-| Keybinding | Description                   |
-|------------+-------------------------------|
-| g          | Refresh agenda view           |
-| e          | Set effort                    |
-| t          | Change TODO state             |
-| TAB        | Show a preview, exit with "q" |
-| j          | Journal schedule              |
-| t          | Set tag                       |
-| J/K        | Change priority               |
-| o          | show on full screen           |
+| Keybinding    | Description                             |
+|---------------+-----------------------------------------|
+| j/k           | Previous/next item                      |
+| J/K           | Forward/backward block                  |
+| .             | Go to todays date                       |
+| f/b           | Go forward/backward in time in agenda   |
+| n             | Add time-stamped note to agenda entry   |
+| c             | Go to calendar                          |
+| q/Q           | Quit                                    |
+| x             | Exit and kill buffers created by agenda |
+| H             | List holidays                           |
+| TAB           | Go to entry at point                    |
+| C-/           | Agenda undo                             |
+| g             | Refresh agenda view                     |
+| e             | Set effort                              |
+| t             | Change TODO state                       |
+| C-x C-w       | Write agenda bufffer to the file        |
+|---------------+-----------------------------------------|
+| /             | Filter                                  |
+| \             | Filter by tag                           |
+| _             | Filter by effort                        |
+| =             | Filter by regexp                        |
+| "Pipe Symbol" | Remove all filter                       |
+|               |                                         |
+|               |                                         |
+|               |                                         |
+|               |                                         |
+|               |                                         |
+|               |                                         |
+|               |                                         |
+|               |                                         |
+| j             | Journal schedule                        |
+| t             | Set tag                                 |
+| J/K           | Change priority                         |
+| o             | show on full screen                     |
 
 ** Info-mode
 | Keybinding | Description                 |
