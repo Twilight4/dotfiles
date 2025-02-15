@@ -195,11 +195,9 @@ The world's greatest programmer once said:
 | [/]        | Forward/Backward year                               |
 | </>        | Scroll left/right                                   |
 | v/V        | Scroll left/right 3 months                          |
-|------------+-----------------------------------------------------|
 | SPC        | Set mark                                            |
 | C          | Count number of days between the mark and the point |
 | C-x C-x    | Exchange point and mark                             |
-|------------+-----------------------------------------------------|
 | .          | Go to todays date                                   |
 | o          | Go to month                                         |
 | O          | Go to date                                          |
@@ -210,46 +208,59 @@ The world's greatest programmer once said:
 | G          | List holidays                                       |
 | x/u        | Mark/Unmark holidays                                |
 | L          | Lunar phases                                        |
-| s          | Show sunrise-sunset                                 |
-| S          | Show sunrise-sunset for month                       |
+| s          | Show sunrise-sunset for month                       |
+| S          | Show sunrise-sunset                                 |
 | y          | Print day of year and days til the end of year      |
 
 ** Agenda-mode
-| Keybinding    | Description                             |
-|---------------+-----------------------------------------|
-| j/k           | Previous/next item                      |
-| J/K           | Forward/backward block                  |
-| .             | Go to todays date                       |
-| f/b           | Go forward/backward in time in agenda   |
-| n             | Add time-stamped note to agenda entry   |
-| c             | Go to calendar                          |
-| q/Q           | Quit                                    |
-| x             | Exit and kill buffers created by agenda |
-| H             | List holidays                           |
-| TAB           | Go to entry at point                    |
-| C-/           | Agenda undo                             |
-| g             | Refresh agenda view                     |
-| e             | Set effort                              |
-| t             | Change TODO state                       |
-| C-x C-w       | Write agenda bufffer to the file        |
-|---------------+-----------------------------------------|
-| /             | Filter                                  |
-| \             | Filter by tag                           |
-| _             | Filter by effort                        |
-| =             | Filter by regexp                        |
-| "Pipe Symbol" | Remove all filter                       |
-|               |                                         |
-|               |                                         |
-|               |                                         |
-|               |                                         |
-|               |                                         |
-|               |                                         |
-|               |                                         |
-|               |                                         |
-| j             | Journal schedule                        |
-| t             | Set tag                                 |
-| J/K           | Change priority                         |
-| o             | show on full screen                     |
+| Keybinding      | Description                                                         |
+|-----------------+---------------------------------------------------------------------|
+| RET             | Go to org file with the item at point                               |
+| j/k             | Previous/next item                                                  |
+| p/n             | Backward/forward block                                              |
+| d/w/Y/y         | Day/week/month/year view                                            |
+| I/O/J/X/R       | Start/stop/jump to current/cancel/toggle the clock on current entry |
+| D/!/K/F/l       | Toggle diary/deadlines/habits/follow mode/log mode                  |
+| ;/:             | Show the tags for item/Set tag                                      |
+| f/b             | Go forward/backward in time in agenda                               |
+| q/Q             | Quit/Exit and kill buffers created by agenda                        |
+| C-c C-n/C-c C-p | Next/Previous date line                                             |
+| >               | Change date of this item                                            |
+| .               | Go to todays date                                                   |
+| c               | Go to calendar                                                      |
+| TAB             | Go to entry at point                                                |
+| +/-/,           | Increase/decrease/set priority                                      |
+| r               | Beginning of buffer                                                 |
+| z               | Add time-stamped note to agenda entry                               |
+| i               | Make a diary entry                                                  |
+| o               | Delete other windows                                                |
+| g               | Refresh agenda view                                                 |
+| G               | List holidays                                                       |
+| a/$             | Archive entry/Archive entry or subtree                              |
+| L               | Display the Org file which contains the item at point               |
+| C-/             | Agenda undo                                                         |
+| e               | Set effort                                                          |
+| t               | Change TODO state                                                   |
+| C-x C-w         | Write agenda bufffer to the file                                    |
+| C-x C-d         | Schedule deadline                                                   |
+| C-x C-s         | Agenda Schedule                                                     |
+| C-c C-o         | Open the link in the current entry                                  |
+| C-c C-x p       | Set property for the current headline                               |
+| C-c C-x a       | Toggle archive tag                                                  |
+| j               | Journal schedule                                                    |
+| /               | Filter                                                              |
+| \               | Filter by tag                                                       |
+| _               | Filter by effort                                                    |
+| =               | Filter by regexp                                                    |
+| "Pipe Symbol"   | Remove all filter                                                   |
+| S               | Show sunrise-sunset                                                 |
+| L               | Lunar phases                                                        |
+| SPC/m           | Mark toggle/Bulk toggle all                                         |
+| M               | Bulk action                                                         |
+| A               | Append another agenda view to the current one                       |
+| v               | View mode dispatch                                                  |
+| C-c C-x <       | Set restriction log to agenda                                       |
+| C-c C-x >       | Remove agenda restriction lock                                      |
 
 ** Info-mode
 | Keybinding | Description                 |
