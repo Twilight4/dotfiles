@@ -263,7 +263,7 @@
 (define-key calendar-mode-map "s" 'calendar-sunrise-sunset-month)
 (define-key calendar-mode-map "y" 'calendar-print-day-of-year)
 
-;; Free keys: Z Y u l s B
+;; Free keys: Z Y u l
 (eval-after-load 'org-agenda
   '(progn
      (define-key org-agenda-mode-map (kbd "a") 'org-gtd-clarify-agenda-item)
@@ -277,11 +277,11 @@
      (define-key org-agenda-mode-map (kbd "SPC") 'org-agenda-bulk-toggle)
      (define-key org-agenda-mode-map (kbd "A") 'org-agenda-bulk-toggle-all)
      (define-key org-agenda-mode-map (kbd "G") 'org-agenda-holidays)
-     (define-key org-agenda-mode-map (kbd "V") 'org-agenda-bulk-action)
+     (define-key org-agenda-mode-map (kbd "B") 'org-agenda-bulk-action)
      (define-key org-agenda-mode-map (kbd "Q") 'org-agenda-exit)
      (define-key org-agenda-mode-map (kbd ",") 'org-agenda-goto-date)
      (define-key org-agenda-mode-map (kbd "<") 'org-agenda-date-prompt)
-     (define-key org-agenda-mode-map (kbd ">") 'org-agenda-view-mode-dispatch)
+     (define-key org-agenda-mode-map (kbd "V") 'org-agenda-view-mode-dispatch)
      (define-key org-agenda-mode-map (kbd "E") 'org-agenda-priority)	 
      (define-key org-agenda-mode-map (kbd "L") 'org-agenda-log-mode)
      (define-key org-agenda-mode-map (kbd "U") 'org-agenda-clock-cancel)
@@ -332,10 +332,14 @@
     "C-b" '(consult-buffer :wk "Switch to buffer")
     "y" '(consult-yank-pop :wk "Clipboard history")
     "i" '(org-gtd-process-inbox :wk "Process inbox")
+    "l" '(tl/jinx-toggle-single-dictionary :wk "Switch between dictionaries")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
     "C-k" '(consult-kmacro :wk "Select macro to run")	
 	  ;"C-p" '(find-file-at-point :wk "Find file at point")
     ;"C-q" '(delete-frame :wk "Delete frame")
+    ;"C-L" '(tl/log-entry :wk "Use log entry")
+    ;"C-l" '(tl/log-entry-small :wk "Use small log entry")
+    ;"C-k" '(tl/report-entry :wk "Use report entry")
     "t" '(org-transclusion-add :wk "Add org transclusion")
     "C-l" '(gptel-send-with-options :wk "Switch window")  ;; minibuffer to echo area
     "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
@@ -1725,6 +1729,19 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   :hook (emacs-startup . global-jinx-mode)
   :config
   (setq jinx-languages "en_US,pl_PL"))
+
+;; Switch between the en_US and pl_PL dictionaries
+(defun tl/jinx-toggle-single-dictionary ()
+  (interactive)
+  (if (string= jinx-languages "en_US")
+      (progn
+        (setq jinx-languages "pl_PL")
+        (message "Spell checker dictionary set to: pl_PL"))
+    (progn
+      (setq jinx-languages "en_US")
+      (message "Spell checker dictionary set to: en_US")))
+    (jinx-mode 0)
+      (jinx-mode 1))
 #+end_src
 
 ** Treemacs
@@ -3227,8 +3244,6 @@ this with to-do items than with projects or headings."
     (previous-line)
     (org-end-of-line)))
 
-(global-set-key (kbd "C-x L") 'tl/log-entry)
-
 ;; Logbook small entry snippet
 (defun tl/log-entry-small ()
   (interactive)
@@ -3241,8 +3256,6 @@ this with to-do items than with projects or headings."
     (previous-line)
     (org-end-of-line)))
 
-(global-set-key (kbd "C-x l") 'tl/log-entry-small)
-
 ;; Report entry snippet
 (defun tl/report-entry ()
   (interactive)
@@ -3254,8 +3267,6 @@ this with to-do items than with projects or headings."
     (previous-line)
     (previous-line)
     (org-end-of-line)))
-
-(global-set-key (kbd "C-x k") 'tl/report-entry)
 #+end_src
 
 *** Org-roam-dailies

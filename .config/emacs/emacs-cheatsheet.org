@@ -292,8 +292,8 @@ The world's greatest programmer once said:
 | S               | Show sunrise-sunset                                                 |
 | SPC             | Mark toggle                                                         |
 | A               | Toggle all                                                          |
-| V               | Bulk action                                                         |
-| >               | View mode dispatch                                                  |
+| B               | Bulk action                                                         |
+| V               | Agenda view mode dispatch                                           |
 | C-x C-w         | Write agenda buffer to the file                                     |
 | C-c C-x a       | Toggle archive tag                                                  |
 | C-x C-d         | Schedule deadline                                                   |

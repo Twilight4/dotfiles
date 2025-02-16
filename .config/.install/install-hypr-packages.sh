@@ -108,6 +108,7 @@ packages=(
   "dkms"
   "emacs-wayland"
   "hunspell-en_us"
+  "hunspell-pl"
   "duf"
   "ncdu"
   "rlwrap"
