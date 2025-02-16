@@ -18,8 +18,9 @@ The world's greatest programmer once said:
 * Table of Contents :toc:
 - [[#c-x-leader-key][C-x Leader Key]]
   - [[#prefix-keys][Prefix keys]]
+  - [[#general-keys][General keys]]
   - [[#window-management][Window management]]
-  - [[#other-keybinds][Other keybinds]]
+  - [[#org-tables][Org tables]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-mode][Org-mode]]
   - [[#org-roam][Org-Roam]]
@@ -27,12 +28,11 @@ The world's greatest programmer once said:
 - [[#c-v-leader-key][C-v Leader Key]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#expand-region][Expand-region]]
-- [[#modes][Modes]]
+- [[#major-modes][Major Modes]]
   - [[#calendar-mode][Calendar-mode]]
   - [[#agenda-mode][Agenda-mode]]
   - [[#info-mode][Info-mode]]
 - [[#other-packages][Other Packages]]
-  - [[#org-table][Org-table]]
   - [[#jinx][Jinx]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
@@ -45,13 +45,39 @@ The world's greatest programmer once said:
 
 | Keybinding | Description    |
 |------------+----------------|
-| c          | Consult        |
-| a          | Org agenda     |
-| h          | Help           |
-| t          | Toggle         |
-| e          | Eval/Edit file |
-| d          | Dired          |
-| r          | Registers      |
+| C-c        | Consult        |
+| C-a        | Org agenda     |
+| C-h        | Help           |
+| C-t        | Toggle         |
+| C-e        | Eval/Edit file |
+| C-d        | Dired          |
+| C-r        | Registers      |
+
+** General keys
+
+| Keybinding | Description              |
+|------------+--------------------------|
+| .          | Create or find file      |
+| ,          | Find recent files        |
+| y          | Clipboard history        |
+| i          | Process inbox            |
+| B          | Switch to clarify buffer |
+| O          | New empty org buffer     |
+| v          | Open video in mpv        |
+| a          | Mark whole buffer        |
+| t          | Add org transclusion     |
+| C          | Go to calendar           |
+| C-l        | Switch window            |
+| C-p        | Previous Buffer          |
+| C-n        | Next Buffer              |
+| C-u        | Kill current buffer      |
+| C-q        | Exit emacs               |
+| C-j        | Open emacs dashboard     |
+| C-s        | Save buffer              |
+| TAB        | Comment lines            |
+| C-b        | Switch to buffer         |
+| C-o        | Open image in swappy     |
+| C-k        | Select macro to run      |
 
 ** Window management
 | Keybinding | Description                         |
@@ -63,75 +89,77 @@ The world's greatest programmer once said:
 | >          | Enlarge window                      |
 | <          | Shrink window                       |
 | /          | Balance windows                     |
+| w          | Swap window                         |
 |            | Split window right                  |
 |            | Split window vertically             |
 |            | Split window horizontally           |
-| C-c        | Clone indirect buffer in new window |
+| c          | Clone indirect buffer in new window |
 
-** Other keybinds
-
-| Keybinding | Description                             |
-|------------+-----------------------------------------|
-| .          | Create or find file                     |
-| ,          | Find recent files                       |
+** Org tables
+| Keybinding    | Description                               |
+|---------------+-------------------------------------------|
+| TAB/S-TAB     | Next/previous cell                        |
+| RET           | Go down one cell                          |
+| S-ArrowKeys   | Move table cell up/down/left/right        |
+| C-c C-h/j/k/l | Move table row/column up/down/left/right  |
+| C-x \         | Create empty table or convert from region |
+| C-x -         | Insert horizontal line                    |
+| C-x j         | Copy the value of the field below         |
+| C-x h         | Insert a new row above the current line   |
+| C-x k         | Delete the current row or horizontal line |
+| C-x u         | Delete a column                           |
+| C-x z         | Blank field or active region              |
 
 * C-c Leader Key
 ** Org-mode
 
-| Keybinding | Description                              |
-|------------+------------------------------------------|
-| C-c        | Org ctrl-c-ctrl-c (toggle checkbox etc.) |
-| C-m        | Org insert TODO heading                  |
-|            |                                          |
-| ,          | Org todo                                 |
-| .          | Org priority                             |
-| C-/        | Org tag                                  |
-| C-p        | Org property                             |
-| C-e        | Org set effort                           |
-| C-f        | Insert file link                         |
-| F          | Insert links to directory                |
-| C-w        | Insert link                              |
-| C--        | Table insert hline                       |
-| C-a        | Insert any date                          |
-| C-t        | Insert today's date                      |
-| C-y        | Insert screenshot                        |
-| C-v        | Toggle heading                           |
-| C-c        | Toggle checkbox                          |
-| C-s        | Org schedule                             |
-| C-d        | Org deadline                             |
-| C-o        | Org open at point                        |
-| C-.        | Org timestamp                            |
-| C-,        | Insert source block                      |
-| /          | Org time stamp                           |
-| C-p        | Org set property                         |
-| C-h        | Toggle heading                           |
-| C-i        | Toggle item                              |
-| C-m        | Org meta return                          |
-| C-h        | Widen                                    |
-| j          | Narrow forward                           |
-| k          | Narrow backward                          |
-| C-l        | Narrow to subtree                        |
-| C-u        | Narrow to block                          |
-| C-g        | Focus current heading                    |
-| C-g        | Insert subheading                        |
-| C-r        | Insert heading respecting content        |
-| z          | Insert footnote                          |
-| I          | Inset link to a bib entry                |
-| b          | Insert org citation                      |
-| o          | Open single note directly                |
-| C-SPC      | Zero-width space                         |
+| Keybinding | Description                       |
+|------------+-----------------------------------|
+| C-h/j/k/l  | Meta-left/down/up/right           |
+| C-p/n      | Org previous/next visible heading |
+| c          | GTD capture                       |
+| C          | Org roam capture                  |
+| ,          | Org set todo                      |
+| .          | Org set priority                  |
+| F          | Insert links to directory         |
+| C-/        | Org tag                           |
+| C-e        | Org set effort                    |
+| C-f        | Insert file link                  |
+| C-w        | Insert link                       |
+| C-a        | Insert any date                   |
+| C-t        | Insert today's date               |
+| C-y        | Insert screenshot                 |
+| C-v        | Toggle heading                    |
+| C-i        | Toggle item                       |
+| C-m        | Org insert todo heading           |
+| C-s        | Org schedule                      |
+| C-d        | Org deadline                      |
+| C-o        | Org open at point                 |
+| ,/.        | Set todo/priority                 |
+| C-v        | Toggle heading                    |
+| C-u        | Narrow to code block              |
+| C-q        | Insert subheading                 |
+| C-r        | Insert heading same level         |
+| /          | Org time stamp                    |
+| h          | Widen                             |
+| j          | Narrow forward                    |
+| k          | Narrow backward                   |
+| l          | Narrow to subtree                 |
+| z          | Insert footnote                   |
 
 ** Org-Roam
 
-| Keybinding | Description                        |
-|------------+------------------------------------|
-| f          | Create/find new node               |
-| l          | Insert link to other node          |
-| r          | Toggle roam buffers                |
-| C-M-n      | Completion of node-insert at point |
-| i          | Insert ID for Org heading          |
-| g          | Show graph of all nodes            |
-| c          | Capture to node                    |
+| Keybinding | Description                              |
+|------------+------------------------------------------|
+| C-c        | Org ctrl-c-ctrl-c (toggle checkbox etc.) |
+| p          | Complete at point                        |
+| r          | Toggle org roam buffer                   |
+| f          | Create/find new roam node                |
+| L          | Insert link to other node                |
+| i          | Insert ID for org heading                |
+| g          | Show graph of all nodes                  |
+| u          | Open Org roam UI                         |
+| s          | Sync Org roam db                         |
 
 ** Org-Roam dailies
 
@@ -151,26 +179,27 @@ The world's greatest programmer once said:
 
 | Keybinding | Description               |
 |------------+---------------------------|
-| C-u       | Symbol put                |
-| C-n       | Symbol jump next          |
-| C-p       | Symbol jump prev          |
-| C-P       | Symbol jump first         |
-| C-N       | Symbol jump last          |
-| C-f       | Symbol switch forward     |
-| C-b       | Symbol switch backward    |
-| C-a       | Symbol remove all         |
-| C-s       | Symbol save               |
-| C-t       | Symbol toggle in scope    |
-| C-e       | Symbol echo mark          |
-| C-d       | Symbol jump to definition |
-| C-i       | Symbol isearch            |
-| C-r       | Symbol query replace      |
-| C-N       | Symbol rename             |
+| C-u        | Symbol put                |
+| C-n/p      | Symbol jump next/prev     |
+| M-P/N      | Symbol jump first/last    |
+| C-s        | Symbol save               |
+| C-f        | Symbol switch forward     |
+| C-b        | Symbol switch backward    |
+| C-a        | Symbol remove all         |
+| C-t        | Symbol toggle in scope    |
+| C-e        | Symbol echo mark          |
+| C-d        | Symbol jump to definition |
+| C-i        | Symbol isearch            |
+| C-r        | Symbol query replace      |
+| C-w        | Symbol rename             |
 
 ** Expand-region
 
 | Keybinding | Description             |
 |------------+-------------------------|
+| e          | Mark element            |
+| b          | Mark code block         |
+| p          | Mark paragraph          |
 | w          | Mark word               |
 | h          | Mark symbol             |
 | H          | Mark symbol with prefix |
@@ -182,12 +211,11 @@ The world's greatest programmer once said:
 | J          | Mark outside pairs      |
 | k          | Mark comment            |
 | u          | Mark URL                |
-| e          | Mark email              |
+| E          | Mark email              |
 | d          | Mark defun              |
 | l          | Mark sentence           |
-| L          | Mark paragraph          |
 
-* Modes
+* Major Modes
 ** Calendar-mode
 | Keybinding | Description                                         |
 |------------+-----------------------------------------------------|
@@ -203,8 +231,8 @@ The world's greatest programmer once said:
 | C          | Count number of days between the mark and the point |
 | C-x C-x    | Exchange point and mark                             |
 | .          | Go to todays date                                   |
+| ,          | Go to date                                          |
 | o          | Go to month                                         |
-| O          | Go to date                                          |
 | c          | Go to agenda                                        |
 | ?          | Go to help                                          |
 | q          | Quit                                                |
@@ -222,47 +250,49 @@ The world's greatest programmer once said:
 | RET             | Go to org file with the item at point                               |
 | j/k             | Previous/next item                                                  |
 | p/n             | Backward/forward block                                              |
-| d/w/Y/y         | Day/week/month/year view                                            |
-| I/O/J/X/R       | Start/stop/jump to current/cancel/toggle the clock on current entry |
-| D/!/K/F/l       | Toggle diary/deadlines/habits/follow mode/log mode                  |
-| ;/:             | Show the tags for item/Set tag                                      |
+| d/w/m/y         | Day/week/month/year view                                            |
+| I/O/J/U/R       | Start/stop/jump to current/cancel/toggle the clock on current entry |
+| D/M/K/F/L/T     | Toggle diary/deadlines/habits/follow mode/log mode/time grid        |
+| h/H             | Show the tags for item/Set tag                                      |
 | f/b             | Go forward/backward in time in agenda                               |
 | q/Q             | Quit/Exit and kill buffers created by agenda                        |
+| [/]             | Scroll up/down                                                      |
 | C-c C-n/C-c C-p | Next/Previous date line                                             |
-| >               | Change date of this item                                            |
-| .               | Go to todays date                                                   |
+| ;/:             | Archive entry/Archive entry or sub-tree                             |
+| <               | Change date of this item                                            |
+| .               | Go to today's date                                                  |
+| ,               | Go to date                                                          |
 | c               | Go to calendar                                                      |
 | TAB             | Go to entry at point                                                |
-| +/-/,           | Increase/decrease/set priority                                      |
 | r               | Beginning of buffer                                                 |
 | z               | Add time-stamped note to agenda entry                               |
 | i               | Make a diary entry                                                  |
+| C               | Agenda capture                                                      |
 | o               | Delete other windows                                                |
 | g               | Refresh agenda view                                                 |
+| W               | Open the link in the current entry                                  |
 | G               | List holidays                                                       |
-| a/$             | Archive entry/Archive entry or subtree                              |
-| L               | Display the Org file which contains the item at point               |
 | C-/             | Agenda undo                                                         |
+| +/-             | Increase/decrease                                                   |
+| B               | Org save all org buffers                                            |
 | e               | Set effort                                                          |
-| t               | Change TODO state                                                   |
-| C-x C-w         | Write agenda bufffer to the file                                    |
-| C-x C-d         | Schedule deadline                                                   |
-| C-x C-s         | Agenda Schedule                                                     |
-| C-c C-o         | Open the link in the current entry                                  |
-| C-c C-x p       | Set property for the current headline                               |
-| C-c C-x a       | Toggle archive tag                                                  |
-| j               | Journal schedule                                                    |
+| E               | Set priority                                                        |
+| t               | Set TODO state                                                      |
 | /               | Filter                                                              |
 | \               | Filter by tag                                                       |
 | _               | Filter by effort                                                    |
 | =               | Filter by regexp                                                    |
 | "Pipe Symbol"   | Remove all filter                                                   |
 | S               | Show sunrise-sunset                                                 |
-| L               | Lunar phases                                                        |
-| SPC/m           | Mark toggle/Bulk toggle all                                         |
-| M               | Bulk action                                                         |
-| A               | Append another agenda view to the current one                       |
-| v               | View mode dispatch                                                  |
+| SPC             | Mark toggle                                                         |
+| A               | Toggle all                                                          |
+| V               | Bulk action                                                         |
+| >               | View mode dispatch                                                  |
+| C-x C-w         | Write agenda buffer to the file                                     |
+| C-c C-x a       | Toggle archive tag                                                  |
+| C-x C-d         | Schedule deadline                                                   |
+| C-x C-s         | Agenda Schedule                                                     |
+| C-c C-x p       | Set property for the current headline                               |
 | C-c C-x <       | Set restriction log to agenda                                       |
 | C-c C-x >       | Remove agenda restriction lock                                      |
 
@@ -287,21 +317,6 @@ The world's greatest programmer once said:
 | c          | Info copy current node name |
 
 * Other Packages
-** Org-table
-| Keybinding    | Description                               |
-|---------------+-------------------------------------------|
-| TAB/S-TAB     | Next/previous cell                        |
-| RET           | Go down one cell                          |
-| S-ArrowKeys   | Move table cell up/down/left/right        |
-| C-c C-h/j/k/l | Move table row/column up/down/left/right  |
-| C-x \         | Create empty table or convert from region |
-| C-x -         | Insert horizontal line                    |
-| C-x j         | Copy the value of the field below         |
-| C-x C-h       | Insert a new row above the current line   |
-| C-x k         | Delete the current row or horizontal line |
-| C-x u         | Delete a column                           |
-| C-x q         | Blank field or active region              |
-
 ** Jinx
 | Keybinding | Description                                                  |
 |------------+--------------------------------------------------------------|

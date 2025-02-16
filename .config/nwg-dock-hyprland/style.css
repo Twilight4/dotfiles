@@ -26,11 +26,11 @@ button, image {
 }
 
 button {
-	padding: 4px;
-	margin-left: 4px;
-	margin-right: 4px;
+	padding: 6px;
+	margin-left: 2px;
+	margin-right: 2px;
 	color: #eee;
-  font-size: 12px
+  font-size: 20px
 }
 
 button:hover {
