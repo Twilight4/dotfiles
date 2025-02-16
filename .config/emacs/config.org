@@ -285,8 +285,6 @@
      (define-key org-agenda-mode-map (kbd "u") 'nil)
      (define-key org-agenda-mode-map (kbd "E") 'nil)
      (define-key org-agenda-mode-map (kbd "C") 'nil)
-     (define-key org-agenda-mode-map (kbd "C-j") 'nil)
-     (define-key org-agenda-mode-map (kbd "C-k") 'nil)
      (define-key org-agenda-mode-map (kbd "P") 'nil)
      (define-key org-agenda-mode-map (kbd "N") 'nil)
      (define-key org-agenda-mode-map (kbd "U") 'nil)
