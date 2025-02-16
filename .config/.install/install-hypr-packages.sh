@@ -107,6 +107,7 @@ packages=(
   "acpi"
   "dkms"
   "emacs-wayland"
+  "hunspell-en_us"
   "duf"
   "ncdu"
   "rlwrap"
