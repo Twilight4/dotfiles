@@ -59,6 +59,7 @@
   - [[#embark][Embark]]
   - [[#embark-consult][Embark-consult]]
 - [[#other-packages][Other Packages]]
+  - [[#jinx][Jinx]]
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#gptel][GPTel]]
@@ -507,9 +508,7 @@
  "C-y" '(tl/org-insert-screenshot :wk "Insert current screenshot")
  ;"C-y" '(insert-current-time :wk "Insert current time")      ;; key bound to insert screenshot
  "C-v" '(org-toggle-heading :wk "Toggle heading")
- ;"C-c" '(org-toggle-checkbox :wk "Toggle checkbox")
  "C-i" '(org-toggle-item :wk "Toggle item")
- ;"C-m" '(org-meta-return :wk "Insert another heading/bullet")
  "C-m" '(org-insert-todo-heading :wk "Insert todo heading")
  "h" '(widen :wk "Widen")
  "j" '(tl/org-narrow-forward :wk "Narrow forward")
@@ -744,13 +743,13 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 (custom-set-faces
  '(default ((t (:background "#040305"))))
  '(line-number ((t (:background "#040305"))))
- '(mode-line ((t (:background "#040305"))))
- '(mode-line-inactive ((t (:background "#040305"))))
+ '(mode-line ((t (:background "#16161e"))))
+ '(mode-line-inactive ((t (:background "#16161e"))))
  ;; Set the text color in org-mode source code blocks
  '(org-block ((t (:foreground "#CDD6F4")))))
 
 ;; Hl-line-mode
-(set-face-background 'hl-line "#141C23")  ;; Set to a dark shade of black
+(set-face-background 'hl-line "#16161e")  ;; Set to a dark shade of black
 
 ;; Use pywal auto-generated color scheme
 ;; (use-package ewal
@@ -1707,6 +1706,21 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 * Other Packages
+** Jinx
+
+#+begin_src emacs-lisp
+(use-package jinx
+  :ensure t
+  :hook (emacs-startup . global-jinx-mode)
+  :config)
+
+(keymap-global-set "M-i" #'jinx-correct)
+(keymap-global-set "M-n" #'jinx-correct-nearest)
+(keymap-global-set "M-w" #'jinx-correct-word)
+;(keymap-global-set "M-a" #'jinx-correct-all)
+;(keymap-global-set "M-w" #'jinx-correct-select)
+#+end_src
+
 ** Treemacs
  
 #+begin_src emacs-lisp

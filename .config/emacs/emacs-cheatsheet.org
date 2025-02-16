@@ -33,6 +33,8 @@ The world's greatest programmer once said:
   - [[#info-mode][Info-mode]]
 - [[#other-packages][Other Packages]]
   - [[#org-table][Org-table]]
+  - [[#jinx][Jinx]]
+  - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
   - [[#treemacs][Treemacs]]
   - [[#undo-tree][Undo-tree]]
@@ -76,46 +78,48 @@ The world's greatest programmer once said:
 * C-c Leader Key
 ** Org-mode
 
-| Keybinding | Description                       |
-|------------+-----------------------------------|
-| ,          | Org todo                          |
-| .          | Org priority                      |
-| C-/        | Org tag                           |
-| C-p        | Org property                      |
-| C-e        | Org set effort                    |
-| C-f        | Insert file link                  |
-| F          | Insert links to directory         |
-| C-w        | Insert link                       |
-| C--        | Table insert hline                |
-| C-a        | Insert any date                   |
-| C-t        | Insert today's date               |
-| C-y        | Insert screenshot                 |
-| C-v        | Toggle heading                    |
-| C-c        | Toggle checkbox                   |
-| C-s        | Org schedule                      |
-| C-d        | Org deadline                      |
-| C-o        | Org open at point                 |
-| C-.        | Org timestamp                     |
-| C-,        | Insert source block               |
-| /          | Org time stamp                    |
-| C-p        | Org set property                  |
-| C-h        | Toggle heading                    |
-| C-i        | Toggle item                       |
-| C-m        | Org meta return                   |
-| C-n        | Insert TODO heading               |
-| C-h        | Widen                             |
-| j          | Narrow forward                    |
-| k          | Narrow backward                   |
-| C-l        | Narrow to subtree                 |
-| C-u        | Narrow to block                   |
-| C-g        | Focus current heading             |
-| C-g        | Insert subheading                 |
-| C-r        | Insert heading respecting content |
-| z          | Insert footnote                   |
-| I          | Inset link to a bib entry         |
-| b          | Insert org citation               |
-| o          | Open single note directly         |
-| C-SPC      | Zero-width space                  |
+| Keybinding | Description                              |
+|------------+------------------------------------------|
+| C-c        | Org ctrl-c-ctrl-c (toggle checkbox etc.) |
+| C-m        | Org insert TODO heading                  |
+|            |                                          |
+| ,          | Org todo                                 |
+| .          | Org priority                             |
+| C-/        | Org tag                                  |
+| C-p        | Org property                             |
+| C-e        | Org set effort                           |
+| C-f        | Insert file link                         |
+| F          | Insert links to directory                |
+| C-w        | Insert link                              |
+| C--        | Table insert hline                       |
+| C-a        | Insert any date                          |
+| C-t        | Insert today's date                      |
+| C-y        | Insert screenshot                        |
+| C-v        | Toggle heading                           |
+| C-c        | Toggle checkbox                          |
+| C-s        | Org schedule                             |
+| C-d        | Org deadline                             |
+| C-o        | Org open at point                        |
+| C-.        | Org timestamp                            |
+| C-,        | Insert source block                      |
+| /          | Org time stamp                           |
+| C-p        | Org set property                         |
+| C-h        | Toggle heading                           |
+| C-i        | Toggle item                              |
+| C-m        | Org meta return                          |
+| C-h        | Widen                                    |
+| j          | Narrow forward                           |
+| k          | Narrow backward                          |
+| C-l        | Narrow to subtree                        |
+| C-u        | Narrow to block                          |
+| C-g        | Focus current heading                    |
+| C-g        | Insert subheading                        |
+| C-r        | Insert heading respecting content        |
+| z          | Insert footnote                          |
+| I          | Inset link to a bib entry                |
+| b          | Insert org citation                      |
+| o          | Open single note directly                |
+| C-SPC      | Zero-width space                         |
 
 ** Org-Roam
 
@@ -297,6 +301,19 @@ The world's greatest programmer once said:
 | C-x k         | Delete the current row or horizontal line |
 | C-x u         | Delete a column                           |
 | C-x q         | Blank field or active region              |
+
+** Jinx
+| Keybinding | Description                                                  |
+|------------+--------------------------------------------------------------|
+| M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
+| M-i        | jinx-correct                                                 |
+| M-n        | jinx-correct-nearest                                         |
+| M-w        | jinx-correct-word                                            |
+
+** God-mode
+| Keybinding | Description |
+|------------+-------------|
+|            |             |
 
 ** Org-tempo
 
