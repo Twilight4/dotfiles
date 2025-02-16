@@ -188,7 +188,6 @@
 #+end_src
 
 *** Keybindings without a leader key
-
 #+begin_src emacs-lisp
 ;; Make escape (C-g) quit prompts
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
@@ -212,8 +211,6 @@
 ;; Minibuffer
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
-;; Org tansclusion package
-(define-key global-map (kbd "<f12>") #'org-transclusion-add)
 
 ;; Zero-width space (this is an exception keybinding)
 ;(global-set-key (kbd "C-c C-SPC")
@@ -253,7 +250,7 @@
 (define-key calendar-mode-map "]" 'calendar-forward-year)
 (define-key calendar-mode-map "v" 'calendar-scroll-left-three-months)
 (define-key calendar-mode-map "V" 'calendar-scroll-right-three-months)
-(define-key calendar-mode-map "O" 'calendar-goto-date)
+(define-key calendar-mode-map "," 'calendar-goto-date)
 ; Other
 (define-key calendar-mode-map (kbd "SPC") 'calendar-set-mark)
 (define-key calendar-mode-map "C" 'calendar-count-days-region)
@@ -264,42 +261,50 @@
 (define-key calendar-mode-map "s" 'calendar-sunrise-sunset-month)
 (define-key calendar-mode-map "y" 'calendar-print-day-of-year)
 
-;; Agenda-mode - bind: org-save-all-org-buffers, org-timer-set-timer (and other timer commands - for agenda view), org-agenda-recenter, org-agenda-toggle-time-grid, org-agenda-goto-date, org-agenda-capture, tl/org-agenda-done (x), tl/org-agenda-mark-done-and-add-followup (X), tl/org-agenda-new (N)
+;; Free keys: Z Y u l s a v
 (eval-after-load 'org-agenda
   '(progn
+     (define-key org-agenda-mode-map (kbd "B") 'org-save-all-org-buffers)
      (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
      (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
      (define-key org-agenda-mode-map (kbd "n") 'org-agenda-forward-block)
      (define-key org-agenda-mode-map (kbd "p") 'org-agenda-backward-block)
      (define-key org-agenda-mode-map (kbd "r") 'beginning-of-buffer)
-     (define-key org-agenda-mode-map (kbd "Y") 'org-agenda-month-view)
+     (define-key org-agenda-mode-map (kbd "m") 'org-agenda-month-view)
      (define-key org-agenda-mode-map (kbd "SPC") 'org-agenda-bulk-toggle)
-     (define-key org-agenda-mode-map (kbd "m") 'org-agenda-bulk-toggle-all)
-     (define-key org-agenda-mode-map (kbd ";") 'org-agenda-show-tags)
-     (define-key org-agenda-mode-map (kbd "L") 'org-agenda-phases-of-moon)
+     (define-key org-agenda-mode-map (kbd "A") 'org-agenda-bulk-toggle-all)
      (define-key org-agenda-mode-map (kbd "G") 'org-agenda-holidays)
-     (define-key org-agenda-mode-map (kbd "M") 'org-agenda-bulk-action)
+     (define-key org-agenda-mode-map (kbd "V") 'org-agenda-bulk-action)
      (define-key org-agenda-mode-map (kbd "Q") 'org-agenda-exit)
-     ;(define-key org-agenda-mode-map (kbd "Q") 'org-agenda-show-scroll-down)
-     ;(define-key org-agenda-mode-map (kbd "O") 'org-agenda-show-scroll-up)
+     (define-key org-agenda-mode-map (kbd ",") 'org-agenda-goto-date)
+     (define-key org-agenda-mode-map (kbd "<") 'org-agenda-date-prompt)
+     (define-key org-agenda-mode-map (kbd ">") 'org-agenda-view-mode-dispatch)
+     (define-key org-agenda-mode-map (kbd "E") 'org-agenda-priority)	 
+     (define-key org-agenda-mode-map (kbd "L") 'org-agenda-log-mode)
+     (define-key org-agenda-mode-map (kbd "U") 'org-agenda-clock-cancel)
+     (define-key org-agenda-mode-map (kbd "h") 'org-agenda-show-tags)
+     (define-key org-agenda-mode-map (kbd "H") 'org-agenda-set-tags)
+     (define-key org-agenda-mode-map (kbd "[") 'org-agenda-show-scroll-down)
+     (define-key org-agenda-mode-map (kbd "]") 'org-agenda-show-and-scroll-up)
+     (define-key org-agenda-mode-map (kbd "T") 'org-agenda-toggle-time-grid)
+     (define-key org-agenda-mode-map (kbd "M") 'org-agenda-toggle-deadlines)
+     (define-key org-agenda-mode-map (kbd "C") 'org-agenda-capture)
+     (define-key org-agenda-mode-map (kbd "x") 'tl/org-agenda-done)
+     (define-key org-agenda-mode-map (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
+     (define-key org-agenda-mode-map (kbd "N") 'tl/org-agenda-new)
+     (define-key org-agenda-mode-map (kbd "P") 'org-agenda-append-agenda)
+     (define-key org-agenda-mode-map (kbd "W") 'org-agenda-open-link)
+     (define-key org-agenda-mode-map (kbd ";") 'org-agenda-archive)
+     (define-key org-agenda-mode-map (kbd ":") 'org-agenda-archive-default-with-confirmation)
      ;; Unbinding the keybinds I don't use
-     (define-key org-agenda-mode-map (kbd "u") 'nil)
-     (define-key org-agenda-mode-map (kbd "E") 'nil)
-     (define-key org-agenda-mode-map (kbd "C") 'nil)
-     (define-key org-agenda-mode-map (kbd "P") 'nil)
-     (define-key org-agenda-mode-map (kbd "N") 'nil)
-     (define-key org-agenda-mode-map (kbd "U") 'nil)
-     (define-key org-agenda-mode-map (kbd "u") 'nil)
-     (define-key org-agenda-mode-map (kbd "[") 'nil)
-     (define-key org-agenda-mode-map (kbd "]") 'nil)
+     (define-key org-agenda-mode-map (kbd ">") 'nil)
      (define-key org-agenda-mode-map (kbd "~") 'nil)
      (define-key org-agenda-mode-map (kbd "#") 'nil)
+     (define-key org-agenda-mode-map (kbd "$") 'nil)
      (define-key org-agenda-mode-map (kbd "^") 'nil)
      (define-key org-agenda-mode-map (kbd "?") 'nil)
      (define-key org-agenda-mode-map (kbd "{") 'nil)
      (define-key org-agenda-mode-map (kbd "}") 'nil)
-     (define-key org-agenda-mode-map (kbd "x") 'nil)
-     (define-key org-agenda-mode-map (kbd "<") 'nil)
      (define-key org-agenda-mode-map (kbd "C-c C-w") 'nil)
      (define-key org-agenda-mode-map (kbd "*") 'nil)))
 #+end_src
@@ -307,6 +312,7 @@
 ** General keybindings
 *** C-x leader key
 #+begin_src emacs-lisp
+;; Org tansclusion package
 (use-package general
   :config
 
@@ -318,41 +324,43 @@
     "." '(find-file :wk "Find file")
     "C-b" '(consult-buffer :wk "Switch to buffer")
     "y" '(consult-yank-pop :wk "Clipboard history")
-    "w" '(elfeed :wk "Newsfeed")
     "i" '(org-gtd-process-inbox :wk "Process inbox")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
-    ;"k" '(consult-kmacro :wk "Select macro to run")	
+    "C-k" '(consult-kmacro :wk "Select macro to run")	
 	  ;"C-p" '(find-file-at-point :wk "Find file at point")
     ;"C-q" '(delete-frame :wk "Delete frame")
+    "t" '(org-transclusion-add :wk "Add org transclusion")
     "C-l" '(gptel-send-with-options :wk "Switch window")  ;; minibuffer to echo area
     "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
     "C-n" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(kill-this-buffer :wk "Kill current buffer")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
-    "C-g" '(dashboard-open :wk "Open emacs dashboard")
+    "C-j" '(dashboard-open :wk "Open emacs dashboard")
     "C-s" '(basic-save-buffer :wk "Save buffer")
-    "C-a" '(mark-whole-buffer :wk "Mark whole buffer")
+    "a" '(mark-whole-buffer :wk "Mark whole buffer")
 	  "TAB" '(comment-dwim :wk "Comment lines")
 	  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
 	  "v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
+    "C" '(org-goto-calendar :wk "Calendar")
     ;; Org-table
     "\\" '(org-table-create-or-convert-from-region :wk "Create empty table or convert from region")
     "-" '(org-table-insert-hline :wk "Insert horizontal line")
     "j" '(org-table-copy-down :wk "Copy the value of the field below")
-    "C-h" '(org-table-insert-row :wk "Insert a new row above the current line")
+    "h" '(org-table-insert-row :wk "Insert a new row above the current line")
     "k" '(org-table-kill-row :wk "Delete the current row or horizontal line")
     "u" '(org-table-delete-column :wk "Delete a column")
-    ;"q" '(org-table-blank-field :wk "Blank field or active region")
+    "z" '(org-table-blank-field :wk "Blank field or active region")
 	  ;; Window management
-    "C-c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
+    "c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
     "o" '(other-window :wk "Switch window")
     "m" '(toggle-window-maximize :wk "Toggle window maximization")
     "b" '(split-window-below :wk "Split window below")
     ">" '(enlarge-window :wk "Enlarge window")  
     "<" '(shrink-window :wk "Shrink window")
-    "/" '(balance-windows :wk "Balance windows"))
+    "/" '(balance-windows :wk "Balance windows")
+    "w" '(ace-swap-window :wk "Swap windows"))
     ;"C-c" '(split-window-right :wk "Split window right")
     ;"C-c" '(split-window-vertically :wk "Split window vertically")
     ;"C-c" '(split-window-horizontally :wk "Split window horizontally"))
@@ -370,37 +378,45 @@
     ;"C-f" '(bookmark-save :wk "Save current bookmarks to bookmark file")
 
   (tl/leader-keys
-    "c" '(:ignore t :wk "Consult")
+    "C-c" '(:ignore t :wk "Consult")
 	  ;; Navigation
-    "c f" '(consult-fd :wk "Find")
-    "c r" '(consult-ripgrep :wk "Ripgrep")
-    "c m" '(consult-mark :wk "Jump to marker")
-	  "c M" '(consult-global-mark :wk "Jump to global marker")
-    "c o" '(consult-outline :wk "Outline heading")
-	  "c g" '(consult-goto-line :wk "Go to line")
-	  "c G" '(consult-git-grep :wk "Search with git grep")
-    "c a" '(consult-org-agenda :wk "Go to org agenda heading")
-    "c h" '(consult-org-heading :wk "Go to org heading")
+    "C-c C-f" '(consult-fd :wk "Find")
+    "C-c C-r" '(consult-ripgrep :wk "Ripgrep")
+    "C-c C-m" '(consult-mark :wk "Jump to marker")
+    "C-c C-n" '(consult-global-mark :wk "Jump to global marker")
+    "C-c C-o" '(consult-outline :wk "Outline heading")
+    "C-c C-g" '(consult-goto-line :wk "Go to line")
+    "C-c C-e" '(consult-git-grep :wk "Search with git grep")
+    "C-c C-a" '(consult-org-agenda :wk "Go to org agenda heading")
+    "C-c C-h" '(consult-org-heading :wk "Go to org heading")
 	  ;; Search 
-    "c l" '(consult-line :wk "Search for line")
-    "c L" '(consult-line-multi :wk "Search for line in multiple buffers")
-    "c k" '(consult-keep-lines :wk "Select lines with a live preview")
-    "c f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
+    "C-c C-l" '(consult-line :wk "Search for line")
+    "C-c C-u" '(consult-line-multi :wk "Search for line in multiple buffers")
+    "C-c C-k" '(consult-keep-lines :wk "Select lines with a live preview")
+    "C-c C-f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
 	  ;; Editing
-    "c y" '(consult-yank-from-kill-ring :wk "Yank from kill ring history")
-    "c Y" '(consult-yank-replace :wk "Yank replace from kill ring history")
-    "c b" '(consult-bookmark :wk "Bookmark"))
+    "C-c C-y" '(consult-yank-from-kill-ring :wk "Yank from kill ring history")
+    "C-c C-p" '(consult-yank-replace :wk "Yank replace from kill ring history")
+    "C-c C-b" '(consult-bookmark :wk "Bookmark"))
 	  ;; Registers
-    ;"c Y" '(consult-register :wk "Load register and jump to location or insert the stored text")
-    ;"c Y" '(consult-register-load :wk "Load a register")
-    ;"c Y" '(consult-register-store :wk "Store a register")
+    ;"C-c C-Y" '(consult-register :wk "Load register and jump to location or insert the stored text")
+    ;"C-c C-Y" '(consult-register-load :wk "Load a register")
+    ;"C-c C-Y" '(consult-register-store :wk "Store a register")
 
 	(tl/leader-keys
-    "a" '(:ignore t :wk "Agenda")
-    "a o" '(tl/org-agenda-o :wk "Agenda overview")
-    "a t" '(tl/org-agenda-t :wk "Agenda today")
-    "a e" '(tl/org-agenda-e :wk "Agenda by low efforts")
-    "a f" '(org-gtd-review-area-of-focus :wk "Area of focus"))
+    "C-f" '(:ignore t :wk "Clock")
+    "C-f C-t" '(org-timer-set-timer :wk "Agenda overview")
+    "C-f C-a" '(org-timer-start :wk "Area of focus")
+    "C-f C-s" '(org-timer-stop :wk "Agenda by low efforts")
+    "C-f C-i" '(org-timer-item :wk "Agenda today")
+    "C-f C-c" '(org-timer-pause-or-continue :wk "Agenda by low efforts"))
+
+	(tl/leader-keys
+    "C-a" '(:ignore t :wk "Agenda")
+    "C-a C-o" '(tl/org-agenda-o :wk "Agenda overview")
+    "C-a C-t" '(tl/org-agenda-t :wk "Agenda today")
+    "C-a C-e" '(tl/org-agenda-e :wk "Agenda by low efforts")
+    "C-a C-f" '(org-gtd-review-area-of-focus :wk "Area of focus"))
     ;; I don't use those at the moment
     ;"a o" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
     ;"a g" '(org-gtd-engage :wk "GTD agenda")
@@ -408,65 +424,65 @@
     ;"a t" '(org-gtd-review-stuck-* :wk "Any action types")
 
   (tl/leader-keys
-    "h" '(:ignore t :wk "Help")
-    "h h" '(help-for-help :wk "Get help")
-    "h i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
-    "h I" '(info :wk "Enter info, the documentation browser")
-    "h e" '(info-emacs-manual :wk "Display emacs manual in info mode")
-    "h E" '(info-display-manual :wk "Display info buffer displaying MANUAL")
-    "h m" '(describe-mode :wk "Display documentation of current modes")
-    "h f" '(describe-function :wk "Describe function")
-    "h k" '(describe-key-briefly :wk "Describe key briefly")
-    "h K" '(describe-key :wk "Describe key")
-    "h r" '((lambda () (interactive)
+    "C-h" '(:ignore t :wk "Help")
+    "C-h C-h" '(help-for-help :wk "Get help")
+    "C-h C-i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
+    "C-h C-I" '(info :wk "Enter info, the documentation browser")
+    "C-h C-e" '(info-emacs-manual :wk "Display emacs manual in info mode")
+    "C-h C-E" '(info-display-manual :wk "Display info buffer displaying MANUAL")
+    "C-h C-m" '(describe-mode :wk "Display documentation of current modes")
+    "C-h C-f" '(describe-function :wk "Describe function")
+    "C-h C-k" '(describe-key-briefly :wk "Describe key briefly")
+    "C-h C-l" '(describe-key :wk "Describe key")
+    "C-h C-r" '((lambda () (interactive)
               (load-file "~/.config/emacs/init.el")
               (ignore (elpaca-process-queues)))
-            :wk "Reload emacs"))
+              :wk "Reload emacs"))
 
   (tl/leader-keys
-    "t" '(:ignore t :wk "Toggle")
-    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines")
-    "t h" '(hl-line-mode :wk "Toggle line highlight in frame")
-    "t i" '(org-indent-mode :wk "Toggle indentation mode")
-    "t m" '(toggle-mode-line :wk "Toggle mode line")
-    "t H" '(global-hl-line-mode :wk "Toggle line highlight globally")
-    "t T" '(org-transclusion-mode :wk "Org Transclusion mode"))
+    "C-t" '(:ignore t :wk "Toggle")
+    "C-t C-l" '(display-line-numbers-mode :wk "Toggle line numbers")
+    "C-t C-t" '(visual-line-mode :wk "Toggle truncated lines")
+    "C-t C-h" '(hl-line-mode :wk "Toggle line highlight in frame")
+    "C-t C-i" '(org-indent-mode :wk "Toggle indentation mode")
+    "C-t C-m" '(toggle-mode-line :wk "Toggle mode line")
+    "C-t C-H" '(global-hl-line-mode :wk "Toggle line highlight globally")
+    "C-t C-T" '(org-transclusion-mode :wk "Org Transclusion mode"))
 
   (tl/leader-keys
-    "e" '(:ignore t :wk "Eval/Edit File")
-    "e r" '(eval-region :wk "Evaluate a region")
-    "e b" '(eval-buffer :wk "Evaluate a buffer")
-    "e e" '(org-export-dispatch :wk "Org export dispatch")
-    "e T" '(org-babel-tangle :wk "Org babel tangle")
-    "e c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
-    "e s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
+    "C-e" '(:ignore t :wk "Eval/Edit File")
+    "C-e C-r" '(eval-region :wk "Evaluate a region")
+    "C-e C-b" '(eval-buffer :wk "Evaluate a buffer")
+    "C-e C-e" '(org-export-dispatch :wk "Org export dispatch")
+    "C-e C-t" '(org-babel-tangle :wk "Org babel tangle")
+    "C-e C-c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
+    "C-e C-s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
   (which-key-add-key-based-replacements 
     "C-x e c" "Edit config"
     "C-x e s" "Edit emacs cheatsheet")
 
   (tl/leader-keys
-    "d" '(:ignore t :wk "Dired")
-    "d ." '(dired :wk "Open dired")
-    "d d" '(delete-this-file :wk "Delete file")
-    "d r" '(rename-this-file-and-buffer :wk "Rename file")
-    "d j" '(dired-jump :wk "Dired jump to current")
-    "d p" '(peep-dired :wk "Peep-dired"))
+    "C-d" '(:ignore t :wk "Dired")
+    "C-d C-." '(dired :wk "Open dired")
+    "C-d C-d" '(delete-this-file :wk "Delete file")
+    "C-d C-r" '(rename-this-file-and-buffer :wk "Rename file")
+    "C-d C-j" '(dired-jump :wk "Dired jump to current")
+    "C-d C-p" '(peep-dired :wk "Peep-dired"))
 
   (tl/leader-keys
-      "r" '(:ignore t :wk "Registers")
-      "r c" '(copy-to-register :wk "Copy to register")
-      "r f" '(frameset-to-register :wk "Frameset to register")
-      "r i" '(insert-register :wk "Insert contents of register")
-      "r j" '(jump-to-register :wk "Jump to register")
-      "r l" '(list-registers :wk "List registers")
-      "r n" '(number-to-register :wk "Number to register")
-      "r r" '(register :wk "Interactively choose a register")
-      "r v" '(view-register :wk "View a register")
-      "r w" '(window-configuration-to-register :wk "Window configuration to register")
-      "r +" '(increment-register :wk "Increment register")
-      "r SPC" '(point-to-register :wk "Point to register"))
+    "C-r" '(:ignore t :wk "Registers")
+    "C-r C-c" '(copy-to-register :wk "Copy to register")
+    "C-r C-f" '(frameset-to-register :wk "Frameset to register")
+    "C-r C-i" '(insert-register :wk "Insert contents of register")
+    "C-r C-j" '(jump-to-register :wk "Jump to register")
+    "C-r C-l" '(list-registers :wk "List registers")
+    "C-r C-n" '(number-to-register :wk "Number to register")
+    "C-r C-r" '(register :wk "Interactively choose a register")
+    "C-r C-v" '(view-register :wk "View a register")
+    "C-r C-w" '(window-configuration-to-register :wk "Window configuration to register")
+    "C-r C-+" '(increment-register :wk "Increment register")
+    "C-r C-SPC" '(point-to-register :wk "Point to register"))
 #+end_src
 
 *** C-c leader key
@@ -489,19 +505,16 @@
  "C-k" '(org-metaup :wk "Org metadown")
  "C-j" '(org-metadown :wk "Org metaup")
  "C-l" '(org-metaright :wk "Org metaright")
- "C-p" '(org-previous-visible-heading :wk "Org metaright")
- "C-n" '(org-next-visible-heading :wk "Org metaright")
- ;"C-." '(org-metaup :wk "Org shift up")
- ;"C-," '(org-metadown :wk "Org shift down")
+ "C-p" '(org-previous-visible-heading :wk "Previous visible heading")
+ "C-n" '(org-next-visible-heading :wk "Next visible heading")
  "," '(org-todo :wk "Org set todo")
  "." '(org-priority :wk "Org set priority")
  "C-_" '(org-set-tags-command :wk "Org set tag")
  ;"C-p" '(org-set-property :wk "Org set property")
  "C-e" '(org-set-effort :wk "Org set effort")
- ;"C-f" '(tl/org-insert-file-link :wk "Org insert file link")
+ "C-f" '(tl/org-insert-file-link :wk "Org insert file link")
  "F" '(org-insert-links-to-directory :wk "Insert all links to directory")
  "C-w" '(org-insert-link :wk "Org insert link")
- "C--" '(org-table-insert-hline :wk "Insert hline in table")
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
  "/" '(org-time-stamp :wk "Org timestamp")
@@ -519,7 +532,7 @@
  ;"C-g" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
  "C-q" '(org-insert-subheading :wk "Insert subheading")
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
- ;"I" '(org-toggle-inline-images :wk "Display inline images")    ;; emacs GUI
+ "z" '(org-footnote-action :wk "Insert footnote")
  ;; Org-Roam
  "p" '(completion-at-point :wk "Complete at point")
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
@@ -529,8 +542,7 @@
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
  "c" '(org-gtd-capture :wk "Capture to inbox")
- ;"C" '(org-roam-capture :wk "Capture to node")
- "C" '(org-goto-calendar :wk "Calendar")
+ "C" '(org-roam-capture :wk "Capture to node")
  "u" '(org-roam-ui-open :wk "Open Org roam UI")
  "s" '(org-roam-db-sync :wk "Sync Org roam db")
  ;; Org-Roam dailies
@@ -543,9 +555,7 @@
  ;"t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
  "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
- "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
- ;; Footnotes
- "z" '(org-footnote-action :wk "Insert footnote"))
+ "D" '(org-roam-dailies-goto-date :wk "Go to daily in date"))
 #+end_src
 
 *** C-v leader key
@@ -559,19 +569,19 @@
  "C-p" '(symbol-overlay-jump-prev :wk "Symbol jump prev")
  ;"M-P" '(symbol-overlay-jump-first :wk "Symbol jump first")
  ;"M-N" '(symbol-overlay-jump-last :wk "Symbol jump last")
+ "C-s" '(symbol-overlay-save-symbol :wk "Symbol save")
  "C-f" '(symbol-overlay-switch-forward :wk "Symbol switch forward")
  "C-b" '(symbol-overlay-switch-backward :wk "Symbol switch backward")
  "C-a" '(symbol-overlay-remove-all :wk "Symbol remove all")
- ;"M-s" '(symbol-overlay-save-symbol :wk "Symbol save")      ;; taken by kitty
  "C-t" '(symbol-overlay-toggle-in-scope :wk "Symbol toggle in scope")
  "C-e" '(symbol-overlay-echo-mark :wk "Symbol echo mark")
  "C-d" '(symbol-overlay-jump-to-definition :wk "Symbol jump to definition")
  "C-i" '(symbol-overlay-query-isearch-literally :wk "Symbol isearch")
  "C-r" '(symbol-overlay-query-replace :wk "Symbol query replace")
- "C-R" '(symbol-overlay-rename :wk "Symbol rename")
+ "C-w" '(symbol-overlay-rename :wk "Symbol rename")
  ;; Expand-region
- "e" '(org-mark-element :wk "Mark element")       
- "b" '(org-babel-mark-block :wk "Mark code block")
+ "e" '(er/mark-org-element :wk "Mark element")       
+ "b" '(er/mark-org-code-block :wk "Mark code block")
  "p" '(er/mark-paragraph :wk "Mark paragraph")
  "w" '(er/mark-word :wk "Mark word")
  "h" '(er/mark-symbol :wk "Mark symbol")
@@ -584,10 +594,9 @@
  "J" '(er/mark-outside-pairs :wk "Mark outside pairs")
  "k" '(er/mark-comment :wk "Mark comment")
  "u" '(er/mark-url :wk "Mark URL")
- ;"e" '(er/mark-email :wk "Mark email")
+ "E" '(er/mark-email :wk "Mark email")
  "d" '(er/mark-defun :wk "Mark defun")
- ;"l" '(er/mark-sentence :wk "Mark sentence")
- ;"L" '(er/mark-paragraph :wk "Mark paragraph")
+ "l" '(er/mark-sentence :wk "Mark sentence")
  ;; Copy surround automation
  "c" '(copy-surrounded-by-equals :wk "Copy org equals command")
  "m" '(copy-surrounded-by-stars :wk "Copy org stars command")
@@ -739,17 +748,13 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
         doom-themes-enable-italic t))   ; if nil, italics is universally disabled
 
-;; Set background colors to the same as in kitty terminal background
-(custom-set-faces
- '(default ((t (:background "#040305"))))
- '(line-number ((t (:background "#040305"))))
- '(mode-line ((t (:background "#16161e"))))
- '(mode-line-inactive ((t (:background "#16161e"))))
- ;; Set the text color in org-mode source code blocks
- '(org-block ((t (:foreground "#CDD6F4")))))
-
-;; Hl-line-mode
-(set-face-background 'hl-line "#16161e")  ;; Set to a dark shade of black
+;; Correct colors to match kitty terminal for transparency
+(set-face-attribute 'default nil :background "#040305")
+(set-face-attribute 'line-number nil :background "#040305")
+(set-face-attribute 'org-block nil :background "#0e0e16")
+(set-face-attribute 'mode-line nil :background "#0B0B10")
+(set-face-attribute 'mode-line-inactive nil :background "#0B0B10")
+(set-face-attribute 'hl-line nil :background "#0B0B10")
 
 ;; Use pywal auto-generated color scheme
 ;; (use-package ewal
@@ -886,8 +891,7 @@ It's always better to set transparency in option for respective applications tha
 #+end_src
 
 ** Centaur-tabs
-[[https://github.com/ema2159/centaur-tabs][Centaur Tabs]] is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. 
-Not worth when using TUI Emacs.
+[[https://github.com/ema2159/centaur-tabs][Centaur Tabs]] is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. No point if using Emacs TUI.
 
 #+begin_src emacs-lisp
 ;(use-package centaur-tabs
@@ -2100,7 +2104,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   
   ;; Rewrite (applies to all rewrites)
   (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite)
-  (global-set-key (kbd "C-x E") 'gptel--rewrite-directive-menu)
+  (global-set-key (kbd "C-x E") 'gptel--rewrite-directive-menu)      ;; Select directive for rewrite
   (global-set-key (kbd "C-x n") 'gptel--rewrite-next)
   ;; TODO - change keybinds
   ;(global-set-key (kbd "C-x p") 'gptel--rewrite-previous)
@@ -2110,14 +2114,14 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(keymap-global-set "C-x m" "C-x G M")        ; merge - C-c RET at point
   
   ;; Other
-  (global-set-key (kbd "C-x s") 'gptel-system-prompt)
+  (global-set-key (kbd "C-x s") 'gptel-system-prompt)       ;; Select directive for system prompt
   (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
   ;(global-set-key (kbd "C-c e") 'gptel--suffix-system-message)   ;; I don't use it
   (global-set-key (kbd "C-v r") 'gptel--mark-response)
 
   ;; Response options
-  (global-set-key (kbd "C-x C-r") 'gptel--regenerate)
-  (global-set-key (kbd "C-x C-f") 'gptel--next-variant)
+  (global-set-key (kbd "C-x r") 'gptel--regenerate)
+  (global-set-key (kbd "C-x f") 'gptel--next-variant)
   ;(global-set-key (kbd "C-x C-b") 'gptel--previous-variant)    ; keybind taken
 )
 #+end_src
