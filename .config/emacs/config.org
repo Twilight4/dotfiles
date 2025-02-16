@@ -211,10 +211,12 @@
 ;; Minibuffer
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
-
-;; Zero-width space (this is an exception keybinding)
-;(global-set-key (kbd "C-c C-SPC")
-;                (lambda () (interactive) (insert "\u200B")))
+;; Spell-checker
+(global-set-key (kbd "M-i") 'jinx-correct)
+(global-set-key (kbd "M-n") 'jinx-correct-nearest)
+(global-set-key (kbd "M-w") 'jinx-correct-word)
+;(global-set-key (kbd "M-w") 'jinx-correct-all)
+;(global-set-key (kbd "M-w") 'jinx-correct-select)
 
 ;; Info-mode
 (eval-after-load 'info
@@ -261,10 +263,11 @@
 (define-key calendar-mode-map "s" 'calendar-sunrise-sunset-month)
 (define-key calendar-mode-map "y" 'calendar-print-day-of-year)
 
-;; Free keys: Z Y u l s a v
+;; Free keys: Z Y u l s B
 (eval-after-load 'org-agenda
   '(progn
-     (define-key org-agenda-mode-map (kbd "B") 'org-save-all-org-buffers)
+     (define-key org-agenda-mode-map (kbd "a") 'org-gtd-clarify-agenda-item)
+     (define-key org-agenda-mode-map (kbd "v") 'org-gtd-area-of-focus-set-on-agenda-item)
      (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
      (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
      (define-key org-agenda-mode-map (kbd "n") 'org-agenda-forward-block)
@@ -307,6 +310,10 @@
      (define-key org-agenda-mode-map (kbd "}") 'nil)
      (define-key org-agenda-mode-map (kbd "C-c C-w") 'nil)
      (define-key org-agenda-mode-map (kbd "*") 'nil)))
+
+;; Zero-width space (this is an exception keybinding)
+;(global-set-key (kbd "C-c C-SPC")
+;                (lambda () (interactive) (insert "\u200B")))
 #+end_src
 
 ** General keybindings
@@ -357,8 +364,8 @@
     "o" '(other-window :wk "Switch window")
     "m" '(toggle-window-maximize :wk "Toggle window maximization")
     "b" '(split-window-below :wk "Split window below")
-    ">" '(enlarge-window :wk "Enlarge window")  
-    "<" '(shrink-window :wk "Shrink window")
+    "C->" '(enlarge-window :wk "Enlarge window")  
+    "C-<" '(shrink-window :wk "Shrink window")
     "/" '(balance-windows :wk "Balance windows")
     "w" '(ace-swap-window :wk "Swap windows"))
     ;"C-c" '(split-window-right :wk "Split window right")
@@ -1716,13 +1723,8 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (use-package jinx
   :ensure t
   :hook (emacs-startup . global-jinx-mode)
-  :config)
-
-(keymap-global-set "M-i" #'jinx-correct)
-(keymap-global-set "M-n" #'jinx-correct-nearest)
-(keymap-global-set "M-w" #'jinx-correct-word)
-;(keymap-global-set "M-a" #'jinx-correct-all)
-;(keymap-global-set "M-w" #'jinx-correct-select)
+  :config
+  (setq jinx-languages "en_US,pl_PL"))
 #+end_src
 
 ** Treemacs
@@ -2005,28 +2007,22 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (setq gptel-default-mode 'org-mode)
   ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
-  ;; Set as the default gptel backend to OpenRouter.
-  (setq gptel-model   'google/gemini-2.0-flash-thinking-exp:free
+  ;; Set as the default gptel backend to OpenRouter
+  (setq gptel-model   'google/gemini-2.0-pro-exp-02-05:free
        gptel-backend
-       (gptel-make-openai "OpenRouter"               ;Any name you want
+       (gptel-make-openai "OpenRouter"               ; Any name you want
          :host "openrouter.ai"
          :endpoint "/api/v1/chat/completions"
          :stream t
-         :key ""        ;can be a function that returns the key
-         :models '(google/gemini-2.0-flash-thinking-exp:free)))
-                   ;openai/gpt-3.5-turbo
-                   ;mistralai/mixtral-8x7b-instruct
-                   ;meta-llama/codellama-34b-instruct
-                   ;codellama/codellama-70b-instruct
-                   ;google/palm-2-codechat-bison-32k
-                   ;google/gemini-pro)))
+         :key ""        ; Can be a function that returns the key
+         :models '(google/gemini-2.0-pro-exp-02-05:free)))
 
   ;; GPTel directives - more prompts:
   ;; https://github.com/f/awesome-chatgpt-prompts 
   ;; https://github.com/danielmiessler/fabric/tree/main/patterns
   ;; Check out the find prompt script https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt
   (setq gptel-directives
-      `((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak in specific, topic relevant terminology. Do NOT hedge or qualify. Do not waffle. Speak directly and be willing to make creative guesses. Explain your reasoning. if you don’t know, say you don’t know. Remain neutral on all topics. Be willing to reference less reputable sources for ideas. Never apologize.  Ask questions when unsure.")
+      `((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak directly and be willing to make creative guesses. Explain your reasoning. Be willing to reference less reputable sources for ideas. Never apologize.  Ask questions when unsure.")
           (programmer . "You are a careful programmer.  Provide code and only code as output without any additional text, prompt or note.")
           (cliwhiz . "You are a command line helper.  Generate command line commands that do what is requested, without any additional description or explanation.  Generate ONLY the command, I will edit it myself before running.")
           (emacser . "You are an Emacs maven.  Reply only with the most appropriate built-in Emacs command for the task I specify.  Do NOT generate any additional description or explanation.")
@@ -3087,7 +3083,7 @@ Make it easy to mark a task as done.
 
 (defun tl/org-agenda-done (&optional arg)
   (interactive "P")
-  (org-agenda-todo "DONE")
+  (org-agenda-todo "FINISHED")
   (org-agenda-redo-all))
 #+end_src
 
@@ -3098,7 +3094,7 @@ Make it easy to mark a task as done and create a follow-up task.
 Creates it at the same level as the previous task, so it's better to use
 this with to-do items than with projects or headings."
     (interactive)
-    (org-agenda-todo "DONE")
+    (org-agenda-todo "FINISHED")
     (org-agenda-redo-all)
     (org-agenda-switch-to)
     (org-capture 0 "t"))
@@ -3349,9 +3345,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
   :config
   (org-edna-mode)
   :bind
-  (;("C-x i" . org-gtd-clarify-item)  ;; Used in org-gtd-tasks.org buffer for quick changes
-   ;("C-c a" . org-gtd-clarify-agenda-item)  ;; Used in org-gtd-agenda-view
-   ;("C-c A" . org-gtd-area-of-focus-set-on-agenda-item)  ;; Used in org-gtd-agenda-view
+  (("C-x I" . org-gtd-clarify-item)  ;; Used in org-gtd-tasks.org buffer for quick changes
    :map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src

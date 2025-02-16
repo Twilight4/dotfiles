@@ -55,29 +55,30 @@ The world's greatest programmer once said:
 
 ** General keys
 
-| Keybinding | Description              |
-|------------+--------------------------|
-| .          | Create or find file      |
-| ,          | Find recent files        |
-| y          | Clipboard history        |
-| i          | Process inbox            |
-| B          | Switch to clarify buffer |
-| O          | New empty org buffer     |
-| v          | Open video in mpv        |
-| a          | Mark whole buffer        |
-| t          | Add org transclusion     |
-| C          | Go to calendar           |
-| C-l        | Switch window            |
-| C-p        | Previous Buffer          |
-| C-n        | Next Buffer              |
-| C-u        | Kill current buffer      |
-| C-q        | Exit emacs               |
-| C-j        | Open emacs dashboard     |
-| C-s        | Save buffer              |
-| TAB        | Comment lines            |
-| C-b        | Switch to buffer         |
-| C-o        | Open image in swappy     |
-| C-k        | Select macro to run      |
+| Keybinding | Description                  |
+|------------+------------------------------|
+| .          | Create or find file          |
+| ,          | Find recent files            |
+| i          | Process inbox GTD            |
+| B          | Switch to clarify buffer GTD |
+| I          | Org clarify item GTD         |
+| y          | Clipboard history            |
+| O          | New empty org buffer         |
+| v          | Open video in mpv            |
+| a          | Mark whole buffer            |
+| t          | Add org transclusion         |
+| C          | Go to calendar               |
+| C-l        | Switch window                |
+| C-p        | Previous Buffer              |
+| C-n        | Next Buffer                  |
+| C-u        | Kill current buffer          |
+| C-q        | Exit emacs                   |
+| C-j        | Open emacs dashboard         |
+| C-s        | Save buffer                  |
+| TAB        | Comment lines                |
+| C-b        | Switch to buffer             |
+| C-o        | Open image in swappy         |
+| C-k        | Select macro to run          |
 
 ** Window management
 | Keybinding | Description                         |
@@ -86,8 +87,8 @@ The world's greatest programmer once said:
 | o          | Switch window                       |
 | m          | Toggle window maximization          |
 | b          | Split window below                  |
-| >          | Enlarge window                      |
-| <          | Shrink window                       |
+| C->        | Enlarge window                      |
+| C-<        | Shrink window                       |
 | /          | Balance windows                     |
 | w          | Swap window                         |
 |            | Split window right                  |
@@ -135,7 +136,6 @@ The world's greatest programmer once said:
 | C-s        | Org schedule                      |
 | C-d        | Org deadline                      |
 | C-o        | Org open at point                 |
-| ,/.        | Set todo/priority                 |
 | C-v        | Toggle heading                    |
 | C-u        | Narrow to code block              |
 | C-q        | Insert subheading                 |
@@ -260,6 +260,8 @@ The world's greatest programmer once said:
 | C-c C-n/C-c C-p | Next/Previous date line                                             |
 | ;/:             | Archive entry/Archive entry or sub-tree                             |
 | <               | Change date of this item                                            |
+| a               | Org clarify agenda item                                             |
+| v               | Org set area of focus on agenda item                                |
 | .               | Go to today's date                                                  |
 | ,               | Go to date                                                          |
 | c               | Go to calendar                                                      |
@@ -267,6 +269,10 @@ The world's greatest programmer once said:
 | r               | Beginning of buffer                                                 |
 | z               | Add time-stamped note to agenda entry                               |
 | i               | Make a diary entry                                                  |
+| x               | Make it easy to mark a task as done                                 |
+| X               | Make it easy to mark a task as done and create a follow-up task     |
+| N               | Capture something based on the agenda position                      |
+| P               | Append new agenda view to the agenda buffer                         |
 | C               | Agenda capture                                                      |
 | o               | Delete other windows                                                |
 | g               | Refresh agenda view                                                 |
@@ -274,7 +280,7 @@ The world's greatest programmer once said:
 | G               | List holidays                                                       |
 | C-/             | Agenda undo                                                         |
 | +/-             | Increase/decrease                                                   |
-| B               | Org save all org buffers                                            |
+| s               | Org save all org buffers                                            |
 | e               | Set effort                                                          |
 | E               | Set priority                                                        |
 | t               | Set TODO state                                                      |
