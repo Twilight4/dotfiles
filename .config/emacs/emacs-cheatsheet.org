@@ -33,6 +33,7 @@ The world's greatest programmer once said:
   - [[#agenda-mode][Agenda-mode]]
   - [[#info-mode][Info-mode]]
 - [[#other-packages][Other Packages]]
+  - [[#m-key-bindings][M-key bindings]]
   - [[#jinx][Jinx]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
@@ -322,6 +323,11 @@ The world's greatest programmer once said:
 | c          | Info copy current node name |
 
 * Other Packages
+** M-key bindings
+| Keybinding | Description |
+|------------+-------------|
+| M-;        | comment-dwim |
+
 ** Jinx
 | Keybinding | Description                                                  |
 |------------+--------------------------------------------------------------|

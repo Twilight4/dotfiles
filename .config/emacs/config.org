@@ -9,15 +9,18 @@
   - [[#elpaca-package-manager][Elpaca package manager]]
   - [[#global-keybindings][Global keybindings]]
   - [[#general-keybindings][General keybindings]]
-- [[#ui-configuration][UI Configuration]]
+- [[#preferences][Preferences]]
   - [[#better-defaults][Better defaults]]
-  - [[#setting-the-font-face][Setting the font face]]
+  - [[#littering][Littering]]
+  - [[#scrolling][Scrolling]]
+  - [[#fonts][Fonts]]
+  - [[#misc][Misc]]
+- [[#ui-configuration][UI Configuration]]
   - [[#all-the-icons][All-the-icons]]
   - [[#color-theme][Color theme]]
   - [[#mode-line][Mode line]]
   - [[#toggle-mode-line][Toggle mode line]]
   - [[#file-names-for-org-roam][File names for org-roam]]
-  - [[#good-scroll][Good-scroll]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
   - [[#transparency][Transparency]]
@@ -368,6 +371,7 @@
 	  ;; Window management
     "c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
+    "Q" '(delete-other-windows :wk "Delete other windows")
     "o" '(other-window :wk "Switch window")
     "m" '(toggle-window-maximize :wk "Toggle window maximization")
     "b" '(split-window-below :wk "Split window below")
@@ -469,6 +473,8 @@
     "C-e C-b" '(eval-buffer :wk "Evaluate a buffer")
     "C-e C-e" '(org-export-dispatch :wk "Org export dispatch")
     "C-e C-t" '(org-babel-tangle :wk "Org babel tangle")
+    "C-e C-g" '(find-grep-dired :wk "Search for string in files in DIR")
+    "C-e C-d" '((lambda () (interactive) (dired "~/.config/emacs/")) :wk "Open user-emacs-directory in dired")
     "C-e C-c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "C-e C-s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
@@ -478,10 +484,12 @@
 
   (tl/leader-keys
     "C-d" '(:ignore t :wk "Dired")
-    "C-d C-." '(dired :wk "Open dired")
+    "C-d ." '(dired :wk "Open dired")
+    "C-d C-f" '(wdired-finish-edit :wk "Writable dired finish edit")
+    "C-d C-w" '(wdired-change-to-wdired-mode :wk "Writable dired")
+    "C-d C-j" '(dired-jump :wk "Dired jump to current")
     "C-d C-d" '(delete-this-file :wk "Delete file")
     "C-d C-r" '(rename-this-file-and-buffer :wk "Rename file")
-    "C-d C-j" '(dired-jump :wk "Dired jump to current")
     "C-d C-p" '(peep-dired :wk "Peep-dired"))
 
   (tl/leader-keys
@@ -617,7 +625,7 @@
 ))
 #+end_src
 
-* UI Configuration
+* Preferences
 ** Better defaults
 
 #+begin_src emacs-lisp
@@ -641,7 +649,7 @@
 (setq calendar-location-name "Warsaw, PL")
 
 (delete-selection-mode 1)                         ; You can select text in insert mode (mouse) and delete it by typing
-(electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
+;(electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
 (electric-pair-mode 1)                            ; Turns on automatic parens pairing
 (menu-bar-mode -1)                                ; Disable menu bar
 (tool-bar-mode -1)                                ; Disable tool bar
@@ -660,9 +668,7 @@
  x-stretch-cursor t)                              ; Stretch cursor to the glyph width
 
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
- auto-save-default nil                            ; I like to lose work, I certainly do
  truncate-string-elipsis "…"                      ; Unicode ellispis are nicer than "...", and also save /precious/ space
- scroll-margin 2                                  ; It's nice to maintain a little margin
  display-time-default-load-average nil            ; I don't think I've ever found this useful
  use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
@@ -701,7 +707,48 @@
 ;(setq x-select-enable-clipboard t)
 #+end_src
 
-** Setting the font face
+** Littering
+*** Buffer Litter
+
+#+begin_src emacs-lisp
+;; Kill *Help* after :q'ing
+(advice-add #'evil-quit :after (lambda (&rest r)
+  (let ((buf (get-buffer "*Help*")))
+    (if (eq buf nil) nil
+      (kill-buffer buf)))))
+
+;; Disables all startup warnings, and kills message buffer, comment this out when debugging
+(setq warning-minimum-level :emergency)
+(setq-default message-log-max nil)
+(add-hook 'emacs-startup-hook (lambda () ;Kills the warning buffer for even emergency messages
+  (kill-buffer (get-buffer "*Messages*"))))
+#+end_src
+
+*** File litter
+
+#+begin_src emacs-lisp
+(setq make-backup-files nil ; stop creating ~ files
+      auto-save-default nil ; Disable autosave # files
+      create-lockfiles nil  ; Disable .# files
+      ;; Prevent emacs from trying to write to init.el
+      custom-file (concat user-emacs-directory "trash.el"))
+#+end_src
+
+** Scrolling
+
+#+begin_src emacs-lisp 
+(setq-default pixel-scroll-precision-mode t
+              fast-but-imprecise-scrolling t
+              mouse-wheel-scroll-amount '(1 ((shift) . 1))  ;; one line at a time
+              mouse-wheel-progressive-speed nil             ;; don't accelerate scrolling
+              mouse-wheel-follow-mouse t                    ;; scroll window under mouse
+              mouse-wheel-tilt-scroll t
+              scroll-margin 7                               ;; It's nice to maintain a little margin
+              scroll-preserve-screen-position t
+              scroll-conservatively 10)
+#+end_src
+
+** Fonts
 
 #+begin_src emacs-lisp
 (set-face-attribute 'default nil
@@ -737,6 +784,32 @@
 (setq-default line-spacing 0.12)
 #+end_src
 
+** Misc
+
+#+begin_src emacs-lisp
+;; emacs -nw settings
+(unless (display-graphic-p)
+  ;; Disable $ on truncated lines
+  (set-display-table-slot standard-display-table 'truncation 32)
+  (xterm-mouse-mode 1) ; Enable mouse in term-mode
+  ;; let terminal emacs use system clipboard
+  ;; check out the xclip package if this doesn't work
+  (setq xterm-extra-capabilities '(getSelection setSelection)))
+(setq use-short-answers t ; Set y or n instead of yes or no for questions
+      comment-empty-lines t ; Comment empty lines in selecetd region too
+      initial-scratch-message ";; The system plays us everyday
+
+"
+      display-line-numbers-type 'relative ; Realive line numbers
+      frame-resize-pixelwise t) ; Better frame resizing
+(setq-default tab-width 2 ; self explanitory
+              indent-tabs-mode nil ; use spaces not tabs
+              truncate-lines t) ;Allow truncated lines
+(electric-indent-mode t) ; Auto Indent
+;(global-display-line-numbers-mode 1) ; Display line numbers
+#+end_src
+
+* UI Configuration
 ** All-the-icons
 This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs. 
 *NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
@@ -841,16 +914,6 @@ Adjust org-roam file names in similary way I have in the window title.
              "🢔(\\1-\\2-\\3) "
              (subst-char-in-string ?_ ?  buffer-file-name)))
     ad-do-it))
-#+end_src
-
-** Good-scroll
-
-#+begin_src emacs-lisp
-;; Actual smooth scrolling experience in emacs
-(use-package good-scroll
-  :ensure t
-  :config
-  (good-scroll-mode 1))
 #+end_src
 
 ** Which-key
@@ -1961,14 +2024,18 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (autoload 'dired-omit-mode "dired-x")
 
 (defun tl-dired-mode-setup ()
-  (define-key dired-mode-map (kbd "h") 'dired-single-up-directory)
+  (define-key dired-mode-map (kbd "h") 'dired-up-directory)
+  ;(define-key dired-mode-map (kbd "h") 'dired-single-up-directory)
   (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
-  (define-key dired-mode-map (kbd "l") 'dired-single-buffer)
+  ;(define-key dired-mode-map (kbd "l") 'dired-single-buffer)
+  (define-key dired-mode-map (kbd "l") 'dired-open-file)
   (define-key dired-mode-map (kbd "y") 'dired-ranger-copy)
   (define-key dired-mode-map (kbd "X") 'dired-ranger-move)
   (define-key dired-mode-map (kbd "p") 'dired-ranger-paste)
-  (define-key dired-mode-map (kbd "k") 'previous-line)
-  (define-key dired-mode-map (kbd "j") 'next-line))
+  ;(define-key dired-mode-map (kbd "k") 'previous-line)
+  ;(define-key dired-mode-map (kbd "j") 'next-line)
+  (define-key dired-mode-map (kbd "j") 'peep-dired-next-file)
+  (define-key dired-mode-map (kbd "k") 'peep-dired-prev-file))
 
 (add-hook 'dired-mode-hook 'tl-dired-mode-setup)
 
