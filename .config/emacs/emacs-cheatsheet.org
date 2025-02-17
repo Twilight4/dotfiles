@@ -136,7 +136,6 @@ The world's greatest programmer once said:
 | C-s        | Org schedule                      |
 | C-d        | Org deadline                      |
 | C-o        | Org open at point                 |
-| C-v        | Toggle heading                    |
 | C-u        | Narrow to code block              |
 | C-q        | Insert subheading                 |
 | C-r        | Insert heading same level         |

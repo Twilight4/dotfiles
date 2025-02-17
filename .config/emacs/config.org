@@ -140,6 +140,7 @@
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "M-r") nil)
 (define-key global-map (kbd "M-,") nil)
+(define-key global-map (kbd "C-x C-f") nil)
 (define-key global-map (kbd "M-C-n") nil)
 (define-key global-map (kbd "M-C-b") nil)
 (define-key global-map (kbd "M-C-f") nil)
@@ -297,9 +298,11 @@
      (define-key org-agenda-mode-map (kbd "N") 'tl/org-agenda-new)
      (define-key org-agenda-mode-map (kbd "P") 'org-agenda-append-agenda)
      (define-key org-agenda-mode-map (kbd "W") 'org-agenda-open-link)
-     (define-key org-agenda-mode-map (kbd ";") 'org-agenda-archive)
-     (define-key org-agenda-mode-map (kbd ":") 'org-agenda-archive-default-with-confirmation)
+     ;(define-key org-agenda-mode-map (kbd ";") 'org-agenda-archive)
+     ;(define-key org-agenda-mode-map (kbd ":") 'org-agenda-archive-default-with-confirmation)
      ;; Unbinding the keybinds I don't use
+     (define-key org-agenda-mode-map (kbd ";") 'nil)
+     (define-key org-agenda-mode-map (kbd ":") 'nil)
      (define-key org-agenda-mode-map (kbd ">") 'nil)
      (define-key org-agenda-mode-map (kbd "~") 'nil)
      (define-key org-agenda-mode-map (kbd "#") 'nil)
@@ -2946,7 +2949,9 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 
 ;; Doesn't affect anything since I use org-gtd package
 (setq org-agenda-files
-      (directory-files "~/documents/org/agenda"))
+    (directory-files "~/documents/org/agenda"))
+
+(setq org-archive-location "~/documents/org/agenda/archive/%s_archive::")
 
 ;; Don't show these holidays
 '(holiday-bahai-holidays nil)
