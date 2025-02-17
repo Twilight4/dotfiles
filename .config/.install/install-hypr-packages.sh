@@ -75,7 +75,7 @@ packages=(
   "macchina"
   "onefetch"
   "nwg-dock-hyprland"
-  "brave-bin"
+  "zen-browser-bin"
   "python-click"
   "torbrowser-launcher"
   "tealdeer"
