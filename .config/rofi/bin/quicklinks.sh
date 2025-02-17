@@ -57,6 +57,7 @@ option_49=" Vinted"
 option_50=" Polregio"
 option_51=" PKP Intercity"
 option_52="󰃧 Jakdojade"
+option_53=" Inwentury"
 
 # Rofi CMD
 rofi_cmd() {
@@ -77,7 +78,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34\n$option_35\n$option_36\n$option_37\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_14\n$option_15\n$option_16\n$option_17\n$option_18\n$option_19\n$option_20\n$option_21\n$option_22\n$option_23\n$option_24\n$option_25\n$option_26\n$option_27\n$option_28\n$option_29\n$option_30\n$option_31\n$option_32\n$option_33\n$option_34\n$option_35\n$option_36\n$option_37\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53" | rofi_cmd
 }
 
 # Execute Command
@@ -290,6 +291,9 @@ run_cmd() {
     --opt52)
       xdg-open 'https://jakdojade.pl/' &
       ;;
+    --opt53)
+      xdg-open 'https://inwentury.pl/' &
+      ;;
     *)
       ;;
   esac
@@ -453,5 +457,8 @@ case "${chosen}" in
     ;;
   $option_52)
     run_cmd --opt52
+    ;;
+  $option_53)
+    run_cmd --opt53
     ;;
 esac
