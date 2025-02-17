@@ -34,6 +34,7 @@ The world's greatest programmer once said:
   - [[#info-mode][Info-mode]]
 - [[#other-packages][Other Packages]]
   - [[#m-key-bindings][M-key bindings]]
+  - [[#dired][Dired]]
   - [[#jinx][Jinx]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
@@ -324,9 +325,37 @@ The world's greatest programmer once said:
 
 * Other Packages
 ** M-key bindings
-| Keybinding | Description |
-|------------+-------------|
+| Keybinding | Description  |
+|------------+--------------|
 | M-;        | comment-dwim |
+
+** Dired
+| Keybinding | Description                                      |
+|------------+--------------------------------------------------|
+| h/j/k/l    | Navigation                                       |
+| D          | Delete current file                              |
+| R          | Rename current or marked files                   |
+| C          | Copy current file or marked files                |
+| d          | Flag the current file for deletion               |
+| x          | Delete the files flagged for deletion            |
+| y          | Copy current file or marked files into copy ring |
+| SPC        | Mark current file                                |
+| u          | Unmark current file                              |
+| U          | Unmark all files in current buffer               |
+| =          | Run dired-diff                                   |
+| C-/        | Dired undo                                       |
+| DEL        | Unmark backwards                                 |
+| M-DEL      | Remove a mark from every file                    |
+| t          | Toggle marks in all files                        |
+| F          | Find all marked files                            |
+| m          | Move items from copy ring to current directory   |
+| p          | Paste items from copy ring to current directory  |
+| n          | Create directory                                 |
+| N          | Create empty file                                |
+| f          | Dired go to file                                 |
+| s          | Toggle sorting by date                           |
+| w          | Copy names of marked files                       |
+| g          | Revert buffer                                    |
 
 ** Jinx
 | Keybinding | Description                                                  |

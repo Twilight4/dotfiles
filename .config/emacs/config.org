@@ -357,7 +357,7 @@
     "C-s" '(basic-save-buffer :wk "Save buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
 	  "TAB" '(comment-dwim :wk "Comment lines")
-	  "C-o" '(tl/open-image-external-from-org :wk "Open image in swappy")
+	  "o" '(tl/open-image-external-from-org :wk "Open image in swappy")
 	  "v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
     "C" '(org-goto-calendar :wk "Calendar")
     ;; Org-table
@@ -372,7 +372,7 @@
     "c" '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
     "Q" '(delete-other-windows :wk "Delete other windows")
-    "o" '(other-window :wk "Switch window")
+    "C-o" '(other-window :wk "Switch window")
     "m" '(toggle-window-maximize :wk "Toggle window maximization")
     "b" '(split-window-below :wk "Split window below")
     "C->" '(enlarge-window :wk "Enlarge window")  
@@ -689,9 +689,9 @@
 
 (display-time-mode 1)                             ; Enable time in the mode-line
 (global-subword-mode 1)                           ; Iterate through CamelCase words
-(defalias 'yes-or-no-p 'y-or-n-p)                 ; Use 'y' or 'n' instead of 'yes' or 'no'
+;(defalias 'yes-or-no-p 'y-or-n-p)                 ; Use 'y' or 'n' instead of 'yes' or 'no'
 
-(unless (string-match-p "^Power N/A" (battery))   ; On laptops...
+(unless (string-match-p "^Power N/A" (battery))   ; On laptops
   (display-battery-mode 1))                       ; it's nice to know how much power you have
 
 ;; Set src block automatic indent to 0 instead of 2
@@ -791,10 +791,8 @@
 (unless (display-graphic-p)
   ;; Disable $ on truncated lines
   (set-display-table-slot standard-display-table 'truncation 32)
-  (xterm-mouse-mode 1) ; Enable mouse in term-mode
-  ;; let terminal emacs use system clipboard
-  ;; check out the xclip package if this doesn't work
-  (setq xterm-extra-capabilities '(getSelection setSelection)))
+  (xterm-mouse-mode 1)) ; Enable mouse in term-mode
+
 (setq use-short-answers t ; Set y or n instead of yes or no for questions
       comment-empty-lines t ; Comment empty lines in selecetd region too
       initial-scratch-message ";; The system plays us everyday
@@ -2024,18 +2022,58 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (autoload 'dired-omit-mode "dired-x")
 
 (defun tl-dired-mode-setup ()
+  ;; Navigation
   (define-key dired-mode-map (kbd "h") 'dired-up-directory)
-  ;(define-key dired-mode-map (kbd "h") 'dired-single-up-directory)
-  (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
-  ;(define-key dired-mode-map (kbd "l") 'dired-single-buffer)
+  (define-key dired-mode-map (kbd "j") 'peep-dired-next-file)
+  (define-key dired-mode-map (kbd "k") 'peep-dired-prev-file)
   (define-key dired-mode-map (kbd "l") 'dired-open-file)
+  ;; File Operations
   (define-key dired-mode-map (kbd "y") 'dired-ranger-copy)
-  (define-key dired-mode-map (kbd "X") 'dired-ranger-move)
+  (define-key dired-mode-map (kbd "m") 'dired-ranger-move)
   (define-key dired-mode-map (kbd "p") 'dired-ranger-paste)
+  (define-key dired-mode-map (kbd "n") 'dired-create-directory)
+  (define-key dired-mode-map (kbd "N") 'dired-create-empty-file)
+  (define-key dired-mode-map (kbd "f") 'dired-goto-file)
+  ;; Misc
+  (define-key dired-mode-map (kbd "SPC") 'dired-mark)
+  (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
+  ;; Other
+  ;(define-key dired-mode-map (kbd "l") 'dired-single-buffer)
+  ;(define-key dired-mode-map (kbd "h") 'dired-single-up-directory)
   ;(define-key dired-mode-map (kbd "k") 'previous-line)
   ;(define-key dired-mode-map (kbd "j") 'next-line)
-  (define-key dired-mode-map (kbd "j") 'peep-dired-next-file)
-  (define-key dired-mode-map (kbd "k") 'peep-dired-prev-file))
+  ;; Unbinding the keybinds I don't use
+  (define-key dired-mode-map (kbd "o") 'nil)
+  (define-key dired-mode-map (kbd "a") 'nil)
+  (define-key dired-mode-map (kbd "c") 'nil)
+  (define-key dired-mode-map (kbd "S") 'nil)
+  (define-key dired-mode-map (kbd "!") 'nil)
+  (define-key dired-mode-map (kbd "M") 'nil)
+  (define-key dired-mode-map (kbd "O") 'nil)
+  (define-key dired-mode-map (kbd "Z") 'nil)
+  (define-key dired-mode-map (kbd "i") 'nil)
+  (define-key dired-mode-map (kbd "W") 'nil)
+  (define-key dired-mode-map (kbd "e") 'nil)
+  (define-key dired-mode-map (kbd "T") 'nil)
+  (define-key dired-mode-map (kbd "Y") 'nil)
+  (define-key dired-mode-map (kbd "I") 'nil)
+  (define-key dired-mode-map (kbd "P") 'nil)
+  (define-key dired-mode-map (kbd "a") 'nil)
+  (define-key dired-mode-map (kbd "A") 'nil)
+  (define-key dired-mode-map (kbd "G") 'nil)
+  (define-key dired-mode-map (kbd "L") 'nil)
+  (define-key dired-mode-map (kbd "X") 'nil)
+  (define-key dired-mode-map (kbd "v") 'nil)
+  (define-key dired-mode-map (kbd "V") 'nil)
+  (define-key dired-mode-map (kbd "B") 'nil)
+  (define-key dired-mode-map (kbd ".") 'nil)
+  (define-key dired-mode-map (kbd "<") 'nil)
+  (define-key dired-mode-map (kbd ">") 'nil)
+  (define-key dired-mode-map (kbd "?") 'nil)
+  (define-key dired-mode-map (kbd "^") 'nil)
+  (define-key dired-mode-map (kbd "+") 'nil)
+  (define-key dired-mode-map (kbd "Q") 'nil)
+  (define-key dired-mode-map (kbd "s") 'nil))
 
 (add-hook 'dired-mode-hook 'tl-dired-mode-setup)
 
