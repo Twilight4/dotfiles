@@ -446,7 +446,7 @@
     "C-f C-c" '(timeclock-change :wk "Change to work on a different project")
     "C-f C-s" '(timeclock-status-string :wk "Time clock work status")
     "C-f C-v" '(timeclock-visit-timelog :wk "Time clock work timelog")
-    "C-f C-e" '(timeclock-elapsed-string :wk "Elapsed work time"))
+    "C-f C-e" '(timeclock-workday-elapsed-string :wk "Elapsed work time"))
 
 	(tl/leader-keys
     "C-a" '(:ignore t :wk "Agenda")
