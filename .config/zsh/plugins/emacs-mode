@@ -78,39 +78,47 @@ bindkey '^K' history-search-backward
 # List all registered zle commands: zle -al
 # Debug which keys are being sent to the shell from your terminal: showkey -a
 
+# Commented keybinds are replaced by yazi file manager
+#bindkey -M emacs -s '^k' 'frm\r'
+#bindkey -M emacs -s '^[l' 'fcp\r'
+#bindkey -M emacs -s '^[I' 'fimg\r'
+#bindkey -M emacs -s '^[i' 'fbat\r'
+#bindkey -M emacs -s '^[.' 'fzf-cd\r'
+#bindkey -M emacs -s '^\' 'fccp\r'
+#bindkey -M emacs -s '^[j' 'fmv\r'
+#bindkey -M emacs -s '^[,' 'ff\r'
+#bindkey -M emacs -s '^[>' 'ffh\r'
+#bindkey -M emacs -s '^[>' ''
+#bindkey -M emacs -s '^[<' ''
+bindkey -M emacs -s '^[,' 'frec\r'
+bindkey -M emacs -s '^[.' 'frecd\r'
+
+# Pentest-related
+#bindkey -M emacs -s '^[t' 'frep\r'
+#bindkey -M emacs -s '^[v' 'fovpn\r'
+#bindkey -M emacs -s '^[g' 'frgc '
+#bindkey -M emacs -s '^[G' 'fchtt\r'
+
 # Command line
-#bindkey -M emacs -s '^[F' 'fapti\r'
-#bindkey -M emacs -s '^[D' 'faptr\r'
 bindkey -M emacs -s '^[F' 'fpars\r'
 bindkey -M emacs -s '^[D' 'fparr\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
-#bindkey -M emacs -s '^[j' 'fmv\r'
-####bindkey -M emacs -s '^k' 'frm\r'
-####bindkey -M emacs -s '^[l' 'fcp\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
-bindkey -M emacs -s '^[I' 'fimg\r'
-bindkey -M emacs -s '^[i' 'fbat\r'
+
 # Change directory
-bindkey -M emacs -s '^[,' 'ff\r'
-bindkey -M emacs -s '^[<' 'frec\r'
-bindkey -M emacs -s '^[.' 'fzf-cd\r'
-bindkey -M emacs -s '^[>' 'frecd\r'
 bindkey -M emacs -s '^[\' '\\cd ..; ls\r'
-bindkey -M emacs -s '^\' 'fccp\r'
 #bindkey -M emacs -s "^[^M" 'cd\r'    # alt+return / ctrl+alt+m
 #bindkey -M emacs -s "^G" 'cd\r'
 #bindkey -M emacs -s '^[z'
 #bindkey -M emacs -s '^[;'
-#bindkey -M emacs -s '^[>' 'ffh\r'
+
 # List files
 bindkey -M emacs -s '^[n' 'fnp\r'
 bindkey -M emacs -s '^[u' 'fwork\r'
 bindkey -M emacs -s '^[a' 'falias\r'
 bindkey -M emacs -s '^[p' 'fproj\r'
 #bindkey -M emacs -s '^[D' 'fdev\r'
-bindkey -M emacs -s '^[t' 'frep\r'
 bindkey -M emacs -s '^[T' 'ftrack\r'
-bindkey -M emacs -s '^[v' 'fovpn\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
 bindkey -M emacs -s '^[P' 'fpdf\r'
 bindkey -M emacs -s '^[n' 'nb-^I'
@@ -120,14 +128,9 @@ bindkey -M emacs -s '^[e' 'fchtc\r'
 bindkey -M emacs -s '^[E' 'fchtce\r'
 bindkey -M emacs -s '^[r' 'fchto\r'
 bindkey -M emacs -s '^[R' 'fchtoe\r'
-bindkey -M emacs -s '^[g' 'frgc '
-bindkey -M emacs -s '^[G' 'fchtt\r'
 #bindkey -M emacs -s '^[g' 'frgo '
 #bindkey -M emacs -s '^[G' 'frgoe '
 
-bindkey -M emacs -s '^[N' 'fnp\r'
-#bindkey -M emacs -s '^[e' 'frg '
-#bindkey -M emacs -s '^[e' 'fvars\r'
 # Git
 bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
@@ -135,6 +138,10 @@ bindkey -M emacs -s '^[{' 'fgl\r'
 bindkey -M emacs -s '^[}' 'gcl\r'
 # ctrl+... keys
 bindkey -M emacs -s '^]' 'fzf-eval '
+# Misc
+bindkey -M emacs -s '^[N' 'fnp\r'
+#bindkey -M emacs -s '^[e' 'frg '
+#bindkey -M emacs -s '^[e' 'fvars\r'
 
 
 ########################

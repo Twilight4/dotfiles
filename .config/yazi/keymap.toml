@@ -82,6 +82,7 @@ keymap = [
 	{ on = "<C-s>",     run = "escape --search",             desc = "Cancel the ongoing search" },
 	{ on = "z",         run = "plugin zoxide",               desc = "Jump to a directory via zoxide" },
 	{ on = "Z",         run = "plugin fzf",                  desc = "Jump to a file/directory via fzf" },
+	{ on = "C",         run = "plugin chmod",                desc = "Chmod on selected files" },
 
 	# Linemode
 	{ on = [ "m", "s" ], run = "linemode size",        desc = "Linemode: size" },
@@ -122,14 +123,15 @@ keymap = [
 	{ on = [ ",", "r" ], run = "sort random --reverse=no",                      desc = "Sort randomly" },
 
 	# Goto
-	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Go home" },
+	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Goto ~/" },
 	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Goto ~/.config" },
-	{ on = [ "g", "o" ],       run = "cd ~/downloads",   desc = "Goto ~/Downloads" },
-	{ on = [ "g", "m" ],       run = "cd ~/music",   desc = "Goto ~/Downloads" },
-	{ on = [ "g", "v" ],       run = "cd ~/videos",   desc = "Goto ~/Downloads" },
-	{ on = [ "g", "p" ],       run = "cd ~/pictures",   desc = "Goto ~/Downloads" },
-	{ on = [ "g", "D" ],       run = "cd ~/desktop",   desc = "Goto ~/Downloads" },
-	{ on = [ "g", "d" ],       run = "cd ~/documents",   desc = "Goto ~/Downloads" },
+	{ on = [ "g", "o" ],       run = "cd ~/downloads",   desc = "Goto ~/downloads" },
+	{ on = [ "g", "m" ],       run = "cd ~/music",   desc = "Goto ~/music" },
+	{ on = [ "g", "v" ],       run = "cd ~/videos",   desc = "Goto ~/video" },
+	{ on = [ "g", "p" ],       run = "cd ~/pictures",   desc = "Goto ~/pictures" },
+	{ on = [ "g", "D" ],       run = "cd ~/desktop",   desc = "Goto ~/desktop" },
+	{ on = [ "g", "d" ],       run = "cd ~/documents",   desc = "Goto ~/documents" },
+	{ on = [ "g", "w" ],       run = "cd ~/desktop/workspace",   desc = "Goto ~/desktop/workspace" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Jump interactively" },
 
 	# Tabs
