@@ -239,8 +239,9 @@
      (define-key Info-mode-map "f" 'Info-history-forward)
      (define-key Info-mode-map "b" 'Info-history-back)
      (define-key Info-mode-map "c" 'Info-follow-reference)
-     (define-key Info-mode-map "o" 'Info-scroll-down-line)
-     (define-key Info-mode-map "O" 'Info-scroll-up-line)
+     (define-key Info-mode-map "H" 'Info-up)
+     (define-key Info-mode-map "O" 'scroll-down-line)
+     (define-key Info-mode-map "o" 'scroll-up-line)
      (define-key Info-mode-map "{" 'beginning-of-buffer)
      (define-key Info-mode-map "}" 'end-of-buffer)))
 
@@ -258,6 +259,7 @@
 (define-key calendar-mode-map "n" 'calendar-end-of-month)
 (define-key calendar-mode-map "P" 'calendar-beginning-of-year)
 (define-key calendar-mode-map "N" 'calendar-end-of-year)
+(define-key calendar-mode-map "D" 'diary-show-all-entries)
 (define-key calendar-mode-map "[" 'calendar-backward-year)
 (define-key calendar-mode-map "]" 'calendar-forward-year)
 (define-key calendar-mode-map "v" 'calendar-scroll-left-three-months)
@@ -429,11 +431,22 @@
 
 	(tl/leader-keys
     "C-f" '(:ignore t :wk "Clock")
-    "C-f C-t" '(org-timer-set-timer :wk "Agenda overview")
-    "C-f C-a" '(org-timer-start :wk "Area of focus")
-    "C-f C-s" '(org-timer-stop :wk "Agenda by low efforts")
-    "C-f C-i" '(org-timer-item :wk "Agenda today")
-    "C-f C-c" '(org-timer-pause-or-continue :wk "Agenda by low efforts"))
+    ;; Timer
+    "C-f C-t" '(org-timer-set-timer :wk "Set timer")
+    "C-f C-a" '(org-timer-start :wk "Start timer")
+    "C-f C-d" '(org-timer-stop :wk "Stop timer")
+    "C-f C-i" '(org-timer-item :wk "Timer item")
+    "C-f C-p" '(org-timer-pause-or-continue :wk "Pause/Continue timer")
+    ;; Timeclock
+    "C-f C-m" '(timeclock-mode-line-display :wk "Display work time on modeline")
+    "C-f C-u" '(timeclock-in :wk "Work start")
+    "C-f C-o" '(timeclock-out :wk "Work end")
+    "C-f C-r" '(timeclock-workday-remaining-string :wk "Remaining work time")
+    "C-f C-l" '(timeclock-when-to-leave-string :wk "Work leave time")
+    "C-f C-c" '(timeclock-change :wk "Change to work on a different project")
+    "C-f C-s" '(timeclock-status-string :wk "Time clock work status")
+    "C-f C-v" '(timeclock-visit-timelog :wk "Time clock work timelog")
+    "C-f C-e" '(timeclock-elapsed-string :wk "Elapsed work time"))
 
 	(tl/leader-keys
     "C-a" '(:ignore t :wk "Agenda")
@@ -2445,7 +2458,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
 ;; Load and configure visual-fill-column package
 (use-package visual-fill-column
   :ensure t
-  :hook ((org-mode text-mode) . tl/visual-fill-column))
+  :hook ((org-mode text-mode Info-mode) . tl/visual-fill-column))
 
 ;; Enable visual-fill specifically for agenda buffers
 (add-hook 'org-agenda-mode-hook #'tl/visual-fill-column-agenda)
@@ -2759,6 +2772,42 @@ next potential sentence end"
   (interactive)
   (let ((start-of-sentence (save-excursion (re-search-backward "[.?!]") (point))))
     (kill-region (point) start-of-sentence)))
+#+end_src
+
+*** Org agenda commands
+Make it easy to mark a task as done.
+#+begin_src emacs-lisp
+;; Load Org mode
+(require 'org)
+
+(defun tl/org-agenda-done (&optional arg)
+  (interactive "P")
+  (org-agenda-todo "FINISHED")
+  (org-agenda-redo-all))
+#+end_src
+
+Make it easy to mark a task as done and create a follow-up task.
+#+begin_src emacs-lisp
+  (defun tl/org-agenda-mark-done-and-add-followup ()
+    "Mark the current TODO as done and add another task after it.
+Creates it at the same level as the previous task, so it's better to use
+this with to-do items than with projects or headings."
+    (interactive)
+    (org-agenda-todo "FINISHED")
+    (org-agenda-redo-all)
+    (org-agenda-switch-to)
+    (org-capture 0 "t"))
+#+end_src
+
+Capture something based on the agenda position.
+#+begin_src emacs-lisp
+(defun tl/org-agenda-new ()
+  "Create a new note or task at the current agenda item.
+Creates it at the same level as the previous task, so it's better to use
+this with to-do items than with projects or headings."
+  (interactive)
+  (org-agenda-switch-to)
+  (org-capture 0))
 #+end_src
 
 *** Source code block tag expansion
@@ -3076,12 +3125,14 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
   :ensure t
   :after org
   :config
-  (org-super-agenda-mode))
+  (org-super-agenda-mode)
+  (setq diary-file "~/documents/org/agenda/diary"))   ;; Diary file location (don't change)
 
 ;; Doesn't affect anything since I use org-gtd package
 (setq org-agenda-files
     (directory-files "~/documents/org/agenda"))
 
+;; Archive files location
 (setq org-archive-location "~/documents/org/agenda/archive/%s_archive::")
 
 ;; Don't show these holidays
@@ -3090,8 +3141,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 '(holiday-islamic-holidays nil)
 '(holiday-solar-holidays nil)
 '(holiday-oriental-holidays nil)
-'(holiday-equinoxes-holidays nil)
-'(holiday-solstices-holidays nil)
 
 (setq org-agenda-skip-scheduled-if-done t
       org-agenda-skip-deadline-if-done t
@@ -3223,42 +3272,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                 (org-agenda-overriding-header "Low Effort Tasks")
                 (org-agenda-max-todos 20)
                 (org-agenda-files org-agenda-files))))
-#+end_src
-
-*** Org-agenda
-Make it easy to mark a task as done.
-#+begin_src emacs-lisp
-;; Load Org mode
-(require 'org)
-
-(defun tl/org-agenda-done (&optional arg)
-  (interactive "P")
-  (org-agenda-todo "FINISHED")
-  (org-agenda-redo-all))
-#+end_src
-
-Make it easy to mark a task as done and create a follow-up task.
-#+begin_src emacs-lisp
-  (defun tl/org-agenda-mark-done-and-add-followup ()
-    "Mark the current TODO as done and add another task after it.
-Creates it at the same level as the previous task, so it's better to use
-this with to-do items than with projects or headings."
-    (interactive)
-    (org-agenda-todo "FINISHED")
-    (org-agenda-redo-all)
-    (org-agenda-switch-to)
-    (org-capture 0 "t"))
-#+end_src
-
-Capture something based on the agenda position.
-#+begin_src emacs-lisp
-(defun tl/org-agenda-new ()
-  "Create a new note or task at the current agenda item.
-Creates it at the same level as the previous task, so it's better to use
-this with to-do items than with projects or headings."
-  (interactive)
-  (org-agenda-switch-to)
-  (org-capture 0))
 #+end_src
 
 *** Org-gtd-capture

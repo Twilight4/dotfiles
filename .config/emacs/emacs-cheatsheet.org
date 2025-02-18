@@ -239,8 +239,16 @@ The world's greatest programmer once said:
 | q          | Quit                                                |
 | g          | Show holidays at point                              |
 | G          | List holidays                                       |
-| x/u        | Mark/Unmark holidays                                |
-| L          | Lunar phases                                        |
+| x          | Mark holidays                                       |
+| d          | View diary entry on point                           |
+| m          | Mark diary entries                                  |
+| D          | Diary show all entries                              |
+| i w        | Diary insert weekly entry                           |
+| i y        | Diary insert yearly entry                           |
+| i d        | Diary insert entry                                  |
+| i m        | Diary insert monthly entry                          |
+| u          | Unmark holidays and diary entries                   |
+| M          | Lunar phases                                        |
 | s          | Show sunrise-sunset for month                       |
 | S          | Show sunrise-sunset                                 |
 | y          | Print day of year and days til the end of year      |
