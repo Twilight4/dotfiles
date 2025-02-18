@@ -74,7 +74,7 @@ packages=(
   "cpufetch"
   "macchina"
   "onefetch"
-  "yazi"
+  "yazi-nightly-bin"
   "p7zip"
   "jq"
   "poppler"

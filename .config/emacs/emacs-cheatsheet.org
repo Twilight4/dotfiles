@@ -317,6 +317,7 @@ The world's greatest programmer once said:
 | s          | Search                        |
 | S          | Search case sensitively       |
 | ?          | Info help                     |
+| DEL        | Info up                       |
 | g          | Info goto node                |
 | L          | Info history                  |
 | f/b        | Info history forward/backward |

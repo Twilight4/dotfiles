@@ -1,0 +1,40 @@
+* ZSH Keybindings
+
+* Yazi Keybindings
+| Keybinding | Description                                                     |
+|------------+-----------------------------------------------------------------|
+| z/Z        | Plugin Zoxide/Plugin Fzf                                        |
+| .          | Toggle hidden files                                             |
+| a          | Create new file (dir/ for directory)                            |
+| SPC        | Mark/Unmark                                                     |
+| ESC        | Cancel marks                                                    |
+| C-a        | Select all files                                                |
+| H/L        | Previous/Next directory in history                              |
+| o/RET      | Open file                                                       |
+| w/W        | Yank/Cancel the yank status                                     |
+| x          | Cut                                                             |
+| y/Y        | Paste/Paste force                                               |
+| d/D        | Remove/Remove permamently                                       |
+| r          | Rename file/Selected files                                      |
+| f          | Filter files                                                    |
+| //?        | Find next/Find backwards                                        |
+| n/N        | Go result forward/backward (from Find next)                     |
+| ;/:        | Shell command/Shell command block until finishes                |
+| -          | Symlink                                                         |
+| s/S        | Search files by name via fd/Search files by content via ripgrep |
+| C-s        | Cancel the ongoing search                                       |
+| TAB        | Show more information                                           |
+| c c        | Copy file path                                                  |
+| c f        | Copy the filename                                               |
+| c n        | Copy file name without extension                                |
+| c d        | Copy directory path                                             |
+| s          | Sort options (default alphabetically)                           |
+| m          | Showing linemodes options (default none)                        |
+| g          | Goto options                                                    |
+| t          | Create new tab                                                  |
+| [/]        | Navigate through tabs                                           |
+| 1/2/3...   | Navigate through tabs                                           |
+| {/}        | Swapping through tabs                                           |
+| C-c        | Close tab                                                       |
+| ~/F1       | Help page                                                       |
+

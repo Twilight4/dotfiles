@@ -47,6 +47,15 @@ curl-pubip-country() {
   whois "$(curl -s http://ifconfig.me)" | grep -i country | head -n1
 }
 
+y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 # zoxide
 j() {
     z "$@" && lsd -l --hyperlink=auto
