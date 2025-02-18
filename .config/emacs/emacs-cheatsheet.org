@@ -304,24 +304,23 @@ The world's greatest programmer once said:
 | C-c C-x >       | Remove agenda restriction lock                                      |
 
 ** Info-mode
-| Keybinding | Description                 |
-|------------+-----------------------------|
-| h/j/k/l    | Navigation                  |
-| ,/.        | Forward/backward paragraph  |
-| ;/:        | Recenter                    |
-| a/e        | Beginning/end of line       |
-| {/}        | Beginning/end of buffer     |
-| p/n        | Info prev/next              |
-| [/]        | Info backward/forward node  |
-| m          | Menu                        |
-| s          | Search                      |
-| S          | Search case sensitively     |
-| ?          | Info help                   |
-| g          | Info goto node              |
-| L          | Info history                |
-| r          | Info history forward        |
-| f          | Info follow reference       |
-| c          | Info copy current node name |
+| Keybinding | Description                   |
+|------------+-------------------------------|
+| h/j/k/l    | Navigation                    |
+| ,/.        | Forward/backward paragraph    |
+| ;/:        | Recenter                      |
+| a/e        | Beginning/end of line         |
+| {/}        | Beginning/end of buffer       |
+| p/n        | Info prev/next                |
+| [/]        | Info backward/forward node    |
+| m          | Menu                          |
+| s          | Search                        |
+| S          | Search case sensitively       |
+| ?          | Info help                     |
+| g          | Info goto node                |
+| L          | Info history                  |
+| f/b        | Info history forward/backward |
+| c          | Info follow reference         |
 
 * Other Packages
 ** M-key bindings

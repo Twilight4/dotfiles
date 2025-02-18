@@ -41,6 +41,7 @@
   - [[#selection-adjustments][Selection adjustments]]
   - [[#kill-whole-line-adjustment][Kill-whole-line adjustment]]
   - [[#copy-current-line][Copy current line]]
+  - [[#copy-down-command][Copy down command]]
   - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
@@ -234,7 +235,12 @@
      (define-key Info-mode-map ";" 'recenter-top-bottom)
      (define-key Info-mode-map ":" 'move-to-window-line-top-bottom)
      (define-key Info-mode-map "e" 'end-of-line)
-     (define-key Info-mode-map "a" 'beginning-of-line)	 
+     (define-key Info-mode-map "a" 'beginning-of-line)
+     (define-key Info-mode-map "f" 'Info-history-forward)
+     (define-key Info-mode-map "b" 'Info-history-back)
+     (define-key Info-mode-map "c" 'Info-follow-reference)
+     (define-key Info-mode-map "o" 'Info-scroll-down-line)
+     (define-key Info-mode-map "O" 'Info-scroll-up-line)
      (define-key Info-mode-map "{" 'beginning-of-buffer)
      (define-key Info-mode-map "}" 'end-of-buffer)))
 
@@ -445,10 +451,10 @@
     "C-h" '(:ignore t :wk "Help")
     "C-h C-h" '(help-for-help :wk "Get help")
     "C-h C-i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
-    "C-h C-I" '(info :wk "Enter info, the documentation browser")
+    "C-h C-o" '(info :wk "Enter info, the documentation browser")
     "C-h C-e" '(info-emacs-manual :wk "Display emacs manual in info mode")
-    "C-h C-E" '(info-display-manual :wk "Display info buffer displaying MANUAL")
-    "C-h C-m" '(describe-mode :wk "Display documentation of current modes")
+    "C-h C-q" '(info-display-manual :wk "Display info buffer displaying MANUAL")
+    "C-h C-d" '(describe-mode :wk "Display documentation of current modes")
     "C-h C-f" '(describe-function :wk "Describe function")
     "C-h C-k" '(describe-key-briefly :wk "Describe key briefly")
     "C-h C-l" '(describe-key :wk "Describe key")
@@ -719,9 +725,9 @@
 
 ;; Disables all startup warnings, and kills message buffer, comment this out when debugging
 (setq warning-minimum-level :emergency)
-(setq-default message-log-max nil)
-(add-hook 'emacs-startup-hook (lambda () ;Kills the warning buffer for even emergency messages
-  (kill-buffer (get-buffer "*Messages*"))))
+;(setq-default message-log-max nil)
+;(add-hook 'emacs-startup-hook (lambda () ;Kills the warning buffer for even emergency messages
+;  (kill-buffer (get-buffer "*Messages*"))))
 #+end_src
 
 *** File litter
@@ -1443,6 +1449,25 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
       (insert line)
       (call-process-region (point-min) (point-max) "wl-copy")))
   (message "Line copied to clipboard."))
+#+end_src
+
+** Copy down command
+Similar to =org-table-copy-down= but for normal emacs buffers.
+
+#+begin_src emacs-lisp
+(defun tl/copy-down-current-line-or-region ()
+  "Copy the current line (or region) and insert it below the current line."
+  (interactive)
+    (let ((text-to-copy (if (region-active-p)
+                            (buffer-substring (region-beginning) (region-end))
+                          (buffer-substring (line-beginning-position) (line-end-position))))
+          (insertion-point (if (region-active-p)
+                             (region-end)
+                           (line-end-position))))
+      (goto-char insertion-point)
+      (unless (region-active-p) (insert "\n"))
+      (insert text-to-copy)
+      (goto-char (+ insertion-point (length text-to-copy) (if (region-active-p) 0 1)))))
 #+end_src
 
 ** Toggle selection mode
@@ -2274,7 +2299,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-]") #'scroll-up-command)
   (define-key god-local-mode-map (kbd "C-{") #'beginning-of-buffer)
   (define-key god-local-mode-map (kbd "C-}") #'end-of-buffer)
-  (define-key god-local-mode-map (kbd "C-S-w") #'query-replace)
+  (define-key god-local-mode-map (kbd "C-S-r") #'query-replace)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "C-,") #'backward-paragraph)
   (define-key god-local-mode-map (kbd "C-.") #'forward-paragraph)
@@ -2313,13 +2338,14 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-:") #'move-to-window-line-top-bottom)
   (define-key god-local-mode-map (kbd "C-t") #'zap-up-to-char)
   (define-key god-local-mode-map (kbd "C-u") #'tl/newline-at-end-of-line)
-  (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Press 't' to replace chars
+  ;(define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Currently not working as epxected (press 't' to replace chars)
   (define-key god-local-mode-map (kbd "C-S-d") #'org-babel-mark-block)
   (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
   (define-key god-local-mode-map (kbd "C-S-u") #'mark-whole-line)
   (define-key god-local-mode-map (kbd "C-~") #'capitalize-word)
   (define-key god-local-mode-map (kbd "C-|") #'gptel-abort)
   (define-key god-local-mode-map (kbd "C-S-v") #'join-line)
+  (define-key god-local-mode-map (kbd "C-S-W") #'tl/copy-down-current-line-or-region)
   ;; Syntax highlighting for org-mode
   (define-key god-local-mode-map (kbd "C-S-z") #'surround-bold)
   (define-key god-local-mode-map (kbd "C-S-x") #'surround-italic)
@@ -3076,11 +3102,8 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
       org-deadline-warning-days 30
       org-return-follows-link t
       org-use-speed-commands t
-      org-agenda-compact-blocks t)
-	    ;org-agenda-time-grid
-		;'((daily today require-timed)
-		  ;(800 1000 1200 1400 1600 1800 2000)
-		  ;" ┄┄┄┄┄ " "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄")
+      org-agenda-compact-blocks t
+      org-agenda-archives-mode t)
 
 ;; Ricing org agenda
 (setq org-agenda-current-time-string "◀── now ─────────────────────────────────────────────────")
