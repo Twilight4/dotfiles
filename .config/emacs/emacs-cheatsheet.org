@@ -92,7 +92,6 @@ The world's greatest programmer once said:
 | b          | Consult bookmark  |
 | x          | Set Bookmark      |
 | d          | Delete Bookmark   |
-| w          | Save Bookmark     |
 | l          | List bookmarks    |
 
 ** Window management
@@ -177,16 +176,18 @@ The world's greatest programmer once said:
 
 ** Org-Roam dailies
 
-| Keybinding | Description               |
-|------------+---------------------------|
-| n          | Capture daily today       |
-| N          | Go to daily today         |
-| y          | Capture daily yesterday   |
-| Y          | Go to daily yesterday     |
-| t          | Capture to daily tomorrow |
-| T          | Go to daily tomorrow      |
-| d          | Capture daily in date     |
-| D          | Go to daily in date       |
+| Keybinding | Description                        |
+|------------+------------------------------------|
+| m          | Capture daily today                |
+| M          | Go to daily today                  |
+| y          | Capture daily yesterday            |
+| Y          | Go to daily yesterday              |
+| t          | Capture to daily tomorrow          |
+| T          | Go to daily tomorrow               |
+| d          | Capture daily for date in calendar |
+| D          | Go to daily date in calendar       |
+| p          | Go to previous note                |
+| n          | Go to next note                    |
 
 * C-v Leader Key
 ** Symbol-overlay
