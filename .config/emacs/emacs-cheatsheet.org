@@ -19,6 +19,7 @@ The world's greatest programmer once said:
 - [[#c-x-leader-key][C-x Leader Key]]
   - [[#prefix-keys][Prefix keys]]
   - [[#general-keys][General keys]]
+  - [[#registers-and-bookmarks][Registers and bookmarks]]
   - [[#window-management][Window management]]
   - [[#org-tables][Org tables]]
 - [[#c-c-leader-key][C-c Leader Key]]
@@ -49,11 +50,11 @@ The world's greatest programmer once said:
 |------------+----------------|
 | C-c        | Consult        |
 | C-a        | Org agenda     |
+| C-f        | Timer/clock    |
 | C-h        | Help           |
 | C-t        | Toggle         |
-| C-e        | Eval/Edit file |
+| C-e        | Eval/edit file |
 | C-d        | Dired          |
-| C-r        | Registers      |
 
 ** General keys
 
@@ -77,10 +78,22 @@ The world's greatest programmer once said:
 | C-q        | Exit emacs                   |
 | C-j        | Open emacs dashboard         |
 | C-s        | Save buffer                  |
-| TAB        | Comment lines                |
+| C-i/TAB    | Comment lines                |
 | C-b        | Switch to buffer             |
 | C-o        | Open image in swappy         |
 | C-k        | Select macro to run          |
+
+** Registers and bookmarks
+
+| Keybinding | Description       |
+|------------+-------------------|
+| C-r        | Point to register |
+| C-SPC      | Consult register  |
+| b          | Consult bookmark  |
+| x          | Set Bookmark      |
+| d          | Delete Bookmark   |
+| w          | Save Bookmark     |
+| l          | List bookmarks    |
 
 ** Window management
 | Keybinding | Description                         |
@@ -102,16 +115,16 @@ The world's greatest programmer once said:
 | Keybinding    | Description                               |
 |---------------+-------------------------------------------|
 | TAB/S-TAB     | Next/previous cell                        |
+| C-c C-h/j/k/l | Move table row/column up/down/left/right  |
 | RET           | Go down one cell                          |
 | S-ArrowKeys   | Move table cell up/down/left/right        |
-| C-c C-h/j/k/l | Move table row/column up/down/left/right  |
-| C-x \         | Create empty table or convert from region |
-| C-x -         | Insert horizontal line                    |
-| C-x j         | Copy the value of the field below         |
-| C-x h         | Insert a new row above the current line   |
-| C-x k         | Delete the current row or horizontal line |
-| C-x u         | Delete a column                           |
-| C-x z         | Blank field or active region              |
+| \             | Create empty table or convert from region |
+| -             | Insert horizontal line                    |
+| j             | Copy the value of the field below         |
+| h             | Insert a new row above the current line   |
+| k             | Delete the current row or horizontal line |
+| u             | Delete a column                           |
+| z             | Blank field or active region              |
 
 * C-c Leader Key
 ** Org-mode
