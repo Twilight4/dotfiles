@@ -24,8 +24,8 @@ The world's greatest programmer once said:
   - [[#org-tables][Org tables]]
 - [[#c-c-leader-key][C-c Leader Key]]
   - [[#org-mode][Org-mode]]
-  - [[#org-roam][Org-Roam]]
-  - [[#org-roam-dailies][Org-Roam dailies]]
+  - [[#org-roam][Org-roam]]
+  - [[#org-roam-dailies][Org-roam dailies]]
 - [[#c-v-leader-key][C-v Leader Key]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#expand-region][Expand-region]]
@@ -40,7 +40,6 @@ The world's greatest programmer once said:
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
   - [[#treemacs][Treemacs]]
-  - [[#undo-tree][Undo-tree]]
   - [[#consult-buffer][Consult-buffer]]
 
 * C-x Leader Key
@@ -159,7 +158,7 @@ The world's greatest programmer once said:
 | l          | Narrow to subtree                 |
 | z          | Insert footnote                   |
 
-** Org-Roam
+** Org-roam
 
 | Keybinding | Description                              |
 |------------+------------------------------------------|
@@ -173,7 +172,7 @@ The world's greatest programmer once said:
 | u          | Open Org roam UI                         |
 | s          | Sync Org roam db                         |
 
-** Org-Roam dailies
+** Org-roam dailies
 
 | Keybinding | Description                        |
 |------------+------------------------------------|
@@ -542,15 +541,6 @@ The world's greatest programmer once said:
 | C-c C-p c c | treemacs-collapse-project              |
 | C-c C-p c o | treemacs-collapse-all-projects         |
 | S-TAB       | treemacs-collapse-all-projects         |
-
-** Undo-tree
-
-| Keybinding | Description                          |
-|------------+--------------------------------------|
-| C-/        | undo                                 |
-| M-/        | redo                                 |
-| C-p/n      | navigate through =undo-tree-visualise= |
-| q          | quit                                 |
 
 ** Consult-buffer
 

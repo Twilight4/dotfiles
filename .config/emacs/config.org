@@ -217,6 +217,7 @@
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
 ;; Spell-checker
+(global-set-key (kbd "M-a") 'embark-act)
 (global-set-key (kbd "M-i") 'jinx-correct)
 (global-set-key (kbd "M-n") 'jinx-correct-nearest)
 (global-set-key (kbd "M-w") 'jinx-correct-word)
@@ -387,13 +388,13 @@
 	  ;; Window management
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
-    "C-o" '(other-window :wk "Switch window")
+    "C-o" '(ace-window :wk "Switch window")
+    "C-w" '(ace-swap-window :wk "Swap windows")
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")  
     "C-<" '(shrink-window :wk "Shrink window")
     "C-_" '(split-window-below :wk "Split window below")
     "/" '(balance-windows :wk "Balance windows")
-    "C-w" '(ace-swap-window :wk "Swap windows")
     ";" '(split-window-right :wk "Split window right"))
     ;"C-c" '(split-window-vertically :wk "Split window vertically")
     ;"C-c" '(split-window-horizontally :wk "Split window horizontally"))
@@ -556,7 +557,7 @@
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
  "z" '(org-footnote-action :wk "Insert footnote")
  ;; Org-Roam
- "p" '(completion-at-point :wk "Complete at point")
+ "P" '(completion-at-point :wk "Complete at point")
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
  "f" '(org-roam-node-find :wk "Find Org roam node")
  ;"L" '(org-roam-node-insert :wk "Insert Org roam node")
@@ -568,16 +569,16 @@
  "u" '(org-roam-ui-open :wk "Open Org roam UI")
  "s" '(org-roam-db-sync :wk "Sync Org roam db")
  ;; Org-Roam dailies
-     ;- org-roam-dailies-goto-next-note
-     ;- org-roam-dailies-goto-previous-note
- "n" '(org-roam-dailies-capture-today :wk "Capture daily today")
- "N" '(org-roam-dailies-goto-today :wk "Go to daily today")
- ;"y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
+ "m" '(org-roam-dailies-capture-today :wk "Capture daily today")
+ "M" '(org-roam-dailies-goto-today :wk "Go to daily today")
+ "y" '(org-roam-dailies-capture-yesterday :wk "Capture daily yesterday")
  "Y" '(org-roam-dailies-goto-yesterday :wk "Go to daily yesterday")
- ;"t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
+ "t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
  "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
- "D" '(org-roam-dailies-goto-date :wk "Go to daily in date"))
+ "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
+ "p" '(org-roam-dailies-goto-previous-note :wk "Go to daily in date")
+ "n" '(org-roam-dailies-goto-next-note :wk "Go to daily in date"))
 #+end_src
 
 *** C-v leader key
@@ -2255,7 +2256,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   
   ;; Other
   (global-set-key (kbd "C-x s") 'gptel-system-prompt)       ;; Select directive for system prompt
-  (global-set-key (kbd "C-c t") 'gptel-org-set-topic)
+  ;(global-set-key (kbd "C-c t") 'gptel-org-set-topic)        ; keybind taken
   ;(global-set-key (kbd "C-c e") 'gptel--suffix-system-message)   ;; I don't use it
   (global-set-key (kbd "C-v r") 'gptel--mark-response)
 
