@@ -98,17 +98,16 @@ The world's greatest programmer once said:
 | Keybinding | Description                         |
 |------------+-------------------------------------|
 | q          | Delete window                       |
-| o          | Switch window                       |
-| m          | Toggle window maximization          |
-| b          | Split window below                  |
+| C-g        | Delete other windows                |
+| C-o        | Switch window                       |
+| C-m        | Toggle window maximization          |
+| C-/        | Split window below                  |
 | C->        | Enlarge window                      |
 | C-<        | Shrink window                       |
+| C-w        | Swap window                         |
 | /          | Balance windows                     |
-| w          | Swap window                         |
-|            | Split window right                  |
-|            | Split window vertically             |
-|            | Split window horizontally           |
-| c          | Clone indirect buffer in new window |
+| ;          | Split window right                  |
+| .          | Clone indirect buffer in new window |
 
 ** Org tables
 | Keybinding    | Description                               |
@@ -388,9 +387,49 @@ The world's greatest programmer once said:
 | M-w        | jinx-correct-word                                            |
 
 ** God-mode
-| Keybinding | Description |
-|------------+-------------|
-|            |             |
+| Keybinding    | Description                          |
+|---------------+--------------------------------------|
+| z             | Repeat action                        |
+| S-t           | kmacro-start-macro-or-insert-counter |
+| S-y           | kmacro-end-or-call-macro             |
+| [             | scroll-down-command                  |
+| ]             | scroll-up-command                    |
+| {             | beginning-of-buffer                  |
+| }             | end-of-buffer                        |
+| S-r           | query-replace                        |
+| S-m           | org-meta-return                      |
+| ,             | backward-paragraph                   |
+| .             | forward-paragraph                    |
+| >             | mark-to-end-of-paragraph             |
+| <             | mark-to-beginning-of-paragraph       |
+| e             | org-end-of-line                      |
+| a             | org-beginning-of-line                |
+| w             | copy-to-system-clipboard             |
+| ?             | undo-redo                            |
+| y             | paste-from-system-clipboard          |
+| b             | backward-word                        |
+| f             | forward-word                         |
+| d             | kill-region-or-forward-delete        |
+| p             | org-backward-sentence                |
+| n             | org-forward-sentence                 |
+| \             | universal-argument                   |
+| S-i           | tl/org-cycle-or-shift-tab            |
+| S-q           | goto-last-change                     |
+| S-o           | goto-last-change-reverse             |
+| ;             | recenter-top-bottom                  |
+| :             | move-to-window-line-top-bottom       |
+| t             | zap-up-to-char                       |
+| u             | tl/newline-at-end-of-line            |
+| S-d           | org-babel-mark-block                 |
+| S-s           | er/mark-symbol                       |
+| S-u           | mark-whole-line                      |
+| ~             | capitalize-word                      |
+| "Pipe symbol" | gptel-abort                          |
+| S-v           | join-line                            |
+| S-w           | tl/copy-down-current-line-or-region  |
+| S-z           | surround-bold                        |
+| S-x           | surround-italic                      |
+| S-c           | surround-code                        |
 
 ** Org-tempo
 
