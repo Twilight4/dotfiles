@@ -1,0 +1,8 @@
+                {
+                    "label":"",
+                    "command": "rofi -show drun -config /home/twilight/.config/rofi/configs/config.rasi"
+                },
+                {
+                    "label": "",
+                    "command": "wlogout"
+                },

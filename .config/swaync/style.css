@@ -191,7 +191,7 @@
     background: rgba(255,85,85,.3);
     border: none;
     box-shadow: none;
-    border-radius: 12px;
+    border-radius: 5px;
     padding:0px 10px;
     margin-right:20px;
     margin-top:3px;
@@ -200,8 +200,8 @@
 
 .widget-title > button:hover {
     border: none;
-    background: @bg-hover;
-    transition: all .7s ease;
+    background: @color1;
+    transition: all .2s ease;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, .65);
 }
 
@@ -213,6 +213,7 @@
     font-size: 1.1rem;
 }
 
+  /* Music player */
 .widget-mpris {
 }
 .widget-mpris .widget-mpris-player {
@@ -266,6 +267,38 @@
 .widget-mpris .widget-mpris-player > box > button:hover {
     background-color: @mpris-button-hover;
 }
+  /* Do not disturb */
+.widget-dnd {
+    font-size: 1.2rem;
+    padding:0px 10px;
+    margin-right:10px;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-left:10px;
+}
+
+.widget-dnd > switch {
+    border-radius: 5px;
+}
+
+.widget-dnd > switch:hover {
+    background: @hover;
+}
+
+.widget-dnd > switch:checked {
+    background: @color1;
+}
+
+.widget-dnd > switch:checked:hover {
+    background: @hover;
+}
+
+.widget-dnd > switch slider {
+    background: @text;
+    border-radius: 5px;
+}
+
+  /* Buttons menu */
 .widget-buttons-grid {
     font-family:"CodeNewRoman Nerd Font Propo";
     padding-left: 8px;
@@ -279,24 +312,24 @@
 .widget-buttons-grid>flowbox>flowboxchild>button label {
     font-size: 20px;
     color: @color7;
-    transition: all .7s ease;
+    transition: all .3s ease;
 }
 .widget-buttons-grid>flowbox>flowboxchild>button:hover label {
     font-size: 20px;
     color: @text;
-    transition: all .7s ease;
+    transition: all .3s ease;
 }
 .widget-buttons-grid > flowbox > flowboxchild > button {
     background: transparent;
     border-radius: 12px;
     text-shadow:none;
     box-shadow: 0px 0px 8px rgba(255,255,255, .02);
-    transition: all .5s ease;
+    transition: all .3s ease;
 }
 .widget-buttons-grid > flowbox > flowboxchild > button:hover {
     background: @color4;
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .2);
-    transition: all .5s ease;
+    transition: all .3s ease;
 
 }
 
@@ -344,6 +377,7 @@ trough slider:hover {
     background: transparent;
 }
 
+/* Volume */
 .widget-volume {
     background-color: transparent;
     padding: 8px;
