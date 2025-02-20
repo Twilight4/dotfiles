@@ -6,3 +6,7 @@
                     "label": "",
                     "command": "wlogout"
                 },
+                {
+                    "label": "  ",
+                    "command": "/home/twilight/.config/hypr/scripts/hyprlock-dpms-off"
+                },

@@ -71,7 +71,19 @@
                 },
                 {
                     "label": "  ",
-                    "command": "/home/twilight/.config/hypr/ws-scripts/ws-blueman"
+                    "type": "toggle",
+                    "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && bluetoothctl power on || bluetoothctl power off'",
+                    "update-command": "sh -c '[[ $(bluetoothctl show | grep \"Powered: yes\") ]] && echo true || echo false'"
+                },
+                {
+                    "label": " 󱊤 ",
+                    "command": "/home/twilight/.config/hypr/scripts/battery-saving",
+                    "type": "toggle"
+                },
+                {
+                    "label":" 󰤄 ",
+                    "command": "/home/twilight/.config/hypr/scripts/night-mode",
+                    "type": "toggle"
                 },
                 {
                     "label": " 󰝟 ",
@@ -84,36 +96,32 @@
                     "type": "toggle"
                 },
                 {
-                    "label":" 󰐹 ",
-                    "command": "/home/twilight/.config/rofi/bin/wofi-beats.sh"
-                },
-                {
-                    "label": "  ",
-                    "command": "hyprlock"
-                },
-                {
-                    "label":" 󰤄 ",
-                    "command": "/home/twilight/.config/hypr/scripts/night-mode"
-                },
-                {
                     "label": " 󰄀 ",
-                    "command": "/home/twilight/.config/.local/bin/webcam.sh"
+                    "command": "/home/twilight/.config/.local/bin/webcam.sh",
+                    "type": "toggle"
                 },
                 {
                     "label":"  ",
-                    "command": "/home/twilight/.config/hypr/scripts/record-screen"
+                    "command": "/home/twilight/.config/hypr/scripts/record-screen",
+                    "type": "toggle"
                 },
                 {
-                    "label": "  ",
-                    "command": "/home/twilight/.config/hypr/scripts/screenshot --area-edit"
+                    "label":" 󱂩 ",
+                    "command": "/home/twilight/.config/hypr/scripts/dock-toggle-hyprland",
+                    "type": "toggle"
+                },
+                {
+                    "label":" 󰐹 ",
+                    "command": "/home/twilight/.config/rofi/bin/wofi-beats.sh",
+                    "type": "toggle"
                 },
                 {
                     "label": " 󰸉 ",
                     "command": "/home/twilight/.config/hypr/scripts/wallpaper select"
                 },
                 {
-                    "label":" 󱂩 ",
-                    "command": "/home/twilight/.config/hypr/scripts/dock-toggle-hyprland"
+                    "label": "  ",
+                    "command": "/home/twilight/.config/hypr/scripts/screenshot --area-edit"
                 }
             ]
         }

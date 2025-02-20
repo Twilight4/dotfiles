@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
-HYPRGAMEMODE=$(hyprctl getoption animations:enabled | awk 'NR==1{print $2}')
+HYPRBLUR=$(hyprctl getoption decoration:blur:enabled | awk 'NR==1{print $2}')
 
-if [ "$HYPRGAMEMODE" = 1 ] ; then
+if [ "$HYPRBLUR" = 1 ] ; then
     hyprctl --batch "\
         keyword animations:enabled 0;\
         keyword decoration:drop_shadow 0;\
@@ -12,9 +12,9 @@ if [ "$HYPRGAMEMODE" = 1 ] ; then
         keyword general:border_size 1;\
         keyword decoration:rounding 0"
 
-    notify-send -t 3000 "Gamemode: On"
+    notify-send -t 3000 "Battery Saving: On"
     exit
 fi
 
 hyprctl reload
-notify-send -t 3000 "Gamemode: Off"
+notify-send -t 3000 "Battery Saving: Off"

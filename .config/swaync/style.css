@@ -271,7 +271,7 @@
 .widget-dnd {
     font-size: 1.2rem;
     padding:0px 10px;
-    margin-right:10px;
+    margin-right:11px;
     margin-top:0px;
     margin-bottom:0px;
     margin-left:10px;
@@ -279,6 +279,8 @@
 
 .widget-dnd > switch {
     border-radius: 5px;
+    min-height:20px;
+    min-width:40px;
 }
 
 .widget-dnd > switch:hover {
