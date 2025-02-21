@@ -1,5 +1,5 @@
 #!/bin/bash
-# Online script for install dots-hyprland.
+# Online script for dotfiles installation.
 
 me="-->online-setup<--"
 remote_repo=Twilight4/dotfiles
