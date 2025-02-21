@@ -1,3 +1,12 @@
+* Table of Contents :toc:
+- [[#zsh-keybindings][ZSH Keybindings]]
+- [[#kitty-keybindings][Kitty Keybindings]]
+  - [[#navigation][Navigation]]
+  - [[#actions-on-text][Actions on text]]
+  - [[#open-cli-tools][Open cli tools]]
+- [[#zellij-keybindings][Zellij Keybindings]]
+- [[#yazi-keybindings][Yazi Keybindings]]
+
 * ZSH Keybindings
 | Keybinding | Description                                                     |
 |------------+-----------------------------------------------------------------|
