@@ -113,7 +113,7 @@
                 },
                 {
                     "label":" 󰐹 ",
-                    "command": "/home/twilight/.config/rofi/bin/wofi-beats.sh",
+                    "command": "/home/twilight/.config/hypr/scripts/lofi-stream",
                     "type": "toggle"
                 },
                 {

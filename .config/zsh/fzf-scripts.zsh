@@ -481,7 +481,7 @@ falias() {
 }
 
 # Search and run from list of functions from scripts.zsh file
-ffsh() {
+fsh() {
     # Source the scripts.zsh file to ensure functions are available
     source ~/.config/zsh/scripts.zsh
 

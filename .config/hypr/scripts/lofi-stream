@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Other Stream URL commands
+#mpv "http://stream.zeno.fm/f3wvbbqmdg8uv"
+#mpv --shuffle --ytdl-raw-options="cookies=/tmp/cookies.txt" --vid=no https://www.youtube.com/playlist\?list\=PLusoefCj_Mkn6dRQMc3MxUGFHLeYT4y49
+#mpv --shuffle --ytdl-raw-options="cookies=/tmp/cookies.txt" --vid=no https://www.youtube.com/watch?v=GaW13eDQO6s
+#mpv --shuffle --ytdl-raw-options="cookies=/tmp/cookies.txt" --vid=no https://www.youtube.com/watch?v=36YnV9STBqc
+
+# Stream URL
+STREAM_URL="https://play.streamafrica.net/lofiradio"
+
+# Check if the stream is already running
+if pgrep -f "mpv $STREAM_URL" > /dev/null; then
+    # If running, gracefully kill the process
+    pkill -f "mpv $STREAM_URL"
+    sleep 0.5 # Give it a moment to terminate gracefully
+    if ! pgrep -f "mpv $STREAM_URL" > /dev/null; then
+        notify-send "Lofi Stream" "Lofi Radio stopped"
+    else
+        # If still running, force kill it
+        pkill -9 -f "mpv $STREAM_URL"
+        notify-send "Lofi Stream" "Lofi Radio force-stopped"
+    fi
+else
+    # If not running, start the stream
+    mpv "$STREAM_URL" &
+    notify-send "Lofi Stream" "Lofi Radio started"
+fi
