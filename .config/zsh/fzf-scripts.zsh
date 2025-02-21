@@ -480,6 +480,25 @@ falias() {
     eval $CMD
 }
 
+# Search and run from list of functions from scripts.zsh file
+ffsh() {
+    # Source the scripts.zsh file to ensure functions are available
+    source ~/.config/zsh/scripts.zsh
+
+    # Extract function names from the scripts.zsh file, excluding those with 2 or fewer characters
+    CMD=$(
+        grep -oP '^\s*\K\w+(?=\s*\(\))' ~/.config/zsh/scripts.zsh | awk 'length($0) > 2' | fzf
+    )
+
+    # Insert the selected function name into the shell
+    if [ -n "$CMD" ]; then
+        # Use `print -z` to insert the command into the shell buffer
+        print -z "$CMD"
+    else
+        echo "No function selected."
+    fi
+}
+
 # List cheatsheets and edit
 fchtce() {
     file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --color=always ~/.config/cheat/tools/{}') || return

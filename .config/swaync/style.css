@@ -20,18 +20,20 @@
 }
 * {
     outline:none;
+    transition: 100ms;
 }
 .control-center .notification-row {
     background-color: unset;
 }
-.control-center .notification-row .notification-background .notification,
+.control-center .notification-row .notification-background .notification 
 .control-center .notification-row .notification-background .notification .notification-content,
 .floating-notifications .notification-row .notification-background .notification,
 .floating-notifications.background .notification-background .notification .notification-content {
 }
 .notification{
     background: alpha(@mycolor,.5);
-
+    border-radius: 8px;
+    margin: 6px;
 }
 
 .control-center .notification-row .notification-background .notification {
@@ -41,7 +43,7 @@
 
 }
 .floating-notifications .notification{
-    animation: fadeIn .5s ease-in-out;
+    animation: .1s;
 }
 
 .control-center .notification-row .notification-background .notification box,
