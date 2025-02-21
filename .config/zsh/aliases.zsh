@@ -240,7 +240,7 @@ alias port="netstat -tulpn | rg"
 
 # Updates
 alias gu='git add . && git commit -m "update" && git push'
-alias ga='git add . && read -p "Enter commit message: " msg && git commit -m "$msg" && git push'
+alias gm='git add . && echo -n "Enter commit message: " && read msg && git commit -m "$msg" && git push'
 alias guorg='\cd ~/documents/org/ && git add . && git commit -m "update" && git push && \cd -'
 alias gucht='\cd ~/.config/cheat/ && git add . && git commit -m "update" && git push && \cd -'
 
