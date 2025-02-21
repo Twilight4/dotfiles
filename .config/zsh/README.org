@@ -3,17 +3,73 @@
 
 * Table of Contents :toc:
 - [[#zsh][Zsh]]
-- [[#kitty][Kitty]]
   - [[#navigation][Navigation]]
+  - [[#prefix-key][Prefix key]]
+  - [[#insert-command][Insert command]]
+- [[#kitty][Kitty]]
+  - [[#navigation-1][Navigation]]
   - [[#actions-on-text][Actions on text]]
   - [[#open-cli-tools][Open cli tools]]
 - [[#zellij][Zellij]]
 - [[#yazi][Yazi]]
 
 * Zsh
-| Keybinding | Description                                                     |
-|------------+-----------------------------------------------------------------|
-|            |                                                                 |
+** Navigation
+| Keybinding | Description                       |
+|------------+-----------------------------------|
+| C-h/l      | Backward/forward char             |
+| C-k/j      | Up/down in history                |
+| C-S-j      | Scroll line down                  |
+| C-S-k      | Scroll line up                    |
+| C-a/e      | Beginning/end of line             |
+| C-f/b      | Forward/backward word             |
+| C-w        | Backward kill word                |
+| M-w        | Copy region                       |
+| M-S-w      | Copy current line                 |
+| C-d        | Delete forward char or cut region |
+| M-d        | Forward kill word                 |
+| C-g        | Clear screen                      |
+| M-'        | Quote region                      |
+| M-/        | Which command                     |
+| M-S-/      | History complete newer            |
+| C-M-f      | Vi find next char                 |
+| C-M-b      | Vi find previous char             |
+| C-M-RET    | Return and hold                   |
+
+** Prefix key
+| Keybinding | Description             |
+|------------+-------------------------|
+| C-x a      | Exchange point and mark |
+| C-x x      | Expand alias            |
+| C-x m      | Most recent file        |
+| C-x s      | Search forward          |
+| C-x r      | Search backward         |
+
+** Insert command
+| Keybinding | Description |
+|------------+-------------|
+| M-,        | frec        |
+| M-.        | frecd       |
+| M-S-f      | fpars       |
+| M-S-d      | fparr       |
+| M-x        | fkill       |
+| M-\        | cd ..; ls   |
+| M-n        | fnb         |
+| M-S-n      | fnp         |
+| M-h        | help        |
+| M-u        | fwork       |
+| M-a        | falias      |
+| M-p        | fproj       |
+| M-S-t      | ftrack      |
+| M-y        | fclip       |
+| M-S-p      | fpdf        |
+| M-e        | fchtc       |
+| M-S-e      | fchtce      |
+| M-r        | fchto       |
+| M-S-r      | fchtoe      |
+|            | fgcom       |
+|            | fgs         |
+|            | fgl         |
 
 * Kitty
 ** Navigation

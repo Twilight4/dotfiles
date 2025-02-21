@@ -113,7 +113,6 @@ bindkey -M emacs -s '^[\' '\\cd ..; ls\r'
 #bindkey -M emacs -s '^[;'
 
 # List files
-bindkey -M emacs -s '^[n' 'fnp\r'
 bindkey -M emacs -s '^[u' 'fwork\r'
 bindkey -M emacs -s '^[a' 'falias\r'
 bindkey -M emacs -s '^[p' 'fproj\r'
@@ -135,9 +134,8 @@ bindkey -M emacs -s '^[R' 'fchtoe\r'
 bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
 bindkey -M emacs -s '^[{' 'fgl\r'
-bindkey -M emacs -s '^[}' 'gcl\r'
 # ctrl+... keys
-bindkey -M emacs -s '^]' 'fzf-eval '
+#bindkey -M emacs -s '^]' 'fzf-eval '
 # Misc
 bindkey -M emacs -s '^[N' 'fnp\r'
 #bindkey -M emacs -s '^[e' 'frg '
