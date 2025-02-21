@@ -1,4 +1,39 @@
+* Kitty Keybindings
+| Keybinding  | Description                   |
+|-------------+-------------------------------|
+| C-q/o       | Scroll line up/down           |
+| C-y         | Paste from clipboard          |
+| M-k/j       | Next/previous window          |
+| M-S-k/j     | Move window forward/backward  |
+| C-S-m       | Show scrollback               |
+| C-S-n       | Show scrollback in new window |
+| M-s         | New window with current cwd   |
+| C-M-s       | New window                    |
+| M-c         | Close window                  |
+| M-m         | Maximize window               |
+| M-o         | New tab                       |
+| C-M-o       | Rename tab                    |
+| M-TAB       | Move tab forward              |
+| M-S-TAB     | Move tab backward             |
+| C-1/2/3/4/5 | Go to tab 1/2/3/4/5           |
+| C-S-[       | Next layout                   |
+| C-S-]       | Previous layout               |
+| C-S-w       | Insert word                   |
+| C-S-l       | Insert line                   |
+| C-S-h       | Insert hash                   |
+| C-S-p       | Insert path                   |
+| C-M-w       | Copy word                     |
+| C-M-l       | Copy line                     |
+| C-M-p       | Copy path                     |
+| C-M-u       | Open URL                      |
+| C-S-DEL     | Reset terminal active         |
+| C-S-`       | Reset terminal all            |
+|             |                               |
+
 * ZSH Keybindings
+| Keybinding | Description                                                     |
+|------------+-----------------------------------------------------------------|
+|            |                                                                 |
 
 * Yazi Keybindings
 | Keybinding | Description                                                     |
