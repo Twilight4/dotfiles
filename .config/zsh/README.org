@@ -1,18 +1,21 @@
+#+title: Dotfiles Keybindings Cheatsheet
+#+AUTHOR: Twilight4
+
 * Table of Contents :toc:
-- [[#zsh-keybindings][ZSH Keybindings]]
-- [[#kitty-keybindings][Kitty Keybindings]]
+- [[#zsh][Zsh]]
+- [[#kitty][Kitty]]
   - [[#navigation][Navigation]]
   - [[#actions-on-text][Actions on text]]
   - [[#open-cli-tools][Open cli tools]]
-- [[#zellij-keybindings][Zellij Keybindings]]
-- [[#yazi-keybindings][Yazi Keybindings]]
+- [[#zellij][Zellij]]
+- [[#yazi][Yazi]]
 
-* ZSH Keybindings
+* Zsh
 | Keybinding | Description                                                     |
 |------------+-----------------------------------------------------------------|
 |            |                                                                 |
 
-* Kitty Keybindings
+* Kitty
 ** Navigation
 | Keybinding  | Description                   |
 |-------------+-------------------------------|
@@ -60,12 +63,12 @@
 | M-S-a       | Open emacs agenda in new tab            |
 | M-S-v       | Open emacs gptel in new tab             |
 
-* Zellij Keybindings
+* Zellij
 | Keybinding | Description                                                     |
 |------------+-----------------------------------------------------------------|
 |            |                                                                 |
 
-* Yazi Keybindings
+* Yazi
 | Keybinding | Description                                                     |
 |------------+-----------------------------------------------------------------|
 | z/Z        | Plugin Zoxide/Plugin Fzf                                        |
