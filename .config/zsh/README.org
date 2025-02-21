@@ -12,6 +12,9 @@
   - [[#open-cli-tools][Open cli tools]]
 - [[#zellij][Zellij]]
 - [[#yazi][Yazi]]
+- [[#mpv][Mpv]]
+  - [[#navigation-2][Navigation]]
+  - [[#mpv-plugins][Mpv plugins]]
 
 * Zsh
 ** Navigation
@@ -162,3 +165,58 @@
 | C-c        | Close tab                                                       |
 | ~/F1       | Help page                                                       |
 
+* Mpv
+** Navigation
+| Keybinding | Description                                             |
+|------------+---------------------------------------------------------|
+| l/j        | Seek 5sec forward/backward                              |
+| L/J        | Seek 60sec forward/backward                             |
+| S-C-BS     | mark the position for revert-seek                       |
+| S-BS       | undo the previous (or marked) seek                      |
+| p/n        | Playlist next/prev                                      |
+| N/P        | Chapter next/prev                                       |
+| =/-        | Zoom in/out                                             |
+| 0          | Reset zoom                                              |
+| [/]        | decrease/increase the playback speed                    |
+| {/}        | halve/double the playback speed                         |
+| BS         | reset the speed to normal                               |
+| </>        | volume down/up                                          |
+| m          | mute toggle                                             |
+| q          | quit                                                    |
+| Q          | quit and remember the playback position                 |
+| SPC/k      | toggle pause/playback mode                              |
+| ,/.        | advance/go back one frame and pause                     |
+| O          | toggle displaying the OSD on user interaction or always |
+| o          | show playback progress                                  |
+| I          | toggle displaying information and statistics            |
+| `          | open the console                                        |
+| +          | switch audio track                                      |
+| _          | switch video track                                      |
+| t          | show the playlist                                       |
+| s          | screenshot with subtitles                               |
+| S          | screenshot without subtitles                            |
+| x          | set/clear A-B loop points                               |
+| X          | toggle infinite looping                                 |
+| 1/2        | add contrast -1/+1                                      |
+| 3/4        | add brightness -1/+1                                    |
+| 5/6        | add gamma -1/+1                                         |
+| 7/8        | add saturation -1/+1                                    |
+
+** Mpv plugins
+| Keybinding | Description                                |
+|------------+--------------------------------------------|
+| g          | Playlist view toggle                       |
+| c          | View currently playing movie               |
+| T          | Show total playlist playtime               |
+| S-RET      | Show the name of current playing file      |
+| DEL        | Mark/unmark file to be deleted             |
+| C-DEL      | Show the list of files marked for deletion |
+| S-DEL      | Clear the list of marked files             |
+| C          | Start croping hard                         |
+| M-c        | Start croping soft                         |
+| d          | Remove the crop                            |
+| e          | Start encoding                             |
+| E          | Start encoding to webm                     |
+| F          | Video formats                              |
+| M-f        | Audio formats                              |
+| C-r        | Reload video                               |
