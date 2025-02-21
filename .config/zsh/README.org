@@ -1,4 +1,10 @@
+* ZSH Keybindings
+| Keybinding | Description                                                     |
+|------------+-----------------------------------------------------------------|
+|            |                                                                 |
+
 * Kitty Keybindings
+** Navigation
 | Keybinding  | Description                   |
 |-------------+-------------------------------|
 | C-q/o       | Scroll line up/down           |
@@ -18,19 +24,34 @@
 | C-1/2/3/4/5 | Go to tab 1/2/3/4/5           |
 | C-S-[       | Next layout                   |
 | C-S-]       | Previous layout               |
-| C-S-w       | Insert word                   |
-| C-S-l       | Insert line                   |
-| C-S-h       | Insert hash                   |
-| C-S-p       | Insert path                   |
-| C-M-w       | Copy word                     |
-| C-M-l       | Copy line                     |
-| C-M-p       | Copy path                     |
-| C-M-u       | Open URL                      |
 | C-S-DEL     | Reset terminal active         |
 | C-S-`       | Reset terminal all            |
-|             |                               |
 
-* ZSH Keybindings
+** Actions on text
+| Keybinding | Description    |
+|------------+----------------|
+| C-S-w      | Insert word    |
+| C-S-l      | Insert line    |
+| C-S-h      | Insert hash    |
+| C-S-p      | Insert path    |
+| C-M-w      | Copy word      |
+| C-M-l      | Copy line      |
+| C-M-p      | Copy path      |
+| C-M-u      | Open URL       |
+| C-M-a      | Open hyperlink |
+
+** Open cli tools
+| Keybinding  | Description                             |
+|-------------+-----------------------------------------|
+| M-S-s       | Open yazi in new window                 |
+| M-S-o       | Open yazi in new tab                    |
+| M-S-e       | Open emacs in new tab                   |
+| M-S-m       | Open emacs scratchpad buffer in new tab |
+| M-S-c       | Open emacs calendar in new tab          |
+| M-S-a       | Open emacs agenda in new tab            |
+| M-S-v       | Open emacs gptel in new tab             |
+
+* Zellij Keybindings
 | Keybinding | Description                                                     |
 |------------+-----------------------------------------------------------------|
 |            |                                                                 |
