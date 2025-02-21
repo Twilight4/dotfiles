@@ -9,7 +9,7 @@
     "control-center-width": 350,
     "control-center-margin-top": 8,
     "control-center-margin-bottom": 8,
-    "control-center-margin-right": 0,
+    "control-center-margin-right": 8,
     "control-center-margin-left": 8,
     "notification-2fa-action": true,
     "notification-inline-replies": true,
@@ -28,8 +28,8 @@
     "hide-on-action": true,
     "script-fail-notify": true,
     "widgets": [
-        "mpris",
         "dnd",
+        "mpris",
         "title",
         "notifications",
         "volume",
@@ -54,10 +54,10 @@
             "image-radius": 0
         },
         "volume": {
-            "label": "󰕾 "
+            "label": " 󰕾 "
         },
         "backlight": {
-            "label": "󰃟 ",
+            "label": " 󰃟 ",
             "device": "amdgpu_bl2"
         },
         "buttons-grid": {
