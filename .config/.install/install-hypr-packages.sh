@@ -245,7 +245,7 @@ packages=(
   "cheat-bin"
   "xdg-ninja-git"
   "dragon-drop"
-  "noise-suppression-for-voice"
+  "noise-suppression-for-voice-git"
 )
 
 extra=(
