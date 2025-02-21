@@ -1,6 +1,6 @@
 ## Installation
 > [!CAUTION]
-> Launching `install.sh` script without thorough understanding can lead to serious issues with compatibility, security and performance. Use at your own risk.
+> The `install.sh` script is intended to run after fresh Arch Linux install. Launching without thorough understanding can lead to serious issues with compatibility, security and performance. Use at your own risk.
 
 ```bash
 # Run the script from tty to avoid crashing Hyprland
