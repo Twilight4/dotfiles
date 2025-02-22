@@ -12,10 +12,18 @@
   - [[#open-cli-tools][Open cli tools]]
 - [[#zellij][Zellij]]
 - [[#yazi][Yazi]]
-- [[#mpv][Mpv]]
   - [[#navigation-2][Navigation]]
+  - [[#actions-on-files][Actions on files]]
+  - [[#sorting--search][Sorting / Search]]
+  - [[#misc][Misc]]
+- [[#mpv][Mpv]]
+  - [[#navigation-3][Navigation]]
   - [[#mpv-plugins][Mpv plugins]]
 - [[#zen-browser][Zen Browser]]
+  - [[#navigation-4][Navigation]]
+  - [[#zen-browser-specific][Zen browser specific]]
+  - [[#toggle-panels][Toggle panels]]
+  - [[#search][Search]]
 - [[#emacs][Emacs]]
 
 * Zsh
@@ -130,42 +138,55 @@
 |            |                                                                 |
 
 * Yazi
+** Navigation
 | Keybinding | Description                                                     |
 |------------+-----------------------------------------------------------------|
 | z/Z        | Plugin Zoxide/Plugin Fzf                                        |
-| .          | Toggle hidden files                                             |
-| a          | Create new file (dir/ for directory)                            |
-| SPC        | Mark/Unmark                                                     |
-| ESC        | Cancel marks                                                    |
-| C-a        | Select all files                                                |
 | H/L        | Previous/Next directory in history                              |
 | o/RET      | Open file                                                       |
-| w/W        | Yank/Cancel the yank status                                     |
-| x          | Cut                                                             |
-| y/Y        | Paste/Paste force                                               |
-| d/D        | Remove/Remove permamently                                       |
-| r          | Rename file/Selected files                                      |
-| f          | Filter files                                                    |
-| //?        | Find next/Find backwards                                        |
-| n/N        | Go result forward/backward (from Find next)                     |
-| ;/:        | Shell command/Shell command block until finishes                |
-| -          | Symlink                                                         |
-| s/S        | Search files by name via fd/Search files by content via ripgrep |
-| C-s        | Cancel the ongoing search                                       |
-| TAB        | Show more information                                           |
-| c c        | Copy file path                                                  |
-| c f        | Copy the filename                                               |
-| c n        | Copy file name without extension                                |
-| c d        | Copy directory path                                             |
-| s          | Sort options (default alphabetically)                           |
-| m          | Showing linemodes options (default none)                        |
 | g          | Goto options                                                    |
 | t          | Create new tab                                                  |
 | [/]        | Navigate through tabs                                           |
 | 1/2/3...   | Navigate through tabs                                           |
 | {/}        | Swapping through tabs                                           |
 | C-c        | Close tab                                                       |
-| ~/F1       | Help page                                                       |
+
+** Actions on files
+| Keybinding | Description                                                     |
+|------------+-----------------------------------------------------------------|
+| a          | Create new file (dir/ for directory)                            |
+| SPC        | Mark/Unmark                                                     |
+| ESC        | Cancel marks                                                    |
+| C-a        | Select all files                                                |
+| w/W        | Yank/Cancel the yank status                                     |
+| x          | Cut                                                             |
+| r          | Rename file/Selected files                                      |
+| d/D        | Remove/Remove permamently                                       |
+| y/Y        | Paste/Paste force                                               |
+| c c        | Copy file path                                                  |
+| c f        | Copy the filename                                               |
+| c n        | Copy file name without extension                                |
+| c d        | Copy directory path                                             |
+
+** Sorting / Search
+| Keybinding | Description                                                     |
+|------------+-----------------------------------------------------------------|
+| s          | Sort options (default alphabetically)                           |
+| .          | Toggle hidden files                                             |
+| //?        | Find next/backwards                                             |
+| n/N        | Go result forward/backward (from find next)                     |
+| s/S        | Search files by name via fd/Search files by content via ripgrep |
+| f          | Filter files                                                    |
+| C-s        | Cancel the ongoing search                                       |
+| m          | Showing linemodes options (default none)                        |
+
+** Misc
+| Keybinding | Description                                |
+|------------+--------------------------------------------|
+| ;/:        | Shell command/command block until finishes |
+| ~/F1       | Help page                                  |
+| -          | Symlink                                    |
+| TAB        | Show more information                      |
 
 * Mpv
 ** Navigation
@@ -173,36 +194,36 @@
 |------------+---------------------------------------------------------|
 | l/j        | Seek 5sec forward/backward                              |
 | L/J        | Seek 60sec forward/backward                             |
-| S-C-BS     | mark the position for revert-seek                       |
-| S-BS       | undo the previous (or marked) seek                      |
+| S-C-BS     | Mark the position for revert-seek                       |
+| S-BS       | Undo the previous (or marked) seek                      |
 | p/n        | Playlist next/prev                                      |
 | N/P        | Chapter next/prev                                       |
 | =/-        | Zoom in/out                                             |
 | 0          | Reset zoom                                              |
-| [/]        | decrease/increase the playback speed                    |
-| {/}        | halve/double the playback speed                         |
-| BS         | reset the speed to normal                               |
-| </>        | volume down/up                                          |
-| m          | mute toggle                                             |
-| q          | quit                                                    |
-| Q          | quit and remember the playback position                 |
-| SPC/k      | toggle pause/playback mode                              |
-| ,/.        | advance/go back one frame and pause                     |
-| O          | toggle displaying the OSD on user interaction or always |
-| o          | show playback progress                                  |
-| I          | toggle displaying information and statistics            |
-| `          | open the console                                        |
-| +          | switch audio track                                      |
-| _          | switch video track                                      |
-| t          | show the playlist                                       |
-| s          | screenshot with subtitles                               |
-| S          | screenshot without subtitles                            |
-| x          | set/clear A-B loop points                               |
-| X          | toggle infinite looping                                 |
-| 1/2        | add contrast -1/+1                                      |
-| 3/4        | add brightness -1/+1                                    |
-| 5/6        | add gamma -1/+1                                         |
-| 7/8        | add saturation -1/+1                                    |
+| [/]        | Decrease/increase the playback speed                    |
+| {/}        | Halve/double the playback speed                         |
+| BS         | Reset the speed to normal                               |
+| </>        | Volume down/up                                          |
+| m          | Mute toggle                                             |
+| q          | Quit                                                    |
+| Q          | Quit and remember the playback position                 |
+| SPC/k      | Toggle pause/playback mode                              |
+| ,/.        | Advance/go back one frame and pause                     |
+| O          | Toggle displaying the OSD on user interaction or always |
+| o          | Show playback progress                                  |
+| I          | Toggle displaying information and statistics            |
+| `          | Open the console                                        |
+| +          | Switch audio track                                      |
+| _          | Switch video track                                      |
+| t          | Show the playlist                                       |
+| s          | Screenshot with subtitles                               |
+| S          | Screenshot without subtitles                            |
+| x          | Set/clear A-B loop points                               |
+| X          | Toggle infinite looping                                 |
+| 1/2        | Add contrast -1/+1                                      |
+| 3/4        | Add brightness -1/+1                                    |
+| 5/6        | Add gamma -1/+1                                         |
+| 7/8        | Add saturation -1/+1                                    |
 
 ** Mpv plugins
 | Keybinding | Description                                |
@@ -224,8 +245,32 @@
 | C-r        | Reload video                               |
 
 * Zen Browser
+** Navigation
 | Keybinding | Description                  |
 |------------+------------------------------|
+| C-S-t      | Restore Last Closed Tab      |
+| C-S-n      | Undo Close Window            |
+| C-S-p      | Private Browsing             |
+| C-S-s      | Take Screenshot              |
+| C-S-c      | Copy current URL             |
+| C-p        | Go Back                      |
+| M-Right    | Go Forward                   |
+| M-home     | Go Home                      |
+| C-[        | Navigate Back                |
+| C-]        | Navigate Forward             |
+| C-d        | Bookmark This Page           |
+| C-m        | Toggle Mute                  |
+| C-+/-      | Zoom In/Out                  |
+| C-0        | Reset Zoom                   |
+| C-S-r      | Reload Page (Skip Cache)     |
+| C-u        | View Page Source             |
+| C-i        | View Page Info               |
+| C-s        | Save Page                    |
+
+** Zen browser specific
+| Keybinding | Description                  |
+|------------+------------------------------|
+| M-b        | Toggle Sidebar's Width       |
 | C-M-c      | Toggle Compact Mode          |
 | C-M-t      | Toggle Floating Toolbar      |
 | C-M-s      | Toggle Floating Sidebar      |
@@ -235,39 +280,28 @@
 | C-M-v      | Toggle Split View Vertical   |
 | C-M-g      | Toggle Split View Grid       |
 | C-M-u      | Close Split View             |
-| C-S-t      | Restore Last Closed Tab      |
-| C-S-n      | Undo Close Window            |
-| C-p        | Go Back                      |
-| M-Right    | Go Forward                   |
-| C-[        | Navigate Back                |
-| C-]        | Navigate Forward             |
-| M-home     | Go Home                      |
-| C-S-r      | Reload Page (Skip Cache)     |
+
+** Toggle panels
+| Keybinding | Description                  |
+|------------+------------------------------|
+| C-b        | Show Bookmarks Sidebar       |
+| C-S-b      | Show Bookmarks Toolbar       |
+| C-S-y      | Open Downloads               |
+| M-p        | Toggle Web Panel             |
 | C-h        | Go to history                |
-| C-S-p      | Private Browsing             |
+| C-M-r      | Toggle Reader Mode           |
+| C-S-[      | Toggle Picture-in-Picture    |
+| C-S-o      | Show Bookmarks Library       |
+| C-S-h      | Show All History             |
+| C-S-a      | Open Add-ons                 |
+
+** Search
+| Keybinding | Description                  |
+|------------+------------------------------|
 | C-k        | Focus Search                 |
 | C-j        | Focus Search (Alt)           |
 | C-f        | Find on Page                 |
 | C-g        | Find Again                   |
 | C-S-g      | Find Previous                |
-| C-s        | Save Page                    |
-| C-M-r      | Toggle Reader Mode           |
-| C-S-[      | Toggle Picture-in-Picture    |
-| C-u        | View Page Source             |
-| C-i        | View Page Info               |
-| C-d        | Bookmark This Page           |
-| C-S-o      | Show Bookmarks Library       |
-| C-S-h      | Show All History             |
-| C-m        | Toggle Mute                  |
-| C-+/-      | Zoom In/Out                  |
-| C-0        | Reset Zoom                   |
-| C-S-s      | Take Screenshot              |
-| C-S-c      | Copy current URL             |
-| M-b        | Toggle Sidebar's Width       |
-| M-p        | Toggle Web Panel             |
-| C-S-y      | Open Downloads               |
-| C-S-a      | Open Add-ons                 |
-| C-b        | Show Bookmarks Sidebar       |
-| C-S-b      | Show Bookmarks Toolbar       |
 
 * [[https://github.com/Twilight4/dotfiles/blob/main/.config/emacs/emacs-cheatsheet.org][Emacs]]
