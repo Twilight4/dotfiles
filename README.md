@@ -16,15 +16,15 @@ bash <(curl -s "https://raw.githubusercontent.com/Twilight4/dotfiles/main/setup.
 |  **Status Bar**                | [Waybar](https://github.com/Alexays/Waybar/)               |
 |  **App Launcher**              | [Rofi-wayland](https://github.com/lbonn/rofi)              |
 |  **Session Manager**           | [Wlogout](https://github.com/ArtsyMacaw/wlogout)           |
-|  **Notifications**             | [Mako](https://github.com/emersion/mako)                   |
-|  **Web Browser**               | [Brave](https://brave.com/)                                |
+|  **Notifications**             | [SwayNC](https://github.com/ErikReider/SwayNotificationCenter)   |
+|  **Web Browser**               | [Zen Browser](https://zen-browser.app/)                    |
 |  **Terminal**                  | [Kitty](https://sw.kovidgoyal.net/kitty/)                  |
 |  **Terminal Multiplexer**      | [Zellij](https://github.com/zellij-org/zellij)             |
 |  **Text Editor**            	 | [Emacs](https://www.gnu.org/software/emacs/)               |
 |  **GTK Theme**                 | [Tokyonight-Dark](https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme)    |
 |  **Shell**                     | [Zsh](https://github.com/zsh-users)                        |
 |  **Zsh Theme**                 | [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  |
-|  **Fonts**                     | [Meslo / JetBrains Mono NF](https://github.com/ryanoasis/nerd-fonts/)    |
+|  **Fonts**                     | [Meslo NF / JetBrains Mono NF](https://github.com/ryanoasis/nerd-fonts/)    |
 |  **Media Player**              | [Mpv](https://mpv.io/)                                     | 
-|  **Wallpaper Loader**          | [Swww](https://github.com/Horus645/swww)                   |
+|  **Wallpaper Loader**          | [Swaybg](https://github.com/swaywm/swaybg)                 |
 |  **Wallpapers**                | [Twilight4/wallpapers](https://github.com/Twilight4/wallpapers)  |
