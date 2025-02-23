@@ -30,6 +30,7 @@
   - [[#youtube-link-export][YouTube link export]]
   - [[#disable-automatic-bookmarking][Disable automatic bookmarking]]
 - [[#editing-features][Editing Features]]
+  - [[#better-forwardbackward-word][Better forward/backward word]]
   - [[#improved-file-management][Improved file management]]
   - [[#nicer-org-return][Nicer org-return]]
   - [[#expand-region][Expand-region]]
@@ -204,8 +205,8 @@
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'backward-char)
-(global-set-key (kbd "C-l") 'forward-char)
-(global-set-key (kbd "C-f") 'forward-word)
+(global-set-key (kbd "C-f") 'tl/forward-word)
+(global-set-key (kbd "C-b") 'tl/backward-word)
 (global-set-key (kbd "C-b") 'backward-word)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
@@ -1059,6 +1060,35 @@ Do not save the =org-refile-last-stored= and =org-capture-last-stored= buffers a
 #+end_src
 
 * Editing Features
+** Better forward/backward word
+In commands forward/backward word to not stop the point by characters like '-' and skip the entire words by default. Skip entire strings of non-space characters.
+
+#+begin_src emacs-lisp
+;; Custom forward-word function to skip entire non-space strings
+(defun tl/forward-word (&optional arg)
+  "Move forward ARG words, treating any non-space sequence as a single word."
+  (interactive "p")
+  (let ((arg (or arg 1)))
+    (if (< arg 0)
+        (my-backward-word (- arg))
+      (dotimes (_ arg)
+        (skip-syntax-forward "^ ") ; Skip all non-space characters
+        (skip-syntax-forward " ")  ; Skip spaces to the next word
+        ))))
+
+;; Custom backward-word function to skip entire non-space strings
+(defun tl/backward-word (&optional arg)
+  "Move backward ARG words, treating any non-space sequence as a single word."
+  (interactive "p")
+  (let ((arg (or arg 1)))
+    (if (< arg 0)
+        (my-forward-word (- arg))
+      (dotimes (_ arg)
+        (skip-syntax-backward " ")  ; Skip spaces backward
+        (skip-syntax-backward "^ ") ; Skip all non-space characters backward
+        ))))
+#+end_src
+
 ** Improved file management
 Function =delete-this-file= deletes the current file and kills the buffer associated with it.
 It first checks if there is a file being edited in the buffer.
@@ -2327,8 +2357,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-l") #'forward-char)
   (define-key god-local-mode-map (kbd "C-S-l") #'forward-char)
   (define-key god-local-mode-map (kbd "C-S-h") #'backward-char)
-  (define-key god-local-mode-map (kbd "C-f") #'forward-word)
-  (define-key god-local-mode-map (kbd "C-b") #'backward-word)
+  (define-key god-local-mode-map (kbd "C-f") #'tl/forward-word)
+  (define-key god-local-mode-map (kbd "C-b") #'tl/backward-word)
   (define-key god-local-mode-map (kbd "C-S-f") #'forward-word)
   (define-key god-local-mode-map (kbd "C-S-b") #'backward-word)
   (define-key god-local-mode-map (kbd "C-S-k") #'previous-line)
