@@ -28,6 +28,7 @@ alias lai='lsd -lA --hyperlink=auto --ignore-glob'
 alias lti='lsd --tree --hyperlink=auto --ignore-glob'
 
 # basic
+alias hyprup="hyprpm update"
 alias mkdir="mkdir -p"
 #alias ci='xcp'     # breaks fzf
 #alias cie='xcp --exclude'

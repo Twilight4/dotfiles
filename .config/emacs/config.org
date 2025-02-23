@@ -28,6 +28,7 @@
   - [[#file-encoding][File encoding]]
   - [[#ansi-colours][Ansi colours]]
   - [[#youtube-link-export][YouTube link export]]
+  - [[#disable-automatic-bookmarking][Disable automatic bookmarking]]
 - [[#editing-features][Editing Features]]
   - [[#improved-file-management][Improved file management]]
   - [[#nicer-org-return][Nicer org-return]]
@@ -1042,6 +1043,19 @@ allowfullscreen>%s</iframe>" path (or "" desc)))
         ((org-export-derived-backend-p backend 'latex)
          (format "\\href{https://youtu.be/%s}{%s}" path (or desc "youtube")))
         (t (format "https://youtu.be/%s" path))))
+#+end_src
+
+** Disable automatic bookmarking
+Do not save the =org-refile-last-stored= and =org-capture-last-stored= buffers as bookmarks upon emacs start.
+
+#+begin_src emacs-lisp
+(defadvice org-refile (around no-bookmark-refile act)
+  (let ((bmkp-last-save-location-function)) ;Bind to nil to make this a no-op
+    ad-do-it))
+
+ (defadvice org-capture-place-template (around no-bookmark-capture act)
+   (let ((bmkp-last-save-location-function))
+       ad-do-it))
 #+end_src
 
 * Editing Features
