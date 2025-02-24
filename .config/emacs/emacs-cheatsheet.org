@@ -152,6 +152,7 @@ The world's greatest programmer once said:
 | C-q        | Insert subheading                 |
 | C-r        | Insert heading same level         |
 | /          | Org time stamp                    |
+| b          | Paste directly into a code block  |
 | h          | Widen                             |
 | j          | Narrow forward                    |
 | k          | Narrow backward                   |
