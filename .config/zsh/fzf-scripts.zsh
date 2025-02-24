@@ -502,7 +502,7 @@ fsh() {
 # List cheatsheets and edit
 fchtce() {
     file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --color=always ~/.config/cheat/tools/{}') || return
-	[ -n "$file" ] && command cheat --edit "$file"
+	[ -n "$file" ] && command nvim ~/.config/cheat/tools/"$file"
 }
 
 # List org notes and edit
