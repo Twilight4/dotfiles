@@ -205,9 +205,9 @@
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'backward-char)
+(global-set-key (kbd "C-l") 'forward-char)
 (global-set-key (kbd "C-f") 'tl/forward-word)
 (global-set-key (kbd "C-b") 'tl/backward-word)
-(global-set-key (kbd "C-b") 'backward-word)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
 (global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
@@ -3326,7 +3326,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
   (org-roam-directory "~/documents/org/roam/")
   (org-roam-dailies-directory "~/documents/org/roam/journal/")
   (org-roam-completion-everywhere t)
-  (org-roam-graph-viewer "/usr/bin/brave-browser")
+  (org-roam-graph-viewer "/usr/bin/zen-browser")
   :config
   (require 'org-roam-dailies) ;; Ensure the keymap is available
   (org-roam-setup))

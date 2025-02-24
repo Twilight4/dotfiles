@@ -345,9 +345,10 @@ The world's greatest programmer once said:
 
 * Other Packages
 ** M-key bindings
-| Keybinding | Description  |
-|------------+--------------|
-| M-;        | comment-dwim |
+| Keybinding | Description                  |
+|------------+------------------------------|
+| M-;        | Comment region               |
+| M-'        | Copy last entry to clipboard |
 
 ** Dired
 | Keybinding | Description                                      |
