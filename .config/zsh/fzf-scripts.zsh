@@ -413,6 +413,40 @@ faptr() {
 #######
 # Git #
 #######
+# Command to quickly select files to add, ask for commit message and push changes
+fgm() {
+  # Fuzzy-find files to add
+  local files_to_add
+  files_to_add=$(git status -s | awk '{print $2}' | fzf -m --preview 'git diff --color=always {}')
+
+  # Add selected files
+  if [ -n "$files_to_add" ]; then
+    echo "Adding files:"
+    echo "$files_to_add"
+    git add $=files_to_add  # Use $= to handle filenames with spaces in Zsh
+  else
+    echo "No files selected. Exiting."
+    return 1
+  fi
+
+  # Prompt for commit message
+  local commit_message
+  echo "\nEnter commit message:"  # Print the prompt on a new line
+  read "commit_message?>> "      # Use ">> " as the input prompt
+
+  # Commit changes
+  if [ -n "$commit_message" ]; then
+    git commit -m "$commit_message"
+  else
+    echo "No commit message provided. Exiting."
+    return 1
+  fi
+
+  # Push changes
+  echo "\nPushing changes to remote repository..."
+  git push
+}
+
 # Git log browser with FZF
 fgl() {
   git log --graph --color=always \

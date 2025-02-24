@@ -103,6 +103,8 @@ bindkey -M emacs -s '^[.' 'frecd\r'
 bindkey -M emacs -s '^[F' 'fpars\r'
 bindkey -M emacs -s '^[D' 'fparr\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
+bindkey -M emacs -s '^[v' 'fsh\r'
+bindkey -M emacs -s '^[a' 'falias\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
 
 # Change directory
@@ -114,7 +116,6 @@ bindkey -M emacs -s '^[\' '\\cd ..; ls\r'
 
 # List files
 bindkey -M emacs -s '^[u' 'fwork\r'
-bindkey -M emacs -s '^[a' 'falias\r'
 bindkey -M emacs -s '^[p' 'fproj\r'
 #bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[T' 'ftrack\r'
