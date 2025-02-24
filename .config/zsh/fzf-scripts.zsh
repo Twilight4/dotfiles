@@ -413,7 +413,6 @@ faptr() {
 #######
 # Git #
 #######
-
 # Git log browser with FZF
 fgl() {
   git log --graph --color=always \
@@ -464,10 +463,47 @@ fgs() {
 }
 
 
+##########
+# Docker #
+##########
+# Select a docker container to start and attach to
+da() {
+  local cid
+  cid=$(docker ps -a | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
+
+  [ -n "$cid" ] && docker start "$cid" && docker attach "$cid"
+}
+
+# Select a running docker container to stop
+ds() {
+  local cid
+  cid=$(docker ps | sed 1d | fzf -q "$1" | awk '{print $1}')
+
+  [ -n "$cid" ] && docker stop "$cid"
+}
+
+# Select a docker container to remove
+drm() {
+  local cid
+  cid=$(docker ps -a | sed 1d | fzf -q "$1" | awk '{print $1}')
+
+  [ -n "$cid" ] && docker rm "$cid"
+}
+
+# Same as above, but allows multi selection:
+#drm() {
+#  docker ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r docker rm
+#}
+
+# Select a docker image or images to remove
+drmi() {
+  docker images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r docker rmi
+}
+
+
 ##############
 # List files #
 ##############
-
 # Search and run from list of aliases/functions
 falias() {
     CMD=$(

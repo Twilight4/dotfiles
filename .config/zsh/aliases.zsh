@@ -394,7 +394,7 @@ alias ungron="gron --ungron"
 alias waybar-toggle="killall -SIGUSR1 waybar"
 alias exif-rm-data="exiftool -all= yourfile.pdf"
 alias open='xdg-open'
-alias da='date "+%Y-%m-%d %A %T %Z"'
+alias dat='date "+%Y-%m-%d %A %T %Z"'
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
 alias jctle="journalctl --user -xeu"    # show error messages, specify a unit
