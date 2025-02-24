@@ -342,7 +342,6 @@
   (general-create-definer tl/leader-keys
     :prefix "C-x") ;; Set leader key
 
-  ;; Free keys: w
   (tl/leader-keys
     "," '(consult-recent-file :wk "Find recent files")
     ;"." '(find-file :wk "Find file")
@@ -351,7 +350,6 @@
     "i" '(org-gtd-process-inbox :wk "Process inbox")
     "L" '(tl/jinx-toggle-single-dictionary :wk "Switch between dictionaries")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
-    "C-k" '(consult-kmacro :wk "Select macro to run")	
 	  ;"C-p" '(find-file-at-point :wk "Find file at point")
     ;"C-q" '(delete-frame :wk "Delete frame")
     ;"C-L" '(tl/log-entry :wk "Use log entry")
@@ -364,7 +362,6 @@
     "C-u" '(kill-this-buffer :wk "Kill current buffer")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
-    "C-j" '(dashboard-open :wk "Open emacs dashboard")
     "C-s" '(basic-save-buffer :wk "Save buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
 	  "TAB" '(comment-dwim :wk "Comment lines")
@@ -390,7 +387,10 @@
 	  ;; Window management
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
-    "C-o" '(other-window :wk "Switch window")
+    "C-j" '(other-window :wk "Switch window")
+    "C-k" '(previous-multiframe-window :wk "Select macro to run")
+    "w" '(consult-kmacro :wk "Select macro to run")
+    "C-o" '(dashboard-open :wk "Open emacs dashboard")
     "C-w" '(ace-swap-window :wk "Swap windows")
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")  
