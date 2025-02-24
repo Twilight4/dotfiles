@@ -390,7 +390,7 @@
 	  ;; Window management
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
-    "C-o" '(ace-window :wk "Switch window")
+    "C-o" '(other-window :wk "Switch window")
     "C-w" '(ace-swap-window :wk "Swap windows")
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")  
@@ -1087,6 +1087,40 @@ In commands forward/backward word to not stop the point by characters like '-' a
         (skip-syntax-backward " ")  ; Skip spaces backward
         (skip-syntax-backward "^ ") ; Skip all non-space characters backward
         ))))
+
+;; Custom forward-word function to skip entire non-space strings and mark the region (for god-mode)
+(defun tl/forward-mark-word (&optional arg)
+  "Move forward ARG words, treating any non-space sequence as a single word.
+If called interactively, mark the region as you move forward, similar to C-S-f."
+  (interactive "p")
+  (let ((arg (or arg 1)))
+    (if (< arg 0)
+        (my-backward-word (- arg))
+      (when (and (called-interactively-p 'any) (not (region-active-p)))
+        (push-mark (point) t t)) ; Set the mark at the current position
+      (dotimes (_ arg)
+        (skip-syntax-forward "^ ") ; Skip all non-space characters
+        (skip-syntax-forward " ")  ; Skip spaces to the next word
+        )
+      (when (called-interactively-p 'any)
+        (activate-mark))))) ; Activate the mark to highlight the region
+
+;; Custom backward-word function to skip entire non-space strings and mark the region (for god-mode)
+(defun tl/backward-mark-word (&optional arg)
+  "Move backward ARG words, treating any non-space sequence as a single word.
+If called interactively, mark the region as you move backward, similar to C-S-b."
+  (interactive "p")
+  (let ((arg (or arg 1)))
+    (if (< arg 0)
+        (tl/forward-word (- arg)) ; Use the forward-word function for negative ARG
+      (when (and (called-interactively-p 'any) (not (region-active-p)))
+        (push-mark (point) t t)) ; Set the mark at the current position
+      (dotimes (_ arg)
+        (skip-syntax-backward " ")  ; Skip spaces to the previous word
+        (skip-syntax-backward "^ ") ; Skip all non-space characters backward
+        )
+      (when (called-interactively-p 'any)
+        (activate-mark))))) ; Activate the mark to highlight the region
 #+end_src
 
 ** Improved file management
@@ -2359,8 +2393,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-h") #'backward-char)
   (define-key god-local-mode-map (kbd "C-f") #'tl/forward-word)
   (define-key god-local-mode-map (kbd "C-b") #'tl/backward-word)
-  (define-key god-local-mode-map (kbd "C-S-f") #'forward-word)
-  (define-key god-local-mode-map (kbd "C-S-b") #'backward-word)
+  (define-key god-local-mode-map (kbd "C-S-f") #'tl/forward-mark-word)
+  (define-key god-local-mode-map (kbd "C-S-b") #'tl/backward-mark-word)
   (define-key god-local-mode-map (kbd "C-S-k") #'previous-line)
   (define-key god-local-mode-map (kbd "C-S-j") #'next-line)
   (define-key god-local-mode-map (kbd "C-d") #'kill-region-or-forward-delete)
