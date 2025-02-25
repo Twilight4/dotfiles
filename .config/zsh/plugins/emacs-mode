@@ -101,7 +101,7 @@ bindkey -M emacs -s '^[.' 'frecd\r'
 
 # Command line
 bindkey -M emacs -s '^[F' 'fpars\r'
-bindkey -M emacs -s '^[D' 'fparr\r'
+bindkey -M emacs -s '^[e' 'fparr\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
 bindkey -M emacs -s '^[v' 'fsh\r'
 bindkey -M emacs -s '^[a' 'falias\r'
