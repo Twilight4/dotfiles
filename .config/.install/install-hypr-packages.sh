@@ -260,6 +260,8 @@ extra=(
   "vnstat"
   "docker"
   "docker-compose"
+  "kubectl"
+  "k9s"
   "taskell"
   "zenity"
   "progress"
