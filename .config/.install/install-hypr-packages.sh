@@ -258,6 +258,8 @@ extra=(
   "wildmidi"
   "timidity++"
   "vnstat"
+  "docker"
+  "docker-compose"
   "taskell"
   "zenity"
   "progress"

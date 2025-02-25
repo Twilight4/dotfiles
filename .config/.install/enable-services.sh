@@ -62,12 +62,16 @@ if [[ "$enable_services" =~ ^[Yy]$ ]]; then
   	"nohang"
     "cronie"
     "acpid"
+    "docker"
   )
   
   # Enable services
   for service in "${services[@]}"; do
   	enable_service "$service"
   done
+
+  # docker group
+  sudo usermod -a -G docker $USER
   
   # Must be set seperately to work
   sudo systemctl enable fstrim.timer
