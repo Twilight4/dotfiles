@@ -39,6 +39,9 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # Colors
 autoload -Uz colors && colors
 
+# Disable annoying default behaviour of flow control bound to 'C-s' in zsh
+stty -ixon
+
 # Profiling
 zmodload zsh/zprof
 
