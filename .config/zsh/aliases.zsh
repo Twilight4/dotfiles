@@ -363,6 +363,7 @@ alias paruu="sudo pacman -U package"
 ##############################################################################################################
 # Aliases to modified commands                                                                               #
 ##############################################################################################################
+alias k='kubectl'
 alias swappy='swappy -f'
 alias s="kitty +kitten ssh"
 alias ce='cheat --edit'
