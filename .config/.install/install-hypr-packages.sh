@@ -259,7 +259,7 @@ extra=(
   "timidity++"
   "vnstat"
   "docker"
-  "docker-compose"
+  "docker-desktop"
   "kubectl"
   "k9s"
   "taskell"
