@@ -221,7 +221,8 @@
 ;; Spell-checker
 (global-set-key (kbd "M-a") 'embark-act)
 (global-set-key (kbd "M-i") 'jinx-correct)
-(global-set-key (kbd "M-n") 'jinx-correct-nearest)
+(global-set-key (kbd "M-l") 'downcase-word)
+;(global-set-key (kbd "M-n") 'jinx-correct-nearest)      ;; Jinx-correct works the same
 (global-set-key (kbd "M-w") 'jinx-correct-word)
 ;(global-set-key (kbd "M-w") 'jinx-correct-all)
 ;(global-set-key (kbd "M-w") 'jinx-correct-select)
@@ -387,8 +388,8 @@
 	  ;; Window management
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
-    "C-j" '(other-window :wk "Switch window")
-    "C-k" '(previous-multiframe-window :wk "Select macro to run")
+    "C-k" '(other-window :wk "Switch window")
+    "C-j" '(previous-multiframe-window :wk "Select macro to run")
     "w" '(consult-kmacro :wk "Select macro to run")
     "C-o" '(dashboard-open :wk "Open emacs dashboard")
     "C-w" '(ace-swap-window :wk "Swap windows")
@@ -1424,7 +1425,6 @@ This is useful when followed by an immediate kill."
     (insert "\n#+end_src")
     (org-edit-src-code)))  ; Optional: Enter the src block for editing
 
-;; Bind the function to a key, e.g., C-c p
 (global-set-key (kbd "C-c b") 'tl/org-paste-powershell-code-block)
 
 ;; Function to copy last entry from kill-ring buffer to the system clipboard
@@ -2878,7 +2878,8 @@ this with to-do items than with projects or headings."
   (require 'org-tempo)
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python")))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("conf" . "src conf")))
 #+end_src
 
 *** Zero-width spaces
