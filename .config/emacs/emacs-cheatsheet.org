@@ -350,6 +350,11 @@ The world's greatest programmer once said:
 |------------+------------------------------|
 | M-;        | Comment region               |
 | M-'        | Copy last entry to clipboard |
+| M-u        | Upcase-word                  |
+| M-l        | Downcase-word                |
+| C-c M-f    | Org next code block          |
+| C-c M-b    | Org previous code block      |
+| M-a        | Embark act                   |
 
 ** Dired
 | Keybinding | Description                                      |
