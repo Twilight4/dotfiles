@@ -36,7 +36,6 @@ The world's greatest programmer once said:
 - [[#other-packages][Other Packages]]
   - [[#m-key-bindings][M-key bindings]]
   - [[#dired][Dired]]
-  - [[#jinx][Jinx]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
   - [[#treemacs][Treemacs]]
@@ -346,15 +345,19 @@ The world's greatest programmer once said:
 
 * Other Packages
 ** M-key bindings
-| Keybinding | Description                  |
-|------------+------------------------------|
-| M-;        | Comment region               |
-| M-'        | Copy last entry to clipboard |
-| M-u        | Upcase-word                  |
-| M-l        | Downcase-word                |
-| C-c M-f    | Org next code block          |
-| C-c M-b    | Org previous code block      |
-| M-a        | Embark act                   |
+| Keybinding | Description                                                  |
+|------------+--------------------------------------------------------------|
+| M-;        | Comment region                                               |
+| M-'        | Copy last entry to clipboard                                 |
+| M-u        | Upcase-word                                                  |
+| M-l        | Downcase-word                                                |
+| C-c M-f    | Org next code block                                          |
+| C-c M-b    | Org previous code block                                      |
+| M-a        | Embark act                                                   |
+| M-t        | Treemacs                                                     |
+| M-i        | jinx-correct                                                 |
+| M-w        | jinx-correct-word                                            |
+| M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
 
 ** Dired
 | Keybinding | Description                                      |
@@ -383,14 +386,6 @@ The world's greatest programmer once said:
 | s          | Toggle sorting by date                           |
 | w          | Copy names of marked files                       |
 | g          | Revert buffer                                    |
-
-** Jinx
-| Keybinding | Description                                                  |
-|------------+--------------------------------------------------------------|
-| M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
-| M-i        | jinx-correct                                                 |
-| M-n        | jinx-correct-nearest                                         |
-| M-w        | jinx-correct-word                                            |
 
 ** God-mode
 | Keybinding    | Description                          |
