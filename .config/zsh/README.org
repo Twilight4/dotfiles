@@ -154,21 +154,22 @@
 | C-c        | Close tab                                                       |
 
 ** Actions on files
-| Keybinding | Description                                                     |
-|------------+-----------------------------------------------------------------|
-| a          | Create new file (dir/ for directory)                            |
-| SPC        | Mark/Unmark                                                     |
-| ESC        | Cancel marks                                                    |
-| C-a        | Select all files                                                |
-| w/W        | Yank/Cancel the yank status                                     |
-| x          | Cut                                                             |
-| r          | Rename file/Selected files                                      |
-| d/D        | Remove/Remove permamently                                       |
-| y/Y        | Paste/Paste force                                               |
-| c c        | Copy file path                                                  |
-| c f        | Copy the filename                                               |
-| c n        | Copy file name without extension                                |
-| c d        | Copy directory path                                             |
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| a          | Create new file (dir/ for directory) |
+| SPC        | Mark/Unmark                          |
+| C-r        | Invert selection of all files        |
+| ESC        | Cancel marks                         |
+| C-a        | Select all files                     |
+| w/W        | Yank/Cancel the yank status          |
+| x          | Cut                                  |
+| r          | Rename file/Selected files           |
+| d/D        | Remove/Remove permamently            |
+| y/Y        | Paste/Paste force                    |
+| c c        | Copy file path                       |
+| c f        | Copy the filename                    |
+| c n        | Copy file name without extension     |
+| c d        | Copy directory path                  |
 
 ** Sorting / Search
 | Keybinding | Description                                                     |
