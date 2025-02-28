@@ -133,11 +133,10 @@ The world's greatest programmer once said:
 | C          | Org roam capture                  |
 | ,          | Org set todo                      |
 | .          | Org set priority                  |
-| F          | Insert links to directory         |
 | C-/        | Org tag                           |
 | C-e        | Org set effort                    |
-| C-f        | Insert file link                  |
-| C-w        | Insert link                       |
+| f          | Insert file link                  |
+| w          | Insert link                       |
 | C-a        | Insert any date                   |
 | C-t        | Insert today's date               |
 | C-y        | Insert screenshot                 |
@@ -147,7 +146,6 @@ The world's greatest programmer once said:
 | C-s        | Org schedule                      |
 | C-d        | Org deadline                      |
 | C-o        | Org open at point                 |
-| C-u        | Narrow to code block              |
 | C-q        | Insert subheading                 |
 | C-r        | Insert heading same level         |
 | /          | Org time stamp                    |
@@ -156,6 +154,7 @@ The world's greatest programmer once said:
 | j          | Narrow forward                    |
 | k          | Narrow backward                   |
 | l          | Narrow to subtree                 |
+| u          | Narrow to code block              |
 | z          | Insert footnote                   |
 
 ** Org-roam
@@ -165,11 +164,11 @@ The world's greatest programmer once said:
 | C-c        | Org ctrl-c-ctrl-c (toggle checkbox etc.) |
 | p          | Complete at point                        |
 | r          | Toggle org roam buffer                   |
-| f          | Create/find new roam node                |
+| F          | Create/find new roam node                |
 | L          | Insert link to other node                |
 | i          | Insert ID for org heading                |
 | g          | Show graph of all nodes                  |
-| u          | Open Org roam UI                         |
+| C-u        | Open Org roam UI                         |
 | s          | Sync Org roam db                         |
 
 ** Org-roam dailies
