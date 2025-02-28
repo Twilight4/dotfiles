@@ -262,6 +262,8 @@ extra=(
   "docker-desktop"
   "kubectl"
   "k9s"
+  "aws-cli"
+  "eksctl"
   "taskell"
   "zenity"
   "progress"
