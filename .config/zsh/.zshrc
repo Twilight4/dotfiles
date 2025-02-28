@@ -42,6 +42,9 @@ autoload -Uz colors && colors
 # Disable annoying default behaviour of flow control bound to 'C-s' in zsh
 stty -ixon
 
+# Load completions to fzf-menu for docker
+#source <(docker completion zsh)
+
 # Profiling
 zmodload zsh/zprof
 
