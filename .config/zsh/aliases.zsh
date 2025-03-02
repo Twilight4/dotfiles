@@ -394,6 +394,7 @@ alias waybar-toggle="killall -SIGUSR1 waybar"
 alias exif-rm-data="exiftool -all= yourfile.pdf"
 alias open='xdg-open'
 alias dat='date "+%Y-%m-%d %A %T %Z"'
+alias upt="uptime --pretty | sed -e 's/up //g' -e 's/ days/d/g' -e 's/ day/d/g' -e 's/ hours/h/g' -e 's/ hour/h/g' -e 's/ minutes/m/g' -e 's/, / /g'"
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
 alias jctle="journalctl --user -xeu"    # show error messages, specify a unit
