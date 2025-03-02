@@ -48,7 +48,7 @@ alias mget='mega-get'
 alias mls='mega-ls -lah'
 alias mlt='mega-ls --tree'
 alias mlta='mega-ls --tree -lah'
-alias mcd='mega-cd'
+alias mcd='_mcd(){ mega-cd "$1" && mega-pwd && mega-ls -lah; }; _mcd'
 alias mmv='mega-mv'
 alias mrm='mega-rm'
 alias mcat='mega-cat'
@@ -126,6 +126,13 @@ alias org='cd "$HOME/documents/org" ; clear ; lsd -l --hyperlink=auto'
 alias sv='cd "$HOME/desktop/server" ; clear ; lsd -l --hyperlink=auto'
 alias pj='cd "$HOME/desktop/projects" ; clear ; lsd -l --hyperlink=auto'
 alias ws='cd "$HOME/desktop/workspace" ; clear ; lsd -l --hyperlink=auto'
+# MEGA dirs
+alias mr='_mr(){ mega-cd && mega-pwd && mega-ls -lah; }; _mr'
+alias mpc='mega-cd "/CLOUD-DATA/pictures" ; mega-ls --tree'
+alias mvd='mega-cd "/CLOUD-DATA/videos" ; mega-ls --tree'
+alias mdw='mega-cd "/CLOUD-DATA/downloads" ; mega-ls --tree'
+alias mdc='mega-cd "/CLOUD-DATA/documents" ; mega-ls --tree'
+alias msync='mega-cd "/SYNCED-DATA/" ; mega-ls --tree'
 # Note files
 alias ipt='emacsclient -nw "$HOME/documents/org/roam/red-team/ipt.org"'
 alias ept='emacsclient -nw "$HOME/documents/org/roam/red-team/ept.org"'
@@ -394,7 +401,7 @@ alias waybar-toggle="killall -SIGUSR1 waybar"
 alias exif-rm-data="exiftool -all= yourfile.pdf"
 alias open='xdg-open'
 alias dat='date "+%Y-%m-%d %A %T %Z"'
-alias upt="uptime --pretty | sed -e 's/up //g' -e 's/ days/d/g' -e 's/ day/d/g' -e 's/ hours/h/g' -e 's/ hour/h/g' -e 's/ minutes/m/g' -e 's/, / /g'"
+alias upt="uptime --pretty"
 alias update-fc='sudo fc-cache -fv'
 alias jctl="journalctl -p 3 -xb"
 alias jctle="journalctl --user -xeu"    # show error messages, specify a unit
