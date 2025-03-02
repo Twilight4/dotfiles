@@ -294,16 +294,12 @@
     min-width:40px;
 }
 
-.widget-dnd > switch:hover {
-    background: @hover;
-}
-
 .widget-dnd > switch:checked {
     background: @color1;
 }
 
 .widget-dnd > switch:checked:hover {
-    background: @hover;
+    background: @color1;
 }
 
 .widget-dnd > switch slider {
