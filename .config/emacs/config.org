@@ -146,6 +146,7 @@
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "M-r") nil)
 (define-key global-map (kbd "M-,") nil)
+(define-key global-map (kbd "M-z") nil)
 (define-key global-map (kbd "C-x C-f") nil)
 (define-key global-map (kbd "M-C-n") nil)
 (define-key global-map (kbd "M-C-b") nil)
@@ -536,11 +537,14 @@
  "," '(org-todo :wk "Org set todo")
  "." '(org-priority :wk "Org set priority")
  "C-_" '(org-set-tags-command :wk "Org set tag")
- ;"C-p" '(org-set-property :wk "Org set property")
  "C-e" '(org-set-effort :wk "Org set effort")
- "C-f" '(tl/org-insert-file-link :wk "Org insert file link")
- "F" '(org-insert-links-to-directory :wk "Insert all links to directory")
- "C-w" '(org-insert-link :wk "Org insert link")
+ ;"C-p" '(org-set-property :wk "Org set property")
+ "C-f" '(org-forward-heading-same-level :wk "Org insert file link")
+ "C-b" '(org-backward-heading-same-level :wk "Org insert file link")
+ ;"F" '(org-insert-links-to-directory :wk "Insert all links to directory")
+ ;"C-f" '(tl/org-insert-file-link-at-point :wk "Org insert file link")
+ "w" '(org-insert-link :wk "Org insert link")
+ "f" '(tl/org-insert-file-link :wk "Org insert file link")
  "C-a" '(tl/insert-any-date :wk "Insert any date")
  "C-t" '(tl/insert-todays-date :wk "Insert today's date")
  "/" '(org-time-stamp :wk "Org timestamp")
@@ -553,7 +557,7 @@
  "j" '(tl/org-narrow-forward :wk "Narrow forward")
  "k" '(tl/org-narrow-backward :wk "Narrow backward")
  "l" '(org-narrow-to-subtree :wk "Narrow to subtree")
- "C-u" '(org-narrow-to-block :wk "Narrow to block")
+ "u" '(org-narrow-to-block :wk "Narrow to block")
  ;"C-e" '(org-narrow-to-element :wk "Narrow to element")
  ;"C-g" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
  "C-q" '(org-insert-subheading :wk "Insert subheading")
@@ -562,14 +566,14 @@
  ;; Org-Roam
  "P" '(completion-at-point :wk "Complete at point")
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
- "f" '(org-roam-node-find :wk "Find Org roam node")
+ "F" '(org-roam-node-find :wk "Find Org roam node")
  ;"L" '(org-roam-node-insert :wk "Insert Org roam node")
  "L" '(org-roam-node-insert-immediate :wk "Insert Org roam node immediatelly")
  "i" '(org-id-get-create :wk "Insert id for Org heading")
  "g" '(org-roam-graph :wk "Show Org roam graph")
  "c" '(org-gtd-capture :wk "Capture to inbox")
  "C" '(org-roam-capture :wk "Capture to node")
- "u" '(org-roam-ui-open :wk "Open Org roam UI")
+ "C-u" '(org-roam-ui-open :wk "Open Org roam UI")
  "s" '(org-roam-db-sync :wk "Sync Org roam db")
  ;; Org-Roam dailies
  "m" '(org-roam-dailies-capture-today :wk "Capture daily today")
@@ -2005,7 +2009,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 ;(global-set-key (kbd "C-c C-p c c") 'treemacs-collapse-project)
 ;(global-set-key (kbd "C-c C-p c o") 'treemacs-collapse-all-projects)
 ;(global-set-key (kbd "S-TAB") 'treemacs-collapse-all-projects)
-(global-set-key (kbd "M-I") 'treemacs)
+(global-set-key (kbd "M-n") 'treemacs)
 ;(global-set-key (kbd "C-c C-w b") 'treemacs-bookmark)
 ;(global-set-key (kbd "C-c C-w C-f") 'treemacs-find-file)
 ;(global-set-key (kbd "C-c C-w C-t") 'treemacs-find-tag)
@@ -2034,8 +2038,8 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   ;(define-key treemacs-mode-map (kbd "H") 'treemacs-collapse-parent-node)
   (define-key treemacs-mode-map (kbd "M-j") 'treemacs-next-neighbour)
   (define-key treemacs-mode-map (kbd "M-k") 'treemacs-previous-neighbour)
-  (define-key treemacs-mode-map (kbd "M-p") 'treemacs-move-project-up)
-  (define-key treemacs-mode-map (kbd "M-n") 'treemacs-move-project-down)
+  ;(define-key treemacs-mode-map (kbd "M-p") 'treemacs-move-project-up)
+  ;(define-key treemacs-mode-map (kbd "M-n") 'treemacs-move-project-down)
   (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
   (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
   (define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
@@ -2047,10 +2051,12 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (define-key treemacs-mode-map (kbd "d") 'treemacs-delete-file)
   (define-key treemacs-mode-map (kbd "r") 'treemacs-rename-file)
   (define-key treemacs-mode-map (kbd "m") 'treemacs-move-file)
-  (define-key treemacs-mode-map (kbd "cf") 'treemacs-create-file)
-  (define-key treemacs-mode-map (kbd "cd") 'treemacs-create-dir)
-  (define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
-  (define-key treemacs-mode-map (kbd "Q") 'treemacs-kill-buffer)
+  (define-key treemacs-mode-map (kbd "af") 'treemacs-create-file)
+  (define-key treemacs-mode-map (kbd "ad") 'treemacs-create-dir)
+  (define-key treemacs-mode-map (kbd "ac") 'treemacs-copy-file)
+  ;(define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
+  ;(define-key treemacs-mode-map (kbd "Q") 'treemacs-kill-buffer)
+  (define-key treemacs-mode-map (kbd "M-n") 'treemacs-quit)
   (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
   (define-key treemacs-mode-map (kbd "s") 'treemacs-resort)
   (define-key treemacs-mode-map (kbd "b") 'treemacs-add-bookmark)
@@ -2060,10 +2066,10 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (define-key treemacs-mode-map (kbd "RET") 'treemacs-visit-node-no-split)
 
   ;; Copy Keybinds
-  (define-key treemacs-mode-map (kbd "ya") 'treemacs-copy-absolute-path-at-point)
-  (define-key treemacs-mode-map (kbd "yr") 'treemacs-copy-relative-path-at-point)
-  (define-key treemacs-mode-map (kbd "yp") 'treemacs-copy-project-path-at-point)
-  (define-key treemacs-mode-map (kbd "yf") 'treemacs-copy-file)
+  (define-key treemacs-mode-map (kbd "cd") 'treemacs-copy-absolute-path-at-point)
+  (define-key treemacs-mode-map (kbd "cr") 'treemacs-copy-relative-path-at-point)
+  (define-key treemacs-mode-map (kbd "cp") 'treemacs-copy-project-path-at-point)
+  (define-key treemacs-mode-map (kbd "cf") 'treemacs-copy-filename-at-point)
 
   ;; Toggle Keybinds
   (define-key treemacs-mode-map (kbd "th") 'treemacs-toggle-show-dotfiles)
@@ -2587,13 +2593,25 @@ Adding highlights to =TODO= and related words.
 
 ** Editing features for org
 *** File links automation
-While =org-insert-link= is all very well and good, a large portion of the time I want to insert a file, and so it would be good to have a way to skip straight to that and avoid the description prompt. Looking at =org-link-parameters=, we can see that the ="file"= link type uses the completion function =org-link-complete-file=, so let's use that to make a little file-link inserting function.
+The =tl/org-insert-file-link-at-point= will insert a file, skipping the description prompt.
+The =tl/org-insert-file-link= will insert a file, skipping the type of link prompt.
 
 #+begin_src emacs-lisp
-(defun tl/org-insert-file-link ()
-  "Insert a file link.  At the prompt, enter the filename."
+;; Insert link to a file aand skip the file select prompt
+(defun tl/org-insert-file-link-at-point ()
+  "Insert a file link in Org mode without prompting for the link type."
   (interactive)
-  (insert (format "[[%s]]" (org-link-complete-file))))
+  (let ((file (read-file-name "File: "))) ; Prompt for the file path
+    (org-insert-link nil file (file-name-nondirectory file))))
+
+;; Insert link to a file and put description as marked text
+(defun tl/org-insert-file-link ()
+  "Insert a file link with the marked text as the description, but allow file selection."
+  (interactive)
+  (let ((description (if (use-region-p)
+                         (buffer-substring-no-properties (region-beginning) (region-end))
+                       "")))
+    (org-insert-link nil (read-file-name "File: ") description)))
 #+end_src
 
 *** Insert all links to directory
