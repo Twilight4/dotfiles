@@ -241,7 +241,9 @@ The world's greatest programmer once said:
 | </>        | Scroll left/right                                   |
 | v/V        | Scroll left/right 3 months                          |
 | SPC        | Set mark                                            |
+| m/M        | Mark diary entries/holidays                         |
 | C          | Count number of days between the mark and the point |
+| y          | Print day of year and days til the end of year      |
 | C-x C-x    | Exchange point and mark                             |
 | .          | Go to todays date                                   |
 | ,          | Go to date                                          |
@@ -251,19 +253,15 @@ The world's greatest programmer once said:
 | q          | Quit                                                |
 | g          | Show holidays at point                              |
 | G          | List holidays                                       |
-| x          | Mark holidays                                       |
 | d          | View diary entry on point                           |
-| m          | Mark diary entries                                  |
 | D          | Diary show all entries                              |
 | i w        | Diary insert weekly entry                           |
 | i y        | Diary insert yearly entry                           |
 | i d        | Diary insert entry                                  |
 | i m        | Diary insert monthly entry                          |
 | u          | Unmark holidays and diary entries                   |
-| M          | Lunar phases                                        |
 | s          | Show sunrise-sunset for month                       |
 | S          | Show sunrise-sunset                                 |
-| y          | Print day of year and days til the end of year      |
 
 ** Agenda-mode
 | Keybinding      | Description                                                         |
