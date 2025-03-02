@@ -2,7 +2,7 @@
 #+AUTHOR: Twilight4
 
 This documentation provides cheat sheet for my emacs keybindings configuration which is designed to minimize the need for excessive and complex key combinations and utilizing those that are often overlooked or unutilized by default thereby reducing cognitive load and improving overall efficiency and productivity.
-I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. I actually spend more time customizing my computer than actually using it. 
+I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. I actually spend more time customizing my computer than actually using it.
 
 The philosophy adopted in this configuration prioritizes simplicity and ease of use:
   - Most commonly used keybinds don't have a prefix key.
@@ -133,6 +133,7 @@ The world's greatest programmer once said:
 | C          | Org roam capture                  |
 | ,          | Org set todo                      |
 | .          | Org set priority                  |
+| C-w        | Org refile                        |
 | C-/        | Org tag                           |
 | C-e        | Org set effort                    |
 | f          | Insert file link                  |
@@ -353,7 +354,7 @@ The world's greatest programmer once said:
 | C-c M-f    | Org next code block                                          |
 | C-c M-b    | Org previous code block                                      |
 | M-a        | Embark act                                                   |
-| M-t        | Treemacs                                                     |
+| M-n        | Treemacs                                                     |
 | M-i        | jinx-correct                                                 |
 | M-w        | jinx-correct-word                                            |
 | M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
@@ -472,8 +473,9 @@ The world's greatest programmer once said:
 | g          | treemacs-refresh                            |
 | d          | treemacs-delete-file                        |
 | r          | treemacs-rename-file                        |
-| cf         | treemacs-create-file                        |
-| cd         | treemacs-create-dir                         |
+| af         | treemacs-create-file                        |
+| ad         | treemacs-create-dir                         |
+| ac         | treemacs-copy-file                          |
 | q          | treemacs-quit                               |
 | Q          | treemacs-kill-buffer                        |
 | P          | treemacs-peek-mode                          |
@@ -488,10 +490,10 @@ The world's greatest programmer once said:
 
 | Keybinding | Description                          |
 |------------+--------------------------------------|
-| ya         | treemacs-copy-absolute-path-at-point |
-| yr         | treemacs-copy-relative-path-at-point |
-| yp         | treemacs-copy-project-path-at-point  |
-| yf         | treemacs-copy-file                   |
+| cd         | treemacs-copy-absolute-path-at-point |
+| cr         | treemacs-copy-relative-path-at-point |
+| cp         | treemacs-copy-project-path-at-point  |
+| cf         | treemacs-copy-filename-at-point      |
 
 *** Toggle keybinds
 | Keybinding | Description                         |
