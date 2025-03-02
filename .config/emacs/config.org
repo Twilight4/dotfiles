@@ -193,6 +193,8 @@
 (define-key calendar-mode-map (kbd "i B") 'nil)
 (define-key calendar-mode-map (kbd "i C") 'nil)
 (define-key calendar-mode-map (kbd "H") 'nil)
+(define-key calendar-mode-map (kbd "t") 'nil)
+(define-key calendar-mode-map (kbd "x") 'nil)
 #+end_src
 
 *** Keybindings without a leader key
@@ -279,6 +281,7 @@
 (define-key calendar-mode-map "S" 'calendar-sunrise-sunset)
 (define-key calendar-mode-map "s" 'calendar-sunrise-sunset-month)
 (define-key calendar-mode-map "y" 'calendar-print-day-of-year)
+(define-key calendar-mode-map "M" 'calendar-mark-holidays)
 
 ;; Free keys: Z Y u l
 (eval-after-load 'org-agenda
