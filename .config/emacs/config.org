@@ -82,7 +82,7 @@
 ** Elpaca package manager
 
 #+begin_src emacs-lisp
-(defvar elpaca-installer-version 0.9)
+(defvar elpaca-installer-version 0.10)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
@@ -168,6 +168,7 @@
 (define-key global-map (kbd "C-f") nil)
 (define-key global-map (kbd "C-b") nil)
 (define-key global-map (kbd "M-f") nil)
+(define-key global-map (kbd "M-;") nil)
 (define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "C-y") nil)
 (define-key global-map (kbd "M-j") nil)
@@ -195,6 +196,7 @@
 (define-key calendar-mode-map (kbd "H") 'nil)
 (define-key calendar-mode-map (kbd "t") 'nil)
 (define-key calendar-mode-map (kbd "x") 'nil)
+(define-key calendar-mode-map (kbd "o") 'nil)
 #+end_src
 
 *** Keybindings without a leader key
@@ -347,6 +349,7 @@
   (general-create-definer tl/leader-keys
     :prefix "C-x") ;; Set leader key
 
+  ;; Available keys: "f"
   (tl/leader-keys
     "," '(consult-recent-file :wk "Find recent files")
     ;"." '(find-file :wk "Find file")
@@ -383,7 +386,7 @@
     "z" '(org-table-blank-field :wk "Blank field or active region")
     ;; Registers
     "C-r" '(point-to-register :wk "Point to register")
-    "C-SPC" '(consult-register :wk "Load register and jump to location or insert the stored text")
+    "r" '(consult-register :wk "Load register and jump to location or insert the stored text")
     ;; Bookmarks
     "b" '(consult-bookmark :wk "Bookmark")
     "x" '(bookmark-set :wk "Set bookmark")        ;; bookmarks are automatically saved to a file
@@ -2331,9 +2334,9 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(keymap-global-set "C-M-l" "C-x g k RET")                 ;; response to kill ring (use 'M-'' to copy it to system clipboard)
   
   ;; Rewrite (applies to all rewrites)
-  (global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite)
-  (global-set-key (kbd "C-x e") 'gptel--rewrite-directive-menu)      ;; Select directive for rewrite
-  (global-set-key (kbd "C-x n") 'gptel--rewrite-next)
+  ;(global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite)    ; command unavailable
+  ;(global-set-key (kbd "C-x e") 'gptel--rewrite-directive-menu)      ;; Select directive for rewrite - commadn aunabailable
+  ;(global-set-key (kbd "C-x n") 'gptel--rewrite-next)    ; keybind taken
   ;; TODO - change keybinds
   ;(global-set-key (kbd "C-x p") 'gptel--rewrite-previous)
   ;(keymap-global-set "C-x C-d" "C-x G D")      ; diff - C-c C-d at point
@@ -2348,8 +2351,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (global-set-key (kbd "C-v r") 'gptel--mark-response)
 
   ;; Response options
-  (global-set-key (kbd "C-x r") 'gptel--regenerate)
-  (global-set-key (kbd "C-x f") 'gptel--next-variant)
+  ;(global-set-key (kbd "C-x r") 'gptel--regenerate)    ; keybind taken
+ ; (global-set-key (kbd "C-x f") 'gptel--next-variant)    ; keybind taken
   ;(global-set-key (kbd "C-x C-b") 'gptel--previous-variant)    ; keybind taken
 )
 #+end_src
@@ -3210,9 +3213,8 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
   (org-super-agenda-mode)
   (setq diary-file "~/documents/org/agenda/diary"))   ;; Diary file location (don't change)
 
-;; Doesn't affect anything since I use org-gtd package
-(setq org-agenda-files
-    (directory-files "~/documents/org/agenda"))
+;; Agenda files path
+(setq org-agenda-files (directory-files-recursively "~/documents/org/agenda" "\\.org$"))
 
 ;; Archive files location
 (setq org-archive-location "~/documents/org/agenda/archive/%s_archive::")
@@ -3225,16 +3227,16 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 '(holiday-oriental-holidays nil)
 
 (setq org-agenda-skip-scheduled-if-done t
-      org-agenda-skip-deadline-if-done t
-      org-agenda-include-deadlines t
-      org-agenda-include-diary t
-      org-agenda-block-separator nil
-      org-agenda-tags-column 100
-      org-deadline-warning-days 30
-      org-return-follows-link t
-      org-use-speed-commands t
-      org-agenda-compact-blocks t
-      org-agenda-archives-mode t)
+     org-agenda-skip-deadline-if-done t
+     org-agenda-include-deadlines t
+     org-agenda-include-diary t
+     org-agenda-block-separator nil
+     org-agenda-tags-column 100
+     org-deadline-warning-days 30
+     org-return-follows-link t
+     org-use-speed-commands t
+     org-agenda-compact-blocks t
+     org-agenda-archives-mode t)
 
 ;; Ricing org agenda
 (setq org-agenda-current-time-string "◀── now ─────────────────────────────────────────────────")
@@ -3242,36 +3244,36 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 
 ;; Cleanup agenda view
 (setq org-agenda-prefix-format
-      '((agenda . " %i %-12:c%?-12t")
-        (todo . " %i  ")
-        (tags . " %i %-12:c")
-        (search . " %i %-12:c")))
+     '((agenda . " %i %-12:c%?-12t")
+       (todo . " %i  ")
+       (tags . " %i %-12:c")
+       (search . " %i %-12:c")))
 
 ;; Hide tags from agenda view
 (setq org-agenda-hide-tags-regexp ".*")
 
 ;; It seems reasonable to have deadlines in the error face when they’re passed.
 (setq org-agenda-deadline-faces
-      '((1.001 . error)
-        (1.0 . org-warning)
-        (0.5 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline)))
+     '((1.001 . error)
+       (1.0 . org-warning)
+       (0.5 . org-upcoming-deadline)
+       (0.0 . org-upcoming-distant-deadline)))
 
 ;; Agenda commands
 (defun tl/org-agenda-t ()
-  "Run org agenda command 'o'."
-  (interactive)
-  (org-agenda nil "t"))
+ "Run org agenda command 'o'."
+ (interactive)
+ (org-agenda nil "t"))
 
 (defun tl/org-agenda-e ()
-  "Run org agenda command 'o'."
-  (interactive)
-  (org-agenda nil "e"))
+ "Run org agenda command 'o'."
+ (interactive)
+ (org-agenda nil "e"))
 
 (defun tl/org-agenda-o ()
-  "Run org agenda command 'o'."
-  (interactive)
-  (org-agenda nil "o"))
+ "Run org agenda command 'o'."
+ (interactive)
+ (org-agenda nil "o"))
 
 (setq org-agenda-custom-commands
       '(("o" "Overview"
