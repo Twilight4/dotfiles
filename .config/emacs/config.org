@@ -34,7 +34,7 @@
   - [[#nicer-org-return][Nicer org-return]]
   - [[#expand-region][Expand-region]]
   - [[#symbol-overlay][Symbol-overlay]]
-  - [[#hungry-delete][Hungry-delete]]
+  - [[#smart-hungry-delete][Smart hungry-delete]]
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
   - [[#i-search][I-Search]]
@@ -47,7 +47,6 @@
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
   - [[#no-littering][No-littering]]
-  - [[#undo-tree][Undo-tree]]
   - [[#rainbow-mode][Rainbow-mode]]
   - [[#mark-whole-line][Mark whole line]]
   - [[#org-cycle-or-org-shifttab][Org-cycle or org-shifttab]]
@@ -217,8 +216,10 @@
 (global-set-key (kbd "C-b") 'tl/backward-word)
 (global-set-key (kbd "C-p") 'org-backward-sentence)
 (global-set-key (kbd "C-n") 'org-forward-sentence)
+(global-set-key (kbd "C-_") 'undo-only)
 (global-set-key (kbd "C-w") 'backward-kill-word)
-(global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
+;(global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
+(global-set-key (kbd "DEL") 'smart-hungry-delete-backward-char)
 (global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
 (global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
 (global-set-key (kbd "C-u") 'tl/newline-at-end-of-line)
@@ -362,23 +363,24 @@
     "f" '(hl-todo-insert :wk "Insert todo heading at point")
     "L" '(tl/jinx-toggle-single-dictionary :wk "Switch between dictionaries")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
-	  ;"C-p" '(find-file-at-point :wk "Find file at point")
+	;"C-p" '(find-file-at-point :wk "Find file at point")
     ;"C-q" '(delete-frame :wk "Delete frame")
     ;"C-L" '(tl/log-entry :wk "Use log entry")
     ;"C-l" '(tl/log-entry-small :wk "Use small log entry")
     ;"C-k" '(tl/report-entry :wk "Use report entry")
     ;"" '(org-transclusion-add :wk "Add org transclusion")  ;; Org tansclusion package - not using
     "C-l" '(gptel-send-with-options :wk "Switch window")    ;; Minibuffer to echo area
-    "C-n" '(tl/better-previous-buffer :wk "Previous Buffer")
-    "C-p" '(tl/better-next-buffer :wk "Next Buffer")
+    "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
+    "C-n" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(kill-this-buffer :wk "Kill current buffer")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
-    "O" '(tl/buffer-org-new :wk "New empty org buffer")
+    ;"O" '(tl/buffer-org-new :wk "New empty org buffer")
+    "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
     "C-s" '(basic-save-buffer :wk "Save buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
-	  "TAB" '(comment-dwim :wk "Comment lines")
-	  "o" '(tl/open-image-external-from-org :wk "Open image in swappy")
-	  "v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
+	"TAB" '(comment-dwim :wk "Comment lines")
+	"o" '(tl/open-image-external-from-org :wk "Open image in swappy")
+	"v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
     "c" '(org-goto-calendar :wk "Calendar")
     ;; Org-table
     "\\" '(org-table-create-or-convert-from-region :wk "Create empty table or convert from region")
@@ -417,13 +419,13 @@
     ;"C-c" '(split-window-horizontally :wk "Split window horizontally"))
     ;; Unbound
     ;"C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
-	  ;"C-s" '(save-some-buffers :wk "Save multiple buffers")
+	;"C-s" '(save-some-buffers :wk "Save multiple buffers")
     ;"K" '(kill-some-buffers :wk "Kill multiple buffers")
     ;; "r" '(revert-buffer :wk "Reload buffer")
 
   (tl/leader-keys
     "C-c" '(:ignore t :wk "Consult")
-	  ;; Navigation
+	;; Navigation
     "C-c C-f" '(consult-fd :wk "Find")
     "C-c C-r" '(consult-ripgrep :wk "Ripgrep")
     "C-c C-m" '(consult-mark :wk "Jump to marker")
@@ -433,12 +435,12 @@
     "C-c C-e" '(consult-git-grep :wk "Search with git grep")
     "C-c C-a" '(consult-org-agenda :wk "Go to org agenda heading")
     "C-c C-h" '(consult-org-heading :wk "Go to org heading")
-	  ;; Search 
+	;; Search
     "C-c C-l" '(consult-line :wk "Search for line")
     "C-c C-u" '(consult-line-multi :wk "Search for line in multiple buffers")
     "C-c C-k" '(consult-keep-lines :wk "Select lines with a live preview")
     "C-c C-f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
-	  ;; Editing
+	;; Editing
     "C-c C-y" '(consult-yank-from-kill-ring :wk "Yank from kill ring history")
     "C-c C-p" '(consult-yank-replace :wk "Yank replace from kill ring history"))
 
@@ -679,7 +681,7 @@
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
 (global-display-line-numbers-mode -1)             ; Disable displaying line numbers
-;(global-visual-line-mode -1)                       ; Display truncated lines
+;(global-visual-line-mode -1)                      ; Display truncated lines
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 (save-place-mode 1)                               ; Open files back up at same position
@@ -692,7 +694,7 @@
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
- x-stretch-cursor t)                              ; Stretch cursor to the glyph width
+ x-stretch-cursor t)                               ; Stretch cursor to the glyph width
 
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
  truncate-string-elipsis "…"                      ; Unicode ellispis are nicer than "...", and also save /precious/ space
@@ -702,6 +704,7 @@
  display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
  use-short-answers t                              ; Set y or n instead of yes or no for questions
  frame-resize-pixelwise t                         ; Better frame resizing
+ window-resize-pixelwise nil
  initial-scratch-message ""                       ; Message in the *scratch* buffer
  display-line-numbers-width 3                     ; Line numbers width
  blink-cursor-mode nil                            ; I hate blinking cursors
@@ -928,7 +931,7 @@ Adjust org-roam file names in similary way I have in the window title.
 	  which-key-min-display-lines 6
 	  which-key-side-window-slot -10
 	  which-key-side-window-max-height 0.25
-	  which-key-idle-delay 0.5
+	  which-key-idle-delay 0.3
 	  which-key-max-description-length 25
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
@@ -1273,15 +1276,10 @@ appropriate.  In tables, insert a new row or end the table."
   :ensure t)
 #+end_src
 
-** Hungry-delete
+** Smart hungry-delete
 [[https://github.com/nflath/hungry-delete][Hungry Delete]] is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. 
 
 #+begin_src emacs-lisp
-;; (use-package hungry-delete
-;;   :ensure t
-;;   :defer t
-;;   :config (global-hungry-delete-mode))
-
 (use-package smart-hungry-delete
   :ensure t
   :bind (([remap backward-delete-char-untabify] . smart-hungry-delete-backward-char)
@@ -1610,15 +1608,6 @@ I use the =no-littering= package to keep folders where I edit files and the emac
 
 (use-package no-littering
   :ensure t)
-#+end_src
-
-** Undo-tree
-I like to have a view of undo changes but I don't wanna save the undo history lists files like =.keybinds-cheatsheet.org.~undo-tree~=.
-
-#+begin_src emacs-lisp
-;;(use-package undo-tree
-;;  :config
-;;  (global-undo-tree-mode))
 #+end_src
 
 ** Rainbow-mode
@@ -2132,6 +2121,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
       dired-omit-files "^\\.[^.].*"
       dired-omit-verbose nil
       dired-hide-details-hide-symlink-targets nil
+	  trash-directory "~/.config/.local/share/Trash/files"              ;; don't think it works
       delete-by-moving-to-trash t)
 
 (autoload 'dired-omit-mode "dired-x")
@@ -2254,7 +2244,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
          :host "openrouter.ai"
          :endpoint "/api/v1/chat/completions"
          :stream t
-         :key "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"        ; Can be a function that returns the key
+         :key ""        ; Can be a function that returns the key
          :models '(google/gemini-2.0-pro-exp-02-05:free)))
 
   ;; GPTel directives - more prompts:
@@ -2389,7 +2379,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-]") #'scroll-up-command)
   (define-key god-local-mode-map (kbd "C-{") #'beginning-of-buffer)
   (define-key god-local-mode-map (kbd "C-}") #'end-of-buffer)
-  (define-key god-local-mode-map (kbd "C-S-r") #'query-replace)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "C-,") #'backward-paragraph)
   (define-key god-local-mode-map (kbd "C-.") #'forward-paragraph)
@@ -2428,12 +2417,13 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-:") #'move-to-window-line-top-bottom)
   (define-key god-local-mode-map (kbd "C-t") #'zap-up-to-char)
   (define-key god-local-mode-map (kbd "C-u") #'tl/newline-at-end-of-line)
-  ;(define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Currently not working as epxected (press 't' to replace chars)
+  (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars
   (define-key god-local-mode-map (kbd "C-S-d") #'org-babel-mark-block)
   (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
   (define-key god-local-mode-map (kbd "C-S-u") #'mark-whole-line)
   (define-key god-local-mode-map (kbd "C-~") #'capitalize-word)
-  (define-key god-local-mode-map (kbd "C-|") #'gptel-abort)
+  (define-key god-local-mode-map (kbd "C-|") #'query-replace)  
+  ;(define-key god-local-mode-map (kbd "C-|") #'gptel-abort)
   (define-key god-local-mode-map (kbd "C-S-v") #'join-line)
   (define-key god-local-mode-map (kbd "C-S-W") #'tl/copy-down-current-line-or-region)
   ;; Syntax highlighting for org-mode
@@ -2943,7 +2933,7 @@ Some custom functions to insert the date.
   (insert (calendar-date-string date)))
 #+end_src
 
-*** Org buffer creation automation
+*** Create new org buffer
 Let’s make creating an Org buffer just that little bit easier.
 
 #+begin_src emacs-lisp
@@ -2960,44 +2950,17 @@ Let’s make creating an Org buffer just that little bit easier.
         (setq-local doom-real-buffer-p t)))))
 #+end_src
 
-*** Create new org buffer
+*** Switch or create new org buffer and save
 #+begin_src emacs-lisp
-(defun tl/create-org-buffer ()
-  "Switch to an existing Org mode buffer named *org scratchpad*, or create a new one.
-Automatically save the buffer to /tmp/ and load the last saved version if it exists."
+(defun tl/switch-to-or-create-org-buffer ()
+  "Switch to an existing Org mode buffer named *new org* in ~/documents/org/new-org.org, or create a new one if it doesn't exist."
   (interactive)
-  (let ((buffer-name "*org scratchpad*")
-        (file-path "~/documents/org/org-scratchpad.org"))
-    (if (get-buffer buffer-name)
-        (switch-to-buffer buffer-name)
-      (if (file-exists-p file-path)
-          (progn
-            (find-file file-path)
-            (rename-buffer buffer-name))
-        (switch-to-buffer (generate-new-buffer buffer-name))
-        (org-mode)
-        (write-file file-path)))
-    (add-hook 'after-save-hook
-              `(lambda ()
-                 (when (string= (buffer-name) ,buffer-name)
-                   (let ((file-path ,file-path))
-                     (save-buffer)
-                     (message "Auto-saved *org scratchpad* to %s" file-path))))
-              nil t)))
-
-(defun tl/save-scratchpad ()
-  "Save the *org scratchpad* buffer to ~/.cache/org-scratchpad.org."
-  (let ((buffer-name "*org scratchpad*")
-        (file-path "~/documents/org/org-scratchpad.org"))
-    (when (get-buffer buffer-name)
-      (with-current-buffer buffer-name
-        (save-buffer)
-        (write-file file-path)
-        (message "Manually saved *org scratchpad* to %s" file-path)))))
-
-
-;; Enable lexical binding for the lambda function to capture variables.
-(setq-default lexical-binding t)
+  (let ((org-file "~/documents/org/new-org.org"))
+    (if (get-buffer "*new org*")
+        (switch-to-buffer "*new org*")
+      (find-file org-file)
+      (rename-buffer "*new org*")
+      (org-mode))))
 #+end_src
 
 ** Org configuration
