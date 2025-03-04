@@ -168,7 +168,6 @@
 (define-key global-map (kbd "M->") nil)
 (define-key global-map (kbd "C-f") nil)
 (define-key global-map (kbd "C-b") nil)
-(define-key global-map (kbd "M-f") nil)
 (define-key global-map (kbd "M-;") nil)
 (define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "C-y") nil)
@@ -178,6 +177,7 @@
 (define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "C-@") nil)
 (define-key global-map (kbd "M-RET") nil)
+(define-key global-map (kbd "C-M-\\") nil)
 
 ;; Unbinding Org Mode Keybindings
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
@@ -188,6 +188,8 @@
 (define-key org-mode-map (kbd "M-t") nil)
 (define-key org-mode-map (kbd "C-,") nil)
 (define-key org-mode-map (kbd "M-RET") nil)
+(define-key org-mode-map (kbd "C-c M-f") nil)
+(define-key org-mode-map (kbd "C-c M-b") nil)
 
 ;; Calendar-mode
 (define-key calendar-mode-map (kbd "i h") 'nil)
@@ -352,13 +354,13 @@
   (general-create-definer tl/leader-keys
     :prefix "C-x") ;; Set leader key
 
-  ;; Available keys: "f"
   (tl/leader-keys
     "," '(consult-recent-file :wk "Find recent files")
     ;"." '(find-file :wk "Find file")
     "C-b" '(consult-buffer :wk "Switch to buffer")
     "y" '(consult-yank-pop :wk "Clipboard history")
     "i" '(org-gtd-process-inbox :wk "Process inbox")
+    "f" '(hl-todo-insert :wk "Insert todo heading at point")
     "L" '(tl/jinx-toggle-single-dictionary :wk "Switch between dictionaries")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
 	  ;"C-p" '(find-file-at-point :wk "Find file at point")
@@ -406,9 +408,10 @@
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")  
     "C-<" '(shrink-window :wk "Shrink window")
-    "C-_" '(split-window-below :wk "Split window below")
+    "C-/" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
+    "C-_" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
     "/" '(balance-windows :wk "Balance windows")
-    ";" '(split-window-right :wk "Split window right"))
+    "C-;" '(split-window-right :wk "Split window right"))
     ;"C-c" '(split-window-vertically :wk "Split window vertically")
     ;"C-c" '(split-window-horizontally :wk "Split window horizontally"))
     ;; Unbound
@@ -543,8 +546,10 @@
  "C-l" '(org-metaright :wk "Org metaright")
  "C-p" '(org-previous-visible-heading :wk "Previous visible heading")
  "C-n" '(org-next-visible-heading :wk "Next visible heading")
- "," '(org-todo :wk "Org set todo")
- "." '(org-priority :wk "Org set priority")
+ ;"," '(org-todo :wk "Org set todo")
+ ;"." '(org-priority :wk "Org set priority")
+ "." '(org-next-block :wk "Next org block")
+ "," '(org-previous-block :wk "Previous org block")
  "C-_" '(org-set-tags-command :wk "Org set tag")
  "C-e" '(org-set-effort :wk "Org set effort")
  ;"C-p" '(org-set-property :wk "Org set property")
@@ -678,7 +683,8 @@
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 (save-place-mode 1)                               ; Open files back up at same position
 (recentf-mode 1)                                  ; Remember recently edited files
-(global-hl-line-mode t)                           ; Highlights the current line of the point    
+(global-hl-line-mode t)                           ; Highlights the current line of the point
+(show-paren-mode 1)                               ; Toggle visualization of matching parens (Show Paren mode)
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
@@ -857,6 +863,9 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 (set-face-attribute 'mode-line nil :background "#0B0B10")
 (set-face-attribute 'mode-line-inactive nil :background "#0B0B10")
 (set-face-attribute 'hl-line nil :background "#0B0B10")
+
+;; Text color of org code blocks - not working
+;(set-face-attribute 'org-code nil :foreground "#CDD6F4")
 
 ;; Use pywal auto-generated color scheme
 ;; (use-package ewal
