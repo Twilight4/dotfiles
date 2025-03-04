@@ -400,9 +400,10 @@
 	  ;; Window management
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
+    "w" '(winner-undo :wk "Undo window change")
     "C-k" '(other-window :wk "Switch window")
     "C-j" '(previous-multiframe-window :wk "Select macro to run")
-    "w" '(consult-kmacro :wk "Select macro to run")
+    "K" '(consult-kmacro :wk "Select macro to run")
     "C-o" '(dashboard-open :wk "Open emacs dashboard")
     "C-w" '(ace-swap-window :wk "Swap windows")
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
@@ -411,6 +412,7 @@
     "C-/" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
     "C-_" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
     "/" '(balance-windows :wk "Balance windows")
+    ";" '(split-window-right :wk "Split window right")
     "C-;" '(split-window-right :wk "Split window right"))
     ;"C-c" '(split-window-vertically :wk "Split window vertically")
     ;"C-c" '(split-window-horizontally :wk "Split window horizontally"))
@@ -685,6 +687,7 @@
 (recentf-mode 1)                                  ; Remember recently edited files
 (global-hl-line-mode t)                           ; Highlights the current line of the point
 (show-paren-mode 1)                               ; Toggle visualization of matching parens (Show Paren mode)
+(winner-mode 1)
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
@@ -813,8 +816,7 @@
 ;; emacs -nw settings
 (unless (display-graphic-p)
   ;; Disable $ on truncated lines
-  (set-display-table-slot standard-display-table 'truncation 32)
-  (xterm-mouse-mode 1)) ; Enable mouse in term-mode
+  (set-display-table-slot standard-display-table 'truncation 32))
 
 (setq use-short-answers t ; Set y or n instead of yes or no for questions
       comment-empty-lines t ; Comment empty lines in selecetd region too
@@ -1771,12 +1773,16 @@ Function for toggling maximization of window split.
 #+end_src
 
 ** Disable mouse
+Making sure mouse is disabled.
 
 #+begin_src emacs-lisp
+;; Very useful package, also suppressesthe messages in minibuffer
 (use-package disable-mouse
   :ensure t
   :config
   (global-disable-mouse-mode))
+
+(xterm-mouse-mode -1)
 #+end_src
 
 * Completion Framework
