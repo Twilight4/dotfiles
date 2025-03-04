@@ -57,6 +57,7 @@
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
   - [[#maximize-window-split][Maximize-window-split]]
+  - [[#disable-mouse][Disable mouse]]
 - [[#completion-framework][Completion Framework]]
   - [[#vertico][Vertico]]
   - [[#orderless][Orderless]]
@@ -213,6 +214,8 @@
 (global-set-key (kbd "C-l") 'forward-char)
 (global-set-key (kbd "C-f") 'tl/forward-word)
 (global-set-key (kbd "C-b") 'tl/backward-word)
+(global-set-key (kbd "C-p") 'org-backward-sentence)
+(global-set-key (kbd "C-n") 'org-forward-sentence)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
 (global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
@@ -365,8 +368,8 @@
     ;"C-k" '(tl/report-entry :wk "Use report entry")
     "t" '(org-transclusion-add :wk "Add org transclusion")  ;; Org tansclusion package
     "C-l" '(gptel-send-with-options :wk "Switch window")    ;; Minibuffer to echo area
-    "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
-    "C-n" '(tl/better-next-buffer :wk "Next Buffer")
+    "C-n" '(tl/better-previous-buffer :wk "Previous Buffer")
+    "C-p" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(kill-this-buffer :wk "Kill current buffer")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "O" '(tl/buffer-org-new :wk "New empty org buffer")
@@ -1758,6 +1761,15 @@ Function for toggling maximization of window split.
     (delete-other-windows)))
 #+end_src
 
+** Disable mouse
+
+#+begin_src emacs-lisp
+(use-package disable-mouse
+  :ensure t
+  :config
+  (global-disable-mouse-mode))
+#+end_src
+
 * Completion Framework
 ** Vertico
 Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options. One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top. This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
@@ -2399,7 +2411,9 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-y") #'paste-from-system-clipboard)
   (define-key god-local-mode-map (kbd "C-h") #'backward-char)
   (define-key god-local-mode-map (kbd "C-k") #'previous-line)
+  (define-key god-local-mode-map (kbd "C-S-k") #'previous-line)
   (define-key god-local-mode-map (kbd "C-j") #'next-line)
+  (define-key god-local-mode-map (kbd "C-S-j") #'next-line)
   (define-key god-local-mode-map (kbd "C-l") #'forward-char)
   (define-key god-local-mode-map (kbd "C-S-l") #'forward-char)
   (define-key god-local-mode-map (kbd "C-S-h") #'backward-char)
@@ -2407,8 +2421,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-b") #'tl/backward-word)
   (define-key god-local-mode-map (kbd "C-S-f") #'tl/forward-mark-word)
   (define-key god-local-mode-map (kbd "C-S-b") #'tl/backward-mark-word)
-  (define-key god-local-mode-map (kbd "C-S-k") #'previous-line)
-  (define-key god-local-mode-map (kbd "C-S-j") #'next-line)
   (define-key god-local-mode-map (kbd "C-d") #'kill-region-or-forward-delete)
   (define-key god-local-mode-map (kbd "C-p") #'org-backward-sentence)
   (define-key god-local-mode-map (kbd "C-n") #'org-forward-sentence)
