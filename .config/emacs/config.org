@@ -14,7 +14,6 @@
   - [[#littering][Littering]]
   - [[#scrolling][Scrolling]]
   - [[#fonts][Fonts]]
-  - [[#misc][Misc]]
 - [[#ui-configuration][UI Configuration]]
   - [[#all-the-icons][All-the-icons]]
   - [[#color-theme][Color theme]]
@@ -368,7 +367,7 @@
     ;"C-L" '(tl/log-entry :wk "Use log entry")
     ;"C-l" '(tl/log-entry-small :wk "Use small log entry")
     ;"C-k" '(tl/report-entry :wk "Use report entry")
-    "t" '(org-transclusion-add :wk "Add org transclusion")  ;; Org tansclusion package
+    ;"" '(org-transclusion-add :wk "Add org transclusion")  ;; Org tansclusion package - not using
     "C-l" '(gptel-send-with-options :wk "Switch window")    ;; Minibuffer to echo area
     "C-n" '(tl/better-previous-buffer :wk "Previous Buffer")
     "C-p" '(tl/better-next-buffer :wk "Next Buffer")
@@ -497,8 +496,8 @@
     "C-t C-h" '(hl-line-mode :wk "Toggle line highlight in frame")
     "C-t C-i" '(org-indent-mode :wk "Toggle indentation mode")
     "C-t C-m" '(toggle-mode-line :wk "Toggle mode line")
-    "C-t C-H" '(global-hl-line-mode :wk "Toggle line highlight globally")
-    "C-t C-T" '(org-transclusion-mode :wk "Org Transclusion mode"))
+    "C-t C-j" '(global-hl-line-mode :wk "Toggle line highlight globally"))
+    ;"" '(org-transclusion-mode :wk "Org Transclusion mode"))     ;; not using it
 
   (tl/leader-keys
     "C-e" '(:ignore t :wk "Eval/Edit File")
@@ -673,21 +672,23 @@
 (setq calendar-location-name "Warsaw, PL")
 
 (delete-selection-mode 1)                         ; You can select text in insert mode (mouse) and delete it by typing
-;(electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
+(electric-indent-mode -1)                         ; Electric indent mode makes Org mode source blocks have some really weird and annoying default indentation behavior
 (electric-pair-mode 1)                            ; Turns on automatic parens pairing
 (menu-bar-mode -1)                                ; Disable menu bar
 (tool-bar-mode -1)                                ; Disable tool bar
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
 (global-display-line-numbers-mode -1)             ; Disable displaying line numbers
-(global-visual-line-mode t)                       ; Display truncated lines
+;(global-visual-line-mode -1)                       ; Display truncated lines
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 (save-place-mode 1)                               ; Open files back up at same position
 (recentf-mode 1)                                  ; Remember recently edited files
 (global-hl-line-mode t)                           ; Highlights the current line of the point
 (show-paren-mode 1)                               ; Toggle visualization of matching parens (Show Paren mode)
-(winner-mode 1)
+(winner-mode 1)                                   ; Cool mode for monitoring window configuration
+(display-time-mode 1)                             ; Enable time in the mode-line
+(global-subword-mode 1)                           ; Iterate through CamelCase words
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
@@ -699,23 +700,15 @@
  use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
  display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
+ use-short-answers t                              ; Set y or n instead of yes or no for questions
+ frame-resize-pixelwise t                         ; Better frame resizing
+ initial-scratch-message ""                       ; Message in the *scratch* buffer
  display-line-numbers-width 3                     ; Line numbers width
  blink-cursor-mode nil                            ; I hate blinking cursors
  inhibit-startup-message t)                       ; Prevent the default initial splash screen from being displayed when you start Emacs
 
-;; Prefer vertical splits - does not work
-;(setq split-width-threshold nil)
-;(setq split-height-threshold 40) ; Adjust this value as needed
-
-;; Prevent Emacs from splitting windows, using kitty for splits instead
-;(setq split-window-preferred-function nil)
-
 ;; Don't create automatic backup files in their original directories (e.g. file.el~). Put all backups in the Trash directory
 (setq backup-directory-alist '((".*" . "~/.config/.local/share/Trash/files")))
-
-(display-time-mode 1)                             ; Enable time in the mode-line
-(global-subword-mode 1)                           ; Iterate through CamelCase words
-;(defalias 'yes-or-no-p 'y-or-n-p)                 ; Use 'y' or 'n' instead of 'yes' or 'no'
 
 (unless (string-match-p "^Power N/A" (battery))   ; On laptops
   (display-battery-mode 1))                       ; it's nice to know how much power you have
@@ -808,28 +801,6 @@
 
 ;; Uncomment the following line if line spacing needs adjusting.
 (setq-default line-spacing 0.12)
-#+end_src
-
-** Misc
-
-#+begin_src emacs-lisp
-;; emacs -nw settings
-(unless (display-graphic-p)
-  ;; Disable $ on truncated lines
-  (set-display-table-slot standard-display-table 'truncation 32))
-
-(setq use-short-answers t ; Set y or n instead of yes or no for questions
-      comment-empty-lines t ; Comment empty lines in selecetd region too
-      initial-scratch-message ";; The system plays us everyday
-
-"
-      display-line-numbers-type 'relative ; Realive line numbers
-      frame-resize-pixelwise t) ; Better frame resizing
-(setq-default tab-width 2 ; self explanitory
-              indent-tabs-mode nil ; use spaces not tabs
-              truncate-lines t) ;Allow truncated lines
-(electric-indent-mode t) ; Auto Indent
-;(global-display-line-numbers-mode 1) ; Display line numbers
 #+end_src
 
 * UI Configuration
@@ -1306,10 +1277,17 @@ appropriate.  In tables, insert a new row or end the table."
 [[https://github.com/nflath/hungry-delete][Hungry Delete]] is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. 
 
 #+begin_src emacs-lisp
-(use-package hungry-delete
+;; (use-package hungry-delete
+;;   :ensure t
+;;   :defer t
+;;   :config (global-hungry-delete-mode))
+
+(use-package smart-hungry-delete
   :ensure t
-  :defer t
-  :config (global-hungry-delete-mode))
+  :bind (([remap backward-delete-char-untabify] . smart-hungry-delete-backward-char)
+	       ([remap delete-backward-char] . smart-hungry-delete-backward-char)
+	       ([remap delete-char] . smart-hungry-delete-forward-char))
+  :init (smart-hungry-delete-add-default-hooks))
 #+end_src
 
 ** Multiple-cursors
@@ -1389,13 +1367,13 @@ This is useful when followed by an immediate kill."
   (if (region-active-p)
       (progn
         (kill-ring-save (region-beginning) (region-end))
-	    (let ((process-connection-type nil))
+        (let ((process-connection-type nil))
           (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
           (process-send-string "wl-copy" (current-kill 0))
           (process-send-eof "wl-copy"))
-	    (message "Copied to clipboard")
+        (message "Copied to clipboard")
         (delete-region (region-beginning) (region-end)))
-    (hungry-delete-backward 1)))
+    (call-interactively 'smart-hungry-delete-backward-char)))
 
 (defun kill-region-or-forward-delete ()
   "Kill the region if active, otherwise delete forward."
@@ -1403,13 +1381,13 @@ This is useful when followed by an immediate kill."
   (if (region-active-p)
       (progn
         (kill-ring-save (region-beginning) (region-end))
-	    (let ((process-connection-type nil))
-          (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
+        (let ((process-connection-type nil))
+          (start-process "wl-copy" "*wl-copy*" "wl-copy")
           (process-send-string "wl-copy" (current-kill 0))
           (process-send-eof "wl-copy"))
-	    (message "Copied to clipboard")
+        (message "Copied to clipboard")
         (delete-region (region-beginning) (region-end)))
-    (hungry-delete-forward 1)))
+    (call-interactively 'smart-hungry-delete-forward-char)))
 
 ;; Function to always copy to the system clipboard
 (defun copy-to-system-clipboard ()
@@ -2276,7 +2254,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
          :host "openrouter.ai"
          :endpoint "/api/v1/chat/completions"
          :stream t
-         :key ""        ; Can be a function that returns the key
+         :key "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"        ; Can be a function that returns the key
          :models '(google/gemini-2.0-pro-exp-02-05:free)))
 
   ;; GPTel directives - more prompts:
@@ -2578,7 +2556,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
 #+end_src
 
 *** Hl-todo
-Adding highlights to =TODO= and related words.
+Adding highlights to =todo= keywords and related words.
 
 #+begin_src emacs-lisp
 (use-package hl-todo
