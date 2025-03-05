@@ -247,7 +247,6 @@ The world's greatest programmer once said:
 | C-x C-x    | Exchange point and mark                             |
 | .          | Go to todays date                                   |
 | ,          | Go to date                                          |
-| o          | Go to month                                         |
 | c          | Go to agenda                                        |
 | ?          | Go to help                                          |
 | q          | Quit                                                |
