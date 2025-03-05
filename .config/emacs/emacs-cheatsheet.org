@@ -47,7 +47,6 @@ The world's greatest programmer once said:
 | Keybinding | Description    |
 |------------+----------------|
 | C-c        | Consult        |
-| C-a        | Org agenda     |
 | C-f        | Timer/clock    |
 | C-h        | Help           |
 | C-t        | Toggle         |
@@ -67,12 +66,13 @@ The world's greatest programmer once said:
 | O          | New empty org buffer         |
 | v          | Open video in mpv            |
 | f          | Insert todo keyword at point |
-| a          | Mark whole buffer            |
+| C-a        | Open org agenda              |
+| a          | Mark whole bluffer           |
 | t          | Add org transclusion         |
 | C          | Go to calendar               |
 | C-l        | Switch window                |
 | C-p        | Previous Buffer              |
-| C-n        | Next Buffer                  |
+| C-n        | Next buffer                  |
 | C-u        | Kill current buffer          |
 | C-q        | Exit emacs                   |
 | C-j        | Open emacs dashboard         |
@@ -232,37 +232,31 @@ The world's greatest programmer once said:
 
 * Major Modes
 ** Calendar-mode
-| Keybinding | Description                                         |
-|------------+-----------------------------------------------------|
-| h/j/k/l    | Navigation                                          |
-| a/e        | Beginning/end of week                               |
-| A/E        | Forward/Backward month                              |
-| p/n        | Beginning/end of month                              |
-| P/N        | Beginning/end of year                               |
-| [/]        | Forward/Backward year                               |
-| </>        | Scroll left/right                                   |
-| v/V        | Scroll left/right 3 months                          |
-| SPC        | Set mark                                            |
-| m/M        | Mark diary entries/holidays                         |
-| C          | Count number of days between the mark and the point |
-| y          | Print day of year and days til the end of year      |
-| C-x C-x    | Exchange point and mark                             |
-| .          | Go to todays date                                   |
-| ,          | Go to date                                          |
-| c          | Go to agenda                                        |
-| ?          | Go to help                                          |
-| q          | Quit                                                |
-| g          | Show holidays at point                              |
-| G          | List holidays                                       |
-| d          | View diary entry on point                           |
-| D          | Diary show all entries                              |
-| i w        | Diary insert weekly entry                           |
-| i y        | Diary insert yearly entry                           |
-| i d        | Diary insert entry                                  |
-| i m        | Diary insert monthly entry                          |
-| u          | Unmark holidays and diary entries                   |
-| s          | Show sunrise-sunset for month                       |
-| S          | Show sunrise-sunset                                 |
+| Keybinding | Description                                                               |
+|------------+---------------------------------------------------------------------------|
+| h/j/k/l    | Navigation                                                                |
+| a/e        | Beginning/end of week                                                     |
+| A/E        | Forward/Backward month                                                    |
+| p/n        | Beginning/end of month                                                    |
+| P/N        | Beginning/end of year                                                     |
+| [/]        | Forward/Backward year                                                     |
+| </>        | Scroll left/right                                                         |
+| v/V        | Scroll left/right 3 months                                                |
+| SPC        | Set mark                                                                  |
+| m/M        | Mark diary and holidays entries/Unmark                                    |
+| u/U        | Diary view entry at point/Show all entries                                |
+| d/D        | Org roam dailies capture date/goto date                                   |
+| s/S        | Show sunrise-sunset for month/today's sunrise-sunset                      |
+| g/G        | Show holidays at point/List holidays                                      |
+| ./.        | Go to todays date/Go to date                                              |
+| C-x C-x    | Exchange point and mark                                                   |
+| c/C        | Count number of days between the mark and the point/until the end of year |
+| ?          | Go to help                                                                |
+| q          | Quit                                                                      |
+| i w        | Diary insert weekly entry                                                 |
+| i y        | Diary insert yearly entry                                                 |
+| i d        | Diary insert entry                                                        |
+| i m        | Diary insert monthly entry                                                |
 
 ** Agenda-mode
 | Keybinding      | Description                                                         |
@@ -278,7 +272,6 @@ The world's greatest programmer once said:
 | q/Q             | Quit/Exit and kill buffers created by agenda                        |
 | [/]             | Scroll up/down                                                      |
 | C-c C-n/C-c C-p | Next/Previous date line                                             |
-| ;/:             | Archive entry/Archive entry or sub-tree                             |
 | <               | Change date of this item                                            |
 | a               | Org clarify agenda item                                             |
 | v               | Org set area of focus on agenda item                                |
@@ -310,7 +303,6 @@ The world's greatest programmer once said:
 | _               | Filter by effort                                                    |
 | =               | Filter by regexp                                                    |
 | "Pipe Symbol"   | Remove all filter                                                   |
-| S               | Show sunrise-sunset                                                 |
 | SPC             | Mark toggle                                                         |
 | A               | Toggle all                                                          |
 | B               | Bulk action                                                         |
