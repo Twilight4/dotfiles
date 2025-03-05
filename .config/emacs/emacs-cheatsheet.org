@@ -66,6 +66,7 @@ The world's greatest programmer once said:
 | y          | Clipboard history            |
 | O          | New empty org buffer         |
 | v          | Open video in mpv            |
+| f          | Insert todo keyword at point |
 | a          | Mark whole buffer            |
 | t          | Add org transclusion         |
 | C          | Go to calendar               |
@@ -133,6 +134,7 @@ The world's greatest programmer once said:
 | C          | Org roam capture                  |
 | ,          | Org set todo                      |
 | .          | Org set priority                  |
+| C-z        | Add org note                      |
 | C-w        | Org refile                        |
 | C-/        | Org tag                           |
 | C-e        | Org set effort                    |
@@ -270,7 +272,7 @@ The world's greatest programmer once said:
 | p/n             | Backward/forward block                                              |
 | d/w/m/y         | Day/week/month/year view                                            |
 | I/O/J/U/R       | Start/stop/jump to current/cancel/toggle the clock on current entry |
-| D/M/K/F/L/T     | Toggle diary/deadlines/habits/follow mode/log mode/time grid        |
+| u/M/K/F/L/T     | Toggle diary/deadlines/habits/follow mode/log mode/time grid        |
 | h/H             | Show the tags for item/Set tag                                      |
 | f/b             | Go forward/backward in time in agenda                               |
 | q/Q             | Quit/Exit and kill buffers created by agenda                        |
@@ -289,10 +291,11 @@ The world's greatest programmer once said:
 | z               | Add time-stamped note to agenda entry                               |
 | i               | Make a diary entry                                                  |
 | x               | Make it easy to mark a task as done                                 |
-| N               | Capture something based on the agenda position                      |
 | P               | Append new agenda view to the agenda buffer                         |
-| C               | Agenda capture                                                      |
+| C               | GTD capture                                                         |
 | o               | Delete other windows                                                |
+| S               | Agenda Schedule                                                     |
+| D               | Agenda deadline                                                     |
 | g               | Refresh agenda view                                                 |
 | W               | Open the link in the current entry                                  |
 | G               | List holidays                                                       |
@@ -315,7 +318,6 @@ The world's greatest programmer once said:
 | C-x C-w         | Write agenda buffer to the file                                     |
 | C-c C-x a       | Toggle archive tag                                                  |
 | C-x C-d         | Schedule deadline                                                   |
-| C-x C-s         | Agenda Schedule                                                     |
 | C-c C-x p       | Set property for the current headline                               |
 | C-c C-x <       | Set restriction log to agenda                                       |
 | C-c C-x >       | Remove agenda restriction lock                                      |
@@ -412,6 +414,8 @@ The world's greatest programmer once said:
 | S-i           | tl/org-cycle-or-shift-tab            |
 | S-q           | goto-last-change                     |
 | S-o           | goto-last-change-reverse             |
+| S-a           | Go to org heading                    |
+| S-e           | Go to mark                           |
 | ;             | recenter-top-bottom                  |
 | :             | move-to-window-line-top-bottom       |
 | t             | zap-up-to-char                       |
