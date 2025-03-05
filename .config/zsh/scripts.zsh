@@ -261,6 +261,23 @@ imgtowebp() {
     done
 }
 
+# Optimize the video: vidoptimize <input_file> <output_fille>
+vidoptimize() {
+    input_file=$1
+    output_file=$2
+    crf=${3:-28}         # Default CRF value is 28
+    preset=${4:-fast}    # Default preset is 'fast'
+    audio_bitrate=${5:-128k} # Default audio bitrate is '128k'
+    
+    ffmpeg -i "$input_file" -vcodec libx264 -crf "$crf" -preset "$preset" -acodec aac -b:a "$audio_bitrate" "$output_file"
+    
+    if [ $? -eq 0 ]; then
+        echo "Video optimized successfully. Output saved to $output_file"
+    else
+        echo "Error during optimization"
+    fi
+}
+
 # Mount device with read/write permissions
 mnt() {
     local FILE="/mnt/external"
