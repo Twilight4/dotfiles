@@ -5,7 +5,7 @@ This documentation provides cheat sheet for my emacs keybindings configuration w
 I'm obsessed with optimizing my time and automating my workflow and I spend countless hours configuring my OS. I actually spend more time customizing my computer than actually using it.
 
 The philosophy adopted in this configuration prioritizes simplicity and ease of use:
-  - Most commonly used keybinds don't have a prefix key.
+  - Most commonly used keybindings don't have a prefix key.
   - =C-x= prefix key is used for another prefix-keys and non-prefix keys which are particularly used for GTD system.
   - =C-c= prefix key is used particularly for ZK note-taking system in =org-mode=.
   - =C-v= prefix key is used only for =expand-region= and =symbol-overlay= packages.
@@ -138,6 +138,7 @@ The world's greatest programmer once said:
 | C-w        | Org refile                        |
 | C-/        | Org tag                           |
 | C-e        | Org set effort                    |
+| ,/.        | Previous/Next code block          |
 | f          | Insert file link                  |
 | w          | Insert link                       |
 | C-a        | Insert any date                   |
@@ -232,6 +233,7 @@ The world's greatest programmer once said:
 
 * Major Modes
 ** Calendar-mode
+
 | Keybinding | Description                                                               |
 |------------+---------------------------------------------------------------------------|
 | h/j/k/l    | Navigation                                                                |
@@ -259,6 +261,7 @@ The world's greatest programmer once said:
 | i m        | Diary insert monthly entry                                                |
 
 ** Agenda-mode
+
 | Keybinding      | Description                                                         |
 |-----------------+---------------------------------------------------------------------|
 | RET             | Go to org file with the item at point                               |
@@ -314,6 +317,7 @@ The world's greatest programmer once said:
 | C-c C-x >       | Remove agenda restriction lock                                      |
 
 ** Info-mode
+
 | Keybinding | Description                   |
 |------------+-------------------------------|
 | h/j/k/l    | Navigation                    |
@@ -335,14 +339,10 @@ The world's greatest programmer once said:
 
 * Other Packages
 ** M-key bindings
+
 | Keybinding | Description                                                  |
 |------------+--------------------------------------------------------------|
-| M-;        | Comment region                                               |
 | M-'        | Copy last entry to clipboard                                 |
-| M-u        | Upcase-word                                                  |
-| M-l        | Downcase-word                                                |
-| C-c M-f    | Org next code block                                          |
-| C-c M-b    | Org previous code block                                      |
 | M-a        | Embark act                                                   |
 | M-n        | Treemacs                                                     |
 | M-i        | jinx-correct                                                 |
@@ -350,6 +350,7 @@ The world's greatest programmer once said:
 | M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
 
 ** Dired
+
 | Keybinding | Description                                      |
 |------------+--------------------------------------------------|
 | h/j/k/l    | Navigation                                       |
@@ -378,56 +379,56 @@ The world's greatest programmer once said:
 | g          | Revert buffer                                    |
 
 ** God-mode
-| Keybinding    | Description                          |
-|---------------+--------------------------------------|
-| z             | Repeat action                        |
-| S-t           | kmacro-start-macro-or-insert-counter |
-| S-y           | kmacro-end-or-call-macro             |
-| [             | scroll-down-command                  |
-| ]             | scroll-up-command                    |
-| {             | beginning-of-buffer                  |
-| }             | end-of-buffer                        |
-| S-r           | query-replace                        |
-| S-m           | org-meta-return                      |
-| ,             | backward-paragraph                   |
-| .             | forward-paragraph                    |
-| e             | org-end-of-line                      |
-| a             | org-beginning-of-line                |
-| w             | copy-to-system-clipboard             |
-| ?             | undo-redo                            |
-| y             | paste-from-system-clipboard          |
-| b             | backward-word                        |
-| f             | forward-word                         |
-| d             | kill-region-or-forward-delete        |
-| p             | org-backward-sentence                |
-| n             | org-forward-sentence                 |
-| \             | universal-argument                   |
-| S-i           | tl/org-cycle-or-shift-tab            |
-| S-q           | goto-last-change                     |
-| S-o           | goto-last-change-reverse             |
-| S-a           | Go to org heading                    |
-| S-e           | Go to mark                           |
-| ;             | recenter-top-bottom                  |
-| :             | move-to-window-line-top-bottom       |
-| t             | zap-up-to-char                       |
-| u             | tl/newline-at-end-of-line            |
-| S-b           | org-babel-mark-block                 |
-| S-s           | er/mark-symbol                       |
-| ~             | capitalize-word                      |
-| "Pipe symbol" | gptel-abort                          |
-| S-</>         | Toggle upcase region/word            |
-| S-v           | Upcase initials                      |
-| S-p/n/f/b     | drag stuff up/down/left/right        |
-| S-h           | multi curors next line               |
-| S-j           | join line                            |
-| S-k           | kill line forward                    |
-| S-u           | kill line backward                   |
-| S-d           | kill whole line                      |
-| S-l           | mark whole line                      |
-| S-w           | tl/copy-down-current-line-or-region  |
-| S-z           | surround-bold                        |
-| S-x           | surround-italic                      |
-| S-c           | surround-code                        |
+
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| z          | Repeat action                        |
+| S-t        | Kmacro start macro or insert counter |
+| S-y        | Kmacro end or call macro             |
+| [          | Scroll down command                  |
+| ]          | Scroll up command                    |
+| {          | Beginning of buffer                  |
+| }          | End of buffer                        |
+| S-r        | Query replace                        |
+| S-m        | Org meta return                      |
+| ,          | Backward paragraph                   |
+| .          | Forward paragraph                    |
+| e          | Org end of line                      |
+| a          | Org beginning of line                |
+| w          | Copy to system clipboard             |
+| ?          | Undo redo                            |
+| y          | Paste from system clipboard          |
+| b          | Backward word                        |
+| f          | Forward word                         |
+| d          | Kill region or forward delete        |
+| p          | Org backward sentence                |
+| n          | Org forward sentence                 |
+| \          | Universal argument                   |
+| S-i        | Org cycle or shift tab               |
+| S-q        | Goto last change                     |
+| S-o        | Goto last change reverse             |
+| S-a        | Go to org heading                    |
+| S-e        | Go to mark                           |
+| ;          | Recenter top bottom                  |
+| :          | Move to window line top bottom       |
+| t          | Zap up to char                       |
+| u          | New line                             |
+| S-b        | Mark code block                      |
+| S-s        | Mark symbol                          |
+| ~          | Capitalize word                      |
+| S-</>      | Toggle upcase region/word            |
+| S-v        | Upcase initials                      |
+| S-p/n/f/b  | Drag stuff up/down/left/right        |
+| S-h        | Multi cursors next line              |
+| S-j        | Join line                            |
+| S-k        | Kill line forward                    |
+| S-u        | Kill line backward                   |
+| S-d        | Kill whole line                      |
+| S-l        | Mark whole line                      |
+| S-w        | Copy current line or region          |
+| S-z        | Surround bold                        |
+| S-x        | Surround italic                      |
+| S-c        | Surround code                        |
 
 ** Org-tempo
 
@@ -493,6 +494,7 @@ The world's greatest programmer once said:
 | cf         | treemacs-copy-filename-at-point      |
 
 *** Toggle keybinds
+
 | Keybinding | Description                         |
 |------------+-------------------------------------|
 | th         | treemacs-toggle-show-dotfiles       |
