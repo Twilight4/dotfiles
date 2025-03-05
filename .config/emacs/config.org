@@ -29,7 +29,6 @@
   - [[#youtube-link-export][YouTube link export]]
   - [[#disable-automatic-bookmarking][Disable automatic bookmarking]]
 - [[#editing-features][Editing Features]]
-  - [[#better-forwardbackward-word][Better forward/backward word]]
   - [[#improved-file-management][Improved file management]]
   - [[#nicer-org-return][Nicer org-return]]
   - [[#expand-region][Expand-region]]
@@ -40,9 +39,7 @@
   - [[#i-search][I-Search]]
   - [[#clipboard-adjustments][Clipboard adjustments]]
   - [[#selection-adjustments][Selection adjustments]]
-  - [[#kill-whole-line-adjustment][Kill-whole-line adjustment]]
   - [[#copy-current-line][Copy current line]]
-  - [[#copy-down-command][Copy down command]]
   - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
@@ -50,7 +47,6 @@
   - [[#rainbow-mode][Rainbow-mode]]
   - [[#mark-whole-line][Mark whole line]]
   - [[#org-cycle-or-org-shifttab][Org-cycle or org-shifttab]]
-  - [[#mark-till-endbeginning-of-paragraph][Mark till end/beginning of paragraph]]
   - [[#rainbow-delimeters][Rainbow-delimeters]]
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
@@ -153,9 +149,18 @@
 (define-key global-map (kbd "C-z") nil)
 (define-key global-map (kbd "M-SPC") nil)
 (define-key global-map (kbd "C-l") nil)
+(define-key global-map (kbd "C-<up>") nil)
+(define-key global-map (kbd "C-<up>") nil)
+(define-key global-map (kbd "C-<down>") nil)
+(define-key global-map (kbd "C-<down>") nil)
+(define-key global-map (kbd "M-<left>") nil)
+(define-key global-map (kbd "M-<left>") nil)
+(define-key global-map (kbd "M-<right>") nil)
+(define-key global-map (kbd "M-<right>") nil)
 (define-key global-map (kbd "C-v") nil)
 (define-key global-map (kbd "C-t") nil)
 (define-key global-map (kbd "M-t") nil)
+(define-key global-map (kbd "M-c") nil)
 (define-key global-map (kbd "M-i") nil)
 (define-key global-map (kbd "C-c TAB") nil)
 (define-key global-map (kbd "M-f") nil)
@@ -212,8 +217,8 @@
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'backward-char)
 (global-set-key (kbd "C-l") 'forward-char)
-(global-set-key (kbd "C-f") 'tl/forward-word)
-(global-set-key (kbd "C-b") 'tl/backward-word)
+(global-set-key (kbd "C-f") 'forward-word)
+(global-set-key (kbd "C-b") 'backward-word)
 (global-set-key (kbd "C-p") 'org-backward-sentence)
 (global-set-key (kbd "C-n") 'org-forward-sentence)
 (global-set-key (kbd "C-_") 'undo-only)
@@ -231,7 +236,6 @@
 ;; Spell-checker
 (global-set-key (kbd "M-a") 'embark-act)
 (global-set-key (kbd "M-i") 'jinx-correct)
-(global-set-key (kbd "M-l") 'downcase-word)
 ;(global-set-key (kbd "M-n") 'jinx-correct-nearest)      ;; Jinx-correct works the same
 (global-set-key (kbd "M-w") 'jinx-correct-word)
 ;(global-set-key (kbd "M-w") 'jinx-correct-all)
@@ -320,15 +324,15 @@
      (define-key org-agenda-mode-map (kbd "M") 'org-agenda-toggle-deadlines)
      (define-key org-agenda-mode-map (kbd "C") 'org-agenda-capture)
      (define-key org-agenda-mode-map (kbd "x") 'tl/org-agenda-done)
-     (define-key org-agenda-mode-map (kbd "X") 'tl/org-agenda-mark-done-and-add-followup)
      (define-key org-agenda-mode-map (kbd "N") 'tl/org-agenda-new)
      (define-key org-agenda-mode-map (kbd "P") 'org-agenda-append-agenda)
      (define-key org-agenda-mode-map (kbd "W") 'org-agenda-open-link)
+     (define-key org-agenda-mode-map (kbd ";") 'recenter-top-bottom)
      ;(define-key org-agenda-mode-map (kbd ";") 'org-agenda-archive)
      ;(define-key org-agenda-mode-map (kbd ":") 'org-agenda-archive-default-with-confirmation)
      ;; Unbinding the keybinds I don't use
-     (define-key org-agenda-mode-map (kbd ";") 'nil)
      (define-key org-agenda-mode-map (kbd ":") 'nil)
+     (define-key org-agenda-mode-map (kbd "X") 'nil)
      (define-key org-agenda-mode-map (kbd ">") 'nil)
      (define-key org-agenda-mode-map (kbd "~") 'nil)
      (define-key org-agenda-mode-map (kbd "#") 'nil)
@@ -628,8 +632,9 @@
  "C-w" '(symbol-overlay-rename :wk "Symbol rename")
  ;; Expand-region
  "e" '(er/mark-org-element :wk "Mark element")       
+ "p" '(er/mark-org-parent :wk "Mark element")       
  "b" '(er/mark-org-code-block :wk "Mark code block")
- "p" '(er/mark-paragraph :wk "Mark paragraph")
+ "." '(er/mark-paragraph :wk "Mark paragraph")
  "w" '(er/mark-word :wk "Mark word")
  "h" '(er/mark-symbol :wk "Mark symbol")
  "H" '(er/mark-symbol-with-prefix :wk "Mark symbol with prefix")
@@ -681,7 +686,7 @@
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
 (global-display-line-numbers-mode -1)             ; Disable displaying line numbers
-;(global-visual-line-mode -1)                      ; Display truncated lines
+(global-visual-line-mode 1)                       ; Display truncated lines
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 (save-place-mode 1)                               ; Open files back up at same position
@@ -1059,69 +1064,6 @@ Do not save the =org-refile-last-stored= and =org-capture-last-stored= buffers a
 #+end_src
 
 * Editing Features
-** Better forward/backward word
-In commands forward/backward word to not stop the point by characters like '-' and skip the entire words by default. Skip entire strings of non-space characters.
-
-#+begin_src emacs-lisp
-;; Custom forward-word function to skip entire non-space strings
-(defun tl/forward-word (&optional arg)
-  "Move forward ARG words, treating any non-space sequence as a single word."
-  (interactive "p")
-  (let ((arg (or arg 1)))
-    (if (< arg 0)
-        (my-backward-word (- arg))
-      (dotimes (_ arg)
-        (skip-syntax-forward "^ ") ; Skip all non-space characters
-        (skip-syntax-forward " ")  ; Skip spaces to the next word
-        ))))
-
-;; Custom backward-word function to skip entire non-space strings
-(defun tl/backward-word (&optional arg)
-  "Move backward ARG words, treating any non-space sequence as a single word."
-  (interactive "p")
-  (let ((arg (or arg 1)))
-    (if (< arg 0)
-        (my-forward-word (- arg))
-      (dotimes (_ arg)
-        (skip-syntax-backward " ")  ; Skip spaces backward
-        (skip-syntax-backward "^ ") ; Skip all non-space characters backward
-        ))))
-
-;; Custom forward-word function to skip entire non-space strings and mark the region (for god-mode)
-(defun tl/forward-mark-word (&optional arg)
-  "Move forward ARG words, treating any non-space sequence as a single word.
-If called interactively, mark the region as you move forward, similar to C-S-f."
-  (interactive "p")
-  (let ((arg (or arg 1)))
-    (if (< arg 0)
-        (my-backward-word (- arg))
-      (when (and (called-interactively-p 'any) (not (region-active-p)))
-        (push-mark (point) t t)) ; Set the mark at the current position
-      (dotimes (_ arg)
-        (skip-syntax-forward "^ ") ; Skip all non-space characters
-        (skip-syntax-forward " ")  ; Skip spaces to the next word
-        )
-      (when (called-interactively-p 'any)
-        (activate-mark))))) ; Activate the mark to highlight the region
-
-;; Custom backward-word function to skip entire non-space strings and mark the region (for god-mode)
-(defun tl/backward-mark-word (&optional arg)
-  "Move backward ARG words, treating any non-space sequence as a single word.
-If called interactively, mark the region as you move backward, similar to C-S-b."
-  (interactive "p")
-  (let ((arg (or arg 1)))
-    (if (< arg 0)
-        (tl/forward-word (- arg)) ; Use the forward-word function for negative ARG
-      (when (and (called-interactively-p 'any) (not (region-active-p)))
-        (push-mark (point) t t)) ; Set the mark at the current position
-      (dotimes (_ arg)
-        (skip-syntax-backward " ")  ; Skip spaces to the previous word
-        (skip-syntax-backward "^ ") ; Skip all non-space characters backward
-        )
-      (when (called-interactively-p 'any)
-        (activate-mark))))) ; Activate the mark to highlight the region
-#+end_src
-
 ** Improved file management
 Function =delete-this-file= deletes the current file and kills the buffer associated with it.
 It first checks if there is a file being edited in the buffer.
@@ -1293,8 +1235,8 @@ appropriate.  In tables, insert a new row or end the table."
 #+begin_src emacs-lisp
 (use-package multiple-cursors
   :bind ;; Mark one more occurrence
-        (("C-x m" . mc/mark-next-like-this)
-         ("C-x C-x C-A" . mc/mark-all-like-this)
+        (;("C-x m" . mc/mark-next-like-this)
+         ("C-x C-x C-h" . mc/mark-all-like-this)
          ;; From active region to multiple cursors
          ("C-x C-x C-c" . mc/edit-lines)
          ("C-x C-x C-a" . mc/edit-beginnings-of-lines)
@@ -1493,22 +1435,6 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
   (kill-line 0))
 #+end_src
 
-** Kill-whole-line adjustment
-
-#+begin_src emacs-lisp
-(defun tl/kill-copy-whole-line ()
-  "Kill the current line and copy its content to the system clipboard using wl-copy."
-  (interactive)
-  (let ((line-text (buffer-substring-no-properties
-                    (line-beginning-position)
-                    (line-end-position))))
-    (kill-whole-line)
-    (with-temp-buffer
-      (insert line-text)
-      (when (= 0 (call-process-region (point-min) (point-max) "wl-copy"))
-        (message "Line copied to clipboard.")))))
-#+end_src
-
 ** Copy current line
 
 #+begin_src emacs-lisp
@@ -1522,25 +1448,6 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
       (insert line)
       (call-process-region (point-min) (point-max) "wl-copy")))
   (message "Line copied to clipboard."))
-#+end_src
-
-** Copy down command
-Similar to =org-table-copy-down= but for normal emacs buffers.
-
-#+begin_src emacs-lisp
-(defun tl/copy-down-current-line-or-region ()
-  "Copy the current line (or region) and insert it below the current line."
-  (interactive)
-    (let ((text-to-copy (if (region-active-p)
-                            (buffer-substring (region-beginning) (region-end))
-                          (buffer-substring (line-beginning-position) (line-end-position))))
-          (insertion-point (if (region-active-p)
-                             (region-end)
-                           (line-end-position))))
-      (goto-char insertion-point)
-      (unless (region-active-p) (insert "\n"))
-      (insert text-to-copy)
-      (goto-char (+ insertion-point (length text-to-copy) (if (region-active-p) 0 1)))))
 #+end_src
 
 ** Toggle selection mode
@@ -1640,34 +1547,6 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
   (if (org-at-heading-p)
       (org-cycle)
     (org-shifttab)))
-#+end_src
-
-** Mark till end/beginning of paragraph
-
-#+begin_src emacs-lisp
-(defun mark-to-beginning-of-paragraph ()
-  (interactive)
-  (if (region-active-p)
-      (progn
-        (backward-paragraph)
-        (goto-char (region-end))) ;Move the *beginning* of the mark
-    (let ((end (point)))
-      (backward-paragraph)
-      (let ((start (point)))
-        (set-mark end)
-        (goto-char start)))))
-
-(defun mark-to-end-of-paragraph ()
-  (interactive)
-  (if (region-active-p)
-      (progn
-        (forward-paragraph)
-        (set-mark (region-beginning))) ; Move the *end* of the mark
-    (let ((start (point)))
-      (forward-paragraph)
-      (let ((end (point)))
-        (set-mark start)
-        (goto-char end)))))
 #+end_src
 
 ** Rainbow-delimeters
@@ -2238,14 +2117,14 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
   ;; Set as the default gptel backend to OpenRouter
-  (setq gptel-model   'google/gemini-2.0-pro-exp-02-05:free
+  (setq gptel-model   'deepseek-chat
        gptel-backend
-       (gptel-make-openai "OpenRouter"               ; Any name you want
-         :host "openrouter.ai"
-         :endpoint "/api/v1/chat/completions"
+       (gptel-make-openai "DeepSeek"               ; Any name you want
+         :host "api.deepseek.com"
+         :endpoint "/chat/completions"
          :stream t
          :key ""        ; Can be a function that returns the key
-         :models '(google/gemini-2.0-pro-exp-02-05:free)))
+         :models '(deepseek-chat deepseek-coder)))
 
   ;; GPTel directives - more prompts:
   ;; https://github.com/f/awesome-chatgpt-prompts 
@@ -2357,8 +2236,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 #+begin_src emacs-lisp
 (use-package drag-stuff
   :init
-  (drag-stuff-global-mode 1)
-  (drag-stuff-define-keys))
+  (drag-stuff-global-mode 1))
 #+end_src
 
 ** God-Mode
@@ -2367,14 +2245,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 (use-package god-mode
   :init
   (god-mode)
-  ;; TODO Commands to bind: indent-region
   ;; Basic Keybinds
   (global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key
   (define-key god-local-mode-map (kbd "C-i") #'god-local-mode)        ;; Prefix key (only works in god-mode)
   (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
   (define-key god-local-mode-map (kbd "C-z") #'repeat)
-  (define-key god-local-mode-map (kbd "C-S-t") #'kmacro-start-macro-or-insert-counter)
-  (define-key god-local-mode-map (kbd "C-S-y") #'kmacro-end-or-call-macro)
   (define-key god-local-mode-map (kbd "C-[") #'scroll-down-command)
   (define-key god-local-mode-map (kbd "C-]") #'scroll-up-command)
   (define-key god-local-mode-map (kbd "C-{") #'beginning-of-buffer)
@@ -2382,34 +2257,40 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "C-,") #'backward-paragraph)
   (define-key god-local-mode-map (kbd "C-.") #'forward-paragraph)
-  (define-key god-local-mode-map (kbd "C->") #'mark-to-end-of-paragraph)
-  (define-key god-local-mode-map (kbd "C-<") #'mark-to-beginning-of-paragraph)
   (define-key god-local-mode-map (kbd "C-e") #'org-end-of-line)
   (define-key god-local-mode-map (kbd "C-a") #'org-beginning-of-line)
-  (define-key god-local-mode-map (kbd "C-S-e") #'org-end-of-line)
-  (define-key god-local-mode-map (kbd "C-S-a") #'org-beginning-of-line)
+  (define-key god-local-mode-map (kbd "C-S-j") #'join-line)
+  (define-key god-local-mode-map (kbd "C-S-k") #'org-kill-line)
+  (define-key god-local-mode-map (kbd "C-S-u") #'tl/org-kill-line-backward)
+  (define-key god-local-mode-map (kbd "C-S-d") #'tl/kill-copy-whole-line)
+  ;(define-key god-local-mode-map (kbd "C-S-e") #')
+  ;(define-key god-local-mode-map (kbd "C-S-a") #')
+  (define-key god-local-mode-map (kbd "C-S-f") #'drag-stuff-right)
+  (define-key god-local-mode-map (kbd "C-S-b") #'drag-stuff-left)
+  (define-key god-local-mode-map (kbd "C-S-p") #'drag-stuff-up)
+  (define-key god-local-mode-map (kbd "C-S-n") #'drag-stuff-down)
+  (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
+  (define-key god-local-mode-map (kbd "C-S-v") #'upcase-initials-region)
+  (define-key god-local-mode-map (kbd "C->") #'tl/toggle-case-word-at-point)
+  (define-key god-local-mode-map (kbd "C-<") #'tl/toggle-case-region)
+  (define-key god-local-mode-map (kbd "C-S-b") #'org-babel-mark-block)
+  (define-key god-local-mode-map (kbd "C-S-l") #'mark-whole-line)
+  (define-key god-local-mode-map (kbd "C-f") #'forward-word)
   (define-key god-local-mode-map (kbd "C-w") #'copy-to-system-clipboard)
   (define-key god-local-mode-map (kbd "?") #'undo-redo)
   (define-key god-local-mode-map (kbd "C-y") #'paste-from-system-clipboard)
   (define-key god-local-mode-map (kbd "C-h") #'backward-char)
   (define-key god-local-mode-map (kbd "C-k") #'previous-line)
-  (define-key god-local-mode-map (kbd "C-S-k") #'previous-line)
   (define-key god-local-mode-map (kbd "C-j") #'next-line)
-  (define-key god-local-mode-map (kbd "C-S-j") #'next-line)
   (define-key god-local-mode-map (kbd "C-l") #'forward-char)
-  (define-key god-local-mode-map (kbd "C-S-l") #'forward-char)
-  (define-key god-local-mode-map (kbd "C-S-h") #'backward-char)
-  (define-key god-local-mode-map (kbd "C-f") #'tl/forward-word)
-  (define-key god-local-mode-map (kbd "C-b") #'tl/backward-word)
-  (define-key god-local-mode-map (kbd "C-S-f") #'tl/forward-mark-word)
-  (define-key god-local-mode-map (kbd "C-S-b") #'tl/backward-mark-word)
+  (define-key god-local-mode-map (kbd "C-b") #'backward-word)
   (define-key god-local-mode-map (kbd "C-d") #'kill-region-or-forward-delete)
   (define-key god-local-mode-map (kbd "C-p") #'org-backward-sentence)
   (define-key god-local-mode-map (kbd "C-n") #'org-forward-sentence)
-  (define-key god-local-mode-map (kbd "C-S-p") #'org-backward-sentence)
-  (define-key god-local-mode-map (kbd "C-S-n") #'org-forward-sentence)
   (define-key god-local-mode-map (kbd "C-\\") #'universal-argument)
   ;; Navigation Keybinds
+  (define-key god-local-mode-map (kbd "C-S-t") #'kmacro-start-macro-or-insert-counter)
+  (define-key god-local-mode-map (kbd "C-S-y") #'kmacro-end-or-call-macro)
   (define-key god-local-mode-map (kbd "C-S-i") #'tl/org-cycle-or-shift-tab)
   (define-key god-local-mode-map (kbd "C-S-q") #'goto-last-change)
   (define-key god-local-mode-map (kbd "C-S-o") #'goto-last-change-reverse)
@@ -2418,13 +2299,10 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-t") #'zap-up-to-char)
   (define-key god-local-mode-map (kbd "C-u") #'tl/newline-at-end-of-line)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars
-  (define-key god-local-mode-map (kbd "C-S-d") #'org-babel-mark-block)
   (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
-  (define-key god-local-mode-map (kbd "C-S-u") #'mark-whole-line)
-  (define-key god-local-mode-map (kbd "C-~") #'capitalize-word)
-  (define-key god-local-mode-map (kbd "C-|") #'query-replace)  
+  (define-key god-local-mode-map (kbd "C-~") #'tl/toggle-case-char)
+  (define-key god-local-mode-map (kbd "C-|") #'query-replace)
   ;(define-key god-local-mode-map (kbd "C-|") #'gptel-abort)
-  (define-key god-local-mode-map (kbd "C-S-v") #'join-line)
   (define-key god-local-mode-map (kbd "C-S-W") #'tl/copy-down-current-line-or-region)
   ;; Syntax highlighting for org-mode
   (define-key god-local-mode-map (kbd "C-S-z") #'surround-bold)
@@ -2818,39 +2696,75 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (org-narrow-to-subtree))
 #+end_src
 
-*** Next/Previous sentence adjustment
+*** Org text editing adjustments
 
 #+begin_src emacs-lisp
-(defun tl/next-sentence ()
-  "Move point forward to the next sentence.
-Start by moving to the next period, question mark or exclamation.
-If this punctuation is followed by one or more whitespace
-characters followed by a capital letter, or a '\', stop there. If
-not, assume we're at an abbreviation of some sort and move to the
-next potential sentence end"
+(defun tl/org-kill-line-backward ()
+  "Kill text from the cursor to the beginning of the line."
   (interactive)
-  (re-search-forward "[.?!]")
-  (if (looking-at "[    \n]+[A-Z]\\|\\\\")
-      nil
-    (tl/next-sentence)))
+  (kill-line 0))
 
-(defun tl/previous-sentence ()
-  "Does the same as 'tl/next-sentence' except it goes in reverse"
+(defun tl/kill-copy-whole-line ()
+  "Kill the current line and copy its content to the system clipboard using wl-copy."
   (interactive)
-  (re-search-backward "[.?!][   \n]+[A-Z]\\|\\.\\\\" nil t)
-  (forward-char))
+  (let ((line-text (buffer-substring-no-properties
+                    (line-beginning-position)
+                    (line-end-position))))
+    (kill-whole-line)
+    (when (zerop (call-process "wl-copy" nil nil nil line-text))
+      (message "Line copied to clipboard."))))
 
-(defun tl/kill-sentence ()
-  "Kill from point to the end of the current sentence."
+(defun tl/toggle-case-char ()
+  "Toggle the case of the character under the cursor without moving the point."
   (interactive)
-  (let ((end-of-sentence (save-excursion (re-search-forward "[.?!]") (point))))
-    (kill-region (point) end-of-sentence)))
+  (let ((char (char-after)))
+    (when char
+      (let ((new-char (if (eq char (upcase char))
+                          (downcase char)
+                        (upcase char))))
+        (save-excursion
+          (delete-char 1)
+          (insert new-char))))))
 
-(defun tl/backward-kill-sentence ()
-  "Kill back to the start of the current sentence."
+;; Similar to org-table-copy-down but for normal emacs buffers
+(defun tl/copy-down-current-line-or-region ()
+  "Copy the current line (or region) and insert it below the current line."
   (interactive)
-  (let ((start-of-sentence (save-excursion (re-search-backward "[.?!]") (point))))
-    (kill-region (point) start-of-sentence)))
+    (let ((text-to-copy (if (region-active-p)
+                            (buffer-substring (region-beginning) (region-end))
+                          (buffer-substring (line-beginning-position) (line-end-position))))
+          (insertion-point (if (region-active-p)
+                             (region-end)
+                           (line-end-position))))
+      (goto-char insertion-point)
+      (unless (region-active-p) (insert "\n"))
+      (insert text-to-copy)
+      (goto-char (+ insertion-point (length text-to-copy) (if (region-active-p) 0 1)))))
+
+(defun tl/toggle-case-word-at-point ()
+  "Toggle the case of the word at the current point (upcase if downcased, downcase if upcased)."
+  (interactive)
+  (save-excursion
+    (let* ((bounds (bounds-of-thing-at-point 'word))
+           (word (buffer-substring-no-properties (car bounds) (cdr bounds)))
+           (new-word (if (string= word (upcase word))
+                         (downcase word)
+                       (upcase word))))
+      (when bounds
+        (delete-region (car bounds) (cdr bounds))
+        (insert new-word)))))
+
+(defun tl/toggle-case-region ()
+  "Toggle the case of the active region (upcase if downcased, downcase if upcased)."
+  (interactive)
+  (when (use-region-p)
+    (let* ((bounds (cons (region-beginning) (region-end)))
+           (text (buffer-substring-no-properties (car bounds) (cdr bounds)))
+           (new-text (if (string= text (upcase text))
+                         (downcase text)
+                       (upcase text))))
+      (delete-region (car bounds) (cdr bounds))
+      (insert new-text))))
 #+end_src
 
 *** Org agenda commands
@@ -2865,25 +2779,10 @@ Make it easy to mark a task as done.
   (org-agenda-redo-all))
 #+end_src
 
-Make it easy to mark a task as done and create a follow-up task.
-#+begin_src emacs-lisp
-  (defun tl/org-agenda-mark-done-and-add-followup ()
-    "Mark the current TODO as done and add another task after it.
-Creates it at the same level as the previous task, so it's better to use
-this with to-do items than with projects or headings."
-    (interactive)
-    (org-agenda-todo "FINISHED")
-    (org-agenda-redo-all)
-    (org-agenda-switch-to)
-    (org-capture 0 "t"))
-#+end_src
-
 Capture something based on the agenda position.
 #+begin_src emacs-lisp
 (defun tl/org-agenda-new ()
-  "Create a new note or task at the current agenda item.
-Creates it at the same level as the previous task, so it's better to use
-this with to-do items than with projects or headings."
+  "Create a new note or task at the current agenda item."
   (interactive)
   (org-agenda-switch-to)
   (org-capture 0))
