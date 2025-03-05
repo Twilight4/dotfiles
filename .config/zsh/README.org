@@ -130,7 +130,8 @@
 | M-S-o      | Open yazi in new tab                    |
 | M-S-e      | Open emacs in new tab                   |
 | M-S-m      | Open emacs scratchpad buffer in new tab |
-| M-S-c      | Open emacs calendar in new tab          |
+| M-S-c      | Open emacs capture buffer in new tab    |
+| M-S-f      | Open emacs calendar in new tab          |
 | M-S-a      | Open emacs agenda in new tab            |
 | M-S-v      | Open emacs gptel in new tab             |
 | M-S-d      | Open emacs journal in new tab           |
