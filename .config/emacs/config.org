@@ -202,7 +202,6 @@
 (define-key calendar-mode-map (kbd "H") 'nil)
 (define-key calendar-mode-map (kbd "t") 'nil)
 (define-key calendar-mode-map (kbd "x") 'nil)
-(define-key calendar-mode-map (kbd "o") 'nil)
 (define-key calendar-mode-map (kbd "y") 'nil)
 #+end_src
 
@@ -285,6 +284,7 @@
 (define-key calendar-mode-map "v" 'calendar-scroll-left-three-months)
 (define-key calendar-mode-map "V" 'calendar-scroll-right-three-months)
 (define-key calendar-mode-map "," 'calendar-goto-date)
+(define-key calendar-mode-map "o" 'delete-other-windows)
 (define-key calendar-mode-map "d" 'org-roam-dailies-capture-date)
 (define-key calendar-mode-map "D" 'org-roam-dailies-goto-date)
 ; Other
@@ -294,8 +294,8 @@
 (define-key calendar-mode-map "g" 'calendar-cursor-holidays)
 (define-key calendar-mode-map "G" 'calendar-list-holidays)
 (define-key calendar-mode-map "L" 'calendar-lunar-phases)
-(define-key calendar-mode-map "S" 'calendar-sunrise-sunset)
-(define-key calendar-mode-map "s" 'calendar-sunrise-sunset-month)
+(define-key calendar-mode-map "s" 'calendar-sunrise-sunset)
+(define-key calendar-mode-map "S" 'calendar-sunrise-sunset-month)
 (define-key calendar-mode-map "m" 'tl/mark-diary-and-holiday-entries)
 (define-key calendar-mode-map "M" 'calendar-unmark)
 
@@ -330,7 +330,6 @@
      (define-key org-agenda-mode-map (kbd "M") 'org-agenda-toggle-deadlines)
      (define-key org-agenda-mode-map (kbd "C") 'org-gtd-capture)
      (define-key org-agenda-mode-map (kbd "x") 'tl/org-agenda-done)
-     (define-key org-agenda-mode-map (kbd "P") 'org-agenda-append-agenda)
      (define-key org-agenda-mode-map (kbd "W") 'org-agenda-open-link)
      (define-key org-agenda-mode-map (kbd ";") 'recenter-top-bottom)
      (define-key org-agenda-mode-map (kbd "S") 'org-agenda-schedule)
@@ -346,6 +345,7 @@
      (define-key org-agenda-mode-map (kbd "$") 'nil)
      (define-key org-agenda-mode-map (kbd "^") 'nil)
      (define-key org-agenda-mode-map (kbd "?") 'nil)
+     (define-key org-agenda-mode-map (kbd "P") 'nil)
      (define-key org-agenda-mode-map (kbd "{") 'nil)
      (define-key org-agenda-mode-map (kbd "}") 'nil)
      (define-key org-agenda-mode-map (kbd "N") 'nil)
