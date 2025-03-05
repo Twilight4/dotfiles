@@ -203,6 +203,7 @@
 (define-key calendar-mode-map (kbd "t") 'nil)
 (define-key calendar-mode-map (kbd "x") 'nil)
 (define-key calendar-mode-map (kbd "o") 'nil)
+(define-key calendar-mode-map (kbd "y") 'nil)
 #+end_src
 
 *** Keybindings without a leader key
@@ -277,22 +278,26 @@
 (define-key calendar-mode-map "n" 'calendar-end-of-month)
 (define-key calendar-mode-map "P" 'calendar-beginning-of-year)
 (define-key calendar-mode-map "N" 'calendar-end-of-year)
-(define-key calendar-mode-map "D" 'diary-show-all-entries)
+(define-key calendar-mode-map "U" 'diary-show-all-entries)
+(define-key calendar-mode-map "u" 'diary-view-entries)
 (define-key calendar-mode-map "[" 'calendar-backward-year)
 (define-key calendar-mode-map "]" 'calendar-forward-year)
 (define-key calendar-mode-map "v" 'calendar-scroll-left-three-months)
 (define-key calendar-mode-map "V" 'calendar-scroll-right-three-months)
 (define-key calendar-mode-map "," 'calendar-goto-date)
+(define-key calendar-mode-map "d" 'org-roam-dailies-capture-date)
+(define-key calendar-mode-map "D" 'org-roam-dailies-goto-date)
 ; Other
 (define-key calendar-mode-map (kbd "SPC") 'calendar-set-mark)
-(define-key calendar-mode-map "C" 'calendar-count-days-region)
+(define-key calendar-mode-map "c" 'calendar-count-days-region)
+(define-key calendar-mode-map "C" 'calendar-print-day-of-year)
 (define-key calendar-mode-map "g" 'calendar-cursor-holidays)
 (define-key calendar-mode-map "G" 'calendar-list-holidays)
 (define-key calendar-mode-map "L" 'calendar-lunar-phases)
 (define-key calendar-mode-map "S" 'calendar-sunrise-sunset)
 (define-key calendar-mode-map "s" 'calendar-sunrise-sunset-month)
-(define-key calendar-mode-map "y" 'calendar-print-day-of-year)
-(define-key calendar-mode-map "M" 'calendar-mark-holidays)
+(define-key calendar-mode-map "m" 'tl/mark-diary-and-holiday-entries)
+(define-key calendar-mode-map "M" 'calendar-unmark)
 
 ;; Free keys: Z Y l
 (eval-after-load 'org-agenda
@@ -343,6 +348,7 @@
      (define-key org-agenda-mode-map (kbd "?") 'nil)
      (define-key org-agenda-mode-map (kbd "{") 'nil)
      (define-key org-agenda-mode-map (kbd "}") 'nil)
+     (define-key org-agenda-mode-map (kbd "N") 'nil)
      (define-key org-agenda-mode-map (kbd "C-c C-w") 'nil)
      (define-key org-agenda-mode-map (kbd "C-c C-s") 'nil)
      (define-key org-agenda-mode-map (kbd "C-c C-d") 'nil)
@@ -381,6 +387,13 @@
     "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
     "C-n" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(kill-this-buffer :wk "Kill current buffer")
+    "C-a" '(tl/org-agenda-o :wk "Agenda overview")
+    ;; I don't use those at the moment
+    ;"" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
+    ;"" '(org-gtd-review-area-of-focus :wk "org-gtd-review-area-of-focus")
+    ;"" '(org-gtd-engage :wk "GTD agenda")
+    ;"" '(org-gtd-oops :wk "Missed appointments")
+    ;"" '(org-gtd-review-stuck-* :wk "Any action types")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     ;"O" '(tl/buffer-org-new :wk "New empty org buffer")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
@@ -471,18 +484,6 @@
     "C-f C-v" '(timeclock-visit-timelog :wk "Time clock work timelog")
     "C-f C-e" '(timeclock-workday-elapsed-string :wk "Elapsed work time"))
 
-	(tl/leader-keys
-    "C-a" '(:ignore t :wk "Agenda")
-    "C-a C-o" '(tl/org-agenda-o :wk "Agenda overview")
-    "C-a C-t" '(tl/org-agenda-t :wk "Agenda today")
-    "C-a C-e" '(tl/org-agenda-e :wk "Agenda by low efforts")
-    "C-a C-f" '(org-gtd-review-area-of-focus :wk "Area of focus"))
-    ;; I don't use those at the moment
-    ;"a o" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
-    ;"a g" '(org-gtd-engage :wk "GTD agenda")
-    ;"a m" '(org-gtd-oops :wk "Missed appointments")
-    ;"a t" '(org-gtd-review-stuck-* :wk "Any action types")
-
   (tl/leader-keys
     "C-h" '(:ignore t :wk "Help")
     "C-h C-h" '(help-for-help :wk "Get help")
@@ -544,7 +545,7 @@
 ;(define-key org-mode-map (kbd "C-M-p") 'org-shiftup)
 ;(define-key org-mode-map (kbd "C-M-n") 'org-shiftdown)
 
-;; Set up 'C-c' as the global leader key
+;; Set up 'C-c' as the global leader key - free keys: 'd', 'D'
 (general-define-key
  :prefix "C-c"
  :keymaps 'org-mode-map
@@ -606,8 +607,6 @@
  "Y" '(org-roam-dailies-goto-yesterday :wk "Go to daily yesterday")
  "t" '(org-roam-dailies-capture-tomorrow :wk "Capture to daily tomorrow")
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
- "d" '(org-roam-dailies-capture-date :wk "Capture daily in date")
- "D" '(org-roam-dailies-goto-date :wk "Go to daily in date")
  "p" '(org-roam-dailies-goto-previous-note :wk "Go to daily in date")
  "n" '(org-roam-dailies-goto-next-note :wk "Go to daily in date"))
 #+end_src
@@ -2769,16 +2768,24 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
       (insert new-text))))
 #+end_src
 
-*** Org agenda automation
-Make it easy to mark a task as done.
+*** Org agenda and calendar automation
+=tl/org-agenda-done= function makes it easy to mark a task as done.
+=tl/mark-diary-and-holiday-entries= function marks holidays and diary entries at once.
+
 #+begin_src emacs-lisp
 ;; Load Org mode
-(require 'org)
+;(require 'org)
 
 (defun tl/org-agenda-done (&optional arg)
   (interactive "P")
   (org-agenda-todo "FINISHED")
   (org-agenda-redo-all))
+
+(defun tl/mark-diary-and-holiday-entries ()
+  "Mark both holidays and diary entries in the calendar."
+  (interactive)
+  (calendar-mark-holidays)
+  (diary-mark-entries))
 #+end_src
 
 *** Source code block tag expansion
@@ -2956,6 +2963,7 @@ Let’s make creating an Org buffer just that little bit easier.
      ("@Issue" . ?I)
      ("@Research" . ?r)
      ("@Habit" . ?h)
+     ("@Effort" . ?e)
      ("@Privacy" . ?p)
      ("@Project" . ?P)
      ("@Watch" . ?W)
@@ -3119,24 +3127,13 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
        (0.5 . org-upcoming-deadline)
        (0.0 . org-upcoming-distant-deadline)))
 
-;; Agenda commands
-(defun tl/org-agenda-t ()
- "Run org agenda command 'o'."
- (interactive)
- (org-agenda nil "t")
- (delete-other-windows))
-
-(defun tl/org-agenda-e ()
- "Run org agenda command 'o'."
- (interactive)
- (org-agenda nil "e")
- (delete-other-windows))
-
+;; Agenda command
 (defun tl/org-agenda-o ()
  "Run org agenda command 'o'."
  (interactive)
  (org-agenda nil "o")
- (delete-other-windows))
+ (delete-other-windows)
+ (beginning-of-buffer))
 
 (setq org-agenda-custom-commands
       '(("o" "Overview"
@@ -3156,31 +3153,35 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name "󰃶 Due Today"
                            :deadline today
                            :order 2)
+                          (:name "󰡳 Low Effort"
+                           :tag "@Effort"
+						   :effort< "5"
+                           :order 3)
                           (:name " Important"
                            :tag "@Important"
                            :priority "A"
-                           :order 3)
+                           :order 4)
                           (:name " Career-Related"
                            :tag "@Work"
-                           :order 4)
+                           :order 5)
                           (:name "󰥖 Osint Tasks"
                            :tag "@Osint"
-                           :order 5)
+                           :order 6)
                           (:name "󰈈 Privacy"
                            :tag "@Privacy"
-                           :order 6)
+                           :order 7)
                           (:name " Assignments"
                            :tag "@Assignment"
-                           :order 7)
+                           :order 8)
                           (:name "Issues"
                            :tag "@Issue"
-                           :order 8)
+                           :order 9)
                           (:name " Projects"
                            :tag "@Project"
-                           :order 9)
+                           :order 10)
                           (:name " Research"
                            :tag "@Research"
-                           :order 10)
+                           :order 11)
                           (:name " Due Soon"
                            :deadline future
                            :order 20)
@@ -3204,21 +3205,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                            :tag "@Trivial"
                            :todo ("SOMEDAY")
                            :order 80)))))))))
-
-(add-to-list 'org-agenda-custom-commands
-             '("t" "Today"
-               (
-                (tags-todo "+SCHEDULED<=\"<today>\""
-                           ((org-agenda-overriding-header "Today")
-                            (org-agenda-files org-agenda-files))))))
-
-(add-to-list 'org-agenda-custom-commands
-             '("e" "Low Effort Tasks"
-               tags-todo "+TODO=\"NEXT\"|+TODO=\"DOING\"+Effort<15&+Effort>0"
-               (
-                (org-agenda-overriding-header "Low Effort Tasks")
-                (org-agenda-max-todos 20)
-                (org-agenda-files org-agenda-files))))
 #+end_src
 
 *** Org-gtd-capture
