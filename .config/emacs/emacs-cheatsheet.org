@@ -283,12 +283,12 @@ The world's greatest programmer once said:
 | .               | Go to today's date                                                  |
 | ,               | Go to date                                                          |
 | c               | Go to calendar                                                      |
+| ;               | Recenter                                                            |
 | TAB             | Go to entry at point                                                |
 | r               | Beginning of buffer                                                 |
 | z               | Add time-stamped note to agenda entry                               |
 | i               | Make a diary entry                                                  |
 | x               | Make it easy to mark a task as done                                 |
-| X               | Make it easy to mark a task as done and create a follow-up task     |
 | N               | Capture something based on the agenda position                      |
 | P               | Append new agenda view to the agenda buffer                         |
 | C               | Agenda capture                                                      |
@@ -398,8 +398,6 @@ The world's greatest programmer once said:
 | S-m           | org-meta-return                      |
 | ,             | backward-paragraph                   |
 | .             | forward-paragraph                    |
-| >             | mark-to-end-of-paragraph             |
-| <             | mark-to-beginning-of-paragraph       |
 | e             | org-end-of-line                      |
 | a             | org-beginning-of-line                |
 | w             | copy-to-system-clipboard             |
@@ -418,12 +416,19 @@ The world's greatest programmer once said:
 | :             | move-to-window-line-top-bottom       |
 | t             | zap-up-to-char                       |
 | u             | tl/newline-at-end-of-line            |
-| S-d           | org-babel-mark-block                 |
+| S-b           | org-babel-mark-block                 |
 | S-s           | er/mark-symbol                       |
-| S-u           | mark-whole-line                      |
 | ~             | capitalize-word                      |
 | "Pipe symbol" | gptel-abort                          |
-| S-v           | join-line                            |
+| S-</>         | Toggle upcase region/word            |
+| S-v           | Upcase initials                      |
+| S-p/n/f/b     | drag stuff up/down/left/right        |
+| S-h           | multi curors next line               |
+| S-j           | join line                            |
+| S-k           | kill line forward                    |
+| S-u           | kill line backward                   |
+| S-d           | kill whole line                      |
+| S-l           | mark whole line                      |
 | S-w           | tl/copy-down-current-line-or-region  |
 | S-z           | surround-bold                        |
 | S-x           | surround-italic                      |
