@@ -284,7 +284,6 @@ The world's greatest programmer once said:
 | z               | Add time-stamped note to agenda entry                               |
 | i               | Make a diary entry                                                  |
 | x               | Make it easy to mark a task as done                                 |
-| P               | Append new agenda view to the agenda buffer                         |
 | C               | GTD capture                                                         |
 | o               | Delete other windows                                                |
 | S               | Agenda Schedule                                                     |
