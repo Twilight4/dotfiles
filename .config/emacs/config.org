@@ -2126,7 +2126,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
          :host "api.deepseek.com"
          :endpoint "/chat/completions"
          :stream t
-         :key "sk-49a7bb8ae1bb46438c89beaac53ddfb7"        ; Can be a function that returns the key
+         :key ""        ; Can be a function that returns the key
          :models '(deepseek-chat deepseek-coder)))
 
   ;; GPTel directives - more prompts:
@@ -3123,17 +3123,20 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 (defun tl/org-agenda-t ()
  "Run org agenda command 'o'."
  (interactive)
- (org-agenda nil "t"))
+ (org-agenda nil "t")
+ (delete-other-windows))
 
 (defun tl/org-agenda-e ()
  "Run org agenda command 'o'."
  (interactive)
- (org-agenda nil "e"))
+ (org-agenda nil "e")
+ (delete-other-windows))
 
 (defun tl/org-agenda-o ()
  "Run org agenda command 'o'."
  (interactive)
- (org-agenda nil "o"))
+ (org-agenda nil "o")
+ (delete-other-windows))
 
 (setq org-agenda-custom-commands
       '(("o" "Overview"
