@@ -38,6 +38,9 @@ edit = [
 editnvim = [
 	{ run = 'nvim "$@"', desc = "nvim", block = true, for = "unix" },
 ]
+openpdf = [
+	{ run = 'zathura "$@"', desc = "zathura", block = true, for = "unix" },
+]
 open = [
 	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
 	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
@@ -72,6 +75,8 @@ rules = [
 	{ mime = "text/*", use = "editnvim" },
 	# Image files - Swayimg
 	{ mime = "image/*", use = "openimg" },
+	# PDF
+	{ mime = "application/pdf", use = "openpdf" },
 	# JSON
 	{ mime = "application/{json,ndjson}", use = "editnvim" },
 	{ mime = "*/javascript", use = "editnvim" },
