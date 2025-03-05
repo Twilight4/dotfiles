@@ -373,6 +373,7 @@ alias paruu="sudo pacman -U package"
 alias k='kubectl'
 alias swappy='swappy -f'
 alias s="kitty +kitten ssh"
+alias wthr="curl -s wttr.in/Kwidzyn?format=%t"
 alias ce='cheat --edit'
 alias btree="cbonsai --live"
 alias whisper='whisper --language en --output-format srt --model tiny'
