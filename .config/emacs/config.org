@@ -159,6 +159,7 @@
 (define-key global-map (kbd "M-c") nil)
 (define-key global-map (kbd "M-i") nil)
 (define-key global-map (kbd "C-c TAB") nil)
+(define-key global-map (kbd "M-u") nil)
 (define-key global-map (kbd "M-f") nil)
 (define-key global-map (kbd "M-h") nil)
 (define-key global-map (kbd "C-p") nil)
@@ -2272,10 +2273,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-p") #'drag-stuff-up)
   (define-key god-local-mode-map (kbd "C-S-n") #'drag-stuff-down)
   (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
-  (define-key god-local-mode-map (kbd "C-S-v") #'upcase-initials-region)
-  (define-key god-local-mode-map (kbd "C->") #'tl/toggle-case-word-at-point)
-  (define-key god-local-mode-map (kbd "C-<") #'tl/toggle-case-region)
-  (define-key god-local-mode-map (kbd "C-S-l") #'mark-whole-line)
+  ;(define-key god-local-mode-map (kbd "C-S-l") #')
+  ;(define-key god-local-mode-map (kbd "C->") #')
+  ;(define-key god-local-mode-map (kbd "C-<") #')
+  (define-key god-local-mode-map (kbd "C-~") #'tl/toggle-letter-case)
+  (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
   (define-key god-local-mode-map (kbd "C-f") #'forward-word)
   (define-key god-local-mode-map (kbd "C-w") #'copy-to-system-clipboard)
   (define-key god-local-mode-map (kbd "?") #'undo-redo)
@@ -2301,7 +2303,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-u") #'tl/newline-at-end-of-line)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars
   (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
-  (define-key god-local-mode-map (kbd "C-~") #'tl/toggle-case-char)
   (define-key god-local-mode-map (kbd "C-|") #'query-replace)
   (define-key god-local-mode-map (kbd "C-S-W") #'tl/copy-down-current-line-or-region)
   ;(define-key god-local-mode-map (kbd "C-S-b") #'org-babel-mark-block)
@@ -2418,7 +2419,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
   :config 
   (setq alert-default-style 'libnotify      ;; get system notifications
 		  org-alert-interval 300              ;; alert interval (300 seconds)
-		  org-alert-notify-cutoff 10          ;; how long before a scheduled event a notification should be sent - 10 minutes
+		  org-alert-notify-cutoff 30          ;; how long before a scheduled event a notification should be sent - 30 minutes
 		  org-alert-notify-after-event-cutoff 5  ;; controls how long after a scheduled event to continue sending notifications - 5 minutes
 		  org-alert-notification-title "Emacs Agenda")  ;; org-alert uses the title *org* by default
   (org-alert-enable))
@@ -2715,18 +2716,6 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
     (when (zerop (call-process "wl-copy" nil nil nil line-text))
       (message "Line copied to clipboard."))))
 
-(defun tl/toggle-case-char ()
-  "Toggle the case of the character under the cursor without moving the point."
-  (interactive)
-  (let ((char (char-after)))
-    (when char
-      (let ((new-char (if (eq char (upcase char))
-                          (downcase char)
-                        (upcase char))))
-        (save-excursion
-          (delete-char 1)
-          (insert new-char))))))
-
 ;; Similar to org-table-copy-down but for normal emacs buffers
 (defun tl/copy-down-current-line-or-region ()
   "Copy the current line (or region) and insert it below the current line."
@@ -2742,30 +2731,33 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
       (insert text-to-copy)
       (goto-char (+ insertion-point (length text-to-copy) (if (region-active-p) 0 1)))))
 
-(defun tl/toggle-case-word-at-point ()
-  "Toggle the case of the word at the current point (upcase if downcased, downcase if upcased)."
-  (interactive)
-  (save-excursion
-    (let* ((bounds (bounds-of-thing-at-point 'word))
-           (word (buffer-substring-no-properties (car bounds) (cdr bounds)))
-           (new-word (if (string= word (upcase word))
-                         (downcase word)
-                       (upcase word))))
-      (when bounds
-        (delete-region (car bounds) (cdr bounds))
-        (insert new-word)))))
+(defun tl/toggle-letter-case ()
+  "Toggle the letter case of current word or selection.
+Always cycle in this order: Init Caps, ALL CAPS, all lower.
 
-(defun tl/toggle-case-region ()
-  "Toggle the case of the active region (upcase if downcased, downcase if upcased)."
+URL `http://xahlee.info/emacs/emacs/emacs_toggle_letter_case.html'
+Version: 2020-06-26 2023-11-14"
   (interactive)
-  (when (use-region-p)
-    (let* ((bounds (cons (region-beginning) (region-end)))
-           (text (buffer-substring-no-properties (car bounds) (cdr bounds)))
-           (new-text (if (string= text (upcase text))
-                         (downcase text)
-                       (upcase text))))
-      (delete-region (car bounds) (cdr bounds))
-      (insert new-text))))
+  (let ( (deactivate-mark nil) xp1 xp2)
+    (if (region-active-p)
+        (setq xp1 (region-beginning) xp2 (region-end))
+      (save-excursion
+        (skip-chars-backward "[:alpha:]")
+        (setq xp1 (point))
+        (skip-chars-forward "[:alpha:]")
+        (setq xp2 (point))))
+    (when (not (eq last-command this-command))
+      (put this-command 'state 0))
+    (cond
+     ((equal 0 (get this-command 'state))
+      (upcase-initials-region xp1 xp2)
+      (put this-command 'state 1))
+     ((equal 1 (get this-command 'state))
+      (upcase-region xp1 xp2)
+      (put this-command 'state 2))
+     ((equal 2 (get this-command 'state))
+      (downcase-region xp1 xp2)
+      (put this-command 'state 0)))))
 #+end_src
 
 *** Org agenda and calendar automation
