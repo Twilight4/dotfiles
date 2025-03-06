@@ -280,6 +280,7 @@
 }
   /* Do not disturb */
 .widget-dnd {
+    color:@text;
     font-size: 1.2rem;
     padding:0px 10px;
     margin-right:11px;
