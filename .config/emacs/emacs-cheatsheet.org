@@ -417,14 +417,13 @@ The world's greatest programmer once said:
 | S-s        | Mark symbol                          |
 | ~          | Capitalize word                      |
 | S-</>      | Toggle upcase region/word            |
-| S-v        | Upcase initials                      |
 | S-p/n/f/b  | Drag stuff up/down/left/right        |
 | S-h        | Multi cursors next line              |
 | S-j        | Join line                            |
 | S-k        | Kill line forward                    |
 | S-u        | Kill line backward                   |
 | S-d        | Kill whole line                      |
-| S-l        | Mark whole line                      |
+| S-v        | Mark whole line                      |
 | S-w        | Copy current line or region          |
 | S-z        | Surround bold                        |
 | S-x        | Surround italic                      |
