@@ -3088,8 +3088,8 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 
 (setq org-agenda-skip-scheduled-if-done t
      org-agenda-skip-deadline-if-done t
-     org-agenda-include-deadlines t
-     org-agenda-include-diary t
+     org-agenda-include-deadlines nil
+     org-agenda-include-diary nil
      org-agenda-block-separator nil
      org-agenda-tags-column 100
      org-deadline-warning-days 30
