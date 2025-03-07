@@ -1239,12 +1239,12 @@ appropriate.  In tables, insert a new row or end the table."
 (use-package multiple-cursors
   :bind ;; Mark one more occurrence
         (;("C-x m" . mc/mark-next-like-this)
-         ("C-x C-x C-h" . mc/mark-all-like-this)
          ;; From active region to multiple cursors
          ("C-x C-x C-c" . mc/edit-lines)
          ("C-x C-x C-a" . mc/edit-beginnings-of-lines)
          ("C-x C-x C-e" . mc/edit-ends-of-lines)
-         ("C-x C-x C-l" . mc/mark-all-in-region)
+         ("C-x C-x C-j" . mc/mark-all-like-this)
+         ("C-x C-x C-k" . mc/mark-all-in-region)
          ("C-x C-x C-r" . set-rectangular-region-anchor)))
 #+end_src
 
