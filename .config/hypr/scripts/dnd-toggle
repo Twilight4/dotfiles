@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Get the current DND state
+STATE=$(swaync-client -D | grep -o "true")
+
+# Check the state and toggle DND
+if [ "${STATE}" == "true" ]; then
+    # If DND is on, turn it off
+    swaync-client -df
+    notify-send -u low -t 3000 -i "$HOME/.config/mako/icons/notification-bell.png" "Do not Disturb: Off"
+else
+    # If DND is off, turn it on
+    notify-send -u low -t 3000 -i "$HOME/.config/mako/icons/do-not-disturb.png" "Do not Disturb: On"
+    sleep 4
+    swaync-client -dn
+fi
