@@ -54,9 +54,9 @@ slideshow = no
 # Slideshow image display time (seconds)
 slideshow_time = 3
 # Number of previously viewed images to store in cache
-history = 1
+history = 10
 # Number of preloaded images (read ahead)
-preload = 1
+preload = 10
 
 ################################################################################
 # Gallery mode configuration
@@ -94,7 +94,7 @@ loop = yes
 # Read directories recursively (yes/no)
 recursive = no
 # Open all files in the directory of the specified file (yes/no)
-all = no
+all = yes
 
 ################################################################################
 # Font configuration
