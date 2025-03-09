@@ -81,6 +81,13 @@ else
     echo "Error: The required file does not exist."
 fi
 
+# Reload swaync with new colors
+if [ -f ~/.config/hypr/scripts/swaync-reset-theme ]; then
+    ~/.config/hypr/scripts/swaync-reset-theme
+else
+    echo "Error: The required file does not exist."
+fi
+
 # Reload cava-pywal (note, need to manually restart cava once wallpaper changes)
 ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config" || true
 
