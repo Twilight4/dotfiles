@@ -19,13 +19,13 @@ EOF
 			_installPackagesParu sddm-sugar-candy-git
 
 			echo "Creating /etc/sddm.conf file..."
-			mv /etc/sddm.conf /etc/sddm.conf.bak
+			sudo mv /etc/sddm.conf /etc/sddm.conf.bak
 
 			# Clone the sddm.conf config file
 			curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/sddm/sddm.conf && sudo mv sddm.conf /etc/sddm.conf
 
 			# Apply the wallpaper background to sddm
-			curl -LJO https://raw.githubusercontent.com/Twilight4/wallpapers/aesthetic-wallpapers/main/default.png && sudo mv default.png /usr/share/sddm/themes/sugar-candy/Backgrounds/default.png
+			curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/refs/heads/main/.config/sddm/default.png && sudo mv default.png /usr/share/sddm/themes/sugar-candy/Backgrounds/default.png
 
 			# Clone the theme.conf config file
 			curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/sddm/theme.conf && sudo mv theme.conf /usr/share/sddm/themes/sugar-candy/theme.conf
