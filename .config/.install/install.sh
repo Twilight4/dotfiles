@@ -30,6 +30,7 @@ source ~/dotfiles/.config/.install/install-hypr-packages.sh
 source ~/dotfiles/.config/.install/system-tweaks.sh
 source ~/dotfiles/.config/.install/cleanup-homedir.sh
 source ~/dotfiles/.config/.install/wallpaper.sh
+source ~/dotfiles/.config/.install/display-manager.sh
 source ~/dotfiles/.config/.install/install-fonts.sh
 source ~/dotfiles/.config/.install/install-dotfiles.sh
 source ~/dotfiles/.config/.install/remove-buttons.sh
@@ -40,10 +41,3 @@ source ~/dotfiles/.config/.install/auto-cpufreq.sh
 source ~/dotfiles/.config/.install/enable-services.sh
 source ~/dotfiles/.config/.install/locales.sh
 source ~/dotfiles/.config/.install/prompt-reboot.sh
-# Don't use anymore
-#source ~/dotfiles/.config/.install/display-manager.sh
-#source ~/dotfiles/.config/.install/tty-login.sh
-#source ~/dotfiles/.config/.install/nnn.sh
-#source ~/dotfiles/.config/.install/emacs.sh
-#source ~/dotfiles/.config/.install/install-grub-theme.sh
-#source ~/dotfiles/.config/.install/systemd-boot.sh
