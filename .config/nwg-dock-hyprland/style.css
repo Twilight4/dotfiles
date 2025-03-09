@@ -1,7 +1,7 @@
 window {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5);
 	border-radius: 10px;
-	border-style: solid;
+	border-style: none;
 	border-width: 2px;
 	border-color: #ffffff;
 	opacity:0.8;
