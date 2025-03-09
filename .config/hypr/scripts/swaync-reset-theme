@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Terminate already running bar instances
+killall -q swaync
+
+# Wait until the swaync processes have been shut down
+while pgrep -x swaync >/dev/null; do sleep 1; done
+
+# Launch swaync
+swaync
