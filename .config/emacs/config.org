@@ -1436,6 +1436,16 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
   "Kill text from point to the beginning of the line."
   (interactive)
   (kill-line 0))
+
+(defun tl/delete-to-end-of-file ()
+  "Delete text from the current position to the end of the file."
+  (interactive)
+  (delete-region (point) (point-max)))
+
+(defun tl/delete-to-beginning-of-file ()
+  "Delete text from the current position to the beginning of the file."
+  (interactive)
+  (delete-region (point-min) (point)))
 #+end_src
 
 ** Copy current line
@@ -2255,9 +2265,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-z") #'repeat)
   (define-key god-local-mode-map (kbd "C-[") #'scroll-down-command)
   (define-key god-local-mode-map (kbd "C-]") #'scroll-up-command)
-  (define-key god-local-mode-map (kbd "C-{") #'beginning-of-buffer)
-  (define-key god-local-mode-map (kbd "C-}") #'end-of-buffer)
-  (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "C-,") #'backward-paragraph)
   (define-key god-local-mode-map (kbd "C-.") #'forward-paragraph)
   (define-key god-local-mode-map (kbd "C-e") #'org-end-of-line)
@@ -2273,9 +2280,12 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-p") #'drag-stuff-up)
   (define-key god-local-mode-map (kbd "C-S-n") #'drag-stuff-down)
   (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
+  (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
+  (define-key god-local-mode-map (kbd "C-}") #'tl/delete-to-end-of-file)
+  (define-key god-local-mode-map (kbd "C-{") #'tl/delete-to-beginning-of-file)
   ;(define-key god-local-mode-map (kbd "C-S-l") #')
-  ;(define-key god-local-mode-map (kbd "C->") #')
-  ;(define-key god-local-mode-map (kbd "C-<") #')
+  (define-key god-local-mode-map (kbd "C->") #'beginning-of-buffer)
+  (define-key god-local-mode-map (kbd "C-<") #'end-of-buffer)
   (define-key god-local-mode-map (kbd "C-~") #'tl/toggle-letter-case)
   (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
   (define-key god-local-mode-map (kbd "C-f") #'forward-word)
