@@ -11,12 +11,8 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "Do you want to install dotfiles? (y/n): " response
-
-if [[ "$response" != "y" ]]; then
-    echo "Operation cancelled by the user."
-    exit 0
-fi
+read -p "This will install all dotfiles configurations. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+echo
 
 # Function to install dotfiles using symlinks
 install_symlinks() {
@@ -90,12 +86,6 @@ main() {
   else
     echo "Error: Source directory $SOURCE_DIR does not exist."
   fi
-
-  # Download mega cmd
-	#"megasync-bin"
-	#"megacmd"
-  wget https://mega.nz/linux/repo/Arch_Extra/x86_64/megacmd-x86_64.pkg.tar.zst && sudo pacman -U "$PWD/megacmd-x86_64.pkg.tar.zst"
-  rm megacmd-x86_64.pkg.tar.zst 
 
 	# Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
 	update-mime-database ~/.config/.local/share/mime
