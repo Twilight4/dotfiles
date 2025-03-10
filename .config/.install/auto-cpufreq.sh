@@ -11,28 +11,26 @@ cat <<"EOF"
 
 EOF
 
-read -p "Do you want to install auto-cpufreq? (y/n): " install_choice
+# Prompt the user
+read -p "This will install auto-cpufreq. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+echo
 
-if [ "$install_choice" == "y" ]; then
-    if ! command -v auto-cpufreq >/dev/null; then
-        echo
-        echo "Installing auto-cpufreq..."
+if ! command -v auto-cpufreq >/dev/null; then
+    echo
+    echo "Installing auto-cpufreq..."
 
-        git clone https://github.com/AdnanHodzic/auto-cpufreq.git
-        clear
-        cd auto-cpufreq && sudo ./auto-cpufreq-installer
-        # To disable and remove auto-cpufreq daemon, run: sudo auto-cpufreq --remove
-        sudo auto-cpufreq --install
-        cd -
-        sudo rm -rvf ./auto-cpufreq
+    git clone https://github.com/AdnanHodzic/auto-cpufreq.git
+    clear
+    cd auto-cpufreq && sudo ./auto-cpufreq-installer
+    # To disable and remove auto-cpufreq daemon, run: sudo auto-cpufreq --remove
+    sudo auto-cpufreq --install
+    cd -
+    sudo rm -rvf ./auto-cpufreq
 
-        echo "auto-cpufreq installed."
-    else
-        echo
-        echo "auto-cpufreq is already installed. Skipping..."
-    fi
+    echo "auto-cpufreq installed."
 else
-    echo "Installation of auto-cpufreq canceled by user."
+    echo
+    echo "auto-cpufreq is already installed. Skipping..."
 fi
 
 # Wait 2 sec before clear so user knows what happened
