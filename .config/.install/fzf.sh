@@ -10,14 +10,9 @@ cat <<"EOF"
                   
 EOF
 
-# Prompt user for input
-read -p "Do you want to install FZF (y/n)? " answer
-
-# Validate user input
-if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
-    echo "Operation cancelled by the user."
-    exit 0
-fi
+# Prompt the user
+read -p "This will install FZF and atuin. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+echo
 
 # Check if the ~/.fzf directory exists
 if [ -d "$HOME/.fzf" ]; then
