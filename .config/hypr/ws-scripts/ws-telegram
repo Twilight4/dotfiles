@@ -13,5 +13,5 @@ if ! is_netflix_running; then
   hyprctl dispatch exec 'telegram-desktop'
 else
   # If netflix is running, focus on its window
-  hyprctl dispatch focuswindow 'org.telegram.desktop'
+  hyprctl dispatch focuswindow 'class:^(org.telegram.desktop)$'
 fi

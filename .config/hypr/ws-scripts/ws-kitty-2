@@ -13,5 +13,5 @@ if ! is_kitty_running; then
   hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T kitty-2 --class kitty-2'
 else
   # If kitty is running, focus on its window
-  hyprctl dispatch focuswindow 'kitty-2'
+  hyprctl dispatch focuswindow 'class:^(kitty-2)$'
 fi

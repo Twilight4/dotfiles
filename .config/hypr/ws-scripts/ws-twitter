@@ -13,5 +13,5 @@ if ! is_netflix_running; then
   hyprctl dispatch exec 'twitter'
 else
   # If netflix is running, focus on its window
-  hyprctl dispatch focuswindow 'Twitter'
+  hyprctl dispatch focuswindow 'class:^(Twitter)$'
 fi

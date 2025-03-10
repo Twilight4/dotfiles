@@ -13,5 +13,5 @@ if ! is_brave_running; then
   hyprctl dispatch exec 'spotify'
 else
   # If Brave is running, focus on its window
-  hyprctl dispatch focuswindow 'Spotify'
+  hyprctl dispatch focuswindow 'class:^(Spotify)$'
 fi

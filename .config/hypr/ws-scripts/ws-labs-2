@@ -7,5 +7,5 @@ is_kitty_running() {
 if ! is_kitty_running; then
   hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T kitty-labs-2 --class kitty-labs-2 --session ~/.config/kitty/session-labs-2'
 else
-  hyprctl dispatch focuswindow 'kitty-labs-2'
+  hyprctl dispatch focuswindow 'class:^(kitty-labs-2)$'
 fi

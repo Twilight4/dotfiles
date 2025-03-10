@@ -8,5 +8,5 @@ if ! is_kitty_running; then
   hyprctl dispatch exec 'blueman-manager'
 else
   hyprctl dispatch togglespecialworkspace period
-  hyprctl dispatch focuswindow '^blueman-manager$'
+  hyprctl dispatch focuswindow 'class:^(blueman-manager)$'
 fi

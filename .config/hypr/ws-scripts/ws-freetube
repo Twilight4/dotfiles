@@ -13,5 +13,5 @@ if ! is_freetube_running; then
   hyprctl dispatch exec 'freetube --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL --gpu-context=wayland'
 else
   # If FreeTube is running, focus on its window
-  hyprctl dispatch focuswindow 'FreeTube'
+  hyprctl dispatch focuswindow 'class:^(FreeTube)$'
 fi

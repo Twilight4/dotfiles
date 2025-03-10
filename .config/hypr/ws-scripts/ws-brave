@@ -13,5 +13,5 @@ if ! is_brave_running; then
   hyprctl dispatch exec 'brave'
 else
   # If Brave is running, focus on its window
-  hyprctl dispatch focuswindow 'brave-browser'
+  hyprctl dispatch focuswindow 'class:^(brave-browser)$'
 fi

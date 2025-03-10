@@ -13,5 +13,5 @@ if ! is_zen_running; then
   hyprctl dispatch exec 'zen-browser'
 else
   # If Zen is running, focus on its window
-  hyprctl dispatch focuswindow 'zen'
+  hyprctl dispatch focuswindow 'class:^(zen)$'
 fi

@@ -8,5 +8,5 @@ if ! is_kitty_running; then
   hyprctl dispatch exec 'gnome-calculator'
 else
   hyprctl dispatch togglespecialworkspace floating
-  hyprctl dispatch focuswindow '^org.gnome.Calculator$'
+  hyprctl dispatch focuswindow 'class:^(org.gnome.Calculator)$'
 fi

@@ -13,5 +13,5 @@ if ! is_brave_running; then
   hyprctl dispatch exec 'steam -applaunch 2694490 -windowed'
 else
   # If Brave is running, focus on its window
-  hyprctl dispatch focuswindow 'steam_app_2694490'
+  hyprctl dispatch focuswindow 'class:^(steam_app_2694490)$'
 fi

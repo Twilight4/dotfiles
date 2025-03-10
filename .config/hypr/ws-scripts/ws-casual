@@ -7,5 +7,5 @@ is_kitty_running() {
 if ! is_kitty_running; then
   hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T casual-kitty --class casual-kitty'
 else
-  hyprctl dispatch focuswindow 'casual-kitty'
+  hyprctl dispatch focuswindow 'class:^(casual-kitty)$'
 fi
