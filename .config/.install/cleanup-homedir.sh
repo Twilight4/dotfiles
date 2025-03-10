@@ -11,13 +11,8 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "Do you want to debloat the \$HOME directory? (y/n): " response
+read -p "This will debloat the \$HOME directory. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
-
-if [[ "$response" != "y" ]]; then
-    echo "Operation cancelled by the user."
-    exit 0
-fi
 
 # Create necessary directories
 directories=(
