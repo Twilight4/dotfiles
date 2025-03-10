@@ -12,11 +12,8 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "This will take minimum 30 minutes, continue? (y/n) " answer
-if [[ "$answer" != "y" ]]; then
-    echo "No changes made."
-    exit 0
-fi
+read -p "This will take a minimum of 30 minutes. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+echo
 
 bloat=(
   "swaylock"
@@ -52,6 +49,7 @@ bloat=(
   "ranger"
   "gnome-system-monitor"
   "gnome-logs"
+  "sddm"
   "xfce4-terminal"
 )
 
@@ -214,6 +212,8 @@ packages=(
   "bat-extras"
   "expac"
   "freetube"
+  "sddm-git"
+  "sddm-sugar-candy-git"
   "twitter"
   "netflix"
   "gnome-calculator"
@@ -304,6 +304,12 @@ _uninstallPackagesParu "${bloat[@]}"
 echo "Installing packages..."
 _installPackagesParu "${packages[@]}"
 #_installPackagesParu "${extra[@]}"
+
+# Download mega cmd
+#"megasync-bin"
+#"megacmd"
+wget https://mega.nz/linux/repo/Arch_Extra/x86_64/megacmd-x86_64.pkg.tar.zst && sudo pacman -U "$PWD/megacmd-x86_64.pkg.tar.zst"
+rm megacmd-x86_64.pkg.tar.zst 
 
 # Wait 2 sec before clear so user knows what happened
 echo
