@@ -41,8 +41,8 @@ function check_service_status {
 	done
 }
 
-# Prompt user to enable services
-read -p "Do you want to enable the necessary services? (y/n): " enable_services
+# Prompt the user
+read -p "This will enable the necessary services. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 # Not sure:
@@ -50,46 +50,44 @@ echo
 #"chronyd"
 #"vnstat"    # network traffic monitor
 
-if [[ "$enable_services" =~ ^[Yy]$ ]]; then
-  # Define services
-  services=(
-  	"firewalld"
-  	"irqbalance"
-  	"systemd-oomd"
-  	"systemd-resolved"
-  	"ananicy-cpp"
-    "NetworkManager"
-  	"nohang"
-    "cronie"
-    "acpid"
-    "docker"
-  )
-  
-  # Enable services
-  for service in "${services[@]}"; do
-  	enable_service "$service"
-  done
+# Define services
+services=(
+	"firewalld"
+	"irqbalance"
+	"systemd-oomd"
+	"systemd-resolved"
+	"ananicy-cpp"
+  "NetworkManager"
+	"nohang"
+  "cronie"
+  "acpid"
+  "docker"
+)
 
-  # docker group
-  sudo usermod -a -G docker $USER
-  
-  # Must be set seperately to work
-  sudo systemctl enable fstrim.timer
+# Enable services
+for service in "${services[@]}"; do
+	enable_service "$service"
+done
 
-  # Espanso service and packages
-  #espanso service register
-  #espanso install typofixer-en
-  #espanso install contractions-en
+# docker group
+sudo usermod -a -G docker $USER
 
-  # Other services
-  #playerctld daemon           # Error: Can not connect to messages bus - connection refused
-  
-  # Check service status
-  echo
-  check_service_status "${services[@]}"
-  echo "Check status of services:"
-  echo "    fstrim.timer"
-fi
+# Must be set seperately to work
+sudo systemctl enable fstrim.timer
+
+# Espanso service and packages
+#espanso service register
+#espanso install typofixer-en
+#espanso install contractions-en
+
+# Other services
+#playerctld daemon           # Error: Can not connect to messages bus - connection refused
+
+# Check service status
+echo
+check_service_status "${services[@]}"
+echo "Check status of services:"
+echo "    fstrim.timer"
 
 # Wait 2 sec before clear so user knows what happened
 sleep 2
