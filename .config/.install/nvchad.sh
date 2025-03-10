@@ -10,15 +10,9 @@ cat <<"EOF"
 
 EOF
 
-# Prompt user for input
-read -p "Do you want to install NVChad configuration (y/n)? " answer
-
-# Validate user input
-if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
-    echo
-    echo "Operation cancelled by the user."
-    exit 0
-fi
+# Prompt the user
+read -p "This will install NVChad configuration. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+echo
 
 # Remove existing NVChad configuration if it exists
 if [[ -d "$HOME/.config/nvim" ]]; then
