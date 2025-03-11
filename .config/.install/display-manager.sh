@@ -24,9 +24,6 @@ curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/sddm
 # Download the default.png image
 curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/refs/heads/main/.config/sddm/melbourne.jpg && sudo mv melbourne.jpg /usr/share/sddm/themes/sugar-candy/Backgrounds/melbourne.jpg
 
-# Change the default background image to default.png image
-sudo sed -i 's|Background="Backgrounds/Mountain.jpg"|Background="Backgrounds/melbourne.jpg"|g' /usr/share/sddm/themes/sugar-candy/theme.conf
-
 # Clone the theme.conf config file
 curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/sddm/theme.conf && sudo mv theme.conf /usr/share/sddm/themes/sugar-candy/theme.conf
 
