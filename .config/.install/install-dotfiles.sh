@@ -30,7 +30,6 @@ install_symlinks() {
 	_installSymLink lsd ~/.config/lsd ~/dotfiles/.config/lsd/ ~/.config
 	_installSymLink mpd ~/.config/mpd ~/dotfiles/.config/mpd/ ~/.config
 	_installSymLink mpv ~/.config/mpv ~/dotfiles/.config/mpv/ ~/.config
-	_installSymLink navi ~/.config/navi ~/dotfiles/.config/navi/ ~/.config
 	_installSymLink newsboat ~/.config/newsboat ~/dotfiles/.config/newsboat/ ~/.config
 	_installSymLink npm ~/.config/npm ~/dotfiles/.config/npm/ ~/.config
 	_installSymLink pipewire.conf.d ~/.config/pipewire.conf.d ~/dotfiles/.config/pipewire.conf.d/ ~/.config
