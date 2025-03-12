@@ -132,6 +132,7 @@ keymap = [
 	{ on = [ "g", "D" ],       run = "cd ~/desktop",   desc = "Goto ~/desktop" },
 	{ on = [ "g", "d" ],       run = "cd ~/documents",   desc = "Goto ~/documents" },
 	{ on = [ "g", "w" ],       run = "cd ~/desktop/workspace",   desc = "Goto ~/desktop/workspace" },
+	{ on = [ "g", "P" ],       run = "cd ~/desktop/projects",   desc = "Goto ~/desktop/projects" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Jump interactively" },
 
 	# Tabs
