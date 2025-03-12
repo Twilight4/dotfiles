@@ -296,7 +296,7 @@ The world's greatest programmer once said:
 | W               | Open the link in the current entry                                  |
 | G               | List holidays                                                       |
 | C-/             | Agenda undo                                                         |
-| +/-             | Increase/decrease                                                   |
+| -/=             | Priority up/down                                                    |
 | s               | Org save all org buffers                                            |
 | e               | Set effort                                                          |
 | E               | Set priority                                                        |
@@ -340,12 +340,18 @@ The world's greatest programmer once said:
 
 * Other Packages
 ** M-key bindings
+Meta keys are only used in "insert mode", but only the necessary ones are used to avoid conflicts with kitty and zsh keybindings.
 
 | Keybinding | Description                                                  |
 |------------+--------------------------------------------------------------|
 | M-'        | Copy last entry to clipboard                                 |
+| M-u        | tl/org-kill-line-backward                                    |
+| M-n        | tl/newline-at-end-of-line                                    |
+| M-d        | kill-word                                                    |
+|            |                                                              |
+|            |                                                              |
 | M-a        | Embark act                                                   |
-| M-n        | Treemacs                                                     |
+| M-h        | Treemacs                                                     |
 | M-i        | jinx-correct                                                 |
 | M-w        | jinx-correct-word                                            |
 | M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
@@ -383,14 +389,15 @@ The world's greatest programmer once said:
 
 | Keybinding | Description                          |
 |------------+--------------------------------------|
+| S-p/n/f/b  | Drag stuff up/down/left/right        |
+| S-</>      | Beginning/End of buffer              |
 | z          | Repeat action                        |
 | S-t        | Kmacro start macro or insert counter |
 | S-y        | Kmacro end or call macro             |
 | [          | Scroll down command                  |
 | ]          | Scroll up command                    |
-| {          | Beginning of buffer                  |
-| }          | End of buffer                        |
-| S-r        | Query replace                        |
+| C-S-\      | Query-replace                        |
+| S-r        | Rectangle mark mode                  |
 | S-m        | Org meta return                      |
 | ,          | Backward paragraph                   |
 | .          | Forward paragraph                    |
@@ -399,6 +406,8 @@ The world's greatest programmer once said:
 | w          | Copy to system clipboard             |
 | ?          | Undo redo                            |
 | y          | Paste from system clipboard          |
+| S-h        | Open treemacs                        |
+| -/=        | Priority up/down                     |
 | b          | Backward word                        |
 | f          | Forward word                         |
 | d          | Kill region or forward delete        |
@@ -414,15 +423,10 @@ The world's greatest programmer once said:
 | :          | Move to window line top bottom       |
 | t          | Zap up to char                       |
 | u          | New line                             |
-| S-b        | Mark code block                      |
 | S-s        | Mark symbol                          |
-| ~          | Capitalize word                      |
-| S-</>      | Toggle upcase region/word            |
-| S-p/n/f/b  | Drag stuff up/down/left/right        |
-| S-h        | Multi cursors next line              |
+| ~          | tl/toggle-letter-case                |
+| S-l        | Multi cursors next line              |
 | S-j        | Join line                            |
-| S-k        | Kill line forward                    |
-| S-u        | Kill line backward                   |
 | S-d        | Kill whole line                      |
 | S-v        | Mark whole line                      |
 | S-w        | Copy current line or region          |
