@@ -160,6 +160,7 @@ alias sd-start="sudo systemctl start"
 alias sd-stop="sudo systemctl stop"
 alias sd-en="sudo systemctl enable --now"
 alias sd-ds="sudo systemctl disable"
+alias sd-restart="sudo systemctl restart"
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
@@ -198,6 +199,7 @@ alias mem-top10="sudo ps aux | sort -rk 4,4 | head -n 10 | awk '{print \$4,\$11}
 
 # disk usage
 alias bdu='dust'
+alias df='df -h'
 alias ncdu="ncdu --color dark"
 alias duf="duf --hide special -hide-mp /run/user/1000/psd/twilight-firefox-nlmda6r7.default,/run/user/1000/psd/twilight-firefox-pjxpviu5.default-esr,/var/tmp,/var/log,/var/cache,/srv,/boot/efi"
 alias watch-duf="watch duf --hide special -hide-mp /run/user/1000/psd/twilight-firefox-nlmda6r7.default,/run/user/1000/psd/twilight-firefox-pjxpviu5.default-esr,/var/tmp,/var/log,/var/cache,/srv,/boot/efi"
@@ -283,27 +285,6 @@ alias gco='git checkout'
 
 
 ##############################################################################################################
-# DEBIAN SPECIFIC                                                                                            #
-##############################################################################################################
-# Apt-get
-#alias deb-version="lsb_release -a"                                 # check system version
-#alias deb-upgrade="sudo apt update && sudo apt full-upgrade -y"    # Upgrade to the latest kali version
-#alias apti="sudo apt update && sudo apt install"
-#alias aptr="sudo apt update && sudo apt purge"          # Remove with its configuration files
-#alias cleanup="sudo apt update && sudo apt autoremove"
-#alias aptcache="sudo du -sh /var/cache/apt/archives"
-#alias aptcache-clean="sudo apt clean"
-#alias apts="sudo apt-cache search"
-#alias rip-apt="sudo apt list --installed"
-#alias rip-snap="snap list"
-#alias apt-history='grep " install " /var/log/apt/history.log'
-
-# System
-#alias grubup="sudo update-grub"
-#alias fd='fdfind'
-
-
-##############################################################################################################
 # ARCH SPECIFIC                                                                                              #
 ##############################################################################################################
 # Blackarch repo packages
@@ -314,18 +295,6 @@ alias ginxi="garuda-inxi"
 #alias gup="garuda-update"
 alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
 alias grubup="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias crackmapexec='snap run crackmapexec'
-alias cme='snap run crackmapexec'
-# Impacket scripts
-alias impacket-secretsdump='secretsdump.py'
-alias impacket-getadusers='GetADUsers.py'
-alias impacket-smbserver='smbserver.py'
-alias impacket-wmiexec='wmiexec.py'
-alias impacket-getuserspns='GetUserSPNs.py'
-alias impacket-ntlmrelayx='ntlmrelayx.py'
-alias impacket-mssqlclient='mssqlclient.py'
-alias impacket-samrdump='samrdump.py'
-alias impacket-psexec='psexec.py'
 
 # Refresh mirrorlists
 alias rank-mirrors="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak && sudo reflector --verbose --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrolist"
