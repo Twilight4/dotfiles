@@ -11,12 +11,8 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "Do you want to change shell to Zsh? (y/n): " response
-
-if [[ "$response" != "y" ]]; then
-    echo "Operation cancelled by the user."
-    exit 0
-fi
+read -p "This will set the default shell to Zsh. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+echo
 
 # Zsh as default shell
 default_shell=$(getent passwd "$(whoami)" | cut -d: -f7)
