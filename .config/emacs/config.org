@@ -46,7 +46,6 @@
   - [[#no-littering][No-littering]]
   - [[#rainbow-mode][Rainbow-mode]]
   - [[#mark-whole-line][Mark whole line]]
-  - [[#org-cycle-or-org-shifttab][Org-cycle or org-shifttab]]
   - [[#rainbow-delimeters][Rainbow-delimeters]]
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
@@ -155,7 +154,10 @@
 (define-key global-map (kbd "C-l") nil)
 (define-key global-map (kbd "C-v") nil)
 (define-key global-map (kbd "C-t") nil)
+(define-key global-map (kbd "C-@") nil)
+(define-key global-map (kbd "C-_") nil)
 (define-key global-map (kbd "C-j") nil)
+(define-key global-map (kbd "C-r") nil)
 (define-key global-map (kbd "M-t") nil)
 (define-key global-map (kbd "M-c") nil)
 (define-key global-map (kbd "M-i") nil)
@@ -177,6 +179,7 @@
 (define-key global-map (kbd "M-l") nil)
 (define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "C-@") nil)
+(define-key global-map (kbd "C-SPC") nil)
 (define-key global-map (kbd "M-RET") nil)
 (define-key global-map (kbd "C-M-\\") nil)
 
@@ -213,28 +216,23 @@
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
-(global-set-key (kbd "C-q") 'scroll-up-line)
-(global-set-key (kbd "C-o") 'scroll-down-line)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'backward-char)
 (global-set-key (kbd "C-l") 'forward-char)
-(global-set-key (kbd "M-u") 'org-kill-line)
-(global-set-key (kbd "M-h") 'treemacs)
+(global-set-key (kbd "C-o") 'org-kill-line)
+(global-set-key (kbd "C-t") 'treemacs)
+(global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-u") 'tl/org-kill-line-backward)
-(global-set-key (kbd "M-n") 'tl/newline-at-end-of-line)
 (global-set-key (kbd "C-f") 'forward-word)
 (global-set-key (kbd "C-b") 'backward-word)
-(global-set-key (kbd "C-p") 'org-backward-sentence)
-(global-set-key (kbd "C-n") 'org-forward-sentence)
-(global-set-key (kbd "C-_") 'undo-only)
+(global-set-key (kbd "C-n") 'tl/newline-at-end-of-line)
+(global-set-key (kbd "C-s") 'basic-save-buffer)
 (global-set-key (kbd "C-w") 'backward-kill-word)
-;(global-set-key (kbd "DEL") 'kill-region-or-backward-delete)
 (global-set-key (kbd "DEL") 'smart-hungry-delete-backward-char)
-(global-set-key (kbd "<deletechar>") 'kill-region-or-forward-delete)
-(global-set-key (kbd "C-d") 'kill-region-or-forward-delete)
+(global-set-key (kbd "<deletechar>") 'smart-hungry-delete-forward-char)
+(global-set-key (kbd "C-d") 'kill-word)
 (global-set-key (kbd "C-\\") 'universal-argument)
-(global-set-key (kbd "C-t") 'zap-up-to-char)
 ;; Minibuffer
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
@@ -405,7 +403,6 @@
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     ;"O" '(tl/buffer-org-new :wk "New empty org buffer")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
-    "C-s" '(basic-save-buffer :wk "Save buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
 	"TAB" '(comment-dwim :wk "Comment lines")
 	"o" '(tl/open-image-external-from-org :wk "Open image in swappy")
@@ -1315,22 +1312,8 @@ This is useful when followed by an immediate kill."
 ** Clipboard adjustments
 
 #+begin_src emacs-lisp
-(defun kill-region-or-backward-delete ()
-  "Kill the region if active, otherwise delete backward."
-  (interactive)
-  (if (region-active-p)
-      (progn
-        (kill-ring-save (region-beginning) (region-end))
-        (let ((process-connection-type nil))
-          (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
-          (process-send-string "wl-copy" (current-kill 0))
-          (process-send-eof "wl-copy"))
-        (message "Copied to clipboard")
-        (delete-region (region-beginning) (region-end)))
-    (call-interactively 'smart-hungry-delete-backward-char)))
-
-(defun kill-region-or-forward-delete ()
-  "Kill the region if active, otherwise delete forward."
+(defun kill-region-to-clipboard ()
+  "Kill the region if active."
   (interactive)
   (if (region-active-p)
       (progn
@@ -1341,7 +1324,7 @@ This is useful when followed by an immediate kill."
           (process-send-eof "wl-copy"))
         (message "Copied to clipboard")
         (delete-region (region-beginning) (region-end)))
-    (call-interactively 'smart-hungry-delete-forward-char)))
+    (message "No active region")))
 
 ;; Function to always copy to the system clipboard
 (defun copy-to-system-clipboard ()
@@ -1561,16 +1544,6 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
     (goto-char start)              ; Move cursor to the start of the current line
     (push-mark start t t)          ; Set the mark at the beginning of the line, activate the region
     (goto-char (line-beginning-position 2)))) ; Move cursor to the beginning of the next line
-#+end_src
-
-** Org-cycle or org-shifttab
-
-#+begin_src emacs-lisp
-(defun tl/org-cycle-or-shift-tab ()
-  (interactive)
-  (if (org-at-heading-p)
-      (org-cycle)
-    (org-shifttab)))
 #+end_src
 
 ** Rainbow-delimeters
@@ -1957,6 +1930,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (define-key treemacs-mode-map (kbd "ad") 'treemacs-create-dir)
   (define-key treemacs-mode-map (kbd "ac") 'treemacs-copy-file)
   (define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
+  (define-key treemacs-mode-map (kbd "t") 'treemacs-quit)
   (define-key treemacs-mode-map (kbd "Q") 'treemacs-kill-buffer)
   (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
   (define-key treemacs-mode-map (kbd "s") 'treemacs-resort)
@@ -2267,75 +2241,126 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 (use-package god-mode
   :init
   (god-mode)
-  ;; Basic Keybinds
-  (global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key
-  (define-key god-local-mode-map (kbd "C-i") #'god-local-mode)        ;; Prefix key (only works in god-mode)
-  (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
-  (define-key god-local-mode-map (kbd "C-z") #'repeat)
-  (define-key god-local-mode-map (kbd "C-[") #'scroll-down-command)
-  (define-key god-local-mode-map (kbd "C-]") #'scroll-up-command)
-  (define-key god-local-mode-map (kbd "C-,") #'backward-paragraph)
-  (define-key god-local-mode-map (kbd "C-.") #'forward-paragraph)
-  (define-key god-local-mode-map (kbd "C-e") #'org-end-of-line)
-  (define-key god-local-mode-map (kbd "C-a") #'org-beginning-of-line)
-  (define-key god-local-mode-map (kbd "C-S-j") #'join-line)
-  (define-key god-local-mode-map (kbd "C-S-d") #'tl/kill-copy-whole-line)
-  (define-key god-local-mode-map (kbd "C-S-a") #'consult-org-heading)
-  (define-key god-local-mode-map (kbd "C-S-e") #'consult-mark)
+  ;(global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key - rebinded to toggle god mode on TAB
+  ;(define-key god-local-mode-map (kbd "i") #'god-local-mode)          ;; Quit god mode - rebinded to toggle god mode on TAB
+
+  ;; Navigation
+  (define-key god-local-mode-map (kbd "[") #'scroll-down-command)
+  (define-key god-local-mode-map (kbd "]") #'scroll-up-command)
+  (define-key god-local-mode-map (kbd "}") #'tl/delete-to-end-of-file)
+  (define-key god-local-mode-map (kbd "{") #'tl/delete-to-beginning-of-file)
+  (define-key god-local-mode-map (kbd ",") #'backward-paragraph)
+  (define-key god-local-mode-map (kbd ".") #'forward-paragraph)
+  (define-key god-local-mode-map (kbd "<") #'beginning-of-buffer)
+  (define-key god-local-mode-map (kbd ">") #'end-of-buffer)
+  ;; Ctrl+h/j/k/l/f/b
+  (define-key god-local-mode-map (kbd "h") #'backward-char)
+  (define-key god-local-mode-map (kbd "j") #'next-line)
+  (define-key god-local-mode-map (kbd "k") #'previous-line)
+  (define-key god-local-mode-map (kbd "l") #'forward-char)
+  (define-key god-local-mode-map (kbd "f") #'forward-word)
+  (define-key god-local-mode-map (kbd "b") #'backward-word)
+  (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
+  (define-key god-local-mode-map (kbd "C-S-j") #'tl/copy-down-current-line-or-region)
+  (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
+  (define-key god-local-mode-map (kbd "C-S-l") #'zap-up-to-char)
   (define-key god-local-mode-map (kbd "C-S-f") #'drag-stuff-right)
   (define-key god-local-mode-map (kbd "C-S-b") #'drag-stuff-left)
-  (define-key god-local-mode-map (kbd "C-S-p") #'drag-stuff-up)
+  
+  ;; Ctrl+a
+  (define-key god-local-mode-map (kbd "a") #'org-beginning-of-line)
+  ;(define-key god-local-mode-map (kbd "C-a") #'consult-org-heading)                 ;; not sure yet
+  ;(define-key god-local-mode-map (kbd "C-S-a") #'tl/copy-line-backward)
+  
+  ;; Ctrl+e
+  (define-key god-local-mode-map (kbd "e") #'org-end-of-line)  
+  ;(define-key god-local-mode-map (kbd "C-e") #')
+  ;(define-key god-local-mode-map (kbd "C-S-e") #'tl/copy-line-forward)
+  
+  ;; Ctrl+u
+  (define-key god-local-mode-map (kbd "u") #'tl/org-kill-line-backward)
+  ;(define-key god-local-mode-map (kbd "C-S-u") #'tl/kill-line-backward-to-clipboard)
+
+  ;; Ctrl+o
+  (define-key god-local-mode-map (kbd "o") #'org-kill-line)
+  ;(define-key god-local-mode-map (kbd "C-S-o") #'tl/kill-line-forward-to-clipboard)
+  
+  ;; Ctrl+w
+  (define-key god-local-mode-map (kbd "w") #'copy-to-system-clipboard)
+  (define-key god-local-mode-map (kbd "C-w") #'backward-kill-word)
+  ;(define-key god-local-mode-map (kbd "C-S-w") #'tl/copy-current-line)
+
+  ;; Ctrl+d
+  (define-key god-local-mode-map (kbd "d") #'kill-region-to-clipboard)
+  (define-key god-local-mode-map (kbd "C-d") #'kill-word)
+  ;(define-key god-local-mode-map (kbd "C-S-d") #'tl/kill-current-line)
+
+  ;; Ctrl+n
+  (define-key god-local-mode-map (kbd "n") #'org-forward-sentence)
+  (define-key god-local-mode-map (kbd "C-n") #'tl/newline-at-end-of-line)
   (define-key god-local-mode-map (kbd "C-S-n") #'drag-stuff-down)
-  (define-key god-local-mode-map (kbd "C-S-h") #'treemacs)
-  (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
-  (define-key god-local-mode-map (kbd "C-}") #'tl/delete-to-end-of-file)
-  (define-key god-local-mode-map (kbd "C-{") #'tl/delete-to-beginning-of-file)
-  ;(define-key god-local-mode-map (kbd "C-S-k") #')
-  ;(define-key god-local-mode-map (kbd "C-S-u") #')
-  (define-key god-local-mode-map (kbd "C-S-l") #'mc/mark-next-like-this)
-  ;(define-key god-local-mode-map (kbd "C-S-b") #')
-  (define-key god-local-mode-map (kbd "C-<") #'beginning-of-buffer)
-  (define-key god-local-mode-map (kbd "C->") #'end-of-buffer)
-  (define-key god-local-mode-map (kbd "C-~") #'tl/toggle-letter-case)
-  (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
-  (define-key god-local-mode-map (kbd "C-f") #'forward-word)
-  (define-key god-local-mode-map (kbd "C-w") #'copy-to-system-clipboard)
-  (define-key god-local-mode-map (kbd "?") #'undo-redo)
-  (define-key god-local-mode-map (kbd "C-y") #'paste-from-system-clipboard)
-  (define-key god-local-mode-map (kbd "C-h") #'backward-char)
-  (define-key god-local-mode-map (kbd "C-k") #'previous-line)
-  (define-key god-local-mode-map (kbd "C-j") #'next-line)
-  (define-key god-local-mode-map (kbd "C-l") #'forward-char)
-  (define-key god-local-mode-map (kbd "C-b") #'backward-word)
-  (define-key god-local-mode-map (kbd "C-d") #'kill-region-or-forward-delete)
-  (define-key god-local-mode-map (kbd "C-p") #'org-backward-sentence)
-  (define-key god-local-mode-map (kbd "C-n") #'org-forward-sentence)
-  (define-key god-local-mode-map (kbd "C-\\") #'universal-argument)
+
+  ;; Ctrl+p
+  (define-key god-local-mode-map (kbd "p") #'org-backward-sentence)
+  ;(define-key god-local-mode-map (kbd "C-p") #'tl/newline-at-end-of-previous-line)
+  (define-key god-local-mode-map (kbd "C-S-p") #'drag-stuff-up)
+
+  ;; Org priorities
   (define-key god-local-mode-map (kbd "-") 'org-priority-up)
-  (define-key god-local-mode-map (kbd "=") 'org-priority-down)  
-  ;; Navigation Keybinds
+  (define-key god-local-mode-map (kbd "=") 'org-priority-down)
+
+  ;; Macros
   (define-key god-local-mode-map (kbd "C-S-t") #'kmacro-start-macro-or-insert-counter)
   (define-key god-local-mode-map (kbd "C-S-y") #'kmacro-end-or-call-macro)
-  (define-key god-local-mode-map (kbd "C-S-i") #'tl/org-cycle-or-shift-tab)
+
+  ;; Scrolling
+  (define-key god-local-mode-map (kbd "q") #'scroll-up-line)
+  (define-key god-local-mode-map (kbd "i") #'scroll-down-line)
   (define-key god-local-mode-map (kbd "C-S-q") #'goto-last-change)
-  (define-key god-local-mode-map (kbd "C-S-o") #'goto-last-change-reverse)
-  (define-key god-local-mode-map (kbd "C-;") #'recenter-top-bottom)
-  (define-key god-local-mode-map (kbd "C-:") #'move-to-window-line-top-bottom)
-  (define-key god-local-mode-map (kbd "C-t") #'zap-up-to-char)
-  (define-key god-local-mode-map (kbd "C-u") #'tl/newline-at-end-of-line)
-  (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars
-  (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
-  (define-key god-local-mode-map (kbd "C-|") #'query-replace)
-  (define-key god-local-mode-map (kbd "C-S-W") #'tl/copy-down-current-line-or-region)
+  (define-key god-local-mode-map (kbd "C-S-i") #'goto-last-change-reverse)
+  
+  ;; Undo/Redo
+  (define-key god-local-mode-map (kbd "u") #'undo-only)
+  (define-key god-local-mode-map (kbd "o") #'undo-redo)
+  
+  ;; Recenter
+  (define-key god-local-mode-map (kbd ";") #'recenter-top-bottom)
+  (define-key god-local-mode-map (kbd ":") #'move-to-window-line-top-bottom)
+  
   ;; Syntax highlighting for org-mode
   (define-key god-local-mode-map (kbd "C-S-z") #'surround-bold)
   (define-key god-local-mode-map (kbd "C-S-x") #'surround-italic)
   (define-key god-local-mode-map (kbd "C-S-c") #'surround-code)
   ;(define-key god-local-mode-map (kbd "") #'surround-underline)   ;; not using
 
-  (require 'god-mode-isearch)
-  (define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
-  (define-key god-mode-isearch-map (kbd "C-@") #'god-mode-isearch-disable)
+  ;; Marking
+  (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
+  (define-key god-local-mode-map (kbd "C-@") #'consult-mark)
+  (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
+  (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars
+  (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
+  (define-key god-local-mode-map (kbd "|") #'query-replace)
+
+  ;; Search
+  (define-key god-local-mode-map (kbd "/") #'isearch-forward)
+  (define-key god-local-mode-map (kbd "?") #'isearch-backward)    
+
+  ;; Misc
+  (define-key god-local-mode-map (kbd "t") #'treemacs)
+  (define-key god-local-mode-map (kbd "z") #'repeat)
+  (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
+  (define-key god-local-mode-map (kbd "s") #'basic-save-buffer)
+  (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
+  (define-key god-local-mode-map (kbd "y") #'paste-from-system-clipboard)
+  (define-key god-local-mode-map (kbd "\\") #'universal-argument)
+  (define-key god-local-mode-map (kbd "g") #'keyboard-escape-quit)
+
+  ;; Unbound
+  ;(define-key god-local-mode-map (kbd "C-S-b") #')
+
+  ;(require 'god-mode-isearch)
+  ;(define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
+  ;(define-key god-mode-isearch-map (kbd "C-@") #'god-mode-isearch-disable)
   
   ;; Visual indicators for God mode
   (custom-set-faces
