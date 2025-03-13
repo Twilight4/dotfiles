@@ -155,6 +155,7 @@
 (define-key global-map (kbd "C-l") nil)
 (define-key global-map (kbd "C-v") nil)
 (define-key global-map (kbd "C-t") nil)
+(define-key global-map (kbd "C-j") nil)
 (define-key global-map (kbd "M-t") nil)
 (define-key global-map (kbd "M-c") nil)
 (define-key global-map (kbd "M-i") nil)
@@ -705,7 +706,7 @@
 (show-paren-mode 1)                               ; Toggle visualization of matching parens (Show Paren mode)
 (winner-mode 1)                                   ; Cool mode for monitoring window configuration
 (display-time-mode 1)                             ; Enable time in the mode-line
-(global-subword-mode 1)                           ; Iterate through CamelCase words
+;(global-subword-mode 1)                           ; Iterate through CamelCase words - don't
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
@@ -733,6 +734,9 @@
 
 ;; Set src block automatic indent to 0 instead of 2
 (setq org-edit-src-content-indentation 0)
+
+;; Increase garbage collection threshold
+(setq gc-cons-threshold (* 50 1000 1000))
 
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -2487,6 +2491,22 @@ Adding highlights to =todo= keywords and related words.
       (?C . '(:foreground "#FFD700")) ;; Adjusted for brighter yellow
       ;(?C . 'all-the-icons-yellow)
       (?D . 'all-the-icons-green))))
+#+end_src
+
+*** Highlight symbol
+#+begin_src emacs-lisp
+;; This feature highlights all occurrences of the symbol (word) at the point in the current buffer
+;; Similar to highlight-symbol-mode, but does not rely on font-lock functionality and does not provide functionality to navigate to different occurrences of the current symbol under point
+(use-package highlight-thing
+ :ensure t
+ :hook (org-mode . highlight-thing-mode)
+ :config
+ (setq
+  highlight-thing-delay-seconds 0.1          ; delay before this mode attempts to highlight the thing under point (default 0.5)
+  highlight-thing-case-sensitive-p t         ; matching of occurrences to be case-sensitive
+  highlight-thing-limit-to-region-in-large-buffers-p nil   ; restrict the highlighting to lines surrounding points, e.g. to reduce the load of highlighting in large buffers
+  highlight-thing-narrow-region-lines 15
+  highlight-thing-large-buffer-limit 5000))
 #+end_src
 
 ** Editing features for org
