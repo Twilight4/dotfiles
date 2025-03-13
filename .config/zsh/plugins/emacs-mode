@@ -21,7 +21,7 @@ bindkey '^K' up-line-or-history
 bindkey '^J' down-line-or-history
 # Killing and yanking
 #bindkey '^U' backward-kill-line
-#bindkey '^O' kill-line
+bindkey '^O' kill-line
 bindkey '^[d' kill-word
 bindkey '^G' clear-screen
 bindkey '^W' backward-kill-word
@@ -115,8 +115,8 @@ bindkey -M emacs -s '^[\' '\\cd ..; ls\r'
 #bindkey -M emacs -s '^[;'
 
 # List files
-bindkey -M emacs -s '^[u' 'fwork\r'
-bindkey -M emacs -s '^[p' 'fproj\r'
+#bindkey -M emacs -s '^[u' 'fwork\r'
+#bindkey -M emacs -s '^[p' 'fproj\r'
 #bindkey -M emacs -s '^[D' 'fdev\r'
 bindkey -M emacs -s '^[T' 'ftrack\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
