@@ -251,26 +251,26 @@
 
 * Zen Browser
 ** Navigation
-| Keybinding | Description                  |
-|------------+------------------------------|
-| C-S-t      | Restore Last Closed Tab      |
-| C-S-n      | Undo Close Window            |
-| C-S-p      | Private Browsing             |
-| C-S-s      | Take Screenshot              |
-| C-S-c      | Copy current URL             |
-| C-p        | Go Back                      |
-| M-Right    | Go Forward                   |
-| M-home     | Go Home                      |
-| C-[        | Navigate Back                |
-| C-]        | Navigate Forward             |
-| C-d        | Bookmark This Page           |
-| C-m        | Toggle Mute                  |
-| C-+/-      | Zoom In/Out                  |
-| C-0        | Reset Zoom                   |
-| C-S-r      | Reload Page (Skip Cache)     |
-| C-u        | View Page Source             |
-| C-i        | View Page Info               |
-| C-s        | Save Page                    |
+| Keybinding | Description              |
+|------------+--------------------------|
+| C-S-t      | Restore Last Closed Tab  |
+| C-S-n      | Undo Close Window        |
+| C-S-p      | Private Browsing         |
+| C-S-s      | Take Screenshot          |
+| C-S-c      | Copy current URL         |
+| C-p        | Go Back                  |
+| M-Right    | Go Forward               |
+| M-home     | Go Home                  |
+| C-[        | Navigate Back            |
+| C-]        | Navigate Forward         |
+| C-d        | Bookmark This Page       |
+| C-m        | Toggle Mute              |
+| C-+/-      | Zoom In/Out              |
+| C-0        | Reset Zoom               |
+| C-S-r      | Reload Page (Skip Cache) |
+| C-u        | View Page Source         |
+| C-i        | View Page Info           |
+| C-s        | Save Page                |
 
 ** Zen browser specific
 | Keybinding | Description                  |
@@ -293,7 +293,7 @@
 | C-S-b      | Show Bookmarks Toolbar       |
 | C-S-y      | Open Downloads               |
 | M-p        | Toggle Web Panel             |
-| C-h        | Go to history                |
+| C-h        | Go to History                |
 | C-M-r      | Toggle Reader Mode           |
 | C-S-[      | Toggle Picture-in-Picture    |
 | C-S-o      | Show Bookmarks Library       |
