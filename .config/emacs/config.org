@@ -135,9 +135,11 @@
 ;(define-key global-map (kbd "C-h") (make-sparse-keymap))
 (global-unset-key (kbd "C-x"))
 (local-unset-key (kbd "C-x n"))
-;(global-unset-key (kbd "M-g"))
+(local-unset-key (kbd "C-c \""))
+(global-unset-key (kbd "M-g"))
 
 ;; Unbinding Global Keybindings
+(define-key global-map (kbd "C-q") nil)
 (define-key global-map (kbd "M-r") nil)
 (define-key global-map (kbd "M-,") nil)
 (define-key global-map (kbd "M-z") nil)
@@ -154,7 +156,6 @@
 (define-key global-map (kbd "C-l") nil)
 (define-key global-map (kbd "C-v") nil)
 (define-key global-map (kbd "C-t") nil)
-(define-key global-map (kbd "C-@") nil)
 (define-key global-map (kbd "C-_") nil)
 (define-key global-map (kbd "C-j") nil)
 (define-key global-map (kbd "C-r") nil)
@@ -178,8 +179,6 @@
 (define-key global-map (kbd "M-k") nil)
 (define-key global-map (kbd "M-l") nil)
 (define-key global-map (kbd "M-b") nil)
-(define-key global-map (kbd "C-@") nil)
-(define-key global-map (kbd "C-SPC") nil)
 (define-key global-map (kbd "M-RET") nil)
 (define-key global-map (kbd "C-M-\\") nil)
 
@@ -222,11 +221,13 @@
 (global-set-key (kbd "C-l") 'forward-char)
 (global-set-key (kbd "C-o") 'org-kill-line)
 (global-set-key (kbd "C-t") 'treemacs)
+(global-set-key (kbd "C-r") 'undo)
 (global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-u") 'tl/org-kill-line-backward)
 (global-set-key (kbd "C-f") 'forward-word)
 (global-set-key (kbd "C-b") 'backward-word)
 (global-set-key (kbd "C-n") 'tl/newline-at-end-of-line)
+(global-set-key (kbd "C-p") 'tl/newline-at-end-of-previous-line)
 (global-set-key (kbd "C-s") 'basic-save-buffer)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "DEL") 'smart-hungry-delete-backward-char)
@@ -424,7 +425,7 @@
     "x" '(bookmark-set :wk "Set bookmark")        ;; bookmarks are automatically saved to a file
     "d" '(bookmark-delete :wk "Delete bookmark")
     "l" '(list-bookmarks :wk "List bookmarks")
-	  ;; Window management
+    ;; Window management
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
     "w" '(winner-undo :wk "Undo window change")
@@ -1209,6 +1210,13 @@ appropriate.  In tables, insert a new row or end the table."
 (defun tl/newline-at-end-of-line ()
   "Move to the end of the current line, insert a newline, and reindent."
   (interactive)
+  (end-of-line)                    ; Move to the end of the current line
+  (newline-and-indent))            ; Insert a newline and indent according to mode
+
+(defun tl/newline-at-end-of-previous-line ()
+  "Move to the end of the current line, insert a newline, and reindent."
+  (interactive)
+  (previous-line)  
   (end-of-line)                    ; Move to the end of the current line
   (newline-and-indent))            ; Insert a newline and indent according to mode
 #+end_src
@@ -2242,58 +2250,51 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   :init
   (god-mode)
   ;(global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key - rebinded to toggle god mode on TAB
-  ;(define-key god-local-mode-map (kbd "i") #'god-local-mode)          ;; Quit god mode - rebinded to toggle god mode on TAB
 
-  ;; Navigation
-  (define-key god-local-mode-map (kbd "[") #'scroll-down-command)
-  (define-key god-local-mode-map (kbd "]") #'scroll-up-command)
+  ;; Ctrl+}/{/,/./</>
   (define-key god-local-mode-map (kbd "}") #'tl/delete-to-end-of-file)
   (define-key god-local-mode-map (kbd "{") #'tl/delete-to-beginning-of-file)
   (define-key god-local-mode-map (kbd ",") #'backward-paragraph)
   (define-key god-local-mode-map (kbd ".") #'forward-paragraph)
   (define-key god-local-mode-map (kbd "<") #'beginning-of-buffer)
   (define-key god-local-mode-map (kbd ">") #'end-of-buffer)
-  ;; Ctrl+h/j/k/l/f/b
+  ;; Ctrl+h/j/k/l/f/b/a/e
   (define-key god-local-mode-map (kbd "h") #'backward-char)
   (define-key god-local-mode-map (kbd "j") #'next-line)
   (define-key god-local-mode-map (kbd "k") #'previous-line)
   (define-key god-local-mode-map (kbd "l") #'forward-char)
   (define-key god-local-mode-map (kbd "f") #'forward-word)
   (define-key god-local-mode-map (kbd "b") #'backward-word)
+  (define-key god-local-mode-map (kbd "a") #'org-beginning-of-line)
+  (define-key god-local-mode-map (kbd "e") #'org-end-of-line)
   (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
   (define-key god-local-mode-map (kbd "C-S-j") #'tl/copy-down-current-line-or-region)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
   (define-key god-local-mode-map (kbd "C-S-l") #'zap-up-to-char)
   (define-key god-local-mode-map (kbd "C-S-f") #'drag-stuff-right)
   (define-key god-local-mode-map (kbd "C-S-b") #'drag-stuff-left)
-  
-  ;; Ctrl+a
-  (define-key god-local-mode-map (kbd "a") #'org-beginning-of-line)
-  ;(define-key god-local-mode-map (kbd "C-a") #'consult-org-heading)                 ;; not sure yet
-  ;(define-key god-local-mode-map (kbd "C-S-a") #'tl/copy-line-backward)
-  
-  ;; Ctrl+e
-  (define-key god-local-mode-map (kbd "e") #'org-end-of-line)  
-  ;(define-key god-local-mode-map (kbd "C-e") #')
-  ;(define-key god-local-mode-map (kbd "C-S-e") #'tl/copy-line-forward)
+  (define-key god-local-mode-map (kbd "C-S-a") #'tl/copy-line-backward)
+  (define-key god-local-mode-map (kbd "C-S-e") #'tl/copy-line-forward)
   
   ;; Ctrl+u
-  (define-key god-local-mode-map (kbd "u") #'tl/org-kill-line-backward)
-  ;(define-key god-local-mode-map (kbd "C-S-u") #'tl/kill-line-backward-to-clipboard)
+  (define-key god-local-mode-map (kbd "o") #'scroll-up-command)
+  (define-key god-local-mode-map (kbd "C-u") #'tl/org-kill-line-backward)
+  (define-key god-local-mode-map (kbd "C-S-u") #'tl/kill-line-backward-to-clipboard)
 
   ;; Ctrl+o
-  (define-key god-local-mode-map (kbd "o") #'org-kill-line)
-  ;(define-key god-local-mode-map (kbd "C-S-o") #'tl/kill-line-forward-to-clipboard)
+  (define-key god-local-mode-map (kbd "u") #'scroll-down-command)
+  (define-key god-local-mode-map (kbd "C-o") #'org-kill-line)
+  (define-key god-local-mode-map (kbd "C-S-o") #'tl/kill-line-forward-to-clipboard)
   
   ;; Ctrl+w
   (define-key god-local-mode-map (kbd "w") #'copy-to-system-clipboard)
   (define-key god-local-mode-map (kbd "C-w") #'backward-kill-word)
-  ;(define-key god-local-mode-map (kbd "C-S-w") #'tl/copy-current-line)
+  (define-key god-local-mode-map (kbd "C-S-w") #'tl/copy-whole-line)
 
   ;; Ctrl+d
   (define-key god-local-mode-map (kbd "d") #'kill-region-to-clipboard)
   (define-key god-local-mode-map (kbd "C-d") #'kill-word)
-  ;(define-key god-local-mode-map (kbd "C-S-d") #'tl/kill-current-line)
+  (define-key god-local-mode-map (kbd "C-S-d") #'kill-whole-line)
 
   ;; Ctrl+n
   (define-key god-local-mode-map (kbd "n") #'org-forward-sentence)
@@ -2302,7 +2303,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 
   ;; Ctrl+p
   (define-key god-local-mode-map (kbd "p") #'org-backward-sentence)
-  ;(define-key god-local-mode-map (kbd "C-p") #'tl/newline-at-end-of-previous-line)
+  (define-key god-local-mode-map (kbd "C-p") #'tl/newline-at-end-of-previous-line)
   (define-key god-local-mode-map (kbd "C-S-p") #'drag-stuff-up)
 
   ;; Org priorities
@@ -2319,10 +2320,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-q") #'goto-last-change)
   (define-key god-local-mode-map (kbd "C-S-i") #'goto-last-change-reverse)
   
-  ;; Undo/Redo
-  (define-key god-local-mode-map (kbd "u") #'undo-only)
-  (define-key god-local-mode-map (kbd "o") #'undo-redo)
-  
   ;; Recenter
   (define-key god-local-mode-map (kbd ";") #'recenter-top-bottom)
   (define-key god-local-mode-map (kbd ":") #'move-to-window-line-top-bottom)
@@ -2335,9 +2332,9 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 
   ;; Marking
   (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
-  (define-key god-local-mode-map (kbd "C-@") #'consult-mark)
+  ;(define-key god-local-mode-map (kbd "C-@") #'consult-mark)         ;; TODO not working
   (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
-  (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars
+  (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars TODO
   (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
   (define-key god-local-mode-map (kbd "|") #'query-replace)
 
@@ -2346,6 +2343,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "?") #'isearch-backward)    
 
   ;; Misc
+  (define-key god-local-mode-map (kbd "r") #'undo)
   (define-key god-local-mode-map (kbd "t") #'treemacs)
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
@@ -2353,10 +2351,12 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
   (define-key god-local-mode-map (kbd "y") #'paste-from-system-clipboard)
   (define-key god-local-mode-map (kbd "\\") #'universal-argument)
-  (define-key god-local-mode-map (kbd "g") #'keyboard-escape-quit)
 
   ;; Unbound
   ;(define-key god-local-mode-map (kbd "C-S-b") #')
+  ;(define-key god-local-mode-map (kbd "[") #')
+  ;(define-key god-local-mode-map (kbd "]") #')
+  ;(define-key god-local-mode-map (kbd "g") #')
 
   ;(require 'god-mode-isearch)
   ;(define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
@@ -2763,18 +2763,55 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
 *** Org text editing adjustments
 
 #+begin_src emacs-lisp
+(defun tl/copy-line-forward ()
+  "Copy the text from the current point to the end of the line to the clipboard."
+  (interactive)
+  (let ((text-to-copy (buffer-substring-no-properties
+                       (point)                      ; Start from the current point
+                       (line-end-position))))       ; End at the end of the line
+    (when (zerop (call-process "wl-copy" nil nil nil text-to-copy))
+      (message "Text copied to clipboard."))))
+
+(defun tl/copy-line-backward ()
+  "Copy the text from the current point to the beginning of the line to the clipboard."
+  (interactive)
+  (let ((text-to-copy (buffer-substring-no-properties
+                       (line-beginning-position)  ; Start from the beginning of the line
+                       (point))))                 ; End at the current point
+    (when (zerop (call-process "wl-copy" nil nil nil text-to-copy))
+      (message "Text copied to clipboard."))))
+
+(defun tl/kill-line-forward-to-clipboard ()
+  "Kill the text from the current point to the end of the line and copy it to the clipboard."
+  (interactive)
+  (let ((text-to-kill (buffer-substring-no-properties
+                       (point)                      ; Start from the current point
+                       (line-end-position))))      ; End at the end of the line
+    (kill-region (point) (line-end-position))     ; Kill the text
+    (when (zerop (call-process "wl-copy" nil nil nil text-to-kill))
+      (message "Text copied to clipboard."))))
+
+(defun tl/kill-line-backward-to-clipboard ()
+  "Kill the text from the current point to the beginning of the line and copy it to the clipboard."
+  (interactive)
+  (let ((text-to-kill (buffer-substring-no-properties
+                       (line-beginning-position)  ; Start from the beginning of the line
+                       (point))))                 ; End at the current point
+    (kill-region (line-beginning-position) (point)) ; Kill the text
+    (when (zerop (call-process "wl-copy" nil nil nil text-to-kill))
+      (message "Text copied to clipboard."))))
+
 (defun tl/org-kill-line-backward ()
   "Kill text from the cursor to the beginning of the line."
   (interactive)
   (kill-line 0))
 
-(defun tl/kill-copy-whole-line ()
-  "Kill the current line and copy its content to the system clipboard using wl-copy."
+(defun tl/copy-whole-line ()
+  "Copy the current line's content to the system clipboard using wl-copy."
   (interactive)
   (let ((line-text (buffer-substring-no-properties
                     (line-beginning-position)
                     (line-end-position))))
-    (kill-whole-line)
     (when (zerop (call-process "wl-copy" nil nil nil line-text))
       (message "Line copied to clipboard."))))
 
