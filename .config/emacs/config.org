@@ -1938,6 +1938,8 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (define-key treemacs-mode-map (kbd "ad") 'treemacs-create-dir)
   (define-key treemacs-mode-map (kbd "ac") 'treemacs-copy-file)
   (define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
+  (define-key treemacs-mode-map (kbd ";") 'recenter-top-bottom)
+  (define-key treemacs-mode-map (kbd ":") 'move-to-window-line-top-bottom)
   (define-key treemacs-mode-map (kbd "t") 'treemacs-quit)
   (define-key treemacs-mode-map (kbd "Q") 'treemacs-kill-buffer)
   (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
@@ -1955,13 +1957,13 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (define-key treemacs-mode-map (kbd "cf") 'treemacs-copy-filename-at-point)
 
   ;; Toggle Keybinds
-  (define-key treemacs-mode-map (kbd "th") 'treemacs-toggle-show-dotfiles)
-  (define-key treemacs-mode-map (kbd "ti") 'treemacs-hide-gitignored-files-mode)
-  (define-key treemacs-mode-map (kbd "tw") 'treemacs-toggle-fixed-width)
-  (define-key treemacs-mode-map (kbd "tf") 'treemacs-follow-mode)
-  (define-key treemacs-mode-map (kbd "ta") 'treemacs-filewatch-mode)
-  (define-key treemacs-mode-map (kbd "tv") 'treemacs-fringe-indicator-mode)
-  (define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
+  ;(define-key treemacs-mode-map (kbd "th") 'treemacs-toggle-show-dotfiles)
+  ;(define-key treemacs-mode-map (kbd "ti") 'treemacs-hide-gitignored-files-mode)
+  ;(define-key treemacs-mode-map (kbd "tw") 'treemacs-toggle-fixed-width)
+  ;(define-key treemacs-mode-map (kbd "tf") 'treemacs-follow-mode)
+  ;(define-key treemacs-mode-map (kbd "ta") 'treemacs-filewatch-mode)
+  ;(define-key treemacs-mode-map (kbd "tv") 'treemacs-fringe-indicator-mode)
+  ;(define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
 
   ;; Project Keybinds
   (define-key treemacs-mode-map (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
