@@ -65,7 +65,6 @@
   - [[#gptel][GPTel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
-  - [[#goto-chg][Goto-chg]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential packages]]
   - [[#editing-features-for-org][Editing features for org]]
@@ -1418,36 +1417,6 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
 ;; Set the key binding based on the buffer type
 (add-hook 'org-mode-hook (lambda () (local-set-key (kbd "C-a") 'move-beginning-of-line)))
 (add-hook 'after-change-major-mode-hook 'set-smarter-move-beginning-of-line-key)
-
-;; Select until beginning of the buffer
-(defun select-until-beginning ()
-  "Select text from current point until the beginning of the buffer."
-  (interactive)
-  (push-mark (point) t t)
-  (goto-char (point-min)))
-
-;; Select until end of the buffer
-(defun select-until-end ()
-  "Select text from current point until the end of the buffer."
-  (interactive)
-  (push-mark (point) t t)
-  (goto-char (point-max)))
-
-;; By default there's no command to kill to beginning of line
-(defun kill-to-beginning-of-line ()
-  "Kill text from point to the beginning of the line."
-  (interactive)
-  (kill-line 0))
-
-(defun tl/delete-to-end-of-file ()
-  "Delete text from the current position to the end of the file."
-  (interactive)
-  (delete-region (point) (point-max)))
-
-(defun tl/delete-to-beginning-of-file ()
-  "Delete text from the current position to the beginning of the file."
-  (interactive)
-  (delete-region (point-min) (point)))
 #+end_src
 
 ** Copy current line
@@ -2253,7 +2222,9 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (god-mode)
   ;(global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key - rebinded to toggle god mode on TAB
 
-  ;; Ctrl+}/{/,/./</>
+  ;; Ctrl+[/]{/}/,/./</>
+  (define-key god-local-mode-map (kbd "]") #'tl/copy-to-end-of-file)
+  (define-key god-local-mode-map (kbd "[") #'tl/copy-to-beginning-of-file)
   (define-key god-local-mode-map (kbd "}") #'tl/delete-to-end-of-file)
   (define-key god-local-mode-map (kbd "{") #'tl/delete-to-beginning-of-file)
   (define-key god-local-mode-map (kbd ",") #'backward-paragraph)
@@ -2356,21 +2327,15 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 
   ;; Unbound
   ;(define-key god-local-mode-map (kbd "C-S-b") #')
-  ;(define-key god-local-mode-map (kbd "[") #')
-  ;(define-key god-local-mode-map (kbd "]") #')
   ;(define-key god-local-mode-map (kbd "g") #')
-
-  ;(require 'god-mode-isearch)
-  ;(define-key isearch-mode-map (kbd "C-@") #'god-mode-isearch-activate)
-  ;(define-key god-mode-isearch-map (kbd "C-@") #'god-mode-isearch-disable)
   
   ;; Visual indicators for God mode
   (custom-set-faces
    '(god-mode-lighter ((t (:inherit error))))))
-#+end_src
+,#+end_src
 
-** Goto-chg
-The goto-chg package provides a direct equivalent to Vim's C-o and C-i keybinds.
+,** Goto-chg
+The goto-chg package provides a direct equivalent to Vim's C-o and C-i k
 It allows you to jump to the locations of the last changes made in the buffer:
 #+begin_src emacs-lisp
 (use-package goto-chg
@@ -2765,6 +2730,34 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
 *** Org text editing adjustments
 
 #+begin_src emacs-lisp
+(defun tl/copy-to-end-of-file ()
+  "Copy the text from the current point to the end of the file to the clipboard."
+  (interactive)
+  (let ((text-to-copy (buffer-substring-no-properties
+                       (point)                      ; Start from the current point
+                       (point-max))))               ; End at the end of the file
+    (when (zerop (call-process "wl-copy" nil nil nil text-to-copy))
+      (message "Text copied to clipboard."))))
+
+(defun tl/copy-to-beginning-of-file ()
+  "Copy the text from the current point to the end of the file to the clipboard."
+  (interactive)
+  (let ((text-to-copy (buffer-substring-no-properties
+                       (point)                      ; Start from the current point
+                       (point-min))))               ; End at the end of the file
+    (when (zerop (call-process "wl-copy" nil nil nil text-to-copy))
+      (message "Text copied to clipboard."))))
+
+(defun tl/delete-to-end-of-file ()
+  "Delete text from the current position to the end of the file."
+  (interactive)
+  (delete-region (point) (point-max)))
+
+(defun tl/delete-to-beginning-of-file ()
+  "Delete text from the current position to the beginning of the file."
+  (interactive)
+  (delete-region (point-min) (point)))
+
 (defun tl/copy-line-forward ()
   "Copy the text from the current point to the end of the line to the clipboard."
   (interactive)
