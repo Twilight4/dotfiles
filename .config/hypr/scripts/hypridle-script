@@ -11,18 +11,18 @@ SERVICE="hypridle"
 if [[ "$1" == "status" ]]; then
     if pgrep -x "$SERVICE" >/dev/null ;then
         #echo '{"text": "RUNNING", "class": "active", "tooltip": "Screen locking active"}'
-        notify-send -u low -t 4000 "Screen Locking" "Disabled"
+        notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Disabled"
     else
         #echo '{"text": "NOT RUNNING", "class": "notactive", "tooltip": "Screen locking deactivated"}'
-        notify-send -u critical -t 4000 "Screen Locking" "Enabled"
+        notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Enabled"
     fi
 fi
 if [[ "$1" == "toggle" ]]; then
     if pgrep -x "$SERVICE" >/dev/null ;then
         killall hypridle
-        notify-send -u low -t 4000 "Screen Locking" "Disabled"
+        notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Disabled"
     else
-        notify-send -u critical -t 4000 "Screen Locking" "Enabled"
+        notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Enabled"
         hypridle
     fi
 fi
