@@ -1,28 +1,12 @@
 #!/bin/bash
-#  _   _                  _     _ _      
-# | | | |_   _ _ __  _ __(_) __| | | ___ 
-# | |_| | | | | '_ \| '__| |/ _` | |/ _ \
-# |  _  | |_| | |_) | |  | | (_| | |  __/
-# |_| |_|\__, | .__/|_|  |_|\__,_|_|\___|
-#        |___/|_|                        
-# 
 
-SERVICE="hypridle"
-if [[ "$1" == "status" ]]; then
-    if pgrep -x "$SERVICE" >/dev/null ;then
-        #echo '{"text": "RUNNING", "class": "active", "tooltip": "Screen locking active"}'
-        notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Disabled"
-    else
-        #echo '{"text": "NOT RUNNING", "class": "notactive", "tooltip": "Screen locking deactivated"}'
-        notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Enabled"
-    fi
-fi
-if [[ "$1" == "toggle" ]]; then
-    if pgrep -x "$SERVICE" >/dev/null ;then
-        killall hypridle
-        notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Disabled"
-    else
-        notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Enabled"
-        hypridle
-    fi
+if pgrep -x hypridle > /dev/null; then
+    killall hypridle
+    hyprctl dispatch killwindow 'class:^(kitty-idling-script)$'
+    notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Disabled"
+else
+    notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Enabled"
+    hyprctl dispatch exec 'kitty --hold -T kitty-idling-script --class kitty-idling-script -e hypridle'
+    sleep 0.4
+    hyprctl dispatch focuscurrentorlast
 fi
