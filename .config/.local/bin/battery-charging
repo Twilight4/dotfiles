@@ -6,7 +6,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
 
 # Send a notification when the laptop is plugged in/unplugged
 BATTERY_STATE=$1
-BATTERY_LEVEL=$(acpi -b | grep "Battery 0" | grep -P -o '[0-9]+(?=%)')
+BATTERY_LEVEL=$(acpi -b | grep "Battery 1" | grep -P -o '[0-9]+(?=%)')
 # My battery takes a couple of seconds to recognize as charging, so this is a hacky way to deal with it
 case "$BATTERY_STATE" in
 	"charging") BATTERY_CHARGING="Charging" ; BATTERY_ICON="charging" ;;
