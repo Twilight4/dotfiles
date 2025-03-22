@@ -50,6 +50,7 @@
         "battery", 
         "tray",
         "custom/notifications",
+        //"custom/idling",
         //"custom/dock-toggle",
         //"custom/screenlock",
         //"custom/ags-sidebar",

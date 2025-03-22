@@ -109,9 +109,9 @@
     },
 
     // Screenlock button
-    "custom/screenlock": {
+    "custom/idling": {
         "format": "󰡭",
-        "on-click": "~/.config/hypr/scripts/hypridle-script toggle",
+        "on-click": "~/.config/hypr/scripts/hypridle-script",
         "tooltip": false
     },
 
