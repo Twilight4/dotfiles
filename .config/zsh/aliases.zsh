@@ -171,6 +171,7 @@ alias big="expac -H M '%m\t%n' | sort -h | nl"
 alias probe="sudo -E hw-probe -all -upload"
 alias sysfailed="systemctl list-units --failed"
 alias hw="hwinfo --short"
+alias battery="acpi -b | grep 'Battery'"
 alias go-update="go get -u all"
 
 # ps
