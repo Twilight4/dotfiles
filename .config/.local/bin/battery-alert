@@ -31,7 +31,7 @@ while true; do
         touch $FULL_FILE
     # If the battery is low and is not charging (and has not shown notification yet)
     elif [ "$BATTERY_LEVEL" -le $WARNING_LEVEL ] && [ "$BATTERY_DISCHARGING" -eq 1 ] && [ ! -f $EMPTY_FILE ]; then
-        notify-send "Low Battery" "${BATTERY_LEVEL}% of battery remaining." -u critical -i "battery-alert" -r 9991
+        notify-send "Low Battery" "$BATTERY_LEVEL% of battery remaining." -u critical -i "battery-alert" -r 9991
         #touch $EMPTY_FILE  # Uncomment if you want to show notifications only once
     # If the battery is critical and is not charging (and has not shown notification yet)
     elif [ "$BATTERY_LEVEL" -le $CRITICAL_LEVEL ] && [ "$BATTERY_DISCHARGING" -eq 1 ] && [ ! -f $CRITICAL_FILE ]; then
