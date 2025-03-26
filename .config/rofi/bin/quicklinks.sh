@@ -23,7 +23,6 @@ option_23=" HackTricks CheatSheet"
 option_25="󰥷 Image to Text"
 option_31=" Google Maps"
 option_34=" AD CheatSheet PDF"
-option_35=" Digital Ocean"
 option_36=" PayPal"
 option_38=" 0bin"
 option_39=" Tutanota Mail"
@@ -73,7 +72,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_23\n$option_25\n$option_31\n$option_34\n$option_35\n$option_36\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_23\n$option_25\n$option_31\n$option_34\n$option_36\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65" | rofi_cmd
 }
 
 # Execute Command
@@ -125,6 +124,8 @@ run_cmd() {
         xdg-open "https://allegro.pl/listing?string=$query" &
         xdg-open "https://www.olx.pl/oferty/q-$query/" &
         xdg-open "https://www.google.com/search?q=$query" &
+        xdg-open "https://pl.aliexpress.com" &
+        xdg-open "https://www.temu.com/pl" &
       fi
       ;;
     --opt9)
@@ -328,9 +329,6 @@ case "${chosen}" in
     ;;
   $option_34)
     run_cmd --opt34
-    ;;
-  $option_35)
-    run_cmd --opt35
     ;;
   $option_36)
     run_cmd --opt36
