@@ -58,6 +58,11 @@ alias mwhoami='mega-whoami -l'
 alias mpwd='mega-pwd'
 alias mdu='mega-du -h'
 
+# Location
+alias location-on='/usr/lib/geoclue-2.0/demos/agent'
+alias location-off='killall /usr/lib/geoclue-2.0/demos/agent'
+alias whereami='/usr/lib/geoclue-2.0/demos/where-am-i'
+
 # Count all files recursively in the current folder
 alias cf="bash -c \"for t in files links directories; do echo \\\$(find . -  type \\\${t:0:1} | wc -l) \\\$t; done 2> /dev/null\""
 
