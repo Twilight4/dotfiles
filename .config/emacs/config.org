@@ -2332,9 +2332,9 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;; Visual indicators for God mode
   (custom-set-faces
    '(god-mode-lighter ((t (:inherit error))))))
-,#+end_src
+#+end_src
 
-,** Goto-chg
+** Goto-chg
 The goto-chg package provides a direct equivalent to Vim's C-o and C-i k
 It allows you to jump to the locations of the last changes made in the buffer:
 #+begin_src emacs-lisp
