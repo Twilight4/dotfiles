@@ -10,7 +10,7 @@ hyprctl dispatch workspace 5
 # Check if netflix is running
 if ! is_netflix_running; then
   # If netflix is not running, launch it
-  hyprctl dispatch exec 'ferdium'
+  hyprctl dispatch exec 'ferdium --ozone-platform=wayland --enable-features-WaylandWindowDecorations'
 else
   # If netflix is running, focus on its window
   hyprctl dispatch focuswindow 'class:^(Ferdium)$'
