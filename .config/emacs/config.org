@@ -36,7 +36,7 @@
   - [[#smart-hungry-delete][Smart hungry-delete]]
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
-  - [[#i-search][I-Search]]
+  - [[#i-search---search-current-word][I-Search - Search Current Word]]
   - [[#clipboard-adjustments][Clipboard adjustments]]
   - [[#selection-adjustments][Selection adjustments]]
   - [[#copy-current-line][Copy current line]]
@@ -59,12 +59,14 @@
   - [[#embark][Embark]]
   - [[#embark-consult][Embark-consult]]
 - [[#other-packages][Other Packages]]
+  - [[#anzu][Anzu]]
   - [[#jinx][Jinx]]
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#gptel][GPTel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
+  - [[#goto-chg][Goto-chg]]
 - [[#org-mode][Org Mode]]
   - [[#essential-packages][Essential packages]]
   - [[#editing-features-for-org][Editing features for org]]
@@ -1267,53 +1269,123 @@ appropriate.  In tables, insert a new row or end the table."
 Skip default buffers like **Messages** when using =buffer-prev=/=next=
 
 #+begin_src emacs-lisp
+(defvar tl-fly-switch-buffer-map nil "repeat key map for `tl/better-next-buffer' etc.")
+(defun check-user-buffer-p ()
+  "Return t if current buffer is a user buffer, else nil.
+A user buffer has buffer name NOT starts with * or space, and is not dired mode, help mode, etc.
+This function is used by buffer switching command and close buffer command, so that next buffer shown is a user buffer.
+You can override this function to get your idea of “user buffer”.
+Created: 2016-06-18
+Version: 2024-09-23"
+  (interactive)
+  (cond
+   ((string-match "^\*" (buffer-name)) nil)
+   ((eq major-mode 'dired-mode) nil)
+   ((eq major-mode 'eww-mode) nil)
+   ((eq major-mode 'help-mode) nil)
+   (t t)))
+
 (defun tl/better-next-buffer ()
-  "Switch to the next buffer, skipping those with names starting with an asterisk."
+  "Switch to the next user buffer.
+User Buffer here is determined by `check-user-buffer-p'.
+
+Press left or right arrow key to switch to prev next user.
+Press up or down arrow to switch to prev next emacs buffer.
+Any other key to exit.
+
+URL `http://xahlee.info/emacs/emacs/elisp_next_prev_user_buffer.html'
+Created: 2016-06-19
+Version: 2024-09-23"
   (interactive)
   (next-buffer)
-  (while (string-prefix-p "*" (buffer-name (current-buffer)))
-    (next-buffer)))
+  (let ((i 0))
+    (while (< i 30)
+      (if (not (check-user-buffer-p))
+          (progn (next-buffer)
+                 (setq i (1+ i)))
+        (progn (setq i 100)))))
+  (set-transient-map tl-fly-switch-buffer-map))
 
 (defun tl/better-previous-buffer ()
-  "Switch to the previous buffer, skipping those with names starting with an asterisk."
+  "Switch to the previous user buffer.
+User Buffer here is determined by `check-user-buffer-p'.
+
+Press left or right arrow key to switch to prev next user.
+Press up or down arrow to switch to prev next emacs buffer.
+Any other key to exit.
+
+URL `http://xahlee.info/emacs/emacs/elisp_next_prev_user_buffer.html'
+Created: 2016-06-19
+Version: 2024-05-01"
   (interactive)
   (previous-buffer)
-  (while (string-prefix-p "*" (buffer-name (current-buffer)))
-    (previous-buffer)))
+  (let ((i 0))
+    (while (< i 29)
+      (if (not (check-user-buffer-p))
+          (progn (previous-buffer)
+                 (setq i (1+ i)))
+        (progn (setq i 100)))))
+  (set-transient-map tl-fly-switch-buffer-map))
+
+(defun tl/next-emacs-buffer ()
+  "Switch to the next emacs buffer.
+Emacs buffer here means `check-user-buffer-p' return nil.
+
+Press left or right arrow key to switch to prev next user.
+Press up or down arrow to switch to prev next emacs buffer.
+Any other key to exit.
+
+URL `http://xahlee.info/emacs/emacs/elisp_next_prev_user_buffer.html'
+Created: 2013-05-22
+Version: 2024-09-16"
+  (interactive)
+  (next-buffer)
+  (let ((i 0))
+    (while (and (check-user-buffer-p) (< i 20))
+      (setq i (1+ i)) (next-buffer)))
+  (set-transient-map tl-fly-switch-buffer-map))
+
+(defun tl/previous-emacs-buffer ()
+  "Switch to the previous emacs buffer.
+Emacs buffer here means `check-user-buffer-p' return nil.
+
+Press left or right arrow key to switch to prev next user.
+Press up or down arrow to switch to prev next emacs buffer.
+Any other key to exit.
+
+URL `http://xahlee.info/emacs/emacs/elisp_next_prev_user_buffer.html'
+Created: 2013-05-22
+Version: 2024-09-16"
+  (interactive)
+  (previous-buffer)
+  (let ((i 0))
+    (while (and (check-user-buffer-p) (< i 20))
+      (setq i (1+ i)) (previous-buffer)))
+  (set-transient-map tl-fly-switch-buffer-map))
 #+end_src
 
-** I-Search
-Show number of matches while searching.
-
+** I-Search - Search Current Word
 #+begin_src emacs-lisp
-(use-package anzu
-  :bind (([remap query-replace-regexp] . anzu-query-replace-regexp)
-         ([remap query-replace] . anzu-query-replace)
-         ("C-M-w". isearch-yank-symbol))
-  :custom
-  (anzu-mode-lighter "")
-  :config
-  (defun sanityinc/isearch-exit-other-end ()
-    "Exit isearch, but at the other end of the search string.
-This is useful when followed by an immediate kill."
-    (interactive)
-    (isearch-exit)
-    (goto-char isearch-other-end))
-  (define-key isearch-mode-map [(control return)] 'sanityinc/isearch-exit-other-end)
-  ;; Search back/forth for the symbol at point
-  ;; See http://www.emacswiki.org/emacs/SearchAtPoint
-  (defun isearch-yank-symbol ()
-    "*Put symbol at current point into search string."
-    (interactive)
-    (let ((sym (thing-at-point 'symbol)))
-      (if sym
-          (progn
-            (setq isearch-regexp t
-                  isearch-string (concat "\\_<" (regexp-quote sym) "\\_>")
-                  isearch-message (mapconcat 'isearch-text-char-description isearch-string "")
-                  isearch-yank-flag t))
-        (ding)))
-    (isearch-search-and-update)))
+(defun tl/search-current-word ()
+  "Call `isearch' on current word or selection.
+“word” here is A to Z, a to z, and hyphen [-] and lowline [_], independent of syntax table.
+
+URL `http://xahlee.info/emacs/emacs/modernization_isearch.html'
+Created: 2010-05-29
+Version: 2025-02-05"
+  (interactive)
+  (let (xbeg xend)
+    (if (region-active-p)
+        (setq xbeg (region-beginning) xend (region-end))
+      (save-excursion
+        (skip-chars-backward "-_A-Za-z0-9")
+        (setq xbeg (point))
+        (right-char)
+        (skip-chars-forward "-_A-Za-z0-9")
+        (setq xend (point))))
+    (when (< xbeg (point)) (goto-char xbeg))
+    (isearch-mode t)
+    (isearch-yank-string (buffer-substring-no-properties xbeg xend))))
 #+end_src
 
 ** Clipboard adjustments
@@ -1740,6 +1812,26 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 * Other Packages
+** Anzu
+Show number of matches while searching.
+
+#+begin_src emacs-lisp
+(use-package anzu
+  :bind (([remap query-replace-regexp] . anzu-query-replace-regexp)
+         ([remap query-replace] . anzu-query-replace))
+  :custom
+  (global-anzu-mode +1)
+  (anzu-mode-lighter "")
+  :config
+  (defun tl/isearch-exit-other-end ()
+    "Exit isearch, but at the other end of the search string.
+This is useful when followed by an immediate kill."
+    (interactive)
+    (isearch-exit)
+    (goto-char isearch-other-end))
+  (define-key isearch-mode-map [(control return)] 'tl/isearch-exit-other-end))
+#+end_src
+
 ** Jinx
 
 #+begin_src emacs-lisp
@@ -2279,6 +2371,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-p") #'tl/newline-at-end-of-previous-line)
   (define-key god-local-mode-map (kbd "C-S-p") #'drag-stuff-up)
 
+  ;; Ctrl+s
+  (define-key god-local-mode-map (kbd "s") #'basic-save-buffer)
+  (define-key god-local-mode-map (kbd "C-s") #'tl/search-current-word)
+  (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
+
   ;; Org priorities
   (define-key god-local-mode-map (kbd "-") 'org-priority-up)
   (define-key god-local-mode-map (kbd "=") 'org-priority-down)
@@ -2308,8 +2405,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(define-key god-local-mode-map (kbd "C-@") #'consult-mark)         ;; TODO not working
   (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars TODO
-  (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
-  (define-key god-local-mode-map (kbd "|") #'query-replace)
+  (define-key god-local-mode-map (kbd "|") #'anzu-query-replace)       ;; TODO - try: anzu-query-replace-at-cursor-thing, anzu-replace-at-cursor-thing, anzu-query-replace-at-cursor
 
   ;; Search
   (define-key god-local-mode-map (kbd "/") #'isearch-forward)
@@ -2320,7 +2416,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "t") #'treemacs)
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
-  (define-key god-local-mode-map (kbd "s") #'basic-save-buffer)
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
   (define-key god-local-mode-map (kbd "y") #'paste-from-system-clipboard)
   (define-key god-local-mode-map (kbd "\\") #'universal-argument)
