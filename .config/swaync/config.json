@@ -77,8 +77,8 @@
                     "update-command": "sh -c '[[ $(bluetoothctl show | grep \"Powered: yes\") ]] && echo true || echo false'"
                 },
                 {
-                    "label": " 󱊤 ",
-                    "command": "/home/twilight/.config/hypr/scripts/battery-saving",
+                    "label": "  ",
+                    "command": "/home/twilight/.config/hypr/scripts/toggle-location",
                     "type": "toggle"
                 },
                 {
@@ -107,13 +107,13 @@
                     "type": "toggle"
                 },
                 {
-                    "label":" 󱂩 ",
-                    "command": "/home/twilight/.config/hypr/scripts/dock-toggle-hyprland",
+                    "label": " 󱊤 ",
+                    "command": "/home/twilight/.config/hypr/scripts/battery-saving",
                     "type": "toggle"
                 },
                 {
-                    "label":" 󰐹 ",
-                    "command": "/home/twilight/.config/hypr/scripts/lofi-stream",
+                    "label":" 󱂩 ",
+                    "command": "/home/twilight/.config/hypr/scripts/dock-toggle-hyprland",
                     "type": "toggle"
                 },
                 {
