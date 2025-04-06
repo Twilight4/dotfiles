@@ -31,6 +31,7 @@
 - [[#editing-features][Editing Features]]
   - [[#improved-file-management][Improved file management]]
   - [[#nicer-org-return][Nicer org-return]]
+  - [[#clean-empty-lines][Clean Empty Lines]]
   - [[#expand-region][Expand-region]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#smart-hungry-delete][Smart hungry-delete]]
@@ -38,9 +39,10 @@
   - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
   - [[#i-search---search-current-word][I-Search - Search Current Word]]
   - [[#clipboard-adjustments][Clipboard adjustments]]
-  - [[#selection-adjustments][Selection adjustments]]
+  - [[#move-cursor-by-text-block][Move cursor by text block]]
   - [[#copy-current-line][Copy current line]]
   - [[#toggle-selection-mode][Toggle selection mode]]
+  - [[#select-text-block][Select Text Block]]
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
   - [[#no-littering][No-littering]]
@@ -216,6 +218,8 @@
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
+(global-set-key (kbd "C-a") 'tl/beginning-of-line-or-block)
+(global-set-key (kbd "C-e") 'tl/end-of-line-or-block)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'backward-char)
@@ -324,7 +328,7 @@
      (define-key org-agenda-mode-map (kbd ",") 'org-agenda-goto-date)
      (define-key org-agenda-mode-map (kbd "<") 'org-agenda-date-prompt)
      (define-key org-agenda-mode-map (kbd "V") 'org-agenda-view-mode-dispatch)
-     (define-key org-agenda-mode-map (kbd "E") 'org-agenda-priority)	 
+     (define-key org-agenda-mode-map (kbd "E") 'org-agenda-priority)
      (define-key org-agenda-mode-map (kbd "L") 'org-agenda-log-mode)
      (define-key org-agenda-mode-map (kbd "U") 'org-agenda-clock-cancel)
      (define-key org-agenda-mode-map (kbd "h") 'org-agenda-show-tags)
@@ -436,7 +440,7 @@
     "C-o" '(dashboard-open :wk "Open emacs dashboard")
     "C-w" '(ace-swap-window :wk "Swap windows")
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
-    "C->" '(enlarge-window :wk "Enlarge window")  
+    "C->" '(enlarge-window :wk "Enlarge window")
     "C-<" '(shrink-window :wk "Shrink window")
     "C-/" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
     "C-_" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
@@ -528,7 +532,7 @@
     "C-e C-c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "C-e C-s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
 
-  (which-key-add-key-based-replacements 
+  (which-key-add-key-based-replacements
     "C-x e c" "Edit config"
     "C-x e s" "Edit emacs cheatsheet")
 
@@ -640,8 +644,8 @@
  "C-r" '(symbol-overlay-query-replace :wk "Symbol query replace")
  "C-w" '(symbol-overlay-rename :wk "Symbol rename")
  ;; Expand-region
- "e" '(er/mark-org-element :wk "Mark element")       
- "p" '(er/mark-org-parent :wk "Mark element")       
+ "e" '(er/mark-org-element :wk "Mark element")
+ "p" '(er/mark-org-parent :wk "Mark element")
  "b" '(org-babel-mark-block :wk "Mark code block")
  "B" '(er/mark-org-code-block :wk "Mark entire code block")
  "." '(er/mark-paragraph :wk "Mark paragraph")
@@ -776,7 +780,7 @@
 
 ** Scrolling
 
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (setq-default pixel-scroll-precision-mode t
               fast-but-imprecise-scrolling t
               mouse-wheel-scroll-amount '(1 ((shift) . 1))  ;; one line at a time
@@ -826,7 +830,7 @@
 
 * UI Configuration
 ** All-the-icons
-This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs. 
+This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
 *NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
 
 #+begin_src emacs-lisp
@@ -962,7 +966,7 @@ Adjust org-roam file names in similary way I have in the window title.
 
 #+begin_src emacs-lisp
 (use-package dashboard
-  :ensure t 
+  :ensure t
   :init
   (setq initial-buffer-choice 'dashboard-open)
   (setq dashboard-set-heading-icons t)
@@ -1035,7 +1039,7 @@ When we have the default file encoding (LF UTF-8), it really isn’t worth notin
 #+end_src
 
 ** Ansi colours
-It’s nice to see ANSI colour codes displayed, however I don’t want to disrupt ANSI codes in =Org= src blocks. 
+It’s nice to see ANSI colour codes displayed, however I don’t want to disrupt ANSI codes in =Org= src blocks.
 
 #+begin_src emacs-lisp
 (add-hook 'text-mode-hook
@@ -1204,7 +1208,6 @@ appropriate.  In tables, insert a new row or end the table."
       ;; All other cases: call `org-return-indent'.
 	  (org-return t)))))
 
-
 ;; Newline Behavior
 (setq ad-redefinition-action 'accept)
 
@@ -1217,9 +1220,38 @@ appropriate.  In tables, insert a new row or end the table."
 (defun tl/newline-at-end-of-previous-line ()
   "Move to the end of the current line, insert a newline, and reindent."
   (interactive)
-  (previous-line)  
+  (previous-line)
   (end-of-line)                    ; Move to the end of the current line
   (newline-and-indent))            ; Insert a newline and indent according to mode
+#+end_src
+
+** Clean Empty Lines
+Here's command to remove repeated blank lines and delete trailing white space.
+
+#+begin_src emacs-lisp
+(defun tl/clean-whitespace ()
+  "Delete trailing whitespace, and replace repeated blank lines to just 1.
+Only space and tab is considered whitespace here.
+Works on whole buffer or selection, respects `narrow-to-region'.
+
+URL `http://xahlee.info/emacs/emacs/elisp_compact_empty_lines.html'
+Created: 2017-09-22
+Version: 2022-08-06"
+  (interactive)
+  (let (xbegin xend)
+    (if (region-active-p)
+        (setq xbegin (region-beginning) xend (region-end))
+      (setq xbegin (point-min) xend (point-max)))
+    (save-excursion
+      (save-restriction
+        (narrow-to-region xbegin xend)
+        (goto-char (point-min))
+        (while (re-search-forward "[ \t]+\n" nil 1) (replace-match "\n"))
+        (goto-char (point-min))
+        (while (re-search-forward "\n\n\n+" nil 1) (replace-match "\n\n"))
+        (goto-char (point-max))
+        (while (eq (char-before) 32) (delete-char -1)))))
+  (message "%s done" real-this-command))
 #+end_src
 
 ** Expand-region
@@ -1239,7 +1271,7 @@ appropriate.  In tables, insert a new row or end the table."
 #+end_src
 
 ** Smart hungry-delete
-[[https://github.com/nflath/hungry-delete][Hungry Delete]] is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting. 
+[[https://github.com/nflath/hungry-delete][Hungry Delete]] is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting.
 
 #+begin_src emacs-lisp
 (use-package smart-hungry-delete
@@ -1457,38 +1489,51 @@ Version: 2025-02-05"
 (global-set-key (kbd "M-'") 'copy-last-entry-to-clipboard)
 #+end_src
 
-** Selection adjustments
-Function =smarter-move-beginning-of-line= moves the cursor to the indentation of the beginning of the current line.
-If the cursor is already at the indentation, it moves to the actual beginning of the line.
-The function also accepts an argument =ARG= which, if non-nil or non-zero, moves the cursor forward =ARG= - 1 lines before executing the main logic.
-This configuration also remaps =C-a= the =smarter-move-beginning-of-line= function using the =global-set-key= function.
+** Move cursor by text block
+Here's a command that move cursor to beginning of line (of visible char) or previous text block.
 
 #+begin_src emacs-lisp
-(defun smarter-move-beginning-of-line (arg)
-  "Move point back to indentation of beginning of line.
-   Only bind this function when not in an Org mode buffer.
-   When in Org mode buffers, maintain the normal behavior of
-   `move-beginning-of-line'."
-  (interactive "^p")
-  (if (and (boundp 'org-mode) org-mode)
-      (move-beginning-of-line arg)
-    (setq arg (or arg 1))
-    ;; Move lines first
-    (when (/= arg 1)
-      (let ((line-move-visual nil))
-        (forward-line (1- arg))))
-    (let ((orig-point (point)))
-      (back-to-indentation)
-      (when (= orig-point (point))
-        (move-beginning-of-line 1)))))
+(defun tl/beginning-of-line-or-block ()
+  "Move cursor to beginning of indent or line, end of previous block, in that order.
 
-(defun set-smarter-move-beginning-of-line-key ()
-  "Set key binding for 'smarter-move-beginning-of-line' based on the buffer type."
-  (global-set-key (kbd "C-a") 'smarter-move-beginning-of-line))
+If `visual-line-mode' is on, beginning of line means visual line.
 
-;; Set the key binding based on the buffer type
-(add-hook 'org-mode-hook (lambda () (local-set-key (kbd "C-a") 'move-beginning-of-line)))
-(add-hook 'after-change-major-mode-hook 'set-smarter-move-beginning-of-line-key)
+URL `http://xahlee.info/emacs/emacs/emacs_move_by_paragraph.html'
+Created: 2018-06-04
+Version: 2024-10-30"
+  (interactive)
+  (let ((xp (point)))
+    (if (or (eq (point) (line-beginning-position))
+            (eq last-command this-command))
+        (when (re-search-backward "\n[\t\n ]*\n+" nil 1)
+          (skip-chars-backward "\n\t ")
+          ;; (forward-char)
+          )
+      (if visual-line-mode
+          (beginning-of-visual-line)
+        (if (eq major-mode 'eshell-mode)
+            (beginning-of-line)
+          (back-to-indentation)
+          (when (eq xp (point))
+            (beginning-of-line)))))))
+
+(defun tl/end-of-line-or-block ()
+  "Move cursor to end of line or next block.
+
+• When called first time, move cursor to end of line.
+• When called again, move cursor forward by jumping over any sequence of whitespaces containing 2 blank lines.
+• if `visual-line-mode' is on, end of line means visual line.
+
+URL `http://xahlee.info/emacs/emacs/emacs_move_by_paragraph.html'
+Created: 2018-06-04
+Version: 2024-10-30"
+  (interactive)
+  (if (or (eq (point) (line-end-position))
+          (eq last-command this-command))
+      (re-search-forward "\n[\t\n ]*\n+" nil 1)
+    (if visual-line-mode
+        (end-of-visual-line)
+      (end-of-line))))
 #+end_src
 
 ** Copy current line
@@ -1514,6 +1559,30 @@ This configuration also remaps =C-a= the =smarter-move-beginning-of-line= functi
   (if (region-active-p)
       (deactivate-mark)
     (set-mark-command nil)))
+#+end_src
+
+** Select Text Block
+This lets you select current block of text. (a block here is text between empty lines.)
+
+If there's already a selection, extend selection downward by block.
+
+#+begin_src emacs-lisp
+(defun tl/select-block ()
+  "Select the current/next block plus 1 blankline.
+If region is active, extend selection downward by block.
+
+URL `http://xahlee.info/emacs/emacs/emacs_select_text_block.html'
+Created: 2019-12-26
+Version: 2023-11-14"
+  (interactive)
+  (if (region-active-p)
+      (re-search-forward "\n[ \t]*\n[ \t]*\n*" nil 1)
+    (progn
+      (skip-chars-forward " \n\t")
+      (when (re-search-backward "\n[ \t]*\n" nil 1)
+        (goto-char (match-end 0)))
+      (push-mark (point) t t)
+      (re-search-forward "\n[ \t]*\n" nil 1))))
 #+end_src
 
 ** Screenshot automation
@@ -1586,13 +1655,28 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
 
 #+begin_src emacs-lisp
 (defun mark-whole-line ()
-  "Mark the whole line from start to end position, with the cursor at the beginning of the next line."
+  "Select current line. If region is active, extend selection downward by line.
+If `visual-line-mode' is on, consider line as visual line.
+
+URL `http://xahlee.info/emacs/emacs/emacs_select_line.html'
+Version: 2017-11-01 2023-07-16 2023-11-14"
   (interactive)
-  (let ((start (line-beginning-position))
-        (end (line-end-position)))
-    (goto-char start)              ; Move cursor to the start of the current line
-    (push-mark start t t)          ; Set the mark at the beginning of the line, activate the region
-    (goto-char (line-beginning-position 2)))) ; Move cursor to the beginning of the next line
+  (if (region-active-p)
+      (if visual-line-mode
+          (let ((xp1 (point)))
+            (end-of-visual-line 1)
+            (when (eq xp1 (point))
+              (end-of-visual-line 2)))
+        (progn
+          (forward-line 1)
+          (end-of-line)))
+    (if visual-line-mode
+        (progn (beginning-of-visual-line)
+               (push-mark (point) t t)
+               (end-of-visual-line))
+      (progn
+        (push-mark (line-beginning-position) t t)
+        (end-of-line)))))
 #+end_src
 
 ** Rainbow-delimeters
@@ -1681,11 +1765,11 @@ Making sure mouse is disabled.
 ** Vertico
 Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options. One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top. This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
 
-The following configuration will add a few improvements: 
+The following configuration will add a few improvements:
 - Additional key bindings for users that like Vim-style movement keys
 - Saving completion history, Vertico will sort items based on history!
 - Adding extra metadata for completions in the margins using Marginalia
-  
+
 #+begin_src emacs-lisp
 (use-package vertico
   :ensure t
@@ -1721,7 +1805,7 @@ Specifically, I have these gripes:
 - An indication of file fatness would be nice
 
 Thanks to the =marginalia-annotator-registry=, we don’t have to advise, we can just add a new =file= annotator.
-Another small thing is the face used for docstrings. At the moment it’s (italic shadow), but I don’t like that. 
+Another small thing is the face used for docstrings. At the moment it’s (italic shadow), but I don’t like that.
 
 #+begin_src emacs-lisp
 (use-package marginalia
@@ -1856,7 +1940,7 @@ This is useful when followed by an immediate kill."
 #+end_src
 
 ** Treemacs
- 
+
 #+begin_src emacs-lisp
 (use-package treemacs
   :ensure t
@@ -1937,7 +2021,6 @@ This is useful when followed by an immediate kill."
        (treemacs-git-mode 'simple)))
 
     (treemacs-hide-gitignored-files-mode nil)))
-
 
 ;; Treemacs global keybinds
 ;(global-set-key (kbd "C-c C-w s") 'treemacs-switch-workspace)
@@ -2194,7 +2277,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
          :models '(deepseek-chat deepseek-coder)))
 
   ;; GPTel directives - more prompts:
-  ;; https://github.com/f/awesome-chatgpt-prompts 
+  ;; https://github.com/f/awesome-chatgpt-prompts
   ;; https://github.com/danielmiessler/fabric/tree/main/patterns
   ;; Check out the find prompt script https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt
   (setq gptel-directives
@@ -2245,7 +2328,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   				 res)))
               res)))
   (setq-default gptel--system-message (alist-get 'default gptel-directives))
-  
+
   ;; use M-x eval-last-sexp on it to check the user emacs directory where the .md files should be located
   ;(message user-emacs-directory)
 
@@ -2260,7 +2343,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
     (if arg
         (call-interactively 'gptel-menu)
       (gptel--suffix-send (transient-args 'gptel-menu))))
-  
+
   ;; Prompt menus
   (define-key global-map (kbd "C-x g") 'gptel-menu)
   (define-key global-map (kbd "C-x G") 'gptel-rewrite)
@@ -2273,7 +2356,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(keymap-global-set "C-M-q" "C-x g m RET")                 ;; to echo area (I preferably use gptel command)
   ;(keymap-global-set "C-M-v" "C-x g e g RET RET")           ;; send to gpt session
   ;(keymap-global-set "C-M-l" "C-x g k RET")                 ;; response to kill ring (use 'M-'' to copy it to system clipboard)
-  
+
   ;; Rewrite (applies to all rewrites)
   ;(global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite)    ; command unavailable
   ;(global-set-key (kbd "C-x e") 'gptel--rewrite-directive-menu)      ;; Select directive for rewrite - commadn aunabailable
@@ -2284,7 +2367,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(keymap-global-set "C-x f" "C-x G A")        ; accept - C-c C-a at point
   ;(keymap-global-set "C-x d" "C-x G K")        ; reject - C-c C-k at point
   ;(keymap-global-set "C-x m" "C-x G M")        ; merge - C-c RET at point
-  
+
   ;; Other
   (global-set-key (kbd "C-x s") 'gptel-system-prompt)       ;; Select directive for system prompt
   ;(global-set-key (kbd "C-c t") 'gptel-org-set-topic)        ; keybind taken
@@ -2330,8 +2413,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "l") #'forward-char)
   (define-key god-local-mode-map (kbd "f") #'forward-word)
   (define-key god-local-mode-map (kbd "b") #'backward-word)
-  (define-key god-local-mode-map (kbd "a") #'org-beginning-of-line)
-  (define-key god-local-mode-map (kbd "e") #'org-end-of-line)
+  (define-key god-local-mode-map (kbd "a") #'tl/beginning-of-line-or-block)
+  (define-key god-local-mode-map (kbd "e") #'tl/end-of-line-or-block)
   (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
   (define-key god-local-mode-map (kbd "C-S-j") #'tl/copy-down-current-line-or-region)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
@@ -2340,7 +2423,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-b") #'drag-stuff-left)
   (define-key god-local-mode-map (kbd "C-S-a") #'tl/copy-line-backward)
   (define-key god-local-mode-map (kbd "C-S-e") #'tl/copy-line-forward)
-  
+
   ;; Ctrl+u
   (define-key god-local-mode-map (kbd "o") #'scroll-up-command)
   (define-key god-local-mode-map (kbd "C-u") #'tl/org-kill-line-backward)
@@ -2350,7 +2433,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "u") #'scroll-down-command)
   (define-key god-local-mode-map (kbd "C-o") #'org-kill-line)
   (define-key god-local-mode-map (kbd "C-S-o") #'tl/kill-line-forward-to-clipboard)
-  
+
   ;; Ctrl+w
   (define-key god-local-mode-map (kbd "w") #'copy-to-system-clipboard)
   (define-key god-local-mode-map (kbd "C-w") #'backward-kill-word)
@@ -2389,11 +2472,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "i") #'scroll-down-line)
   (define-key god-local-mode-map (kbd "C-S-q") #'goto-last-change)
   (define-key god-local-mode-map (kbd "C-S-i") #'goto-last-change-reverse)
-  
+
   ;; Recenter
   (define-key god-local-mode-map (kbd ";") #'recenter-top-bottom)
   (define-key god-local-mode-map (kbd ":") #'move-to-window-line-top-bottom)
-  
+
   ;; Syntax highlighting for org-mode
   (define-key god-local-mode-map (kbd "C-S-z") #'surround-bold)
   (define-key god-local-mode-map (kbd "C-S-x") #'surround-italic)
@@ -2405,11 +2488,12 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(define-key god-local-mode-map (kbd "C-@") #'consult-mark)         ;; TODO not working
   (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars TODO
+  (define-key god-local-mode-map (kbd "C-S-b") #'tl/select-block)
   (define-key god-local-mode-map (kbd "|") #'anzu-query-replace)       ;; TODO - try: anzu-query-replace-at-cursor-thing, anzu-replace-at-cursor-thing, anzu-query-replace-at-cursor
 
   ;; Search
   (define-key god-local-mode-map (kbd "/") #'isearch-forward)
-  (define-key god-local-mode-map (kbd "?") #'isearch-backward)    
+  (define-key god-local-mode-map (kbd "?") #'isearch-backward)
 
   ;; Misc
   (define-key god-local-mode-map (kbd "r") #'undo)
@@ -2419,11 +2503,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
   (define-key god-local-mode-map (kbd "y") #'paste-from-system-clipboard)
   (define-key god-local-mode-map (kbd "\\") #'universal-argument)
+  (define-key god-local-mode-map (kbd "g") #'tl/clean-whitespace)
 
-  ;; Unbound
-  ;(define-key god-local-mode-map (kbd "C-S-b") #')
-  ;(define-key god-local-mode-map (kbd "g") #')
-  
   ;; Visual indicators for God mode
   (custom-set-faces
    '(god-mode-lighter ((t (:inherit error))))))
@@ -2484,7 +2565,7 @@ There’s a really cool package to transclude =Org= document content.
 #+end_src
 
 *** Org-appear
-While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which occur at the border a bit more fiddley. We can improve this situation without sacrificing visual amenities with the =org-appear= package. 
+While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which occur at the border a bit more fiddley. We can improve this situation without sacrificing visual amenities with the =org-appear= package.
 
 #+begin_src emacs-lisp
 (use-package org-appear
@@ -2509,7 +2590,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
   (setq visual-fill-column-width 150         ;; check 130/150
         visual-fill-column-center-text t)
     (visual-fill-column-mode 1))
-  
+
 ;; Load and configure visual-fill-column package
 (use-package visual-fill-column
   :ensure t
@@ -2524,7 +2605,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
 #+begin_src emacs-lisp
 (use-package org-alert
   :ensure t
-  :config 
+  :config
   (setq alert-default-style 'libnotify      ;; get system notifications
 		  org-alert-interval 300              ;; alert interval (300 seconds)
 		  org-alert-notify-cutoff 10          ;; how long before a scheduled event a notification should be sent - 10 minutes
@@ -3093,7 +3174,7 @@ Let’s make creating an Org buffer just that little bit easier.
 
 ;(add-hook 'org-mode-hook #'locally-defer-font-lock)
 
-;; Using org-src-font-lock-fontify-block we can apply language-appropriate syntax highlighting. Then, continuing on to {{{results(...)}}} , it can have the org-block face applied to match, and then the value-surrounding constructs hidden by mimicking the behaviour of prettify-symbols-mode. 
+;; Using org-src-font-lock-fontify-block we can apply language-appropriate syntax highlighting. Then, continuing on to {{{results(...)}}} , it can have the org-block face applied to match, and then the value-surrounding constructs hidden by mimicking the behaviour of prettify-symbols-mode.
 (setq org-inline-src-prettify-results '("⟨" . "⟩"))
 #+end_src
 
@@ -3434,7 +3515,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
 
-;; Company completion backend for Org-roam 
+;; Company completion backend for Org-roam
 ;(use-package company-org-roam
 ;  :after org-roam
 ;  :config
@@ -3629,14 +3710,14 @@ The following snippet sets up a hook for all Org task state changes and then mov
 
 ** Exporting
 *** General settings
-By default Org only exports the first three levels of headings as … headings. This is rather unfortunate as my documents frequently stray far beyond three levels of depth. The two main formats I care about exporting to are LaTeX and HTML. When using an article class, LaTeX headlines go from =\section=, =\subsection=, =\subsubsection=, and =\paragraph= to =\subgraph= — five levels. HTML5 has six levels of headings (=<h1>= to =<h6>=), but first level Org headings get exported as =<h2>= elements — leaving five usable levels. 
+By default Org only exports the first three levels of headings as … headings. This is rather unfortunate as my documents frequently stray far beyond three levels of depth. The two main formats I care about exporting to are LaTeX and HTML. When using an article class, LaTeX headlines go from =\section=, =\subsection=, =\subsubsection=, and =\paragraph= to =\subgraph= — five levels. HTML5 has six levels of headings (=<h1>= to =<h6>=), but first level Org headings get exported as =<h2>= elements — leaving five usable levels.
 
 As such, it would seem to make sense to recognise the first five levels of Org headings when exporting.
 #+begin_src emacs-lisp
 (setq org-export-headline-levels 5) ; I like nesting
 #+end_src
 
-Since I (roughly) track Org =HEAD=, it makes sense to include the git version in the creator string. 
+Since I (roughly) track Org =HEAD=, it makes sense to include the git version in the creator string.
 #+begin_src emacs-lisp
 (setq org-export-creator-string
       (format "Emacs %s (Org mode %s–%s)" emacs-version (org-release) (org-git-version)))
