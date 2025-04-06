@@ -709,7 +709,7 @@
 (show-paren-mode 1)                               ; Toggle visualization of matching parens (Show Paren mode)
 (winner-mode 1)                                   ; Cool mode for monitoring window configuration
 (display-time-mode 1)                             ; Enable time in the mode-line
-;(global-subword-mode 1)                           ; Iterate through CamelCase words - don't
+(global-subword-mode 0)                           ; move cursor by camelCase
 
 (setq-default
  window-combination-resize t                      ; Take new window space from all other windows (not just current)
