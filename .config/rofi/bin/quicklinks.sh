@@ -270,7 +270,7 @@ run_cmd() {
       xdg-open 'https://tinder.com/app/recs' &
       ;;
     --opt66)
-      xdg-open 'https://www.peka.poznan.pl/km/tpursetopup' &
+      xdg-open 'https://www.peka.poznan.pl/km/account' &
       ;;
     *)
       ;;
