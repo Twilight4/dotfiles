@@ -87,6 +87,7 @@ packages=(
   "python-tomlkit"
   "python-scapy"
   "python-click-aliases"
+  "outlook-for-linux-bin"
   "neovim"
   "papirus-icon-theme"
   "bibata-cursor-theme"

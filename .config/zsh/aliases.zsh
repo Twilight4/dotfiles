@@ -166,6 +166,7 @@ alias sd-stop="sudo systemctl stop"
 alias sd-en="sudo systemctl enable --now"
 alias sd-ds="sudo systemctl disable"
 alias sd-restart="sudo systemctl restart"
+alias sd-startup="systemd-analyze"
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
@@ -419,7 +420,7 @@ alias powersave='sudo auto-cpufreq --force=powersave && sudo cpupower --cpu all 
 alias performance='sudo auto-cpufreq --force=performance && sudo cpupower --cpu all frequency-set -g performance'
 alias cpu-reset='sudo auto-cpufreq --force=reset'
 # Fan management
-alias fans='watch sudo omen-fan i'
+alias fans='watch sudo ~/.config/.local/bin/omen-fan i'
 alias cpu-temp='sensors zenpower-pci-00c3'
 alias watch-cpu-temp='watch sensors zenpower-pci-00c3'         # Watch the CPU thermals
 alias watch-fans='watch sudo omen-fan i'                       # Watch the service status and bios control status
