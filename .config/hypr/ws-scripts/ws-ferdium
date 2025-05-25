@@ -5,7 +5,7 @@ is_netflix_running() {
   hyprctl clients | grep 'Ferdium' >/dev/null
 }
 
-hyprctl dispatch workspace 5
+hyprctl dispatch workspace 6
 
 # Check if netflix is running
 if ! is_netflix_running; then

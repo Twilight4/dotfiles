@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Function to check if Outlook is running
+is_outlook_running() {
+  hyprctl clients | grep 'outlook-for-linux' >/dev/null
+}
+
+hyprctl dispatch workspace 5
+
+# Check if outlook is running
+if ! is_outlook_running; then
+  # If outlook is not running, launch it
+  hyprctl dispatch exec '/opt/outlook-for-linux/outlook-for-linux'
+else
+  # If outlook is running, focus on its window
+  hyprctl dispatch focuswindow 'class:^(outlook-for-linux)$'
+fi
