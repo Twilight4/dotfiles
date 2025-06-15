@@ -298,6 +298,7 @@ alias gco='git checkout'
 alias blackall="sudo pacman -Sgg | grep blackarch | cut -d' ' -f2 | sort -u"  # List all available tools
 alias blackcat="sudo pacman -Sg | grep blackarch"                             # See the blackarch categories
 alias btrfs-assistant="xhost +SI:localuser:root && sudo btrfs-assistant"                # btrfs-assistant package for restoring snapshats (timeshift replacement)
+alias gameconqueror="xhost +SI:localuser:root && gameconqueror"
 alias ginxi="garuda-inxi"
 #alias gup="garuda-update"
 alias gitpkg="pacman -Q | grep -i '\-git' | wc -l"
