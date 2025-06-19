@@ -21,6 +21,10 @@ bloat=(
   "grimblast-git"
   "hyprland"
   "hyprland-git"
+  "aquamire"
+  "hyprutils"
+  "hypridle"
+  "hyprlang"
   "clipman"
   "xdg-desktop-portal-hyprland"
   "garuda-system-maintenance"
@@ -92,7 +96,6 @@ packages=(
   "papirus-icon-theme"
   "bibata-cursor-theme"
   "thefuck"
-  "portmaster-stub-bin"
   "ddgr"
   "lsd"
   "trizen"
@@ -301,6 +304,7 @@ _uninstallPackagesParu "${bloat[@]}"
 
 # Install packages
 echo "Installing packages..."
+sudo pacman -Sy
 _installPackagesParu "${packages[@]}"
 #_installPackagesParu "${extra[@]}"
 
