@@ -24,7 +24,8 @@ read -r response
 
 if [[ "$response" == "y" ]]; then
     print_colored $GREEN "\nStarting the system update...\n"
-    paru -Syu
+    #paru -Syu
+    garuda-update
     echo
     print_colored $GREEN "System update completed.\n"
 else

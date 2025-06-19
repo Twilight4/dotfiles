@@ -55,6 +55,8 @@ bloat=(
   "gnome-logs"
   "sddm"
   "xfce4-terminal"
+  "grub-theme-garuda"
+  "plasma5-themes-sweet-full-git"
 )
 
 packages=(
@@ -124,6 +126,7 @@ packages=(
   "googler"
   "google-maps-desktop"
   "gnome-weather"
+  "kdeconnect"
   "gnome-maps"
   "gnome-keyring"
   "gnome-clocks"
@@ -244,7 +247,7 @@ packages=(
   "blanket"
   "swayimg"
   "cmatrix-git"
-  "cava-git"
+  "cava"
   "python-pywal"
   "moar-git"
   "cheat-bin"
