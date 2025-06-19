@@ -834,10 +834,10 @@ mega-sync-off() {
     YELLOW='\033[1;33m'
     NC='\033[0m' # No Color
 
-    mega-sync -d /home/twilight/desktop/projects
-    mega-sync -d /home/twilight/documents/openvpn
-    mega-sync -d /home/twilight/documents/pdfs
-    mega-sync -d /home/twilight/.ssh
+    mega-sync -d /home/twilight/desktop/projects/
+    mega-sync -d /home/twilight/documents/openvpn/
+    mega-sync -d /home/twilight/documents/pdfs/
+    mega-sync -d /home/twilight/.ssh/
 
     echo -e "${GREEN}All specified directories have been unsynced.${NC}"
 
