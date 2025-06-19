@@ -31,7 +31,11 @@ else
     fi
 fi
 
+# Wait 2 sec before clear so user knows what happened
+sleep 2
+
 # Install atuin
+clear
 curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 
 # Wait 2 sec before clear so user knows what happened
