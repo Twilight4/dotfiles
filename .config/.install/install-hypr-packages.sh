@@ -20,7 +20,7 @@ bloat=(
   "swayidle"
   "grimblast-git"
   "hyprland"
-  "hyprlang"
+  "hyprland-git"
   "clipman"
   "xdg-desktop-portal-hyprland"
   "garuda-system-maintenance"
