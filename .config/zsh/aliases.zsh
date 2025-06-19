@@ -215,6 +215,10 @@ alias diskspace="du -S | sort -n -r |less -R"
 alias folders='du -h --max-depth=1'
 alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
 
+# USB devices
+alias lsusb='cyme'
+alias lsusbt='cyme --tree --hide-buses'
+
 
 #################################################################################################
 # Networking                                                                                    #
