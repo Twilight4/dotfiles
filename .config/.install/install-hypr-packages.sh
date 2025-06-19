@@ -55,8 +55,6 @@ bloat=(
   "gnome-logs"
   "sddm"
   "xfce4-terminal"
-  "grub-theme-garuda"
-  "plasma5-themes-sweet-full-git"
 )
 
 packages=(
