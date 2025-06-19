@@ -23,7 +23,7 @@ fi
 # Instructions for a user
 echo ""
 echo "Installation Finished."
-echo "To complete the setup, launch Hyprland and reboot again."
+echo "To complete the setup, launch Hyprland, exit Hyprland and log in again."
 echo ""
 echo "You can run Hyprland by typing:"
 echo "  Hyprland"

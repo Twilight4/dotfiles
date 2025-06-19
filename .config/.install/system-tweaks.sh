@@ -125,7 +125,7 @@ if [[ "$optimize_grub" == "y" ]]; then
 
     # Prompt user to disable GRUB menu
     echo
-    read -p "Do you want to disable the GRUB menu (not recommended if using snapshots)? (y/n) " disable_grub_menu
+    read -p "Do you want to disable the GRUB menu (not recommended if using snapshots/dual-booting)? (y/n) " disable_grub_menu
     if [[ "$disable_grub_menu" == "y" ]]; then
         comment_out_line "GRUB_TIMEOUT=" "$grub_file"
         insert_after_pattern "#GRUB_TIMEOUT=" "GRUB_TIMEOUT=0" "$grub_file"

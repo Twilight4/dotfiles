@@ -139,6 +139,7 @@ packages=(
   "qrencode"
   "cronie"
   "zathura-pdf-poppler"
+  "megacmd"
   "grc"
   "udiskie"
   "usbutils"
@@ -307,12 +308,6 @@ echo "Installing packages..."
 sudo pacman -Sy
 _installPackagesParu "${packages[@]}"
 #_installPackagesParu "${extra[@]}"
-
-# Download mega cmd
-#"megasync-bin"
-#"megacmd"
-wget https://mega.nz/linux/repo/Arch_Extra/x86_64/megacmd-x86_64.pkg.tar.zst && sudo pacman -U "$PWD/megacmd-x86_64.pkg.tar.zst"
-rm megacmd-x86_64.pkg.tar.zst 
 
 # Wait 2 sec before clear so user knows what happened
 echo
