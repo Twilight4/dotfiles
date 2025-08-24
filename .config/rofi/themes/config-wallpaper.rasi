@@ -5,7 +5,7 @@ configuration {
     show-icons:                  true;
   	drun-display-format:         "{name}";
     hover-select:                true;
-    font:                       "JetBrains Mono Nerd Font Bold 11";
+    font:                       "JetBrains Mono Nerd Font Bold 25";
 
 	/*---------- Keybindings ----------*/
     kb-remove-to-eol: "";
