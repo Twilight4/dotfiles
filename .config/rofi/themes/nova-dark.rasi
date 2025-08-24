@@ -1,5 +1,4 @@
 /* config - Launcher */
-
 configuration {
 	/*---------- Display setting ----------*/
 	  modi:                      "drun,run,filebrowser";
@@ -14,7 +13,7 @@ configuration {
 	  display-keys:               "Keys";
 	  display-filebrowser:        "Files";
   	drun-display-format:        "{name}";
-    font:                       "JetBrains Mono Nerd Font Bold 22";
+    font:                       "JetBrains Mono Nerd Font Bold 12";
 
 	/*---------- Keybindings ----------*/
     kb-remove-to-eol: "";
@@ -72,9 +71,9 @@ mainbox {
     children:                    [ "inputbar", "message", "listview", "mode-switcher" ];
     background-color:            transparent;
 
-    spacing:                     54px;
+    spacing:                     24px;
     margin:                      0px;
-    padding:                     150px 200px;
+    padding:                     70px 200px;
 }
 
 /* Inputbar --------------------------------------------------- */
@@ -115,7 +114,7 @@ entry {
 listview {
     cursor:                      "default";
     columns:                     6;
-    lines:                       6;
+    lines:                       4;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -171,6 +170,6 @@ element {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        172px;
+    size:                        72px;
     cursor:                      inherit;
 }

@@ -6,7 +6,7 @@
     "control-center-layer": "top",
     "layer-shell": true,
     "cssPriority": "application",
-    "control-center-width": 550,
+    "control-center-width": 350,
     "control-center-margin-top": 8,
     "control-center-margin-bottom": 8,
     "control-center-margin-right": 8,

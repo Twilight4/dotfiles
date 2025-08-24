@@ -3,7 +3,6 @@
  * ----------------------------------------------------- */
 * {
     font-family: "JetBrains Mono Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 35px;
     border: none;
     border-radius: 0px;
 }
@@ -28,7 +27,7 @@ window#waybar {
     font-weight: bold;
     font-style: normal;
     opacity: 0.8;
-    font-size: 26px;
+    font-size: 16;
     color: @textcolor1;
 }
 
@@ -85,7 +84,7 @@ tooltip label {
     padding: 2px 10px 0px 10px;
     border-radius: 15px;
     color:@textcolor2;
-    font-size:26px;
+    font-size:16;
     font-weight:normal;
     opacity:0.8;
 }
@@ -164,7 +163,7 @@ window#waybar.empty #window {
     border-radius: 0px 0px 0px 0px;
     padding: 4px 0px 0px 5px;
     margin: 8px 0px 8px 0px;
-    font-size: 30px;
+    font-size: 20px;
     opacity:0.8;
     color: @iconcolor;
 }
@@ -173,7 +172,7 @@ window#waybar.empty #window {
     border-radius: 0px 0px 0px 0px;
     padding: 2px 0px 0px 7px;
     margin: 8px 0px 8px 0px;
-    font-size: 43px;
+    font-size: 23px;
     opacity:0.8;
     color: @iconcolor;
 }
@@ -182,7 +181,7 @@ window#waybar.empty #window {
     border-radius: 15px 0px 0px 15px;
     padding: 2px 10px 0px 10px;
     margin: 8px 0px 8px 10px;
-    font-size: 40px;
+    font-size: 20px;
     opacity:0.8;
     color: @iconcolor;
 }
@@ -191,7 +190,7 @@ window#waybar.empty #window {
     border-radius: 0px 0px 0px 0px;
     padding: 2px 10px 0px 5px;
     margin: 8px 0px 8px 0px;
-    font-size: 32px;
+    font-size: 22px;
     opacity:0.8;
     color: @iconcolor;
 }
@@ -200,7 +199,7 @@ window#waybar.empty #window {
     border-radius: 0px 0px 0px 0px;
     padding: 2px 9px 0px 5px;
     margin: 8px 0px 8px 0px;
-    font-size: 38px;
+    font-size: 18px;
     opacity:0.8;
     color: @iconcolor;
 }
@@ -209,7 +208,7 @@ window#waybar.empty #window {
     border-radius: 0px 0px 0px 0px;
     padding: 2px 3px 0px 5px;
     margin: 8px 0px 8px 0px;
-    font-size: 32px;
+    font-size: 22px;
     opacity:0.8;
     color: @iconcolor;
 }
@@ -218,7 +217,7 @@ window#waybar.empty #window {
     border-radius: 0px 0px 0px 0px;
     padding: 2px 10px 0px 10px;
     margin: 8px 0px 8px 0px;
-    font-size: 33px;
+    font-size: 23px;
     opacity:0.8;
     color: @iconcolor;
 }
@@ -228,7 +227,7 @@ window#waybar.empty #window {
     border-radius: 0px 0px 0px 0px;
     padding: 2px 12px 0px 2px;
     margin: 8px 0px 8px 0px;
-    font-size: 39px;
+    font-size: 19px;
     opacity: 0.8;
     color: @iconcolor;
 }
@@ -239,7 +238,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #custom-uptime {
     background-color: @backgrounddark;
-    font-size: 36px;
+    font-size: 16px;
     color: @textcolor2;
     border-radius: 15px;
     padding: 2px 10px 0px 10px;
@@ -249,7 +248,7 @@ window#waybar.empty #window {
 
 #custom-weather {
     background-color: @backgrounddark;
-    font-size: 36px;
+    font-size: 16px;
     color: @textcolor2;
     border-radius: 15px;
     padding: 2px 17px 0px 10px;
@@ -263,7 +262,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #custom-exit {
     background-color: @backgroundlight;
-    font-size:39px;
+    font-size:19px;
     color: @iconcolor;
     border-radius: 0px 15px 15px 0px;
     padding: 0px 15px 0px 0px;
@@ -277,7 +276,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #custom-updates {
     background-color: @backgroundlight;
-    font-size: 36px;
+    font-size: 16px;
     color: @textcolor2;
     border-radius: 15px;
     padding: 2px 10px 0px 10px;
@@ -305,7 +304,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #custom-youtube {
     background-color: @backgroundlight;
-    font-size: 36px;
+    font-size: 16px;
     color: @textcolor2;
     border-radius: 15px;
     padding: 2px 10px 0px 10px;
@@ -318,7 +317,7 @@ window#waybar.empty #window {
  * Hardware Group
  * ----------------------------------------------------- */
 #disk,#memory,#cpu,#custom-cputemp {
-    font-size:36px;
+    font-size:16px;
     color: @textcolor2;
   	background-color: @backgroundlight;
   	border-radius: 15px;
@@ -329,22 +328,19 @@ window#waybar.empty #window {
 }
 
 #memory {
-    font-size:36px;
     margin-right:10px;
 }
 
 #disk {
-    font-size:36px;
     margin-right:5px;
 }
 
 #cpu {
-    font-size:36px;
     margin-right:5px;
 }
 
 #custom-cputemp {
-    font-size:36px;
+    font-size:16px;
     margin-right:5px;
 }
 
@@ -354,7 +350,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #clock {
     background-color: @backgrounddark;
-    font-size: 36px;
+    font-size: 16px;
     color: @textcolor1;
     border-radius: 15px;
     padding: 0px 10px 0px 10px;
@@ -369,7 +365,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #pulseaudio {
     background-color: @backgroundlight;
-    font-size: 36px;
+    font-size: 16px;
     color: @textcolor2;
     border-radius: 15px 15px 15px 15px;
     padding: 2px 0px 0px 10px;
@@ -388,7 +384,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #network {
     background-color: @backgroundlight;
-    font-size: 36px;
+    font-size: 16px;
     color: @textcolor2;
     border-radius: 15px;
     padding: 0px 10px 0px 0px;
@@ -412,7 +408,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 #bluetooth, #bluetooth.on, #bluetooth.connected {
     background-color: @backgroundlight;
-    font-size: 36px;
+    font-size: 16px;
     color: @textcolor2;
     border-radius: 15px;
     padding: 2px 10px 0px 5px;

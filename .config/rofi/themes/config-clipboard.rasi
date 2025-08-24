@@ -4,7 +4,7 @@ configuration {
     modi:                        "drun";
     show-icons:                  false;
   	drun-display-format:         "{name}";
-    font:                        "JetBrains Mono Nerd Font Bold 25";
+    font:                        "JetBrains Mono Nerd Font Bold 13";
 
 	/*---------- Keybindings ----------*/
     kb-remove-to-eol: "";
