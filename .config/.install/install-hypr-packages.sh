@@ -16,13 +16,15 @@ read -p "This will take a minimum of 30 minutes. Press any key to continue or Ct
 echo
 
 bloat=(
+  "aquamarine"
+  "hyprgraphics"
+  "hyprlock"
+  "hyprutils"
   "swaylock"
   "swayidle"
   "grimblast-git"
   "hyprland"
   "hyprland-git"
-  "aquamire"
-  "hyprutils"
   "hypridle"
   "hyprlang"
   "clipman"
