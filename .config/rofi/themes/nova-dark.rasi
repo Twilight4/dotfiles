@@ -14,7 +14,7 @@ configuration {
 	  display-keys:               "Keys";
 	  display-filebrowser:        "Files";
   	drun-display-format:        "{name}";
-    font:                       "JetBrains Mono Nerd Font Bold 12";
+    font:                       "JetBrains Mono Nerd Font Bold 22";
 
 	/*---------- Keybindings ----------*/
     kb-remove-to-eol: "";
@@ -72,9 +72,9 @@ mainbox {
     children:                    [ "inputbar", "message", "listview", "mode-switcher" ];
     background-color:            transparent;
 
-    spacing:                     24px;
+    spacing:                     54px;
     margin:                      0px;
-    padding:                     100px 226px;
+    padding:                     150px 200px;
 }
 
 /* Inputbar --------------------------------------------------- */
@@ -115,7 +115,7 @@ entry {
 listview {
     cursor:                      "default";
     columns:                     6;
-    lines:                       4;
+    lines:                       6;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -171,6 +171,6 @@ element {
 element-icon {
     background-color:            transparent;
     text-color:                  inherit;
-    size:                        72px;
+    size:                        172px;
     cursor:                      inherit;
 }
