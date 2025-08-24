@@ -431,7 +431,7 @@ window#waybar.empty #window {
     font-size: 20;
     color: @iconcolor;
     border-radius: 15px 0px 0px 15px;
-    padding: 2px 0px 0px 0px;
+    padding: 2px 0px 0px 8px;
     margin: 8px 0px 8px 0px;
     opacity:0.8;
 }
