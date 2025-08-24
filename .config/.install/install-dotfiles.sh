@@ -33,7 +33,6 @@ install_symlinks() {
 	_installSymLink newsboat ~/.config/newsboat ~/dotfiles/.config/newsboat/ ~/.config
 	_installSymLink npm ~/.config/npm ~/dotfiles/.config/npm/ ~/.config
 	_installSymLink pipewire.conf.d ~/.config/pipewire.conf.d ~/dotfiles/.config/pipewire.conf.d/ ~/.config
-	_installSymLink psd ~/.config/psd ~/dotfiles/.config/psd/ ~/.config
 	_installSymLink wal ~/.config/wal ~/dotfiles/.config/wal/ ~/.config
 	_installSymLink zathura ~/.config/zathura ~/dotfiles/.config/zathura/ ~/.config
 	_installSymLink zsh ~/.config/zsh ~/dotfiles/.config/zsh/ ~/.config
