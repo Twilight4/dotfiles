@@ -221,7 +221,6 @@ packages=(
   "sddm-git"
   "sddm-sugar-candy-git"
   "twitter"
-  "netflix"
   "gnome-calculator"
   "dog"
   "ripgrep"
