@@ -117,7 +117,7 @@ if [[ "$optimize_grub" == "y" ]]; then
 
     # Comment out existing GRUB_CMDLINE_LINUX_DEFAULT line and add new one below it
     comment_out_line "GRUB_CMDLINE_LINUX_DEFAULT=" "$grub_file"
-    insert_after_pattern "#GRUB_CMDLINE_LINUX_DEFAULT=" 'GRUB_CMDLINE_LINUX_DEFAULT="zswap.compressor=zstd zswap.max_pool_percent=10 mitigations=off amd-pstate=active"' "$grub_file"
+    insert_after_pattern "#GRUB_CMDLINE_LINUX_DEFAULT=" 'GRUB_CMDLINE_LINUX_DEFAULT="zswap.compressor=zstd zswap.max_pool_percent=10 amd-pstate=active"' "$grub_file"
 
     # Uncomment specific GRUB settings if they exist
     uncomment_line 'GRUB_DISABLE_RECOVERY=true' "$grub_file"
