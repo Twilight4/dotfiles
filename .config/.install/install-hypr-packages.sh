@@ -68,6 +68,7 @@ packages=(
   "cpio"
   "hyprlock-git"
   "hypridle-git"
+  "hyprsunset"
   "speech-dispatcher"
   "espanso-wayland"
   "qt5-wayland"
