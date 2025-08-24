@@ -10,11 +10,10 @@
 		"format-icons": { // " ", " ",
 			"1": " ",
 			"2": " ",
-			"3": "󰝆",
-			"4": " ",
-			"5": "󰴢 ",
-			"6": " ",
-			"7": "󰊖 "
+			"3": " ",
+			"4": "󰴢 ",
+			"5": " ",
+			"6": " "
 		},
         //"persistent-workspaces": {
         //     "*": 7
@@ -195,7 +194,7 @@
 
     // CPU
     "cpu": {
-		"format": "<span font='13'></span> <span font='13'>{usage}%</span>",
+		"format": " {usage}%",
         "on-click": "kitty -1 --hold -e cpufetch"
     },
 
@@ -206,7 +205,7 @@
 
 	// Cputemp
 	"custom/cputemp":{
-		"format": "<span font='12' rise='2000'></span> {}",
+		"format": " {}",
 		"exec": "~/.config/waybar/scripts/cpu-temp.sh",
 		"interval": 15,
 	},

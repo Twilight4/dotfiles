@@ -47,7 +47,7 @@
 		    //"bluetooth",
         "group/hardware",
         "pulseaudio",
-        "battery", 
+        //"battery", 
         "tray",
         "custom/notifications",
         //"custom/idling",
