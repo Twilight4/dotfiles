@@ -12,7 +12,7 @@ export ALTERNATE_EDITOR=""
 export VISUAL="emacsclient -nw"
 export TERMINAL="kitty -1"
 export BROWSER="brave"
-export PAGER="moar -no-linenumbers"
+#export PAGER="moar -no-linenumbers"
 
 # User-defined PATH executables
 export PATH=$HOME/.config/hypr/scripts:$HOME/.local/bin:$HOME/.config/.local/share/cargo/bin:$HOME/.config/.local/bin:$HOME/.config/zsh/bash-scripts:$HOME/.config/rofi/bin:$HOME/.config/node_modules/.bin:$PATH

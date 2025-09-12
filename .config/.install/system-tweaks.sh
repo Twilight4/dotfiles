@@ -74,7 +74,7 @@ insert_after_pattern() {
 }
 
 # Prompt the user
-read -p "Do you want to append performance tweaks to the system? (y/n) " answer
+read -p "Do you want to append performance tweaks to the system (Recommended)? (y/n) " answer
 if [[ "$answer" != "y" ]]; then
     echo "No changes made."
     exit 0
@@ -110,7 +110,7 @@ echo "Performance tweaks applied in sysctl.conf file."
 ########################################################
 # Prompt user to optimize GRUB config
 echo
-read -p "Do you want to optimize AMD CPU in the GRUB configuration? (y/n) " optimize_grub
+read -p "Do you want to optimize AMD CPU in the GRUB configuration (Recommended)? (y/n) " optimize_grub
 echo
 if [[ "$optimize_grub" == "y" ]]; then
     grub_file="/etc/default/grub"
