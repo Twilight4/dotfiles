@@ -41,7 +41,6 @@ bloat=(
   "garuda-welcome"
   "garuda-settings-manager"
   "garuda-assistant"
-  "plasma5-themes-sweet-full-git"
   "alacritty"
   "deluge-gtk"
   "eog"
