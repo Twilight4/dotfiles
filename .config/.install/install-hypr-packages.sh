@@ -249,7 +249,7 @@ packages=(
   "cmatrix-git"
   "cava"
   "python-pywal"
-  "cheat-bin"
+  "cheat"
   "xdg-ninja-git"
   "dragon-drop"
   "noise-suppression-for-voice-git"
