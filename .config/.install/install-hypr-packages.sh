@@ -101,6 +101,7 @@ packages=(
   "thefuck"
   "ddgr"
   "lsd"
+  "fasd"
   "trizen"
   "pkgfile"
   "trash-cli"
