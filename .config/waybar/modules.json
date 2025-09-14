@@ -1,4 +1,4 @@
-{,
+{
     // Workspaces
     "hyprland/workspaces" : {
 		"format": "{icon}",
@@ -8,10 +8,11 @@
         "active-only": false,
 		"sort-by-number": true,
 		"format-icons": { // " ", " ",
-			"1": " ",
-			"2": " ",
-      "3": " ",
-			"4": " "
+			"1": "  ",
+			"2": "  ",
+      "3": "  ",
+			"4": "  ",
+			"5": " 󰀆 "
 		},
         //"persistent-workspaces": {
         //     "*": 7
