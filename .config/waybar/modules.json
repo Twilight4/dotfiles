@@ -1,4 +1,4 @@
-{
+{,
     // Workspaces
     "hyprland/workspaces" : {
 		"format": "{icon}",
@@ -10,10 +10,8 @@
 		"format-icons": { // " ", " ",
 			"1": " ",
 			"2": " ",
-			"4": " ",
-			"5": "󰴢 ",
-			"6": " ",
-			"7": " "
+      "3": " ",
+			"4": " "
 		},
         //"persistent-workspaces": {
         //     "*": 7
@@ -34,8 +32,7 @@
            "fans",
            "htop-btop-ptop",
            "nvtop",
-           "wavemon",
-           "Path of Exile 2"
+           "wavemon"
         ],
         "app_ids-mapping": {
             "firefoxdeveloperedition": "firefox-developer-edition"
