@@ -23,7 +23,6 @@ bloat=(
   "swaylock"
   "swayidle"
   "grimblast-git"
-  "hyprland"
   "hyprland-git"
   "hypridle"
   "hyprlang"
@@ -60,7 +59,7 @@ bloat=(
 )
 
 packages=(
-  "hyprland-git"
+  "hyprland"
   "ninja"
   "meson"
   "cmake"
