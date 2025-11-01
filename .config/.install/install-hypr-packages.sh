@@ -65,7 +65,6 @@ packages=(
   "hypridle"
   "hyprsunset"
   "speech-dispatcher"
-  "espanso-wayland"
   "qt5-wayland"
   "qt6-wayland"
   "xdg-desktop-portal-hyprland"
@@ -249,6 +248,7 @@ packages=(
 
 extra=(
   "toilet"
+  "espanso-wayland"
   "caffeine-ng"
   "asciiquarium-transparent-git"
   "fireplace-git"
