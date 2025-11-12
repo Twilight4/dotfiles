@@ -119,7 +119,7 @@ alias fdsh="fd . -e py -e sh ~/desktop/workspace/dotfiles/.config/.install/ | xa
 # Change directory                                                                             #
 ################################################################################################
 # HOME dirs
-alias r='cd $HOME ; clear'
+alias r='cd $HOME ; clear && printf "\e[3J"'
 alias dw='cd "$HOME/downloads" ; clear ; lsd -l --hyperlink=auto'
 alias dt='cd "$HOME/desktop" ; clear ; lsd -l --hyperlink=auto'
 alias pc='cd "$HOME/pictures" ; clear ; lsd -l --hyperlink=auto'
