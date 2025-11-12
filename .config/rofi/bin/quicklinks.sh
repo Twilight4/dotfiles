@@ -55,6 +55,7 @@ option_65=" Tinder"
 option_66="󰃧 PEKA card"
 option_67=" Github Actions Events"
 option_68=" Github Marketplace"
+option_69=" Terraform Docs"
 
 # Rofi CMD
 rofi_cmd() {
@@ -75,7 +76,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_23\n$option_25\n$option_31\n$option_34\n$option_36\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65\n$option_66\n$option_67\n$option_68" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_23\n$option_25\n$option_31\n$option_34\n$option_36\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65\n$option_66\n$option_67\n$option_68\n$option_69" | rofi_cmd
 }
 
 # Execute Command
@@ -280,6 +281,9 @@ run_cmd() {
     --opt68)
       xdg-open 'https://github.com/marketplace' &
       ;;
+    --opt69)
+      xdg-open 'https://developer.hashicorp.com/terraform/intro/use-cases' &
+      ;;
     *)
       ;;
   esac
@@ -437,5 +441,8 @@ case "${chosen}" in
     ;;
   $option_68)
     run_cmd --opt68
+    ;;
+  $option_69)
+    run_cmd --opt69
     ;;
 esac
