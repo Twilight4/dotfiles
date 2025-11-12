@@ -105,6 +105,8 @@ suppress_preload = false
 fetchers = [
 	# Mimetype
 	{ id = "mime", name = "*", run = "mime", prio = "high" },
+  { id = "git", name = "*", run  = "git" },
+  { id = "git", name = "*/", run  = "git" },
 ]
 spotters = [
 	{ name = "*/", run = "folder" },

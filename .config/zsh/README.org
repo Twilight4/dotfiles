@@ -193,6 +193,9 @@
 | ~/F1       | Help page                                  |
 | -          | Symlink                                    |
 | TAB        | Show more information                      |
+| C          | Chmod on selected files                    |
+| gm         | Show git file changes                      |
+| F          | Enter smart filter plugin                  |
 
 * Mpv
 ** Navigation
