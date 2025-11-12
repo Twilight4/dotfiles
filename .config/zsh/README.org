@@ -143,17 +143,18 @@
 
 * Yazi
 ** Navigation
-| Keybinding | Description                                                     |
-|------------+-----------------------------------------------------------------|
-| z/Z        | Plugin Zoxide/Plugin Fzf                                        |
-| H/L        | Previous/Next directory in history                              |
-| o/RET      | Open file                                                       |
-| g          | Goto options                                                    |
-| t          | Create new tab                                                  |
-| [/]        | Navigate through tabs                                           |
-| 1/2/3...   | Navigate through tabs                                           |
-| {/}        | Swapping through tabs                                           |
-| C-c        | Close tab                                                       |
+| Keybinding | Description                        |
+|------------+------------------------------------|
+| z/Z        | Plugin Zoxide/Plugin Fzf           |
+| H/L        | Previous/Next directory in history |
+| o/RET      | Open file                          |
+| g          | Goto options                       |
+| t          | Create new tab                     |
+| [/]        | Navigate through tabs              |
+| 1/2/3...   | Navigate through tabs              |
+| {/}        | Swapping through tabs              |
+| C-c        | Close tab                          |
+| v/V        | Enter/Exit visual mode            |
 
 ** Actions on files
 | Keybinding | Description                          |
@@ -176,7 +177,7 @@
 ** Sorting / Search
 | Keybinding | Description                                                     |
 |------------+-----------------------------------------------------------------|
-| s          | Sort options (default alphabetically)                           |
+| ,          | Sort options (default alphabetically)                           |
 | .          | Toggle hidden files                                             |
 | //?        | Find next/backwards                                             |
 | n/N        | Go result forward/backward (from find next)                     |
