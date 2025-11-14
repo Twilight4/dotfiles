@@ -34,6 +34,8 @@
   - [[#clean-empty-lines][Clean Empty Lines]]
   - [[#expand-region][Expand-region]]
   - [[#symbol-overlay][Symbol-overlay]]
+  - [[#yaml-syntax-highlighting][yaml syntax highlighting]]
+  - [[#terraform-mode][terraform-mode]]
   - [[#smart-hungry-delete][Smart hungry-delete]]
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
@@ -79,7 +81,7 @@
 ** Elpaca package manager
 
 #+begin_src emacs-lisp
-(defvar elpaca-installer-version 0.10)
+(defvar elpaca-installer-version 0.11)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
@@ -214,11 +216,16 @@
 
 *** Keybindings without a leader key
 #+begin_src emacs-lisp
+;; Disable the org-goto command (sometimes it's randomly being invoked)
+(with-eval-after-load 'org
+  (put 'org-goto 'disabled t))
+
 ;; Make escape (C-g) quit prompts
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
 (global-set-key (kbd "C-a") 'tl/beginning-of-line-or-block)
+(global-set-key (kbd "C-q") 'yaml-indent-line)
 (global-set-key (kbd "C-e") 'tl/end-of-line-or-block)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
@@ -1268,6 +1275,40 @@ Version: 2022-08-06"
   :hook ((prog-mode html-mode yaml-mode conf-mode) . symbol-overlay-mode)
   :delight symbol-overlay-mode
   :ensure t)
+#+end_src
+
+** yaml syntax highlighting
+#+begin_src emacs-lisp
+(use-package yaml-mode
+  :ensure t
+  :mode ("\\.yml\\'" "\\.yaml\\'"))
+                   
+;(setq tab-width 2)
+;(setq indent-tabs-mode nil)
+
+;; minor customization for kubernetes to emphasize fields like apiVersion, kind, metadata, etc.
+(add-hook 'yaml-mode-hook
+          (lambda ()
+            (font-lock-add-keywords
+             nil
+             '(("\\b\\(apiVersion\\|kind\\|metadata\\|spec\\|status\\)\\b"
+                1 font-lock-keyword-face)))))
+
+(use-package kubernetes
+  :ensure t
+  :commands (kubernetes-overview))
+
+;; (use-package k8s-mode
+;;   :ensure t
+;;   :hook (yaml-mode . k8s-mode))
+#+end_src
+
+** terraform-mode
+#+begin_src emacs-lisp
+(use-package terraform-mode
+  :ensure t
+  :mode ("\\.tf\\'" "\\.tfvars\\'")
+  :hook (terraform-mode . terraform-format-on-save-mode))
 #+end_src
 
 ** Smart hungry-delete
