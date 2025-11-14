@@ -203,6 +203,7 @@
 (define-key org-mode-map (kbd "M-<left>") nil)
 (define-key org-mode-map (kbd "M-<right>") nil)
 
+
 ;; Calendar-mode
 (define-key calendar-mode-map (kbd "i h") 'nil)
 (define-key calendar-mode-map (kbd "i i") 'nil)
@@ -224,6 +225,7 @@
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
+(global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-a") 'tl/beginning-of-line-or-block)
 (global-set-key (kbd "C-q") 'yaml-indent-line)
 (global-set-key (kbd "C-e") 'tl/end-of-line-or-block)
@@ -234,7 +236,6 @@
 (global-set-key (kbd "C-o") 'org-kill-line)
 (global-set-key (kbd "C-t") 'treemacs)
 (global-set-key (kbd "C-r") 'undo)
-(global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-u") 'tl/org-kill-line-backward)
 (global-set-key (kbd "C-f") 'forward-word)
 (global-set-key (kbd "C-b") 'backward-word)
@@ -246,6 +247,9 @@
 (global-set-key (kbd "<deletechar>") 'smart-hungry-delete-forward-char)
 (global-set-key (kbd "C-d") 'kill-word)
 (global-set-key (kbd "C-\\") 'universal-argument)
+;; Work only in org-mode-map
+(define-key org-mode-map (kbd "TAB") #'god-local-mode)
+(define-key org-mode-map (kbd "<backtab>") #'org-cycle)
 ;; Minibuffer
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
@@ -2520,8 +2524,9 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd ":") #'move-to-window-line-top-bottom)
 
   ;; Syntax highlighting for org-mode
-  (define-key god-local-mode-map (kbd "C-S-z") #'surround-bold)
-  (define-key god-local-mode-map (kbd "C-S-x") #'surround-italic)
+  ;(define-key god-local-mode-map (kbd "C-S-z") #'surround-italic)  ;; not using
+  (define-key god-local-mode-map (kbd "C-S-z") #'org-shifttab)
+  (define-key god-local-mode-map (kbd "C-S-x") #'surround-bold)
   (define-key god-local-mode-map (kbd "C-S-c") #'surround-code)
   ;(define-key god-local-mode-map (kbd "") #'surround-underline)   ;; not using
 
