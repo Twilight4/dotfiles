@@ -396,6 +396,8 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | S-y        | Kmacro end or call macro             |
 | [          | Scroll down command                  |
 | ]          | Scroll up command                    |
+| {          | Delete till beginning of file        |
+| }          | Delete till end of file              |
 | C-S-\      | Query-replace                        |
 | S-r        | Rectangle mark mode                  |
 | S-m        | Org meta return                      |

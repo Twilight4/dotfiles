@@ -35,13 +35,13 @@
   - [[#expand-region][Expand-region]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#yaml-syntax-highlighting][yaml syntax highlighting]]
-  - [[#terraform-mode][terraform-mode]]
+  - [[#terraform-mode][Terraform-mode]]
+  - [[#auto-tangle-after-save][Auto tangle after save]]
   - [[#smart-hungry-delete][Smart hungry-delete]]
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
   - [[#i-search---search-current-word][I-Search - Search Current Word]]
   - [[#clipboard-adjustments][Clipboard adjustments]]
-  - [[#move-cursor-by-text-block][Move cursor by text block]]
   - [[#copy-current-line][Copy current line]]
   - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#select-text-block][Select Text Block]]
@@ -62,9 +62,10 @@
   - [[#consult][Consult]]
   - [[#embark][Embark]]
   - [[#embark-consult][Embark-consult]]
+  - [[#corfu][Corfu]]
+  - [[#jinx][Jinx]]
 - [[#other-packages][Other Packages]]
   - [[#anzu][Anzu]]
-  - [[#jinx][Jinx]]
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#gptel][GPTel]]
@@ -226,9 +227,9 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
-(global-set-key (kbd "C-a") 'tl/beginning-of-line-or-block)
+(global-set-key (kbd "C-a") 'beginning-of-line)
+(global-set-key (kbd "C-e") 'end-of-line)
 (global-set-key (kbd "C-q") 'yaml-indent-line)
-(global-set-key (kbd "C-e") 'tl/end-of-line-or-block)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'backward-char)
@@ -427,6 +428,7 @@
     "c" '(org-goto-calendar :wk "Calendar")
     ;; Org-table
     "\\" '(org-table-create-or-convert-from-region :wk "Create empty table or convert from region")
+    "t" '(org-table-create :wk "Create new org table")
     "-" '(org-table-insert-hline :wk "Insert horizontal line")
     "j" '(org-table-copy-down :wk "Copy the value of the field below")
     "h" '(org-table-insert-row :wk "Insert a new row above the current line")
@@ -743,9 +745,6 @@
 
 ;; Don't create automatic backup files in their original directories (e.g. file.el~). Put all backups in the Trash directory
 (setq backup-directory-alist '((".*" . "~/.config/.local/share/Trash/files")))
-
-(unless (string-match-p "^Power N/A" (battery))   ; On laptops
-  (display-battery-mode 1))                       ; it's nice to know how much power you have
 
 ;; Set src block automatic indent to 0 instead of 2
 (setq org-edit-src-content-indentation 0)
@@ -1097,7 +1096,7 @@ Do not save the =org-refile-last-stored= and =org-capture-last-stored= buffers a
 Function =delete-this-file= deletes the current file and kills the buffer associated with it.
 It first checks if there is a file being edited in the buffer.
 If not, it throws an error.
-Then, it prompts the user for confirmation to delete the file. If the user confirms, it proceeds to delete the file using delete-file and kills the buffer using =kill-this-buffer=.
+Then, it prompts the user for confirmation to delete the file. If the user confirms, it proceeds to delete the file using =delete-file= and kills the buffer using =kill-this-buffer=.
 
 Function =rename-this-file-and-buffer= renames both the current buffer and the file it’s visiting to a new name specified by the user.
 It takes user input for the new name using the interactive keyword, checks if the buffer is visiting a file, renames the file if it exists, updates the visited file name, and renames the buffer accordingly.
@@ -1308,12 +1307,27 @@ Version: 2022-08-06"
 ;;   :hook (yaml-mode . k8s-mode))
 #+end_src
 
-** terraform-mode
+** Terraform-mode
 #+begin_src emacs-lisp
 (use-package terraform-mode
   :ensure t
   :mode ("\\.tf\\'" "\\.tfvars\\'")
   :hook (terraform-mode . terraform-format-on-save-mode))
+#+end_src
+
+** Auto tangle after save
+If the file has a =PROPERTY: header-args: terraform= for terraform docs, it will auto tangle after saving code terraform code blocks.
+
+#+begin_src emacs-lisp
+(defun tl/org-auto-tangle ()
+  "Automatically tangle Org files on save if they have a tangle property."
+  (when (and (string-equal (file-name-extension buffer-file-name) "org")
+             (save-excursion
+               (goto-char (point-min))
+               (re-search-forward "^#\\+PROPERTY: header-args:" nil t)))
+    (org-babel-tangle)))
+
+(add-hook 'after-save-hook #'tl/org-auto-tangle)
 #+end_src
 
 ** Smart hungry-delete
@@ -1533,53 +1547,6 @@ Version: 2025-02-05"
     (message "Last entry copied to system clipboard.")))
 
 (global-set-key (kbd "M-'") 'copy-last-entry-to-clipboard)
-#+end_src
-
-** Move cursor by text block
-Here's a command that move cursor to beginning of line (of visible char) or previous text block.
-
-#+begin_src emacs-lisp
-(defun tl/beginning-of-line-or-block ()
-  "Move cursor to beginning of indent or line, end of previous block, in that order.
-
-If `visual-line-mode' is on, beginning of line means visual line.
-
-URL `http://xahlee.info/emacs/emacs/emacs_move_by_paragraph.html'
-Created: 2018-06-04
-Version: 2024-10-30"
-  (interactive)
-  (let ((xp (point)))
-    (if (or (eq (point) (line-beginning-position))
-            (eq last-command this-command))
-        (when (re-search-backward "\n[\t\n ]*\n+" nil 1)
-          (skip-chars-backward "\n\t ")
-          ;; (forward-char)
-          )
-      (if visual-line-mode
-          (beginning-of-visual-line)
-        (if (eq major-mode 'eshell-mode)
-            (beginning-of-line)
-          (back-to-indentation)
-          (when (eq xp (point))
-            (beginning-of-line)))))))
-
-(defun tl/end-of-line-or-block ()
-  "Move cursor to end of line or next block.
-
-• When called first time, move cursor to end of line.
-• When called again, move cursor forward by jumping over any sequence of whitespaces containing 2 blank lines.
-• if `visual-line-mode' is on, end of line means visual line.
-
-URL `http://xahlee.info/emacs/emacs/emacs_move_by_paragraph.html'
-Created: 2018-06-04
-Version: 2024-10-30"
-  (interactive)
-  (if (or (eq (point) (line-end-position))
-          (eq last-command this-command))
-      (re-search-forward "\n[\t\n ]*\n+" nil 1)
-    (if visual-line-mode
-        (end-of-visual-line)
-      (end-of-line))))
 #+end_src
 
 ** Copy current line
@@ -1941,6 +1908,86 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (embark-collect-mode . consult-preview-at-point-mode))
 #+end_src
 
+** Corfu
+Words auto-comppletion
+
+#+begin_src emacs-lisp
+;; Insert a whitespace after completing a word
+(defun tl/corfu-accept-then-space ()
+  "Accept the current Corfu completion, then insert a space."
+  (interactive)
+  (corfu-insert)   ;; accept current candidate
+  (insert " "))    ;; add a space afterward
+
+;; Corfu — popup completion (with TTY support)
+(use-package corfu
+  :ensure t
+  :custom
+  (corfu-auto t)              ;; automatically show completions
+  (corfu-auto-prefix 1)       ;; start showing after 1 char
+  (corfu-auto-delay 0)        ;; no delay
+  (corfu-cycle t)
+  (corfu-count 8)       ;; max number of candidates displayed
+  (corfu-preselect-first t)
+  (corfu-scroll-margin 0)
+  (corfu-quit-no-match 'separator)
+  (corfu-preview-current nil)  ;; cleaner in TTY
+  :init
+  (global-corfu-mode)
+  :bind
+  (:map corfu-map
+        ("TAB" . tl/corfu-accept-then-space)
+        ("RET" . tl/corfu-accept-then-space)
+        ("SPC" . nil)))
+
+;; Enable popup UI in terminal
+(use-package corfu-terminal
+  :if (not (display-graphic-p))
+  :ensure t
+  :after corfu
+  :init
+  (corfu-terminal-mode +1))
+
+;; CAPE — dictionary-based “predictive” completion
+(use-package cape
+  :ensure t
+  :config
+  ;; Use system dictionary (edit if different on your OS)
+  (setq cape-dict-file "/usr/share/dict/words")
+
+  ;; Add dictionary completion into the default completion chain
+  (add-to-list 'completion-at-point-functions #'cape-dict))
+#+end_src
+
+** Jinx
+Words autocorrection
+
+#+begin_src emacs-lisp
+(use-package jinx
+  :ensure t
+  :hook (emacs-startup . global-jinx-mode)
+  :config
+  (setq jinx-languages "en_US,pl_PL"))
+
+(fset 'my/jinx-auto-correct
+      (kbd "M-x jinx-correct RET 1"))
+
+(global-set-key (kbd "M-u") 'my/jinx-auto-correct)
+
+;; Switch between the en_US and pl_PL dictionaries
+(defun tl/jinx-toggle-single-dictionary ()
+  (interactive)
+  (if (string= jinx-languages "en_US")
+      (progn
+        (setq jinx-languages "pl_PL")
+        (message "Spell checker dictionary set to: pl_PL"))
+    (progn
+      (setq jinx-languages "en_US")
+      (message "Spell checker dictionary set to: en_US")))
+    (jinx-mode 0)
+      (jinx-mode 1))
+#+end_src
+
 * Other Packages
 ** Anzu
 Show number of matches while searching.
@@ -1960,29 +2007,6 @@ This is useful when followed by an immediate kill."
     (isearch-exit)
     (goto-char isearch-other-end))
   (define-key isearch-mode-map [(control return)] 'tl/isearch-exit-other-end))
-#+end_src
-
-** Jinx
-
-#+begin_src emacs-lisp
-(use-package jinx
-  :ensure t
-  :hook (emacs-startup . global-jinx-mode)
-  :config
-  (setq jinx-languages "en_US,pl_PL"))
-
-;; Switch between the en_US and pl_PL dictionaries
-(defun tl/jinx-toggle-single-dictionary ()
-  (interactive)
-  (if (string= jinx-languages "en_US")
-      (progn
-        (setq jinx-languages "pl_PL")
-        (message "Spell checker dictionary set to: pl_PL"))
-    (progn
-      (setq jinx-languages "en_US")
-      (message "Spell checker dictionary set to: en_US")))
-    (jinx-mode 0)
-      (jinx-mode 1))
 #+end_src
 
 ** Treemacs
@@ -2459,8 +2483,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "l") #'forward-char)
   (define-key god-local-mode-map (kbd "f") #'forward-word)
   (define-key god-local-mode-map (kbd "b") #'backward-word)
-  (define-key god-local-mode-map (kbd "a") #'tl/beginning-of-line-or-block)
-  (define-key god-local-mode-map (kbd "e") #'tl/end-of-line-or-block)
+  (define-key god-local-mode-map (kbd "a") #'beginning-of-line)
+  (define-key god-local-mode-map (kbd "e") #'end-of-line)
   (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
   (define-key god-local-mode-map (kbd "C-S-j") #'tl/copy-down-current-line-or-region)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
@@ -2568,7 +2592,6 @@ It allows you to jump to the locations of the last changes made in the buffer:
 * Org Mode
 ** Essential packages
 *** Org-toc
-
 #+begin_src emacs-lisp
 (use-package toc-org
   :commands toc-org-enable
@@ -3111,6 +3134,7 @@ Version: 2020-06-26 2023-11-14"
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("tl" . "src terraform :tangle yes"))
   (add-to-list 'org-structure-template-alist '("conf" . "src conf")))
 #+end_src
 
