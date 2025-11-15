@@ -111,6 +111,8 @@ packages=(
   "acpi"
   "dkms"
   "emacs-wayland"
+  "words"
+  "hunspell"
   "hunspell-en_us"
   "hunspell-pl"
   "duf"
