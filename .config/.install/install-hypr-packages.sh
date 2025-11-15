@@ -112,6 +112,7 @@ packages=(
   "dkms"
   "emacs-wayland"
   "words"
+  "words-pl"
   "hunspell"
   "hunspell-en_us"
   "hunspell-pl"

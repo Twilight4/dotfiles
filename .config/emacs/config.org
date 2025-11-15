@@ -28,6 +28,7 @@
   - [[#ansi-colours][Ansi colours]]
   - [[#youtube-link-export][YouTube link export]]
   - [[#disable-automatic-bookmarking][Disable automatic bookmarking]]
+  - [[#code-folding][Code Folding]]
 - [[#editing-features][Editing Features]]
   - [[#improved-file-management][Improved file management]]
   - [[#nicer-org-return][Nicer org-return]]
@@ -399,7 +400,7 @@
     "y" '(consult-yank-pop :wk "Clipboard history")
     "i" '(org-gtd-process-inbox :wk "Process inbox")
     "f" '(hl-todo-insert :wk "Insert todo heading at point")
-    "L" '(tl/jinx-toggle-single-dictionary :wk "Switch between dictionaries")
+    "L" '(tl/toggle-dict-both :wk "Switch between dictionaries (auto-correct and completion)")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
 	;"C-p" '(find-file-at-point :wk "Find file at point")
     ;"C-q" '(delete-frame :wk "Delete frame")
@@ -1091,6 +1092,61 @@ Do not save the =org-refile-last-stored= and =org-capture-last-stored= buffers a
        ad-do-it))
 #+end_src
 
+** Code Folding
+The built-in =outline-minor-mode= provides structured code folding in modes such as Emacs Lisp and Python, allowing users to collapse and expand sections based on headings or indentation levels. This feature enhances navigation and improves the management of large files with hierarchical structures.
+
+Alternatively, =hs-minor-mode= offers basic code folding for blocks defined by curly braces, functions, or other language-specific delimiters. However, for more flexible folding that supports multiple nested levels, =outline-minor-mode= is generally the preferred choice, as it enables finer control over section visibility in deeply structured code.
+
+For example, to enable =outline-minor-mode= in Emacs Lisp:
+#+begin_src emacs-lisp
+;; The built-in outline-minor-mode provides structured code folding in modes
+;; such as Emacs Lisp and Python, allowing users to collapse and expand sections
+;; based on headings or indentation levels. This feature enhances navigation and
+;; improves the management of large files with hierarchical structures.
+(use-package outline
+  :ensure nil
+  :commands outline-minor-mode
+  :hook
+  ((emacs-lisp-mode . outline-minor-mode)
+   ;; Use " ▼" instead of the default ellipsis "..." for folded text to make
+   ;; folds more visually distinctive and readable.
+   (outline-minor-mode
+    .
+    (lambda()
+      (let* ((display-table (or buffer-display-table (make-display-table)))
+             (face-offset (* (face-id 'shadow) (ash 1 22)))
+             (value (vconcat (mapcar (lambda (c) (+ face-offset c)) " ▼"))))
+        (set-display-table-slot display-table 'selective-display value)
+        (setq buffer-display-table display-table))))))
+#+end_src
+
+For folding based on indentation levels, the outline-indent Emacs package provides a minor mode that enables folding according to the indentation structure:
+#+begin_src emacs-lisp
+;; The outline-indent Emacs package provides a minor mode that enables code
+;; folding based on indentation levels.
+;;
+;; In addition to code folding, *outline-indent* allows:
+;; - Moving indented blocks up and down
+;; - Indenting/unindenting to adjust indentation levels
+;; - Inserting a new line with the same indentation level as the current line
+;; - Move backward/forward to the indentation level of the current line
+;; - and other features.
+(use-package outline-indent
+  :ensure t
+  :commands outline-indent-minor-mode
+
+  :custom
+  (outline-indent-ellipsis " ▼")
+
+  :init
+  ;; The minor mode can also be automatically activated for a certain modes.
+  (add-hook 'python-mode-hook #'outline-indent-minor-mode)
+  (add-hook 'python-ts-mode-hook #'outline-indent-minor-mode)
+
+  (add-hook 'yaml-mode-hook #'outline-indent-minor-mode)
+  (add-hook 'yaml-ts-mode-hook #'outline-indent-minor-mode))
+#+end_src
+
 * Editing Features
 ** Improved file management
 Function =delete-this-file= deletes the current file and kills the buffer associated with it.
@@ -1316,7 +1372,11 @@ Version: 2022-08-06"
 #+end_src
 
 ** Auto tangle after save
-If the file has a =PROPERTY: header-args: terraform= for terraform docs, it will auto tangle after saving code terraform code blocks.
+If the file has:
+- =PROPERTY: header-args: terraform=
+- =#+begin_src terraform :tangle yes= in code blocks
+
+it will auto tangle after saving.
 
 #+begin_src emacs-lisp
 (defun tl/org-auto-tangle ()
@@ -1909,7 +1969,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** Corfu
-Words auto-comppletion
+Words auto-completion
 
 #+begin_src emacs-lisp
 ;; Insert a whitespace after completing a word
@@ -1953,26 +2013,42 @@ Words auto-comppletion
   :init
   (corfu-terminal-mode +1))
 
-;; by providing additional backends through completion-at-point-functions.
 (use-package cape
   :ensure t
-  :commands (cape-dabbrev cape-file cape-elisp-block)
+  :commands (cape-dabbrev cape-file cape-elisp-block cape-dict)
   :init
-  ;; Add to the global default value of `completion-at-point-functions' which is
-  ;; used by `completion-at-point'.
+  ;; Add to the global default value of completion-at-point-functions
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-file)
-  (add-hook 'completion-at-point-functions #'cape-elisp-block))
+  (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  :config
+  ;; Default dictionary (Polish)
+  (setq tl/cape-dict-current-language 'polish)
+  (setq cape-dict-file "/usr/share/dict/polish")
 
-;; CAPE — dictionary-based “predictive” completion (more expanded dictionary config)
-;; (use-package cape
-;;  :ensure t
-;;  :config
-;;  ;; Use system dictionary (edit if different on your OS)
-;;  (setq cape-dict-file "/usr/share/dict/words")
+  ;; Add dictionary completion into the default completion chain
+  (add-to-list 'completion-at-point-functions #'cape-dict)
 
-;;  ;; Add dictionary completion into the default completion chain
-;;  (add-to-list 'completion-at-point-functions #'cape-dict))
+  ;; Function to toggle between Polish and English dictionaries
+  (defun tl/toggle-cape-dict-language ()
+    "Toggle cape-dict between Polish and English dictionaries."
+    (interactive)
+    (cond
+     ((eq tl/cape-dict-current-language 'polish)
+      (setq cape-dict-file "/usr/share/dict/words") ;; English dictionary
+      (setq tl/cape-dict-current-language 'english)
+      (message "Current dictionary: English"))
+     ((eq tl/cape-dict-current-language 'english)
+      (setq cape-dict-file "/usr/share/dict/polish")
+      (setq tl/cape-dict-current-language 'polish)
+      (message "Current dictionary: Polish"))))
+
+  ;; Function to toggle dictionary for words auto completion (Corfu) and auto-correction (Jinx)
+  (defun tl/toggle-dict-both ()
+    "Run both tl/toggle-cape-dict-language and tl/jinx-toggle-single-dictionary."
+    (interactive)
+    (tl/jinx-toggle-single-dictionary)
+    (tl/toggle-cape-dict-language)))
 #+end_src
 
 ** Jinx
