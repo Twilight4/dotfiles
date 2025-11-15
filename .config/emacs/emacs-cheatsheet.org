@@ -401,6 +401,7 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | C-S-\      | Query-replace                        |
 | S-r        | Rectangle mark mode                  |
 | S-m        | Org meta return                      |
+| C-c C-,    | Select the source code block         |
 | ,          | Backward paragraph                   |
 | .          | Forward paragraph                    |
 | e          | Org end of line                      |
