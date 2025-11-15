@@ -137,6 +137,7 @@ keymap = [
 	{ on = [ "g", "d" ],       run = "cd ~/documents",   desc = "Goto ~/documents" },
 	{ on = [ "g", "w" ],       run = "cd ~/desktop/workspace",   desc = "Goto ~/desktop/workspace" },
 	{ on = [ "g", "P" ],       run = "cd ~/desktop/projects",   desc = "Goto ~/desktop/projects" },
+	{ on = [ "g", "/" ],       run = "cd /",   desc = "Goto /" },
 	#{ on = [ "g", "M" ],       run = "cd /run/media/twilight",   desc = "Goto /run/media/twilight" },
 	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Jump interactively" },
 

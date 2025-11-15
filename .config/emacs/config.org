@@ -2002,7 +2002,6 @@ Words auto-completion
   :bind
   (:map corfu-map
         ("TAB" . tl/corfu-accept-then-space)
-        ("RET" . tl/corfu-accept-then-space)
         ("SPC" . nil)))
 
 ;; Enable popup UI in terminal
