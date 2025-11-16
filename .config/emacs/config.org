@@ -25,7 +25,7 @@
   - [[#transparency][Transparency]]
   - [[#centaur-tabs][Centaur-tabs]]
   - [[#file-encoding][File encoding]]
-  - [[#ansi-colours][Ansi colours]]
+  - [[#ansi-colors][ANSI colors]]
   - [[#youtube-link-export][YouTube link export]]
   - [[#disable-automatic-bookmarking][Disable automatic bookmarking]]
   - [[#code-folding][Code Folding]]
@@ -35,7 +35,7 @@
   - [[#clean-empty-lines][Clean Empty Lines]]
   - [[#expand-region][Expand-region]]
   - [[#symbol-overlay][Symbol-overlay]]
-  - [[#yaml-syntax-highlighting][yaml syntax highlighting]]
+  - [[#yaml-syntax-highlighting][Yaml syntax highlighting]]
   - [[#terraform-mode][Terraform-mode]]
   - [[#auto-tangle-after-save][Auto tangle after save]]
   - [[#smart-hungry-delete][Smart hungry-delete]]
@@ -420,7 +420,7 @@
     ;"" '(org-gtd-oops :wk "Missed appointments")
     ;"" '(org-gtd-review-stuck-* :wk "Any action types")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
-    ;"O" '(tl/buffer-org-new :wk "New empty org buffer")
+    "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
 	"TAB" '(comment-dwim :wk "Comment lines")
@@ -452,7 +452,7 @@
     "C-j" '(previous-multiframe-window :wk "Select macro to run")
     "m" '(consult-kmacro :wk "Select macro to run")
     "K" '(kubernetes-overview :wk "Kubernetes overview")
-    "C-o" '(dashboard-open :wk "Open emacs dashboard")
+    ;;"" '(dashboard-open :wk "Open emacs dashboard")    ;; Don't use atm
     "C-w" '(ace-swap-window :wk "Swap windows")
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")
@@ -1050,7 +1050,7 @@ When we have the default file encoding (LF UTF-8), it really isn’t worth notin
 (add-hook 'after-change-major-mode-hook 'doom-modeline-conditional-buffer-encoding)
 #+end_src
 
-** Ansi colours
+** ANSI colors
 It’s nice to see ANSI colour codes displayed, however I don’t want to disrupt ANSI codes in =Org= src blocks.
 
 #+begin_src emacs-lisp
@@ -1337,7 +1337,7 @@ Version: 2022-08-06"
   :ensure t)
 #+end_src
 
-** yaml syntax highlighting
+** Yaml syntax highlighting
 #+begin_src emacs-lisp
 (use-package yaml-mode
   :ensure t
@@ -2061,10 +2061,17 @@ Words autocorrection
   :config
   (setq jinx-languages "en_US,pl_PL"))
 
+;; Macro to quickly auto-correct word
 (fset 'my/jinx-auto-correct
       (kbd "M-x jinx-correct RET 1"))
 
 (global-set-key (kbd "M-u") 'my/jinx-auto-correct)
+
+;; Macro to quickly mark the underlined word as correct and save
+(fset 'my/jinx-auto-correct-save
+      (kbd "M-x jinx-correct RET @"))
+
+(global-set-key (kbd "M-p") 'my/jinx-auto-correct-save)
 
 ;; Switch between the en_US and pl_PL dictionaries
 (defun tl/jinx-toggle-single-dictionary ()
