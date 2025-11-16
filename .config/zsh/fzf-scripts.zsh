@@ -698,8 +698,19 @@ fwal() {
 
 # List workspace git repos
 fwork() {
-    result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/desktop/workspace/$result ; y
+    # Cancel cleanly on Ctrl-C
+    trap 'return 130' INT
+
+    result=$(
+        find ~/desktop/workspace/* -type d -prune -exec basename {} \; |
+        sort | uniq | nl |
+        fzf
+    ) || return 130   # fzf aborted with Ctrl-C
+
+    result=$(echo "$result" | cut -f2)
+    [ -n "$result" ] || return
+
+    cd ~/desktop/workspace/"$result" && y
 }
 
 # List connected external devices
@@ -710,8 +721,19 @@ fdev() {
 
 # List projects
 fproj() {
-    result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/desktop/projects/$result ; y
+    # Cancel the function when Ctrl-C is pressed
+    trap 'return 130' INT
+
+    result=$(
+        find ~/desktop/projects/* -type d -prune -exec basename {} \; |
+        sort | uniq | nl |
+        fzf
+    ) || return 130  # fzf aborted with Ctrl-C
+
+    result=$(echo "$result" | cut -f2)
+    [ -n "$result" ] || return
+
+    cd ~/desktop/projects/"$result" && y
 }
 
 # List current findings reports
