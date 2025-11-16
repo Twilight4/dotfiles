@@ -1,19 +1,17 @@
 #!/bin/bash
 
-YOUTUBE_URL="https://www.youtube.com"
-
 # Function to check if a Zen YouTube tab is running
 is_zen_youtube_running() {
   hyprctl clients | grep -E 'title: .* YouTube — Zen Browser$' >/dev/null
 }
 
-# Move to workspace 5
+# Switch to workspace 5
 hyprctl dispatch workspace 5
 
 # If Zen with YouTube is NOT running
 if ! is_zen_youtube_running; then
-  # Launch Zen browser with YouTube
-  hyprctl dispatch exec "zen-browser \"$YOUTUBE_URL\""
+  # Launch Zen browser with YouTube profile = only youtube tab that was opened
+  hyprctl dispatch exec '[workspace 5] zen-browser -P Youtube'
 else
   # Focus on the already-running window
   hyprctl dispatch workspace 5
