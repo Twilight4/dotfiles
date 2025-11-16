@@ -2022,8 +2022,9 @@ Words auto-completion
   (add-hook 'completion-at-point-functions #'cape-elisp-block)
   :config
   ;; Default dictionary (Polish)
+  ;; I made this wordlist out of hunspell-pl package instead of installing words-pl package cuz the words-pl has too much redundant words (60mb over 5mb)
   (setq tl/cape-dict-current-language 'polish)
-  (setq cape-dict-file "/usr/share/dict/polish")
+  (setq cape-dict-file "/home/twilight/documents/org/polish-words.txt")
 
   ;; Add dictionary completion into the default completion chain
   (add-to-list 'completion-at-point-functions #'cape-dict)
@@ -2038,7 +2039,7 @@ Words auto-completion
       (setq tl/cape-dict-current-language 'english)
       (message "Current dictionary: English"))
      ((eq tl/cape-dict-current-language 'english)
-      (setq cape-dict-file "/usr/share/dict/polish")
+      (setq cape-dict-file "/home/twilight/documents/org/polish-words.txt")
       (setq tl/cape-dict-current-language 'polish)
       (message "Current dictionary: Polish"))))
 
