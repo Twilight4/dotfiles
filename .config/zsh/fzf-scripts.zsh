@@ -699,7 +699,7 @@ fwal() {
 # List workspace git repos
 fwork() {
     result=$(find ~/desktop/workspace/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/desktop/workspace/$result ; lsd -l --hyperlink=auto ; y
+    [ -n "$result" ] && cd ~/desktop/workspace/$result ; y
 }
 
 # List connected external devices
@@ -711,7 +711,7 @@ fdev() {
 # List projects
 fproj() {
     result=$(find ~/desktop/projects/* -type d -prune -exec basename {} ';' | sort | uniq | nl | fzf | cut -f 2)
-    [ -n "$result" ] && cd ~/desktop/projects/$result ; lsd -l --hyperlink=auto ; y
+    [ -n "$result" ] && cd ~/desktop/projects/$result ; y
 }
 
 # List current findings reports
