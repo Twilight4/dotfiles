@@ -20,7 +20,7 @@ bindkey '^F' forward-word
 bindkey '^K' up-line-or-history
 bindkey '^J' down-line-or-history
 # Killing and yanking
-#bindkey '^U' backward-kill-line
+bindkey '^U' backward-kill-line
 bindkey '^O' kill-line
 bindkey '^[d' kill-word
 bindkey '^G' clear-screen
@@ -118,10 +118,11 @@ bindkey -M emacs -s '^[\' '\\cd ..; ls\r'
 #bindkey -M emacs -s '^[u' 'fwork\r'
 #bindkey -M emacs -s '^[p' 'fproj\r'
 #bindkey -M emacs -s '^[D' 'fdev\r'
-bindkey -M emacs -s '^[T' 'ftrack\r'
+#bindkey -M emacs -s '^[e' 'ftrack\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
-bindkey -M emacs -s '^[P' 'fpdf\r'
-bindkey -M emacs -s '^[n' 'nb-^I'
+bindkey -M emacs -s '^[T' 'fpdf\r'
+bindkey -M emacs -s '^[P' 'fnp\r'
+#bindkey -M emacs -s '^[n' 'nb-^I'       # not using
 
 # Cheatsheets/Notes
 bindkey -M emacs -s '^[z' 'fchtc\r'
@@ -140,7 +141,6 @@ bindkey -M emacs -s '^[{' 'fgl\r'
 # ctrl+... keys
 #bindkey -M emacs -s '^]' 'fzf-eval '
 # Misc
-bindkey -M emacs -s '^[N' 'fnp\r'
 #bindkey -M emacs -s '^[e' 'frg '
 #bindkey -M emacs -s '^[e' 'fvars\r'
 
