@@ -89,7 +89,7 @@ run_cmd() {
       if [ -z "$query" ]; then
         exit 0
       else
-        xdg-open "https://www.google.com/search?q=$query" &
+        zen-browser -P 'Default (release)' "https://www.google.com/search?q=$query" &
       fi
       ;;
     --opt2)
@@ -101,37 +101,37 @@ run_cmd() {
       fi
       ;;
     --opt3)
-      xdg-open 'https://mail.proton.me/u/0/inbox' &
+      zen-browser -P 'Default (release)' 'https://mail.proton.me/u/0/inbox' &
       ;;
     --opt4)
       query=$(get_search_query)
       if [ -z "$query" ]; then
-        xdg-open 'https://www.youtube.com/' &
+        zen-browser -P 'Default (release)' 'https://www.youtube.com/' &
       else
-        xdg-open "https://www.youtube.com/results?search_query=$query" &
+        zen-browser -P 'Default (release)' "https://www.youtube.com/results?search_query=$query" &
       fi
       ;;
     --opt5)
-      xdg-open 'https://www.github.com/' &
+      zen-browser -P 'Default (release)' 'https://www.github.com/' &
       ;;
     --opt6)
-      xdg-open 'https://github.com/trending' &
+      zen-browser -P 'Default (release)' 'https://github.com/trending' &
       ;;
     --opt7)
-      xdg-open 'https://mega.nz/' &
+      zen-browser -P 'Default (release)' 'https://mega.nz/' &
       ;;
     --opt8)
       query=$(get_search_query)
       if [ -z "$query" ]; then
         exit 0
       else
-        xdg-open "https://www.amazon.com/s?k=$query" &
-        xdg-open "https://www.amazon.pl/s?k=$query" &
-        xdg-open "https://allegro.pl/listing?string=$query" &
-        xdg-open "https://www.olx.pl/oferty/q-$query/" &
-        xdg-open "https://www.google.com/search?q=$query" &
-        xdg-open "https://pl.aliexpress.com" &
-        xdg-open "https://www.temu.com/pl" &
+        zen-browser -P 'Default (release)' "https://www.amazon.com/s?k=$query" &
+        zen-browser -P 'Default (release)' "https://www.amazon.pl/s?k=$query" &
+        zen-browser -P 'Default (release)' "https://allegro.pl/listing?string=$query" &
+        zen-browser -P 'Default (release)' "https://www.olx.pl/oferty/q-$query/" &
+        zen-browser -P 'Default (release)' "https://www.google.com/search?q=$query" &
+        zen-browser -P 'Default (release)' "https://pl.aliexpress.com" &
+        zen-browser -P 'Default (release)' "https://www.temu.com/pl" &
       fi
       ;;
     --opt9)
@@ -139,7 +139,7 @@ run_cmd() {
       if [ -z "$query" ]; then
         exit 0
       else
-        xdg-open "https://www.amazon.com/s?k=$query" &
+        zen-browser -P 'Default (release)' "https://www.amazon.com/s?k=$query" &
       fi
       ;;
     --opt10)
@@ -147,7 +147,7 @@ run_cmd() {
       if [ -z "$query" ]; then
         exit 0
       else
-        xdg-open "https://www.amazon.pl/s?k=$query" &
+        zen-browser -P 'Default (release)' "https://www.amazon.pl/s?k=$query" &
       fi
       ;;
     --opt11)
@@ -155,7 +155,7 @@ run_cmd() {
       if [ -z "$query" ]; then
         exit 0
       else
-        xdg-open "https://allegro.pl/listing?string=$query" &
+        zen-browser -P 'Default (release)' "https://allegro.pl/listing?string=$query" &
       fi
       ;;
     --opt12)
@@ -163,134 +163,134 @@ run_cmd() {
       if [ -z "$query" ]; then
         exit 0
       else
-        xdg-open "https://www.olx.pl/oferty/q-$query/" &
+        zen-browser -P 'Default (release)' "https://www.olx.pl/oferty/q-$query/" &
       fi
       ;;
     --opt13)
-      xdg-open 'https://helion.pl/kategorie/ksiazki/hacking' &
+      zen-browser -P 'Default (release)' 'https://helion.pl/kategorie/ksiazki/hacking' &
       ;;
     --opt22)
-      xdg-open 'https://www.pekao24.pl/pekao24/produkty' &
+      zen-browser -P 'Default (release)' 'https://www.pekao24.pl/pekao24/produkty' &
       ;;
     --opt23)
-      xdg-open 'https://book.hacktricks.xyz' &
+      zen-browser -P 'Default (release)' 'https://book.hacktricks.xyz' &
       ;;
     --opt25)
-      xdg-open 'https://www.imagetotext.info/' &
+      zen-browser -P 'Default (release)' 'https://www.imagetotext.info/' &
       ;;
     --opt31)
-      xdg-open 'https://www.google.com/maps' &
+      zen-browser -P 'Default (release)' 'https://www.google.com/maps' &
       ;;
     --opt34)
-      xdg-open 'file:///home/twilight/documents/pdfs/active-directory-attacks.pdf' &
+      zen-browser -P 'Default (release)' 'file:///home/twilight/documents/pdfs/active-directory-attacks.pdf' &
       ;;
     --opt35)
-      xdg-open 'https://cloud.digitalocean.com/droplets?i=ff92a8' &
+      zen-browser -P 'Default (release)' 'https://cloud.digitalocean.com/droplets?i=ff92a8' &
       ;;
     --opt36)
-      xdg-open 'https://www.paypal.com/myaccount/summary' &
+      zen-browser -P 'Default (release)' 'https://www.paypal.com/myaccount/summary' &
       ;;
     --opt38)
-      xdg-open 'https://0bin.net/' &
+      zen-browser -P 'Default (release)' 'https://0bin.net/' &
       ;;
     --opt39)
-      xdg-open 'https://app.tuta.com/mail/' &
+      zen-browser -P 'Default (release)' 'https://app.tuta.com/mail/' &
       ;;
     --opt40)
-      xdg-open 'https://tmpfiles.org/' &
+      zen-browser -P 'Default (release)' 'https://tmpfiles.org/' &
       ;;
     --opt41)
-      xdg-open 'https://x.com/' &
+      zen-browser -P 'Default (release)' 'https://x.com/' &
       ;;
     --opt42)
-      xdg-open 'https://www.facebook.com/' &
+      zen-browser -P 'Default (release)' 'https://www.facebook.com/' &
       ;;
     --opt43)
-      xdg-open 'https://www.instagram.com/' &
+      zen-browser -P 'Default (release)' 'https://www.instagram.com/' &
       ;;
     --opt44)
-      xdg-open 'https://discord.com/channels/@me' &
+      zen-browser -P 'Default (release)' 'https://discord.com/channels/@me' &
       ;;
     --opt45)
-      xdg-open 'https://orange-cyberdefense.github.io/ocd-mindmaps/img/pentest_ad_dark_2023_02.svg' &
+      zen-browser -P 'Default (release)' 'https://orange-cyberdefense.github.io/ocd-mindmaps/img/pentest_ad_dark_2023_02.svg' &
       ;;
     --opt46)
-      xdg-open 'https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet' &
+      zen-browser -P 'Default (release)' 'https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet' &
       ;;
     --opt47)
-      xdg-open 'https://www.temu.com/pl' &
+      zen-browser -P 'Default (release)' 'https://www.temu.com/pl' &
       ;;
     --opt48)
-      xdg-open 'https://best.aliexpress.com/?gatewayAdapt=pol2usa&browser_redirect=true' &
+      zen-browser -P 'Default (release)' 'https://best.aliexpress.com/?gatewayAdapt=pol2usa&browser_redirect=true' &
       ;;
     --opt49)
-      xdg-open 'https://www.vinted.pl/' &
+      zen-browser -P 'Default (release)' 'https://www.vinted.pl/' &
       ;;
     --opt50)
-      xdg-open 'https://bilety.polregio.pl/' &
+      zen-browser -P 'Default (release)' 'https://bilety.polregio.pl/' &
       ;;
     --opt51)
-      xdg-open 'https://ebilet.intercity.pl/' &
+      zen-browser -P 'Default (release)' 'https://ebilet.intercity.pl/' &
       ;;
     --opt52)
-      xdg-open 'https://jakdojade.pl/' &
+      zen-browser -P 'Default (release)' 'https://jakdojade.pl/' &
       ;;
     --opt53)
-      xdg-open 'https://inwentury.pl/' &
+      zen-browser -P 'Default (release)' 'https://inwentury.pl/' &
       ;;
     --opt54)
-      xdg-open 'https://console.aws.amazon.com/' &
+      zen-browser -P 'Default (release)' 'https://console.aws.amazon.com/' &
       ;;
     --opt55)
-      xdg-open 'https://chat.deepseek.com/' &
+      zen-browser -P 'Default (release)' 'https://chat.deepseek.com/' &
       ;;
     --opt56)
-      xdg-open 'https://hub.docker.com/' &
+      zen-browser -P 'Default (release)' 'https://hub.docker.com/' &
       ;;
     --opt57)
-      xdg-open 'https://kubernetes.io/docs/concepts/services-networking/' &
+      zen-browser -P 'Default (release)' 'https://kubernetes.io/docs/concepts/services-networking/' &
       ;;
     --opt58)
-      xdg-open 'https://artifacthub.io/' &
+      zen-browser -P 'Default (release)' 'https://artifacthub.io/' &
       ;;
     --opt59)
-      xdg-open 'https://www.ubereats.com' &
+      zen-browser -P 'Default (release)' 'https://www.ubereats.com' &
       ;;
     --opt60)
-      xdg-open 'https://app.exampro.co/' &
+      zen-browser -P 'Default (release)' 'https://app.exampro.co/' &
       ;;
     --opt61)
-      xdg-open 'https://docs.aws.amazon.com/' &
+      zen-browser -P 'Default (release)' 'https://docs.aws.amazon.com/' &
       ;;
     --opt62)
-      xdg-open 'https://www.flaticon.com/search?word=do%20not%20disturb&color=gradient' &
+      zen-browser -P 'Default (release)' 'https://www.flaticon.com/search?word=do%20not%20disturb&color=gradient' &
       ;;
     --opt63)
-      xdg-open 'https://kubernetes.io/docs/reference/kubectl/quick-reference/' &
+      zen-browser -P 'Default (release)' 'https://kubernetes.io/docs/reference/kubectl/quick-reference/' &
       ;;
     --opt64)
-      xdg-open 'https://kubernetes.github.io/ingress-nginx/deploy/#minikube' &
+      zen-browser -P 'Default (release)' 'https://kubernetes.github.io/ingress-nginx/deploy/#minikube' &
       ;;
     --opt65)
-      xdg-open 'https://tinder.com/app/recs' &
+      zen-browser -P 'Default (release)' 'https://tinder.com/app/recs' &
       ;;
     --opt66)
-      xdg-open 'https://www.peka.poznan.pl/km/account' &
+      zen-browser -P 'Default (release)' 'https://www.peka.poznan.pl/km/account' &
       ;;
     --opt67)
-      xdg-open 'https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows' &
+      zen-browser -P 'Default (release)' 'https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows' &
       ;;
     --opt68)
-      xdg-open 'https://github.com/marketplace' &
+      zen-browser -P 'Default (release)' 'https://github.com/marketplace' &
       ;;
     --opt69)
-      xdg-open 'https://developer.hashicorp.com/terraform/intro/use-cases' &
+      zen-browser -P 'Default (release)' 'https://developer.hashicorp.com/terraform/intro/use-cases' &
       ;;
     --opt70)
-      xdg-open 'https://registry.terraform.io/browse/providers' &
+      zen-browser -P 'Default (release)' 'https://registry.terraform.io/browse/providers' &
       ;;
     --opt71)
-      xdg-open 'https://registry.terraform.io/providers/hashicorp/aws/latest/docs' &
+      zen-browser -P 'Default (release)' 'https://registry.terraform.io/providers/hashicorp/aws/latest/docs' &
       ;;
     *)
       ;;
