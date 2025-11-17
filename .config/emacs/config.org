@@ -3273,6 +3273,42 @@ Some custom functions to insert the date.
 Let’s make creating an Org buffer just that little bit easier.
 
 #+begin_src emacs-lisp
+;; for kitty alt+shift+n keybind to run this command in current window and select *new org* buffer
+(defun tl/consult-new-org ()
+  "Switch to the latest modified '*new org*' buffer, then run `consult-buffer`.
+If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
+  (interactive)
+  (let ((default-name "*new org*"))
+    ;; Find latest modified *new org* buffer
+    (let ((latest-buffer
+           (car (sort
+                 (seq-filter (lambda (buf)
+                               (string= (buffer-name buf) default-name))
+                             (buffer-list))
+                 (lambda (a b)
+                   (time-less-p (buffer-local-value 'buffer-display-time b)
+                                (buffer-local-value 'buffer-display-time a)))))))
+      (when latest-buffer
+        (switch-to-buffer latest-buffer)))
+    ;; Wrap minibuffer call to handle C-g
+    (condition-case err
+        (minibuffer-with-setup-hook
+            (lambda () (insert default-name))
+          (call-interactively #'consult-buffer))
+      (quit
+       ;; If the user pressed C-g, close the current frame
+       (when (and (fboundp 'server-delete-client)
+                  (frame-parameter nil 'client))
+         (delete-frame))))))
+
+;; for kitty alt+n keybind to run this command in current window
+(defun tl/buffer-org-new-kitty ()
+  "Create a new Org buffer."
+  (interactive)
+  (let ((buffer (generate-new-buffer "*new-org*")))
+    (switch-to-buffer buffer)
+    (org-mode)))
+
 (defun tl/buffer-org-new (file)
   "Creates a new ORG buffer replacing the current window, optionally
    editing a certain FILE"
@@ -3282,20 +3318,19 @@ Let’s make creating an Org buffer just that little bit easier.
     (let ((buffer (generate-new-buffer "*new org*")))
       (set-window-buffer nil buffer)
       (with-current-buffer buffer
-        (org-mode)
-        (setq-local doom-real-buffer-p t)))))
+        (org-mode)))))
 #+end_src
 
-*** Switch or create new org buffer and save
+*** Switch or create scratchpad buffer
 #+begin_src emacs-lisp
 (defun tl/switch-to-or-create-org-buffer ()
   "Switch to an existing Org mode buffer named *new org* in ~/documents/org/new-org.org, or create a new one if it doesn't exist."
   (interactive)
-  (let ((org-file "~/documents/org/new-org.org"))
-    (if (get-buffer "*new org*")
-        (switch-to-buffer "*new org*")
+  (let ((org-file "~/documents/org/scratchpad.org"))
+    (if (get-buffer "*scratchpad*")
+        (switch-to-buffer "*scratchpad")
       (find-file org-file)
-      (rename-buffer "*new org*")
+      (rename-buffer "*scratchpad*")
       (org-mode))))
 #+end_src
 
