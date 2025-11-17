@@ -1,17 +1,38 @@
 #!/bin/bash
 
-# Function to check if Zen browser is running
-is_zen_running() {
-  hyprctl clients | grep -i 'initialTitle: Zen Browser' >/dev/null
+TARGET_WS=2
+
+# JSON cache
+CLIENTS_JSON="$(hyprctl -j clients)"
+
+# Function: check if Zen Browser exists on workspace 2
+zen_on_target_ws() {
+  echo "$CLIENTS_JSON" | jq -e \
+    --arg ws "$TARGET_WS" \
+    '.[] | select(.initialTitle == "Zen Browser" and .workspace.id == ($ws | tonumber))' >/dev/null
 }
 
-hyprctl dispatch workspace 2
+# Function: check if ANY Zen Browser is running anywhere
+zen_running_anywhere() {
+  echo "$CLIENTS_JSON" | jq -e \
+    '.[] | select(.initialTitle == "Zen Browser")' >/dev/null
+}
 
-# Check if Zen browser is running
-if ! is_zen_running; then
-  # If Zen is not running, launch it
-  hyprctl dispatch exec 'zen-browser'
+# MAIN LOGIC
+if zen_on_target_ws; then
+  # Zen Browser exists on workspace 2 → switch to it
+  hyprctl dispatch workspace "$TARGET_WS"
+
+elif zen_running_anywhere; then
+  # Zen Browser exists but not on workspace 2 → open an additional window on WS2
+  hyprctl dispatch exec "[workspace $TARGET_WS] zen-browser -P 'Default (release)'"
+
 else
-  # If Zen is running, focus on its window
-  hyprctl dispatch focuswindow 'class:^(zen)$'
+  # No Zen Browser running → start it on WS2
+  hyprctl dispatch exec "[workspace $TARGET_WS] zen-browser -P 'Default (release)'"
 fi
+
+DEBUG=1
+log() { [ "$DEBUG" = 1 ] && echo "$@"; }
+log "Zen on WS $TARGET_WS: $(zen_on_target_ws; echo $?)"
+log "Zen anywhere: $(zen_running_anywhere; echo $?)"

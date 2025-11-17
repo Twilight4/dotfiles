@@ -1,18 +1,41 @@
 #!/bin/bash
 
-# Function to check if a Zen YouTube tab is running
-is_zen_youtube_running() {
-  hyprctl clients | grep -E 'title: .* YouTube — Zen Browser$' >/dev/null
+TARGET_WS=5
+
+# Cache JSON
+CLIENTS_JSON="$(hyprctl -j clients)"
+
+# Function: check if Zen YouTube tab exists on workspace 5
+zen_youtube_on_target_ws() {
+  echo "$CLIENTS_JSON" | jq -e \
+    --arg ws "$TARGET_WS" \
+    '.[] |
+      select(.title | endswith("YouTube — Zen Browser")) |
+      select(.workspace.id == ($ws | tonumber))
+    ' >/dev/null
 }
 
-# Switch to workspace 5
-hyprctl dispatch workspace 5
+# Function: check if ANY Zen YouTube tab exists anywhere
+zen_youtube_anywhere() {
+  echo "$CLIENTS_JSON" | jq -e \
+    '.[] | select(.title | endswith("YouTube — Zen Browser"))' >/dev/null
+}
 
-# If Zen with YouTube is NOT running
-if ! is_zen_youtube_running; then
-  # Launch Zen browser with YouTube profile = only youtube tab that was opened
-  hyprctl dispatch exec '[workspace 5] zen-browser -P Youtube'
+# MAIN LOGIC
+if zen_youtube_on_target_ws; then
+    # YouTube tab already on workspace 5
+    hyprctl dispatch workspace "$TARGET_WS"
+
+elif zen_youtube_anywhere; then
+    # YouTube tab exists but NOT on workspace 5 → open new one on 5
+    hyprctl dispatch exec "[workspace $TARGET_WS] zen-browser -P Youtube"
+
 else
-  # Focus on the already-running window
-  hyprctl dispatch workspace 5
+    # No YouTube tab at all → launch Zen YouTube profile on 5
+    hyprctl dispatch exec "[workspace $TARGET_WS] zen-browser -P Youtube"
 fi
+
+DEBUG=1
+log() { [ "$DEBUG" = 1 ] && echo "$@"; }
+log "Zen on WS $TARGET_WS: $(zen_on_target_ws; echo $?)"
+log "Zen anywhere: $(zen_running_anywhere; echo $?)"
