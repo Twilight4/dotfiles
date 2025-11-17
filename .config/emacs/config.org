@@ -228,7 +228,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
-(global-set-key (kbd "C-a") 'beginning-of-line)
+(global-set-key (kbd "C-a") 'tl/smart-move-beginning-of-line)
 (global-set-key (kbd "C-e") 'end-of-line)
 (global-set-key (kbd "C-q") 'yaml-indent-line)
 (global-set-key (kbd "C-k") 'previous-line)
@@ -2582,7 +2582,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "l") #'forward-char)
   (define-key god-local-mode-map (kbd "f") #'forward-word)
   (define-key god-local-mode-map (kbd "b") #'backward-word)
-  (define-key god-local-mode-map (kbd "a") #'beginning-of-line)
+  (define-key god-local-mode-map (kbd "a") #'tl/smart-move-beginning-of-line)
   (define-key god-local-mode-map (kbd "e") #'end-of-line)
   (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
   (define-key god-local-mode-map (kbd "C-S-j") #'tl/copy-down-current-line-or-region)
@@ -3269,6 +3269,18 @@ Some custom functions to insert the date.
   (insert (calendar-date-string date)))
 #+end_src
 
+*** Smart move beginning of line
+#+begin_src emacs-lisp
+(defun tl/smart-move-beginning-of-line ()
+  "Move point to first non-whitespace character or beginning of line.
+Move to first non-whitespace character. If already there, move to beginning of line."
+  (interactive)
+  (let ((old-pos (point)))
+    (back-to-indentation)
+    (when (= old-pos (point))
+      (move-beginning-of-line 1))))
+#+end_src
+
 *** Create new org buffer
 Let’s make creating an Org buffer just that little bit easier.
 
@@ -3278,7 +3290,7 @@ Let’s make creating an Org buffer just that little bit easier.
   "Switch to the latest modified '*new org*' buffer, then run `consult-buffer`.
 If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
   (interactive)
-  (let ((default-name "*new org*"))
+  (let ((default-name "*new-org*"))
     ;; Find latest modified *new org* buffer
     (let ((latest-buffer
            (car (sort
@@ -3315,7 +3327,7 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
   (interactive "P<f>")
   (if file
       (find-file file)
-    (let ((buffer (generate-new-buffer "*new org*")))
+    (let ((buffer (generate-new-buffer "*new-org*")))
       (set-window-buffer nil buffer)
       (with-current-buffer buffer
         (org-mode)))))
