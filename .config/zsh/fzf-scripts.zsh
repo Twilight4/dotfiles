@@ -199,10 +199,18 @@ frec() {
 
 # list recently visited directories using fasd and pipe to fzf for selection
 frecd() {
-  local file=$(fasd -rld | fzf --reverse --preview 'exa --tree --icons --group-directories-first --git-ignore --level 2 --color=always {} | head -n 100')
+    # Cleanly stop the function on Ctrl-C
+    trap 'return 130' INT
 
-  # if a directory is selected, move into it
-  [[ -n "$file" ]] && cd "$file" ; lsd -l --hyperlink=auto
+    local file=$(
+        fasd -rld |
+        fzf --reverse \
+            --preview 'exa --tree --icons --group-directories-first --git-ignore --level 2 --color=always {} | head -n 100'
+    ) || return 130  # fzf aborted with Ctrl-C
+
+    [[ -n "$file" ]] || return
+
+    cd "$file" && y
 }
 
 # Man without options will use fzf to select a page
