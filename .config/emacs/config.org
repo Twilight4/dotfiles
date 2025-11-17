@@ -18,6 +18,7 @@
   - [[#all-the-icons][All-the-icons]]
   - [[#color-theme][Color theme]]
   - [[#mode-line][Mode line]]
+  - [[#highlight-indent-guides][Highlight indent guides]]
   - [[#toggle-mode-line][Toggle mode line]]
   - [[#file-names-for-org-roam][File names for org-roam]]
   - [[#which-key][Which-key]]
@@ -229,8 +230,9 @@
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-a") 'tl/smart-move-beginning-of-line)
-(global-set-key (kbd "C-e") 'end-of-line)
-(global-set-key (kbd "C-q") 'yaml-indent-line)
+(global-set-key (kbd "C-e") 'tl/smart-move-end-of-line)
+;(global-set-key (kbd "C-q") 'yaml-indent-line)
+(global-set-key (kbd "C-q") 'indent-region)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'backward-char)
@@ -916,6 +918,20 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 ;  '(mode-line ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
 ;  '(mode-line-active ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
 ;  '(mode-line-inactive ((t (:family "JetBrains Mono Nerd Font" :height 0.95)))))
+#+end_src
+
+** Highlight indent guides
+Show the indent guides highlight lines for scripts
+
+#+begin_src emacs-lisp
+(use-package highlight-indent-guides
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :init
+  (setq highlight-indent-guides-method 'character) ;; 'column, 'bitmap, or 'character
+  (setq highlight-indent-guides-character ?\│)      ;; vertical bar
+  (setq highlight-indent-guides-auto-enabled t)
+  ;; Set color of indent guides to darker gray
+  (set-face-foreground 'highlight-indent-guides-character-face "#505050"))
 #+end_src
 
 ** Toggle mode line
@@ -2583,7 +2599,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "f") #'forward-word)
   (define-key god-local-mode-map (kbd "b") #'backward-word)
   (define-key god-local-mode-map (kbd "a") #'tl/smart-move-beginning-of-line)
-  (define-key god-local-mode-map (kbd "e") #'end-of-line)
+  (define-key god-local-mode-map (kbd "e") #'tl/smart-move-end-of-line)
   (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
   (define-key god-local-mode-map (kbd "C-S-j") #'tl/copy-down-current-line-or-region)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
@@ -2763,7 +2779,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
 ;; Load and configure visual-fill-column package
 (use-package visual-fill-column
   :ensure t
-  :hook ((org-mode text-mode Info-mode terraform-mode) . tl/visual-fill-column))
+  :hook ((org-mode text-mode Info-mode sh-mode-hook terraform-mode) . tl/visual-fill-column))
 
 ;; Enable visual-fill specifically for agenda buffers
 (add-hook 'org-agenda-mode-hook #'tl/visual-fill-column-agenda)
@@ -3269,7 +3285,7 @@ Some custom functions to insert the date.
   (insert (calendar-date-string date)))
 #+end_src
 
-*** Smart move beginning of line
+*** Smart move beginning/end of line
 #+begin_src emacs-lisp
 (defun tl/smart-move-beginning-of-line ()
   "Move point to first non-whitespace character or beginning of line.
@@ -3279,6 +3295,16 @@ Move to first non-whitespace character. If already there, move to beginning of l
     (back-to-indentation)
     (when (= old-pos (point))
       (move-beginning-of-line 1))))
+
+(defun tl/smart-move-end-of-line ()
+  "Move point to the last non-whitespace character on the line, 
+or to the end of the line if already there."
+  (interactive)
+  (let ((old-pos (point)))
+    (end-of-line)                       ;; move to end of line first
+    (skip-chars-backward " \t")         ;; move back over trailing whitespace
+    (when (= old-pos (point))
+      (end-of-line))))                   ;; if already there, move to absolute end
 #+end_src
 
 *** Create new org buffer
@@ -3340,7 +3366,7 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
   (interactive)
   (let ((org-file "~/documents/org/scratchpad.org"))
     (if (get-buffer "*scratchpad*")
-        (switch-to-buffer "*scratchpad")
+        (switch-to-buffer "*scratchpad*")
       (find-file org-file)
       (rename-buffer "*scratchpad*")
       (org-mode))))
