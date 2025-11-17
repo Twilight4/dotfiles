@@ -513,17 +513,17 @@
     "C-f C-e" '(timeclock-workday-elapsed-string :wk "Elapsed work time"))
 
   (tl/leader-keys
-    "C-h" '(:ignore t :wk "Help")
-    "C-h C-h" '(help-for-help :wk "Get help")
-    "C-h C-i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
-    "C-h C-o" '(info :wk "Enter info, the documentation browser")
-    "C-h C-e" '(info-emacs-manual :wk "Display emacs manual in info mode")
-    "C-h C-q" '(info-display-manual :wk "Display info buffer displaying MANUAL")
-    "C-h C-d" '(describe-mode :wk "Display documentation of current modes")
-    "C-h C-f" '(describe-function :wk "Describe function")
-    "C-h C-k" '(describe-key-briefly :wk "Describe key briefly")
-    "C-h C-l" '(describe-key :wk "Describe key")
-    "C-h C-r" '((lambda () (interactive)
+    "C-s" '(:ignore t :wk "Help")
+    "C-s C-h" '(help-for-help :wk "Get help")
+    "C-s C-i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
+    "C-s C-o" '(info :wk "Enter info, the documentation browser")
+    "C-s C-e" '(info-emacs-manual :wk "Display emacs manual in info mode")
+    "C-s C-q" '(info-display-manual :wk "Display info buffer displaying MANUAL")
+    "C-s C-d" '(describe-mode :wk "Display documentation of current modes")
+    "C-s C-f" '(describe-function :wk "Describe function")
+    "C-s C-k" '(describe-key-briefly :wk "Describe key briefly")
+    "C-s C-l" '(describe-key :wk "Describe key")
+    "C-s C-r" '((lambda () (interactive)
               (load-file "~/.config/emacs/init.el")
               (ignore (elpaca-process-queues)))
               :wk "Reload emacs"))
@@ -577,7 +577,7 @@
 (general-define-key
  :prefix "C-c"
  :keymaps 'org-mode-map
- "C-h" '(org-metaleft :wk "Org metaleft")
+ ;"C-h" '(org-metaleft :wk "Org metaleft")        ;; use the default command for this keybind
  ;"C-j" '(org-shiftdown :wk "Org metadown")
  ;"C-k" '(org-shiftup :wk "Org metaup")
  "C-k" '(org-metaup :wk "Org metadown")
@@ -925,13 +925,17 @@ Show the indent guides highlight lines for scripts
 
 #+begin_src emacs-lisp
 (use-package highlight-indent-guides
+  :ensure t
   :hook (prog-mode . highlight-indent-guides-mode)
   :init
   (setq highlight-indent-guides-method 'character) ;; 'column, 'bitmap, or 'character
   (setq highlight-indent-guides-character ?\│)      ;; vertical bar
   (setq highlight-indent-guides-auto-enabled t)
-  ;; Set color of indent guides to darker gray
-  (set-face-foreground 'highlight-indent-guides-character-face "#505050"))
+  :config
+  ;; Set color dynamically when the mode starts
+  (add-hook 'highlight-indent-guides-mode-hook
+            (lambda ()
+              (set-face-foreground 'highlight-indent-guides-character-face "#505050"))))
 #+end_src
 
 ** Toggle mode line
@@ -3249,7 +3253,7 @@ Version: 2020-06-26 2023-11-14"
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("tl" . "src terraform :tangle yes"))
+  (add-to-list 'org-structure-template-alist '("tf" . "src terraform :tangle yes"))
   (add-to-list 'org-structure-template-alist '("conf" . "src conf")))
 #+end_src
 
