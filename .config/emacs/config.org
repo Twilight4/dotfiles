@@ -48,6 +48,8 @@
   - [[#copy-current-line][Copy current line]]
   - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#select-text-block][Select Text Block]]
+  - [[#smart-move-beginningend-of-line][Smart move beginning/end of line]]
+  - [[#smart-forwardbackward-word][Smart forward/backward word]]
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
   - [[#no-littering][No-littering]]
@@ -258,6 +260,9 @@
 ;; Minibuffer
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
+;; Forward/backward entire words
+(global-set-key (kbd "M-f") 'tl/forward-entire-word)
+(global-set-key (kbd "M-b") 'tl/backward-entire-word)
 ;; Spell-checker
 (global-set-key (kbd "M-a") 'embark-act)
 (global-set-key (kbd "M-i") 'jinx-correct)
@@ -1615,17 +1620,22 @@ Version: 2025-02-05"
 ;(global-set-key (kbd "C-y") 'paste-from-system-clipboard)
 
 ;; Function to paste directly into a code block
-(defun tl/org-paste-powershell-code-block ()
-  "Insert an Org-mode source code block for PowerShell and paste clipboard content using wl-paste."
+(defun tl/org-insert-template-and-paste ()
+  "Insert an Org structure template and paste Wayland clipboard content using wl-paste."
   (interactive)
-  (let ((lang "example")
-        (clipboard-content (shell-command-to-string "wl-paste -n")))
-    (insert (format "#+begin_src %s\n" lang))
-    (insert clipboard-content)
-    (insert "\n#+end_src")
-    (org-edit-src-code)))  ; Optional: Enter the src block for editing
+  ;; Insert structure template normally (shows the selection prompt)
+  (call-interactively #'org-insert-structure-template)
+  ;; Move to the inside of the block
+  (when (org-in-block-p '("src" "example" "quote" "code" "verse"))
+    (org-edit-special))
+  ;; Insert clipboard content using wl-paste
+  (let ((clip (shell-command-to-string "wl-paste")))
+    (insert clip))
+  ;; Close the special edit buffer if opened
+  (when (eq major-mode 'org-src-mode)
+    (org-edit-src-exit)))
 
-(global-set-key (kbd "C-c b") 'tl/org-paste-powershell-code-block)
+(global-set-key (kbd "C-c b") 'tl/org-insert-template-and-paste)
 
 ;; Function to copy last entry from kill-ring buffer to the system clipboard
 (defun copy-last-entry-to-clipboard ()
@@ -1686,6 +1696,47 @@ Version: 2023-11-14"
         (goto-char (match-end 0)))
       (push-mark (point) t t)
       (re-search-forward "\n[ \t]*\n" nil 1))))
+#+end_src
+
+** Smart move beginning/end of line
+#+begin_src emacs-lisp
+(defun tl/smart-move-beginning-of-line ()
+  "Move point to first non-whitespace character or beginning of line.
+Move to first non-whitespace character. If already there, move to beginning of line."
+  (interactive)
+  (let ((old-pos (point)))
+    (back-to-indentation)
+    (when (= old-pos (point))
+      (move-beginning-of-line 1))))
+
+(defun tl/smart-move-end-of-line ()
+  "Move point to the last non-whitespace character on the line, 
+or to the end of the line if already there."
+  (interactive)
+  (let ((old-pos (point)))
+    (end-of-line)                       ;; move to end of line first
+    (skip-chars-backward " \t")         ;; move back over trailing whitespace
+    (when (= old-pos (point))
+      (end-of-line))))                   ;; if already there, move to absolute end
+#+end_src
+
+** Smart forward/backward word
+Move the cursor through entire strings.
+
+#+begin_src emacs-lisp
+(defun tl/forward-entire-word (&optional arg)
+  "Move point forward by ARG symbols (default 1).
+Unlike `forward-word`, this does not stop at punctuation like -, _, or ."
+  (interactive "^p")
+  (let ((arg (or arg 1)))
+    (forward-symbol arg)))
+
+(defun tl/backward-entire-word (&optional arg)
+  "Move point backward by ARG symbols (default 1).
+This is the backward equivalent of `forward-symbol-word`."
+  (interactive "^p")
+  (let ((arg (or arg 1)))
+    (forward-symbol (- arg))))
 #+end_src
 
 ** Screenshot automation
@@ -2614,12 +2665,14 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "b") #'backward-word)
   (define-key god-local-mode-map (kbd "a") #'tl/smart-move-beginning-of-line)
   (define-key god-local-mode-map (kbd "e") #'tl/smart-move-end-of-line)
-  (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)
-  (define-key god-local-mode-map (kbd "C-S-j") #'tl/copy-down-current-line-or-region)
+  ;; (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)         ;; not using at the moment
+  (define-key god-local-mode-map (kbd "C-S-h") #'tl/copy-down-current-line-or-region)
+  (define-key god-local-mode-map (kbd "C-S-j") #'org-newline-and-indent)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
   (define-key god-local-mode-map (kbd "C-S-l") #'zap-up-to-char)
   (define-key god-local-mode-map (kbd "C-S-f") #'drag-stuff-right)
   (define-key god-local-mode-map (kbd "C-S-b") #'drag-stuff-left)
+  ;; (define-key god-local-mode-map (kbd "C-S-b") #'tl/select-block)          ;; not using at the moment
   (define-key god-local-mode-map (kbd "C-S-a") #'tl/copy-line-backward)
   (define-key god-local-mode-map (kbd "C-S-e") #'tl/copy-line-forward)
 
@@ -2688,7 +2741,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;(define-key god-local-mode-map (kbd "C-@") #'consult-mark)         ;; TODO not working
   (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars TODO
-  (define-key god-local-mode-map (kbd "C-S-b") #'tl/select-block)
   (define-key god-local-mode-map (kbd "|") #'anzu-query-replace)       ;; TODO - try: anzu-query-replace-at-cursor-thing, anzu-replace-at-cursor-thing, anzu-query-replace-at-cursor
 
   ;; Search
@@ -3265,8 +3317,11 @@ Version: 2020-06-26 2023-11-14"
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("tf" . "src terraform :tangle yes"))
+  (add-to-list 'org-structure-template-alist '("tf" . "src tf :tangle yes"))
   (add-to-list 'org-structure-template-alist '("conf" . "src conf")))
+
+;; Tell Org that "tf" blocks use terraform-mode
+(add-to-list 'org-src-lang-modes '("tf" . terraform))
 #+end_src
 
 *** Zero-width spaces
@@ -3299,28 +3354,6 @@ Some custom functions to insert the date.
   "Insert DATE using the current locale."
   (interactive (list (calendar-read-date)))
   (insert (calendar-date-string date)))
-#+end_src
-
-*** Smart move beginning/end of line
-#+begin_src emacs-lisp
-(defun tl/smart-move-beginning-of-line ()
-  "Move point to first non-whitespace character or beginning of line.
-Move to first non-whitespace character. If already there, move to beginning of line."
-  (interactive)
-  (let ((old-pos (point)))
-    (back-to-indentation)
-    (when (= old-pos (point))
-      (move-beginning-of-line 1))))
-
-(defun tl/smart-move-end-of-line ()
-  "Move point to the last non-whitespace character on the line, 
-or to the end of the line if already there."
-  (interactive)
-  (let ((old-pos (point)))
-    (end-of-line)                       ;; move to end of line first
-    (skip-chars-backward " \t")         ;; move back over trailing whitespace
-    (when (= old-pos (point))
-      (end-of-line))))                   ;; if already there, move to absolute end
 #+end_src
 
 *** Create new org buffer
