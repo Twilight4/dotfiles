@@ -1433,9 +1433,26 @@ it will auto tangle after saving.
 (use-package smart-hungry-delete
   :ensure t
   :bind (([remap backward-delete-char-untabify] . smart-hungry-delete-backward-char)
-	       ([remap delete-backward-char] . smart-hungry-delete-backward-char)
-	       ([remap delete-char] . smart-hungry-delete-forward-char))
-  :init (smart-hungry-delete-add-default-hooks))
+         ([remap delete-backward-char] . smart-hungry-delete-backward-char)
+         ([remap delete-char] . smart-hungry-delete-forward-char))
+  :init
+  (smart-hungry-delete-add-default-hooks)
+
+  ;; --- Disable smart-hungry-delete when region is active ---
+  (defun tl/smart-hungry-delete-wrapper (orig-fun &rest args)
+    "Run `smart-hungry-delete' only if no region is active."
+    (if (region-active-p)
+        ;; If region is active, do normal delete
+        (cond
+         ((eq orig-fun 'smart-hungry-delete-backward-char)
+          (delete-backward-char 1))
+         ((eq orig-fun 'smart-hungry-delete-forward-char)
+          (delete-char 1)))
+      ;; Otherwise, call the original smart-hungry-delete function
+      (apply orig-fun args)))
+
+  (advice-add 'smart-hungry-delete-backward-char :around #'tl/smart-hungry-delete-wrapper)
+  (advice-add 'smart-hungry-delete-forward-char :around #'tl/smart-hungry-delete-wrapper))
 #+end_src
 
 ** Multiple-cursors
@@ -2144,16 +2161,16 @@ Words autocorrection
   (setq jinx-languages "en_US,pl_PL"))
 
 ;; Macro to quickly auto-correct word
-(fset 'my/jinx-auto-correct
+(fset 'tl/jinx-auto-correct
       (kbd "M-x jinx-correct RET 1"))
 
-(global-set-key (kbd "M-u") 'my/jinx-auto-correct)
+(global-set-key (kbd "M-u") 'tl/jinx-auto-correct)
 
 ;; Macro to quickly mark the underlined word as correct and save
-(fset 'my/jinx-auto-correct-save
+(fset 'tl/jinx-auto-correct-save
       (kbd "M-x jinx-correct RET @"))
 
-(global-set-key (kbd "M-p") 'my/jinx-auto-correct-save)
+(global-set-key (kbd "M-p") 'tl/jinx-auto-correct-save)
 
 ;; Switch between the en_US and pl_PL dictionaries
 (defun tl/jinx-toggle-single-dictionary ()
