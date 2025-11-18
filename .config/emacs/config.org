@@ -35,6 +35,7 @@
   - [[#nicer-org-return][Nicer org-return]]
   - [[#clean-empty-lines][Clean Empty Lines]]
   - [[#expand-region][Expand-region]]
+  - [[#kill-current-buffer][Kill current buffer]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#yaml-syntax-highlighting][Yaml syntax highlighting]]
   - [[#terraform-mode][Terraform-mode]]
@@ -413,7 +414,7 @@
     "C-l" '(gptel-send-with-options :wk "Switch window")    ;; Minibuffer to echo area
     "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
     "C-n" '(tl/better-next-buffer :wk "Next Buffer")
-    "C-u" '(kill-this-buffer :wk "Kill current buffer")
+    "C-u" '(tl/kill-current-buffer :wk "Kill current buffer")
     "C-a" '(tl/org-agenda-o :wk "Agenda overview")
     ;; I don't use those at the moment
     ;"" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
@@ -1346,6 +1347,15 @@ Version: 2022-08-06"
 #+begin_src emacs-lisp
 (use-package expand-region
   :ensure t)
+#+end_src
+
+** Kill current buffer
+The =kill-this-buffer= command wasn't working.
+
+#+begin_src emacs-lisp
+(defun tl/kill-current-buffer ()
+  (interactive)
+  (kill-buffer (current-buffer)))
 #+end_src
 
 ** Symbol-overlay
@@ -3169,11 +3179,13 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
 (defun tl/copy-whole-line ()
   "Copy the current line's content to the system clipboard using wl-copy."
   (interactive)
-  (let ((line-text (buffer-substring-no-properties
-                    (line-beginning-position)
-                    (line-end-position))))
-    (when (zerop (call-process "wl-copy" nil nil nil line-text))
-      (message "Line copied to clipboard."))))
+  (let ((line (buffer-substring-no-properties
+               (line-beginning-position)
+               (line-end-position))))
+    (with-temp-buffer
+      (insert line)
+      (call-process-region (point-min) (point-max) "wl-copy"))
+    (message "Copied line to clipboard.")))
 
 ;; Similar to org-table-copy-down but for normal emacs buffers
 (defun tl/copy-down-current-line-or-region ()

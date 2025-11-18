@@ -38,6 +38,7 @@ The world's greatest programmer once said:
   - [[#dired][Dired]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
+  - [[#kubernetes-mode][Kubernetes-mode]]
   - [[#treemacs][Treemacs]]
   - [[#consult-buffer][Consult-buffer]]
 
@@ -454,6 +455,12 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | <q         | '#+BEGIN_QUOTE' ... '#+END_QUOTE'         |
 | <s         | '#+BEGIN_SRC' ... '#+END_SRC'            |
 | <v         | '#+BEGIN_VERSE' ... '#+END_VERSE'         |
+
+** Kubernetes-mode
+| Keybinding | Description       |
+|------------+-------------------|
+| ?          | show all commands |
+| v          | overview view     |
 
 ** Treemacs
 *** General
