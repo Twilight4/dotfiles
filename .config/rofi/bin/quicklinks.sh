@@ -36,8 +36,8 @@ option_46=" AD Github CheatSheet"
 option_47="󰰦 Temu"
 option_48="󰄐 AliExpress"
 option_49=" Vinted"
-option_50=" Polregio"
-option_51=" PKP Intercity"
+option_50=" Days free off work"
+option_51=" Koleo"
 option_52="󰃧 Jakdojade"
 option_53=" Inwentury"
 option_54=" AWS Management Console"
@@ -45,7 +45,7 @@ option_55="󰭹 DeepSeek AI"
 option_56=" Docker Hub"
 option_57="󱃾 Kubernetes Docs"
 option_58="󱃾 Helm Hub"
-option_59="󰉚 Uber Eats"
+option_59="󰉚 Glovo"
 option_60=" Exam Pro Courses"
 option_61=" AWS Docs"
 option_62=" Flaticon Icons"
@@ -58,6 +58,8 @@ option_68=" Github Marketplace"
 option_69=" Terraform Docs"
 option_70=" Terraform Registry"
 option_71=" Terraform Registry AWS Provider"
+option_72=" Pracuj"
+option_73=" MeetUp"
 
 # Rofi CMD
 rofi_cmd() {
@@ -78,7 +80,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_23\n$option_25\n$option_31\n$option_34\n$option_36\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65\n$option_66\n$option_67\n$option_68\n$option_69\n$option_70\n$option_71" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_23\n$option_25\n$option_31\n$option_34\n$option_36\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65\n$option_66\n$option_67\n$option_68\n$option_69\n$option_70\n$option_71\n$option_72\n$option_73" | rofi_cmd
 }
 
 # Execute Command
@@ -227,10 +229,10 @@ run_cmd() {
       zen-browser -P 'Default (release)' 'https://www.vinted.pl/' &
       ;;
     --opt50)
-      zen-browser -P 'Default (release)' 'https://bilety.polregio.pl/' &
+      zen-browser -P 'Default (release)' 'https://www.kalendarzswiat.pl/swieta/wolne_od_pracy/2025' &
       ;;
     --opt51)
-      zen-browser -P 'Default (release)' 'https://ebilet.intercity.pl/' &
+      zen-browser -P 'Default (release)' 'https://koleo.pl/' &
       ;;
     --opt52)
       zen-browser -P 'Default (release)' 'https://jakdojade.pl/' &
@@ -254,7 +256,7 @@ run_cmd() {
       zen-browser -P 'Default (release)' 'https://artifacthub.io/' &
       ;;
     --opt59)
-      zen-browser -P 'Default (release)' 'https://www.ubereats.com' &
+      zen-browser -P 'Default (release)' 'https://glovoapp.com/pl/pl' &
       ;;
     --opt60)
       zen-browser -P 'Default (release)' 'https://app.exampro.co/' &
@@ -291,6 +293,12 @@ run_cmd() {
       ;;
     --opt71)
       zen-browser -P 'Default (release)' 'https://registry.terraform.io/providers/hashicorp/aws/latest/docs' &
+      ;;
+    --opt72)
+      zen-browser -P 'Default (release)' 'https://www.pracuj.pl/' &
+      ;;
+    --opt73)
+      zen-browser -P 'Default (release)' 'https://www.meetup.com/pl-PL/find/pl--poznan/' &
       ;;
     *)
       ;;
@@ -458,5 +466,11 @@ case "${chosen}" in
     ;;
   $option_71)
     run_cmd --opt71
+    ;;
+  $option_72)
+    run_cmd --opt72
+    ;;
+  $option_73)
+    run_cmd --opt73
     ;;
 esac
