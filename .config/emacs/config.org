@@ -1348,6 +1348,28 @@ Version: 2022-08-06"
         (goto-char (point-max))
         (while (eq (char-before) 32) (delete-char -1)))))
   (message "%s done" real-this-command))
+
+(defun tl/clean-whitespace-zero-lines ()
+  "Delete trailing whitespace, and remove all repeated blank lines.
+Only space and tab is considered whitespace.
+Operates on whole buffer or active region, respects `narrow-to-region'."
+  (interactive)
+  (let (xbegin xend)
+	(if (region-active-p)
+		(setq xbegin (region-beginning) xend (region-end))
+	  (setq xbegin (point-min) xend (point-max)))
+	(save-excursion
+	  (save-restriction
+		(narrow-to-region xbegin xend)
+		;; Remove trailing spaces/tabs
+		(goto-char (point-min))
+		(while (re-search-forward "[ \t]+$" nil t)
+		  (replace-match ""))
+		;; Remove all blank lines
+		(goto-char (point-min))
+		(while (re-search-forward "^[ \t]*\n+" nil t)
+		  (replace-match "")))))
+  (message "%s done" 'tl/clean-whitespace-zero-lines))
 #+end_src
 
 ** Expand-region
@@ -2767,6 +2789,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "y") #'tl/paste-from-system-clipboard)
   (define-key god-local-mode-map (kbd "\\") #'universal-argument)
   (define-key god-local-mode-map (kbd "g") #'tl/clean-whitespace)
+  (define-key god-local-mode-map (kbd "G") #'tl/clean-whitespace-zero-lines)           ;; Must be bound to "G" instead of "C-S-g" to work
 
   ;; Visual indicators for God mode
   (custom-set-faces
