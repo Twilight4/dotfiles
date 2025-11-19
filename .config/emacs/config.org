@@ -45,6 +45,7 @@
   - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
   - [[#i-search---search-current-word][I-Search - Search Current Word]]
   - [[#clipboard-adjustments][Clipboard adjustments]]
+  - [[#paste-directly-into-a-code-block-template][Paste directly into a code block template]]
   - [[#copy-current-line][Copy current line]]
   - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#select-text-block][Select Text Block]]
@@ -230,6 +231,7 @@
 ;; Make escape (C-g) quit prompts
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+(global-set-key (kbd "<f12>") 'kill-emacs)
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-a") 'tl/smart-move-beginning-of-line)
@@ -494,10 +496,7 @@
     "C-c C-l" '(consult-line :wk "Search for line")
     "C-c C-u" '(consult-line-multi :wk "Search for line in multiple buffers")
     "C-c C-k" '(consult-keep-lines :wk "Select lines with a live preview")
-    "C-c C-f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
-	;; Editing
-    "C-c C-y" '(consult-yank-from-kill-ring :wk "Yank from kill ring history")
-    "C-c C-p" '(consult-yank-replace :wk "Yank replace from kill ring history"))
+    "C-c C-f" '(consult-focus-lines :wk "Hide/Show lines using overlays"))
 
 	(tl/leader-keys
     "C-f" '(:ignore t :wk "Clock")
@@ -618,6 +617,7 @@
  "k" '(tl/org-narrow-backward :wk "Narrow backward")
  "l" '(org-narrow-to-subtree :wk "Narrow to subtree")
  "u" '(org-narrow-to-block :wk "Narrow to block")
+ "b" '(tl/org-insert-template-and-paste :wk "Insert clipboard to code template")
  ;"C-e" '(org-narrow-to-element :wk "Narrow to element")
  ;"C-g" '(org-show-current-heading-tidily :wk "Focus current heading hiding other ones")
  "C-q" '(org-insert-subheading :wk "Insert subheading")
@@ -1459,10 +1459,10 @@ it will auto tangle after saving.
 
 #+begin_src emacs-lisp
 (use-package multiple-cursors
-  :bind ;; Mark one more occurrence
-        (;("C-x m" . mc/mark-next-like-this)
-         ;; From active region to multiple cursors
-         ("C-x C-x C-c" . mc/edit-lines)
+  :bind
+        (("C-x C-x C-c" . mc/edit-lines)
+         ("C-x C-x C-n" . mc/mark-next-like-this)
+         ("C-x C-x C-p" . mc/mark-previous-like-this)
          ("C-x C-x C-a" . mc/edit-beginnings-of-lines)
          ("C-x C-x C-e" . mc/edit-ends-of-lines)
          ("C-x C-x C-j" . mc/mark-all-like-this)
@@ -1596,7 +1596,7 @@ Version: 2025-02-05"
 ** Clipboard adjustments
 
 #+begin_src emacs-lisp
-(defun kill-region-to-clipboard ()
+(defun tl/kill-region-to-clipboard ()
   "Kill the region if active."
   (interactive)
   (if (region-active-p)
@@ -1611,7 +1611,7 @@ Version: 2025-02-05"
     (message "No active region")))
 
 ;; Function to always copy to the system clipboard
-(defun copy-to-system-clipboard ()
+(defun tl/copy-to-system-clipboard ()
   (interactive)
   (if (region-active-p)
       (progn
@@ -1626,7 +1626,7 @@ Version: 2025-02-05"
 ;; By default when you want to paste over the selected region, it doesn't replace it
 ;; I have bound pasting from system clipboard in terminal in zhs shell by using wl-clipboard on C-y in emacs-mode file
 ;; Don't bind pasting in terminal config cuz it will affect other TUI tools like emacs and the keys won't be modifiable
-(defun paste-from-system-clipboard ()
+(defun tl/paste-from-system-clipboard ()
   "Paste from system clipboard, either replacing the selected region or inserting at point."
   (interactive)
   (if (use-region-p)
@@ -1634,10 +1634,10 @@ Version: 2025-02-05"
         (delete-region (region-beginning) (region-end))
         (insert (shell-command-to-string "wl-paste -n")))
     (insert (shell-command-to-string "wl-paste -n"))))
+#+end_src
 
-;(global-set-key (kbd "C-y") 'paste-from-system-clipboard)
-
-;; Function to paste directly into a code block
+** Paste directly into a code block template 
+#+begin_src emacs-lisp
 (defun tl/org-insert-template-and-paste ()
   "Insert an Org structure template and paste Wayland clipboard content using wl-paste."
   (interactive)
@@ -1652,19 +1652,6 @@ Version: 2025-02-05"
   ;; Close the special edit buffer if opened
   (when (eq major-mode 'org-src-mode)
     (org-edit-src-exit)))
-
-(global-set-key (kbd "C-c b") 'tl/org-insert-template-and-paste)
-
-;; Function to copy last entry from kill-ring buffer to the system clipboard
-(defun copy-last-entry-to-clipboard ()
-  (interactive)
-  (when kill-ring
-    (with-temp-buffer
-      (insert (car kill-ring))
-      (call-process-region (point-min) (point-max) "wl-copy"))
-    (message "Last entry copied to system clipboard.")))
-
-(global-set-key (kbd "M-'") 'copy-last-entry-to-clipboard)
 #+end_src
 
 ** Copy current line
@@ -1826,29 +1813,29 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
 ** Mark whole line
 
 #+begin_src emacs-lisp
-(defun mark-whole-line ()
-  "Select current line. If region is active, extend selection downward by line.
-If `visual-line-mode' is on, consider line as visual line.
+(defun tl/mark-whole-line ()
+  "Neovim-style visual line selection, with point always at BOL.
 
-URL `http://xahlee.info/emacs/emacs/emacs_select_line.html'
-Version: 2017-11-01 2023-07-16 2023-11-14"
+- If no region is active: begin linewise selection with point at BOL.
+- If region is active: extend selection downward by whole logical lines,
+  keeping point at the beginning of the active line."
   (interactive)
   (if (region-active-p)
-      (if visual-line-mode
-          (let ((xp1 (point)))
-            (end-of-visual-line 1)
-            (when (eq xp1 (point))
-              (end-of-visual-line 2)))
-        (progn
-          (forward-line 1)
-          (end-of-line)))
-    (if visual-line-mode
-        (progn (beginning-of-visual-line)
-               (push-mark (point) t t)
-               (end-of-visual-line))
-      (progn
-        (push-mark (line-beginning-position) t t)
-        (end-of-line)))))
+      (let ((beg (region-beginning))
+            (end (region-end)))
+        ;; Extend downward by whole line
+        (goto-char end)
+        (forward-line 1)
+        ;; Now move point to BOL of new line
+        (beginning-of-line)
+        ;; Mark stays at original anchor
+        (set-mark beg))
+    ;; Start selection: point at BOL, mark at BOL, extend one full line
+    (beginning-of-line)
+    (set-mark (point))
+    (forward-line 1)
+    ;; Return point to BOL (Neovim-style)
+    (beginning-of-line)))
 #+end_src
 
 ** Rainbow-delimeters
@@ -2683,7 +2670,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "b") #'backward-word)
   (define-key god-local-mode-map (kbd "a") #'tl/smart-move-beginning-of-line)
   (define-key god-local-mode-map (kbd "e") #'tl/smart-move-end-of-line)
-  ;; (define-key god-local-mode-map (kbd "C-S-h") #'mc/mark-next-like-this)         ;; not using at the moment
   (define-key god-local-mode-map (kbd "C-S-h") #'tl/copy-down-current-line-or-region)
   (define-key god-local-mode-map (kbd "C-S-j") #'org-newline-and-indent)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
@@ -2705,12 +2691,12 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-o") #'tl/kill-line-forward-to-clipboard)
 
   ;; Ctrl+w
-  (define-key god-local-mode-map (kbd "w") #'copy-to-system-clipboard)
+  (define-key god-local-mode-map (kbd "w") #'tl/copy-to-system-clipboard)
   (define-key god-local-mode-map (kbd "C-w") #'backward-kill-word)
   (define-key god-local-mode-map (kbd "C-S-w") #'tl/copy-whole-line)
 
   ;; Ctrl+d
-  (define-key god-local-mode-map (kbd "d") #'kill-region-to-clipboard)
+  (define-key god-local-mode-map (kbd "d") #'tl/kill-region-to-clipboard)
   (define-key god-local-mode-map (kbd "C-d") #'kill-word)
   (define-key god-local-mode-map (kbd "C-S-d") #'kill-whole-line)
 
@@ -2747,6 +2733,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd ";") #'recenter-top-bottom)
   (define-key god-local-mode-map (kbd ":") #'move-to-window-line-top-bottom)
 
+  ;; F-keys
+  (define-key god-local-mode-map (kbd "<f3>") #'kmacro-start-macro-or-insert-counter)
+  (define-key god-local-mode-map (kbd "<f4>") #'kmacro-end-or-call-macro)
+  (define-key god-local-mode-map (kbd "<f12>") #'kill-emacs)
+
   ;; Syntax highlighting for org-mode
   ;(define-key god-local-mode-map (kbd "C-S-z") #'surround-italic)  ;; not using
   (define-key god-local-mode-map (kbd "C-S-z") #'org-shifttab)
@@ -2757,7 +2748,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;; Marking
   (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
   ;(define-key god-local-mode-map (kbd "C-@") #'consult-mark)         ;; TODO not working
-  (define-key god-local-mode-map (kbd "C-S-v") #'mark-whole-line)
+  (define-key god-local-mode-map (kbd "C-S-v") #'tl/mark-whole-line)
   (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars TODO
   (define-key god-local-mode-map (kbd "|") #'anzu-query-replace)       ;; TODO - try: anzu-query-replace-at-cursor-thing, anzu-replace-at-cursor-thing, anzu-query-replace-at-cursor
 
@@ -2771,7 +2762,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
-  (define-key god-local-mode-map (kbd "y") #'paste-from-system-clipboard)
+  (define-key god-local-mode-map (kbd "y") #'tl/paste-from-system-clipboard)
   (define-key god-local-mode-map (kbd "\\") #'universal-argument)
   (define-key god-local-mode-map (kbd "g") #'tl/clean-whitespace)
 
