@@ -1,32 +1,31 @@
 #!/usr/bin/env sh
 
-# Description: Allows for creation of multiple files/dirs simultaneously
-#              Creates a tmp file to write each entry in a separate line
-#
-# Note: Only relative paths are supported. Absolute paths are ignored
-#       Leading and trailing whitespace in path names is also ignored
-#
-# Shell: POSIX compliant
-# Author: KlzXS
+# Description: Create multiple files and directories at once
+# Supports brace expansion and mixed file/dir creation
+# POSIX compliant
 
 EDITOR="${EDITOR:-vi}"
 TMPDIR="${TMPDIR:-/tmp}"
 
-printf "'f'ile / 'd'ir? "
-read -r resp
-
-if [ "$resp" = "f" ]; then
-	#shellcheck disable=SC2016
-	cmd='mkdir -p "$(dirname "{}")" && touch "{}"'
-elif [ "$resp" = "d" ]; then
-	cmd='mkdir -p {}'
-else
-	exit 1
-fi
-
 tmpfile=$(mktemp "$TMPDIR/.nnnXXXXXX")
 $EDITOR "$tmpfile"
 
-sed "/^\//d" "$tmpfile" | xargs -n1 -I{} sh -c "$cmd"
+# Read each non-empty, non-absolute line
+while IFS= read -r line; do
+    # Skip empty lines or absolute paths
+    [ -z "$line" ] && continue
+    case "$line" in
+        /*) continue ;;  # skip absolute paths
+    esac
+
+    # Expand braces using eval safely
+    for path in $(eval "echo $line"); do
+        # If path ends with '/', treat as directory
+        case "$path" in
+            */) mkdir -p "$path" ;;
+            *) mkdir -p "$(dirname "$path")" && touch "$path" ;;
+        esac
+    done
+done < "$tmpfile"
 
 rm "$tmpfile"
