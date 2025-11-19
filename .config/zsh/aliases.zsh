@@ -170,6 +170,9 @@ alias sd-ds="sudo systemctl disable"
 alias sd-restart="sudo systemctl restart"
 alias sd-startup="systemd-analyze"
 
+# Reboot to UEFI settings
+alias reboot-uefi="systemctl reboot --firmware-setup"
+
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
