@@ -2,7 +2,7 @@
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
 "$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
 
-[manager]
+[mgr]
 
 keymap = [
 	{ on = "<Esc>", run = "escape",             desc = "Exit visual mode, clear selected, or cancel search" },
@@ -29,14 +29,14 @@ keymap = [
 	{ on = "<PageUp>",     run = "arrow -100%", desc = "Move cursor up one page" },
 	{ on = "<PageDown>",   run = "arrow 100%",  desc = "Move cursor down one page" },
 
-	{ on = [ "g", "g" ], run = "arrow top", desc = "Move cursor to the top" },
-	{ on = "G",          run = "arrow bot",  desc = "Move cursor to the bottom" },
+	{ on = "<", run = "arrow top", desc = "Move cursor to the bottom" },
+	{ on = ">", run = "arrow bot",  desc = "Move cursor to the top" },
 
 	# Navigation
+	{ on = "h", run = "leave", desc = "Go back to the parent directory" },
   # Smart-enter plugin
   { on = "l", run  = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
 	#{ on = "l", run = "enter", desc = "Enter the child directory" },
-	{ on = "h", run = "leave", desc = "Go back to the parent directory" },
 
 	{ on = "<Left>",  run = "leave", desc = "Go back to the parent directory" },
 	{ on = "<Right>", run = "enter", desc = "Enter the child directory" },
@@ -128,8 +128,8 @@ keymap = [
 	# Goto
 	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Goto ~/" },
 	{ on = [ "g", "c" ],       run = "cd ~/.config",     desc = "Goto ~/.config" },
+	{ on = [ "g", "m" ],       run = "plugin vcs-files",     desc = "Show Git file changes" },
 	{ on = [ "g", "o" ],       run = "cd ~/downloads",   desc = "Goto ~/downloads" },
-	{ on = [ "g", "m" ],       run = "plugin vcs-files",   desc = "Show Git file changes" },
 	{ on = [ "g", "M" ],       run = "cd ~/music",   desc = "Goto ~/music" },
 	{ on = [ "g", "v" ],       run = "cd ~/videos",   desc = "Goto ~/video" },
 	{ on = [ "g", "p" ],       run = "cd ~/pictures",   desc = "Goto ~/pictures" },
