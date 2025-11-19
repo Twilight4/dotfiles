@@ -284,7 +284,7 @@ run_cmd() {
       zen-browser -P 'Default (release)' 'https://github.com/marketplace' &
       ;;
     --opt69)
-      zen-browser -P 'Default (release)' 'https://developer.hashicorp.com/terraform/intro/use-cases' &
+      zen-browser -P 'Default (release)' 'https://developer.hashicorp.com/terraform/tutorials/' &
       ;;
     --opt70)
       zen-browser -P 'Default (release)' 'https://registry.terraform.io/browse/providers' &
