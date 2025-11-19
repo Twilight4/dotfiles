@@ -160,6 +160,7 @@
 | Keybinding | Description                          |
 |------------+--------------------------------------|
 | a          | Create new file (dir/ for directory) |
+| A          | Create files/dirs simultaneously    |
 | SPC        | Mark/Unmark                          |
 | C-r        | Invert selection of all files        |
 | ESC        | Cancel marks                         |
