@@ -2856,7 +2856,7 @@ I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]
 ;; Load and configure visual-fill-column package
 (use-package visual-fill-column
   :ensure t
-  :hook ((org-mode text-mode Info-mode sh-mode-hook terraform-mode) . tl/visual-fill-column))
+  :hook ((org-mode text-mode conf-mode Info-mode sh-mode-hook terraform-mode) . tl/visual-fill-column))
 
 ;; Enable visual-fill specifically for agenda buffers
 (add-hook 'org-agenda-mode-hook #'tl/visual-fill-column-agenda)
