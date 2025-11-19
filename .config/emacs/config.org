@@ -262,6 +262,8 @@
 ;; Minibuffer
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
+;; Yank
+(global-set-key (kbd "M-y") 'consult-yank-pop)
 ;; Forward/backward entire words
 (global-set-key (kbd "M-f") 'tl/forward-entire-word)
 (global-set-key (kbd "M-b") 'tl/backward-entire-word)
@@ -407,7 +409,7 @@
     "," '(consult-recent-file :wk "Find recent files")
     ;"." '(find-file :wk "Find file")
     "C-b" '(consult-buffer :wk "Switch to buffer")
-    "y" '(consult-yank-pop :wk "Clipboard history")
+    ;; "y" '(consult-yank-pop :wk "Clipboard history")      ;;   bound to M-y 
     "C-\\" '(indent-region :wk "Indent region")
     "i" '(org-gtd-process-inbox :wk "Process inbox")
     "f" '(hl-todo-insert :wk "Insert todo heading at point")
