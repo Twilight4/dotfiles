@@ -34,8 +34,8 @@ keymap = [
 
 	# Navigation
 	{ on = "h", run = "leave", desc = "Go back to the parent directory" },
-  # Smart-enter plugin
-  { on = "l", run  = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+	# Smart-enter plugin
+	{ on = "l", run  = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
 	#{ on = "l", run = "enter", desc = "Enter the child directory" },
 
 	{ on = "<Left>",  run = "leave", desc = "Go back to the parent directory" },
@@ -85,6 +85,10 @@ keymap = [
 	{ on = "z",         run = "plugin zoxide",               desc = "Jump to a directory via zoxide" },
 	{ on = "Z",         run = "plugin fzf",                  desc = "Jump to a file/directory via fzf" },
 	{ on = "C",         run = "plugin chmod",                desc = "Chmod on selected files" },
+
+	# Run bash scripts (--block to block until finishes)
+	{ on = "G",         run = "shell --block ~/.config/zsh/bash-scripts/dragdrop", desc = "Drag and drop file/directory" },
+	{ on = "A",         run = "shell --block ~/.config/zsh/bash-scripts/bulknew", desc = "Bulk create dirs/files" },
 
 	# Linemode
 	{ on = [ "m", "s" ], run = "linemode size",        desc = "Linemode: size" },
