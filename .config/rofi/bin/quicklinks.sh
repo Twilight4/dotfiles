@@ -11,7 +11,6 @@ option_3=" Proton Mail"
 option_4=" Youtube"
 option_5=" Github"
 option_6=" Github Trending"
-option_7="󰅟 MEGA"
 option_8=" Open Shopping Websites"
 option_9=" Amazon (US)"
 option_10=" Amazon (PL)"
@@ -19,20 +18,15 @@ option_11="󰒚 Allegro"
 option_12="󰒚 OLX"
 option_13=" Helion"
 option_22="󰁰 Bank"
-option_23=" HackTricks CheatSheet"
 option_25="󰥷 Image to Text"
 option_31=" Google Maps"
-option_34=" AD CheatSheet PDF"
 option_36=" PayPal"
 option_38=" 0bin"
-option_39=" Tutanota Mail"
 option_40="󱅷 Tmpfiles"
 option_41=" Twitter"
 option_42=" Facebook"
 option_43=" Instagram"
 option_44=" Discord"
-option_45=" AD CheatSheet MindMap"
-option_46=" AD Github CheatSheet"
 option_47="󰰦 Temu"
 option_48="󰄐 AliExpress"
 option_49=" Vinted"
@@ -80,7 +74,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_7\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_23\n$option_25\n$option_31\n$option_34\n$option_36\n$option_38\n$option_39\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n$option_45\n$option_46\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65\n$option_66\n$option_67\n$option_68\n$option_69\n$option_70\n$option_71\n$option_72\n$option_73" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_25\n$option_31\n$option_36\n$option_38\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65\n$option_66\n$option_67\n$option_68\n$option_69\n$option_70\n$option_71\n$option_72\n$option_73" | rofi_cmd
 }
 
 # Execute Command
@@ -174,17 +168,11 @@ run_cmd() {
     --opt22)
       zen-browser -P 'Default (release)' 'https://www.pekao24.pl/pekao24/produkty' &
       ;;
-    --opt23)
-      zen-browser -P 'Default (release)' 'https://book.hacktricks.xyz' &
-      ;;
     --opt25)
       zen-browser -P 'Default (release)' 'https://www.imagetotext.info/' &
       ;;
     --opt31)
       zen-browser -P 'Default (release)' 'https://www.google.com/maps' &
-      ;;
-    --opt34)
-      zen-browser -P 'Default (release)' 'file:///home/twilight/documents/pdfs/active-directory-attacks.pdf' &
       ;;
     --opt35)
       zen-browser -P 'Default (release)' 'https://cloud.digitalocean.com/droplets?i=ff92a8' &
@@ -193,10 +181,7 @@ run_cmd() {
       zen-browser -P 'Default (release)' 'https://www.paypal.com/myaccount/summary' &
       ;;
     --opt38)
-      zen-browser -P 'Default (release)' 'https://0bin.net/' &
-      ;;
-    --opt39)
-      zen-browser -P 'Default (release)' 'https://app.tuta.com/mail/' &
+      zen-browser -P 'Default (release)' 'https://0bin.net/home/' &
       ;;
     --opt40)
       zen-browser -P 'Default (release)' 'https://tmpfiles.org/' &
@@ -212,12 +197,6 @@ run_cmd() {
       ;;
     --opt44)
       zen-browser -P 'Default (release)' 'https://discord.com/channels/@me' &
-      ;;
-    --opt45)
-      zen-browser -P 'Default (release)' 'https://orange-cyberdefense.github.io/ocd-mindmaps/img/pentest_ad_dark_2023_02.svg' &
-      ;;
-    --opt46)
-      zen-browser -P 'Default (release)' 'https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet' &
       ;;
     --opt47)
       zen-browser -P 'Default (release)' 'https://www.temu.com/pl' &
@@ -326,9 +305,6 @@ case "${chosen}" in
   $option_6)
     run_cmd --opt6
     ;;
-  $option_7)
-    run_cmd --opt7
-    ;;
   $option_8)
     run_cmd --opt8
     ;;
@@ -350,26 +326,17 @@ case "${chosen}" in
   $option_22)
     run_cmd --opt22
     ;;
-  $option_23)
-    run_cmd --opt23
-    ;;
   $option_25)
     run_cmd --opt25
     ;;
   $option_31)
     run_cmd --opt31
     ;;
-  $option_34)
-    run_cmd --opt34
-    ;;
   $option_36)
     run_cmd --opt36
     ;;
   $option_38)
     run_cmd --opt38
-    ;;
-  $option_39)
-    run_cmd --opt39
     ;;
   $option_40)
     run_cmd --opt40
@@ -385,12 +352,6 @@ case "${chosen}" in
     ;;
   $option_44)
     run_cmd --opt44
-    ;;
-  $option_45)
-    run_cmd --opt45
-    ;;
-  $option_46)
-    run_cmd --opt46
     ;;
   $option_47)
     run_cmd --opt47
