@@ -935,16 +935,23 @@ Show the indent guides highlight lines for scripts
 #+begin_src emacs-lisp
 (use-package highlight-indent-guides
   :ensure t
-  :hook (prog-mode . highlight-indent-guides-mode)
+  :hook (after-change-major-mode . my/enable-highlight-indent-guides)
   :init
   (setq highlight-indent-guides-method 'character) ;; 'column, 'bitmap, or 'character
   (setq highlight-indent-guides-character ?\│)      ;; vertical bar
   (setq highlight-indent-guides-auto-enabled t)
   :config
+  ;; Function to enable highlight-indent-guides in programming or YAML/text-like modes
+  (defun my/enable-highlight-indent-guides ()
+	"Enable `highlight-indent-guides-mode` for prog-mode or yaml-mode and other text-like modes."
+	(when (or (derived-mode-p 'prog-mode)
+			  (derived-mode-p 'yaml-mode))
+	  (highlight-indent-guides-mode 1)))
+
   ;; Set color dynamically when the mode starts
   (add-hook 'highlight-indent-guides-mode-hook
-            (lambda ()
-              (set-face-foreground 'highlight-indent-guides-character-face "#505050"))))
+			(lambda ()
+			  (set-face-foreground 'highlight-indent-guides-character-face "#505050"))))
 #+end_src
 
 ** Toggle mode line
