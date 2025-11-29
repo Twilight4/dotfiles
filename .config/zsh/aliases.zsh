@@ -16,7 +16,7 @@ alias lc='lsd -ltrh --hyperlink=auto'                # Sort by date
 #alias lf='lsd -l --hyperlink=auto| grep -v '^d''     # Files only
 #alias ld='lsd -l --hyperlink=auto| grep '^d''        # Directories only
 alias l.='lsd -A $* | rg "^\."'                    # List hidden files
-alias watch='watch -n 0.5'
+alias watch='watch -n 0.1'
 alias watch-lt='watch tree'
 alias watch-ls='watch ls -alh --hyperlink=auto'
 alias tree='tree -CAhF --dirsfirst'
@@ -366,6 +366,7 @@ alias whisper='whisper --language en --output-format srt --model tiny'
 alias aliases='nvim ~/.config/zsh/aliases.zsh'
 alias hist='atuin history list --human'
 alias stats='atuin stats'
+alias webcord='webcord --enable-features=UseOzonePlatform --ozone-platform=wayland'
 alias pping="prettyping -c 3"
 #alias pg='prettyping -c 3 8.8.8.8'
 #alias less="less -R"   # have function as 'less'
