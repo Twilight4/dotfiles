@@ -263,8 +263,11 @@
 | C-S-p      | Private Browsing         |
 | C-S-s      | Take Screenshot          |
 | C-S-c      | Copy current URL         |
-| C-p        | Go Back                  |
+| C-p        | Print page               |
+| C-r        | Reload page              |
+| C-S-r      | Reload page (skip cache) |
 | M-Right    | Go Forward               |
+| M-Left     | Go Back                  |
 | M-home     | Go Home                  |
 | C-[        | Navigate Back            |
 | C-]        | Navigate Forward         |
@@ -275,7 +278,6 @@
 | C-S-r      | Reload Page (Skip Cache) |
 | C-u        | View Page Source         |
 | C-i        | View Page Info           |
-| C-s        | Save Page                |
 
 ** Zen browser specific
 | Keybinding | Description                  |
@@ -292,18 +294,19 @@
 | C-M-u      | Close Split View             |
 
 ** Toggle panels
-| Keybinding | Description                  |
-|------------+------------------------------|
-| C-b        | Show Bookmarks Sidebar       |
-| C-S-b      | Show Bookmarks Toolbar       |
-| C-S-y      | Open Downloads               |
-| M-p        | Toggle Web Panel             |
-| C-h        | Go to History                |
-| C-M-r      | Toggle Reader Mode           |
-| C-S-[      | Toggle Picture-in-Picture    |
-| C-S-o      | Show Bookmarks Library       |
-| C-S-h      | Show All History             |
-| C-S-a      | Open Add-ons                 |
+| Keybinding | Description               |
+|------------+---------------------------|
+| C-b        | Show Bookmarks Sidebar    |
+| C-S-b      | Show Bookmarks Toolbar    |
+| C-S-y      | Open Downloads            |
+| M-p        | Toggle Web Panel          |
+| C-h        | Go to History             |
+| C-S-h      | Show all History          |
+| C-M-r      | Toggle Reader Mode        |
+| C-S-[      | Toggle Picture-in-Picture |
+| C-S-o      | Show Bookmarks Library    |
+| C-S-h      | Show All History          |
+| C-S-a      | Open Add-ons              |
 
 ** Search
 | Keybinding | Description                  |
