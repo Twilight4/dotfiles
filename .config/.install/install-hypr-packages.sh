@@ -131,6 +131,7 @@ packages=(
   "kdeconnect"
   "gnome-maps"
   "gnome-keyring"
+  "scrot"
   "gnome-clocks"
   "smassh-bin"
   "fd"
