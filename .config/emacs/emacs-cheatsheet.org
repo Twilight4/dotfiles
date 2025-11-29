@@ -421,6 +421,7 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | p          | Org backward sentence                |
 | n          | Org forward sentence                 |
 | \          | Universal argument                   |
+| M-1-9      | Universal argument shortcut          |
 | S-i        | Org cycle or shift tab               |
 | S-q        | Goto last change                     |
 | S-o        | Goto last change reverse             |
