@@ -2341,6 +2341,21 @@ This is useful when followed by an immediate kill."
 
 ;; Treemacs-mode keybinds
 (with-eval-after-load 'treemacs
+  (define-prefix-command 'treemacs-project-prefix)
+  ;; bind the prefix key in treemacs-mode
+  (define-key treemacs-mode-map (kbd "p") 'treemacs-project-prefix)
+  ;; Project Keybinds  
+  (define-key treemacs-mode-map (kbd "pf") 'treemacs-move-project-down)
+  (define-key treemacs-mode-map (kbd "pn") 'treemacs-next-project)
+  (define-key treemacs-mode-map (kbd "pp") 'treemacs-previous-project)
+  (define-key treemacs-mode-map (kbd "pr") 'treemacs-rename-project)
+  (define-key treemacs-mode-map (kbd "pa") 'treemacs-add-project-to-workspace)
+  (define-key treemacs-mode-map (kbd "pb") 'treemacs-move-project-up)
+  (define-key treemacs-mode-map (kbd "pd") 'treemacs-remove-project-from-workspace)
+  ;(define-key treemacs-mode-map (kbd "") 'treemacs-collapse-project)
+  ;(define-key treemacs-mode-map (kbd "") 'treemacs-collapse-all-projects)
+  (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects))
+
   ;; General Keybinds
   (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
   (define-key treemacs-mode-map (kbd "j") 'treemacs-next-line)
@@ -2351,12 +2366,7 @@ This is useful when followed by an immediate kill."
   ;(define-key treemacs-mode-map (kbd "H") 'treemacs-collapse-parent-node)
   ;; (define-key treemacs-mode-map (kbd "M-j") 'treemacs-next-neighbour)
   ;; (define-key treemacs-mode-map (kbd "M-k") 'treemacs-previous-neighbour)
-  (define-key treemacs-mode-map (kbd "pb") 'treemacs-move-project-up)
-  (define-key treemacs-mode-map (kbd "pf") 'treemacs-move-project-down)
-  (define-key treemacs-mode-map (kbd "pn") 'treemacs-next-project)
-  (define-key treemacs-mode-map (kbd "pp") 'treemacs-previous-project)
-  (define-key treemacs-mode-map (kbd "pr") 'treemacs-rename-project)
-  (define-key treemacs-mode-map (kbd "pa") 'treemacs-add-project-to-workspace)
+  (define-key treemacs-mode-map (kbd "/") 'isearch-forward)
   (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
   (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
   (define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
@@ -2388,7 +2398,7 @@ This is useful when followed by an immediate kill."
   (define-key treemacs-mode-map (kbd "cd") 'treemacs-copy-absolute-path-at-point)
   (define-key treemacs-mode-map (kbd "cr") 'treemacs-copy-relative-path-at-point)
   (define-key treemacs-mode-map (kbd "cp") 'treemacs-copy-project-path-at-point)
-  (define-key treemacs-mode-map (kbd "cf") 'treemacs-copy-filename-at-point)
+  (define-key treemacs-mode-map (kbd "cf") 'treemacs-copy-filename-at-point))
 
   ;; Toggle Keybinds
   ;(define-key treemacs-mode-map (kbd "th") 'treemacs-toggle-show-dotfiles)
@@ -2398,15 +2408,6 @@ This is useful when followed by an immediate kill."
   ;(define-key treemacs-mode-map (kbd "ta") 'treemacs-filewatch-mode)
   ;(define-key treemacs-mode-map (kbd "tv") 'treemacs-fringe-indicator-mode)
   ;(define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
-
-  ;; Project Keybinds
-  (define-key treemacs-mode-map (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-p p") 'treemacs-projectile)
-  (define-key treemacs-mode-map (kbd "C-c C-p d") 'treemacs-remove-project-from-workspace)
-  (define-key treemacs-mode-map (kbd "C-c C-p r") 'treemacs-rename-project)
-  (define-key treemacs-mode-map (kbd "C-c C-p c c") 'treemacs-collapse-project)
-  (define-key treemacs-mode-map (kbd "C-c C-p c o") 'treemacs-collapse-all-projects)
-  (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects))
 
 ;(use-package treemacs-projectile
 ;  :after (treemacs projectile)
