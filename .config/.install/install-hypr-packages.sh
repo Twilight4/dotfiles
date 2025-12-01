@@ -111,6 +111,8 @@ packages=(
   "acpi"
   "dkms"
   "emacs-wayland"
+  "go-task"
+  "act"
   "texlive-binextra"
   "texlive-bin"
   "texlive-core"
