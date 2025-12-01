@@ -357,6 +357,7 @@ alias paruu="sudo pacman -U package"
 ##############################################################################################################
 alias k='kubectl'
 alias tf='terraform'
+alias t='go-task'
 alias swappy='swappy -f'
 alias s="kitty +kitten ssh"
 alias wthr="curl -s wttr.in/Kwidzyn?format=%t"
