@@ -34,6 +34,7 @@
   - [[#improved-file-management][Improved file management]]
   - [[#nicer-org-return][Nicer org-return]]
   - [[#clean-empty-lines][Clean Empty Lines]]
+  - [[#remove-inline---comments-from-region][Remove inline “# …” comments from region]]
   - [[#expand-region][Expand-region]]
   - [[#kill-current-buffer][Kill current buffer]]
   - [[#symbol-overlay][Symbol-overlay]]
@@ -445,7 +446,8 @@
     "-" '(org-table-insert-hline :wk "Insert horizontal line")
     "j" '(org-table-copy-down :wk "Copy the value of the field below")
     "h" '(org-table-insert-row :wk "Insert a new row above the current line")
-    "k" '(org-table-kill-row :wk "Delete the current row or horizontal line")
+    ;"k" '(org-table-kill-row :wk "Delete the current row or horizontal line")
+    "k" '(tl/strip-comments-in-region :wk "Delete comments from selected region")
     "u" '(org-table-delete-column :wk "Delete a column")
     "z" '(org-table-blank-field :wk "Blank field or active region")
     ;; Registers
@@ -1377,6 +1379,23 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
 		(while (re-search-forward "^[ \t]*\n+" nil t)
 		  (replace-match "")))))
   (message "%s done" 'tl/clean-whitespace-zero-lines))
+#+end_src
+
+** Remove inline “# …” comments from region
+#+begin_src emacs-lisp
+(defun tl/strip-comments-in-region (start end)
+  "Remove all comments and any preceding spaces in the selected region."
+  (interactive "r")
+  (let ((comment (regexp-quote comment-start)))
+    (save-excursion
+      ;; Process lines from end to start to avoid shifting issues
+      (goto-char end)
+      (while (> (point) start)
+        (beginning-of-line)
+        ;; If the line contains a comment, remove spaces + comment
+        (when (re-search-forward (concat "\\s-*" comment ".*") (line-end-position) t)
+          (replace-match ""))
+        (forward-line -1)))))
 #+end_src
 
 ** Expand-region
@@ -2354,7 +2373,7 @@ This is useful when followed by an immediate kill."
   (define-key treemacs-mode-map (kbd "pd") 'treemacs-remove-project-from-workspace)
   ;(define-key treemacs-mode-map (kbd "") 'treemacs-collapse-project)
   ;(define-key treemacs-mode-map (kbd "") 'treemacs-collapse-all-projects)
-  (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects))
+  (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects)
 
   ;; General Keybinds
   (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
