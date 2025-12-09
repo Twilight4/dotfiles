@@ -271,6 +271,7 @@ extra=(
   "docker"
   "docker-desktop"
   "kubectl-bin"
+  "kubectx"
   "minikube"
   "kind-bin"
   "k9s"
