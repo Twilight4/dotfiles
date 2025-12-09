@@ -10,7 +10,7 @@ hyprctl dispatch workspace 1
 # Check if kitty is running
 if ! is_kitty_running; then
   # If kitty is not running, launch it
-  hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T kitty-2 --class kitty-2'
+  hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T kitty-2 --class kitty-2 --session ~/.config/kitty/session-work'
 else
   # If kitty is running, focus on its window
   hyprctl dispatch focuswindow 'class:^(kitty-2)$'
