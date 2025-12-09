@@ -272,6 +272,7 @@ extra=(
   "docker-desktop"
   "kubectl-bin"
   "minikube"
+  "kind-bin"
   "k9s"
   "aws-cli"
   "eksctl"
