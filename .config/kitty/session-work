@@ -1,0 +1,33 @@
+# This is a example session template for kitty
+
+# Set the layout in this tab (use default one)
+#layout stack
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title cli
+# Create second window in the same working directory
+launch --title help-page zsh
+
+# Create a new tab
+new_tab project
+# Create a window
+cd ~/desktop/workspace
+# Launch yazi in that directory
+launch sh -c 'zsh -c "y(){ local tmp=\"\$(mktemp -t yazi-cwd.XXXXXX)\" cwd; yazi \"\$@\" --cwd-file=\"\$tmp\"; if cwd=\"\$(command cat -- \"\$tmp\")\" && [ -n \"\$cwd\" ] && [ \"\$cwd\" != \"\$PWD\" ]; then builtin cd -- \"\$cwd\"; fi; rm -f -- \"\$tmp\"; }; y \"\$@\" " _ "$@" ; exec zsh'
+
+# Create a new tab
+new_tab cheatsheets
+# Set the layout in this tab
+layout tall
+# Set the working directory
+cd ~
+# Create a window
+launch sh -c "file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --pager less --color=always ~/.config/cheat/tools/{}') || return [ -n \"$file\" ] && command cheat \"$file\" | bat --pager less --style=snip --color=always --language=help ; exec zsh"
+
+# Create a new tab
+new_tab notes
+# Set the working directory
+cd ~
+# Create a window
+launch sh -c 'file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e '\''s/^\* .*$/\x1b[94m&\x1b[0m/'\'' -e '\''s/^\*\*.*$/\x1b[96m&\x1b[0m/'\'' -e '\''s/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g'\'' -e '\''/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d'\'' ~/documents/org/roam/{} | command bat --language=org --style=snip --color=always" --preview-window=right:50%:wrap); if [ -n "$file" ]; then eval "$EDITOR ~/documents/org/roam/$file"; fi; exec zsh'
