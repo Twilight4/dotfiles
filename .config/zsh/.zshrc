@@ -46,6 +46,7 @@ stty -ixon
 # Load completions to fzf-menu
 [[ $commands[docker] ]] && source <(docker completion zsh)
 #[[ $commands[kubectl] ]] && source <(kubectl completion zsh)         # already loaded
+#[[ $commands[go-task] ]] && source <(go-task --completion zsh)       # already loaded
 
 # Profiling
 zmodload zsh/zprof
