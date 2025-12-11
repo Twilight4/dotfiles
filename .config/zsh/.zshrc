@@ -47,6 +47,9 @@ stty -ixon
 [[ $commands[docker] ]] && source <(docker completion zsh)
 #[[ $commands[kubectl] ]] && source <(kubectl completion zsh)         # already loaded
 #[[ $commands[go-task] ]] && source <(go-task --completion zsh)       # already loaded
+# Source gcloud zsh completion
+source /opt/google-cloud-cli/path.zsh.inc
+source /opt/google-cloud-cli/completion.zsh.inc
 
 # Profiling
 zmodload zsh/zprof
