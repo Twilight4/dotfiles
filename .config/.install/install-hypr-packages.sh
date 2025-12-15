@@ -52,10 +52,12 @@ bloat=(
   "gnome-logs"
   "sddm"
   "xfce4-terminal"
+  "paru"
 )
 
 packages=(
   "hyprland"
+  "paru"
   "ninja"
   "meson"
   "cmake"
@@ -272,6 +274,9 @@ extra=(
   "docker-desktop"
   "kubectl-bin"
   "kubectx"
+  "argocd"
+  "oras"
+  "helm"
   "yq"
   "minikube"
   "kind-bin"
