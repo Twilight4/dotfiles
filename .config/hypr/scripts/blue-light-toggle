@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+PIDFILE="$XDG_RUNTIME_DIR/hyprsunset.pid"
+ICON="$HOME/.config/mako/icons/night-mode.png"
+
+if [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+    # Night mode is ON → turn it OFF
+    kill "$(cat "$PIDFILE")"
+    rm -f "$PIDFILE"
+
+    notify-send -u low -t 4000 -i "$ICON" "Night mode: Off"
+else
+    # Night mode is OFF → turn it ON
+    hyprsunset -t 4500 -g 90 &
+    echo $! > "$PIDFILE"
+
+    notify-send -u low -t 4000 -i "$ICON" "Night mode: On"
+fi
