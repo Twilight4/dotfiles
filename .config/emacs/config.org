@@ -191,7 +191,6 @@
 (define-key global-map (kbd "M-j") nil)
 (define-key global-map (kbd "M-k") nil)
 (define-key global-map (kbd "M-l") nil)
-(define-key global-map (kbd "M-b") nil)
 (define-key global-map (kbd "M-RET") nil)
 (define-key global-map (kbd "C-M-\\") nil)
 
@@ -1513,6 +1512,8 @@ it will auto tangle after saving.
         (("C-x C-x C-c" . mc/edit-lines)
          ("C-x C-x C-n" . mc/mark-next-like-this)
          ("C-x C-x C-p" . mc/mark-previous-like-this)
+         ("C-x C-x C-b" . mc/unmark-next-like-this)
+         ("C-x C-x C-f" . mc/unmark-previous-like-this)
          ("C-x C-x C-a" . mc/edit-beginnings-of-lines)
          ("C-x C-x C-e" . mc/edit-ends-of-lines)
          ("C-x C-x C-j" . mc/mark-all-like-this)
@@ -1780,18 +1781,27 @@ Move the cursor through entire strings.
 
 #+begin_src emacs-lisp
 (defun tl/forward-entire-word (&optional arg)
-  "Move point forward by ARG symbols (default 1).
-Unlike `forward-word`, this does not stop at punctuation like -, _, or ."
+  "Move point forward by ARG non-whitespace chunks.
+A chunk is any sequence of non-whitespace characters, including
+punctuation like .,,-,_:/."
   (interactive "^p")
   (let ((arg (or arg 1)))
-    (forward-symbol arg)))
+    (dotimes (_ arg)
+      ;; Skip whitespace first
+      (skip-syntax-forward " ")
+      ;; Skip everything until next whitespace
+      (skip-syntax-forward "^ "))))
 
 (defun tl/backward-entire-word (&optional arg)
-  "Move point backward by ARG symbols (default 1).
-This is the backward equivalent of `forward-symbol-word`."
+  "Move point backward by ARG non-whitespace chunks.
+A chunk is any sequence of non-whitespace characters."
   (interactive "^p")
   (let ((arg (or arg 1)))
-    (forward-symbol (- arg))))
+    (dotimes (_ arg)
+      ;; Skip whitespace first
+      (skip-syntax-backward " ")
+      ;; Skip everything until previous whitespace
+      (skip-syntax-backward "^ "))))
 #+end_src
 
 ** Screenshot automation
