@@ -57,6 +57,7 @@ option_73=" MeetUp"
 option_74=" Github Actions - Writing workflows"
 option_75=" Dockerfile Docs"
 option_76="󱇶 GCP Dashboard"
+option_77=" Grafana Dashboards"
 
 # Rofi CMD
 rofi_cmd() {
@@ -77,7 +78,7 @@ get_search_query() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_25\n$option_31\n$option_36\n$option_38\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65\n$option_66\n$option_67\n$option_68\n$option_69\n$option_70\n$option_71\n$option_72\n$option_73\n$option_74\n$option_75\n$option_76" | rofi_cmd
+  echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6\n$option_8\n$option_9\n$option_10\n$option_11\n$option_12\n$option_13\n$option_22\n$option_25\n$option_31\n$option_36\n$option_38\n$option_40\n$option_41\n$option_42\n$option_43\n$option_44\n\n$option_47\n$option_48\n$option_49\n$option_50\n$option_51\n$option_52\n$option_53\n$option_54\n$option_55\n$option_56\n$option_57\n$option_58\n$option_59\n$option_60\n$option_61\n$option_62\n$option_63\n$option_64\n$option_65\n$option_66\n$option_67\n$option_68\n$option_69\n$option_70\n$option_71\n$option_72\n$option_73\n$option_74\n$option_75\n$option_76\n$option_77" | rofi_cmd
 }
 
 # Execute Command
@@ -288,6 +289,9 @@ run_cmd() {
     --opt76)
       zen-browser -P 'Default (release)' 'https://console.cloud.google.com/home/dashboard' &
       ;;
+    --opt77)
+      zen-browser -P 'Default (release)' 'https://grafana.com/grafana/dashboards/' &
+      ;;
     *)
       ;;
   esac
@@ -451,5 +455,8 @@ case "${chosen}" in
     ;;
   $option_76)
     run_cmd --opt76
+    ;;
+  $option_77)
+    run_cmd --opt77
     ;;        
 esac
