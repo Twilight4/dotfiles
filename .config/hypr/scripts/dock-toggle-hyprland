@@ -12,6 +12,6 @@ if pgrep -f "nwg-dock-hyprland" > /dev/null; then
     pkill -f "nwg-dock-hyprland"   # Kill nwg-dock-hyprland if it's running
 else
     nwg-dock-hyprland -g "casual-kitty cava blueberry.py cpu-temp fans htop-btop-ptop nvtop wavemon protonvpn-app Chromium-browser" \
-    -i 50 -w 5 -mb 10 -ml 10 -mr 10 \
+    -i 40 -w 5 -mb 10 -ml 10 -mr 10 \
     -c "rofi -show drun -config ~/.config/rofi/configs/config.rasi" &   # Start nwg-dock-hyprland if it's not running
 fi
