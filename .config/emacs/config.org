@@ -469,7 +469,9 @@
     "C-w" '(ace-swap-window :wk "Swap windows")
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")
+    "C-]" '(enlarge-window-horizontally :wk "Enlarge window horizontally")
     "C-<" '(shrink-window :wk "Shrink window")
+    "C-[" '(shrink-window-horizontally :wk "Shrink window horizontally")
     "C-/" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
     "C-_" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
     "/" '(balance-windows :wk "Balance windows")
