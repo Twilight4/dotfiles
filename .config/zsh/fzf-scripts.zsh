@@ -47,7 +47,7 @@ fzf-cd-global() {
 fkill() {
     if [[ $(uname) = Linux ]]; then
         pid_col=2
-        pids=$(ps -f -u "$USER" | sed 1d | fzf --multi | tr -s "[:blank:]" | cut -d' ' -f"$pid_col")
+        pids=$(ps -f -u "$USER" | sed 1d | fzf --multi | \tr -s "[:blank:]" | cut -d' ' -f"$pid_col")
     else
         echo 'Error: unknown platform'
         return
