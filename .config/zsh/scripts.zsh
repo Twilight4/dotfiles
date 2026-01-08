@@ -149,6 +149,36 @@ diff() {
   command diff -u "$@" | delta --features side-by-side
 }
 
+# Ediff function - compare two files using Emacs ediff
+ediff() {
+    if [ $# -ne 2 ]; then
+        echo "Usage: ediff FILE1 FILE2"
+        echo "Compare two files using Emacs ediff"
+        return 1
+    fi
+
+    local FILE1="$1"
+    local FILE2="$2"
+
+    # Convert to absolute paths
+    FILE1=$(realpath "$FILE1" 2>/dev/null)
+    FILE2=$(realpath "$FILE2" 2>/dev/null)
+
+    # Check if files exist
+    if [ ! -f "$FILE1" ]; then
+        echo "Error: File not found: $1"
+        return 1
+    fi
+
+    if [ ! -f "$FILE2" ]; then
+        echo "Error: File not found: $2"
+        return 1
+    fi
+
+    # Run ediff in Emacs (use -nw for terminal, remove for GUI)
+    emacs -nw --eval "(ediff-files \"$FILE1\" \"$FILE2\")"
+}
+
 diffd() {
   # I want to use less for this commmand
   PAGER=less
