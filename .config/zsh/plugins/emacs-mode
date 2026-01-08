@@ -194,8 +194,10 @@ bindkey '^?' delete-or-cut-backward
 
 # Function to open help page
 custom-run-help() {
-    LBUFFER="help $LBUFFER"
-    zle accept-line
+    local cmd="help $LBUFFER"
+    zle push-line
+    BUFFER=$cmd
+    zle .accept-line
 }
 zle -N custom-run-help
 bindkey '^[h' custom-run-help
