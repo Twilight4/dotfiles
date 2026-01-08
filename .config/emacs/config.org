@@ -15,7 +15,6 @@
   - [[#scrolling][Scrolling]]
   - [[#fonts][Fonts]]
 - [[#ui-configuration][UI Configuration]]
-  - [[#all-the-icons][All-the-icons]]
   - [[#color-theme][Color theme]]
   - [[#mode-line][Mode line]]
   - [[#highlight-indent-guides][Highlight indent guides]]
@@ -73,6 +72,7 @@
   - [[#jinx][Jinx]]
 - [[#other-packages][Other Packages]]
   - [[#anzu][Anzu]]
+  - [[#undo-tree-mode][Undo tree mode]]
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#gptel][GPTel]]
@@ -148,6 +148,7 @@
 ;(define-key global-map (kbd "C-h") (make-sparse-keymap))
 (global-unset-key (kbd "C-x"))
 (local-unset-key (kbd "C-x n"))
+(local-unset-key (kbd "C-c \""))
 (local-unset-key (kbd "C-c \""))
 (global-unset-key (kbd "M-g"))
 
@@ -232,6 +233,9 @@
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "<f12>") 'kill-emacs)
+;; Bindings that have a prefix key and have to be overwritten
+(global-set-key (kbd "C-x w") 'winner-mode)
+(global-set-key (kbd "C-x r r") 'consult-register)
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-a") 'tl/smart-move-beginning-of-line)
@@ -242,9 +246,9 @@
 (global-set-key (kbd "C-h") 'backward-char)
 (global-set-key (kbd "C-l") 'forward-char)
 (global-set-key (kbd "C-o") 'org-kill-line)
-(global-set-key (kbd "C-t") 'treemacs)
+(global-set-key (kbd "C-t") 'treemacs-add-and-display-current-project-exclusively)
 (global-set-key (kbd "C-q") 'delete-frame)
-(global-set-key (kbd "C-r") 'undo)
+(global-set-key (kbd "C-r") 'undo-tree-undo)
 (global-set-key (kbd "C-u") 'tl/org-kill-line-backward)
 (global-set-key (kbd "C-f") 'forward-word)
 (global-set-key (kbd "C-b") 'backward-word)
@@ -447,11 +451,11 @@
     "h" '(org-table-insert-row :wk "Insert a new row above the current line")
     ;"k" '(org-table-kill-row :wk "Delete the current row or horizontal line")
     "k" '(tl/strip-comments-in-region :wk "Delete comments from selected region")
-    "u" '(org-table-delete-column :wk "Delete a column")
+    ;"u" '(org-table-delete-column :wk "Delete a column")
+    "u" '(undo-tree-visualise :wk "Undo tree visualise")
     "z" '(org-table-blank-field :wk "Blank field or active region")
     ;; Registers
     "C-r" '(point-to-register :wk "Point to register")
-    "r" '(consult-register :wk "Load register and jump to location or insert the stored text")
     ;; Bookmarks
     "b" '(consult-bookmark :wk "Bookmark")
     "x" '(bookmark-set :wk "Set bookmark")        ;; bookmarks are automatically saved to a file
@@ -855,19 +859,6 @@
 #+end_src
 
 * UI Configuration
-** All-the-icons
-This is an icon set that can be used with dashboard, dired, ibuffer and other Emacs programs.
-*NOTE*: The first time you load your configuration on a new machine, you'll need to run =M-x all-the-icons-install-fonts= so that mode line icons display correctly.
-
-#+begin_src emacs-lisp
-(use-package all-the-icons)
-  :ensure t
-  :if (display-graphic-p)
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
-#+end_src
-
 ** Color theme
 I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs theme generator to match my pywal-based setup.
 
@@ -1520,7 +1511,8 @@ it will auto tangle after saving.
          ("C-x C-x C-e" . mc/edit-ends-of-lines)
          ("C-x C-x C-j" . mc/mark-all-like-this)
          ("C-x C-x C-k" . mc/mark-all-in-region)
-         ("C-x C-x C-r" . set-rectangular-region-anchor)))
+         ("C-x C-x C-r" . set-rectangular-region-anchor)
+         ("C-x C-x r" . rectangle-mark-mode)))    ;; Backspace to delete, 't' to replace chars TODO
 #+end_src
 
 ** Buffer-switching adjustment
@@ -2256,6 +2248,39 @@ This is useful when followed by an immediate kill."
   (define-key isearch-mode-map [(control return)] 'tl/isearch-exit-other-end))
 #+end_src
 
+** Undo tree mode
+#+begin_src emacs-lisp
+(use-package undo-tree
+  :ensure t
+  :init
+  (global-undo-tree-mode)
+  :config
+  ;; Prevent undo-tree files from polluting your file system
+  (setq undo-tree-auto-save-history t)
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+  
+  ;; More compact diff display
+  (setq undo-tree-visualizer-diff t)
+  (setq undo-tree-visualizer-timestamps t)
+  
+  ;; Increase the undo limits
+  (setq undo-limit 800000)
+  (setq undo-strong-limit 12000000)
+  (setq undo-outer-limit 120000000)
+
+  ;; Rebind visualizer commands
+  (define-key undo-tree-visualizer-mode-map (kbd "h") 'undo-tree-visualize-switch-branch-left)
+  (define-key undo-tree-visualizer-mode-map (kbd "l") 'undo-tree-visualize-switch-branch-right)
+  (define-key undo-tree-visualizer-mode-map (kbd "j") 'undo-tree-visualize-redo)
+  (define-key undo-tree-visualizer-mode-map (kbd "k") 'undo-tree-visualize-undo)
+  (define-key undo-tree-visualizer-mode-map (kbd "q") 'undo-tree-visualizer-abort)
+  (define-key undo-tree-visualizer-mode-map (kbd "d") 'undo-tree-visualizer-toggle-diff)
+  (define-key undo-tree-visualizer-mode-map (kbd "RET") 'undo-tree-visualizer-abort)
+  (define-key undo-tree-visualizer-mode-map (kbd "t") 'undo-tree-visualizer-toggle-timestamps)
+  (define-key undo-tree-visualizer-mode-map (kbd "C-k") 'undo-tree-visualize-undo-to-x)
+  (define-key undo-tree-visualizer-mode-map (kbd "C-j") 'undo-tree-visualize-redo-to-x))
+#+end_src
+
 ** Treemacs
 
 #+begin_src emacs-lisp
@@ -2340,16 +2365,6 @@ This is useful when followed by an immediate kill."
     (treemacs-hide-gitignored-files-mode nil)))
 
 ;; Treemacs global keybinds
-;(global-set-key (kbd "C-c C-w s") 'treemacs-switch-workspace)
-;(global-set-key (kbd "C-c C-w r") 'treemacs-rename-workspace)
-;(global-set-key (kbd "C-c C-w a") 'treemacs-create-workspace)
-;(global-set-key (kbd "C-c C-w d") 'treemacs-remove-workspace)
-;(global-set-key (kbd "C-c C-w e") 'treemacs-edit-workspaces)
-;(global-set-key (kbd "C-c C-w n") 'treemacs-next-workspace)
-;(global-set-key (kbd "C-c C-w f") 'treemacs-set-fallback-workspace)
-;(global-set-key (kbd "C-c C-p a") 'treemacs-add-project-to-workspace)
-;(global-set-key (kbd "C-c C-p p") 'treemacs-projectile)
-;(global-set-key (kbd "C-c C-p d") 'treemacs-remove-project-from-workspace)
 ;(global-set-key (kbd "C-c C-p r") 'treemacs-rename-project)
 ;(global-set-key (kbd "C-c C-p c c") 'treemacs-collapse-project)
 ;(global-set-key (kbd "C-c C-p c o") 'treemacs-collapse-all-projects)
@@ -2358,13 +2373,11 @@ This is useful when followed by an immediate kill."
 ;(global-set-key (kbd "C-c C-w C-f") 'treemacs-find-file)
 ;(global-set-key (kbd "C-c C-w C-t") 'treemacs-find-tag)
 ;(global-set-key (kbd "C-c C-w w") 'treemacs-select-window)
-;(global-set-key (kbd "C-c C-w C-d") 'treemacs-select-directory)
 ;(global-set-key (kbd "C-c C-w 1") 'treemacs-delete-other-windows)
 ;(global-set-key (kbd "C-c C-w C-h") 'treemacs-show-changelog)
 ;(global-set-key (kbd "C-c C-w t") 'treemacs-load-theme)
 ;(global-set-key (kbd "C-c C-w i") 'treemacs-icon-catalogue)
 ;(global-set-key (kbd "C-c C-w n") 'treemacs-narrow-to-current-file)
-;(global-set-key (kbd "C-c C-w p") 'treemacs-create-workspace-from-project)
 ;(global-set-key (kbd "C-c C-p P") 'treemacs-projectile)
 ;(global-set-key (kbd "C-c C-p C-a") 'treemacs-add-and-display-current-project)
 ;(global-set-key (kbd "C-c C-p C-e") 'treemacs-add-and-display-current-project-exclusively)
@@ -2373,6 +2386,18 @@ This is useful when followed by an immediate kill."
 ;; Treemacs-mode keybinds
 (with-eval-after-load 'treemacs
   (define-prefix-command 'treemacs-project-prefix)
+  (define-prefix-command 'treemacs-workspace-prefix)
+  ;; Workspace Keybinds
+  (define-key treemacs-mode-map (kbd "w") 'treemacs-workspace-prefix)
+  (define-key treemacs-mode-map (kbd "ws") 'treemacs-switch-workspace)
+  (define-key treemacs-mode-map (kbd "wr") 'treemacs-rename-workspace)
+  (define-key treemacs-mode-map (kbd "wa") 'treemacs-create-workspace)
+  (define-key treemacs-mode-map (kbd "wd") 'treemacs-remove-workspace)
+  (define-key treemacs-mode-map (kbd "we") 'treemacs-edit-workspaces)
+  (define-key treemacs-mode-map (kbd "wn") 'treemacs-next-workspace)
+  (define-key treemacs-mode-map (kbd "wf") 'treemacs-set-fallback-workspace)
+  (define-key treemacs-mode-map (kbd "wA") 'treemacs-add-project-to-workspace)
+  (define-key treemacs-mode-map (kbd "wp") 'treemacs-create-workspace-from-project)
   ;; bind the prefix key in treemacs-mode
   (define-key treemacs-mode-map (kbd "p") 'treemacs-project-prefix)
   ;; Project Keybinds  
@@ -2383,6 +2408,7 @@ This is useful when followed by an immediate kill."
   (define-key treemacs-mode-map (kbd "pa") 'treemacs-add-project-to-workspace)
   (define-key treemacs-mode-map (kbd "pb") 'treemacs-move-project-up)
   (define-key treemacs-mode-map (kbd "pd") 'treemacs-remove-project-from-workspace)
+  (define-key treemacs-mode-map (kbd "ps") 'treemacs-select-directory)
   ;(define-key treemacs-mode-map (kbd "") 'treemacs-collapse-project)
   ;(define-key treemacs-mode-map (kbd "") 'treemacs-collapse-all-projects)
   (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects)
@@ -2400,7 +2426,7 @@ This is useful when followed by an immediate kill."
   (define-key treemacs-mode-map (kbd "/") 'isearch-forward)
   (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
   (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
-  (define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
+  ;(define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
   (define-key treemacs-mode-map (kbd "=") 'treemacs-fit-window-width)
   (define-key treemacs-mode-map (kbd "W") 'treemacs-extra-wide-toggle)
   (define-key treemacs-mode-map (kbd "<") 'treemacs-decrease-width)
@@ -2816,16 +2842,16 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
   ;(define-key god-local-mode-map (kbd "C-@") #'consult-mark)         ;; TODO not working
   (define-key god-local-mode-map (kbd "C-S-v") #'tl/mark-whole-line)
-  (define-key god-local-mode-map (kbd "C-S-r") #'rectangle-mark-mode)    ;; Backspace to delete, 't' to replace chars TODO
   (define-key god-local-mode-map (kbd "|") #'anzu-query-replace)       ;; TODO - try: anzu-query-replace-at-cursor-thing, anzu-replace-at-cursor-thing, anzu-query-replace-at-cursor
 
   ;; Search
   (define-key god-local-mode-map (kbd "/") #'isearch-forward)
-  (define-key god-local-mode-map (kbd "?") #'isearch-backward)
 
   ;; Misc
-  (define-key god-local-mode-map (kbd "r") #'undo)
-  (define-key god-local-mode-map (kbd "t") #'treemacs)
+  (define-key god-local-mode-map (kbd "r") #'undo-tree-undo)
+  (define-key god-local-mode-map (kbd "C-S-r") #'undo-tree-redo)
+  (define-key god-local-mode-map (kbd "?") #'diff-buffer-with-file)
+  (define-key god-local-mode-map (kbd "t") #'treemacs-add-and-display-current-project-exclusively)
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
