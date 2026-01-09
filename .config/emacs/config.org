@@ -234,7 +234,7 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "<f12>") 'kill-emacs)
 ;; Bindings that have a prefix key and have to be overwritten
-(global-set-key (kbd "C-x w") 'winner-mode)
+(global-set-key (kbd "C-x w") 'winner-undo)
 (global-set-key (kbd "C-x r r") 'consult-register)
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
@@ -337,7 +337,7 @@
 (define-key calendar-mode-map "m" 'tl/mark-diary-and-holiday-entries)
 (define-key calendar-mode-map "M" 'calendar-unmark)
 
-;; Free keys: Z Y l
+;; Free keys: Z Y
 (eval-after-load 'org-agenda
   '(progn
      (define-key org-agenda-mode-map (kbd "a") 'org-gtd-clarify-agenda-item)
@@ -368,6 +368,8 @@
      (define-key org-agenda-mode-map (kbd "M") 'org-agenda-toggle-deadlines)
      (define-key org-agenda-mode-map (kbd "C") 'org-gtd-capture)
      (define-key org-agenda-mode-map (kbd "x") 'tl/org-agenda-done)
+     (define-key org-agenda-mode-map (kbd "d") 'tl/org-agenda-doing)
+     (define-key org-agenda-mode-map (kbd "l") 'tl/org-agenda-day-view)
      (define-key org-agenda-mode-map (kbd "X") 'tl/org-agenda-canc)
      (define-key org-agenda-mode-map (kbd "W") 'org-agenda-open-link)
      (define-key org-agenda-mode-map (kbd ";") 'recenter-top-bottom)
@@ -410,6 +412,7 @@
     :prefix "C-x") ;; Set leader key
 
   (tl/leader-keys
+	;; Free keys: t, \, -, j, h, k, u, z
     "," '(consult-recent-file :wk "Find recent files")
     ;"." '(find-file :wk "Find file")
     "C-b" '(consult-buffer :wk "Switch to buffer")
@@ -443,17 +446,6 @@
 	"o" '(tl/open-image-external-from-org :wk "Open image in swappy")
 	"v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
     "c" '(org-goto-calendar :wk "Calendar")
-    ;; Org-table
-    "\\" '(org-table-create-or-convert-from-region :wk "Create empty table or convert from region")
-    "t" '(org-table-create :wk "Create new org table")
-    "-" '(org-table-insert-hline :wk "Insert horizontal line")
-    "j" '(org-table-copy-down :wk "Copy the value of the field below")
-    "h" '(org-table-insert-row :wk "Insert a new row above the current line")
-    ;"k" '(org-table-kill-row :wk "Delete the current row or horizontal line")
-    "k" '(tl/strip-comments-in-region :wk "Delete comments from selected region")
-    ;"u" '(org-table-delete-column :wk "Delete a column")
-    "u" '(undo-tree-visualise :wk "Undo tree visualise")
-    "z" '(org-table-blank-field :wk "Blank field or active region")
     ;; Registers
     "C-r" '(point-to-register :wk "Point to register")
     ;; Bookmarks
@@ -464,13 +456,14 @@
     ;; Window management
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
-    "w" '(winner-undo :wk "Undo window change")
     "C-k" '(other-window :wk "Switch window")
     "C-j" '(previous-multiframe-window :wk "Select macro to run")
     "m" '(consult-kmacro :wk "Select macro to run")
     "K" '(kubernetes-overview :wk "Kubernetes overview")
     ;;"" '(dashboard-open :wk "Open emacs dashboard")    ;; Don't use atm
     "C-w" '(ace-swap-window :wk "Swap windows")
+    "k" '(tl/strip-comments-in-region :wk "Delete comments from selected region")
+    "u" '(undo-tree-visualise :wk "Undo tree visualise")
     "RET" '(toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")
     "C-]" '(enlarge-window-horizontally :wk "Enlarge window horizontally")
@@ -543,14 +536,24 @@
               :wk "Reload emacs"))
 
   (tl/leader-keys
-    "C-t" '(:ignore t :wk "Toggle")
-    "C-t C-l" '(display-line-numbers-mode :wk "Toggle line numbers")
-    "C-t C-t" '(visual-line-mode :wk "Toggle truncated lines")
-    "C-t C-h" '(hl-line-mode :wk "Toggle line highlight in frame")
-    "C-t C-i" '(org-indent-mode :wk "Toggle indentation mode")
-    "C-t C-m" '(toggle-mode-line :wk "Toggle mode line")
-    "C-t C-j" '(global-hl-line-mode :wk "Toggle line highlight globally"))
-    ;"" '(org-transclusion-mode :wk "Org Transclusion mode"))     ;; not using it
+    "C-t" '(:ignore t :wk "Toggle/Table")
+	;; Toggle 
+    "C-t l" '(display-line-numbers-mode :wk "Toggle line numbers")
+    "C-t v" '(visual-line-mode :wk "Toggle truncated lines")
+    "C-t h" '(hl-line-mode :wk "Toggle line highlight in frame")
+    "C-t i" '(org-indent-mode :wk "Toggle indentation mode")
+    "C-t m" '(toggle-mode-line :wk "Toggle mode line")
+    "C-t v" '(global-hl-line-mode :wk "Toggle line highlight globally")
+    ;"" '(org-transclusion-mode :wk "Org Transclusion mode")     ;; not using it
+    ;; Org-table
+    "C-t C-\\" '(org-table-create-or-convert-from-region :wk "Create empty table or convert from region")
+    "C-t C-t" '(org-table-create :wk "Create new org table")
+    "C-t C--" '(org-table-insert-hline :wk "Insert horizontal line")
+    "C-t C-j" '(org-table-copy-down :wk "Copy the value of the field below")
+    "C-t C-h" '(org-table-insert-row :wk "Insert a new row above the current line")
+    "C-t C-k" '(org-table-kill-row :wk "Delete the current row or horizontal line")
+    "C-t C-u" '(org-table-delete-column :wk "Delete a column")
+    "C-t C-z" '(org-table-blank-field :wk "Blank field or active region"))
 
   (tl/leader-keys
     "C-e" '(:ignore t :wk "Eval/Edit File")
@@ -3391,18 +3394,19 @@ Version: 2020-06-26 2023-11-14"
 =tl/mark-diary-and-holiday-entries= function marks holidays and diary entries at once.
 
 #+begin_src emacs-lisp
-;; Load Org mode
-;(require 'org)
+(defun tl/org-agenda-doing (&optional arg)
+  (interactive "P")
+  (org-agenda-clock-in)
+  (org-agenda-todo "DOING"))
 
 (defun tl/org-agenda-done (&optional arg)
   (interactive "P")
-  (org-agenda-todo "FINISHED")
-  (org-agenda-redo-all))
+  (org-agenda-clock-out)
+  (org-agenda-todo "DONE"))
 
 (defun tl/org-agenda-canc (&optional arg)
   (interactive "P")
-  (org-agenda-todo "CANC")
-  (org-agenda-redo-all))
+  (org-agenda-todo "CANC"))
 
 (defun tl/mark-diary-and-holiday-entries ()
   "Mark both holidays and diary entries in the calendar."
@@ -3609,8 +3613,7 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
            "SOMEDAY(s)"
            "|"             ; The pipe necessary to separate "active" states and "inactive" states
            "CANC(c)"
-           "FINISHED(f)"
-           "DONE(D)")))
+           "DONE(f)")))
 
 ;; Org-habit config
 (require 'org-habit)
@@ -3627,8 +3630,7 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
      ("@Research" . ?r)
      ("@Habit" . ?h)
      ("@Effort" . ?e)
-     ("@Privacy" . ?p)
-     ("@Project" . ?P)
+     ("@Project" . ?p)
      ("@Watch" . ?W)
      ("@Purchase" . ?u)
      ("@Read" . ?R)
@@ -3827,12 +3829,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name " Career-Related"
                            :tag "@Work"
                            :order 5)
-                          (:name "󰥖 Osint Tasks"
-                           :tag "@Osint"
-                           :order 6)
-                          (:name "󰈈 Privacy"
-                           :tag "@Privacy"
-                           :order 7)
                           (:name " Assignments"
                            :tag "@Assignment"
                            :order 8)
@@ -3863,10 +3859,9 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name "󰃶 Calendar"
                            :tag "@Calendar"
                            :order 90)
-                          (:name "Trivial"
-                           :priority<= "C"
+                          (:name "󰃶 Trivial"
                            :tag "@Trivial"
-                           :todo ("SOMEDAY")
+						   :todo "SOMEDAY"
                            :order 80)))))))))
 #+end_src
 
@@ -3918,99 +3913,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 ;  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
 #+end_src
 
-*** Org-roam-capture
-
-#+begin_src emacs-lisp
-;; Org-roam templates
-(setq org-roam-capture-templates
-  '(("d" "default" plain "%?"
-      :target (file+head "${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)
-    ("l" "Logbook Templates")
-	  ("li" "Internal Pentest Logbook" plain
-     (file "~/documents/org/templates/logbook/ipt-logbook.org")
-     :if-new (file "~/documents/org/reports/ipt_${slug}_logbook.org")
-     :unnarrowed t)
-	  ("le" "External Pentest Logbook" plain
-     (file "~/documents/org/templates/logbook/ept-logbook.org")
-     :if-new (file "~/documents/org/reports/ipt_${slug}_logbook.org")
-     :unnarrowed t)
-    ("r" "Report Templates")
-    ("ri" "Internal Pentest Findings Report" plain
-     (file "~/documents/org/templates/reports/ipt-report.org")
-     :if-new (file+head "~/documents/org/reports/ipt_${slug}_report.org" "#+title: ${title}\n")
-     :unnarrowed t)
-    ("re" "External Pentest Findings Report" plain
-     (file "~/documents/org/templates/reports/ept-report.org")
-     :if-new (file+head "~/documents/org/reports/ept_${slug}_report.org" "#+title: ${title}\n")
-     :unnarrowed t)
-    ("rs" "SE Findings Report" plain
-     (file "~/documents/org/templates/reports/se-report.org")
-     :if-new (file+head "~/documents/org/reports/se_${slug}_report.org" "#+title: ${title}\n")
-     :unnarrowed t)
-    ("rw" "Wireless Findings Report" plain
-     (file "~/documents/org/templates/reports/wir-report.org")
-     :if-new (file+head "~/documents/org/reports/wir_${slug}_report.org" "#+title: ${title}\n")
-     :unnarrowed t)
-    ("c" "Checklist Templates")
-	  ("ci" "Internal Pentest Checklist" plain
-     (file "~/documents/org/templates/checklists/ipt-checklist.org")
-     :if-new (file "~/documents/org/reports/ipt_${slug}_checklist.org")
-     :unnarrowed t)
-	  ("ce" "External Pentest Checklist" plain
-     (file "~/documents/org/templates/checklists/ept-checklist.org")
-     :if-new (file "~/documents/org/reports/ept_${slug}_checklist.org")
-     :unnarrowed t)
-	  ("cS" "SDS Checklist" plain
-     (file "~/documents/org/templates/checklists/sds-checklist.org")
-     :if-new (file "~/documents/org/reports/sds_${slug}_checklist.org")
-     :unnarrowed t)
-	  ("cs" "SE Checklist" plain
-     (file "~/documents/org/templates/checklists/se-checklist.org")
-     :if-new (file "~/documents/org/reports/se_${slug}_checklist.org")
-     :unnarrowed t)
-	  ("cw" "Wireless" plain
-     (file "~/documents/org/templates/checklists/wir-checklist.org")
-     :if-new (file "~/documents/org/reports/wir_${slug}_checklist.org")
-     :unnarrowed t)))
-
-;; Logbook entry snippet
-(defun tl/log-entry ()
-  (interactive)
-  (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
-    (end-of-line)
-    (insert-file-contents "~/documents/org/templates/logbook/log-entry.org")
-    (next-line)
-    (insert "#+DATE: " current-date-time "\n")
-    (previous-line)
-    (previous-line)
-    (org-end-of-line)))
-
-;; Logbook small entry snippet
-(defun tl/log-entry-small ()
-  (interactive)
-  (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
-    (end-of-line)
-    (insert-file-contents "~/documents/org/templates/logbook/log-entry-small.org")
-    (next-line)
-    (insert "#+DATE: " current-date-time "\n")
-    (previous-line)
-    (previous-line)
-    (org-end-of-line)))
-
-;; Report entry snippet
-(defun tl/report-entry ()
-  (interactive)
-  (let ((current-date-time (format-time-string "%Y-%m-%d %I:%M %p")))
-    (end-of-line)
-    (insert-file-contents "~/documents/org/templates/logbook/report-entry.org")
-    (next-line)
-    (insert "#+DATE: " current-date-time "\n")
-    (previous-line)
-    (previous-line)
-    (org-end-of-line)))
-#+end_src
-
 *** Org-roam-dailies
 Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day.
 
@@ -4024,7 +3926,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
 
 (defun tl/org-roam-copy-finished-to-today ()
   (interactive)
-  (let ((org-refile-keep nil) ;; Set this to nil to delete the original!
+  (let ((org-refile-keep t) ;; Set this to nil to delete the original!
         (org-roam-dailies-capture-templates
           '(("t" "tasks" entry "%?"
              :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
@@ -4043,7 +3945,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
 
 (add-to-list 'org-after-todo-state-change-hook
              (lambda ()
-               (when (or (equal org-state "FINISHED")
+               (when (or (equal org-state "DONE")
                          (equal org-state "CANC"))
                  (tl/org-roam-copy-finished-to-today))))
 
