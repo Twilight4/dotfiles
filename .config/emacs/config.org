@@ -3626,7 +3626,6 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
 (setq org-tag-alist
   '((:startgroup)
      ;; Overview agenda
-     ("@Related" . ?P)
      ("@Work" . ?w)
      ("@Important" . ?i)
      ("@Assignment" . ?a)
@@ -3634,7 +3633,9 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
      ("@Research" . ?r)
      ("@Habit" . ?h)
      ("@Effort" . ?e)
-     ("@Project" . ?p)
+     ("@Project1" . ?1)
+     ("@Project2" . ?2)
+     ("@Project3" . ?3)
      ("@Watch" . ?W)
      ("@Purchase" . ?u)
      ("@Read" . ?R)
@@ -3831,18 +3832,21 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name "  Career-related"
                            :tag "@Work"
                            :order 5)
-                          (:name " Project Tasks"
-                           :tag "@Related"
+                          (:name " Project 1"
+                           :tag "@Project1"
                            :order 7)
+                          (:name " Project 2"
+                           :tag "@Project3"
+                           :order 8)
+                          (:name " Project 3"
+                           :tag "@Project2"
+                           :order 9)
                           (:name " Assignments"
                            :tag "@Assignment"
                            :order 8)
                           (:name "Issues"
                            :tag "@Issue"
                            :order 9)
-                          (:name " Projects"
-                           :tag "@Project"
-                           :order 6)
                           (:name " Research"
                            :tag "@Research"
                            :order 12)
@@ -4007,6 +4011,12 @@ The following snippet sets up a hook for all Org task state changes and then mov
   :bind
   (:map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
+
+(setq org-gtd-keyword-mapping
+      '((todo . "NEXT")
+        (next . "TODO")
+        (done . "DONE")
+        (canceled . "CNCL")))
 #+end_src
 
 ** Exporting
