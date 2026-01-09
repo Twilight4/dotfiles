@@ -432,12 +432,6 @@
     "C-n" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(tl/kill-current-buffer :wk "Kill current buffer")
     "C-a" '(tl/org-agenda-o :wk "Agenda overview")
-    ;; I don't use those at the moment
-    ;"" '(org-gtd-engage-grouped-by-context :wk "Organized agenda")
-    ;"" '(org-gtd-review-area-of-focus :wk "org-gtd-review-area-of-focus")
-    ;"" '(org-gtd-engage :wk "GTD agenda")
-    ;"" '(org-gtd-oops :wk "Missed appointments")
-    ;"" '(org-gtd-review-stuck-* :wk "Any action types")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
@@ -494,6 +488,18 @@
     "C-c C-e" '(consult-git-grep :wk "Search with git grep")
     "C-c C-a" '(consult-org-agenda :wk "Go to org agenda heading")
     "C-c C-h" '(consult-org-heading :wk "Go to org heading")
+    "C-c C-h" '(consult-org-heading :wk "Go to org heading")
+	;; GTD
+    "C-c e" '(org-gtd-engage :wk "GTD Engage")
+    "C-c E" '(org-gtd-engage-tagged :wk "GTD Engage tagged")
+    "C-c s" '(org-gtd-reflect-someday-maybe :wk "List your someday items")
+    "C-c S" '(org-gtd-reflect-someday-review :wk "Review your someday items")
+    "C-c p" '(org-gtd-reflect-stuck-projects :wk "Find projects without next actions")
+    "C-c A" '(org-gtd-archive-completed-items :wk "Clean up done items")
+    "C-c a" '(org-gtd-reflect-area-of-focus :wk "Reflect on area of focus")
+    "C-c m" '(org-gtd-reflect-missed-items :wk "Reflect on missed items")
+    "C-c d" '(org-gtd-reflect-completed-items :wk "Reflect on completed items")
+    "C-c i" '(org-gtd-clarify-item :wk "Clarify item")
 	;; Search
     "C-c C-l" '(consult-line :wk "Search for line")
     "C-c C-u" '(consult-line-multi :wk "Search for line in multiple buffers")
@@ -2984,10 +2990,8 @@ Adding highlights to =todo= keywords and related words.
         `(("TODO"       warning bold)
           ("DOING"      "#5af78e")
           ("NEXT"     . "#fac863")
-          ("SOMEDAY"  . "#81a2be")
           ("DONE"       font-lock-doc-face bold)
-          ("FINISHED"   font-lock-doc-face bold)
-          ("CANC"       error bold)))
+          ("CNCL"       error bold)))
   ;; Must be bound here to work
   (define-key hl-todo-mode-map (kbd "C-x n") #'hl-todo-next)
   (define-key hl-todo-mode-map (kbd "C-x p") #'hl-todo-previous))
@@ -3406,7 +3410,7 @@ Version: 2020-06-26 2023-11-14"
 
 (defun tl/org-agenda-canc (&optional arg)
   (interactive "P")
-  (org-agenda-todo "CANC"))
+  (org-agenda-todo "CNCL"))
 
 (defun tl/mark-diary-and-holiday-entries ()
   "Mark both holidays and diary entries in the calendar."
@@ -3610,7 +3614,6 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
            "TODO(t)"
            "DOING(d)"
            "NEXT(n)"
-           "SOMEDAY(s)"
            "|"             ; The pipe necessary to separate "active" states and "inactive" states
            "CANC(c)"
            "DONE(f)")))
@@ -3623,6 +3626,7 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
 (setq org-tag-alist
   '((:startgroup)
      ;; Overview agenda
+     ("@Related" . ?P)
      ("@Work" . ?w)
      ("@Important" . ?i)
      ("@Assignment" . ?a)
@@ -3658,10 +3662,8 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
         '(("TODO" :inverse-video t :inherit org-todo)
           ("DOING" :inverse-video t :inherit +org-todo-active)
           ("NEXT" :inverse-video t :inherit +org-todo-active)
-          ("SOMEDAY" :inverse-video t :inherit +org-todo-onhold)
           ("DONE" :inverse-video t :inherit +org-todo-cancel)
-          ("FINISHED" :inverse-video t :inherit +org-todo-onhold)
-          ("CANC" :inverse-video t :inherit +org-todo-onhold))
+          ("CNCL" :inverse-video t :inherit +org-todo-onhold))
         org-modern-footnote
         (cons nil (cadr org-script-display))
         org-modern-block-fringe nil
@@ -3826,9 +3828,12 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                            :tag "@Important"
                            :priority "A"
                            :order 4)
-                          (:name " Career-Related"
+                          (:name "  Career-related"
                            :tag "@Work"
                            :order 5)
+                          (:name " Project Tasks"
+                           :tag "@Related"
+                           :order 7)
                           (:name " Assignments"
                            :tag "@Assignment"
                            :order 8)
@@ -3837,10 +3842,10 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                            :order 9)
                           (:name " Projects"
                            :tag "@Project"
-                           :order 10)
+                           :order 6)
                           (:name " Research"
                            :tag "@Research"
-                           :order 11)
+                           :order 12)
                           (:name " Due Soon"
                            :deadline future
                            :order 20)
@@ -3861,7 +3866,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                            :order 90)
                           (:name "󰃶 Trivial"
                            :tag "@Trivial"
-						   :todo "SOMEDAY"
                            :order 80)))))))))
 #+end_src
 
@@ -3876,7 +3880,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
          "* TODO %?\n  %U\n  %i\n %a" :empty-lines 1 :kill-buffer t)
 
     ("a" "Appointment" entry (file "~/documents/org/agenda/inbox.org")
-         "* %<%I:%M %p> - %a :appointments:\n\n%?\n\n"
+         "* %<%I:%M %p> - %a :@Calendar:\n\n%?\n\n"
          :clock-in :clock-resume
          :empty-lines 1
 	       :kill-buffer t)))
@@ -3946,7 +3950,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
 (add-to-list 'org-after-todo-state-change-hook
              (lambda ()
                (when (or (equal org-state "DONE")
-                         (equal org-state "CANC"))
+                         (equal org-state "CNCL"))
                  (tl/org-roam-copy-finished-to-today))))
 
 ;; Old settings
@@ -4001,8 +4005,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
   :config
   (org-edna-mode)
   :bind
-  (("C-x I" . org-gtd-clarify-item)  ;; Used in org-gtd-tasks.org buffer for quick changes
-   :map org-gtd-clarify-map
+  (:map org-gtd-clarify-map
    ("C-x c" . org-gtd-organize)))
 #+end_src
 
