@@ -37,5 +37,5 @@ fi
 
 DEBUG=1
 log() { [ "$DEBUG" = 1 ] && echo "$@"; }
-log "Zen on WS $TARGET_WS: $(zen_on_target_ws; echo $?)"
-log "Zen anywhere: $(zen_running_anywhere; echo $?)"
+log "Zen on WS $TARGET_WS: $(zen_youtube_on_target_ws; echo $?)"
+log "Zen anywhere: $(zen_youtube_anywhere; echo $?)"
