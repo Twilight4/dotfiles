@@ -259,9 +259,12 @@
 | Keybinding | Description              |
 |------------+--------------------------|
 | C-S-t      | Restore Last Closed Tab  |
+| C-M-t      | Duplicate tab            |
 | C-S-n      | Undo Close Window        |
 | C-S-p      | Private Browsing         |
 | C-S-s      | Take Screenshot          |
+| C-M-k      | Close all unpinned tabs  |
+| C-S-d      | Toggle pin tab           |
 | C-S-c      | Copy current URL         |
 | C-p        | Print page               |
 | C-r        | Reload page              |
@@ -269,9 +272,11 @@
 | M-Right    | Go Forward               |
 | M-Left     | Go Back                  |
 | M-home     | Go Home                  |
+| C-l/M-d    | Open location            |
 | C-[        | Navigate Back            |
 | C-]        | Navigate Forward         |
 | C-d        | Bookmark This Page       |
+| C-o        | Expand glance            |
 | C-m        | Toggle Mute              |
 | C-+/-      | Zoom In/Out              |
 | C-0        | Reset Zoom               |
@@ -283,11 +288,12 @@
 | Keybinding | Description                  |
 |------------+------------------------------|
 | M-b        | Toggle Sidebar's Width       |
-| C-M-c      | Toggle Compact Mode          |
+| C-s        | Toggle Compact Mode          |
 | C-M-t      | Toggle Floating Toolbar      |
 | C-M-s      | Toggle Floating Sidebar      |
 | C-M-q      | Backward Workspace           |
 | C-M-e      | Forward Workspace            |
+| C-S-*      | New empty split view         |
 | C-M-h      | Toggle Split View Horizontal |
 | C-M-v      | Toggle Split View Vertical   |
 | C-M-g      | Toggle Split View Grid       |
