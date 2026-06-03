@@ -54,7 +54,7 @@ case $1 in
         echo "* { current-image: url(\"$DIR/$selected\", width); }" > "$rasi_file2"
 
         ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
-        sudo ln -sf $(cat ~/.cache/current_wallpaper) /usr/share/sddm/themes/pixie/assets/.current_wallpaper
+        sudo cp $(cat ~/.cache/current_wallpaper) /usr/share/sddm/themes/pixie/assets/background.jpg
     ;;
 
     # Randomly select wallpaper
