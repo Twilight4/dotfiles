@@ -22,10 +22,19 @@ sudo mv /etc/sddm.conf /etc/sddm.conf.bak
 curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/sddm/sddm.conf && sudo mv sddm.conf /etc/sddm.conf
 
 # Download the default.png image
-curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/refs/heads/main/.config/sddm/melbourne.jpg && sudo mv melbourne.jpg /usr/share/sddm/themes/sugar-candy/Backgrounds/melbourne.jpg
+curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/refs/heads/main/.config/sddm/avatar.jpg && sudo mv avatar.jpg /usr/share/sddm/themes/pixie/assets/avatar.jpg 
 
 # Clone the theme.conf config file
-curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/sddm/theme.conf && sudo mv theme.conf /usr/share/sddm/themes/sugar-candy/theme.conf
+curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/sddm/theme.conf && sudo mv theme.conf /usr/share/sddm/themes/pixie/theme.conf
+
+# Clone the Main.qml config file
+curl -LJO https://raw.githubusercontent.com/Twilight4/dotfiles/main/.config/sddm/Main.qml && sudo mv Main.qml /usr/share/sddm/themes/pixie/Main.qml
+
+# Make only one hyprland session and remove the other bloat ones from UI
+sudo mv /usr/share/wayland-sessions/garuda-hyprland.desktop /usr/share/wayland-sessions/garuda-hyprland.desktop.disabled
+sudo mv /usr/share/wayland-sessions/hyprland.desktop /usr/share/wayland-sessions/hyprland.desktop.disabled
+sudo mv /usr/share/wayland-sessions/hyprland-uwsm.desktop /usr/share/wayland-sessions/hyprland-uwsm.desktop.disabled
+sudo sed -i 's/^Name=.*/Name=Hyprland/' /usr/share/wayland-sessions/garuda-hyprland-uwsm.desktop
 
 echo "/etc/sddm.conf file created."
 
