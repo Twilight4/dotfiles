@@ -837,8 +837,7 @@ mega-sync-on() {
 
         # Synchronize directories
         mega-sync /home/twilight/desktop/projects /SYNCED-DATA/desktop/projects/
-        mega-sync /home/twilight/documents/openvpn/ /SYNCED-DATA/documents/openvpn/
-        mega-sync /home/twilight/documents/pdfs/ /SYNCED-DATA/documents/pdfs/
+        mega-sync /home/twilight/documents/ /SYNCED-DATA/documents/
         mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
 
         # Sync individual files
