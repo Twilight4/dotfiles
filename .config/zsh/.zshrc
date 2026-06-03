@@ -48,8 +48,8 @@ stty -ixon
 #[[ $commands[kubectl] ]] && source <(kubectl completion zsh)         # already loaded
 #[[ $commands[go-task] ]] && source <(go-task --completion zsh)       # already loaded
 # Source gcloud zsh completion
-source /opt/google-cloud-cli/path.zsh.inc
-source /opt/google-cloud-cli/completion.zsh.inc
+[[ -f /opt/google-cloud-cli/path.zsh.inc ]] && source /opt/google-cloud-cli/path.zsh.inc
+[[ -f /opt/google-cloud-cli/completion.zsh.inc ]] && source /opt/google-cloud-cli/completion.zsh.inc
 
 # Profiling
 zmodload zsh/zprof

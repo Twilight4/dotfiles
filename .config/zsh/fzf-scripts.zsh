@@ -547,15 +547,27 @@ drmi() {
 # List files #
 ##############
 # Search and run from list of aliases/functions
+#falias() {
+#    cmd=$(
+#        (
+#            alias
+#            declare -F | cut -d ' ' -f3
+#        ) | fzf | cut -d '=' -f1
+#    )
+#
+#    eval $CMD
+#}
 falias() {
-    CMD=$(
+    local cmd
+
+    cmd=$(
         (
             alias
-            declare -F | cut -d ' ' -f3
-        ) | fzf | cut -d '=' -f1
-    )
+            declare -F | awk '{print $3}'
+        ) | fzf | sed 's/=.*//'
+    ) || return
 
-    eval $CMD
+    print -z "$cmd "
 }
 
 # Search and run from list of functions from scripts.zsh file
