@@ -117,7 +117,7 @@ packages=(
   "zenpower3-dkms"
   "acpi"
   "dkms"
-  "emacs-wayland"
+  "emacs-git"
   "go-task"
   "act"
   "texlive-binextra"
