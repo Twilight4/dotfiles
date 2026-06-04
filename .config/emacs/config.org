@@ -5,8 +5,7 @@
 #+OPTIONS: TOC:4
 
 * Table of Contents :toc:
-- [[#elpaca-and-keybindings][Elpaca and Keybindings]]
-  - [[#elpaca-package-manager][Elpaca package manager]]
+- [[#keybindings][Keybindings]]
   - [[#global-keybindings][Global keybindings]]
   - [[#general-keybindings][General keybindings]]
 - [[#preferences][Preferences]]
@@ -85,59 +84,7 @@
   - [[#org-configuration][Org configuration]]
   - [[#exporting][Exporting]]
 
-* Elpaca and Keybindings
-** Elpaca package manager
-
-#+begin_src emacs-lisp
-(defvar elpaca-installer-version 0.11)
-(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
-(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
-(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
-                              :ref nil
-                              :files (:defaults (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
-       (build (expand-file-name "elpaca/" elpaca-builds-directory))
-       (order (cdr elpaca-order))
-       (default-directory repo))
-  (add-to-list 'load-path (if (file-exists-p build) build repo))
-  (unless (file-exists-p repo)
-    (make-directory repo t)
-    (when (< emacs-major-version 28) (require 'subr-x))
-    (condition-case-unless-debug err
-        (if-let ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
-                 ((zerop (call-process "git" nil buffer t "clone"
-                                       (plist-get order :repo) repo)))
-                 ((zerop (call-process "git" nil buffer t "checkout"
-                                       (or (plist-get order :ref) "--"))))
-                 (emacs (concat invocation-directory invocation-name))
-                 ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
-                                       "--eval" "(byte-recompile-directory \".\" 0 'force)")))
-                 ((require 'elpaca))
-                 ((elpaca-generate-autoloads "elpaca" repo)))
-            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
-          (error "%s" (with-current-buffer buffer (buffer-string))))
-      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
-  (unless (require 'elpaca-autoloads nil t)
-    (require 'elpaca)
-    (elpaca-generate-autoloads "elpaca" repo)
-    (load "./elpaca-autoloads")))
-(add-hook 'after-init-hook #'elpaca-process-queues)
-(add-hook 'after-init-hook 'transient-mark-mode) ;; standard highlighting
-(elpaca `(,@elpaca-order))
-
-;; Install use-package support
-(elpaca elpaca-use-package
-  ;; Enable :elpaca use-package keyword.
-  (elpaca-use-package-mode)
-  ;; Assume :elpaca t unless otherwise specified.
-  (setq elpaca-use-package-by-default t))
-
-;; Block until current queue processed.
-(elpaca-wait)
-#+end_src
-
+* Keybindings
 ** Global keybindings
 *** Disable conflicting keybindings
 
@@ -2153,14 +2100,6 @@ Words auto-completion
         ("TAB" . tl/corfu-accept-then-space)
         ("SPC" . nil)))
 
-;; Enable popup UI in terminal
-(use-package corfu-terminal
-  :if (not (display-graphic-p))
-  :ensure t
-  :after corfu
-  :init
-  (corfu-terminal-mode +1))
-
 (use-package cape
   :ensure t
   :commands (cape-dabbrev cape-file cape-elisp-block cape-dict)
@@ -2276,7 +2215,7 @@ This is useful when followed by an immediate kill."
   (setq undo-limit 800000)
   (setq undo-strong-limit 12000000)
   (setq undo-outer-limit 120000000)
-
+ 
   ;; Rebind visualizer commands
   (define-key undo-tree-visualizer-mode-map (kbd "h") 'undo-tree-visualize-switch-branch-left)
   (define-key undo-tree-visualizer-mode-map (kbd "l") 'undo-tree-visualize-switch-branch-right)
@@ -3995,7 +3934,7 @@ The following snippet sets up a hook for all Org task state changes and then mov
 *** Org-gtd
 
 #+begin_src emacs-lisp
-(setq org-gtd-update-ack "3.0.0")
+(setq org-gtd-update-ack "4.0.0")
 (use-package org-gtd
   :after org
   ;:quelpa (org-gtd :fetcher github :repo "trevoke/org-gtd.el"
@@ -4640,88 +4579,6 @@ We'll assume that thanks to the clever preamble the various custom =\checkbox...
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
-#+end_src
-
-**** Remove non-ascii chars
-When using ~pdflatex~, almost non-ascii characters are generally problematic, and
-don't appear in the pdf. It's preferable to see that there was /some/ character
-which wasn't displayed as opposed to nothing.
-
-We check every non-ascii character to make sure it's not a character encoded by
-the =inputenc= packages when loaded with the =utf8= option. We'll also allow
-box-drawing characters since they can be mostly supported with =pmboxdraw=.
-Finally, we see if we have our own LaTeX conversion we can apply and if there is
-none we replace the non-ascii char with =¿=.
-
-No to make sure we only remove characters that can't be displayed, we check
-=/usr/share/texmf/tex/latex/base/utf8enc.dfu=.
-
-Now, there are some symbols that aren't included in =inputenc=, but we should be
-able to handle anyway. For them we define a table of LaTeX translations
-
-#+name: latex-non-ascii-char-substitutions
-| Character | LaTeX |
-|-----------+-------|
-| ɑ         | \(\alpha\) |
-| β         | \(\beta\) |
-| γ         | \(\gamma\) |
-| δ         | \(\delta\) |
-| ε         | \(\epsilon\) |
-| ϵ         | \(\varepsilon\) |
-| ζ         | \(\zeta\) |
-| η         | \(\eta\) |
-| θ         | \(\theta\) |
-| ϑ         | \(\vartheta\) |
-| ι         | \(\iota\) |
-| κ         | \(\kappa\) |
-| λ         | \(\lambda\) |
-| μ         | \(\mu\) |
-| ν         | \(\nu\) |
-| ξ         | \(\xi\) |
-| π         | \(\pi\) |
-| ϖ         | \(\varpi\) |
-| ρ         | \(\rho\) |
-| ϱ         | \(\varrho\) |
-| σ         | \(\sigma\) |
-| ς         | \(\varsigma\) |
-| τ         | \(\tau\) |
-| υ         | \(\upsilon\) |
-| ϕ         | \(\phi\) |
-| φ         | \(\varphi\) |
-| ψ         | \(\psi\) |
-| ω         | \(\omega\) |
-| Γ         | \(\Gamma\) |
-| Δ         | \(\Delta\) |
-| Θ         | \(\Theta\) |
-| Λ         | \(\Lambda\) |
-| Ξ         | \(\Xi\) |
-| Π         | \(\Pi\) |
-| Σ         | \(\Sigma\) |
-| Υ         | \(\Upsilon\) |
-| Φ         | \(\Phi\) |
-| Ψ         | \(\Psi\) |
-| Ω         | \(\Omega\) |
-| א         | \(\aleph\) |
-| ב         | \(\beth\) |
-| ד         | \(\daleth\) |
-| ג         | \(\gimel\) |
-
-#+name: gen-latex-non-ascii-char-substitutions
-#+begin_src emacs-lisp :noweb-ref none :var latex-non-ascii-char-substitutions=latex-non-ascii-char-substitutions
-(replace-regexp-in-string
- " '((" "\n   '(("
- (replace-regexp-in-string
-  ") (" ")\n     ("
-  (prin1-to-string
-   `(defvar +org-latex-non-ascii-char-substitutions
-      ',(mapcar
-         (lambda (entry)
-           (cons (car entry) (replace-regexp-in-string "\\\\" "\\\\\\\\" (cadr entry))))
-         latex-non-ascii-char-substitutions)))))
-#+end_src
-
-#+begin_src emacs-lisp :noweb no-export
-<<gen-latex-non-ascii-char-substitutions()>>
 #+end_src
 
 **** Extra special strings
