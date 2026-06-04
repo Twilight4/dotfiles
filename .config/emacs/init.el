@@ -1,3 +1,5 @@
+;;;  -*- lexical-binding: t; -*-
+
 ;; Elpaca package manager and use-package bootstrap
 (load (expand-file-name "~/.config/emacs/emacs-common-init.el"))
 
