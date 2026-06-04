@@ -31,7 +31,7 @@ sed -i '/^#Exec=/a Exec=\/usr\/local\/bin\/emacsclient -nw %F' ~/.config/.local/
 
 # Informational message
 echo 'If emacs refuses to load configs, try:'
-echo '  - cp -r ~/.config/emacs/* ~/.emacd.d/'
+echo '  - cp -r ~/.config/emacs/* ~/.emacs.d/'
 echo '  - M-x load-file ~/.config/emacs/init.el'
 echo '  - org-babel-tangle'
 echo '  - org-babel-load-file'
