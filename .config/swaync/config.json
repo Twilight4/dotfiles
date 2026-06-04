@@ -5,7 +5,7 @@
     "layer": "overlay",
     "control-center-layer": "top",
     "layer-shell": true,
-    "cssPriority": "application",
+    "cssPriority": "user",
     "control-center-width": 350,
     "control-center-margin-top": 8,
     "control-center-margin-bottom": 8,
