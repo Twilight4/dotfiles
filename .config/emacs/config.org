@@ -87,6 +87,8 @@
 ** Global keybindings
 *** Disable conflicting keybindings
 #+begin_src emacs-lisp
+;;;  -*- lexical-binding: t; -*-
+
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
 ;(define-key global-map (kbd "C-x") (make-sparse-keymap))
