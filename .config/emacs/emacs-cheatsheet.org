@@ -70,7 +70,6 @@ The world's greatest programmer once said:
 | f          | Insert todo keyword at point |
 | C-a        | Open org agenda              |
 | a          | Mark whole bluffer           |
-| t          | Add org transclusion         |
 | C          | Go to calendar               |
 | C-l        | Switch window                |
 | C-p        | Previous Buffer              |
@@ -82,7 +81,7 @@ The world's greatest programmer once said:
 | C-i/TAB    | Comment lines                |
 | C-b        | Switch to buffer             |
 | C-o        | Open image in swappy         |
-| C-k        | Select macro to run          |
+| m          | Select macro to run          |
 
 ** Registers and bookmarks
 
@@ -292,7 +291,7 @@ The world's greatest programmer once said:
 | i               | Make a diary entry                                                  |
 | x               | Make it easy to mark a task as done                                 |
 | X               | Make it easy to mark a task as cancelled                            |
-| C               | GTD capture                                                         |
+| C               | org roam capture                                                    |
 | o               | Delete other windows                                                |
 | S               | Agenda Schedule                                                     |
 | D               | Agenda deadline                                                     |

@@ -32,6 +32,7 @@
   - [[#improved-file-management][Improved file management]]
   - [[#nicer-org-return][Nicer org-return]]
   - [[#clean-empty-lines][Clean Empty Lines]]
+  - [[#split-and-switch-to-window][Split and switch to window]]
   - [[#remove-inline---comments-from-region][Remove inline “# …” comments from region]]
   - [[#expand-region][Expand-region]]
   - [[#kill-current-buffer][Kill current buffer]]
@@ -235,6 +236,7 @@
 (global-set-key (kbd "<f12>") 'kill-emacs)
 ;; Bindings that have a prefix key and have to be overwritten
 (global-set-key (kbd "C-x w") 'winner-undo)
+(global-set-key (kbd "C-x W") 'winner-redo)
 (global-set-key (kbd "C-x r r") 'consult-register)
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
@@ -450,8 +452,8 @@
     ;; Window management
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
-    "C-k" '(other-window :wk "Switch window")
-    "C-j" '(previous-multiframe-window :wk "Select macro to run")
+    "C-j" '(other-window :wk "Switch window down")
+    "C-k" '(previous-multiframe-window :wk "Switch window up")
     "m" '(consult-kmacro :wk "Select macro to run")
     "K" '(kubernetes-overview :wk "Kubernetes overview")
     ;;"" '(dashboard-open :wk "Open emacs dashboard")    ;; Don't use atm
@@ -463,11 +465,11 @@
     "C-]" '(enlarge-window-horizontally :wk "Enlarge window horizontally")
     "C-<" '(shrink-window :wk "Shrink window")
     "C-[" '(shrink-window-horizontally :wk "Shrink window horizontally")
-    "C-/" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
-    "C-_" '(split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
+    "C-/" '(tl/split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
+    "C-_" '(tl/split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
     "/" '(balance-windows :wk "Balance windows")
-    ";" '(split-window-right :wk "Split window right")
-    "C-;" '(split-window-right :wk "Split window right"))
+    ";" '(tl/split-window-right :wk "Split window right")
+    "C-;" '(tl/split-window-right :wk "Split window right"))
     ;"C-c" '(split-window-vertically :wk "Split window vertically")
     ;"C-c" '(split-window-horizontally :wk "Split window horizontally"))
     ;; Unbound
@@ -1369,6 +1371,21 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
 		(while (re-search-forward "^[ \t]*\n+" nil t)
 		  (replace-match "")))))
   (message "%s done" 'tl/clean-whitespace-zero-lines))
+#+end_src
+
+** Split and switch to window
+#+begin_src emacs-lisp
+(defun tl/split-window-below ()
+  "Split window below and switch to it."
+  (interactive)
+  (split-window-below)
+  (other-window 1))
+
+(defun tl/split-window-right ()
+  "Split window right and switch to it."
+  (interactive)
+  (split-window-right)
+  (other-window 1))
 #+end_src
 
 ** Remove inline “# …” comments from region
