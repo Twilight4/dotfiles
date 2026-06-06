@@ -153,6 +153,10 @@
 (local-unset-key (kbd "C-c \""))
 (global-unset-key (kbd "M-g"))
 
+(with-eval-after-load 'hi-lock
+  (define-key hi-lock-map (kbd "C-x w") nil)
+  (global-unset-key (kbd "C-x w")))
+
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "C-q") nil)
 (define-key global-map (kbd "M-r") nil)
@@ -879,20 +883,48 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
   ;:init (load-theme 'doom-tokyo-night t)
   :ensure t
   :defer t
-  :init (load-theme 'doom-moonlight t)
+  ;:init (load-theme 'doom-moonlight t)
+  :init (load-theme 'doom-ayu-dark t)
   :config
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
         doom-themes-enable-italic t)   ; if nil, italics is universally disabled
   (setcdr (assoc 'gnus-group-news-low-empty doom-themes-base-faces)
           '(:inherit 'gnus-group-mail-1-empty :weight 'normal)))  
 
-;; Correct colors to match kitty terminal for transparency
+
+;; Line numbers
+(set-face-attribute 'line-number-current-line nil :background "#040305" :foreground "#bfbdb6" :weight 'bold)
+(set-face-attribute 'line-number nil :background "#040305" :foreground "#434850" :slant 'italic)
+;; Background color (same as in kitty terminal)
 (set-face-attribute 'default nil :background "#040305")
-(set-face-attribute 'line-number nil :background "#040305")
-(set-face-attribute 'org-block nil :background "#0e0e16")
-(set-face-attribute 'mode-line nil :background "#0B0B10")
-(set-face-attribute 'mode-line-inactive nil :background "#0B0B10")
-(set-face-attribute 'hl-line nil :background "#0B0B10")
+;; Mode line
+(set-face-attribute 'mode-line nil :background "#161b24")
+(set-face-attribute 'mode-line-inactive nil :background "#161b24")
+;; Highlight-line and org block
+;(set-face-attribute 'org-block nil :background "#0e0e16")
+;(set-face-attribute 'hl-line nil :background "#0B0B10")
+;; Divider
+(set-face-attribute 'vertical-border nil :foreground "#bfbdb6")  ; or any terminal color
+(set-display-table-slot standard-display-table 'vertical-border (make-glyph-code ?│))
+
+(defun tl/set-vertical-border ()
+  (setq buffer-display-table (or buffer-display-table (make-display-table)))
+  (set-display-table-slot buffer-display-table
+                          'vertical-border
+                          (make-glyph-code ?│)))
+
+(add-hook 'window-configuration-change-hook #'tl/set-vertical-border)
+
+;; Add frame borders and window dividers
+;(modify-all-frames-parameters
+; '((right-divider-width . 40)
+;   (internal-border-width . 40)))
+;(dolist (face '(window-divider
+;                window-divider-first-pixel
+;                window-divider-last-pixel))
+;  (face-spec-reset-face face)
+;  (set-face-foreground face (face-attribute 'default :background)))
+;(set-face-background 'fringe (face-attribute 'default :background))
 
 ;; Text color of org code blocks - not working
 ;(set-face-attribute 'org-code nil :foreground "#CDD6F4")
@@ -972,12 +1004,13 @@ Finally, it redraws the display to reflect the changes.
 
 #+begin_src emacs-lisp
 (defun toggle-mode-line ()
-  "toggles the modeline on and off"
-       (interactive)
-       (setq mode-line-format
-             (if (equal mode-line-format nil)
-                 (default-value 'mode-line-format)))
-       (redraw-display))
+  "Toggle the modeline on and off."
+  (interactive)
+  (setq mode-line-format
+        (if (equal mode-line-format nil)
+            (default-value 'mode-line-format)
+          nil))
+  (redraw-display))
 #+end_src
 
 ** Which-key
@@ -3014,7 +3047,8 @@ Adding highlights to =todo= keywords and related words.
     org-fancy-priorities-list '("" "" "" "")
     org-priority-faces
     '((?A . 'all-the-icons-red)
-      (?B . 'all-the-icons-orange)
+      ;(?B . 'all-the-icons-yellow)
+      (?B . '(:foreground "#F08000")) ;; Adjusted for brighter yellow
       (?C . '(:foreground "#FFD700")) ;; Adjusted for brighter yellow
       ;(?C . 'all-the-icons-yellow)
       (?D . 'all-the-icons-green))))
@@ -3538,17 +3572,17 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
 (defun tl/org-font-setup ()
   ;; Set faces for heading levels
   (dolist (face '((org-level-1 . "#50C1F7")
-                  (org-level-2 . "#84DDF8")
-                  (org-level-3 . "#7FA7FB")
-                  (org-level-4 . "#FA95A2")
+                  (org-level-2 . "#7FA7FB")
+                  (org-level-3 . "#FA95A2")
+                  (org-level-4 . "#84DDF8")
                   (org-level-5 . "#50C1F7")
-                  (org-level-6 . "#84DDF8")
-                  (org-level-7 . "#7FA7FB")
-                  (org-level-8 . "#FA95A2")))
+                  (org-level-6 . "#7FA7FB")
+                  (org-level-7 . "#FA95A2")
+                  (org-level-8 . "#84DDF8")))
         (set-face-attribute (car face) nil
-                        :foreground (cdr face)
-                        :font "Jetbrains Mono Nerd Font"
-                        :weight 'normal))
+                            :foreground (cdr face)
+                            :slant 'italic
+                            :weight 'bold))
 
   ;; Fixed-pitch settings
   (dolist (face '(org-block org-table org-formula org-code
@@ -3558,10 +3592,6 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
 
 ;; Call org-font-setup when entering org-mode
 (add-hook 'org-mode-hook #'tl/org-font-setup)
-
-;; Increase title size
-(custom-set-faces
-  '(org-document-title ((t (:height 1.2)))))
 
 ;; Make quote blocks italic style format
 (setq org-fontify-quote-and-verse-blocks t)
@@ -3720,17 +3750,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
           ("header" . "›")
           ("caption" . "☰")
           ("results" . "🠶"))))
-
-;; Add frame borders and window dividers
-(modify-all-frames-parameters
- '((right-divider-width . 40)
-   (internal-border-width . 40)))
-(dolist (face '(window-divider
-                window-divider-first-pixel
-                window-divider-last-pixel))
-  (face-spec-reset-face face)
-  (set-face-foreground face (face-attribute 'default :background)))
-(set-face-background 'fringe (face-attribute 'default :background))
 
 ;; Enable Org-modern per buffer
 ;(add-hook 'org-mode-hook #'org-modern-mode)
