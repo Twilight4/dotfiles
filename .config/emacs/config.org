@@ -875,7 +875,6 @@
 
 * UI Configuration
 ** Color theme
-I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs theme generator to match my pywal-based setup.
 
 #+begin_src emacs-lisp
 ;; Load defined themes
@@ -891,10 +890,12 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
   (setcdr (assoc 'gnus-group-news-low-empty doom-themes-base-faces)
           '(:inherit 'gnus-group-mail-1-empty :weight 'normal)))  
 
-
 ;; Line numbers
 (set-face-attribute 'line-number-current-line nil :background "#040305" :foreground "#bfbdb6" :weight 'bold)
-(set-face-attribute 'line-number nil :background "#040305" :foreground "#434850" :slant 'italic)
+(set-face-attribute 'line-number nil :background "#040305" :foreground "#434850" :slant 'italic :weight 'normal)
+;; Text in code blocks
+(set-face-attribute 'org-block nil :foreground "#bfbdb6")
+(set-face-attribute 'font-lock-comment-face nil :foreground "#595d62")
 ;; Background color (same as in kitty terminal)
 (set-face-attribute 'default nil :background "#040305")
 ;; Mode line
@@ -904,7 +905,7 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
 ;(set-face-attribute 'org-block nil :background "#0e0e16")
 ;(set-face-attribute 'hl-line nil :background "#0B0B10")
 ;; Divider
-(set-face-attribute 'vertical-border nil :foreground "#bfbdb6")  ; or any terminal color
+(set-face-attribute 'vertical-border nil :foreground "#8a887f")  ; or any terminal color
 (set-display-table-slot standard-display-table 'vertical-border (make-glyph-code ?│))
 
 (defun tl/set-vertical-border ()
@@ -914,41 +915,6 @@ I'm using [[https://github.com/cyruseuros/ewal][ewal]], a terminal-aware Emacs t
                           (make-glyph-code ?│)))
 
 (add-hook 'window-configuration-change-hook #'tl/set-vertical-border)
-
-;; Add frame borders and window dividers
-;(modify-all-frames-parameters
-; '((right-divider-width . 40)
-;   (internal-border-width . 40)))
-;(dolist (face '(window-divider
-;                window-divider-first-pixel
-;                window-divider-last-pixel))
-;  (face-spec-reset-face face)
-;  (set-face-foreground face (face-attribute 'default :background)))
-;(set-face-background 'fringe (face-attribute 'default :background))
-
-;; Text color of org code blocks - not working
-;(set-face-attribute 'org-code nil :foreground "#CDD6F4")
-
-;; Use pywal auto-generated color scheme
-;; (use-package ewal
-;;   :init (setq ewal-use-built-in-always-p nil
-;;               ewal-use-built-in-on-failure-p t
-;;               ewal-built-in-palette "sexy-material"))
-
-;; (use-package ewal-spacemacs-themes
-;;   :init (progn
-;;           (setq spacemacs-theme-underline-parens t
-;;                 my:rice:font (font-spec
-;;                               :family "MesloLGM Nerd Font"
-;;                               :weight 'semi-bold
-;;                               :size 11.0))
-;;           (show-paren-mode +1)
-;;           (set-frame-font my:rice:font nil t)
-;;           (add-to-list  'default-frame-alist
-;;                         `(font . ,(font-xlfd-name my:rice:font))))
-;;   :config (progn
-;;             (load-theme 'ewal-spacemacs-modern t)
-;;             (enable-theme 'ewal-spacemacs-modern)))
 #+end_src
 
 ** Mode line
@@ -3026,6 +2992,14 @@ Adding highlights to =todo= keywords and related words.
   ;; Must be bound here to work
   (define-key hl-todo-mode-map (kbd "C-x n") #'hl-todo-next)
   (define-key hl-todo-mode-map (kbd "C-x p") #'hl-todo-previous))
+
+;; Default keyword faces (for agenda view)
+(setq org-todo-keyword-faces
+      '(("TODO"  . (:foreground "orange"     :weight bold))
+        ("DOING" . (:foreground "#5af78e" :weight bold))
+        ("NEXT"  . (:foreground "#fac863" :weight bold))
+        ("DONE"  . (:foreground "#696c71"    :weight bold))
+        ("CNCL"  . (:foreground "#d95757"  :weight bold))))
 #+end_src
 
 *** Org-fancy-priorities
