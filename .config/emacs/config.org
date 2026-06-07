@@ -30,6 +30,7 @@
   - [[#code-folding][Code Folding]]
 - [[#editing-features][Editing Features]]
   - [[#improved-file-management][Improved file management]]
+  - [[#skip-over-invisible-text-in-links][Skip over invisible text in links]]
   - [[#nicer-org-return][Nicer org-return]]
   - [[#clean-empty-lines][Clean Empty Lines]]
   - [[#split-and-switch-to-window][Split and switch to window]]
@@ -1212,6 +1213,24 @@ It takes user input for the new name using the interactive keyword, checks if th
         (rename-file filename new-name 1))
       (set-visited-file-name new-name)
       (rename-buffer new-name))))
+#+end_src
+
+** Skip over invisible text in links
+#+begin_src emacs-lisp
+(setq line-move-ignore-invisible t)
+
+(defun tl/skip-invisible-forward (&rest _)
+  (while (and (not (eobp))
+              (get-char-property (point) 'invisible))
+    (goto-char (next-single-char-property-change (point) 'invisible))))
+
+(defun tl/skip-invisible-backward (&rest _)
+  (while (and (not (bobp))
+              (get-char-property (1- (point)) 'invisible))
+    (goto-char (previous-single-char-property-change (point) 'invisible))))
+
+(advice-add 'forward-char  :after #'tl/skip-invisible-forward)
+(advice-add 'backward-char :after #'tl/skip-invisible-backward)
 #+end_src
 
 ** Nicer org-return
