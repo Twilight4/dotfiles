@@ -239,8 +239,11 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "<f12>") 'kill-emacs)
 ;; Bindings that have a prefix key and have to be overwritten
-(global-set-key (kbd "C-x w") 'winner-undo)
-(global-set-key (kbd "C-x W") 'winner-redo)
+(with-eval-after-load 'winner
+  (define-key winner-mode-map (kbd "C-c C-<left>") nil)
+  (define-key winner-mode-map (kbd "C-c C-<right>") nil)
+  (define-key winner-mode-map (kbd "C-x w") 'winner-undo)
+  (define-key winner-mode-map (kbd "C-x W") 'winner-redo))
 (global-set-key (kbd "C-x r r") 'consult-register)
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
@@ -1866,7 +1869,10 @@ I use the =no-littering= package to keep folders where I edit files and the emac
       url-history-file (expand-file-name "url/history" user-emacs-directory))
 
 (use-package no-littering
-  :ensure t)
+  :ensure t
+  :config
+  ;; override mc path after no-littering sets it
+  (setq mc/list-file "~/.config/emacs/mc-list.el"))
 #+end_src
 
 ** Rainbow-mode
