@@ -56,39 +56,48 @@ The world's greatest programmer once said:
 
 ** General keys
 
-| Keybinding | Description                  |
-|------------+------------------------------|
-| C-h        | Show available keys          |
-| .          | Create or find file          |
-| ,          | Find recent files            |
-| i          | Process inbox GTD            |
-| B          | Switch to clarify buffer GTD |
-| I          | Org clarify item GTD         |
-| y          | Clipboard history            |
-| O          | New empty org buffer         |
-| v          | Open video in mpv            |
-| f          | Insert todo keyword at point |
-| C-a        | Open org agenda              |
-| a          | Mark whole bluffer           |
-| C          | Go to calendar               |
-| C-l        | Switch window                |
-| C-p        | Previous Buffer              |
-| C-n        | Next buffer                  |
-| C-u        | Kill current buffer          |
-| C-q        | Exit emacs                   |
-| C-j        | Open emacs dashboard         |
-| C-s        | Save buffer                  |
-| C-i/TAB    | Comment lines                |
-| C-b        | Switch to buffer             |
-| C-o        | Open image in swappy         |
-| m          | Select macro to run          |
+| Keybinding  | Description                        |
+|-------------+------------------------------------|
+| C-h         | Show available keys                |
+| .           | Create or find file                |
+| ,           | Find recent files                  |
+| i           | Process inbox GTD                  |
+| B           | Switch to clarify buffer GTD       |
+| I           | Org clarify item GTD               |
+| y           | Clipboard history                  |
+| O           | New empty org buffer               |
+| v           | Open video in mpv                  |
+| f           | Insert todo keyword at point       |
+| C-a         | Open org agenda                    |
+| a           | Mark whole bluffer                 |
+| C           | Go to calendar                     |
+| C-l         | Switch window                      |
+| C-p         | Previous Buffer                    |
+| C-n         | Next buffer                        |
+| C-u         | Kill current buffer                |
+| C-q         | Exit emacs                         |
+| C-j         | Open emacs dashboard               |
+| C-s         | Save buffer                        |
+| C-i/TAB     | Comment lines                      |
+| C-b         | Switch to buffer                   |
+| C-o         | Open image in swappy               |
+| m           | Select macro to run                |
+| C-x C-f C-u | timeclock-in                       |
+| C-x C-f C-o | timeclock-out                      |
+| C-x C-f C-s | timeclock-status-string            |
+| C-x C-f C-e | timeclock-workday-elapsed-string   |
+| C-x C-f C-l | timeclock-when-to-leave-string     |
+| C-x C-f C-r | timeclock-workday-remaining-string |
+| C-x C-f C-v | timeclock-visit-timelog            |
+| C-x C-f C-c | timeclock-change                   |
+| C-x C-f RET | timeclock-mode-line-display        |
 
 ** Registers and bookmarks
 
 | Keybinding | Description       |
 |------------+-------------------|
 | C-r        | Point to register |
-| C-SPC      | Consult register  |
+| r r        | Consult register  |
 | b          | Consult bookmark  |
 | x          | Set Bookmark      |
 | d          | Delete Bookmark   |
@@ -116,7 +125,7 @@ The world's greatest programmer once said:
 | C-c C-h/j/k/l | Move table row/column up/down/left/right  |
 | RET           | Go down one cell                          |
 | S-ArrowKeys   | Move table cell up/down/left/right        |
-| \             | Create empty table or convert from region |
+| "Pipe Symbol" | Create empty table or convert from region |
 | -             | Insert horizontal line                    |
 | j             | Copy the value of the field below         |
 | h             | Insert a new row above the current line   |
@@ -127,41 +136,44 @@ The world's greatest programmer once said:
 * C-c Leader Key
 ** Org-mode
 
-| Keybinding | Description                                |
-|------------+--------------------------------------------|
-| C-h        | Show available keys                        |
-| C-h/j/k/l  | Meta-left/down/up/right (meta-left is off) |
-| C-p/n      | Org previous/next visible heading          |
-| c          | GTD capture                                |
-| C          | Org roam capture                           |
-| ,          | Org set todo                               |
-| .          | Org set priority                           |
-| C-z        | Add org note                               |
-| C-w        | Org refile                                 |
-| C-/        | Org tag                                    |
-| C-e        | Org set effort                             |
-| ,/.        | Previous/Next code block                   |
-| f          | Insert file link                           |
-| w          | Insert link                                |
-| C-a        | Insert any date                            |
-| C-t        | Insert today's date                        |
-| C-y        | Insert screenshot                          |
-| C-v        | Toggle heading                             |
-| C-i        | Toggle item                                |
-| C-m        | Org insert todo heading                    |
-| C-s        | Org schedule                               |
-| C-d        | Org deadline                               |
-| C-o        | Org open at point                          |
-| C-q        | Insert subheading                          |
-| C-r        | Insert heading same level                  |
-| /          | Org time stamp                             |
-| b          | Paste directly into a code block           |
-| h          | Widen                                      |
-| j          | Narrow forward                             |
-| k          | Narrow backward                            |
-| l          | Narrow to subtree                          |
-| u          | Narrow to code block                       |
-| z          | Insert footnote                            |
+| Keybinding  | Description                                |
+|-------------+--------------------------------------------|
+| C-h         | Show available keys                        |
+| C-h/j/k/l   | Meta-left/down/up/right (meta-left is off) |
+| C-p/n       | Org previous/next visible heading          |
+| c           | GTD capture                                |
+| C           | Org roam capture                           |
+| ,           | Org set todo                               |
+| .           | Org set priority                           |
+| C-z         | Add org note                               |
+| C-w         | Org refile                                 |
+| C-/         | Org tag                                    |
+| C-e         | Org set effort                             |
+| ,/.         | Previous/Next code block                   |
+| f           | Insert file link                           |
+| w           | Insert link                                |
+| C-a         | Insert any date                            |
+| C-t         | Insert today's date                        |
+| C-y         | Insert screenshot                          |
+| C-v         | Toggle heading                             |
+| C-i         | Toggle item                                |
+| C-m         | Org insert todo heading                    |
+| C-s         | Org schedule                               |
+| C-d         | Org deadline                               |
+| C-o         | Org open at point                          |
+| C-q         | Insert subheading                          |
+| C-r         | Insert heading same level                  |
+| /           | Org time stamp                             |
+| b           | Paste directly into a code block           |
+| h           | Widen                                      |
+| j           | Narrow forward                             |
+| k           | Narrow backward                            |
+| l           | Narrow to subtree                          |
+| u           | Narrow to code block                       |
+| z           | Insert footnote                            |
+| C-x C-p     | Next link                                  |
+| C-x C-n     | Previous link                              |
+| C-x C-j     | Go to currently clocked task               |
 
 ** Org-roam
 
