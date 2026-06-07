@@ -265,60 +265,61 @@ The world's greatest programmer once said:
 
 ** Agenda-mode
 
-| Keybinding      | Description                                                         |
-|-----------------+---------------------------------------------------------------------|
-| RET             | Go to org file with the item at point                               |
-| j/k             | Previous/next item                                                  |
-| p/n             | Backward/forward block                                              |
-| d/w/m/y         | Day/week/month/year view                                            |
-| I/O/J/U/R       | Start/stop/jump to current/cancel/toggle the clock on current entry |
-| u/M/K/F/L/T     | Toggle diary/deadlines/habits/follow mode/log mode/time grid        |
-| h/H             | Show the tags for item/Set tag                                      |
-| f/b             | Go forward/backward in time in agenda                               |
-| q/Q             | Quit/Exit and kill buffers created by agenda                        |
-| [/]             | Scroll up/down                                                      |
-| C-c C-n/C-c C-p | Next/Previous date line                                             |
-| <               | Change date of this item                                            |
-| a               | Org clarify agenda item                                             |
-| v               | Org set area of focus on agenda item                                |
-| .               | Go to today's date                                                  |
-| ,               | Go to date                                                          |
-| c               | Go to calendar                                                      |
-| ;               | Recenter                                                            |
-| TAB             | Go to entry at point                                                |
-| r               | Beginning of buffer                                                 |
-| z               | Add time-stamped note to agenda entry                               |
-| i               | Make a diary entry                                                  |
-| x               | Make it easy to mark a task as done                                 |
-| X               | Make it easy to mark a task as cancelled                            |
-| C               | org roam capture                                                    |
-| o               | Delete other windows                                                |
-| S               | Agenda Schedule                                                     |
-| D               | Agenda deadline                                                     |
-| g               | Refresh agenda view                                                 |
-| W               | Open the link in the current entry                                  |
-| G               | List holidays                                                       |
-| C-/             | Agenda undo                                                         |
-| -/=             | Priority up/down                                                    |
-| s               | Org save all org buffers                                            |
-| e               | Set effort                                                          |
-| E               | Set priority                                                        |
-| t               | Set TODO state                                                      |
-| /               | Filter                                                              |
-| \               | Filter by tag                                                       |
-| _               | Filter by effort                                                    |
-| =               | Filter by regexp                                                    |
-| "Pipe Symbol"   | Remove all filter                                                   |
-| SPC             | Mark toggle                                                         |
-| A               | Toggle all                                                          |
-| B               | Bulk action                                                         |
-| V               | Agenda view mode dispatch                                           |
-| C-x C-w         | Write agenda buffer to the file                                     |
-| C-c C-x a       | Toggle archive tag                                                  |
-| C-x C-d         | Schedule deadline                                                   |
-| C-c C-x p       | Set property for the current headline                               |
-| C-c C-x <       | Set restriction log to agenda                                       |
-| C-c C-x >       | Remove agenda restriction lock                                      |
+| Keybinding      | Description                                                        |
+|-----------------+--------------------------------------------------------------------|
+| RET             | Go to org file with the item at point                              |
+| j/k             | Previous/next item                                                 |
+| p/n             | Backward/forward block                                             |
+| l/w/m/y         | Day/week/month/year view                                           |
+| I/O/J/U         | Start/stop/jump to current/cancel                                  |
+| u/R/M/K/F/L/T   | Toggle diary/clock/deadlines/habits/follow mode/log mode/time grid |
+| h/H             | Show the tags for item/Set tag                                     |
+| f/b             | Go forward/backward in time in agenda                              |
+| q/Q             | Quit/Exit and kill buffers created by agenda                       |
+| [/]             | Scroll up/down                                                     |
+| C-c C-n/C-c C-p | Next/Previous date line                                            |
+| <               | Change date of this item                                           |
+| a               | Org clarify agenda item                                            |
+| v               | Org set area of focus on agenda item                               |
+| .               | Go to today's date                                                 |
+| ,               | Go to date                                                         |
+| c               | Go to calendar                                                     |
+| ;               | Recenter                                                           |
+| TAB             | Go to entry at point                                               |
+| r               | Beginning of buffer                                                |
+| z               | Add time-stamped note to agenda entry                              |
+| i               | Make a diary entry                                                 |
+| d               | Make it easy to mark a task ad doing                               |
+| x               | Make it easy to mark a task as done                                |
+| X               | Make it easy to mark a task as cancelled                           |
+| C               | org roam capture                                                   |
+| o               | Delete other windows                                               |
+| S               | Agenda Schedule                                                    |
+| D               | Agenda deadline                                                    |
+| g               | Refresh agenda view                                                |
+| W               | Open the link in the current entry                                 |
+| G               | List holidays                                                      |
+| C-/             | Agenda undo                                                        |
+| -/=             | Priority up/down                                                   |
+| s               | Org save all org buffers                                           |
+| e               | Set effort                                                         |
+| E               | Set priority                                                       |
+| t               | Set TODO state                                                     |
+| /               | Filter                                                             |
+| \               | Filter by tag                                                      |
+| _               | Filter by effort                                                   |
+| =               | Filter by regexp                                                   |
+| "Pipe Symbol"   | Remove all filter                                                  |
+| SPC             | Mark toggle                                                        |
+| A               | Toggle all                                                         |
+| B               | Bulk action                                                        |
+| V               | Agenda view mode dispatch                                          |
+| C-x C-w         | Write agenda buffer to the file                                    |
+| C-c C-x a       | Toggle archive tag                                                 |
+| C-x C-d         | Schedule deadline                                                  |
+| C-c C-x p       | Set property for the current headline                              |
+| C-c C-x <       | Set restriction log to agenda                                      |
+| C-c C-x >       | Remove agenda restriction lock                                     |
 
 ** Info-mode
 
@@ -539,27 +540,28 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 
 *** Workspaces keybinds
 
-| Keybinding | Description                     |
-|------------+---------------------------------|
-| C-c C-w r  | treemacs-rename-workspace       |
-| C-c C-w a  | treemacs-create-workspace       |
-| C-c C-w d  | treemacs-remove-workspace       |
-| C-c C-w s  | treemacs-switch-workspace       |
-| C-c C-w e  | treemacs-edit-workspaces        |
-| C-c C-w n  | treemacs-next-workspace         |
-| C-c C-w f  | treemacs-set-fallback-workspace |
+| Keybinding | Description                       |
+|------------+-----------------------------------|
+| w r        | treemacs-rename-workspace         |
+| w a        | treemacs-create-workspace         |
+| w d        | treemacs-remove-workspace         |
+| w s        | treemacs-switch-workspace         |
+| w e        | treemacs-edit-workspaces          |
+| w n        | treemacs-next-workspace           |
+| w f        | treemacs-set-fallback-workspace   |
+| w A        | treemacs-add-project-to-workspace |
 
 *** Project keybinds
 
-| Keybinding  | Description                            |
-|-------------+----------------------------------------|
-| C-c C-p a   | treemacs-add-project-to-workspace      |
-| C-c C-p p   | treemacs-projectile                    |
-| C-c C-p d   | treemacs-remove-project-from-workspace |
-| C-c C-p r   | treemacs-rename-project                |
-| C-c C-p c c | treemacs-collapse-project              |
-| C-c C-p c o | treemacs-collapse-all-projects         |
-| S-TAB       | treemacs-collapse-all-projects         |
+| Keybinding | Description                            |
+|------------+----------------------------------------|
+| p a        | treemacs-add-project-to-workspace      |
+| p d        | treemacs-remove-project-from-workspace |
+| p r        | treemacs-rename-project                |
+| p c c      | treemacs-collapse-project              |
+| p b        | move project up                        |
+| p f        | move project down                      |
+| S-TAB      | treemacs-collapse-all-projects         |
 
 ** Consult-buffer
 
