@@ -80,11 +80,17 @@ export FZF_DEFAULT_OPTS="--height 60% \
 --reverse \
 --margin=0,1 \
 --color='$FZF_COLORS' \
---bind 'ctrl-d:preview-down,ctrl-u:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,ctrl-/:toggle-preview' \
---bind 'pgdn:preview-page-down,pgup:preview-page-up' \
 --prompt '❯ ' \
 --no-separator --scrollbar="█" \
 --pointer ▶ \
+--bind 'ctrl-j:down,ctrl-k:up' \
+--bind 'ctrl-d:half-page-down,ctrl-u:half-page-up' \
+--bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
+--bind 'tab:toggle+down,shift-tab:toggle+up' \
+--bind 'ctrl-a:toggle-all,ctrl-t:toggle' \
+--bind 'ctrl-q:preview-down,ctrl-o:preview-up' \
+--bind 'ctrl-/:toggle-preview' \
+--bind 'ctrl-r:toggle-sort' \
 --marker '✚ '"
 
 # Man pages
