@@ -5,6 +5,7 @@
 - [[#zsh][Zsh]]
   - [[#navigation][Navigation]]
   - [[#prefix-key][Prefix key]]
+  - [[#fzf-tab-plugin][Fzf-tab plugin]]
   - [[#insert-command][Insert command]]
 - [[#kitty][Kitty]]
   - [[#navigation-1][Navigation]]
@@ -58,6 +59,22 @@
 | C-x s      | Search forward          |
 | C-x r      | Search backward         |
 | C-s        | Search forward          |
+
+** Fzf-tab plugin
+| Keybinding | Description                   |
+|------------+-------------------------------|
+| /          | Trigger continuous completion |
+| </>        | Switch between groups         |
+| C-/        | Toggle preview                |
+| C-j/C-k    | Down/up line                  |
+| C-q/C-o    | Preview down/up line          |
+| C-d/C-u    | Half page up/down             |
+| M-d/M-u    | Preview half page up/down     |
+| TAB        | Multi-select                  |
+| S-TAB      | Clear selection               |
+| C-a        | Select all toggle             |
+| C-s        | Toggle sort                   |
+| C-t        | Toggle                        |
 
 ** Insert command
 | Keybinding | Description |
@@ -154,7 +171,7 @@
 | 1/2/3...   | Navigate through tabs              |
 | {/}        | Swapping through tabs              |
 | C-c        | Close tab                          |
-| v/V        | Enter/Exit visual mode            |
+| v/V        | Enter/Exit visual mode             |
 
 ** Actions on files
 | Keybinding | Description                          |
