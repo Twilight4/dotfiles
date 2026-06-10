@@ -2,7 +2,6 @@
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
 #+STARTUP: show3levels
-#+OPTIONS: TOC:4
 
 * Table of Contents :toc:
 - [[#elpaca][Elpaca]]
@@ -490,9 +489,9 @@
   (tl/leader-keys
     "C-c" '(:ignore t :wk "Consult")
 	;; Navigation
-    "C-c C-f" '(consult-fd :wk "Find")
-    "C-c C-r" '(consult-ripgrep :wk "Ripgrep")
-    "C-c C-g" '(consult-grep :wk "Grep")
+    ;"C-c C-f" '(consult-fd :wk "Find")
+    ;"C-c C-r" '(consult-ripgrep :wk "Ripgrep")
+    "C-c C-r" '(consult-grep :wk "Grep")
     "C-c C-e" '(consult-git-grep :wk "Search with git grep")
     "C-c C-m" '(consult-mark :wk "Jump to marker")
     "C-c C-n" '(consult-global-mark :wk "Jump to global marker")
@@ -511,7 +510,7 @@
     "C-c d" '(org-gtd-reflect-completed-items :wk "Reflect on completed items")
     "C-c i" '(org-gtd-clarify-item :wk "Clarify item")
 	;; Search
-    ;"C-c C-g" '(consult-goto-line :wk "Go to line")
+    "C-c C-g" '(consult-goto-line :wk "Go to line")
     "C-c C-l" '(consult-line :wk "Search for line")
     "C-c C-u" '(consult-line-multi :wk "Search for line in multiple buffers")
     "C-c C-k" '(consult-keep-lines :wk "Select lines with a live preview")
@@ -884,12 +883,11 @@
 #+begin_src emacs-lisp
 ;; Load defined themes
 (use-package doom-themes
-  ;:init (load-theme 'doom-tokyo-night t)
   :ensure t
-  :defer t
-  ;:init (load-theme 'doom-moonlight t)
-  :init (load-theme 'doom-ayu-dark t)
   :config
+  ;(load-theme 'doom-moonlight t)
+  ;(load-theme 'doom-tokyo-night t)
+  (load-theme 'doom-ayu-dark t)
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
         doom-themes-enable-italic t))   ; if nil, italics is universally disabled
 
@@ -1551,7 +1549,7 @@ it will auto tangle after saving.
 #+end_src
 
 ** Buffer-switching adjustment
-Skip default buffers like **Messages** when using =buffer-prev=/=next=
+Skip default buffers like *Messages* when using =buffer-prev=/=next=
 
 #+begin_src emacs-lisp
 (defvar tl-fly-switch-buffer-map nil "repeat key map for `tl/better-next-buffer' etc.")
@@ -3008,22 +3006,22 @@ Adding highlights to =todo= keywords and related words.
   :config
   (setq hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
-        `(("TODO"       warning bold)
-          ("DOING"      "#5af78e")
+        `(("TODO"     . warning)
+          ("DOING"    . "#5af78e")
           ("NEXT"     . "#fac863")
-          ("DONE"       font-lock-doc-face bold)
-          ("CNCL"       error bold)))
+          ("DONE"     . font-lock-doc-face)
+          ("CNCL"     . error)))
   ;; Must be bound here to work
   (define-key hl-todo-mode-map (kbd "C-x n") #'hl-todo-next)
   (define-key hl-todo-mode-map (kbd "C-x p") #'hl-todo-previous))
 
 ;; Default keyword faces (for agenda view)
 (setq org-todo-keyword-faces
-      '(("TODO"  . (:foreground "orange"     :weight bold))
+      '(("TODO"  . (:foreground "orange"  :weight bold))
         ("DOING" . (:foreground "#5af78e" :weight bold))
         ("NEXT"  . (:foreground "#fac863" :weight bold))
-        ("DONE"  . (:foreground "#696c71"    :weight bold))
-        ("CNCL"  . (:foreground "#d95757"  :weight bold))))
+        ("DONE"  . (:foreground "#696c71" :weight bold))
+        ("CNCL"  . (:foreground "#d95757" :weight bold))))
 #+end_src
 
 *** Org-fancy-priorities
@@ -3034,22 +3032,19 @@ Adding highlights to =todo= keywords and related words.
 
 ;; Org symbols/priorities
 (use-package org-fancy-priorities
-  :ensure t
-  :hook
-  (org-mode . org-fancy-priorities-mode)
-  :config
-  (setq
-    org-priority-highest ?A
-    org-priority-lowest ?C
-    ;;org-fancy-priorities-list '("[A]" "[B]" "[C] "[D])
-    org-fancy-priorities-list '("" "" "" "")
-    org-priority-faces
-    '((?A . 'all-the-icons-red)
-      ;(?B . 'all-the-icons-yellow)
-      (?B . '(:foreground "#F08000")) ;; Adjusted for brighter yellow
-      (?C . '(:foreground "#FFD700")) ;; Adjusted for brighter yellow
-      ;(?C . 'all-the-icons-yellow)
-      (?D . 'all-the-icons-green))))
+ :ensure t
+ :hook
+ (org-mode . org-fancy-priorities-mode)
+ :config
+ (setq
+   org-priority-highest ?A
+   org-priority-lowest ?C
+   ;;org-fancy-priorities-list '("[A]" "[B]" "[C]")
+   org-fancy-priorities-list '("" "" "")
+   org-priority-faces
+   '((?A . (:foreground "#d95757"))
+     (?B . (:foreground "#F08000"))
+     (?C . (:foreground "#FFD700")))))
 #+end_src
 
 *** Highlight symbol
@@ -3587,7 +3582,7 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
   (dolist (face '(org-block org-table org-formula org-code
                   org-verbatim org-special-keyword org-meta-line
                   org-checkbox line-number line-number-current-line))
-    (set-face-attribute face nil :inherit '(shadow fixed-pitch))))
+    (set-face-attribute face nil :inherit '(fixed-pitch))))
 
 ;; Call org-font-setup when entering org-mode
 (add-hook 'org-mode-hook #'tl/org-font-setup)
@@ -3699,7 +3694,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
         '((t . t)
           ("src" "»" "«")
           ("example" "»–" "–«")
-          ("quote" "❝" "❞")
           ("export" "⏩" "⏪")
           ;; New block names
           ("list" "∷" "∷")
@@ -4433,9 +4427,6 @@ While we're at it, we can a link gutter, as we did with src blocks, and show the
                         (replace-regexp-in-string (format "<table id=\"%s\"" ref) "<table"
                                                   ad-do-it)
                       ad-do-it))))))
-
-;; Apply the advice
-(ad-activate 'org-html-table)
 #+end_src
 
 **** TOC as a collapsable tree
@@ -4474,22 +4465,6 @@ org provides.
 (advice-add 'org-html--toc-text-stripped-leaves :around #'tl-org-html--toc-text-stripped-leaves)
 #+end_src
 
-**** Make verbatim different to code
-Since we have =verbatim= and ~code~, let's make use of the difference.
-
-We can use ~code~ exclusively for code snippets and commands like: "calling src_elisp{(message "Hello")} in batch-mode emacs prints to stdout like ~echo~". Then we can use =verbatim= for miscellaneous 'other monospace' like keyboard shortcuts: "either =C-c C-c= or =C-g= is likely the most useful keybinding in Emacs", or file names: "I keep my configuration in =~/.config/emacs/=", among other things.
-
-Then, styling these two cases differently can help improve clarity in a document.
-#+begin_src emacs-lisp
-(setq org-html-text-markup-alist
-      '((bold . "<b>%s</b>")
-        (code . "<code>%s</code>")
-        (italic . "<i>%s</i>")
-        (strike-through . "<del>%s</del>")
-        (underline . "<span class=\"underline\">%s</span>")
-        (verbatim . "<kbd>%s</kbd>")))
-#+end_src
-
 **** Header anchors
 I want to add GitHub-style links on hover for headings.
 
@@ -4505,87 +4480,6 @@ I want to add GitHub-style links on hover for headings.
        text))))
 
 (advice-add 'org-export-to-buffer :filter-args #'tl-org-export-html-headline-anchor)
-#+end_src
-
-**** Link previews
-Sometimes it's nice to make a link particularly prominent, an embed/preview like Twitter does would be nice I think.
-
-We can do this without too much trouble by adding a new link type ever so slightly different from =https= --- =Https=.
-#+begin_src emacs-lisp
-(org-link-set-parameters "Https"
-                         :follow (lambda (url arg) (browse-url (concat "https:" url) arg))
-                         :export #'org-url-fancy-export)
-#+end_src
-
-Then, if we can fetch a plist of the form src_elisp{(:title "..." :description "..." :image "...")} for such links via a function ~org-url-unfurl-metadata~, we can make a fancy export.
-#+begin_src emacs-lisp
-(defun org-url-fancy-export (url _desc backend)
-  (let ((metadata (org-url-unfurl-metadata (concat "https:" url))))
-    (cond
-     ((org-export-derived-backend-p backend 'html)
-      (concat
-       "<div class=\"link-preview\">"
-       (format "<a href=\"%s\">" (concat "https:" url))
-       (when (plist-get metadata :image)
-         (format "<img src=\"%s\"/>" (plist-get metadata :image)))
-       "<small>"
-       (replace-regexp-in-string "//\\(?:www\\.\\)?\\([^/]+\\)/?.*" "\\1" url)
-       "</small><p>"
-       (when (plist-get metadata :title)
-         (concat "<b>" (org-html-encode-plain-text (plist-get metadata :title)) "</b></br>"))
-       (when (plist-get metadata :description)
-         (org-html-encode-plain-text (plist-get metadata :description)))
-       "</p></a></div>"))
-     (t url))))
-#+end_src
-
-Now we just need to actually implement that metadata extraction function.
-#+begin_src emacs-lisp
-(setq org-url-unfurl-metadata--cache nil)
-(defun org-url-unfurl-metadata (url)
-  (cdr (or (assoc url org-url-unfurl-metadata--cache)
-           (car (push
-                 (cons
-                  url
-                  (let* ((head-data
-                          (-filter #'listp
-                                   (cdaddr
-                                    (with-current-buffer (progn (message "Fetching metadata from %s" url)
-                                                                (url-retrieve-synchronously url t t 5))
-                                      (goto-char (point-min))
-                                      (delete-region (point-min) (- (search-forward "<head") 6))
-                                      (delete-region (search-forward "</head>") (point-max))
-                                      (goto-char (point-min))
-                                      (while (re-search-forward "<script[^\u2800]+?</script>" nil t)
-                                        (replace-match ""))
-                                      (goto-char (point-min))
-                                      (while (re-search-forward "<style[^\u2800]+?</style>" nil t)
-                                        (replace-match ""))
-                                      (libxml-parse-html-region (point-min) (point-max))))))
-                         (meta (delq nil
-                                     (mapcar
-                                      (lambda (tag)
-                                        (when (eq 'meta (car tag))
-                                          (cons (or (cdr (assoc 'name (cadr tag)))
-                                                    (cdr (assoc 'property (cadr tag))))
-                                                (cdr (assoc 'content (cadr tag))))))
-                                      head-data))))
-                    (let ((title (or (cdr (assoc "og:title" meta))
-                                     (cdr (assoc "twitter:title" meta))
-                                     (nth 2 (assq 'title head-data))))
-                          (description (or (cdr (assoc "og:description" meta))
-                                           (cdr (assoc "twitter:description" meta))
-                                           (cdr (assoc "description" meta))))
-                          (image (or (cdr (assoc "og:image" meta))
-                                     (cdr (assoc "twitter:image" meta)))))
-                      (when image
-                        (setq image (replace-regexp-in-string
-                                     "^/" (concat "https://" (replace-regexp-in-string "//\\([^/]+\\)/?.*" "\\1" url) "/")
-                                     (replace-regexp-in-string
-                                      "^//" "https://"
-                                      image))))
-                      (list :title title :description description :image image))))
-                 org-url-unfurl-metadata--cache)))))
 #+end_src
 
 *** LaTeX export
@@ -4729,9 +4623,7 @@ One little annoyance with this is the interaction between microtype and =Verbati
 (add-hook 'org-export-before-parsing-hook #'tl/org-latex-no-protrusion-in-code)
 #+end_src
 
-At some point it would be nice to make the box colours easily customisable. At the moment it's fairly easy to change the syntax highlighting colours with src_elisp{(setq engrave-faces-preset-styles (engrave-faces-generate-preset))}, but perhaps a toggle which specifies whether to use the default values, the current theme, or any named theme could be a good idea. It should also possible to set the box background dynamically to match. The named theme could work by looking for a style definition with a certain name in a cache dir, and then switching to that theme and producing (and saving) the style definition if it doesn't exist.
 
-Now let's have the example block be styled similarly.
 #+begin_src emacs-lisp
 (defun tl/org-latex-example-block-engraved (orig-fn example-block contents info)
   "Like `org-latex-example-block', but supporting an engraved backend"
@@ -4751,7 +4643,6 @@ To start with, why settle for ASCII when UTF-8 exists?
 
 The ASCII export is generally fairly nice. I think the main aspect that could benefit from improvement is the appearance of LaTeX fragments. There's a nice utility we can use to create unicode representation, which are much nicer. It's called ~latex2text~, and it's part of the =python-pylatexenc=.
 
-With that installed, we can override the src_elisp{(org-ascii-latex-fragment)} and src_elisp{(org-ascii-latex-environment)} functions, which are conveniently very slim --- just extracting the content, and indenting. We'll only do something different when =utf-8= is set.
 #+begin_src emacs-lisp
 (when (executable-find "latex2text")
   (eval-after-load 'ox-ascii
