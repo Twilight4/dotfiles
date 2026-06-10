@@ -4,13 +4,21 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+		org-kill-line
+		org-self-insert-command
+		smart-hungry-delete-backward-char
+		smart-hungry-delete-forward-char
+		tl/paste-from-system-clipboard
 		tl/smart-move-beginning-of-line
 		tl/smart-move-end-of-line
+		toggle-mark-command
 		))
 
 (setq mc/cmds-to-run-once
       '(
+		corfu-quit
 		god-local-mode
 		org-backward-sentence
 		org-forward-sentence
+		repeat
 		))
