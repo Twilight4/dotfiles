@@ -49,6 +49,7 @@
 | C-M-f      | Vi find next char                 |
 | C-M-b      | Vi find previous char             |
 | C-M-RET    | Return and hold                   |
+| C-v        | Edit line in emacs                |
 
 ** Prefix key
 | Keybinding | Description             |
