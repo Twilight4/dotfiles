@@ -258,6 +258,7 @@
 (global-set-key (kbd "C-o") 'org-kill-line)
 (global-set-key (kbd "C-t") 'treemacs-add-and-display-current-project-exclusively)
 (global-set-key (kbd "C-q") 'delete-frame)
+(global-set-key (kbd "M-q") (lambda () (interactive) (save-buffer) (delete-frame)))
 (global-set-key (kbd "C-r") 'undo-tree-undo)
 (global-set-key (kbd "C-u") 'tl/org-kill-line-backward)
 (global-set-key (kbd "C-f") 'forward-word)
@@ -491,13 +492,12 @@
 	;; Navigation
     "C-c C-f" '(consult-fd :wk "Find")
     "C-c C-r" '(consult-ripgrep :wk "Ripgrep")
+    "C-c C-g" '(consult-grep :wk "Grep")
+    "C-c C-e" '(consult-git-grep :wk "Search with git grep")
     "C-c C-m" '(consult-mark :wk "Jump to marker")
     "C-c C-n" '(consult-global-mark :wk "Jump to global marker")
     "C-c C-o" '(consult-outline :wk "Outline heading")
-    "C-c C-g" '(consult-goto-line :wk "Go to line")
-    "C-c C-e" '(consult-git-grep :wk "Search with git grep")
     "C-c C-a" '(consult-org-agenda :wk "Go to org agenda heading")
-    "C-c C-h" '(consult-org-heading :wk "Go to org heading")
     "C-c C-h" '(consult-org-heading :wk "Go to org heading")
 	;; GTD
     "C-c e" '(org-gtd-engage :wk "GTD Engage")
@@ -511,6 +511,7 @@
     "C-c d" '(org-gtd-reflect-completed-items :wk "Reflect on completed items")
     "C-c i" '(org-gtd-clarify-item :wk "Clarify item")
 	;; Search
+    ;"C-c C-g" '(consult-goto-line :wk "Go to line")
     "C-c C-l" '(consult-line :wk "Search for line")
     "C-c C-u" '(consult-line-multi :wk "Search for line in multiple buffers")
     "C-c C-k" '(consult-keep-lines :wk "Select lines with a live preview")
@@ -890,9 +891,7 @@
   :init (load-theme 'doom-ayu-dark t)
   :config
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
-        doom-themes-enable-italic t)   ; if nil, italics is universally disabled
-  (setcdr (assoc 'gnus-group-news-low-empty doom-themes-base-faces)
-          '(:inherit 'gnus-group-mail-1-empty :weight 'normal)))  
+        doom-themes-enable-italic t))   ; if nil, italics is universally disabled
 
 ;; Line numbers
 (set-face-attribute 'line-number-current-line nil :background "#040305" :foreground "#bfbdb6" :weight 'bold)
@@ -3108,7 +3107,7 @@ This controls the color of *bold*, /italic/, _underline_, verbatim, +strikethrou
 
 #+begin_src emacs-lisp
 (setq org-emphasis-alist
-'(("*" (bold :slant italic :weight black ))
+'(("*" (bold :slant italic :weight black :foreground "#e6b450" ))
   ("/" (italic :foreground "dark salmon" ))   ;; Warning: Creates conflicts
   ("_" (underline :foreground "cyan" ))
   ("=" (:foreground "PaleGreen1" ))
@@ -3436,7 +3435,8 @@ Version: 2020-06-26 2023-11-14"
 
 (defun tl/org-agenda-done (&optional arg)
   (interactive "P")
-  (org-agenda-clock-out)
+  (when (org-clock-is-active)
+    (org-agenda-clock-out))
   (org-agenda-todo "DONE"))
 
 (defun tl/org-agenda-canc (&optional arg)
@@ -4029,8 +4029,8 @@ The following snippet sets up a hook for all Org task state changes and then mov
    ("C-x c" . org-gtd-organize)))
 
 (setq org-gtd-keyword-mapping
-      '((todo . "NEXT")
-        (next . "TODO")
+      '((todo . "TODO")
+        (next . "NEXT")
         (done . "DONE")
         (canceled . "CNCL")))
 #+end_src
