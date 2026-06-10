@@ -143,6 +143,7 @@ zstyle ':fzf-tab:complete:*:*' fzf-flags --preview-window=hidden
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $word'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:*' fzf-min-height 20
 # Zsh completion options
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
