@@ -223,3 +223,15 @@ last-word-or-cancel-selection-mode() {
 }
 zle -N last-word-or-cancel-selection-mode
 #bindkey '^G' last-word-or-cancel-selection-mode
+
+# Function to cleanly edit line in emacs
+autoload -U edit-command-line
+zle -N edit-command-line
+
+edit-command-line-and-redraw() {
+  edit-command-line
+  zle reset-prompt
+}
+zle -N edit-command-line-and-redraw
+bindkey '^v' edit-command-line-and-redraw
+
