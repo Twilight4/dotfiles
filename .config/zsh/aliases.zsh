@@ -4,6 +4,7 @@
 # File management                                                                              #
 ################################################################################################
 # ls
+alias bootdev='/home/twilight/.config/.local/share/go/bin/bootdev'
 alias l='lsd --hyperlink=auto'
 alias ls='lsd -l --hyperlink=auto'
 alias la='lsd -lA --hyperlink=auto'
@@ -286,7 +287,6 @@ alias grs='git restore --staged'  #grs <file> - remove from staging area
 alias gr='git restore'   #gr <file> - restore accidentally removed file
 alias greset='git reset' #greset <commit_id> - reset to change from commit
 alias greseth='git reset --hard' #greseth <commit_id> - reset change in cwd
-alias gl='git log --pretty=oneline'
 alias glog='git log --graph --abbrev-commit --oneline --decorate'
 alias gj="git-jump"                      # Open in vim quickfix list files of interest (git diff, merged...)
 #alias gc="git clone --depth 1"     # have 'gcl' function
