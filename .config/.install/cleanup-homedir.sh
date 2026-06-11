@@ -22,6 +22,7 @@ directories=(
     ~/desktop/{workspace,projects,server}
     ~/.ssh
     ~/.config/.local/share/gnupg
+    ~/.config/.local/share/gnupg/private-keys-v1.d
     ~/.config/.local/share/cargo
     ~/.config/.local/share/go
     ~/.config/.local/share/mpd/playlists
@@ -51,6 +52,9 @@ move_if_exists() {
         mv -v "$1" "$2"
     fi
 }
+
+# Gnupg fix
+chmod 700 ~/.config/.local/share/gnupg/private-keys-v1.d
 
 # Move directories and files if they exist
 move_if_exists ~/.gnupg ~/.config/.local/share/gnupg
