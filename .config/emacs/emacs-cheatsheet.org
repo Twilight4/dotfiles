@@ -47,7 +47,7 @@ The world's greatest programmer once said:
 
 | Keybinding | Description    |
 |------------+----------------|
-| C-c        | Consult        |
+| C-c        | Consult/GTD    |
 | C-f        | Timer/clock    |
 | C-s        | Help           |
 | C-t        | Toggle         |
@@ -371,6 +371,8 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | M-i        | jinx-correct                                                 |
 | M-w        | jinx-correct-word                                            |
 | M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
+| M-p        | jinx auto correct save                                       |
+| M-u        | jinx auto correct                                            |
 
 ** Dired
 
