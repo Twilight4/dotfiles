@@ -411,6 +411,7 @@ alias ms='systemctl postgresql start ; msfdb init ; msfconsole'
 alias start-neo4j-db='sudo neo4j console'
 alias hashid='hashid -m'
 alias di='docker images'
+alias dps='docker ps'
 #alias amassc='amass enum -config ~/.config/amass/config.ini -d $1'
 
 # Mpv

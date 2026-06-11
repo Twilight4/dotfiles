@@ -837,7 +837,7 @@ mega-sync-on() {
 
         # Synchronize directories
         mega-sync /home/twilight/desktop/projects /SYNCED-DATA/desktop/projects/
-        mega-sync /home/twilight/documents/ /SYNCED-DATA/documents/
+        mega-sync /home/twilight/documents/pdfs /SYNCED-DATA/documents/pdfs
         mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
 
         # Sync individual files
@@ -862,10 +862,9 @@ mega-sync-off() {
     RED='\033[0;31m'
     YELLOW='\033[1;33m'
     NC='\033[0m' # No Color
-
-    mega-sync -d /home/twilight/desktop/projects/
-    mega-sync -d /home/twilight/documents/openvpn/
-    mega-sync -d /home/twilight/documents/pdfs/
+    
+    mega-sync -d /home/twilight/desktop/projects
+    mega-sync -d /home/twilight/documents/pdfs
     mega-sync -d /home/twilight/.ssh/
 
     echo -e "${GREEN}All specified directories have been unsynced.${NC}"
