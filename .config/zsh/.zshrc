@@ -84,6 +84,7 @@ zle -N fg-bg
 bindkey '^Z' fg-bg
 
 WORDCHARS=${WORDCHARS//\/} # Don't consider certain characters part of the word
+KEYTIMEOUT=1             # Fix the fgs\r binding delay on ctrl+shift+[
 
 # hide EOL sign ('%')
 PROMPT_EOL_MARK=""

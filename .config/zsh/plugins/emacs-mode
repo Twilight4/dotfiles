@@ -95,10 +95,10 @@ bindkey -M emacs -s '^[H' 'fparr\r'
 #bindkey -M emacs -s '^[G' 'fchtt\r'
 
 # Command line
-bindkey -M emacs -s '^[?' 'fzf-cd\r'
-#bindkey -M emacs -s '^[v' 'fsh\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
+bindkey -M emacs -s '^[?' 'fzf-cd\r'
 bindkey -M emacs -s '^[x' 'fkill\r'
+bindkey -M emacs -s '^[X' 'fsh\r'
 bindkey -M emacs -s '^[a' 'falias\r'
 bindkey -M emacs -s '^[\' '\\cd ..; ls\r'   # Change directory
 bindkey -M emacs -s '^[L' 'nb-^I'
