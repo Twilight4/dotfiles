@@ -7,7 +7,7 @@
 # Search for a file (not hidden) and edit in $EDITOR
 ff() {
   file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" -printf "%P\n" \
-      | fzf --query="$1" --no-multi --select-1 --exit-0 --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
+      | fzf --query="$1" --no-multi --select-1 --exit-0 --reverse --preview '\bat --style=snip --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     eval "$EDITOR" "$file"
   fi
@@ -17,7 +17,7 @@ ff() {
 ffh() {
     local file
     local dir
-    file=$(fzf +m --reverse --preview "bat --style=snip --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    file=$(fzf +m --reverse --preview "\bat --style=snip --color=always --line-range :500 {}" -q "$1") && dir=$(dirname "$file") && cd "$dir"
     lsd -l --hyperlink=auto
 }
 
@@ -66,7 +66,7 @@ fports() {
 # Select file and output using bat
 fbat() {
   file=$(find . -type f -not -path '*/\.*' -not -iname "*.mp4" -not -iname "*.ttf" -not -iname "*.URL" -not -iname "*.webm" -not -iname "*.pdf" -not -iname "*.exe" -not -iname "*.zip" -not -iname "*.gzip" -not -iname "*.vhd" -not -iname "*.tar.xz" -not -iname "*.docx" -not -iname "*.jpg" -not -iname "*.jpeg" -not -iname "*.png" -not -iname "*.gif" | sed 's|^\./||' | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=snip --color=always --line-range :500 ./{}')
+      --reverse --preview '\bat --style=snip --color=always --line-range :500 ./{}')
   if [[ -n "$file" ]]; then
     bat --color=always --style header,grid,changes "./$file"
   fi
@@ -75,7 +75,7 @@ fbat() {
 # Copy file path to clipboard
 fccp() {
   file=$(find ~ -type f | fzf --query="$1" --no-multi --select-1 --exit-0 \
-      --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
+      --reverse --preview '\bat --style=snip --color=always --line-range :500 {}')
   if [[ -n "$file" ]]; then
     printf "%s" "$file" | wl-copy -n  # Copy path to clipboard
     echo -e "\e[34m$file\e[0m copied to clipboard."
@@ -191,7 +191,7 @@ fcp() {
 
 # List recently edited files using fasd and pipe to fzf for selection
 frec() {
-  local file=$(fasd -Rlf | fzf --reverse --preview 'bat --style=snip --color=always --line-range :500 {}')
+  local file=$(fasd -Rlf | fzf --reverse --preview '\bat --style=snip --color=always --line-range :500 {}')
 
   # If a file is selected, convert it back to the full path and open it in Neovim
   [[ -n "$file" ]] && nvim "${file/#~/$HOME}"
@@ -619,7 +619,7 @@ frgo() {
     || rg --ignore-case --pretty --context 10 '$1' {}")
 
   if [[ -n "$selected_file" ]]; then
-    sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' "$selected_file" | command bat --language=org --style=snip --color=always
+    sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' "$selected_file" | command \bat --language=org --style=snip --color=always
   fi
 
   popd &> /dev/null
@@ -642,7 +642,7 @@ frgc() {
     || rg --ignore-case --pretty --context 10 '$search_term' {}")
 
   if [[ -n "$selected_file" ]]; then
-    cheat "$selected_file" | rg --ignore-case --pretty "$search_term" | bat --pager less --style=snip --color=always --language=help
+    cheat "$selected_file" | rg --ignore-case --pretty "$search_term" | \bat --pager less --style=snip --color=always --language=help
   fi
 
   popd &> /dev/null
@@ -651,7 +651,7 @@ frgc() {
 # List cheatsheets in specific directory and cat with preview
 fchtt() {
   file=$(cheat -l -t desc | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --pager less --color=always ~/.config/cheat/desc/{}') || return
-	[ -n "$file" ] && command cheat "$file" | bat --pager less --style=snip --color=always --language=help
+	[ -n "$file" ] && command cheat "$file" | \bat --pager less --style=snip --color=always --language=help
 }
 
 # List org notes based on content and edit
@@ -678,13 +678,13 @@ frgoe() {
 # List cheatsheets and cat with preview
 fchtc() {
   file=$(cheat -l -t tools | tail -n +2 | cut -d' ' -f1 | sort | uniq | fzf --preview 'command bat --style=snip --language=help --pager less --color=always ~/.config/cheat/tools/{}') || return
-	[ -n "$file" ] && command cheat "$file" | bat --pager less --style=snip --color=always --language=help
+	[ -n "$file" ] && command cheat "$file" | \bat --pager less --style=snip --color=always --language=help
 }
 
 # List org notes and cat
 fchto() {
   file=$(find ~/documents/org/roam -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/{} | command bat --language=org --style=snip --color=always" --preview-window=right:50%:wrap) || return
-	[ -n "$file" ] && command sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/"$file" | command bat --language=org --style=snip --color=always
+	[ -n "$file" ] && command sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/roam/"$file" | command \bat --language=org --style=snip --color=always
 }
 
 # List specific org notes and edit
