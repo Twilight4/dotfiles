@@ -37,9 +37,8 @@ alias tailf="tail -f"
 alias headn="head -n"
 alias mv='mv -v'    #mvi is in scripts.zsh
 alias rm='rm -v'    #rmi is in scripts.zsh
-alias rt='trash -rfv'
-alias tl='trash-list'
-alias tr='trash-restore'
+alias rtr='trash -rfv'
+alias rtl='trash-list'
 alias shred='shred -u'
 alias digs='dig +short'
 alias sip='sort -n -u -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
@@ -411,6 +410,7 @@ alias empire="sudo powershell-empire client"
 alias ms='systemctl postgresql start ; msfdb init ; msfconsole'
 alias start-neo4j-db='sudo neo4j console'
 alias hashid='hashid -m'
+alias di='docker images'
 #alias amassc='amass enum -config ~/.config/amass/config.ini -d $1'
 
 # Mpv
