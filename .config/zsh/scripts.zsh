@@ -968,7 +968,7 @@ gtfo() {
 }
 
 # Generate a password (default 20 characters)
-pass() {
+pass-gen() {
     local size=${1:-20}
     cat /dev/random | tr -dc '[:graph:]' | head -c$size
 }
