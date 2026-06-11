@@ -28,7 +28,6 @@ bindkey '^W' backward-kill-word
 
 # Full keyboard keys
 bindkey '^?' backward-delete-char
-#bindkey '^H' backward-kill-word
 bindkey '^[[1~' beginning-of-line
 bindkey '^[[4~' end-of-line
 bindkey '^[[1;5C' forward-word
@@ -37,8 +36,6 @@ bindkey '^[[A' up-line-or-history
 bindkey '^[[B' down-line-or-history
 #bindkey '^[[A' up-line-or-beginning-search
 #bindkey '^[[B' down-line-or-beginning-search
-bindkey '^[[5~' beginning-of-buffer-or-history
-bindkey '^[[6~' end-of-buffer-or-history
 bindkey '^[[3~' delete-char
 bindkey '^[[Z' reverse-menu-complete
 
@@ -78,20 +75,18 @@ bindkey '^K' history-search-backward
 # List all registered zle commands: zle -al
 # Debug which keys are being sent to the shell from your terminal: showkey -a
 
-# Commented keybinds are replaced by yazi file manager
-#bindkey -M emacs -s '^k' 'frm\r'
-#bindkey -M emacs -s '^[l' 'fcp\r'
-#bindkey -M emacs -s '^[I' 'fimg\r'
-#bindkey -M emacs -s '^[i' 'fbat\r'
-#bindkey -M emacs -s '^[.' 'fzf-cd\r'
-#bindkey -M emacs -s '^\' 'fccp\r'
-#bindkey -M emacs -s '^[j' 'fmv\r'
-#bindkey -M emacs -s '^[,' 'ff\r'
-#bindkey -M emacs -s '^[>' 'ffh\r'
-#bindkey -M emacs -s '^[>' ''
-#bindkey -M emacs -s '^[<' ''
+# File manager commands
+bindkey -M emacs -s '^[I' 'fimg\r'
+bindkey -M emacs -s '^\' 'fccp\r'
+bindkey -M emacs -s '^["' 'ffh\r'
+bindkey -M emacs -s '^[:' 'ff\r'
 bindkey -M emacs -s '^[,' 'frec\r'
 bindkey -M emacs -s '^[.' 'frecd\r'
+bindkey -M emacs -s '^[<' 'fbat\r'
+bindkey -M emacs -s '^[>' 'frm\r'
+bindkey -M emacs -s '^[R' 'frg '
+bindkey -M emacs -s '^[G' 'fpars\r'
+bindkey -M emacs -s '^[H' 'fparr\r'
 
 # Pentest-related
 #bindkey -M emacs -s '^[t' 'frep\r'
@@ -100,19 +95,13 @@ bindkey -M emacs -s '^[.' 'frecd\r'
 #bindkey -M emacs -s '^[G' 'fchtt\r'
 
 # Command line
-#bindkey -M emacs -s '^[F' 'fpars\r'
-#bindkey -M emacs -s '^[e' 'fparr\r'
-bindkey -M emacs -s '^[x' 'fkill\r'
-bindkey -M emacs -s '^[v' 'fsh\r'
-bindkey -M emacs -s '^[a' 'falias\r'
+bindkey -M emacs -s '^[?' 'fzf-cd\r'
+#bindkey -M emacs -s '^[v' 'fsh\r'
 #bindkey -M emacs -s '^[k' 'fman\r'
-
-# Change directory
-bindkey -M emacs -s '^[\' '\\cd ..; ls\r'
-#bindkey -M emacs -s "^[^M" 'cd\r'    # alt+return / ctrl+alt+m
-#bindkey -M emacs -s "^G" 'cd\r'
-#bindkey -M emacs -s '^[z'
-#bindkey -M emacs -s '^[;'
+bindkey -M emacs -s '^[x' 'fkill\r'
+bindkey -M emacs -s '^[a' 'falias\r'
+bindkey -M emacs -s '^[\' '\\cd ..; ls\r'   # Change directory
+bindkey -M emacs -s '^[L' 'nb-^I'
 
 # List files
 bindkey -M emacs -s '^[u' 'fwork\r'
@@ -122,27 +111,18 @@ bindkey -M emacs -s '^[p' 'fproj\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
 bindkey -M emacs -s '^[T' 'fpdf\r'
 bindkey -M emacs -s '^[P' 'fnp\r'
-#bindkey -M emacs -s '^[n' 'nb-^I'       # not using
 
 # Cheatsheets/Notes
 bindkey -M emacs -s '^[z' 'fchtc\r'
 bindkey -M emacs -s '^[Z' 'fchtce\r'
-#bindkey -M emacs -s '^[e' 'fchtc\r'
-#bindkey -M emacs -s '^[E' 'fchtce\r'
 bindkey -M emacs -s '^[e' 'fchtoe'
-#bindkey -M emacs -s '^[E' 'fchtoe\r'
-#bindkey -M emacs -s '^[R' 'frgo'
 bindkey -M emacs -s '^[r' 'frgoe'
 
 # Git
 bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
 bindkey -M emacs -s '^[{' 'fgl\r'
-# ctrl+... keys
-#bindkey -M emacs -s '^]' 'fzf-eval '
-# Misc
-#bindkey -M emacs -s '^[e' 'frg '
-#bindkey -M emacs -s '^[e' 'fvars\r'
+bindkey -M emacs -s '^[}' 'fgb\r'
 
 
 ########################
@@ -211,7 +191,7 @@ toggle-selection-mode() {
   fi
 }
 zle -N toggle-selection-mode
-bindkey '^ ' toggle-selection-mode
+bindkey '^@' toggle-selection-mode
 
 # Function to cancel selection mode
 last-word-or-cancel-selection-mode() {
