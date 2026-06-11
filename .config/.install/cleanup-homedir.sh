@@ -18,7 +18,7 @@ echo
 directories=(
     ~/{documents,downloads,desktop,videos,music,pictures}
     ~/pictures/{dcim,screenshots}
-    ~/documents/{pdfs,openvpn}
+    ~/documents/pdfs
     ~/desktop/{workspace,projects,server}
     ~/.ssh
     ~/.config/.local/share/gnupg
