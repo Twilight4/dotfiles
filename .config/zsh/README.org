@@ -29,27 +29,32 @@
 
 * Zsh
 ** Navigation
-| Keybinding | Description                       |
-|------------+-----------------------------------|
-| C-h/l      | Backward/forward char             |
-| C-k/j      | Up/down in history                |
-| C-S-j      | Scroll line down                  |
-| C-S-k      | Scroll line up                    |
-| C-a/e      | Beginning/end of line             |
-| C-f/b      | Forward/backward word             |
-| C-w        | Backward kill word                |
-| M-w        | Copy region                       |
-| M-S-w      | Copy current line                 |
-| C-d        | Delete forward char or cut region |
-| M-d        | Forward kill word                 |
-| C-g        | Clear screen                      |
-| M-'        | Quote region                      |
-| M-/        | Which command                     |
-| M-S-/      | History complete newer            |
-| C-M-f      | Vi find next char                 |
-| C-M-b      | Vi find previous char             |
-| C-M-RET    | Return and hold                   |
-| C-v        | Edit line in emacs                |
+| Keybinding | Description                           |
+|------------+---------------------------------------|
+| C-h/l      | Backward/forward char                 |
+| C-k/j      | Up/down line or history               |
+| C-S-j/k    | Scroll line down/up                   |
+| C-a/e      | Beginning/end of line                 |
+| C-p/n      | Cycle through autosuggestions history |
+| C-f/b      | Forward/backward word                 |
+| S-TAB      | Dismiss current autosuggestion        |
+| C-SPC      | Selection mode                        |
+| C-w        | Backward kill word                    |
+| M-d        | Forward kill word                     |
+| C-u        | Backward kill line                    |
+| C-o        | Forward kill line                     |
+| C-g        | Clear screen                          |
+| M-'        | Quote region                          |
+| M-/        | Which command                         |
+| C-M-f      | Vi find next char                     |
+| C-M-b      | Vi find previous char                 |
+| C-M-RET    | Return and hold                       |
+| M-w        | Copy region                           |
+| M-h        | Help Command                          |
+| M-S-w      | Copy current line                     |
+| C-d        | Delete forward char or cut region     |
+| M-S-/      | History complete newer                |
+| C-v        | Edit line in emacs                    |
 
 ** Prefix key
 | Keybinding | Description             |
@@ -80,28 +85,36 @@
 ** Insert command
 | Keybinding | Description |
 |------------+-------------|
+| M-S-i      | fimg        |
+| C-\        | fccp        |
+| M-S-'      | ffh         |
+| M-S-;      | ff          |
 | M-,        | frec        |
 | M-.        | frecd       |
-| M-S-f      | fpars       |
-| M-S-d      | fparr       |
+| M-S-,      | fbat        |
+| M-S-.      | frm         |
+| M-S-g      | fpars       |
+| M-S-h      | fparr       |
+| M-S-/      | fzf-cd      |
 | M-x        | fkill       |
-| M-\        | cd ..; ls   |
-| M-n        | fnb         |
-| M-S-n      | fnp         |
-| M-h        | help        |
-| M-u        | fwork       |
+| M-S-x      | fsh         |
 | M-a        | falias      |
+| M-\        | cd ..; ls   |
+| M-S-l      | nb          |
+| M-u        | fwork       |
 | M-p        | fproj       |
-| M-S-t      | ftrack      |
 | M-y        | fclip       |
-| M-S-p      | fpdf        |
-| M-e        | fchtc       |
-| M-S-e      | fchtce      |
-| M-r        | fchto       |
-| M-S-r      | fchtoe      |
-|            | fgcom       |
-|            | fgs         |
-|            | fgl         |
+| M-S-t      | fpdf        |
+| M-S-p      | fnp         |
+| M-z        | fchtc       |
+| M-S-z      | fchtce      |
+| M-e        | fchtoe      |
+| M-r        | frgoe       |
+| M-S-r      | frg         |
+| M-]        | fgcom       |
+| M-[        | fgs         |
+| M-S-[      | fgl         |
+| M-S-]      | fgb         |
 
 * Kitty
 ** Navigation
