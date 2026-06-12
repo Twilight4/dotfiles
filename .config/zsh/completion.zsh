@@ -128,8 +128,8 @@ zle -C alias-expension complete-word _generic
 bindkey '^Xa' alias-expension
 zstyle ':completion:alias-expension:*' completer _expand_alias
 
-# Allow you to select in a menu
-zstyle ':completion:*' menu select
+# Allow you to select in a menu - USING FZF TAB
+#zstyle ':completion:*' menu select
 
 # Completions
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
