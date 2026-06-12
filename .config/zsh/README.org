@@ -185,6 +185,7 @@
 | C-a        | Select all files                     |
 | w/W        | Yank/Cancel the yank status          |
 | x          | Cut                                  |
+| G          | DragDrop                             |
 | r          | Rename file/Selected files           |
 | d/D        | Remove/Remove permamently            |
 | y/Y        | Paste/Paste force                    |
