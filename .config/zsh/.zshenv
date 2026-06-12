@@ -84,8 +84,10 @@ export FZF_DEFAULT_OPTS="--height 60% \
 --no-separator --scrollbar="█" \
 --pointer ▶ \
 --bind 'ctrl-j:down,ctrl-k:up' \
---bind 'ctrl-d:half-page-down,ctrl-u:half-page-up' \
---bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
+--bind 'ctrl-h:backward-char,ctrl-l:forward-char' \
+--bind 'ctrl-f:half-page-down,ctrl-b:half-page-up' 
+--bind 'ctrl-u:clear-query' \
+--bind 'alt-d:kill-word,ctrl-d:delete-char' \
 --bind 'tab:toggle+down,shift-tab:toggle+up' \
 --bind 'ctrl-a:toggle-all,ctrl-t:toggle' \
 --bind 'ctrl-q:preview-down,ctrl-o:preview-up' \
