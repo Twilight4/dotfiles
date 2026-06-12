@@ -1,74 +1,82 @@
 #!/usr/bin/env zsh
 
-# See /usr/share/doc/zsh/examples/zshrc for examples
+# ─────────────────────────────────────────────
+# HISTORY
+# ─────────────────────────────────────────────
+setopt APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
 
-# History
-setopt APPEND_HISTORY            # Append to history instead of overwriting it
-setopt EXTENDED_HISTORY          # Write the history file in the ':start:elapsed;command' format
-setopt SHARE_HISTORY             # Share history between all sessions
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history
-setopt HIST_IGNORE_ALL_DUPS      # Do not record an event that was just recorded again
-setopt HIST_IGNORE_DUPS          # Do not record an event that was just recorded again
-setopt HIST_FIND_NO_DUPS         # Do not display a previously found event
-setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space
-setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file
-setopt HIST_VERIFY               # Do not execute immediately upon history expansion
-
-# Navigation
-setopt nocaseglob                # Case insensitive globbing
-setopt rcexpandparam             # Array expension with parameters
-setopt nocheckjobs               # Don't warn about running processes when exiting
-setopt numericglobsort           # Sort filenames numerically when it makes sense
-setopt autocd                    # If only directory path is entered, cd there.
+# ─────────────────────────────────────────────
+# NAVIGATION
+# ─────────────────────────────────────────────
+setopt nocaseglob
+setopt rcexpandparam
+setopt nocheckjobs
+setopt numericglobsort
+setopt autocd
 setopt pushdminus
-setopt AUTO_PUSHD                # Push the current directory visited on to the stack
-setopt PUSHD_IGNORE_DUPS         # Do not store duplicate directories in the stack
-setopt PUSHD_SILENT              # Do not print the directory stack after using pushd or popd
-setopt extendedglob              # Extended globbing. Allows using regular expressions with *
-setopt INTERACTIVE_COMMENTS      # Enable comments when running an interactive session
-setopt CORRECT                   # Spelling correction
-setopt nobeep                    # No beep
-setopt magicequalsubst           # Enable filename expansion for arguments of the form ‘anything=expression’
-setopt nonomatch                 # Hide error message if there is no match for the pattern
-setopt notify                    # Report the status of background jobs immediately
-setopt PROMPT_SUBST              # Enable command substitution in prompt
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+setopt extendedglob
+setopt INTERACTIVE_COMMENTS
+setopt CORRECT
+setopt nobeep
+setopt magicequalsubst
+setopt nonomatch
+setopt notify
+setopt PROMPT_SUBST
 
+# ─────────────────────────────────────────────
+# CORE ZSH INIT
+# ─────────────────────────────────────────────
 # Uncomment the following line if pasting URLs and other text is messed up
 DISABLE_MAGIC_FUNCTIONS="true"
 
 # Colors
 autoload -Uz colors && colors
-autoload -Uz compinit
-compinit
 
 # Disable annoying default behaviour of flow control bound to 'C-s' in zsh
 stty -ixon
 
-# If you prefer to use only in session: source <(docker completion zsh)
+# ─────────────────────────────────────────────
+# COMPLETIONS & EXTERNAL TOOL INTEGRATION
+# ─────────────────────────────────────────────
 # Load completions to fzf-menu
 [[ $commands[docker] ]] && source <(docker completion zsh)
 #[[ $commands[kubectl] ]] && source <(kubectl completion zsh)         # already loaded
 #[[ $commands[go-task] ]] && source <(go-task --completion zsh)       # already loaded
-# Source gcloud zsh completion
 [[ -f /opt/google-cloud-cli/path.zsh.inc ]] && source /opt/google-cloud-cli/path.zsh.inc
 [[ -f /opt/google-cloud-cli/completion.zsh.inc ]] && source /opt/google-cloud-cli/completion.zsh.inc
 
-# Profiling
+# ─────────────────────────────────────────────
+# PROFILING
+# ─────────────────────────────────────────────
 zmodload zsh/zprof
 
-# Source plugin manager
+# ─────────────────────────────────────────────
+# PLUGIN MANAGER & LOCAL FILES
+# ─────────────────────────────────────────────
 source "$ZDOTDIR/functions.zsh"
 
-# Source files from main directory
 zsh_add_file "aliases.zsh"
 zsh_add_file "scripts.zsh"
 zsh_add_file "fzf-scripts.zsh"
 zsh_add_file "completion.zsh"
 zsh_add_file "bindings.zsh"
-# Source additional files from plugins directory
 zsh_add_file "emacs-mode"
 
-# Install plugins
+# ─────────────────────────────────────────────
+# PLUGINS
+# ─────────────────────────────────────────────
 zsh_add_plugin "Aloxaf/fzf-tab"
 zsh_add_plugin "Twilight4/nobility"
 zsh_add_plugin "b4b4r07/enhancd"
@@ -76,30 +84,28 @@ zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
 #zsh_add_plugin "mrjohannchang/zsh-interactive-cd"
-zsh_add_plugin "unixorn/prettyping"
-#zsh_add_completion "zsh-users/zsh-completions"           # Had to disable these cuz they broke enhancd
+#zsh_add_completion "zsh-users/zsh-completions"
 
-# Other plugins
 source "$ZDOTDIR/plugins/fg-bg.sh"
 source "$ZDOTDIR/plugins/enhancd/init.sh"
 zle -N fg-bg
 bindkey '^Z' fg-bg
 
-# Useful options
-WORDCHARS=${WORDCHARS//\/}                            # Don't consider certain characters part of the word
-KEYTIMEOUT=1                                          # Fix the fgs\r binding delay on ctrl+shift+[
-PROMPT_EOL_MARK=""                                    # hide EOL sign ('%')
-TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'     # configure `time` format
-VIRTUAL_ENV_DISABLE_PROMPT=1                          # Don't let virtualenvs prepend their own prompt
+# ─────────────────────────────────────────────
+# GENERAL OPTIONS & ENVIRONMENT
+# ─────────────────────────────────────────────
+WORDCHARS=${WORDCHARS//\/}
+KEYTIMEOUT=1
+PROMPT_EOL_MARK=""
+TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S\ncpu\t%P'
+VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Prompt definitions
+# ─────────────────────────────────────────────
+# PROMPT
+# ─────────────────────────────────────────────
 PROMPT_TWOLINE=$'%F{%(#.red.blue)}┌──${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))─}(%B%F{%(#.blue.red)}%n@%m%b%F{%(#.red.blue)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.red.blue)}]\n└─%B%F{red}%(#.#.$)%b%F{reset} '
 PROMPT_ONELINE=$'${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV))}%B%F{%(#.red.blue)}%n@%m%b%F{reset}:%B%F{%(#.blue.green)}%~%b%F{reset}%(#.#.$) '
 
-# Start with two-line prompt
 PROMPT="$PROMPT_TWOLINE"
 PROMPT_STYLE=twoline
 
@@ -116,7 +122,9 @@ toggle_prompt_style() {
 zle -N toggle_prompt_style
 bindkey '^[|' toggle_prompt_style
 
-# Zsh highlight plugin theme
+# ─────────────────────────────────────────────
+# SYNTAX HIGHLIGHTING
+# ─────────────────────────────────────────────
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor pattern)
 ZSH_HIGHLIGHT_STYLES[path]=bold
 ZSH_HIGHLIGHT_STYLES[path_prefix]=fg=white,underline
@@ -158,23 +166,21 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]=fg=yellow,bold
 ZSH_HIGHLIGHT_STYLES[bracket-level-5]=fg=cyan,bold
 ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
 
-# thefuck alias
-eval $(thefuck --alias)
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Enable color support of ls, less and man, and also add handy aliases
+# ─────────────────────────────────────────────
+# COLORS & LS
+# ─────────────────────────────────────────────
 # Don't touch, must be everything in one if statement
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    export LS_COLORS="$LS_COLORS:ow=30;44:" # fix ls color for folders with 777 permissions
+    export LS_COLORS="$LS_COLORS:ow=30;44:"
 
-    # Take advantage of $LS_COLORS for completion as well
     zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
     zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 fi
 
-# Enable substring search
+# ─────────────────────────────────────────────
+# ADDITIONAL PLUGINS (SYSTEM-INSTALLED)
+# ─────────────────────────────────────────────
 if [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ] || [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
     if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
         \. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -183,7 +189,6 @@ if [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substrin
     fi
 fi
 
-# Enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] || [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
         \. /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -192,9 +197,9 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] || [ -f /usr/sh
     fi
 fi
 
-# Enable command-not-found if installed
-# Arch Linux command-not-found support, you must have package pkgfile installed
-# https://wiki.archlinux.org/index.php/Pkgfile#.22Command_not_found.22_hook
+# ─────────────────────────────────────────────
+# COMMAND NOT FOUND HANDLERS
+# ─────────────────────────────────────────────
 if [ -f /etc/zsh_command_not_found ] || [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
   if [ -f /etc/zsh_command_not_found ]; then
     \. /etc/zsh_command_not_found
@@ -203,16 +208,19 @@ if [ -f /etc/zsh_command_not_found ] || [ -f /usr/share/doc/pkgfile/command-not-
   fi
 fi
 
-# Advanced command-not-found hook
 [[ -e /usr/share/doc/find-the-command/ftc.zsh ]] && source /usr/share/doc/find-the-command/ftc.zsh
 
-# Load nobility variables quietly
+# ─────────────────────────────────────────────
+# TOOL INIT (ZOXIDE, FASD, THEFUCK, FZF)
+# ─────────────────────────────────────────────
+eval $(thefuck --alias)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init zsh)"
+eval "$(fasd --init auto)"
+
+# ─────────────────────────────────────────────
+# NOBILITY
+# ─────────────────────────────────────────────
 if [ -d ~/.config/zsh/plugins/nobility ]; then
     nb-vars-load &>/dev/null
 fi
-
-# Zoxide
-eval "$(zoxide init zsh)"
-
-# Fasd
-eval "$(fasd --init auto)"
