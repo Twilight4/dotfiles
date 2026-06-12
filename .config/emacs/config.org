@@ -12,7 +12,6 @@
   - [[#better-defaults][Better defaults]]
   - [[#littering][Littering]]
   - [[#scrolling][Scrolling]]
-  - [[#fonts][Fonts]]
 - [[#ui-configuration][UI Configuration]]
   - [[#color-theme][Color theme]]
   - [[#mode-line][Mode line]]
@@ -841,42 +840,6 @@
               scroll-conservatively 10)
 #+end_src
 
-** Fonts
-
-#+begin_src emacs-lisp
-(set-face-attribute 'default nil
-  :font "MesloLGM Nerd Font"
-  ;;:height 110
-  :height 120
-  :weight 'medium)
-(set-face-attribute 'variable-pitch nil
-  ;;:font "Ubuntu Nerd Font"
-  :font "MesloLGM Nerd Font"
-  ;;:height 120
-  :height 130
-  :weight 'medium)
-(set-face-attribute 'fixed-pitch nil
-  :font "MesloLGM Nerd Font"
-  ;;:height 110
-  :height 120
-  :weight 'medium)
-;; Makes commented text and keywords italics.
-;; This is working in emacsclient but not emacs.
-;; Your font must have an italic face available.
-(set-face-attribute 'font-lock-comment-face nil
-  :slant 'italic)
-(set-face-attribute 'font-lock-keyword-face nil
-  :slant 'italic)
-
-;; This sets the default font on all graphical frames created after restarting Emacs.
-;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
-;; are not right unless I also add this method of setting the default font.
-(add-to-list 'default-frame-alist '(font . "MesloLGM Nerd Font-12"))
-
-;; Uncomment the following line if line spacing needs adjusting.
-(setq-default line-spacing 0.12)
-#+end_src
-
 * UI Configuration
 ** Color theme
 
@@ -945,21 +908,19 @@ Show the indent guides highlight lines for scripts
   :ensure t
   :hook (after-change-major-mode . my/enable-highlight-indent-guides)
   :init
-  (setq highlight-indent-guides-method 'character) ;; 'column, 'bitmap, or 'character
-  (setq highlight-indent-guides-character ?\│)      ;; vertical bar
-  (setq highlight-indent-guides-auto-enabled t)
+  (setq highlight-indent-guides-method 'character
+        highlight-indent-guides-character ?\│
+        ;; auto face calculation fails in terminal - set colors manually
+        highlight-indent-guides-auto-enabled nil)
   :config
-  ;; Function to enable highlight-indent-guides in programming or YAML/text-like modes
   (defun my/enable-highlight-indent-guides ()
-	"Enable `highlight-indent-guides-mode` for prog-mode or yaml-mode and other text-like modes."
-	(when (or (derived-mode-p 'prog-mode)
-			  (derived-mode-p 'yaml-mode))
-	  (highlight-indent-guides-mode 1)))
-
-  ;; Set color dynamically when the mode starts
-  (add-hook 'highlight-indent-guides-mode-hook
-			(lambda ()
-			  (set-face-foreground 'highlight-indent-guides-character-face "#505050"))))
+    "Enable indent guides, but never in org-src fontification buffers."
+    (when (and (not (string-prefix-p " *org-src-fontification"
+                                     (buffer-name)))
+               (or (derived-mode-p 'prog-mode)
+                   (derived-mode-p 'yaml-mode)))
+      (highlight-indent-guides-mode 1)))
+  (set-face-foreground 'highlight-indent-guides-character-face "#505050"))
 #+end_src
 
 ** Toggle mode line
@@ -3102,12 +3063,12 @@ This controls the color of *bold*, /italic/, _underline_, verbatim, +strikethrou
 
 #+begin_src emacs-lisp
 (setq org-emphasis-alist
-'(("*" (bold :slant italic :weight black :foreground "#e6b450" ))
-  ("/" (italic :foreground "dark salmon" ))   ;; Warning: Creates conflicts
-  ("_" (underline :foreground "cyan" ))
-  ("=" (:foreground "PaleGreen1" ))
-  ("~" (:foreground "dim gray" ))   ;; Other colors could be: snow1, PaleGreen1
-  ("+" (:strike-through nil :foreground "slate blue" ))))
+  '(("*" (:inherit bold :slant italic :weight black :foreground "#e6b450"))
+    ("/" (:inherit italic :foreground "#e7e4da"))
+    ("_" (:inherit underline :foreground "#e7e4da"))
+    ("=" (:foreground "PaleGreen1"))
+    ("~" (:foreground "slate blue"))
+    ("+" (:strike-through t :foreground "dim gray"))))
 #+end_src
 
 *** Style formatting automation
@@ -3576,16 +3537,14 @@ If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
         (set-face-attribute (car face) nil
                             :foreground (cdr face)
                             :slant 'italic
-                            :weight 'bold))
-
-  ;; Fixed-pitch settings
-  (dolist (face '(org-block org-table org-formula org-code
-                  org-verbatim org-special-keyword org-meta-line
-                  org-checkbox line-number line-number-current-line))
-    (set-face-attribute face nil :inherit '(fixed-pitch))))
+                            :weight 'bold)))
 
 ;; Call org-font-setup when entering org-mode
 (add-hook 'org-mode-hook #'tl/org-font-setup)
+
+;; Italics for comments
+(set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+(set-face-attribute 'font-lock-keyword-face nil :slant 'italic)
 
 ;; Make quote blocks italic style format
 (setq org-fontify-quote-and-verse-blocks t)
