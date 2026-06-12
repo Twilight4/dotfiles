@@ -251,8 +251,8 @@
 ;(global-set-key (kbd "C-q") 'yaml-indent-line)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
-(global-set-key (kbd "C-h") 'backward-char)
-(global-set-key (kbd "C-l") 'forward-char)
+(global-set-key (kbd "C-h") 'tl/backward-char-skip-invisible)
+(global-set-key (kbd "C-l") 'tl/forward-char-skip-invisible)
 (global-set-key (kbd "C-o") 'org-kill-line)
 (global-set-key (kbd "C-t") 'treemacs-add-and-display-current-project-exclusively)
 (global-set-key (kbd "C-q") 'delete-frame)
@@ -1175,20 +1175,21 @@ It takes user input for the new name using the interactive keyword, checks if th
 
 ** Skip over invisible text in links
 #+begin_src emacs-lisp
-(setq line-move-ignore-invisible t)
-
-(defun tl/skip-invisible-forward (&rest _)
+(defun tl/forward-char-skip-invisible ()
+  "Forward char, skipping over invisible text."
+  (interactive)
+  (forward-char)
   (while (and (not (eobp))
               (get-char-property (point) 'invisible))
     (goto-char (next-single-char-property-change (point) 'invisible))))
 
-(defun tl/skip-invisible-backward (&rest _)
+(defun tl/backward-char-skip-invisible ()
+  "Backward char, skipping over invisible text."
+  (interactive)
+  (backward-char)
   (while (and (not (bobp))
               (get-char-property (1- (point)) 'invisible))
     (goto-char (previous-single-char-property-change (point) 'invisible))))
-
-(advice-add 'forward-char  :after #'tl/skip-invisible-forward)
-(advice-add 'backward-char :after #'tl/skip-invisible-backward)
 #+end_src
 
 ** Nicer org-return
@@ -2744,10 +2745,10 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "<") #'beginning-of-buffer)
   (define-key god-local-mode-map (kbd ">") #'end-of-buffer)
   ;; Ctrl+h/j/k/l/f/b/a/e
-  (define-key god-local-mode-map (kbd "h") #'backward-char)
+  (define-key god-local-mode-map (kbd "h") #'tl/backward-char-skip-invisible)
+  (define-key god-local-mode-map (kbd "l") #'tl/forward-char-skip-invisible)
   (define-key god-local-mode-map (kbd "j") #'next-line)
   (define-key god-local-mode-map (kbd "k") #'previous-line)
-  (define-key god-local-mode-map (kbd "l") #'forward-char)
   (define-key god-local-mode-map (kbd "f") #'forward-word)
   (define-key god-local-mode-map (kbd "b") #'backward-word)
   (define-key god-local-mode-map (kbd "a") #'tl/smart-move-beginning-of-line)
