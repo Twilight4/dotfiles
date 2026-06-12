@@ -34,15 +34,14 @@ setopt magicequalsubst
 setopt nonomatch
 setopt notify
 setopt PROMPT_SUBST
-
 # ─────────────────────────────────────────────
 # CORE ZSH INIT
 # ─────────────────────────────────────────────
-# Uncomment the following line if pasting URLs and other text is messed up
-DISABLE_MAGIC_FUNCTIONS="true"
-
-# Colors
+# Load Colors and compinit
 autoload -Uz colors && colors
+fpath=($XDG_CONFIG_HOME/zsh/plugins/zsh-completions/src $fpath)
+zmodload zsh/complist
+autoload -Uz compinit; compinit -C
 
 # Disable annoying default behaviour of flow control bound to 'C-s' in zsh
 stty -ixon
@@ -78,7 +77,7 @@ zsh_add_file "emacs-mode"
 # PLUGINS
 # ─────────────────────────────────────────────
 zsh_add_plugin "Aloxaf/fzf-tab"
-zsh_add_plugin "Twilight4/nobility"
+#zsh_add_plugin "Twilight4/nobility"
 zsh_add_plugin "b4b4r07/enhancd"
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
@@ -94,6 +93,8 @@ bindkey '^Z' fg-bg
 # ─────────────────────────────────────────────
 # GENERAL OPTIONS & ENVIRONMENT
 # ─────────────────────────────────────────────
+# Uncomment the following line if pasting URLs and other text is messed up
+DISABLE_MAGIC_FUNCTIONS="true"
 WORDCHARS=${WORDCHARS//\/}
 KEYTIMEOUT=1
 PROMPT_EOL_MARK=""
@@ -121,6 +122,45 @@ toggle_prompt_style() {
 }
 zle -N toggle_prompt_style
 bindkey '^[|' toggle_prompt_style
+
+# ─────────────────────────────────────────────
+# COLORS & LS
+# ─────────────────────────────────────────────
+# Don't touch, must be everything in one if statement
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    export LS_COLORS="$LS_COLORS:ow=30;44:"
+
+    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+    zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+fi
+
+# ─────────────────────────────────────────────
+# ADDITIONAL PLUGINS (SYSTEM-INSTALLED)
+# ─────────────────────────────────────────────
+if [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ] || [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
+    if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+        \. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+    else
+        \. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+    fi
+fi
+
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] || [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+        \. /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    else
+        \. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    fi
+fi
+
+if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] || [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+        \. /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    else
+        \. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    fi
+fi
 
 # ─────────────────────────────────────────────
 # SYNTAX HIGHLIGHTING
@@ -167,37 +207,6 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-5]=fg=cyan,bold
 ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]=standout
 
 # ─────────────────────────────────────────────
-# COLORS & LS
-# ─────────────────────────────────────────────
-# Don't touch, must be everything in one if statement
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    export LS_COLORS="$LS_COLORS:ow=30;44:"
-
-    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-    zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-fi
-
-# ─────────────────────────────────────────────
-# ADDITIONAL PLUGINS (SYSTEM-INSTALLED)
-# ─────────────────────────────────────────────
-if [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ] || [ -f /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]; then
-    if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-        \. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-    else
-        \. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
-    fi
-fi
-
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] || [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-        \. /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    else
-        \. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-    fi
-fi
-
-# ─────────────────────────────────────────────
 # COMMAND NOT FOUND HANDLERS
 # ─────────────────────────────────────────────
 if [ -f /etc/zsh_command_not_found ] || [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
@@ -213,14 +222,31 @@ fi
 # ─────────────────────────────────────────────
 # TOOL INIT (ZOXIDE, FASD, THEFUCK, FZF)
 # ─────────────────────────────────────────────
-eval $(thefuck --alias)
+# Cache thefuck init
+#eval $(thefuck --alias)
+thefuck_cache="$HOME/.thefuck-init-zsh"
+if [[ "$(command -v thefuck)" -nt "$thefuck_cache" || ! -s "$thefuck_cache" ]]; then
+    thefuck --alias >| "$thefuck_cache"
+fi
+source "$thefuck_cache"
+
+# Cache fasd init
+#eval "$(fasd --init auto)"
+fasd_cache="$HOME/.fasd-init-zsh"
+if [[ "$(command -v fasd)" -nt "$fasd_cache" || ! -s "$fasd_cache" ]]; then
+    fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+
+# Fzf and zoxide
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(zoxide init zsh)"
-eval "$(fasd --init auto)"
+
 
 # ─────────────────────────────────────────────
 # NOBILITY
 # ─────────────────────────────────────────────
-if [ -d ~/.config/zsh/plugins/nobility ]; then
-    nb-vars-load &>/dev/null
-fi
+#if [ -d ~/.config/zsh/plugins/nobility ]; then
+#    nb-vars-load &>/dev/null
+#fi
+
