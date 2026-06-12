@@ -194,7 +194,7 @@ frec() {
   local file=$(fasd -Rlf | fzf --reverse --preview '\bat --style=snip --color=always --line-range :500 {}')
 
   # If a file is selected, convert it back to the full path and open it in Neovim
-  [[ -n "$file" ]] && nvim "${file/#~/$HOME}"
+  [[ -n "$file" ]] && eval "$EDITOR" "${file/#~/$HOME}"
 }
 
 # list recently visited directories using fasd and pipe to fzf for selection
