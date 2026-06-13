@@ -159,6 +159,7 @@
 
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "C-q") nil)
+(define-key global-map (kbd "M-q") nil)
 (define-key global-map (kbd "M-r") nil)
 (define-key global-map (kbd "M-,") nil)
 (define-key global-map (kbd "M-z") nil)
