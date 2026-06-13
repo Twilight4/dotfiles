@@ -25,9 +25,12 @@ bindkey '^O' kill-line
 bindkey '^[d' kill-word
 bindkey '^G' clear-screen
 bindkey '^W' backward-kill-word
+bindkey '^P' history-beginning-search-backward
+bindkey '^N' history-beginning-search-forward
 
 # Full keyboard keys
 bindkey '^?' backward-delete-char
+bindkey '^[[Z' autosuggest-clear             # shift+tab
 bindkey '^[[1~' beginning-of-line
 bindkey '^[[4~' end-of-line
 bindkey '^[[1;5C' forward-word
@@ -37,7 +40,6 @@ bindkey '^[[B' down-line-or-history
 #bindkey '^[[A' up-line-or-beginning-search
 #bindkey '^[[B' down-line-or-beginning-search
 bindkey '^[[3~' delete-char
-bindkey '^[[Z' reverse-menu-complete
 
 # Other useful bindings
 bindkey "^['" quote-region
@@ -54,9 +56,6 @@ bindkey "^[/" which-command
 bindkey "^[^F" vi-find-next-char
 bindkey "^[^B" vi-find-prev-char
 bindkey "^[^M" accept-and-hold
-# Ctrl+key
-bindkey '^J' history-search-forward
-bindkey '^K' history-search-backward
 
 
 ######################
@@ -121,8 +120,8 @@ bindkey -M emacs -s '^[r' 'frgoe'
 # Git
 bindkey -M emacs -s '^[]' 'fgcom\r'
 bindkey -M emacs -s '^[[' 'fgs\r'
-bindkey -M emacs -s '^[{' 'fgl\r'
-bindkey -M emacs -s '^[}' 'fgb\r'
+bindkey -M emacs -s '^[}' 'fgl\r'
+bindkey -M emacs -s '^[{' 'fgb\r'
 
 
 ########################
