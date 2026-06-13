@@ -14,7 +14,7 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title new-org sh -c 'zsh -c "emacsclient -nw --eval \"(tl/consult-new-org)\" ; exec zsh"'
+launch --title scratchpad sh -c 'zsh -c "emacsclient -nw -e \"(tl/switch-to-or-create-org-buffer)\" ; exec zsh"'
 
 # Create a new tab
 new_tab calendar
