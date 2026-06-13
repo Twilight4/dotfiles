@@ -1,0 +1,44 @@
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title btop sh -c 'btop'
+# Focus the current tab
+focus
+
+# Create a new tab
+new_tab htop
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title htop sh -c 'htop'
+
+# Create a new tab
+new_tab nvtop
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title nvtop sh -c 'nvtop'
+
+# Create a new tab
+new_tab wavemon
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title wavemon sh -c 'wavemon'
+
+# Create a new tab
+new_tab pfetch
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title pfetch sh -c 'echo ; pfetch ; exec zsh'

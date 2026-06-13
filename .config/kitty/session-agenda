@@ -1,0 +1,35 @@
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title agenda sh -c 'zsh -c "emacsclient -nw --eval \"(tl/org-agenda-o)\" ; exec zsh"'
+# Focus the current tab
+focus
+
+# Create a new tab
+new_tab new-org
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title new-org sh -c 'zsh -c "emacsclient -nw --eval \"(tl/consult-new-org)\" ; exec zsh"'
+
+# Create a new tab
+new_tab calendar
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title calendar sh -c 'zsh -c "emacsclient -nw -e \"(progn (org-goto-calendar) (delete-other-windows))\"; exec zsh"'
+
+# Create a new tab
+new_tab journal
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title journal sh -c 'zsh -c "emacsclient -nw --eval \"(org-roam-dailies-goto-today)\"; exec zsh"'
