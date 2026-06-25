@@ -76,7 +76,7 @@
 | C-/        | Toggle preview                |
 | C-j/C-k    | Down/up line                  |
 | C-q/C-o    | Preview down/up line          |
-| C-d/C-u    | Half page up/down             |
+| C-f/C-b  | Half page up/down             |
 | M-d/M-u    | Preview half page up/down     |
 | TAB        | Multi-select                  |
 | S-TAB      | Clear selection               |
