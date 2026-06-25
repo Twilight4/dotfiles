@@ -20,6 +20,7 @@
 - [[#mpv][Mpv]]
   - [[#navigation-3][Navigation]]
   - [[#mpv-plugins][Mpv plugins]]
+- [[#zathura][Zathura]]
 - [[#zen-browser][Zen Browser]]
   - [[#navigation-4][Navigation]]
   - [[#zen-browser-specific][Zen browser specific]]
@@ -286,6 +287,26 @@
 | F          | Video formats                              |
 | M-f        | Audio formats                              |
 | C-r        | Reload video                               |
+
+* Zathura
+| Keybinding    | Description                   |
+|---------------+-------------------------------|
+| F             | display link                  |
+| c             | copy link                     |
+| a/s           | best fit/width mode           |
+| H/L           | top/bottom of page            |
+| u/d           | scroll half page up/down      |
+| J/K/SPC/S-SPC | scroll page up/down           |
+| gg/G/nG       | go to page                    |
+| P             | snaps to current page         |
+| o/i           | backward/forward in jump list |
+| o-TAB         | open document                 |
+| D             | column/dual page              |
+| C-n           | toggle statusbar              |
+| +/-/=         | zoom im/out                   |
+| i             | recolor                       |
+| D             | toggle page mode              |
+| r             | reload                        |
 
 * Zen Browser
 ** Navigation
