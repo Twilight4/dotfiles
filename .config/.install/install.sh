@@ -33,7 +33,6 @@ source ~/dotfiles/.config/.install/wallpaper.sh
 source ~/dotfiles/.config/.install/display-manager.sh
 source ~/dotfiles/.config/.install/install-fonts.sh
 source ~/dotfiles/.config/.install/install-dotfiles.sh
-source ~/dotfiles/.config/.install/remove-buttons.sh
 source ~/dotfiles/.config/.install/zsh.sh
 source ~/dotfiles/.config/.install/nvchad.sh
 source ~/dotfiles/.config/.install/fzf.sh
