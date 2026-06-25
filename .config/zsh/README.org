@@ -25,6 +25,7 @@
   - [[#zen-browser-specific][Zen browser specific]]
   - [[#toggle-panels][Toggle panels]]
   - [[#search][Search]]
+  - [[#extensions][Extensions]]
 - [[#emacs][Emacs]]
 
 * Zsh
@@ -354,5 +355,11 @@
 | C-f        | Find on Page                 |
 | C-g        | Find Again                   |
 | C-S-g      | Find Previous                |
+
+** Extensions
+| Proton Pass | Description                         |
+|-------------+-------------------------------------|
+| C-S-l       | Open Proton Pass in a larger window |
+| C-S-y       | Open the Proton Pass popup          |
 
 * [[https://github.com/Twilight4/dotfiles/blob/main/.config/emacs/emacs-cheatsheet.org][Emacs]]

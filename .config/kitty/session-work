@@ -10,7 +10,7 @@ launch --title cli
 launch --title help-page zsh
 
 # Create a new tab
-new_tab project
+new_tab workspace
 # Create a window
 cd ~/desktop/workspace
 # Launch yazi in that directory
