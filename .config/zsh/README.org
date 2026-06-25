@@ -291,6 +291,7 @@
 * Zathura
 | Keybinding    | Description                   |
 |---------------+-------------------------------|
+| f             | follow link                   |
 | F             | display link                  |
 | c             | copy link                     |
 | a/s           | best fit/width mode           |
