@@ -26,7 +26,7 @@ cache_dir       = ""
 image_delay     = 30
 image_filter    = "triangle"
 image_quality   = 75
-#sixel_fraction  = 15
+#pixel_fraction  = 15
 ueberzug_scale  = 1
 ueberzug_offset = [ 0, 0, 0, 0 ]
 
@@ -38,7 +38,7 @@ editnvim = [
 	{ run = "nvim $s", desc = "nvim", block = true, for = "unix" },
 ]
 openpdf = [
-	{ run = "zathura $s", desc = "zathura", block = true, for = "unix" },
+    { run = "zathura \"$1\"", desc = "zathura", for = "unix" },
 ]
 xdgopen = [
 	{ run = 'xdg-open %s1', desc = "xdg-open", for = "unix" },
