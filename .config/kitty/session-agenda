@@ -3,12 +3,12 @@ layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title agenda sh -c 'zsh -c "emacsclient -nw --eval \"(tl/org-agenda-o)\" ; exec zsh"'
+launch --title agenda sh -c 'zsh -c "emacsclient -nw --eval \"(progn (tl/org-agenda-o) (tl/split-window-right))\" ; exec zsh"'
 # Focus the current tab
 focus
 
 # Create a new tab
-new_tab new-org
+new_tab scratchpad
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
@@ -33,3 +33,12 @@ layout tall
 cd ~/
 # Create a window (title sets the tab title)
 launch --title journal sh -c 'zsh -c "emacsclient -nw --eval \"(org-roam-dailies-goto-today)\"; exec zsh"'
+
+# Create a new tab
+new_tab emacs-cheatsheet
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title emacs-cheatsheet sh -c 'zsh -c "emacsclient -nw --eval \"(find-file \\\"~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org\\\")\"; exec zsh"'
