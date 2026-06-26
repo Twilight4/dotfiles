@@ -3983,26 +3983,36 @@ Automatically move completed tasks to dailies - one interesting use for daily fi
 The following snippet sets up a hook for all Org task state changes and then moves the completed (FINISHED or CANC) entry to today’s note file.
 
 #+begin_src emacs-lisp
-;; Org-roam dailies capture templates
+; Org-roam dailies capture templates
 (setq org-roam-dailies-capture-templates
-      '(("d" "default" entry "* %<%I:%M %p>: %?"
-         :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+      '(("d" "default" entry
+         "** %<%I:%M %p>: %?"
+         :target (file+head+olp "%<%Y-%m-%d>.org"
+                                "#+title: %<%Y-%m-%d>\n\n* Journal Questions\n** Work / DevOps\n*** What did I actually build, fix, or learn today?\n*** Did I get stuck on anything? What did I try, and what's still unresolved?\n*** Did I understand *why* something works, or just *that* it works?\n*** What concept or tool feels fuzzy and needs more deliberate practice?\n\n** Career / Growth\n*** Am I moving toward getting hired, or just staying comfortable?\n*** What's one thing I could add to my GitHub or portfolio today?\n\n** Social / Relationships\n*** Did I reach out to anyone, or did I let isolation creep in?\n*** Was there a conversation that left me energized or drained — why?\n\n** Mind / Energy\n*** What drained me today, and what gave me energy?\n*** Did brain fog hit? Can I trace it to something (sleep, food, timing)?\n\n** Meta\n*** What's one thing I'd do differently if I repeated today?\n*** Am I being honest with myself about my progress?\n\n\n* Entries\n"
+                                ("Entries")))))
 
 (defun tl/org-roam-copy-finished-to-today ()
   (interactive)
-  (let ((org-refile-keep t) ;; Set this to nil to delete the original!
+  (let ((org-refile-keep t)
         (org-roam-dailies-capture-templates
           '(("t" "tasks" entry "%?"
-             :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+             :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
         (org-after-refile-insert-hook #'save-buffer)
+        (org-reverse-note-order t)
         today-file
         pos)
     (save-window-excursion
       (org-roam-dailies--capture (current-time) t)
       (setq today-file (buffer-file-name))
-      (setq pos (point)))
+      (with-current-buffer (find-file-noselect today-file)
+        (goto-char (point-min))
+        (or (re-search-forward "^\\* Tasks" nil t)
+            (progn
+              (goto-char (point-min))
+              (end-of-line)
+              (insert "\n\n* Tasks")))
+        (setq pos (point))))
 
-    ;; Only refile if the target file is different than the current file
     (unless (equal (file-truename today-file)
                    (file-truename (buffer-file-name)))
       (org-refile nil nil (list "Tasks" today-file nil pos)))))
