@@ -26,6 +26,7 @@ The world's greatest programmer once said:
   - [[#org-mode][Org-mode]]
   - [[#org-roam][Org-roam]]
   - [[#org-roam-dailies][Org-roam dailies]]
+  - [[#org-clock][Org-clock]]
 - [[#c-v-leader-key][C-v Leader Key]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#expand-region][Expand-region]]
@@ -204,6 +205,17 @@ The world's greatest programmer once said:
 | p          | Go to previous note                |
 | n          | Go to next note                    |
 
+** Org-clock
+| Keybinding | Description                      |
+|------------+----------------------------------|
+| C-x C-d    | Org clock display                |
+| C-x C-j    | Org clock goto                   |
+| C-x C-e    | Org clock modify effort estimate |
+| C-x C-q    | Org clock cancel                 |
+| C-x C-o    | Org clock out                    |
+| C-x C-x    | Org clock in last                |
+| C-x C-i    | Org clock in                     |
+
 * C-v Leader Key
 ** Symbol-overlay
 
@@ -296,6 +308,7 @@ The world's greatest programmer once said:
 | .               | Go to today's date                                                 |
 | ,               | Go to date                                                         |
 | c               | Go to calendar                                                     |
+| C               | org roam capture                                                   |
 | ;               | Recenter                                                           |
 | TAB             | Go to entry at point                                               |
 | r               | Beginning of buffer                                                |
@@ -304,7 +317,6 @@ The world's greatest programmer once said:
 | d               | Make it easy to mark a task ad doing                               |
 | x               | Make it easy to mark a task as done                                |
 | X               | Make it easy to mark a task as cancelled                           |
-| C               | org roam capture                                                   |
 | o               | Delete other windows                                               |
 | S               | Agenda Schedule                                                    |
 | D               | Agenda deadline                                                    |
