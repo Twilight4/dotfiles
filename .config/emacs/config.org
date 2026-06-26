@@ -4069,8 +4069,8 @@ The following snippet sets up a hook for all Org task state changes and then mov
    ("C-x c" . org-gtd-organize)))
 
 (setq org-gtd-keyword-mapping
-      '((todo . "TODO")
-        (next . "NEXT")
+      '((todo . "NEXT")
+        (next . "TODO")
         (done . "DONE")
         (canceled . "CNCL")))
 #+end_src
