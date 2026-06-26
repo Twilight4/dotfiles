@@ -256,7 +256,8 @@
 (global-set-key (kbd "C-h") 'tl/backward-char-skip-invisible)
 (global-set-key (kbd "C-l") 'tl/forward-char-skip-invisible)
 (global-set-key (kbd "C-o") 'org-kill-line)
-(global-set-key (kbd "C-t") 'treemacs-add-and-display-current-project-exclusively)
+;(global-set-key (kbd "C-t") 'treemacs-add-and-display-current-project-exclusively)
+(global-set-key (kbd "C-t") 'treemacs)
 (global-set-key (kbd "C-q") 'delete-frame)
 (global-set-key (kbd "M-q") (lambda () (interactive) (save-buffer) (delete-frame)))
 (global-set-key (kbd "C-r") 'undo-tree-undo)
@@ -2407,14 +2408,15 @@ This is useful when followed by an immediate kill."
 
   ;; General Keybinds
   (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
-  (define-key treemacs-mode-map (kbd "j") 'treemacs-next-line)
-  (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
+  (define-key treemacs-mode-map (kbd "n") 'treemacs-next-line)
+  ;(define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
   (define-key treemacs-mode-map (kbd "h") 'treemacs-root-up)
   (define-key treemacs-mode-map (kbd "l") 'treemacs-root-down)
-  (define-key treemacs-mode-map (kbd "u") 'treemacs-goto-parent-node)
-  ;(define-key treemacs-mode-map (kbd "H") 'treemacs-collapse-parent-node)
-  ;; (define-key treemacs-mode-map (kbd "M-j") 'treemacs-next-neighbour)
-  ;; (define-key treemacs-mode-map (kbd "M-k") 'treemacs-previous-neighbour)
+  (define-key treemacs-mode-map (kbd "u") 'treemacs-collapse-parent-node)
+  (define-key treemacs-mode-map (kbd ".") 'treemacs-toggle-show-dotfiles)
+  (define-key treemacs-mode-map (kbd "H") 'treemacs-goto-parent-node)
+  (define-key treemacs-mode-map (kbd "j") 'treemacs-next-neighbour)
+  (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-neighbour)
   (define-key treemacs-mode-map (kbd "/") 'isearch-forward)
   (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
   (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
@@ -2438,6 +2440,7 @@ This is useful when followed by an immediate kill."
   ;; (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
   (define-key treemacs-mode-map (kbd "s") 'treemacs-resort)
   (define-key treemacs-mode-map (kbd "b") 'treemacs-add-bookmark)
+  (define-key treemacs-mode-map (kbd "B") 'treemacs-bookmark)
   (define-key treemacs-mode-map (kbd "\\!") 'treemacs-run-shell-command-for-current-node)
   (define-key treemacs-mode-map (kbd "M-!") 'treemacs-run-shell-command-in-project-root)
   (define-key treemacs-mode-map (kbd "C") 'treemacs-cleanup-litter)
@@ -2457,6 +2460,86 @@ This is useful when followed by an immediate kill."
   ;(define-key treemacs-mode-map (kbd "ta") 'treemacs-filewatch-mode)
   ;(define-key treemacs-mode-map (kbd "tv") 'treemacs-fringe-indicator-mode)
   ;(define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
+
+;; Adding treemacs tui icons
+(with-eval-after-load 'treemacs
+  (setq treemacs-icon-fallback-text (propertize "󰈔 " 'face '(:foreground "#aaaaaa")))
+
+  (treemacs-modify-theme "Default"
+    :config
+    (progn
+      ;; directories
+      (treemacs-create-icon :icon (propertize "󰝰 " 'face '(:foreground "#5599ff")) :fallback (propertize "󰝰 " 'face '(:foreground "#5599ff")) :extensions (dir-open))
+      (treemacs-create-icon :icon (propertize "󰉋 " 'face '(:foreground "#5599ff")) :fallback (propertize "󰉋 " 'face '(:foreground "#5599ff")) :extensions (dir-closed))
+      ;; root
+      (treemacs-create-icon :icon (propertize "󱉭 " 'face '(:foreground "#ff9944")) :fallback (propertize "󱉭 " 'face '(:foreground "#ff9944")) :extensions (root-open))
+      (treemacs-create-icon :icon (propertize "󱉭 " 'face '(:foreground "#ff9944")) :fallback (propertize "󱉭 " 'face '(:foreground "#ff9944")) :extensions (root-closed))
+      ;; fallback
+      (treemacs-create-icon :icon (propertize "󰈔 " 'face '(:foreground "#aaaaaa")) :fallback (propertize "󰈔 " 'face '(:foreground "#aaaaaa")) :extensions (fallback))
+
+      ;; shell / scripts
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#89e051")) :fallback (propertize " " 'face '(:foreground "#89e051")) :extensions ("sh" "bash" "zsh" "fish" "bashrc" "zshrc" "zshenv" "zprofile" ".bashrc" ".zshrc" ".zshenv"))
+      ;; images
+      (treemacs-create-icon :icon (propertize "󰈟 " 'face '(:foreground "#a8d8ea")) :fallback (propertize "󰈟 " 'face '(:foreground "#a8d8ea")) :extensions ("png" "jpg" "jpeg" "gif" "bmp" "svg" "webp" "ico" "tiff"))
+      ;; video
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#fd971f")) :fallback (propertize " " 'face '(:foreground "#fd971f")) :extensions ("mp4" "mkv" "avi" "mov" "webm" "flv" "wmv"))
+      ;; audio
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#bc5fd3")) :fallback (propertize " " 'face '(:foreground "#bc5fd3")) :extensions ("mp3" "wav" "ogg" "flac" "aac" "m4a"))
+      ;; archives
+      (treemacs-create-icon :icon (propertize "󰛫 " 'face '(:foreground "#e8b86d")) :fallback (propertize "󰛫 " 'face '(:foreground "#e8b86d")) :extensions ("zip" "tar" "gz" "bz2" "xz" "7z" "rar" "zst"))
+      ;; pdf / docs
+      (treemacs-create-icon :icon (propertize "󰈦 " 'face '(:foreground "#ff5555")) :fallback (propertize "󰈦 " 'face '(:foreground "#ff5555")) :extensions ("pdf"))
+      (treemacs-create-icon :icon (propertize "󰈬 " 'face '(:foreground "#6699ff")) :fallback (propertize "󰈬 " 'face '(:foreground "#6699ff")) :extensions ("doc" "docx" "odt"))
+      (treemacs-create-icon :icon (propertize "󰈛 " 'face '(:foreground "#27ae60")) :fallback (propertize "󰈛 " 'face '(:foreground "#27ae60")) :extensions ("xls" "xlsx" "ods" "csv"))
+      ;; markdown / text / org
+      (treemacs-create-icon :icon (propertize "󰍔 " 'face '(:foreground "#ededed")) :fallback (propertize "󰍔 " 'face '(:foreground "#ededed")) :extensions ("md"))
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#77aa99")) :fallback (propertize " " 'face '(:foreground "#77aa99")) :extensions ("org"))
+      (treemacs-create-icon :icon (propertize "󰈙 " 'face '(:foreground "#ededed")) :fallback (propertize "󰈙 " 'face '(:foreground "#ededed")) :extensions ("txt"))
+      ;; web
+      (treemacs-create-icon :icon (propertize "󰌝 " 'face '(:foreground "#e44d26")) :fallback (propertize "󰌝 " 'face '(:foreground "#e44d26")) :extensions ("html" "htm"))
+      (treemacs-create-icon :icon (propertize "󰌜 " 'face '(:foreground "#264de4")) :fallback (propertize "󰌜 " 'face '(:foreground "#264de4")) :extensions ("css" "scss" "sass" "less"))
+      ;; js / ts
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#cbcb41")) :fallback (propertize " " 'face '(:foreground "#cbcb41")) :extensions ("js" "mjs" "cjs"))
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#519aba")) :fallback (propertize " " 'face '(:foreground "#519aba")) :extensions ("ts" "tsx"))
+      (treemacs-create-icon :icon (propertize "󰜈 " 'face '(:foreground "#61dafb")) :fallback (propertize "󰜈 " 'face '(:foreground "#61dafb")) :extensions ("jsx"))
+      ;; python
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#ffbc03")) :fallback (propertize " " 'face '(:foreground "#ffbc03")) :extensions ("py" "pyc" "pyd" "pyi"))
+      ;; rust
+      (treemacs-create-icon :icon (propertize "󱘗 " 'face '(:foreground "#dea584")) :fallback (propertize "󱘗 " 'face '(:foreground "#dea584")) :extensions ("rs"))
+	  ;; php
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#a074c4")) :fallback (propertize " " 'face '(:foreground "#a074c4")) :extensions ("php"))
+      ;; go
+      (treemacs-create-icon :icon (propertize "󰟓 " 'face '(:foreground "#00add8")) :fallback (propertize "󰟓 " 'face '(:foreground "#00add8")) :extensions ("go"))
+      ;; c / c++
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#5c9bd6")) :fallback (propertize " " 'face '(:foreground "#5c9bd6")) :extensions ("c" "h"))
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#519aba")) :fallback (propertize " " 'face '(:foreground "#519aba")) :extensions ("cpp" "cc" "cxx" "hpp"))
+      ;; java
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#b07219")) :fallback (propertize " " 'face '(:foreground "#b07219")) :extensions ("java" "jar" "class"))
+      ;; lua
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#51a0cf")) :fallback (propertize " " 'face '(:foreground "#51a0cf")) :extensions ("lua"))
+      ;; config / data
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#6d8086")) :fallback (propertize " " 'face '(:foreground "#6d8086")) :extensions ("json" "jsonc"))
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#6d8086")) :fallback (propertize " " 'face '(:foreground "#6d8086")) :extensions ("db"))
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#aaaaaa")) :fallback (propertize " " 'face '(:foreground "#aaaaaa")) :extensions ("yaml" "yml"))
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#9c4221")) :fallback (propertize " " 'face '(:foreground "#9c4221")) :extensions ("toml"))
+      (treemacs-create-icon :icon (propertize "󰗀 " 'face '(:foreground "#fd971f")) :fallback (propertize "󰗀 " 'face '(:foreground "#fd971f")) :extensions ("xml"))
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#aaaaaa")) :fallback (propertize " " 'face '(:foreground "#aaaaaa")) :extensions ("ini" "cfg" "conf" "config"))
+      ;; git
+      (treemacs-create-icon :icon (propertize "󰊢 " 'face '(:foreground "#f54d27")) :fallback (propertize "󰊢 " 'face '(:foreground "#f54d27")) :extensions ("gitignore" "gitconfig" "gitmodules" "gitattributes"))
+      ;; docker
+      (treemacs-create-icon :icon (propertize "󰡨 " 'face '(:foreground "#2496ed")) :fallback (propertize "󰡨 " 'face '(:foreground "#2496ed")) :extensions ("Dockerfile" "dockerignore" "docker-compose.yml" "docker-compose.yaml"))
+      ;; makefile
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#6d8086")) :fallback (propertize " " 'face '(:foreground "#6d8086")) :extensions ("Makefile" "makefile" "mk"))
+	  ;; elisp
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#8172be")) :fallback (propertize " " 'face '(:foreground "#8172be")) :extensions ("el" "elc"))
+	  ;; log
+      (treemacs-create-icon :icon (propertize "󰌱 " 'face '(:foreground "#aaaaaa")) :fallback (propertize "󰌱 " 'face '(:foreground "#aaaaaa")) :extensions ("log"))
+	  ;; ttf
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#aaaaaa")) :fallback (propertize " " 'face '(:foreground "#aaaaaa")) :extensions ("ttf"))
+	  ;; pem / certs
+      (treemacs-create-icon :icon (propertize "󰌋 " 'face '(:foreground "#cbcb41")) :fallback (propertize "󰌋 " 'face '(:foreground "#cbcb41")) :extensions ("pem" "crt" "cer" "key" "pub"))
+      ;; license
+      (treemacs-create-icon :icon (propertize "󰿃 " 'face '(:foreground "#cbcb41")) :fallback (propertize "󰿃 " 'face '(:foreground "#cbcb41")) :extensions ("LICENSE" "LICENCE")))))
 
 ;(use-package treemacs-projectile
 ;  :after (treemacs projectile)
@@ -2843,7 +2926,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "r") #'undo-tree-undo)
   (define-key god-local-mode-map (kbd "C-S-r") #'undo-tree-redo)
   (define-key god-local-mode-map (kbd "?") #'diff-buffer-with-file)
-  (define-key god-local-mode-map (kbd "t") #'treemacs-add-and-display-current-project-exclusively)
+  ;(define-key god-local-mode-map (kbd "t") #'treemacs-add-and-display-current-project-exclusively)
+  (define-key god-local-mode-map (kbd "t") #'treemacs)
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
