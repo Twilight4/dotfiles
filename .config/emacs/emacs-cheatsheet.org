@@ -487,15 +487,15 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | k          | treemacs-previous-line                      |
 | h          | treemacs-root-up                            |
 | l          | treemacs-root-down                          |
-| u          | treemacs-goto-parent-node                   |
-| H          | treemacs-collapse-parent-node               |
+| H          | treemacs-goto-parent-node                   |
+| u          | treemacs-collapse-parent-node               |
+| .          | treemacs-toggle-show-dotfiles               |
 | M-j        | treemacs-next-neighbour                     |
 | M-k        | treemacs-previous-neighbour                 |
 | M-p        | treemacs-move-project-up                    |
 | M-n        | treemacs-move-project-down                  |
 | RET        | treemacs-RET-action                         |
 | TAB        | treemacs-TAB-action                         |
-| w          | treemacs-set-width                          |
 | =          | treemacs-fit-window-width                   |
 | W          | treemacs-extra-wide-toggle                  |
 | <          | treemacs-decrement-width                    |
@@ -512,6 +512,7 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | m          | treemacs-move-file                          |
 | s          | treemacs-resort                             |
 | b          | treemacs-add-bookmark                       |
+| B          | treemacs-bookmark                           |
 | \!         | treemacs-run-shell-command-for-current-node |
 | M-\!       | treemacs-run-shell-command-in-project-root  |
 | C          | treemacs-cleanup-litter                     |
