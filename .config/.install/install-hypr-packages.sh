@@ -256,6 +256,7 @@ packages=(
   "cheat"
   "xdg-ninja-git"
   "dragon-drop"
+  "zenity"
   "noise-suppression-for-voice-git"
 )
 
@@ -284,7 +285,6 @@ extra=(
   "aws-cli"
   "eksctl"
   "taskell"
-  "zenity"
   "progress"
   "tokei"
   "procs"
