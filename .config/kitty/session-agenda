@@ -8,13 +8,22 @@ launch --title agenda sh -c 'zsh -c "emacsclient -nw --eval \"(progn (tl/org-age
 focus
 
 # Create a new tab
-new_tab scratchpad
+new_tab new-org
 # Set the layout in this tab
 layout tall
 # Set the working directory for windows in the current tab
 cd ~/
 # Create a window (title sets the tab title)
-launch --title scratchpad sh -c 'zsh -c "emacsclient -nw -e \"(tl/switch-to-or-create-org-buffer)\" ; exec zsh"'
+launch --title new-org sh -c 'zsh -c "emacsclient -nw -e \"(tl/buffer-org-new-kitty)\" ; exec zsh"'
+
+# Create a new tab
+new_tab emacs-cheatsheet
+# Set the layout in this tab
+layout tall
+# Set the working directory for windows in the current tab
+cd ~/
+# Create a window (title sets the tab title)
+launch --title emacs-cheatsheet sh -c 'zsh -c "emacsclient -nw --eval \"(find-file \\\"~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org\\\")\"; exec zsh"'
 
 # Create a new tab
 new_tab calendar
@@ -33,12 +42,3 @@ layout tall
 cd ~/
 # Create a window (title sets the tab title)
 launch --title journal sh -c 'zsh -c "emacsclient -nw --eval \"(org-roam-dailies-goto-today)\"; exec zsh"'
-
-# Create a new tab
-new_tab emacs-cheatsheet
-# Set the layout in this tab
-layout tall
-# Set the working directory for windows in the current tab
-cd ~/
-# Create a window (title sets the tab title)
-launch --title emacs-cheatsheet sh -c 'zsh -c "emacsclient -nw --eval \"(find-file \\\"~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org\\\")\"; exec zsh"'
