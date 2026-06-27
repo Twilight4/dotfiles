@@ -83,7 +83,7 @@ The world's greatest programmer once said:
 | C-b         | Switch to buffer                   |
 | C-o         | Open image in swappy               |
 | m           | Select macro to run                |
-| C-x C-f C-u | timeclock-in                       |
+| C-x C-f C-i | timeclock-in                       |
 | C-x C-f C-o | timeclock-out                      |
 | C-x C-f C-s | timeclock-status-string            |
 | C-x C-f C-e | timeclock-workday-elapsed-string   |
@@ -91,7 +91,7 @@ The world's greatest programmer once said:
 | C-x C-f C-r | timeclock-workday-remaining-string |
 | C-x C-f C-v | timeclock-visit-timelog            |
 | C-x C-f C-c | timeclock-change                   |
-| C-x C-f RET | timeclock-mode-line-display        |
+| C-x C-f C-d | timeclock-mode-line-display        |
 
 ** Registers and bookmarks
 
@@ -295,14 +295,15 @@ The world's greatest programmer once said:
 | j/k             | Previous/next item                                                 |
 | p/n             | Backward/forward block                                             |
 | l/w/m/y         | Day/week/month/year view                                           |
-| I/O/J/U         | Start/stop/jump to current/cancel                                  |
-| u/R/M/K/F/L/T   | Toggle diary/clock/deadlines/habits/follow mode/log mode/time grid |
+| I/O/J/Q         | Start/stop/jump to current/cancel                                  |
+| u/U/M/K/F/L/T   | Toggle diary/clock/deadlines/habits/follow mode/log mode/time grid |
 | h/H             | Show the tags for item/Set tag                                     |
 | f/b             | Go forward/backward in time in agenda                              |
 | q/Q             | Quit/Exit and kill buffers created by agenda                       |
 | [/]             | Scroll up/down                                                     |
 | C-c C-n/C-c C-p | Next/Previous date line                                            |
 | <               | Change date of this item                                           |
+| R               | Agenda undo                                                        |
 | a               | Org clarify agenda item                                            |
 | v               | Org set area of focus on agenda item                               |
 | .               | Go to today's date                                                 |
@@ -312,6 +313,7 @@ The world's greatest programmer once said:
 | ;               | Recenter                                                           |
 | TAB             | Go to entry at point                                               |
 | r               | Beginning of buffer                                                |
+| Z               | Archive completed GTD items                                        |
 | z               | Add time-stamped note to agenda entry                              |
 | i               | Make a diary entry                                                 |
 | d               | Make it easy to mark a task ad doing                               |

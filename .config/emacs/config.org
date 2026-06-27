@@ -349,7 +349,6 @@
 (define-key calendar-mode-map "m" 'tl/mark-diary-and-holiday-entries)
 (define-key calendar-mode-map "M" 'calendar-unmark)
 
-;; Free keys: Z Y
 (eval-after-load 'org-agenda
   '(progn
      (define-key org-agenda-mode-map (kbd "a") 'org-gtd-clarify-agenda-item)
@@ -365,13 +364,14 @@
      (define-key org-agenda-mode-map (kbd "G") 'org-agenda-holidays)
      (define-key org-agenda-mode-map (kbd "B") 'org-agenda-bulk-action)
      (define-key org-agenda-mode-map (kbd "u") 'org-agenda-toggle-diary)
-     (define-key org-agenda-mode-map (kbd "Q") 'org-agenda-exit)
+     (define-key org-agenda-mode-map (kbd "Q") 'org-agenda-clock-cancel)
      (define-key org-agenda-mode-map (kbd ",") 'org-agenda-goto-date)
      (define-key org-agenda-mode-map (kbd "<") 'org-agenda-date-prompt)
      (define-key org-agenda-mode-map (kbd "V") 'org-agenda-view-mode-dispatch)
      (define-key org-agenda-mode-map (kbd "E") 'org-agenda-priority)
      (define-key org-agenda-mode-map (kbd "L") 'org-agenda-log-mode)
-     (define-key org-agenda-mode-map (kbd "U") 'org-agenda-clock-cancel)
+     (define-key org-agenda-mode-map (kbd "U") 'org-agenda-clockreport-mode)
+     (define-key org-agenda-mode-map (kbd "R") 'org-agenda-undo)
      (define-key org-agenda-mode-map (kbd "h") 'org-agenda-show-tags)
      (define-key org-agenda-mode-map (kbd "H") 'org-agenda-set-tags)
      (define-key org-agenda-mode-map (kbd "[") 'org-agenda-show-scroll-down)
@@ -379,6 +379,7 @@
      (define-key org-agenda-mode-map (kbd "T") 'org-agenda-toggle-time-grid)
      (define-key org-agenda-mode-map (kbd "M") 'org-agenda-toggle-deadlines)
      (define-key org-agenda-mode-map (kbd "C") 'org-gtd-capture)
+     (define-key org-agenda-mode-map (kbd "Z") 'org-gtd-archive-completed-items)
      (define-key org-agenda-mode-map (kbd "x") 'tl/org-agenda-done)
      (define-key org-agenda-mode-map (kbd "d") 'tl/org-agenda-doing)
      (define-key org-agenda-mode-map (kbd "l") 'tl/org-agenda-day-view)
@@ -523,12 +524,12 @@
     ;; Timer
     "C-f C-t" '(org-timer-set-timer :wk "Set timer")
     "C-f C-a" '(org-timer-start :wk "Start timer")
-    "C-f C-d" '(org-timer-stop :wk "Stop timer")
-    "C-f C-i" '(org-timer-item :wk "Timer item")
+    "C-f C-m" '(org-timer-stop :wk "Stop timer")
+    "C-f C-u" '(org-timer-item :wk "Timer item")
     "C-f C-p" '(org-timer-pause-or-continue :wk "Pause/Continue timer")
     ;; Timeclock
-    "C-f C-m" '(timeclock-mode-line-display :wk "Display work time on modeline")
-    "C-f C-u" '(timeclock-in :wk "Work start")
+    "C-f C-d" '(timeclock-mode-line-display :wk "Display work time on modeline")
+    "C-f C-i" '(timeclock-in :wk "Work start")
     "C-f C-o" '(timeclock-out :wk "Work end")
     "C-f C-r" '(timeclock-workday-remaining-string :wk "Remaining work time")
     "C-f C-l" '(timeclock-when-to-leave-string :wk "Work leave time")
@@ -2499,7 +2500,7 @@ This is useful when followed by an immediate kill."
       (treemacs-create-icon :icon (propertize "󰌝 " 'face '(:foreground "#e44d26")) :fallback (propertize "󰌝 " 'face '(:foreground "#e44d26")) :extensions ("html" "htm"))
       (treemacs-create-icon :icon (propertize "󰌜 " 'face '(:foreground "#264de4")) :fallback (propertize "󰌜 " 'face '(:foreground "#264de4")) :extensions ("css" "scss" "sass" "less"))
       ;; js / ts
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#cbcb41")) :fallback (propertize " " 'face '(:foreground "#cbcb41")) :extensions ("js" "mjs" "cjs"))
+      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#cbcb41")) :fallback (propertize " " 'face '(:foreground "#cbcb41")) :extensions ("js" "mjs" "cjs" "json" "jsonc"))
       (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#519aba")) :fallback (propertize " " 'face '(:foreground "#519aba")) :extensions ("ts" "tsx"))
       (treemacs-create-icon :icon (propertize "󰜈 " 'face '(:foreground "#61dafb")) :fallback (propertize "󰜈 " 'face '(:foreground "#61dafb")) :extensions ("jsx"))
       ;; python
