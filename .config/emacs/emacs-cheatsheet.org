@@ -39,7 +39,7 @@ The world's greatest programmer once said:
   - [[#dired][Dired]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
-  - [[#kubernetes-mode][Kubernetes-mode]]
+  - [[#devops-related][DevOps-related]]
   - [[#treemacs][Treemacs]]
   - [[#consult-buffer][Consult-buffer]]
 
@@ -485,11 +485,23 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | <s         | '#+BEGIN_SRC' ... '#+END_SRC'            |
 | <v         | '#+BEGIN_VERSE' ... '#+END_VERSE'         |
 
-** Kubernetes-mode
+** DevOps-related
+Kubernetes-mode:
 | Keybinding | Description       |
 |------------+-------------------|
-| ?          | show all commands |
-| v          | overview view     |
+| ?          | Show all commands |
+| v          | Overview view     |
+
+Dockerfile-mode:
+| Keybinding | Description                               |
+|------------+-------------------------------------------|
+| C-c C-b    | Build the image                           |
+| C-c M-b    | Build image and bypass docker build cache |
+
+You can specify the image name in the file itself by adding a line like this at the top of your Dockerfile:
+#+begin_src emacs-lisp
+## -*- dockerfile-image-name: "your-image-name-here" -*-
+#+end_src
 
 ** Treemacs
 *** General
