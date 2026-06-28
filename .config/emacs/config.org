@@ -256,7 +256,7 @@
 (global-set-key (kbd "C-h") 'tl/backward-char-skip-invisible)
 (global-set-key (kbd "C-l") 'tl/forward-char-skip-invisible)
 (global-set-key (kbd "C-o") 'org-kill-line)
-;(global-set-key (kbd "C-t") 'treemacs-add-and-display-current-project-exclusively)
+(global-set-key (kbd "M-t") 'treemacs-add-and-display-current-project-exclusively)
 (global-set-key (kbd "C-t") 'treemacs)
 (global-set-key (kbd "C-q") 'delete-frame)
 (global-set-key (kbd "M-q") (lambda () (interactive) (save-buffer) (delete-frame)))
@@ -1434,6 +1434,9 @@ The =kill-this-buffer= command wasn't working.
 (use-package kubernetes
   :ensure t
   :commands (kubernetes-overview))
+
+(use-package dockerfile-mode
+  :ensure t)
 
 ;; (use-package k8s-mode
 ;;   :ensure t
@@ -2927,7 +2930,6 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "r") #'undo-tree-undo)
   (define-key god-local-mode-map (kbd "C-S-r") #'undo-tree-redo)
   (define-key god-local-mode-map (kbd "?") #'diff-buffer-with-file)
-  ;(define-key god-local-mode-map (kbd "t") #'treemacs-add-and-display-current-project-exclusively)
   (define-key god-local-mode-map (kbd "t") #'treemacs)
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
