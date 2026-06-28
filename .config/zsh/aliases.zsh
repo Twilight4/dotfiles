@@ -412,6 +412,8 @@ alias start-neo4j-db='sudo neo4j console'
 alias hashid='hashid -m'
 alias di='docker images'
 alias dps='docker ps'
+alias dnl='docker network ls'
+alias dvl='docker volume ls'
 #alias amassc='amass enum -config ~/.config/amass/config.ini -d $1'
 
 # Mpv
