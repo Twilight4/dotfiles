@@ -30,7 +30,8 @@
     "scripts": {
         "notification-sound": {
             "exec": "paplay ~/.config/swaync/msg-incoming.mp3",
-            "app-name": ".*"
+            "app-name": ".*",
+            "summary": "^(?!Volume|Brightness|Gamma|Notifications).*$"
         }
     },
     "widgets": [
