@@ -6,6 +6,7 @@
 		er/mark-symbol
 		org-kill-line
 		org-self-insert-command
+		org-toggle-item
 		scroll-up-line
 		smart-hungry-delete-backward-char
 		smart-hungry-delete-forward-char
@@ -28,4 +29,5 @@
 		org-backward-sentence
 		org-forward-sentence
 		repeat
+		tl/toggle-letter-case
 		))
