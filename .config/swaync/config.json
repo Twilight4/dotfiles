@@ -27,6 +27,12 @@
     "hide-on-clear": false,
     "hide-on-action": true,
     "script-fail-notify": true,
+    "scripts": {
+        "notification-sound": {
+            "exec": "paplay ~/.config/swaync/msg-incoming.mp3",
+            "app-name": ".*"
+        }
+    },
     "widgets": [
         "dnd",
         "mpris",
