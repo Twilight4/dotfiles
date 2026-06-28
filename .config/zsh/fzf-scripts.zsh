@@ -538,10 +538,13 @@ drm() {
 #}
 
 # Select a docker image or images to remove
-drmi() {
-  docker images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r docker rmi
+drmi () {
+    docker images \
+        | sed 1d \
+        | fzf -q "$1" --no-sort -m --tac \
+        | awk '{ print $(NF-2) }' \
+        | xargs -r docker rmi
 }
-
 
 ##############
 # List files #
