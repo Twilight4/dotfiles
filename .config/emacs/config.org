@@ -75,6 +75,7 @@
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#gptel][GPTel]]
+  - [[#ghostel][Ghostel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
   - [[#goto-chg][Goto-chg]]
@@ -151,14 +152,23 @@
 (local-unset-key (kbd "C-c \""))
 (local-unset-key (kbd "C-c \""))
 (global-unset-key (kbd "M-g"))
+(global-unset-key (kbd "M-s"))
 (global-unset-key (kbd "<f2>"))
 
 (with-eval-after-load 'hi-lock
   (define-key hi-lock-map (kbd "C-x w") nil)
   (global-unset-key (kbd "C-x w")))
 
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-x n b") nil)   ;; org-narrow-to-block
+  (define-key org-mode-map (kbd "C-x n s") nil)   ;; org-narrow-to-subtree
+  (define-key org-mode-map (kbd "C-x n e") nil))  ;; org-narrow-to-element
+
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "C-q") nil)
+(define-key global-map (kbd "M-e") nil)
+(define-key global-map (kbd "M-v") nil)
+(define-key global-map (kbd "M-a") nil)
 (define-key global-map (kbd "M-q") nil)
 (define-key global-map (kbd "M-r") nil)
 (define-key global-map (kbd "M-,") nil)
@@ -241,11 +251,11 @@
 (global-set-key (kbd "<f12>") 'kill-emacs)
 ;; Bindings that have a prefix key and have to be overwritten
 (with-eval-after-load 'winner
-  (define-key winner-mode-map (kbd "C-c C-<left>") nil)
-  (define-key winner-mode-map (kbd "C-c C-<right>") nil)
+  (define-key winner-mode-map (kbd "C-c <left>") nil)
+  (define-key winner-mode-map (kbd "C-c <right>") nil)
   (define-key winner-mode-map (kbd "C-x w") 'winner-undo)
   (define-key winner-mode-map (kbd "C-x W") 'winner-redo))
-(global-set-key (kbd "C-x r r") 'consult-register)
+(global-set-key (kbd "C-x r") 'consult-register)
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-a") 'tl/smart-move-beginning-of-line)
@@ -379,6 +389,8 @@
      (define-key org-agenda-mode-map (kbd "T") 'org-agenda-toggle-time-grid)
      (define-key org-agenda-mode-map (kbd "M") 'org-agenda-toggle-deadlines)
      (define-key org-agenda-mode-map (kbd "C") 'org-gtd-capture)
+     (define-key org-agenda-mode-map (kbd "C-d") 'tl/org-remove-deadline)
+     (define-key org-agenda-mode-map (kbd "C-s") 'tl/org-remove-scheduled)
      (define-key org-agenda-mode-map (kbd "Z") 'org-gtd-archive-completed-items)
      (define-key org-agenda-mode-map (kbd "x") 'tl/org-agenda-done)
      (define-key org-agenda-mode-map (kbd "d") 'tl/org-agenda-doing)
@@ -452,7 +464,9 @@
 	"TAB" '(comment-dwim :wk "Comment lines")
 	"o" '(tl/open-image-external-from-org :wk "Open image in swappy")
 	"v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
-    "c" '(org-goto-calendar :wk "Calendar")
+    "n" '(ghostel-next-prompt :wk "Ghostel next prompt")
+    "p" '(ghostel-previous-prompt :wk "Ghostel previous prompt")
+    "n" '(org-goto-calendar :wk "Calendar")
     ;; Registers
     "C-r" '(point-to-register :wk "Point to register")
     ;; Bookmarks
@@ -598,6 +612,7 @@
     "C-d C-j" '(dired-jump :wk "Dired jump to current")
     "C-d C-d" '(delete-this-file :wk "Delete file")
     "C-d C-r" '(rename-this-file-and-buffer :wk "Rename file")
+    "C-d C-b" '(rename-buffer :wk "Rename buffer")
     "C-d C-p" '(peep-dired :wk "Peep-dired"))
 #+end_src
 
@@ -2149,6 +2164,12 @@ Words auto-completion
         ("TAB" . tl/corfu-accept-then-space)
         ("SPC" . nil)))
 
+(use-package corfu-terminal
+  :ensure t
+  :after corfu
+  :config
+  (corfu-terminal-mode +1))
+
 (use-package cape
   :ensure t
   :commands (cape-dabbrev cape-file cape-elisp-block cape-dict)
@@ -2202,7 +2223,7 @@ Words autocorrection
 (fset 'tl/jinx-auto-correct
       (kbd "M-x jinx-correct RET 1"))
 
-(global-set-key (kbd "M-u") 'tl/jinx-auto-correct)
+;(global-set-key (kbd "M-u") 'tl/jinx-auto-correct)
 
 ;; Macro to quickly mark the underlined word as correct and save
 (fset 'tl/jinx-auto-correct-save
@@ -2266,6 +2287,9 @@ This is useful when followed by an immediate kill."
   (setq undo-outer-limit 120000000)
  
   ;; Rebind visualizer commands
+  (define-key undo-tree-map (kbd "M-_") nil)
+  (define-key undo-tree-map (kbd "C-x r u") nil)
+  (define-key undo-tree-map (kbd "C-x r U") nil)
   (define-key undo-tree-visualizer-mode-map (kbd "h") 'undo-tree-visualize-switch-branch-left)
   (define-key undo-tree-visualizer-mode-map (kbd "l") 'undo-tree-visualize-switch-branch-right)
   (define-key undo-tree-visualizer-mode-map (kbd "j") 'undo-tree-visualize-redo)
@@ -2412,13 +2436,13 @@ This is useful when followed by an immediate kill."
 
   ;; General Keybinds
   (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
-  (define-key treemacs-mode-map (kbd "n") 'treemacs-next-line)
+  (define-key treemacs-mode-map (kbd "J") 'treemacs-next-line)
   ;(define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
   (define-key treemacs-mode-map (kbd "h") 'treemacs-root-up)
   (define-key treemacs-mode-map (kbd "l") 'treemacs-root-down)
   (define-key treemacs-mode-map (kbd "u") 'treemacs-collapse-parent-node)
   (define-key treemacs-mode-map (kbd ".") 'treemacs-toggle-show-dotfiles)
-  (define-key treemacs-mode-map (kbd "H") 'treemacs-goto-parent-node)
+  (define-key treemacs-mode-map (kbd "K") 'treemacs-goto-parent-node)
   (define-key treemacs-mode-map (kbd "j") 'treemacs-next-neighbour)
   (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-neighbour)
   (define-key treemacs-mode-map (kbd "/") 'isearch-forward)
@@ -2808,6 +2832,121 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 )
 #+end_src
 
+** Ghostel
+Ghostel's features include synchronized output, true color, the Kitty keyboard and graphics protocols, hyperlinks, desktop notifications, progress reports and a lot more. Shell integration (directory tracking, prompt navigation) all works out of the box for bash, zsh and fish.
+
+#+begin_src emacs-lisp
+(use-package ghostel
+  :ensure t
+  :config
+  ;; Keybindings - pass through terminal
+  (define-key ghostel-semi-char-mode-map (kbd "M-:") #'ghostel--send-event)
+  (define-key ghostel-semi-char-mode-map (kbd "C-h") #'ghostel--send-event)
+  (define-key ghostel-semi-char-mode-map (kbd "C-\\") #'ghostel--send-event)
+  (define-key ghostel-semi-char-mode-map (kbd "C-u") #'ghostel--send-event)
+  (define-key ghostel-semi-char-mode-map (kbd "M-y") #'ghostel--send-event)
+  (define-key ghostel-semi-char-mode-map (kbd "M-/") #'ghostel--send-event)
+  (define-key ghostel-semi-char-mode-map (kbd "C-_") #'ghostel--send-event)
+  ;(define-key ghostel-semi-char-mode-map (kbd "ESC") #'ghostel--send-event)
+  ;; Custom Keybindings  
+  (define-key ghostel-semi-char-mode-map (kbd "C-x ,") #'tl/consult-ghostel)
+  (define-key ghostel-semi-char-mode-map (kbd "C-x .") #'tl/consult-new-org)
+  (define-key ghostel-semi-char-mode-map (kbd "C-c C-p") #'ghostel-previous-hyperlink)
+  (define-key ghostel-semi-char-mode-map (kbd "C-c C-n") #'ghostel-next-hyperlink)
+  (define-key ghostel-semi-char-mode-map (kbd "C-c C-f") #'ghostel-previous)
+  (define-key ghostel-semi-char-mode-map (kbd "C-c C-b") #'ghostel-next)
+  (define-key ghostel-semi-char-mode-map (kbd "C-v") #'ghostel-send-C-c)
+  (define-key ghostel-semi-char-mode-map (kbd "M-c") #'delete-window)
+  (define-key ghostel-semi-char-mode-map (kbd "M-n") #'tl/ghostel-new)
+  (define-key ghostel-semi-char-mode-map (kbd "M-s") #'tl/ghostel-new-yazi)
+  (define-key ghostel-semi-char-mode-map (kbd "M-k") #'previous-multiframe-window)
+  (define-key ghostel-semi-char-mode-map (kbd "M-j") #'next-multiframe-window)
+  (define-key ghostel-semi-char-mode-map (kbd "M-l") #'consult-buffer)
+  (define-key ghostel-semi-char-mode-map (kbd "M-m") #'toggle-window-maximize)
+  (define-key ghostel-semi-char-mode-map (kbd "C-s") #'consult-line)
+  (define-key ghostel-semi-char-mode-map (kbd "M-RET") #'god-local-mode)
+  (define-key ghostel-semi-char-mode-map (kbd "M-`") #'ghostel-clear-scrollback)
+  (define-key ghostel-semi-char-mode-map (kbd "M-;") #'tl/split-window-right)
+  (define-key ghostel-semi-char-mode-map (kbd "M-/") #'tl/split-window-below)
+  (define-key ghostel-semi-char-mode-map (kbd "M-=") #'enlarge-window)
+  (define-key ghostel-semi-char-mode-map (kbd "M--") #'shrink-window)
+  (define-key ghostel-semi-char-mode-map (kbd "M-_") #'enlarge-window-horizontally)
+  (define-key ghostel-semi-char-mode-map (kbd "M-+") #'shrink-window-horizontally))
+
+(defun tl/ghostel-new-named (name)
+  "Non-interactive version used by Kitty to spawn a Ghostel buffer named NAME."
+  (let ((current-prefix-arg '(4))
+        ;; Ensure default-directory matches what Kitty passed to the emacsclient process
+        (default-directory default-directory))
+    (call-interactively #'ghostel)
+    (rename-buffer name t)))
+
+(defun tl/ghostel-new ()
+  "Always open a new ghostel buffer with a custom name prefixed with *ghostel-*."
+  (interactive)
+  (let* ((current-prefix-arg '(4))
+         (input (read-string "Buffer name: *ghostel-" '("*" . 0)))
+         (name (concat "*ghostel-" input)))
+    (call-interactively #'ghostel)
+    (rename-buffer name t)))
+
+(defun tl/ghostel-new-yazi ()
+  "Always open a new ghostel buffer in the active directory and launch yazi instantly."
+  (interactive)
+  (let ((current-prefix-arg '(4))
+        (default-directory default-directory))
+    ;; 1. Spawn a clean, isolated ghostel buffer instance
+    (call-interactively #'ghostel)
+    (rename-buffer "*ghostel-yazi*" t)
+    ;; 2. Give the underlying shell a tiny moment to wake up, then feed it yazi
+    (run-with-timer 0.05 nil
+                    (lambda (buf)
+                      (when (buffer-live-p buf)
+                        (with-current-buffer buf
+                          ;; Inject "y" string followed by a newline carriage return
+                          (ghostel-send-string "y\n"))))
+                    (current-buffer))))
+
+(defun tl/consult-ghostel ()
+  "Safely view, live-preview, and select Ghostel terminal buffers."
+  (interactive)
+  (when (fboundp 'consult--multi)
+    (consult--multi 
+     `((:name     "Ghostel Terminals"
+        :narrow   ?g                     ; Press 'g' to narrow strictly to terms
+        :category buffer
+        :face     consult-buffer
+        :history  buffer-name-history
+        :state    ,#'consult--buffer-state ; Keeps safe live-preview window rendering
+        :items    ,(lambda () 
+                     (consult--buffer-query 
+                      :sort 'visibility
+                      :as #'buffer-name
+                      :predicate (lambda (buf) 
+                                   (provided-mode-derived-p 
+                                    (buffer-local-value 'major-mode buf) 
+                                    'ghostel-mode)))))))))
+
+;; replace original keybindings with these and comment out these kitty.conf keybindings
+(global-set-key (kbd "M-n") 'tl/ghostel-new)
+(global-set-key (kbd "M-s") 'tl/ghostel-new-yazi)
+(global-set-key (kbd "M-k") 'previous-multiframe-window)
+(global-set-key (kbd "M-j") 'next-multiframe-window)
+(global-set-key (kbd "M-m") 'toggle-window-maximize)
+(global-set-key (kbd "M-w") 'ace-swap-window)
+(global-set-key (kbd "M-c") 'delete-window)
+(global-set-key (kbd "M-;") 'tl/split-window-right)
+(global-set-key (kbd "M-/") 'tl/split-window-below)
+(global-set-key (kbd "M-=") 'enlarge-window)
+(global-set-key (kbd "M--") 'shrink-window)
+(global-set-key (kbd "M-,") 'tl/consult-ghostel)
+(global-set-key (kbd "M-.") 'tl/consult-new-org)
+(global-set-key (kbd "M-l") 'consult-buffer)
+(global-set-key (kbd "M-u") 'tl/kill-current-buffer)
+(global-set-key (kbd "M-_") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-+") 'shrink-window-horizontally)
+#+end_src
+
 ** Drag-stuff
 
 #+begin_src emacs-lisp
@@ -2846,8 +2985,10 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (define-key god-local-mode-map (kbd "C-S-j") #'org-newline-and-indent)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
   (define-key god-local-mode-map (kbd "C-S-l") #'zap-up-to-char)
-  (define-key god-local-mode-map (kbd "C-S-f") #'drag-stuff-right)
-  (define-key god-local-mode-map (kbd "C-S-b") #'drag-stuff-left)
+  (define-key god-local-mode-map (kbd "C-S-f") #'winner-redo)
+  (define-key god-local-mode-map (kbd "C-S-b") #'winner-undo)
+  ;(define-key god-local-mode-map (kbd "C-S-f") #'drag-stuff-right)
+  ;(define-key god-local-mode-map (kbd "C-S-b") #'drag-stuff-left)
   ;; (define-key god-local-mode-map (kbd "C-S-b") #'tl/select-block)          ;; not using at the moment
   (define-key god-local-mode-map (kbd "C-S-a") #'tl/copy-line-backward)
   (define-key god-local-mode-map (kbd "C-S-e") #'tl/copy-line-forward)
@@ -3061,10 +3202,7 @@ Adding highlights to =todo= keywords and related words.
           ("DOING"    . "#5af78e")
           ("NEXT"     . "#fac863")
           ("DONE"     . font-lock-doc-face)
-          ("CNCL"     . error)))
-  ;; Must be bound here to work
-  (define-key hl-todo-mode-map (kbd "C-x n") #'hl-todo-next)
-  (define-key hl-todo-mode-map (kbd "C-x p") #'hl-todo-previous))
+          ("CNCL"     . error))))
 
 ;; Default keyword faces (for agenda view)
 (setq org-todo-keyword-faces
@@ -3494,6 +3632,20 @@ Version: 2020-06-26 2023-11-14"
   (interactive)
   (calendar-mark-holidays)
   (diary-mark-entries))
+
+(defun tl/org-remove-deadline ()
+  "Remove DEADLINE from heading, works in both org and agenda buffers."
+  (interactive)
+  (if (eq major-mode 'org-agenda-mode)
+      (org-agenda-deadline '(4))
+    (org-deadline '(4))))
+
+(defun tl/org-remove-scheduled ()
+  "Remove SCHEDULE from heading, works in both org and agenda buffers."
+  (interactive)
+  (if (eq major-mode 'org-agenda-mode)
+      (org-agenda-schedule '(4))
+    (org-schedule '(4))))
 #+end_src
 
 *** Source code block tag expansion
@@ -3551,31 +3703,11 @@ Let’s make creating an Org buffer just that little bit easier.
 #+begin_src emacs-lisp
 ;; for kitty alt+shift+n keybind to run this command in current window and select *new org* buffer
 (defun tl/consult-new-org ()
-  "Switch to the latest modified '*new org*' buffer, then run `consult-buffer`.
-If the minibuffer is cancelled with C-g, kill the Emacsclient frame."
+  "Open consult-buffer pre-filtered to *new-org* buffers."
   (interactive)
-  (let ((default-name "*new-org*"))
-    ;; Find latest modified *new org* buffer
-    (let ((latest-buffer
-           (car (sort
-                 (seq-filter (lambda (buf)
-                               (string= (buffer-name buf) default-name))
-                             (buffer-list))
-                 (lambda (a b)
-                   (time-less-p (buffer-local-value 'buffer-display-time b)
-                                (buffer-local-value 'buffer-display-time a)))))))
-      (when latest-buffer
-        (switch-to-buffer latest-buffer)))
-    ;; Wrap minibuffer call to handle C-g
-    (condition-case err
-        (minibuffer-with-setup-hook
-            (lambda () (insert default-name))
-          (call-interactively #'consult-buffer))
-      (quit
-       ;; If the user pressed C-g, close the current frame
-       (when (and (fboundp 'server-delete-client)
-                  (frame-parameter nil 'client))
-         (delete-frame))))))
+  (minibuffer-with-setup-hook
+      (lambda () (insert "*new-org*"))
+    (call-interactively #'consult-buffer)))
 
 ;; for kitty alt+n keybind to run this command in current window
 (defun tl/buffer-org-new-kitty ()
@@ -3870,6 +4002,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                           :time-grid t
                           :date today
                           :scheduled today
+						  :face (:foreground "#7dcfff" :weight bold)
                           :order 1)))))
           (alltodo "" ((org-agenda-overriding-header "")
                        (org-super-agenda-groups
@@ -3879,6 +4012,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                            :order 1)
                           (:name "󰃶 Due Today"
                            :deadline today
+						   :face (:foreground "#e0af68" :weight bold)
                            :order 2)
                           (:name "󰡳 Low Effort"
                            :tag "@Effort"
@@ -3887,6 +4021,7 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name " Important"
                            :tag "@Important"
                            :priority "A"
+						   :face (:foreground "#f38ba8" :weight bold)
                            :order 4)
                           (:name "  Career-related"
                            :tag "@Work"
