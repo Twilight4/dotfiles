@@ -32,7 +32,7 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-	{ run = "${EDITOR:-vi} %s", desc = "$EDITOR", block = true, for = "unix" },
+	{ run = "emacsclient -n %s", desc = "$EDITOR", block = true, for = "unix" },
 ]
 editnvim = [
 	{ run = "nvim $s", desc = "nvim", block = true, for = "unix" },
