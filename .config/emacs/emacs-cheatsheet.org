@@ -72,7 +72,6 @@ The world's greatest programmer once said:
 | C-a         | Open org agenda                    |
 | a           | Mark whole bluffer                 |
 | C           | Go to calendar                     |
-| C-l         | Switch window                      |
 | C-p         | Previous Buffer                    |
 | C-n         | Next buffer                        |
 | C-u         | Kill current buffer                |
@@ -109,7 +108,7 @@ The world's greatest programmer once said:
 |------------+-------------------------------------|
 | q          | Delete window                       |
 | C-g        | Delete other windows                |
-| C-o        | Switch window                       |
+| C-j/k      | Switch window                       |
 | C-m        | Toggle window maximization          |
 | C-/        | Split window below                  |
 | C->        | Enlarge window                      |
@@ -342,7 +341,6 @@ The world's greatest programmer once said:
 | V               | Agenda view mode dispatch                                          |
 | C-x C-w         | Write agenda buffer to the file                                    |
 | C-c C-x a       | Toggle archive tag                                                 |
-| C-x C-d         | Schedule deadline                                                  |
 | C-c C-x p       | Set property for the current headline                              |
 | C-c C-x <       | Set restriction log to agenda                                      |
 | C-c C-x >       | Remove agenda restriction lock                                     |
