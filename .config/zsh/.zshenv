@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# XDG 
+# XDG
 export XDG_CONFIG_HOME="$HOME/.config"               # For dotfiles
 export XDG_DATA_HOME="$XDG_CONFIG_HOME/.local/share" # For specific data
 export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
@@ -85,8 +85,8 @@ export FZF_DEFAULT_OPTS="--height 60% \
 --pointer ▶ \
 --bind 'ctrl-j:down,ctrl-k:up' \
 --bind 'ctrl-h:backward-char,ctrl-l:forward-char' \
---bind 'alt-f:half-page-down,alt-b:half-page-up' 
---bind 'ctrl-f:forward-word,ctrl-b:backward-word' 
+--bind 'alt-f:half-page-down,alt-b:half-page-up'
+--bind 'ctrl-f:forward-word,ctrl-b:backward-word'
 --bind 'ctrl-u:clear-query' \
 --bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
 --bind 'ctrl-d:kill-word' \
