@@ -21,3 +21,9 @@ launch --title cheatsheets emacsclient -nw --eval "(tl/ghostel-new-named \"*ghos
 new_tab notes
 cd ~
 launch --title notes emacsclient -nw --eval "(tl/ghostel-new-named \"*ghostel-notes*\")"
+
+# Create a new tab: one emacs frame, OMP agent-shell split above gptel
+new_tab ai-agents
+cd ~
+# Single emacsclient frame: start a fresh OMP agent-shell instantly (bind session strategy to 'new so it skips the session-selection minibuffer), then make an Emacs horizontal split (C-x 2) and show the gptel *Gemini* buffer in the lower window
+launch --title ai-agents emacsclient -nw --eval "(let ((agent-shell-session-strategy 'new)) (tl/agent-shell-omp-start) (select-window (split-window-below)) (switch-to-buffer (gptel \"*Gemini*\")))"

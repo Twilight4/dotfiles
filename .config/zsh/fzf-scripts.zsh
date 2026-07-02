@@ -742,23 +742,6 @@ fdev() {
     [ -n "$result" ] && cd ~/run/media/$USER/$result ; lsd -l --hyperlink=auto
 }
 
-# List projects
-fproj() {
-    # Cancel the function when Ctrl-C is pressed
-    trap 'return 130' INT
-
-    result=$(
-        find ~/desktop/projects/* -type d -prune -exec basename {} \; |
-        sort | uniq | nl |
-        fzf
-    ) || return 130  # fzf aborted with Ctrl-C
-
-    result=$(echo "$result" | cut -f2)
-    [ -n "$result" ] || return
-
-    cd ~/desktop/projects/"$result" && y
-}
-
 # List current findings reports
 frep() {
     result=$(find ~/documents/org/reports/ -type f -name "*.org" -printf "%P\n" | sort | uniq | fzf --preview "sed -e 's/^\* .*$/\x1b[94m&\x1b[0m/' -e 's/^\*\*.*$/\x1b[96m&\x1b[0m/' -e 's/=\([^=]*\)=/\o033[1;32m\1\o033[0m/g; s/^\( \{0,6\}\)-/•/g' -e '/^\(:PROPERTIES:\|:ID:\|:END:\|#\+date:\)/d' ~/documents/org/reports/{} | command bat --language=org --style=snip --color=always" --preview-window=right:50%:wrap) || return

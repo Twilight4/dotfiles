@@ -10,6 +10,19 @@
 bindkey -e
 bindkey ' ' magic-space                           # do history expansion on space
 
+# Ghostel-replaced (alt+shift+key don't work in emacs)
+#bindkey -M emacs -s '^[x' 'fkill\r'
+#bindkey -M emacs -s '^[X' 'fsh\r'
+#bindkey '^v' edit-command-line-and-redraw
+#bindkey '^@' toggle-selection-mode
+#bindkey "^[^M" accept-and-hold
+#bindkey -M emacs -s '^[T' 'fpdf\r'
+#bindkey -M emacs -s '^[I' 'fimg\r'
+#bindkey -M emacs -s '^[Z' 'fchtce\r'
+#bindkey -M emacs -s '^[R' 'frg '
+#bindkey -M emacs -s '^[G' 'fpars\r'
+#bindkey -M emacs -s '^[H' 'fparr\r'
+
 # Movement
 bindkey '^H' backward-char
 bindkey '^L' forward-char
@@ -50,12 +63,11 @@ bindkey "^Xm" _most_recent_file
 bindkey "^Xr" history-incremental-search-backward
 bindkey "^Xs" history-incremental-search-forward
 # Alt+key
-bindkey "^[?" _history-complete-newer
+#bindkey "^[?" _history-complete-newer
 bindkey "^[/" which-command
 # Ctrl+Alt+key
 bindkey "^[^F" vi-find-next-char
 bindkey "^[^B" vi-find-prev-char
-bindkey "^[^M" accept-and-hold
 
 
 ######################
@@ -75,7 +87,6 @@ bindkey "^[^M" accept-and-hold
 # Debug which keys are being sent to the shell from your terminal: showkey -a
 
 # File manager commands
-bindkey -M emacs -s '^[I' 'fimg\r'
 bindkey -M emacs -s '^\' 'fccp\r'
 bindkey -M emacs -s '^["' 'ffh\r'
 bindkey -M emacs -s '^[:' 'ff\r'
@@ -83,9 +94,6 @@ bindkey -M emacs -s '^[,' 'frec\r'
 bindkey -M emacs -s '^[.' 'frecd\r'
 bindkey -M emacs -s '^[<' 'fbat\r'
 bindkey -M emacs -s '^[>' 'frm\r'
-bindkey -M emacs -s '^[R' 'frg '
-bindkey -M emacs -s '^[G' 'fpars\r'
-bindkey -M emacs -s '^[H' 'fparr\r'
 
 # Pentest-related
 #bindkey -M emacs -s '^[t' 'frep\r'
@@ -96,24 +104,19 @@ bindkey -M emacs -s '^[H' 'fparr\r'
 # Command line
 #bindkey -M emacs -s '^[k' 'fman\r'
 bindkey -M emacs -s '^[?' 'fzf-cd\r'
-bindkey -M emacs -s '^[x' 'fkill\r'
-bindkey -M emacs -s '^[X' 'fsh\r'
 bindkey -M emacs -s '^[a' 'falias\r'
 bindkey -M emacs -s '^[\' '\\cd ..; ls\r'   # Change directory
 bindkey -M emacs -s '^[L' 'nb-^I'
 
 # List files
 bindkey -M emacs -s '^[u' 'fwork\r'
-bindkey -M emacs -s '^[p' 'fproj\r'
+bindkey -M emacs -s '^[fnp' 'fproj\r'
 #bindkey -M emacs -s '^[D' 'fdev\r'
 #bindkey -M emacs -s '^[e' 'ftrack\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
-bindkey -M emacs -s '^[T' 'fpdf\r'
-bindkey -M emacs -s '^[P' 'fnp\r'
 
 # Cheatsheets/Notes
 bindkey -M emacs -s '^[z' 'fchtc\r'
-bindkey -M emacs -s '^[Z' 'fchtce\r'
 bindkey -M emacs -s '^[e' 'fchtoe'
 bindkey -M emacs -s '^[r' 'frgoe'
 
@@ -190,7 +193,7 @@ toggle-selection-mode() {
   fi
 }
 zle -N toggle-selection-mode
-bindkey '^@' toggle-selection-mode
+#bindkey '^@' toggle-selection-mode
 
 # Function to cancel selection mode
 last-word-or-cancel-selection-mode() {
@@ -212,5 +215,5 @@ edit-command-line-and-redraw() {
   zle reset-prompt
 }
 zle -N edit-command-line-and-redraw
-bindkey '^v' edit-command-line-and-redraw
+#bindkey '^v' edit-command-line-and-redraw
 

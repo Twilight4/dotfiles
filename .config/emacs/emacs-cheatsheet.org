@@ -36,6 +36,9 @@ The world's greatest programmer once said:
   - [[#info-mode][Info-mode]]
 - [[#other-packages][Other Packages]]
   - [[#m-key-bindings][M-key bindings]]
+  - [[#gptel][Gptel]]
+  - [[#agent-shell][Agent-shell]]
+  - [[#gptel-1][GPTel]]
   - [[#dired][Dired]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
@@ -385,6 +388,70 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
 | M-p        | jinx auto correct save                                       |
 | M-u        | jinx auto correct                                            |
+
+** Gptel
+| Keybinding | Description                                                  |
+|------------+--------------------------------------------------------------|
+
+** Agent-shell
+Agent-shell session config:
+| Keybinding | Description                           |
+|------------+---------------------------------------|
+| C-x v      | tl/agent-shell-omp-start              |
+| M-v        | agent-shell-switch-buffer             |
+| C-c C-q    | agent-shell-queue-request             |
+| C-c C-o    | agent-shell-other-buffer              |
+| C-c RET    | agent-shell-set-session-mode          |
+| C-c C-t    | agent-shell-set-session-thought-level |
+| C-c v      | agent-shell-set-session-config-option |
+| C-c C-v    | agent-shell-set-session-model         |
+| C-c C-c    | agent-shell-interrupt                 |
+| C-c C-w    | tl/agent-shell-copy-session-id        |
+| C-c C-r    | agent-shell-resume-session            |
+| C-c C-h    | help page                             |
+
+Oh-My-Pi chat buffer - using Fable 5:
+| Keybinding | Description                                 |
+|------------+---------------------------------------------|
+| M-r        | Prompts history                             |
+| M-p/n      | Previous/next input history                 |
+| TAB/S-TAB  | Next/Previous prompt answer                 |
+| C-c h      | Show output last message                    |
+| C-c C-h    | Show maximum output last message            |
+| C-c C-l    | shell-maker-narrow-to-prompt                |
+| C-M-h      | shell-maker-mark-output                     |
+| C-c C-s    | shell-maker-save-output                     |
+| C-c s      | shell-maker-save-session-transcript         |
+| C-c r      | shell-maker-restore-session-from-transcript |
+| C-c C-z    | comint-stop-subjob                          |
+| C-c C-\    | comint-quit-subjob                          |
+| C-c C-g    | comint-clear-buffer                         |
+
+** GPTel
+Chat buffer - using Gemini3.1-flash-lite
+| Keybinding | Description                 |
+|------------+-----------------------------|
+| C-x C-v    | gptel                       |
+| C-x g      | gptel-menu                  |
+| M-\        | gptel-abort                 |
+| C-M-s      | gptel-system-prompt         |
+| C-v r      | gptel--mark-response        |
+| C-c C-a    | gptel-end-of-response       |
+| C-c C-e    | gptel-beginning-of-response |
+| C-c C-r    | gptel--regenerate           |
+| C-c C-f    | gptel--next-variant         |
+| C-c C-b    | gptel--previous-variant     |
+
+Gptel custom commands:
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| C-M-r      | gptel-rewrite                        |
+| C-M-e      | gptel-rewrite directive menu         |
+| C-M-i      | gptel-rewrite from directive message |
+| C-M-v      | Send to gptel session                |
+| C-M-q      | Respond to echo area                 |
+| C-M-k      | Prompt from kill ring                |
+| C-M-j      | Response to kill ring                |
 
 ** Dired
 
