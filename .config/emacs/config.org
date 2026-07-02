@@ -75,6 +75,7 @@
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#gptel][GPTel]]
+  - [[#agent-shell][Agent-shell]]
   - [[#ghostel][Ghostel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
@@ -2832,6 +2833,76 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 )
 #+end_src
 
+** Agent-shell
+#+begin_src emacs-lisp
+(use-package agent-shell
+    :ensure t
+	:config
+	(setq agent-shell-prefer-viewport-interaction t)
+    :bind (:map agent-shell-mode-map
+                ("M-RET" . god-local-mode)
+                ("C-c C-w" . tl/agent-shell-copy-session-id)
+                ("C-c C-r" . agent-shell-resume-session)
+                ("C-c C-h" . comint-show-maximum-output)
+                ("C-c h" . comint-show-output)
+                ("C-c C-v" . agent-shell-set-session-config-option)
+                ("C-c v" . agent-shell-set-session-model)
+                ("C-c C-s" . shell-maker-save-output)
+                ("C-c C-q" . agent-shell-queue-request)
+                ("C-c C-b" . agent-shell-switch-buffer)
+                ("C-c C-g" . comint-clear-buffer)
+                ("C-c s" . shell-maker-save-session-transcript)
+                ("C-c r" . shell-maker-restore-session-from-transcript)
+                ("C-c " . tl/agent-shell-omp-start)
+                ("C-c C-l" . shell-maker-narrow-to-prompt)))
+
+(with-eval-after-load 'agent-shell
+  (defun tl/agent-shell-omp-make-config ()
+    (agent-shell-make-agent-config
+     :identifier 'oh-my-pi
+     :mode-line-name "OMP"
+     :buffer-name "Oh My Pi"
+     :shell-prompt "omp> "
+     :shell-prompt-regexp "omp> "
+     :client-maker (lambda (buffer)
+                     (agent-shell--make-acp-client
+                      :command "omp"
+                      :command-params '("acp")
+                      :context-buffer buffer))
+     :install-instructions "curl -fsSL https://omp.sh/install | sh"))
+
+  (defun tl/agent-shell-omp-start ()
+    "Start an interactive oh-my-pi agent shell."
+    (interactive)
+    (agent-shell--dwim :config (tl/agent-shell-omp-make-config)
+                        :new-shell t)))
+
+(with-eval-after-load 'agent-shell
+  (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
+
+(defun tl/wl-copy (text)
+  "Copy TEXT to the Wayland system clipboard via wl-copy."
+  (with-temp-buffer
+    (insert text)
+    (call-process-region (point-min) (point-max) "wl-copy")))
+
+(defun tl/agent-shell-copy-session-id ()
+  "Copy the current agent-shell session ID to the Wayland clipboard.
+Like `agent-shell-copy-session-id', but pipes the ID through wl-copy so
+it reaches the system clipboard, not just the Emacs kill ring."
+  (interactive)
+  (let ((shell-buffer (or (agent-shell--current-shell)
+                          (user-error "Not in an agent-shell buffer"))))
+    (with-current-buffer shell-buffer
+      (if-let* ((session-id (map-nested-elt (agent-shell--state)
+                                            '(:session :id))))
+          (progn
+            (tl/wl-copy session-id)
+            (kill-new session-id)
+            (message "Copied session ID to clipboard: %s" session-id))
+        (user-error "No active session")))))
+#+end_src
+
 ** Ghostel
 Ghostel's features include synchronized output, true color, the Kitty keyboard and graphics protocols, hyperlinks, desktop notifications, progress reports and a lot more. Shell integration (directory tracking, prompt navigation) all works out of the box for bash, zsh and fish.
 
@@ -2872,6 +2943,9 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key ghostel-semi-char-mode-map (kbd "M--") #'shrink-window)
   (define-key ghostel-semi-char-mode-map (kbd "M-_") #'enlarge-window-horizontally)
   (define-key ghostel-semi-char-mode-map (kbd "M-+") #'shrink-window-horizontally))
+
+(use-package ghostel-comint
+  :hook (after-init . ghostel-comint-global-mode))
 
 (defun tl/ghostel-new-named (name)
   "Non-interactive version used by Kitty to spawn a Ghostel buffer named NAME."
