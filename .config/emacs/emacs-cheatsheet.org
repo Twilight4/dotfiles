@@ -406,6 +406,7 @@ Agent-shell session config:
 | C-c v      | agent-shell-set-session-config-option |
 | C-c C-v    | agent-shell-set-session-model         |
 | C-c C-c    | agent-shell-interrupt                 |
+| C-c C-a    | toggle auto-confirming questions      |
 | C-c C-w    | tl/agent-shell-copy-session-id        |
 | C-c C-r    | agent-shell-resume-session            |
 | C-c C-h    | help page                             |
