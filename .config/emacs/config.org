@@ -256,7 +256,10 @@
   (define-key winner-mode-map (kbd "C-c <right>") nil)
   (define-key winner-mode-map (kbd "C-x w") 'winner-undo)
   (define-key winner-mode-map (kbd "C-x W") 'winner-redo))
-(global-set-key (kbd "C-x r") 'consult-register)
+
+(with-eval-after-load 'undo-tree
+  (define-key undo-tree-map (kbd "C-x r") nil))
+
 ;; Movement keys
 (global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-a") 'tl/smart-move-beginning-of-line)
@@ -283,6 +286,18 @@
 (global-set-key (kbd "<deletechar>") 'smart-hungry-delete-forward-char)
 (global-set-key (kbd "C-d") 'kill-word)
 (global-set-key (kbd "C-\\") 'universal-argument)
+(global-set-key (kbd "M-\\") 'gptel-abort)
+(global-set-key (kbd "C-M-r") 'gptel-rewrite)
+(global-set-key (kbd "C-M-i") 'gptel--suffix-rewrite)
+(global-set-key (kbd "C-M-e") 'gptel--rewrite-directive-menu)
+(global-set-key (kbd "C-M-s") 'gptel-system-prompt)
+(global-set-key (kbd "M-v") 'agent-shell-switch-buffer)
+;(global-set-key (kbd "C-M-n") 'gptel--rewrite-next)
+;(global-set-key (kbd "C-M-p") 'gptel--rewrite-previous)
+(global-set-key (kbd "C-M-k") 'tl/gptel-prompt-from-kill-ring)   ;; prompt from kill ring
+(global-set-key (kbd "C-M-q") 'tl/gptel-respond-to-echo-area)    ;; respond to echo area
+(global-set-key (kbd "C-M-v") 'tl/gptel-send-to-session)         ;; send to gptel session
+(global-set-key (kbd "C-M-j") 'tl/gptel-respond-to-kill-ring)    ;; response to kill ring
 ;; Work only in org-mode-map
 (define-key org-mode-map (kbd "TAB") #'god-local-mode)
 (define-key org-mode-map (kbd "<backtab>") #'org-cycle)
@@ -453,18 +468,22 @@
     ;"C-l" '(tl/log-entry-small :wk "Use small log entry")
     ;"C-k" '(tl/report-entry :wk "Use report entry")
     ;"" '(org-transclusion-add :wk "Add org transclusion")  ;; Org tansclusion package - not using
-    "C-l" '(gptel-send-with-options :wk "Switch window")    ;; Minibuffer to echo area
     "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
     "C-n" '(tl/better-next-buffer :wk "Next Buffer")
     "C-u" '(tl/kill-current-buffer :wk "Kill current buffer")
     "C-a" '(tl/org-agenda-o :wk "Agenda overview")
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
+    "r" '(consult-register :wk "Consult register")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
+	;; GPTel and agent-shell
+    "g" '(gptel-menu :wk "GPTel menu")
+    "C-v" '(gptel :wk "GPTel buffer")
+    "v" '(tl/agent-shell-omp-start :wk "Start OMP agent-shell")
 	"TAB" '(comment-dwim :wk "Comment lines")
 	"o" '(tl/open-image-external-from-org :wk "Open image in swappy")
-	"v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
+	;"v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
     "n" '(ghostel-next-prompt :wk "Ghostel next prompt")
     "p" '(ghostel-previous-prompt :wk "Ghostel previous prompt")
     "n" '(org-goto-calendar :wk "Calendar")
@@ -716,6 +735,7 @@
  "C-w" '(symbol-overlay-rename :wk "Symbol rename")
  ;; Expand-region
  "e" '(er/mark-org-element :wk "Mark element")
+ "r" '(gptel--mark-response :wk "Mark GPTel response")
  "p" '(er/mark-org-parent :wk "Mark element")
  "b" '(org-babel-mark-block :wk "Mark code block")
  "B" '(er/mark-org-code-block :wk "Mark entire code block")
@@ -2289,8 +2309,6 @@ This is useful when followed by an immediate kill."
  
   ;; Rebind visualizer commands
   (define-key undo-tree-map (kbd "M-_") nil)
-  (define-key undo-tree-map (kbd "C-x r u") nil)
-  (define-key undo-tree-map (kbd "C-x r U") nil)
   (define-key undo-tree-visualizer-mode-map (kbd "h") 'undo-tree-visualize-switch-branch-left)
   (define-key undo-tree-visualizer-mode-map (kbd "l") 'undo-tree-visualize-switch-branch-right)
   (define-key undo-tree-visualizer-mode-map (kbd "j") 'undo-tree-visualize-redo)
@@ -2712,23 +2730,26 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
 #+begin_src emacs-lisp
 (use-package gptel
   :ensure t
+  :bind (:map gptel-mode-map
+              ("C-c C-e" . gptel-end-of-response)
+              ("C-c C-r" . gptel--regenerate)
+              ("C-c C-f" . gptel--next-variant)
+              ("C-c C-b" . gptel--previous-variant)
+              ("C-c C-a" . gptel-beginning-of-response))
   :config
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (setq gptel-default-mode 'org-mode)
   ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
-  ;; Set as the default gptel backend to OpenRouter
-  (setq gptel-model   'deepseek-chat
-       gptel-backend
-       (gptel-make-openai "DeepSeek"               ; Any name you want
-         :host "api.deepseek.com"
-         :endpoint "/chat/completions"
-         :stream t
-         :key ""        ; Can be a function that returns the key
-         :models '(deepseek-chat deepseek-coder)))
+  (setq gptel-model 'gemini-3.1-flash-lite
+        gptel-backend (gptel-make-gemini "Gemini"
+                      :stream t
+                      :key #'gptel-api-key-from-auth-source
+                      :models '(gemini-3.1-flash-lite
+                                gemini-3.5-flash)))
 
-  ;; GPTel directives - more prompts:
+  ;; GPTel directives - more prompts
   ;; https://github.com/f/awesome-chatgpt-prompts
   ;; https://github.com/danielmiessler/fabric/tree/main/patterns
   ;; Check out the find prompt script https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt
@@ -2739,13 +2760,11 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
           (emacser . "You are an Emacs maven.  Reply only with the most appropriate built-in Emacs command for the task I specify.  Do NOT generate any additional description or explanation.")
           (explain . "Explain what this code does to a novice programmer.")
   	      (noter . "I want you to act as a note-taking assistant for a lecture. Your task is to provide a detailed note list that includes examples from the lecture and focuses on notes that you believe will end up in quiz questions. Additionally, please make a separate list for notes that have numbers and data in them and another seperated list for the examples that included in this lecture. The notes should be concise and easy to read.")
-  	      (translator . "I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations. My first sentence is 'istanbulu cok seviyom burada olmak cok guzel'")
+  	      (translator . "I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations.")
   	      (eng_teacher . "I want you to act as a spoken English teacher and improver. I will speak to you in English and you will reply to me in English to practice my spoken English. I want you to keep your reply neat, limiting the reply to 100 words. I want you to strictly correct my grammar mistakes, typos, and factual errors. I want you to ask me a question in your reply. Now let's start practicing, you could ask me a question first. Remember, I want you to strictly correct my grammar mistakes, typos, and factual errors.")
           (interviewer . "I want you to act as an interviewer. I will be the candidate and you will ask me the interview questions for the position position. I want you to only reply as the interviewer. Do not write all the conservation at once. I want you to only do the interview with me. Ask me the questions and wait for my answers. Do not write explanations. Ask me the questions one by one like an interviewer does and wait for my answers. My first sentence is 'Hi'")
           (character . "I want you to act like {character} from {series}. I want you to respond and answer like {character} using the tone, manner and vocabulary {character} would use. Do not write any explanations. Only answer like {character}. You must know all of the knowledge of {character}. My first sentence is 'Hi {character}.'")
-          (cybersec_specialist . "I want you to act as a cyber security specialist. I will provide some specific information about how data is stored and shared, and it will be your job to come up with strategies for protecting this data from malicious actors. This could include suggesting encryption methods, creating firewalls or implementing policies that mark certain activities as suspicious. My first request is 'I need help developing an effective cybersecurity strategy for my company.'")
           (prompt_enhancer . "Act as a Prompt Enhancer AI that takes user-input prompts and transforms them into more engaging, detailed, and thought-provoking questions. Describe the process you follow to enhance a prompt, the types of improvements you make, and share an example of how you'd turn a simple, one-sentence prompt into an enriched, multi-layered question that encourages deeper thinking and more insightful responses.")
-          (journalist . "I want you to act as a journalist. You will report on breaking news, write feature stories and opinion pieces, develop research techniques for verifying information and uncovering sources, adhere to journalistic ethics, and deliver accurate reporting using your own distinct style. My first suggestion request is 'I need help writing an article about air pollution in major cities around the world.'")
           ,@(let ((res))
               (pcase-dolist (`(,sym ,filename)
                              '((improve_prompt "improve_prompt.md")
@@ -2781,56 +2800,51 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
               res)))
   (setq-default gptel--system-message (alist-get 'default gptel-directives))
 
-  ;; use M-x eval-last-sexp on it to check the user emacs directory where the .md files should be located
-  ;(message user-emacs-directory)
+  ;; Disable the corfu-terminal popon while reading a gptel prompt from the
+  ;; minibuffer.  `corfu--popup-support-p' returns nil for the minibuffer when
+  ;; `corfu-terminal-enable-on-minibuffer' is nil, so corfu falls back to the
+  ;; standard completion mechanism instead of drawing the terminal popup.
+  (defun tl/gptel-suppress-corfu-terminal (orig-fn &rest args)
+    "Call ORIG-FN with corfu-terminal disabled in the minibuffer."
+    (let ((corfu-terminal-enable-on-minibuffer nil))
+      (apply orig-fn args)))
 
-  ;; Keyboard macros to invoke specific options from =gptel-menu= and normal keybinds.
-  ;; FIRST SETUP: open 'gptel-menu' and press 'm' and 'e', then press 'C-xC-s' to save the option, then you can use 'C-M-a' keybid for the default option
-  ;; I do not use 'gptel-menu' because I set every keybind to each option
+  (with-eval-after-load 'gptel-transient
+    (advice-add 'gptel--read-minibuffer-prompt :around
+                #'tl/gptel-suppress-corfu-terminal))
+  (with-eval-after-load 'gptel-rewrite
+    (advice-add 'gptel--rewrite-read-message :around
+                #'tl/gptel-suppress-corfu-terminal))
 
-  ;; Function to run gptel-send with the default options in gptel-menu
-  (defun gptel-send-with-options (&optional arg)
-    "Send query.  With prefix ARG open gptel's menu instead."
-    (interactive "P")
-    (if arg
-        (call-interactively 'gptel-menu)
-      (gptel--suffix-send (transient-args 'gptel-menu))))
+  ;; Global gptel actions, usable anywhere in Emacs.
+  (defun tl/gptel-prompt-from-kill-ring ()
+    "Send a prompt taken from the kill-ring (=gptel-menu y=)."
+    (interactive)
+    (gptel--suffix-send '("y")))
 
-  ;; Prompt menus
-  (define-key global-map (kbd "C-x g") 'gptel-menu)
-  (define-key global-map (kbd "C-x G") 'gptel-rewrite)
-  (global-set-key (kbd "C-x C-v") 'gptel)
-  (global-set-key (kbd "M-\\") 'gptel-abort)
+  (defun tl/gptel-respond-to-echo-area ()
+    "Ask a prompt in the minibuffer and show the response in the echo area (=gptel-menu m + e=)."
+    (interactive)
+    (gptel--suffix-send '("m" "e")))
 
-  ;; Doesn't work
-  ;(keymap-global-set "C-M-k" "C-x g m y RET")               ;; prompt from kill ring
-  ;(keymap-global-set "C-M-d" "C-x g e i RET")               ;; respond in place
-  ;(keymap-global-set "C-M-q" "C-x g m RET")                 ;; to echo area (I preferably use gptel command)
-  ;(keymap-global-set "C-M-v" "C-x g e g RET RET")           ;; send to gpt session
-  ;(keymap-global-set "C-M-l" "C-x g k RET")                 ;; response to kill ring (use 'M-'' to copy it to system clipboard)
+  (defun tl/gptel-send-to-session ()
+    "Ask a prompt in the minibuffer, redirecting the response to the *Gemini* gptel session (=gptel-menu m + g=)."
+    (interactive)
+    (gptel--suffix-send (list "m" "g*Gemini*")))
 
-  ;; Rewrite (applies to all rewrites)
-  ;(global-set-key (kbd "C-M-r") 'gptel--suffix-rewrite)    ; command unavailable
-  ;(global-set-key (kbd "C-x e") 'gptel--rewrite-directive-menu)      ;; Select directive for rewrite - commadn aunabailable
-  ;(global-set-key (kbd "C-x n") 'gptel--rewrite-next)    ; keybind taken
-  ;; TODO - change keybinds
-  ;(global-set-key (kbd "C-x p") 'gptel--rewrite-previous)
-  ;(keymap-global-set "C-x C-d" "C-x G D")      ; diff - C-c C-d at point
-  ;(keymap-global-set "C-x f" "C-x G A")        ; accept - C-c C-a at point
-  ;(keymap-global-set "C-x d" "C-x G K")        ; reject - C-c C-k at point
-  ;(keymap-global-set "C-x m" "C-x G M")        ; merge - C-c RET at point
-
-  ;; Other
-  (global-set-key (kbd "C-x s") 'gptel-system-prompt)       ;; Select directive for system prompt
-  ;(global-set-key (kbd "C-c t") 'gptel-org-set-topic)        ; keybind taken
-  ;(global-set-key (kbd "C-c e") 'gptel--suffix-system-message)   ;; I don't use it
-  (global-set-key (kbd "C-v r") 'gptel--mark-response)
-
-  ;; Response options
-  ;(global-set-key (kbd "C-x r") 'gptel--regenerate)    ; keybind taken
- ; (global-set-key (kbd "C-x f") 'gptel--next-variant)    ; keybind taken
-  ;(global-set-key (kbd "C-x C-b") 'gptel--previous-variant)    ; keybind taken
-)
+  (defun tl/gptel-respond-to-kill-ring ()
+    "Send the response to the kill-ring and the system clipboard (=gptel-menu k=).
+The reply is also piped through `tl/wl-copy' to the Wayland clipboard
+once it arrives (the kill-ring destination is asynchronous)."
+    (interactive)
+    (letrec ((copy-advice
+              (lambda (&rest _)
+                (advice-remove 'kill-new copy-advice)
+                (when (car-safe kill-ring)
+                  (tl/wl-copy (car kill-ring))
+                  (message "gptel response copied to kill-ring and clipboard.")))))
+      (advice-add 'kill-new :after copy-advice)
+      (gptel--suffix-send '("m" "k")))))
 #+end_src
 
 ** Agent-shell
@@ -2849,33 +2863,32 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
                 ("C-c v" . agent-shell-set-session-model)
                 ("C-c C-s" . shell-maker-save-output)
                 ("C-c C-q" . agent-shell-queue-request)
-                ("C-c C-b" . agent-shell-switch-buffer)
                 ("C-c C-g" . comint-clear-buffer)
                 ("C-c s" . shell-maker-save-session-transcript)
                 ("C-c r" . shell-maker-restore-session-from-transcript)
-                ("C-c " . tl/agent-shell-omp-start)
+                ("C-c C-a" . tl/agent-shell-toggle-auto-accept)
                 ("C-c C-l" . shell-maker-narrow-to-prompt)))
 
-(with-eval-after-load 'agent-shell
-  (defun tl/agent-shell-omp-make-config ()
-    (agent-shell-make-agent-config
-     :identifier 'oh-my-pi
-     :mode-line-name "OMP"
-     :buffer-name "Oh My Pi"
-     :shell-prompt "omp> "
-     :shell-prompt-regexp "omp> "
-     :client-maker (lambda (buffer)
-                     (agent-shell--make-acp-client
-                      :command "omp"
-                      :command-params '("acp")
-                      :context-buffer buffer))
-     :install-instructions "curl -fsSL https://omp.sh/install | sh"))
+(defun tl/agent-shell-omp-make-config ()
+  (agent-shell-make-agent-config
+   :identifier 'oh-my-pi
+   :mode-line-name "OMP"
+   :buffer-name "Oh My Pi"
+   :shell-prompt "omp> "
+   :shell-prompt-regexp "omp> "
+   :client-maker (lambda (buffer)
+                   (agent-shell--make-acp-client
+                    :command "omp"
+                    :command-params '("acp")
+                    :context-buffer buffer))
+   :install-instructions "curl -fsSL https://omp.sh/install | sh"))
 
-  (defun tl/agent-shell-omp-start ()
-    "Start an interactive oh-my-pi agent shell."
-    (interactive)
-    (agent-shell--dwim :config (tl/agent-shell-omp-make-config)
-                        :new-shell t)))
+(defun tl/agent-shell-omp-start ()
+  "Start an interactive oh-my-pi agent shell."
+  (interactive)
+  (require 'agent-shell)
+  (agent-shell--dwim :config (tl/agent-shell-omp-make-config)
+                     :new-shell t))
 
 (with-eval-after-load 'agent-shell
   (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
@@ -2901,6 +2914,23 @@ it reaches the system clipboard, not just the Emacs kill ring."
             (kill-new session-id)
             (message "Copied session ID to clipboard: %s" session-id))
         (user-error "No active session")))))
+
+(defun tl/agent-shell-toggle-auto-accept ()
+  "Toggle auto-accepting agent-shell permission prompts.
+When ON, every tool-permission request (shell commands, edits, etc.)
+is answered automatically via `agent-shell-permission-allow-always',
+skipping the interactive prompt.  When OFF, requests prompt as usual.
+This is global: it affects all agent-shell buffers (oh-my-pi and any
+other ACP agent).  Use with caution."
+  (interactive)
+  (setq agent-shell-permission-responder-function
+        (unless (eq agent-shell-permission-responder-function
+                    #'agent-shell-permission-allow-always)
+          #'agent-shell-permission-allow-always))
+  (message "agent-shell auto-accept: %s"
+           (if agent-shell-permission-responder-function
+               (propertize "ON (auto-approving all prompts)" 'face 'warning)
+             (propertize "OFF (prompts require confirmation)" 'face 'success))))
 #+end_src
 
 ** Ghostel
@@ -2943,9 +2973,6 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key ghostel-semi-char-mode-map (kbd "M--") #'shrink-window)
   (define-key ghostel-semi-char-mode-map (kbd "M-_") #'enlarge-window-horizontally)
   (define-key ghostel-semi-char-mode-map (kbd "M-+") #'shrink-window-horizontally))
-
-(use-package ghostel-comint
-  :hook (after-init . ghostel-comint-global-mode))
 
 (defun tl/ghostel-new-named (name)
   "Non-interactive version used by Kitty to spawn a Ghostel buffer named NAME."
