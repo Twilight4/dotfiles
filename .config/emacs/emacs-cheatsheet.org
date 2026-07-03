@@ -93,6 +93,12 @@ The world's greatest programmer once said:
 | C-x C-f C-v | timeclock-visit-timelog            |
 | C-x C-f C-c | timeclock-change                   |
 | C-x C-f C-d | timeclock-mode-line-display        |
+| C-c C-x ;   | org-timer-set-timer                |
+| C-c C-x .   | org-timer-pause-or-continue        |
+| C-c C-x ,   | org-timer-stop                     |
+| C-c C-x -   | org-timer-item                     |
+| C-c C-x 0   | org-timer-start                    |
+| C-c C-x '   | org-timer-show-remaining-time      |
 
 ** Registers and bookmarks
 
