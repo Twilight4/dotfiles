@@ -2740,21 +2740,21 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (setq gptel-default-mode 'org-mode)
-  ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
+										;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
-  (setq gptel-model 'gemini-3.1-flash-lite
+  (setq gptel-model 'gemini-3.5-flash
         gptel-backend (gptel-make-gemini "Gemini"
-                      :stream t
-                      :key #'gptel-api-key-from-auth-source
-                      :models '(gemini-3.1-flash-lite
-                                gemini-3.5-flash)))
+						:stream t
+						:key #'gptel-api-key-from-auth-source
+						:models '(gemini-3.5-flash
+                                  gemini-3.1-pro)))
 
   ;; GPTel directives - more prompts
   ;; https://github.com/f/awesome-chatgpt-prompts
   ;; https://github.com/danielmiessler/fabric/tree/main/patterns
   ;; Check out the find prompt script https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt
   (setq gptel-directives
-      `((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak directly and be willing to make creative guesses. Explain your reasoning. Be willing to reference less reputable sources for ideas. Never apologize.  Ask questions when unsure.")
+		`((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak directly and be willing to make creative guesses. Explain your reasoning. Be willing to reference less reputable sources for ideas. Never apologize.  Ask questions when unsure.")
           (programmer . "You are a careful programmer.  Provide code and only code as output without any additional text, prompt or note.")
           (cliwhiz . "You are a command line helper.  Generate command line commands that do what is requested, without any additional description or explanation.  Generate ONLY the command, I will edit it myself before running.")
           (emacser . "You are an Emacs maven.  Reply only with the most appropriate built-in Emacs command for the task I specify.  Do NOT generate any additional description or explanation.")
@@ -2789,14 +2789,14 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
                              res)
                 (when-let* ((big-prompt (locate-user-emacs-file filename))
                             (_ (file-exists-p big-prompt)))
-  				(push
-  				 `(,sym . ,(with-temp-buffer
-  							 (insert-file-contents big-prompt)
-  							 (goto-char (point-min))
-  							 (when (search-forward-regexp "^#" nil t)
+  				  (push
+  				   `(,sym . ,(with-temp-buffer
+  							   (insert-file-contents big-prompt)
+  							   (goto-char (point-min))
+  							   (when (search-forward-regexp "^#" nil t)
                                  (goto-char (match-beginning 0)))
-  							 (buffer-substring-no-properties (point) (point-max))))
-  				 res)))
+  							   (buffer-substring-no-properties (point) (point-max))))
+  				   res)))
               res)))
   (setq-default gptel--system-message (alist-get 'default gptel-directives))
 
@@ -2816,21 +2816,27 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
     (advice-add 'gptel--rewrite-read-message :around
                 #'tl/gptel-suppress-corfu-terminal))
 
+
+  (defun tl/gptel-suffix-send (args)
+    "Call `gptel--suffix-send' with ARGS after loading `gptel-transient'."
+    (unless (require 'gptel-transient nil t)
+      (user-error "gptel-transient is not available"))
+    (gptel--suffix-send args))
   ;; Global gptel actions, usable anywhere in Emacs.
   (defun tl/gptel-prompt-from-kill-ring ()
     "Send a prompt taken from the kill-ring (=gptel-menu y=)."
     (interactive)
-    (gptel--suffix-send '("y")))
+    (tl/gptel-suffix-send '("y")))
 
   (defun tl/gptel-respond-to-echo-area ()
     "Ask a prompt in the minibuffer and show the response in the echo area (=gptel-menu m + e=)."
     (interactive)
-    (gptel--suffix-send '("m" "e")))
+    (tl/gptel-suffix-send '("m" "e")))
 
   (defun tl/gptel-send-to-session ()
     "Ask a prompt in the minibuffer, redirecting the response to the *Gemini* gptel session (=gptel-menu m + g=)."
     (interactive)
-    (gptel--suffix-send (list "m" "g*Gemini*")))
+    (tl/gptel-suffix-send (list "m" "g*Gemini*")))
 
   (defun tl/gptel-respond-to-kill-ring ()
     "Send the response to the kill-ring and the system clipboard (=gptel-menu k=).
@@ -2844,54 +2850,40 @@ once it arrives (the kill-ring destination is asynchronous)."
                   (tl/wl-copy (car kill-ring))
                   (message "gptel response copied to kill-ring and clipboard.")))))
       (advice-add 'kill-new :after copy-advice)
-      (gptel--suffix-send '("m" "k")))))
+      (condition-case err
+          (tl/gptel-suffix-send '("m" "k"))
+        ((error quit)
+         (advice-remove 'kill-new copy-advice)
+         (signal (car err) (cdr err)))))))
 #+end_src
 
 ** Agent-shell
 #+begin_src emacs-lisp
 (use-package agent-shell
-    :ensure t
-	:config
-	(setq agent-shell-prefer-viewport-interaction t)
-    :bind (:map agent-shell-mode-map
-                ("M-RET" . god-local-mode)
-                ("C-c C-w" . tl/agent-shell-copy-session-id)
-                ("C-c C-r" . agent-shell-resume-session)
-                ("C-c C-h" . comint-show-maximum-output)
-                ("C-c h" . comint-show-output)
-                ("C-c C-v" . agent-shell-set-session-config-option)
-                ("C-c v" . agent-shell-set-session-model)
-                ("C-c C-s" . shell-maker-save-output)
-                ("C-c C-q" . agent-shell-queue-request)
-                ("C-c C-g" . comint-clear-buffer)
-                ("C-c s" . shell-maker-save-session-transcript)
-                ("C-c r" . shell-maker-restore-session-from-transcript)
-                ("C-c C-a" . tl/agent-shell-toggle-auto-accept)
-                ("C-c C-l" . shell-maker-narrow-to-prompt)))
-
-(defun tl/agent-shell-omp-make-config ()
-  (agent-shell-make-agent-config
-   :identifier 'oh-my-pi
-   :mode-line-name "OMP"
-   :buffer-name "Oh My Pi"
-   :shell-prompt "omp> "
-   :shell-prompt-regexp "omp> "
-   :client-maker (lambda (buffer)
-                   (agent-shell--make-acp-client
-                    :command "omp"
-                    :command-params '("acp")
-                    :context-buffer buffer))
-   :install-instructions "curl -fsSL https://omp.sh/install | sh"))
-
-(defun tl/agent-shell-omp-start ()
-  "Start an interactive oh-my-pi agent shell."
-  (interactive)
-  (require 'agent-shell)
-  (agent-shell--dwim :config (tl/agent-shell-omp-make-config)
-                     :new-shell t))
-
-(with-eval-after-load 'agent-shell
-  (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
+   :ensure t
+   :bind (:map agent-shell-mode-map
+               ("M-RET" . god-local-mode)
+               ("C-c C-w" . tl/agent-shell-copy-session-id)
+               ("C-c C-r" . agent-shell-resume-session)
+               ("C-c C-e" . agent-shell-restart)
+               ("C-c C-h" . comint-show-maximum-output)
+               ("C-c h" . comint-show-output)
+               ("C-c C-v" . agent-shell-set-session-config-option)
+               ("C-c v" . agent-shell-set-session-model)
+               ("C-c C-s" . shell-maker-save-output)
+               ("C-c C-q" . agent-shell-queue-request)
+               ("C-c C-g" . comint-clear-buffer)
+               ("C-c s" . shell-maker-save-session-transcript)
+               ("C-c r" . shell-maker-restore-session-from-transcript)
+               ("C-c C-a" . tl/agent-shell-toggle-auto-accept)
+               ("C-c C-l" . shell-maker-narrow-to-prompt))
+   :config
+   (setq agent-shell-openai-authentication
+     (agent-shell-openai-make-authentication :login t))
+   (setq agent-shell-openai-codex-acp-command '("codex-acp"))
+   (setq agent-shell-session-strategy 'new)
+   ;; Pick GPT-5.5 if it appears in Codex’s “Available models”
+   (setq agent-shell-openai-default-model-id "gpt-5.5"))
 
 (defun tl/wl-copy (text)
   "Copy TEXT to the Wayland system clipboard via wl-copy."
@@ -2931,6 +2923,31 @@ other ACP agent).  Use with caution."
            (if agent-shell-permission-responder-function
                (propertize "ON (auto-approving all prompts)" 'face 'warning)
              (propertize "OFF (prompts require confirmation)" 'face 'success))))
+
+;; OH-MY-PI CONFIGURATION
+(defun tl/agent-shell-omp-make-config ()
+  (agent-shell-make-agent-config
+   :identifier 'oh-my-pi
+   :mode-line-name "OMP"
+   :buffer-name "Oh My Pi"
+   :shell-prompt "omp> "
+   :shell-prompt-regexp "omp> "
+   :client-maker (lambda (buffer)
+                   (agent-shell--make-acp-client
+                    :command "omp"
+                    :command-params '("acp")
+                    :context-buffer buffer))
+   :install-instructions "curl -fsSL https://omp.sh/install | sh"))
+
+(defun tl/agent-shell-omp-start ()
+  "Start an interactive oh-my-pi agent shell."
+  (interactive)
+  (require 'agent-shell)
+  (agent-shell--dwim :config (tl/agent-shell-omp-make-config)
+                     :new-shell t))
+
+(with-eval-after-load 'agent-shell
+  (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
 #+end_src
 
 ** Ghostel
