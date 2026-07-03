@@ -36,9 +36,8 @@ The world's greatest programmer once said:
   - [[#info-mode][Info-mode]]
 - [[#other-packages][Other Packages]]
   - [[#m-key-bindings][M-key bindings]]
-  - [[#gptel][Gptel]]
   - [[#agent-shell][Agent-shell]]
-  - [[#gptel-1][GPTel]]
+  - [[#gptel][GPTel]]
   - [[#dired][Dired]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
@@ -388,10 +387,6 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
 | M-p        | jinx auto correct save                                       |
 | M-u        | jinx auto correct                                            |
-
-** Gptel
-| Keybinding | Description                                                  |
-|------------+--------------------------------------------------------------|
 
 ** Agent-shell
 Agent-shell session config:
