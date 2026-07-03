@@ -7,15 +7,15 @@ export XDG_CACHE_HOME="$XDG_CONFIG_HOME/cache"       # For cached files
 export XDG_STATE_HOME="$HOME/.local/state"           # For state files
 
 # User-specific environment variables (system-wide are located in /etc/environment)
-export EDITOR="emacsclient -nw"
+export EDITOR="emacsclient -n"
 export ALTERNATE_EDITOR=""
-export VISUAL="emacsclient -nw"
+export VISUAL="emacsclient -n"
 export TERMINAL="kitty -1"
 export BROWSER="brave"
 #export PAGER="moar -no-linenumbers"
 
 # User-defined PATH executables
-export PATH=$HOME/.config/hypr/scripts:$HOME/.local/bin:$HOME/.config/.local/share/cargo/bin:$HOME/.config/.local/bin:$HOME/.config/zsh/bash-scripts:$HOME/.config/rofi/bin:$HOME/.config/node_modules/.bin:$PATH
+export PATH=$HOME/.config/hypr/scripts:$HOME/.local/bin:$HOME/.config/.local/share/cargo/bin:$HOME/.config/.local/bin:$HOME/.config/zsh/bash-scripts:$HOME/.config/rofi/bin:$HOME/.config/node_modules/bin:$PATH
 
 # Zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"                		 # Zsh config files
