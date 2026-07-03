@@ -555,12 +555,6 @@
 
 	(tl/leader-keys
     "C-f" '(:ignore t :wk "Clock")
-    ;; Timer
-    "C-f C-t" '(org-timer-set-timer :wk "Set timer")
-    "C-f C-a" '(org-timer-start :wk "Start timer")
-    "C-f C-m" '(org-timer-stop :wk "Stop timer")
-    "C-f C-u" '(org-timer-item :wk "Timer item")
-    "C-f C-p" '(org-timer-pause-or-continue :wk "Pause/Continue timer")
     ;; Timeclock
     "C-f C-d" '(timeclock-mode-line-display :wk "Display work time on modeline")
     "C-f C-i" '(timeclock-in :wk "Work start")
@@ -689,6 +683,13 @@
  "C-q" '(org-insert-subheading :wk "Insert subheading")
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
  "z" '(org-footnote-action :wk "Insert footnote")
+ ;; Org timer
+ "C-x ;" '(org-timer-set-timer :wk "Set org timer")
+ "C-x ." '(org-timer-pause-or-continue :wk "Pause or continue org timer")
+ "C-x ," '(org-timer-stop :wk "Stop org timer")
+ "C-x -" '(org-timer-item :wk "Insert org timer item")
+ "C-x 0" '(org-timer-start :wk "Start org timer")
+ "C-x '" '(org-timer-show-remaining-time :wk "Show remaining org timer time")
  ;; Org-Roam
  "P" '(completion-at-point :wk "Complete at point")
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
@@ -2244,7 +2245,7 @@ Words autocorrection
 (fset 'tl/jinx-auto-correct
       (kbd "M-x jinx-correct RET 1"))
 
-;(global-set-key (kbd "M-u") 'tl/jinx-auto-correct)
+(global-set-key (kbd "M-]") 'tl/jinx-auto-correct)
 
 ;; Macro to quickly mark the underlined word as correct and save
 (fset 'tl/jinx-auto-correct-save
@@ -2742,12 +2743,12 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (setq gptel-default-mode 'org-mode)
 										;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
-  (setq gptel-model 'gemini-3.5-flash
+  (setq gptel-model 'gemini-3.1-flash-lite
         gptel-backend (gptel-make-gemini "Gemini"
 						:stream t
 						:key #'gptel-api-key-from-auth-source
-						:models '(gemini-3.5-flash
-                                  gemini-3.1-pro)))
+						:models '(gemini-3.1-flash-lite
+                                  gemini-3.5-flash)))
 
   ;; GPTel directives - more prompts
   ;; https://github.com/f/awesome-chatgpt-prompts
@@ -2755,16 +2756,16 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   ;; Check out the find prompt script https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt
   (setq gptel-directives
 		`((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak directly and be willing to make creative guesses. Explain your reasoning. Be willing to reference less reputable sources for ideas. Never apologize.  Ask questions when unsure.")
-          (programmer . "You are a careful programmer.  Provide code and only code as output without any additional text, prompt or note.")
+          (prompt_enhancer . "Act as a Prompt Enhancer AI that takes user-input prompts and transforms them into more engaging, detailed, and thought-provoking questions. Provide the enhanced prompt and only prompt as output without any additional text or note.")
+  	      (translator . "I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations.")
           (cliwhiz . "You are a command line helper.  Generate command line commands that do what is requested, without any additional description or explanation.  Generate ONLY the command, I will edit it myself before running.")
+          (programmer . "You are a careful programmer.  Provide code and only code as output without any additional text, prompt or note.")
           (emacser . "You are an Emacs maven.  Reply only with the most appropriate built-in Emacs command for the task I specify.  Do NOT generate any additional description or explanation.")
           (explain . "Explain what this code does to a novice programmer.")
   	      (noter . "I want you to act as a note-taking assistant for a lecture. Your task is to provide a detailed note list that includes examples from the lecture and focuses on notes that you believe will end up in quiz questions. Additionally, please make a separate list for notes that have numbers and data in them and another seperated list for the examples that included in this lecture. The notes should be concise and easy to read.")
-  	      (translator . "I want you to act as an English translator, spelling corrector and improver. I will speak to you in any language and you will detect the language, translate it and answer in the corrected and improved version of my text, in English. I want you to replace my simplified A0-level words and sentences with more beautiful and elegant, upper level English words and sentences. Keep the meaning same, but make them more literary. I want you to only reply the correction, the improvements and nothing else, do not write explanations.")
   	      (eng_teacher . "I want you to act as a spoken English teacher and improver. I will speak to you in English and you will reply to me in English to practice my spoken English. I want you to keep your reply neat, limiting the reply to 100 words. I want you to strictly correct my grammar mistakes, typos, and factual errors. I want you to ask me a question in your reply. Now let's start practicing, you could ask me a question first. Remember, I want you to strictly correct my grammar mistakes, typos, and factual errors.")
           (interviewer . "I want you to act as an interviewer. I will be the candidate and you will ask me the interview questions for the position position. I want you to only reply as the interviewer. Do not write all the conservation at once. I want you to only do the interview with me. Ask me the questions and wait for my answers. Do not write explanations. Ask me the questions one by one like an interviewer does and wait for my answers. My first sentence is 'Hi'")
           (character . "I want you to act like {character} from {series}. I want you to respond and answer like {character} using the tone, manner and vocabulary {character} would use. Do not write any explanations. Only answer like {character}. You must know all of the knowledge of {character}. My first sentence is 'Hi {character}.'")
-          (prompt_enhancer . "Act as a Prompt Enhancer AI that takes user-input prompts and transforms them into more engaging, detailed, and thought-provoking questions. Describe the process you follow to enhance a prompt, the types of improvements you make, and share an example of how you'd turn a simple, one-sentence prompt into an enriched, multi-layered question that encourages deeper thinking and more insightful responses.")
           ,@(let ((res))
               (pcase-dolist (`(,sym ,filename)
                              '((improve_prompt "improve_prompt.md")
@@ -2838,23 +2839,41 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
     (interactive)
     (tl/gptel-suffix-send (list "m" "g*Gemini*")))
 
+  (defun tl/gptel-suffix-send-with-kill-ring-clipboard (args)
+    "Send with ARGS and mirror gptel kill-ring output to the Wayland clipboard.
+The `kill-new' advice is installed only while gptel's asynchronous callback
+runs, so failures that never write to the kill-ring cannot leave stale advice
+behind."
+    (letrec ((request-advice
+              (lambda (orig-fn prompt &rest request-args)
+                (let* ((callback (plist-get request-args :callback))
+                       (request-args (copy-sequence request-args)))
+                  (when (functionp callback)
+                    (setq request-args
+                          (plist-put
+                           request-args :callback
+                           (lambda (resp info &optional raw)
+                             (letrec ((copy-advice
+                                       (lambda (&rest _)
+                                         (when (car-safe kill-ring)
+                                           (tl/wl-copy (car kill-ring))
+                                           (message "gptel response copied to kill-ring and clipboard.")))))
+                               (advice-add 'kill-new :after copy-advice)
+                               (unwind-protect
+                                   (funcall callback resp info raw)
+                                 (advice-remove 'kill-new copy-advice)))))))
+                  (apply orig-fn prompt request-args)))))
+      (advice-add 'gptel-request :around request-advice)
+      (unwind-protect
+          (tl/gptel-suffix-send args)
+        (advice-remove 'gptel-request request-advice))))
+
   (defun tl/gptel-respond-to-kill-ring ()
     "Send the response to the kill-ring and the system clipboard (=gptel-menu k=).
 The reply is also piped through `tl/wl-copy' to the Wayland clipboard
 once it arrives (the kill-ring destination is asynchronous)."
     (interactive)
-    (letrec ((copy-advice
-              (lambda (&rest _)
-                (advice-remove 'kill-new copy-advice)
-                (when (car-safe kill-ring)
-                  (tl/wl-copy (car kill-ring))
-                  (message "gptel response copied to kill-ring and clipboard.")))))
-      (advice-add 'kill-new :after copy-advice)
-      (condition-case err
-          (tl/gptel-suffix-send '("m" "k"))
-        ((error quit)
-         (advice-remove 'kill-new copy-advice)
-         (signal (car err) (cdr err)))))))
+    (tl/gptel-suffix-send-with-kill-ring-clipboard '("m" "k"))))
 #+end_src
 
 ** Agent-shell
