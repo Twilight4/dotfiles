@@ -19,8 +19,6 @@
   - [[#toggle-mode-line][Toggle mode line]]
   - [[#which-key][Which-key]]
   - [[#dashboard][Dashboard]]
-  - [[#transparency][Transparency]]
-  - [[#centaur-tabs][Centaur-tabs]]
   - [[#file-encoding][File encoding]]
   - [[#ansi-colors][ANSI colors]]
   - [[#youtube-link-export][YouTube link export]]
@@ -71,6 +69,9 @@
   - [[#jinx][Jinx]]
 - [[#other-packages][Other Packages]]
   - [[#anzu][Anzu]]
+  - [[#diff-hl][Diff-hl]]
+  - [[#zoxide][Zoxide]]
+  - [[#markdown-mode][Markdown Mode]]
   - [[#undo-tree-mode][Undo tree mode]]
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
@@ -140,6 +141,12 @@
 (elpaca-wait)
 #+end_src
 
+#+begin_src emacs-lisp
+;; (require 'org)
+;; (require 'ol)
+;; (require 'ox)
+#+end_src
+
 * Keybindings
 ** Global keybindings
 *** Disable conflicting keybindings
@@ -150,7 +157,6 @@
 ;(define-key global-map (kbd "C-h") (make-sparse-keymap))
 (global-unset-key (kbd "C-x"))
 (local-unset-key (kbd "C-x n"))
-(local-unset-key (kbd "C-c \""))
 (local-unset-key (kbd "C-c \""))
 (global-unset-key (kbd "M-g"))
 (global-unset-key (kbd "M-s"))
@@ -216,28 +222,30 @@
 ;; Unbinding the default annoying conflicting keybinds (depending on a mode)
 ;; It works because first it unbinds the keybind and when I have this keybind set later
 ;; in the config then it binds it to that keybind
-(define-key org-mode-map (kbd "C-j") nil)
-(define-key org-mode-map (kbd "M-h") nil)
-(define-key org-mode-map (kbd "M-t") nil)
-(define-key org-mode-map (kbd "C-,") nil)
-(define-key org-mode-map (kbd "M-RET") nil)
-(define-key org-mode-map (kbd "C-c M-f") nil)
-(define-key org-mode-map (kbd "C-c M-b") nil)
-(define-key org-mode-map (kbd "M-<up>") nil)
-(define-key org-mode-map (kbd "M-<down>") nil)
-(define-key org-mode-map (kbd "M-<left>") nil)
-(define-key org-mode-map (kbd "M-<right>") nil)
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-j") nil)
+  (define-key org-mode-map (kbd "M-h") nil)
+  (define-key org-mode-map (kbd "M-t") nil)
+  (define-key org-mode-map (kbd "C-,") nil)
+  (define-key org-mode-map (kbd "M-RET") nil)
+  (define-key org-mode-map (kbd "C-c M-f") nil)
+  (define-key org-mode-map (kbd "C-c M-b") nil)
+  (define-key org-mode-map (kbd "M-<up>") nil)
+  (define-key org-mode-map (kbd "M-<down>") nil)
+  (define-key org-mode-map (kbd "M-<left>") nil)
+  (define-key org-mode-map (kbd "M-<right>") nil))
 
 
 ;; Calendar-mode
-(define-key calendar-mode-map (kbd "i h") 'nil)
-(define-key calendar-mode-map (kbd "i i") 'nil)
-(define-key calendar-mode-map (kbd "i B") 'nil)
-(define-key calendar-mode-map (kbd "i C") 'nil)
-(define-key calendar-mode-map (kbd "H") 'nil)
-(define-key calendar-mode-map (kbd "t") 'nil)
-(define-key calendar-mode-map (kbd "x") 'nil)
-(define-key calendar-mode-map (kbd "y") 'nil)
+(with-eval-after-load 'calendar
+  (define-key calendar-mode-map (kbd "i h") 'nil)
+  (define-key calendar-mode-map (kbd "i i") 'nil)
+  (define-key calendar-mode-map (kbd "i B") 'nil)
+  (define-key calendar-mode-map (kbd "i C") 'nil)
+  (define-key calendar-mode-map (kbd "H") 'nil)
+  (define-key calendar-mode-map (kbd "t") 'nil)
+  (define-key calendar-mode-map (kbd "x") 'nil)
+  (define-key calendar-mode-map (kbd "y") 'nil))
 #+end_src
 
 *** Keybindings without a leader key
@@ -287,9 +295,10 @@
 (global-set-key (kbd "C-d") 'kill-word)
 (global-set-key (kbd "C-\\") 'universal-argument)
 (global-set-key (kbd "M-\\") 'gptel-abort)
+(global-set-key (kbd "C-M-\\") 'indent-rigidly)
 (global-set-key (kbd "C-M-r") 'gptel-rewrite)
-(global-set-key (kbd "C-M-i") 'gptel--suffix-rewrite)
-(global-set-key (kbd "C-M-e") 'gptel--rewrite-directive-menu)
+(global-set-key (kbd "C-M-i") 'tl/gptel-suffix-rewrite)
+(global-set-key (kbd "C-M-e") 'tl/gptel-rewrite-directive-menu)
 (global-set-key (kbd "C-M-s") 'gptel-system-prompt)
 (global-set-key (kbd "M-v") 'agent-shell-switch-buffer)
 ;(global-set-key (kbd "C-M-n") 'gptel--rewrite-next)
@@ -299,8 +308,9 @@
 (global-set-key (kbd "C-M-v") 'tl/gptel-send-to-session)         ;; send to gptel session
 (global-set-key (kbd "C-M-j") 'tl/gptel-respond-to-kill-ring)    ;; response to kill ring
 ;; Work only in org-mode-map
-(define-key org-mode-map (kbd "TAB") #'god-local-mode)
-(define-key org-mode-map (kbd "<backtab>") #'org-cycle)
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "TAB") #'god-local-mode)
+  (define-key org-mode-map (kbd "<backtab>") #'org-cycle))
 ;; Minibuffer
 (define-key minibuffer-local-map (kbd "C-j") 'next-line)
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
@@ -313,7 +323,6 @@
 (global-set-key (kbd "M-a") 'embark-act)
 (global-set-key (kbd "M-i") 'jinx-correct)
 ;(global-set-key (kbd "M-n") 'jinx-correct-nearest)      ;; Jinx-correct works the same
-(global-set-key (kbd "M-w") 'jinx-correct-word)
 ;(global-set-key (kbd "M-w") 'jinx-correct-all)
 ;(global-set-key (kbd "M-w") 'jinx-correct-select)
 
@@ -341,39 +350,40 @@
 
 ;; Calendar-mode
 ; Navigation
-(define-key calendar-mode-map "h" 'calendar-backward-day)
-(define-key calendar-mode-map "k" 'calendar-backward-week)
-(define-key calendar-mode-map "j" 'calendar-forward-week)
-(define-key calendar-mode-map "l" 'calendar-forward-day)
-(define-key calendar-mode-map "a" 'calendar-beginning-of-week)
-(define-key calendar-mode-map "e" 'calendar-end-of-week)
-(define-key calendar-mode-map "A" 'calendar-backward-month)
-(define-key calendar-mode-map "E" 'calendar-forward-month)
-(define-key calendar-mode-map "p" 'calendar-beginning-of-month)
-(define-key calendar-mode-map "n" 'calendar-end-of-month)
-(define-key calendar-mode-map "P" 'calendar-beginning-of-year)
-(define-key calendar-mode-map "N" 'calendar-end-of-year)
-(define-key calendar-mode-map "U" 'diary-show-all-entries)
-(define-key calendar-mode-map "u" 'diary-view-entries)
-(define-key calendar-mode-map "[" 'calendar-backward-year)
-(define-key calendar-mode-map "]" 'calendar-forward-year)
-(define-key calendar-mode-map "v" 'calendar-scroll-left-three-months)
-(define-key calendar-mode-map "V" 'calendar-scroll-right-three-months)
-(define-key calendar-mode-map "," 'calendar-goto-date)
-(define-key calendar-mode-map "o" 'delete-other-windows)
-(define-key calendar-mode-map "d" 'org-roam-dailies-capture-date)
-(define-key calendar-mode-map "D" 'org-roam-dailies-goto-date)
-; Other
-(define-key calendar-mode-map (kbd "SPC") 'calendar-set-mark)
-(define-key calendar-mode-map "c" 'calendar-count-days-region)
-(define-key calendar-mode-map "C" 'calendar-print-day-of-year)
-(define-key calendar-mode-map "g" 'calendar-cursor-holidays)
-(define-key calendar-mode-map "G" 'calendar-list-holidays)
-(define-key calendar-mode-map "L" 'calendar-lunar-phases)
-(define-key calendar-mode-map "s" 'calendar-sunrise-sunset)
-(define-key calendar-mode-map "S" 'calendar-sunrise-sunset-month)
-(define-key calendar-mode-map "m" 'tl/mark-diary-and-holiday-entries)
-(define-key calendar-mode-map "M" 'calendar-unmark)
+(with-eval-after-load 'calendar
+  (define-key calendar-mode-map "h" 'calendar-backward-day)
+  (define-key calendar-mode-map "k" 'calendar-backward-week)
+  (define-key calendar-mode-map "j" 'calendar-forward-week)
+  (define-key calendar-mode-map "l" 'calendar-forward-day)
+  (define-key calendar-mode-map "a" 'calendar-beginning-of-week)
+  (define-key calendar-mode-map "e" 'calendar-end-of-week)
+  (define-key calendar-mode-map "A" 'calendar-backward-month)
+  (define-key calendar-mode-map "E" 'calendar-forward-month)
+  (define-key calendar-mode-map "p" 'calendar-beginning-of-month)
+  (define-key calendar-mode-map "n" 'calendar-end-of-month)
+  (define-key calendar-mode-map "P" 'calendar-beginning-of-year)
+  (define-key calendar-mode-map "N" 'calendar-end-of-year)
+  (define-key calendar-mode-map "U" 'diary-show-all-entries)
+  (define-key calendar-mode-map "u" 'diary-view-entries)
+  (define-key calendar-mode-map "[" 'calendar-backward-year)
+  (define-key calendar-mode-map "]" 'calendar-forward-year)
+  (define-key calendar-mode-map "v" 'calendar-scroll-left-three-months)
+  (define-key calendar-mode-map "V" 'calendar-scroll-right-three-months)
+  (define-key calendar-mode-map "," 'calendar-goto-date)
+  (define-key calendar-mode-map "o" 'delete-other-windows)
+  (define-key calendar-mode-map "d" 'org-roam-dailies-capture-date)
+  (define-key calendar-mode-map "D" 'org-roam-dailies-goto-date)
+  ; Other
+  (define-key calendar-mode-map (kbd "SPC") 'calendar-set-mark)
+  (define-key calendar-mode-map "c" 'calendar-count-days-region)
+  (define-key calendar-mode-map "C" 'calendar-print-day-of-year)
+  (define-key calendar-mode-map "g" 'calendar-cursor-holidays)
+  (define-key calendar-mode-map "G" 'calendar-list-holidays)
+  (define-key calendar-mode-map "L" 'calendar-lunar-phases)
+  (define-key calendar-mode-map "s" 'calendar-sunrise-sunset)
+  (define-key calendar-mode-map "S" 'calendar-sunrise-sunset-month)
+  (define-key calendar-mode-map "m" 'tl/mark-diary-and-holiday-entries)
+  (define-key calendar-mode-map "M" 'calendar-unmark))
 
 (eval-after-load 'org-agenda
   '(progn
@@ -475,17 +485,16 @@
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "r" '(consult-register :wk "Consult register")
+    "z" '(zoxide-travel :wk "Find directory with Zoxide")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
 	;; GPTel and agent-shell
     "g" '(gptel-menu :wk "GPTel menu")
     "C-v" '(gptel :wk "GPTel buffer")
-    "v" '(tl/agent-shell-omp-start :wk "Start OMP agent-shell")
+    "SPC" '(tl/agent-shell-omp-start :wk "Start OMP agent-shell")
 	"TAB" '(comment-dwim :wk "Comment lines")
 	"o" '(tl/open-image-external-from-org :wk "Open image in swappy")
 	;"v" '(tl/open-video-link-in-mpv :wk "Open video in mpv")
-    "n" '(ghostel-next-prompt :wk "Ghostel next prompt")
-    "p" '(ghostel-previous-prompt :wk "Ghostel previous prompt")
     "n" '(org-goto-calendar :wk "Calendar")
     ;; Registers
     "C-r" '(point-to-register :wk "Point to register")
@@ -590,7 +599,6 @@
     "C-t h" '(hl-line-mode :wk "Toggle line highlight in frame")
     "C-t i" '(org-indent-mode :wk "Toggle indentation mode")
     "C-t m" '(toggle-mode-line :wk "Toggle mode line")
-    "C-t v" '(global-hl-line-mode :wk "Toggle line highlight globally")
     ;"" '(org-transclusion-mode :wk "Org Transclusion mode")     ;; not using it
     ;; Org-table
     "C-t C-\\" '(org-table-create-or-convert-from-region :wk "Create empty table or convert from region")
@@ -631,7 +639,6 @@
 #+end_src
 
 *** C-c leader key
-
 #+begin_src emacs-lisp
 ;; Org bullet list navigation
 ;(define-key org-mode-map (kbd "C-M-f") 'org-shiftright)
@@ -714,7 +721,6 @@
 #+end_src
 
 *** C-v leader key
-
 #+begin_src emacs-lisp
 (general-define-key
  :prefix "C-v"
@@ -763,7 +769,6 @@
 
 * Preferences
 ** Better defaults
-
 #+begin_src emacs-lisp
 (setq-default
  fill-column 120
@@ -791,13 +796,13 @@
 (tool-bar-mode -1)                                ; Disable tool bar
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
+(fringe-mode -1)                                  ; Disable the narrow areas on the sides of the window
 (global-display-line-numbers-mode -1)             ; Disable displaying line numbers
-(global-visual-line-mode 1)                       ; Display truncated lines
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
-(fringe-mode -1)                                  ; Disable the narrow areas on the sides of the emacs window
 (save-place-mode 1)                               ; Open files back up at same position
 (recentf-mode 1)                                  ; Remember recently edited files
-(global-hl-line-mode t)                           ; Highlights the current line of the point
+(global-hl-line-mode 1)                           ; Visual wrapping where text is edited
+(global-visual-line-mode 1)                       ; Highlight only in buffers where it helps navigation
 (show-paren-mode 1)                               ; Toggle visualization of matching parens (Show Paren mode)
 (winner-mode 1)                                   ; Cool mode for monitoring window configuration
 (display-time-mode 1)                             ; Enable time in the mode-line
@@ -835,14 +840,10 @@
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
-
-;; Use only system clipboard - I wish it worked but I'm on wayland
-;(setq x-select-enable-clipboard t)
 #+end_src
 
 ** Littering
 *** Buffer Litter
-
 #+begin_src emacs-lisp
 ;; Kill *Help* after :q'ing
 (advice-add #'evil-quit :after (lambda (&rest r)
@@ -858,7 +859,6 @@
 #+end_src
 
 *** File litter
-
 #+begin_src emacs-lisp
 (setq make-backup-files nil ; stop creating ~ files
       auto-save-default nil ; Disable autosave # files
@@ -868,7 +868,6 @@
 #+end_src
 
 ** Scrolling
-
 #+begin_src emacs-lisp
 (setq-default pixel-scroll-precision-mode t
               fast-but-imprecise-scrolling t
@@ -883,7 +882,6 @@
 
 * UI Configuration
 ** Color theme
-
 #+begin_src emacs-lisp
 ;; Load defined themes
 (use-package doom-themes
@@ -899,7 +897,8 @@
 (set-face-attribute 'line-number-current-line nil :background "#040305" :foreground "#bfbdb6" :weight 'bold)
 (set-face-attribute 'line-number nil :background "#040305" :foreground "#434850" :slant 'italic :weight 'normal)
 ;; Text in code blocks
-(set-face-attribute 'org-block nil :foreground "#bfbdb6")
+(with-eval-after-load 'org-faces
+  (set-face-attribute 'org-block nil :foreground "#bfbdb6"))
 (set-face-attribute 'font-lock-comment-face nil :foreground "#595d62")
 ;; Background color (same as in kitty terminal)
 (set-face-attribute 'default nil :background "#040305")
@@ -923,7 +922,6 @@
 #+end_src
 
 ** Mode line
-
 #+begin_src emacs-lisp
 (use-package doom-modeline
   :ensure t
@@ -983,7 +981,6 @@ Finally, it redraws the display to reflect the changes.
 #+end_src
 
 ** Which-key
-
 #+begin_src emacs-lisp
 (use-package which-key
   :init
@@ -1002,12 +999,9 @@ Finally, it redraws the display to reflect the changes.
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
 
-;; Disable line-numbers in *which-key* buffers
-(add-hook 'which-key-mode-hook (lambda () (display-line-numbers-mode -1)))
 #+end_src
 
 ** Dashboard
-
 #+begin_src emacs-lisp
 (use-package dashboard
   :ensure t
@@ -1024,41 +1018,6 @@ Finally, it redraws the display to reflect the changes.
                           (registers . 3)))
   :config
   (dashboard-setup-startup-hook))
-#+end_src
-
-** Transparency
-It's always better to set transparency in option for respective applications that supports it rather than setting it in window manager.
-
-#+begin_src emacs-lisp
-;(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
-#+end_src
-
-** Centaur-tabs
-[[https://github.com/ema2159/centaur-tabs][Centaur Tabs]] is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple open buffers. No point if using Emacs TUI.
-
-#+begin_src emacs-lisp
-;(use-package centaur-tabs
-;  :if window-system
-;  :ensure t
-;  :demand
-;  :init
-;  ;; Set the style to rounded with icons
-;  (setq centaur-tabs-style "bar"
-;        centaur-tabs-set-icons t
-;        centaur-tabs-height 26
-;        centaur-tabs-modified-marker "o"
-;        centaur-tabs-close-button ""
-;        centaur-tabs-set-bar 'above
-;        centaur-tabs-gray-out-icons 'buffer)
-;  :config
-;  ;; Enable centaur-tabs
-;  (centaur-tabs-mode t))
-;; (setq x-underline-at-descent-line t)
-
-;(global-set-key (kbd "M-F") 'centaur-tabs-move-current-tab-to-right)
-;(global-set-key (kbd "M-B") 'centaur-tabs-move-current-tab-to-left)
-;(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
-;(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
 #+end_src
 
 ** File encoding
@@ -1112,16 +1071,12 @@ allowfullscreen>%s</iframe>" path (or "" desc)))
 #+end_src
 
 ** Disable automatic bookmarking
-Do not save the =org-refile-last-stored= and =org-capture-last-stored= buffers as bookmarks upon emacs start.
+Disable Org's automatic =org-refile-last-stored=, =org-capture-last-stored=, and =org-capture-last-stored-marker= bookmarks.
 
 #+begin_src emacs-lisp
-(defadvice org-refile (around no-bookmark-refile act)
-  (let ((bmkp-last-save-location-function)) ;Bind to nil to make this a no-op
-    ad-do-it))
-
- (defadvice org-capture-place-template (around no-bookmark-capture act)
-   (let ((bmkp-last-save-location-function))
-       ad-do-it))
+;; Org sets these bookmarks through `org-bookmark-names-plist'.
+;; Omit the plist keys to disable the corresponding automatic bookmarks.
+(setq org-bookmark-names-plist nil)
 #+end_src
 
 ** Code Folding
@@ -1234,7 +1189,6 @@ It takes user input for the new name using the interactive keyword, checks if th
 #+end_src
 
 ** Nicer org-return
-
 #+begin_src emacs-lisp
 (defun unpackaged/org-element-descendant-of (type element)
   "Return non-nil if ELEMENT is a descendant of TYPE.
@@ -1427,7 +1381,6 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
 #+end_src
 
 ** Expand-region
-
 #+begin_src emacs-lisp
 (use-package expand-region
   :ensure t)
@@ -1443,7 +1396,6 @@ The =kill-this-buffer= command wasn't working.
 #+end_src
 
 ** Symbol-overlay
-
 #+begin_src emacs-lisp
 (use-package symbol-overlay
   :hook ((prog-mode html-mode yaml-mode conf-mode) . symbol-overlay-mode)
@@ -1537,7 +1489,6 @@ it will auto tangle after saving.
 #+end_src
 
 ** Multiple-cursors
-
 #+begin_src emacs-lisp
 (use-package multiple-cursors
   :bind
@@ -1678,7 +1629,6 @@ Version: 2025-02-05"
 #+end_src
 
 ** Clipboard adjustments
-
 #+begin_src emacs-lisp
 (defun tl/kill-region-to-clipboard ()
   "Kill the region if active."
@@ -1739,7 +1689,6 @@ Version: 2025-02-05"
 #+end_src
 
 ** Copy current line
-
 #+begin_src emacs-lisp
 (defun tl/copy-current-line ()
   "Copy the current line to the system clipboard using wl-copy and display a message."
@@ -1862,7 +1811,6 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
 #+end_src
 
 ** Pdf-links automation
-
 #+begin_src emacs-lisp
 (defun open-pdf (path)
   "open pdf: links in org mode using zathura"
@@ -1907,7 +1855,6 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
 #+end_src
 
 ** Mark whole line
-
 #+begin_src emacs-lisp
 (defun tl/mark-whole-line ()
   "Neovim-style visual line selection, with point always at BOL.
@@ -1944,7 +1891,6 @@ Adding rainbow coloring to parentheses.
 #+end_src
 
 ** Electric-pair-mode
-
 #+begin_src emacs-lisp
 ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
 ;; Otherwise, org-tempo is broken when you try to <s TAB...
@@ -2040,7 +1986,6 @@ The following configuration will add a few improvements:
 #+end_src
 
 ** Orderless
-
 #+begin_src emacs-lisp
 (use-package orderless
   :ensure t
@@ -2108,7 +2053,6 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** Consult
-
 #+begin_src emacs-lisp
 (use-package consult
   :ensure t
@@ -2141,7 +2085,6 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+end_src
 
 ** Embark-consult
-
 #+begin_src emacs-lisp
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
@@ -2237,7 +2180,7 @@ Words autocorrection
 #+begin_src emacs-lisp
 (use-package jinx
   :ensure t
-  :hook (emacs-startup . global-jinx-mode)
+  :hook ((text-mode org-mode) . jinx-mode)
   :config
   (setq jinx-languages "en_US,pl_PL"))
 
@@ -2288,6 +2231,42 @@ This is useful when followed by an immediate kill."
   (define-key isearch-mode-map [(control return)] 'tl/isearch-exit-other-end))
 #+end_src
 
+** Diff-hl
+#+begin_src emacs-lisp
+(use-package diff-hl
+  :hook ((prog-mode . diff-hl-mode)
+         (dired-mode . diff-hl-dired-mode))
+  :config
+  ;; Use the margin instead of fringes in terminal Emacs
+  (diff-hl-margin-mode)
+  (diff-hl-flydiff-mode)
+  (diff-hl-show-hunk-mouse-mode))
+
+(setq diff-hl-margin-symbols-alist
+      '((insert . "+")
+        (delete . "-")
+        (change . "~")
+        (unknown . "?")
+        (ignored . "i")))
+#+end_src
+
+** Zoxide
+#+begin_src emacs-lisp
+(use-package zoxide
+  :ensure t
+  :hook (dired-mode . zoxide-add))
+#+end_src
+
+** Markdown Mode
+#+begin_src emacs-lisp
+(use-package markdown-mode
+  :ensure t
+  :mode "\\.md\\'"
+  :config
+  ;; Disable Markdown keymaps (using just for syntax highlighting)
+  (setq markdown-mode-map (make-sparse-keymap)))
+#+end_src
+
 ** Undo tree mode
 #+begin_src emacs-lisp
 (use-package undo-tree
@@ -2323,7 +2302,6 @@ This is useful when followed by an immediate kill."
 #+end_src
 
 ** Treemacs
-
 #+begin_src emacs-lisp
 (use-package treemacs
   :ensure t
@@ -2355,12 +2333,12 @@ This is useful when followed by an immediate kill."
           treemacs-max-git-entries                 5000
           treemacs-missing-project-action          'ask
           treemacs-move-forward-on-expand          nil
-          treemacs-no-png-images                   nil
+          treemacs-no-png-images                   t
           treemacs-no-delete-other-windows         t
           treemacs-project-follow-cleanup          nil
           treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
           treemacs-position                        'left
-          treemacs-read-string-input               'from-child-frame
+          treemacs-read-string-input               'from-minibuffer
           treemacs-recenter-distance               0.1
           treemacs-recenter-after-file-follow      nil
           treemacs-recenter-after-tag-follow       nil
@@ -2392,7 +2370,6 @@ This is useful when followed by an immediate kill."
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
-    (treemacs-fringe-indicator-mode 'always)
     (when treemacs-python-executable
       (treemacs-git-commit-diff-mode t))
 
@@ -2730,18 +2707,19 @@ Transient newer verion for gptel to work.
 Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
 #+begin_src emacs-lisp
 (use-package gptel
+  :hook (gptel-mode . (gptel-highlight-mode))
   :ensure t
   :bind (:map gptel-mode-map
               ("C-c C-e" . gptel-end-of-response)
-              ("C-c C-r" . gptel--regenerate)
-              ("C-c C-f" . gptel--next-variant)
-              ("C-c C-b" . gptel--previous-variant)
+              ("C-c C-r" . tl/gptel-regenerate)
+              ("C-c C-f" . tl/gptel-next-variant)
+              ("C-c C-b" . tl/gptel-previous-variant)
               ("C-c C-a" . gptel-beginning-of-response))
   :config
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (setq gptel-default-mode 'org-mode)
-										;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
+  ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
   (setq gptel-model 'gemini-3.1-flash-lite
         gptel-backend (gptel-make-gemini "Gemini"
@@ -2780,13 +2758,13 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
                                (explain_code "explain_code.md")
                                (extract_book_recommendations "extract_book_recommendations.md")
                                (extract_videoid "extract_videoid.md"))
-                               ;; I RAN OUT OF KEY PLACEHOLDERS
-                               ;(summarize_newsletter "summarize_newsletter.md")
-                               ;(write_micro_essay "write_micro_essay.md")
-                               ;(summarize_git_changes "summarize_git_changes.md")
-                               ;(improve_academic_writing "improve_academic_writing.md")
-                               ;(rate_content "rate_content.md")
-                               ;(get_youtube_rss "get_youtube_rss.md"))
+                             ;; I RAN OUT OF KEY PLACEHOLDERS
+										;(summarize_newsletter "summarize_newsletter.md")
+										;(write_micro_essay "write_micro_essay.md")
+										;(summarize_git_changes "summarize_git_changes.md")
+										;(improve_academic_writing "improve_academic_writing.md")
+										;(rate_content "rate_content.md")
+										;(get_youtube_rss "get_youtube_rss.md"))
                              res)
                 (when-let* ((big-prompt (locate-user-emacs-file filename))
                             (_ (file-exists-p big-prompt)))
@@ -2815,65 +2793,108 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
                 #'tl/gptel-suppress-corfu-terminal))
   (with-eval-after-load 'gptel-rewrite
     (advice-add 'gptel--rewrite-read-message :around
-                #'tl/gptel-suppress-corfu-terminal))
+                #'tl/gptel-suppress-corfu-terminal)))
+#+end_src
 
+Gptel custom functions
+#+begin_src emacs-lisp
+;; Keep the globally bound commands stable by loading the relevant feature at call time
+;; and failing with a useful error if upstream removes the private API
+(defun tl/gptel-call-private-command (feature command)
+  "Load FEATURE and call private interactive COMMAND."
+  (unless (require feature nil t)
+    (user-error "%s is not available" feature))
+  (unless (fboundp command)
+    (user-error "%s no longer defines `%s'" feature command))
+  (call-interactively command))
 
-  (defun tl/gptel-suffix-send (args)
-    "Call `gptel--suffix-send' with ARGS after loading `gptel-transient'."
-    (unless (require 'gptel-transient nil t)
-      (user-error "gptel-transient is not available"))
-    (gptel--suffix-send args))
-  ;; Global gptel actions, usable anywhere in Emacs.
-  (defun tl/gptel-prompt-from-kill-ring ()
-    "Send a prompt taken from the kill-ring (=gptel-menu y=)."
-    (interactive)
-    (tl/gptel-suffix-send '("y")))
+(defun tl/gptel-suffix-rewrite ()
+  "Open GPTel's rewrite transient suffix."
+  (interactive)
+  (tl/gptel-call-private-command 'gptel-transient #'gptel--suffix-rewrite))
 
-  (defun tl/gptel-respond-to-echo-area ()
-    "Ask a prompt in the minibuffer and show the response in the echo area (=gptel-menu m + e=)."
-    (interactive)
-    (tl/gptel-suffix-send '("m" "e")))
+(defun tl/gptel-rewrite-directive-menu ()
+  "Open GPTel's rewrite directive menu."
+  (interactive)
+  (tl/gptel-call-private-command 'gptel-transient #'gptel--rewrite-directive-menu))
 
-  (defun tl/gptel-send-to-session ()
-    "Ask a prompt in the minibuffer, redirecting the response to the *Gemini* gptel session (=gptel-menu m + g=)."
-    (interactive)
-    (tl/gptel-suffix-send (list "m" "g*Gemini*")))
+(defun tl/gptel-regenerate ()
+  "Regenerate the GPTel response at point."
+  (interactive)
+  (tl/gptel-call-private-command 'gptel #'gptel--regenerate))
 
-  (defun tl/gptel-suffix-send-with-kill-ring-clipboard (args)
-    "Send with ARGS and mirror gptel kill-ring output to the Wayland clipboard.
+(defun tl/gptel-next-variant ()
+  "Move to GPTel's next response variant."
+  (interactive)
+  (tl/gptel-call-private-command 'gptel #'gptel--next-variant))
+
+(defun tl/gptel-previous-variant ()
+  "Move to GPTel's previous response variant."
+  (interactive)
+  (tl/gptel-call-private-command 'gptel #'gptel--previous-variant))
+
+(defun tl/gptel-suffix-send (args)
+  "Call `gptel--suffix-send' with ARGS after loading GPTel transient support."
+  (unless (require 'gptel nil t)
+    (user-error "gptel is not available"))
+  (unless (require 'gptel-transient nil t)
+    (user-error "gptel-transient is not available"))
+  (unless (fboundp 'gptel--suffix-send)
+    (user-error "gptel-transient no longer defines `gptel--suffix-send'"))
+  (gptel--suffix-send args))
+
+(defun tl/gptel-prompt-from-kill-ring ()
+  "Send a prompt taken from the kill-ring (=gptel-menu y=)."
+  (interactive)
+  (tl/gptel-suffix-send '("y")))
+
+(defun tl/gptel-respond-to-echo-area ()
+  "Ask a prompt in the minibuffer and show the response in the echo area (=gptel-menu m + e=)."
+  (interactive)
+  (tl/gptel-suffix-send '("m" "e")))
+
+(defun tl/gptel-send-to-session ()
+  "Ask a prompt in the minibuffer, redirecting the response to the *Gemini* gptel session (=gptel-menu m + g=)."
+  (interactive)
+  (tl/gptel-suffix-send (list "m" "g*Gemini*")))
+
+(defun tl/gptel-suffix-send-with-kill-ring-clipboard (args)
+  "Send with ARGS and mirror gptel kill-ring output to the Wayland clipboard.
 The `kill-new' advice is installed only while gptel's asynchronous callback
 runs, so failures that never write to the kill-ring cannot leave stale advice
 behind."
-    (letrec ((request-advice
-              (lambda (orig-fn prompt &rest request-args)
-                (let* ((callback (plist-get request-args :callback))
-                       (request-args (copy-sequence request-args)))
-                  (when (functionp callback)
-                    (setq request-args
-                          (plist-put
-                           request-args :callback
-                           (lambda (resp info &optional raw)
-                             (letrec ((copy-advice
-                                       (lambda (&rest _)
-                                         (when (car-safe kill-ring)
-                                           (tl/wl-copy (car kill-ring))
-                                           (message "gptel response copied to kill-ring and clipboard.")))))
-                               (advice-add 'kill-new :after copy-advice)
-                               (unwind-protect
-                                   (funcall callback resp info raw)
-                                 (advice-remove 'kill-new copy-advice)))))))
-                  (apply orig-fn prompt request-args)))))
-      (advice-add 'gptel-request :around request-advice)
-      (unwind-protect
-          (tl/gptel-suffix-send args)
-        (advice-remove 'gptel-request request-advice))))
+  (unless (require 'gptel nil t)
+    (user-error "gptel is not available"))
+  (letrec ((request-advice
+            (lambda (orig-fn prompt &rest request-args)
+              (let* ((callback (plist-get request-args :callback))
+                     (request-args (copy-sequence request-args)))
+                (when (functionp callback)
+                  (setq request-args
+                        (plist-put
+                         request-args :callback
+                         (lambda (resp info &optional raw)
+                           (letrec ((copy-advice
+                                     (lambda (&rest _)
+                                       (when (car-safe kill-ring)
+                                         (tl/wl-copy (car kill-ring))
+                                         (message "gptel response copied to kill-ring and clipboard.")))))
+                             (advice-add 'kill-new :after copy-advice)
+                             (unwind-protect
+                                 (funcall callback resp info raw)
+                               (advice-remove 'kill-new copy-advice)))))))
+                (apply orig-fn prompt request-args)))))
+    (advice-add 'gptel-request :around request-advice)
+    (unwind-protect
+        (tl/gptel-suffix-send args)
+      (advice-remove 'gptel-request request-advice))))
 
-  (defun tl/gptel-respond-to-kill-ring ()
-    "Send the response to the kill-ring and the system clipboard (=gptel-menu k=).
+(defun tl/gptel-respond-to-kill-ring ()
+  "Send the response to the kill-ring and the system clipboard (=gptel-menu k=).
 The reply is also piped through `tl/wl-copy' to the Wayland clipboard
 once it arrives (the kill-ring destination is asynchronous)."
-    (interactive)
-    (tl/gptel-suffix-send-with-kill-ring-clipboard '("m" "k"))))
+  (interactive)
+  (tl/gptel-suffix-send-with-kill-ring-clipboard '("m" "k")))
 #+end_src
 
 ** Agent-shell
@@ -2982,7 +3003,6 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key ghostel-semi-char-mode-map (kbd "C-\\") #'ghostel--send-event)
   (define-key ghostel-semi-char-mode-map (kbd "C-u") #'ghostel--send-event)
   (define-key ghostel-semi-char-mode-map (kbd "M-y") #'ghostel--send-event)
-  (define-key ghostel-semi-char-mode-map (kbd "M-/") #'ghostel--send-event)
   (define-key ghostel-semi-char-mode-map (kbd "C-_") #'ghostel--send-event)
   ;(define-key ghostel-semi-char-mode-map (kbd "ESC") #'ghostel--send-event)
   ;; Custom Keybindings  
@@ -3085,7 +3105,6 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 #+end_src
 
 ** Drag-stuff
-
 #+begin_src emacs-lisp
 (use-package drag-stuff
   :init
@@ -3093,7 +3112,6 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 #+end_src
 
 ** God-Mode
-
 #+begin_src emacs-lisp
 (use-package god-mode
   :init
@@ -3245,7 +3263,6 @@ It allows you to jump to the locations of the last changes made in the buffer:
 #+end_src
 
 *** Org-superstar
-
 #+begin_src emacs-lisp
 (use-package org-superstar
   :ensure t
@@ -3284,35 +3301,10 @@ While =org-hide-emphasis-markers= is very nice, it can sometimes make edits whic
  :hook (org-mode . org-appear-mode)
  :config
  (setq org-appear-autoemphasis t
-       org-appear-autosubmarkers t)
- (run-at-time nil nil #'org-appear--set-elements))
-#+end_src
-
-*** Org-mode-visual-fill
-I use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] to center =org-mode= buffers for centering the contents of the buffer horizontally to seem more like you are editing a document.
-
-#+begin_src emacs-lisp
-(defun tl/visual-fill-column-agenda ()
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
-
-(defun tl/visual-fill-column ()
-  (setq visual-fill-column-width 150         ;; check 130/150
-        visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
-
-;; Load and configure visual-fill-column package
-(use-package visual-fill-column
-  :ensure t
-  :hook ((org-mode text-mode conf-mode Info-mode sh-mode-hook terraform-mode) . tl/visual-fill-column))
-
-;; Enable visual-fill specifically for agenda buffers
-(add-hook 'org-agenda-mode-hook #'tl/visual-fill-column-agenda)
+       org-appear-autosubmarkers t))
 #+end_src
 
 *** Org-alert
-
 #+begin_src emacs-lisp
 (use-package org-alert
   :ensure t
@@ -3351,7 +3343,6 @@ Adding highlights to =todo= keywords and related words.
 #+end_src
 
 *** Org-fancy-priorities
-
 #+begin_src emacs-lisp
 ;; Enable prettify-symbols-mode
 (global-prettify-symbols-mode 1)
@@ -3365,7 +3356,7 @@ Adding highlights to =todo= keywords and related words.
  (setq
    org-priority-highest ?A
    org-priority-lowest ?C
-   ;;org-fancy-priorities-list '("[A]" "[B]" "[C]")
+   ;org-fancy-priorities-list '("[A]" "[B]" "[C]")
    org-fancy-priorities-list '("" "" "")
    org-priority-faces
    '((?A . (:foreground "#d95757"))
@@ -3413,7 +3404,6 @@ The =tl/org-insert-file-link= will insert a file, skipping the type of link prom
 #+end_src
 
 *** Insert all links to directory
-
 #+begin_src emacs-lisp
 (defun org-insert-links-to-directory (directory)
   "Insert Org mode links to all files in the specified DIRECTORY."
@@ -3520,7 +3510,6 @@ These functions automates the surround of word for style formatting with respect
 #+end_src
 
 *** Copy surround automation
-
 #+begin_src emacs-lisp
 (defun copy-surrounded-by-equals ()
   "Copy text surrounded by equals signs on the current line to the system clipboard."
@@ -3570,7 +3559,6 @@ If you want to see other headings while you are edit the current one, I found a 
 #+end_src
 
 *** Open images in external editor
-
 #+begin_src emacs-lisp
 ;; Open images in external editor such as swappy
 (defun tl/open-image-external-from-org ()
@@ -3582,7 +3570,6 @@ If you want to see other headings while you are edit the current one, I found a 
 #+end_src
 
 *** Open videos in mpv
-
 #+begin_src emacs-lisp
 (defun tl/open-video-link-in-mpv ()
   "Open the video link at point in mpv."
@@ -3616,7 +3603,6 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
 #+end_src
 
 *** Org text editing adjustments
-
 #+begin_src emacs-lisp
 (defun tl/copy-to-end-of-file ()
   "Copy the text from the current point to the end of the file to the clipboard."
@@ -3881,7 +3867,6 @@ Let’s make creating an Org buffer just that little bit easier.
 
 ** Org configuration
 *** Org-mode font faces
-
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
   ;; Set faces for heading levels
@@ -3922,15 +3907,37 @@ Let’s make creating an Org buffer just that little bit easier.
 (setq org-inline-src-prettify-results '("⟨" . "⟩"))
 #+end_src
 
-*** Org-mode config
+*** Org-autolist
+#+begin_src emacs-lisp
+(use-package org-autolist
+  :hook (org-mode . org-autolist-mode))
+#+end_src
 
+*** olivetti
+I use Olivetti to center =org-mode= buffers for centering the contents of the buffer horizontally to seem more like you are editing a document.
+
+#+begin_src emacs-lisp
+(use-package olivetti
+  :hook ((org-mode . olivetti-mode)
+         (org-agenda-mode . tl/org-agenda-olivetti))
+  :config
+  (setq-default olivetti-body-width 0.85)
+  (remove-hook 'olivetti-mode-on-hook 'visual-line-mode)
+  
+  (defun tl/org-agenda-olivetti ()
+    (setq-local olivetti-body-width 0.45)
+    (olivetti-mode 1)))
+#+end_src
+
+*** =Org-mode= config
 #+begin_src emacs-lisp
 (setq org-directory "~/documents/org/agenda"
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-ellipsis " ▼ "                           ; Elipsis character for folding headings
       org-log-done 'time                           ; Having the time a item is done sounds
       org-list-demote-modify-bullet '(("+" . "-") ("-" . "+") ("1." . "*") ("1." . "a."))
-      org-hide-emphasis-markers nil
+      ;; Use this to make the default Org table lines look less obtrusive
+      org-hide-emphasis-markers t
       ;; ex. of org-link-abbrev-alist in action
       ;; [[arch-wiki:Name_of_Page][Description]]
       org-link-abbrev-alist    ; This overwrites the default Doom org-link-abbrev-list
@@ -3955,7 +3962,7 @@ Let’s make creating an Org buffer just that little bit easier.
            "DOING(d)"
            "NEXT(n)"
            "|"             ; The pipe necessary to separate "active" states and "inactive" states
-           "CANC(c)"
+           "CNCL(c)"
            "DONE(f)")))
 
 ;; Org-habit config
@@ -3986,89 +3993,87 @@ Let’s make creating an Org buffer just that little bit easier.
 #+end_src
 
 *** Org-modern
-Fontifying org-mode buffers to be as pretty as possible is of paramount importance, and Minad’s lovely =org-modern= goes a long way in this regard.
+Fortifying org-mode buffers to be as pretty as possible is of paramount importance, and Minad's lovely org-modern goes a long way in this regard.
 
 #+begin_src emacs-lisp
 (use-package org-modern
-  :ensure t
-  ;:hook (org-mode . org-modern-mode)
-  :config
-  (setq org-modern-star '("◉" "○" "◈" "◇" "◆" "●")
-        org-modern-table-vertical 1
-        org-modern-table-horizontal 0.2
-        org-modern-list '((45 . "➤")
-                          (43 . "•")
-                          (42 . "-"))
-        org-modern-todo-faces
-        '(("TODO" :inverse-video t :inherit org-todo)
-          ("DOING" :inverse-video t :inherit +org-todo-active)
-          ("NEXT" :inverse-video t :inherit +org-todo-active)
-          ("DONE" :inverse-video t :inherit +org-todo-cancel)
-          ("CNCL" :inverse-video t :inherit +org-todo-onhold))
-        org-modern-footnote
-        (cons nil (cadr org-script-display))
-        org-modern-block-fringe nil
-        org-modern-block-name
-        '((t . t)
-          ("src" "»" "«")
-          ("example" "»–" "–«")
-          ("export" "⏩" "⏪")
-          ;; New block names
-          ("list" "∷" "∷")
-          ("em_dash" "—" "—")
-          ("ellipses" "…" "…")
-          ("arrow_right" "→" "→")
-          ("arrow_left" "←" "←")
-          ("arrow_lr" "↔" "↔")
-          ("properties" "⚙" "⚙")
-          ("end" "∎" "∎"))
-        org-modern-horizontal-rule (make-string 36 ?─)
-        org-modern-keyword
+ :ensure t
+ :hook ((org-mode . org-modern-mode)
+         (org-agenda-finalize . org-modern-agenda))
+ :config
+ (setq org-modern-star '("◉" "○" "◈" "◇" "◆" "●")
+       org-modern-list '((45 . "➤")
+                         (43 . "•")
+                         (42 . "-"))
+       org-modern-priority-faces
+         '((?A :inverse-video nil :foreground "#f07178")
+          (?B :inverse-video nil :foreground "#f08000")
+          (?C :inverse-video nil :foreground "#ffd700"))
+       org-modern-todo-faces
+       '(("TODO" :inverse-video t :foreground "#ffb454")
+        ("DOING" :inverse-video t :foreground "#7fd962")
+        ("NEXT" :inverse-video t :foreground "#fbd077")
+        ("DONE" :inverse-video t :foreground "#696c71")
+        ("CNCL" :inverse-video t :foreground "#d95757"))
+       org-modern-footnote (cons nil (cadr org-script-display))
+       org-modern-table nil
+       org-modern-label-border nil
+       org-modern-block-fringe nil
+       org-modern-block-name
+       '((t . t)
+         ("src" "»" "«")
+         ("example" "»–" "–«")
+         ("export" "⏩" "⏪")
+         ("list" "∷" "∷")
+         ("em_dash" "—" "—")
+         ("ellipses" "…" "…")
+         ("arrow_right" "→" "→")
+         ("arrow_left" "←" "←")
+         ("arrow_lr" "↔" "↔")
+         ("properties" "⚙" "⚙")
+         ("end" "∎" "∎"))
+       org-modern-horizontal-rule (make-string 36 ?─)
+  (setq org-modern-keyword
         '((t . t)
           ("title" . "𝙏")
           ("subtitle" . "𝙩")
           ("author" . "𝘼")
           ("chapter" . "§")
           ("year" . "𝘿")
-          ("email" . #("" 0 1 (display (raise -0.14))))
+          ("email" . "")
           ("date" . "𝘿")
           ("property" . "☸")
           ("options" . "⌥")
           ("startup" . "⏻")
           ("macro" . "𝓜")
-          ("bind" . #("" 0 1 (display (raise -0.1))))
-          ("print_glossary" . #("ᴬᶻ" 0 1 (display (raise -0.1))))
-          ("glossary_sources" . #("" 0 1 (display (raise -0.14))))
+          ("bind" . "")
+          ("print_glossary" . "ᴬᶻ")
+          ("glossary_sources" . "")
           ("include" . "⇤")
           ("setupfile" . "⇚")
           ("html_head" . "🅷")
           ("html" . "🅗")
           ("latex_class" . "🄻")
-          ("latex_class_options" . #("🄻" 1 2 (display (raise -0.14))))
+          ("latex_class_options" . "🄻")
           ("latex_header" . "🅻")
           ("latex_header_extra" . "🅻⁺")
           ("latex" . "🅛")
           ("beamer_theme" . "🄱")
-          ("beamer_color_theme" . #("🄱" 1 2 (display (raise -0.12))))
+          ("beamer_color_theme" . "🄱")
           ("beamer_font_theme" . "🄱𝐀")
           ("beamer_header" . "🅱")
           ("beamer" . "🅑")
           ("attr_latex" . "🄛")
           ("attr_html" . "🄗")
           ("attr_org" . "⒪")
-          ("call" . #("" 0 1 (display (raise -0.15))))
+          ("call" . "")
           ("name" . "⁍")
           ("header" . "›")
           ("caption" . "☰")
-          ("results" . "🠶"))))
-
-;; Enable Org-modern per buffer
-;(add-hook 'org-mode-hook #'org-modern-mode)
-;(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+          ("results" . "🠶")))))
 #+end_src
 
 *** Org-super-agenda
-
 #+begin_src emacs-lisp
 (use-package org-super-agenda
   :ensure t
@@ -4205,7 +4210,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 #+end_src
 
 *** Org-gtd-capture
-
 #+begin_src emacs-lisp
 (setq org-gtd-capture-templates
   `(("t" "Todo" entry (file "~/documents/org/agenda/inbox.org")
@@ -4222,7 +4226,6 @@ Fontifying org-mode buffers to be as pretty as possible is of paramount importan
 #+end_src
 
 *** Org-roam
-
 #+begin_src emacs-lisp
 (use-package org-roam
   :ensure t
@@ -4304,13 +4307,6 @@ The following snippet sets up a hook for all Org task state changes and then mov
 
 ;; Save Org buffers after refiling
 ;(advice-add 'org-refile :after 'org-save-all-org-buffers)
-
-;; Org-journal (using org-roam-dailies anyways)
-(setq org-journal-dir "~/documents/org/agenda"
-      org-journal-date-prefix "* "
-      org-journal-time-prefix "** "
-      org-journal-date-format "%B %d, %Y (%A) "
-      org-journal-file-format "%Y-%m-%d.org")
 #+end_src
 
 *** Org-roam-ui
@@ -4334,7 +4330,6 @@ The following snippet sets up a hook for all Org task state changes and then mov
 #+end_src
 
 *** Org-gtd
-
 #+begin_src emacs-lisp
 (setq org-gtd-update-ack "4.0.0")
 (use-package org-gtd
@@ -4767,15 +4762,14 @@ To add this, we need to change one line in ~org-html--format-toc-headline~.
 
 Since we can actually accomplish the desired effect by adding advice /around/ the function, without overriding it --- let's do that to reduce the bug surface of this config a tad.
 #+begin_src emacs-lisp
-(defun tl/org-html--format-toc-headline-collapseable (headline info)
-  "Add a label and checkbox to `org-html--format-toc-headline's usual output,
-to allow the TOC to be a collapsible tree."
+(defun tl/org-html--format-toc-headline-collapseable (orig-fn headline info)
+  "Add a label and checkbox to ORIG-FN's usual output for collapsible TOC trees."
   (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
-      (org-html--format-toc-headline headline info)
+      (funcall orig-fn headline info)
     (let ((id (or (org-element-property :CUSTOM_ID headline)
                   (org-export-get-reference headline info))))
       (format "<input type='checkbox' id='toc--%s'/><label for='toc--%s'>%s</label>"
-              id id (org-html--format-toc-headline headline info)))))
+              id id (funcall orig-fn headline info)))))
 
 (advice-add 'org-html--format-toc-headline :around #'tl/org-html--format-toc-headline-collapseable)
 #+end_src
