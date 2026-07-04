@@ -22,11 +22,12 @@ new_tab notes
 cd ~
 launch --title notes emacsclient -nw --eval "(tl/ghostel-new-named \"*ghostel-notes*\")"
 
-# Create AI tabs
-new_tab omp-agent
+# Create AI tab
+new_tab omp-agents
 cd ~
-launch --title omp-agent emacsclient -nw --eval "(let ((agent-shell-session-strategy 'new)) (tl/agent-shell-omp-start) (delete-other-windows))"
+launch --title omp-agent emacsclient -nw --eval "(tl/agent-shell-omp-start)"
 
+# Create GPtel tab
 new_tab gemini
 cd ~
-launch --title gemini emacsclient -nw --eval "(switch-to-buffer (gptel \"*Gemini*\"))"
+launch --title gemini emacsclient -nw --eval "(tl/gptel-open-gemini)"
