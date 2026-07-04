@@ -53,64 +53,64 @@ The world's greatest programmer once said:
 | C-c        | Consult/GTD    |
 | C-f        | Timer/clock    |
 | C-s        | Help           |
-| C-t        | Toggle         |
+| C-t        | Toggle/Table   |
 | C-e        | Eval/edit file |
 | C-d        | Dired          |
-| v          | Diff-hl        |
+| v          | Diff-Hl        |
 
 ** General keys
 
-| Keybinding  | Description                        |
-|-------------+------------------------------------|
-| C-h         | Show available keys                |
-| .           | Create or find file                |
-| ,           | Find recent files                  |
-| z           | Zoxide                             |
-| i           | Process inbox GTD                  |
-| B           | Switch to clarify buffer GTD       |
-| I           | Org clarify item GTD               |
-| y           | Clipboard history                  |
-| O           | New empty org buffer               |
-| v           | Open video in mpv                  |
-| f           | Insert todo keyword at point       |
-| C-a         | Open org agenda                    |
-| a           | Mark whole bluffer                 |
-| C           | Go to calendar                     |
-| C-p         | Previous Buffer                    |
-| C-n         | Next buffer                        |
-| C-u         | Kill current buffer                |
-| C-q         | Exit emacs                         |
-| C-j         | Open emacs dashboard               |
-| C-s         | Save buffer                        |
-| C-i/TAB     | Comment lines                      |
-| C-b         | Switch to buffer                   |
-| C-o         | Open image in swappy               |
-| m           | Select macro to run                |
-| C-M-\       | indent-rigidly                     |
-| C-M-<right> | Forward sexp (like brackets)       |
-| C-M-<left>  | Backward sexp                      |
-| C-x C-f C-i | timeclock-in                       |
-| C-x C-f C-o | timeclock-out                      |
-| C-x C-f C-s | timeclock-status-string            |
-| C-x C-f C-e | timeclock-workday-elapsed-string   |
-| C-x C-f C-l | timeclock-when-to-leave-string     |
-| C-x C-f C-r | timeclock-workday-remaining-string |
-| C-x C-f C-v | timeclock-visit-timelog            |
-| C-x C-f C-c | timeclock-change                   |
-| C-x C-f C-d | timeclock-mode-line-display        |
-| C-c C-x ;   | org-timer-set-timer                |
-| C-c C-x .   | org-timer-pause-or-continue        |
-| C-c C-x ,   | org-timer-stop                     |
-| C-c C-x -   | org-timer-item                     |
-| C-c C-x 0   | org-timer-start                    |
-| C-c C-x '   | org-timer-show-remaining-time      |
+| Keybinding  | Description                         |
+|-------------+-------------------------------------|
+| C-h         | Show available keys                 |
+| .           | Clone indirect buffer in new window |
+| ,           | Find recent files                   |
+| z           | Find directory with Zoxide          |
+| i           | Process inbox GTD                   |
+| B           | Switch to clarify buffer GTD        |
+| M-y         | Clipboard history                   |
+| O           | Switch to org buffer                |
+| o           | Open image in swappy                |
+| f           | Insert todo heading at point        |
+| C-a         | Open org agenda                     |
+| a           | Mark whole buffer                   |
+| n           | Go to calendar                      |
+| C-p         | Previous Buffer                     |
+| h           | Open emacs dashboard                |
+| C-n         | Next buffer                         |
+| C-u         | Kill current buffer                 |
+| C-q         | Exit emacs                          |
+| C-j         | Switch window down                  |
+| C-i/TAB     | Comment lines                       |
+| C-b         | Switch to buffer                    |
+| C-o         | New empty org buffer                |
+| m           | Select macro to run                 |
+| C-M-\       | indent-rigidly                      |
+| C-M-<right> | Forward sexp (like brackets)        |
+| C-M-<left>  | Backward sexp                       |
+| C-\         | Indent region                       |
+| C-x C-f C-i | timeclock-in                        |
+| C-x C-f C-o | timeclock-out                       |
+| C-x C-f C-s | timeclock-status-string             |
+| C-x C-f C-e | timeclock-workday-elapsed-string    |
+| C-x C-f C-l | timeclock-when-to-leave-string      |
+| C-x C-f C-r | timeclock-workday-remaining-string  |
+| C-x C-f C-v | timeclock-visit-timelog             |
+| C-x C-f C-c | timeclock-change                    |
+| C-x C-f C-d | timeclock-mode-line-display         |
+| C-c C-x ;   | org-timer-set-timer                 |
+| C-c C-x .   | org-timer-pause-or-continue         |
+| C-c C-x ,   | org-timer-stop                      |
+| C-c C-x -   | org-timer-item                      |
+| C-c C-x 0   | org-timer-start                     |
+| C-c C-x '   | org-timer-show-remaining-time       |
 
 ** Registers and bookmarks
 
 | Keybinding | Description       |
 |------------+-------------------|
 | C-r        | Point to register |
-| r r        | Consult register  |
+| r          | Consult register  |
 | b          | Consult bookmark  |
 | x          | Set Bookmark      |
 | d          | Delete Bookmark   |
@@ -120,9 +120,8 @@ The world's greatest programmer once said:
 | Keybinding | Description                         |
 |------------+-------------------------------------|
 | q          | Delete window                       |
-| C-g        | Delete other windows                |
 | C-j/k      | Switch window                       |
-| C-m        | Toggle window maximization          |
+| RET        | Toggle window maximization          |
 | C-/        | Split window below                  |
 | C->        | Enlarge window                      |
 | C-<        | Shrink window                       |
@@ -138,62 +137,61 @@ The world's greatest programmer once said:
 | C-c C-h/j/k/l | Move table row/column up/down/left/right  |
 | RET           | Go down one cell                          |
 | S-ArrowKeys   | Move table cell up/down/left/right        |
-| "Pipe Symbol" | Create empty table or convert from region |
-| -             | Insert horizontal line                    |
-| j             | Copy the value of the field below         |
-| h             | Insert a new row above the current line   |
-| k             | Delete the current row or horizontal line |
-| u             | Delete a column                           |
-| z             | Blank field or active region              |
+| C-\           | Create empty table or convert from region |
+| C--           | Insert horizontal line                    |
+| C-j           | Copy the value of the field below         |
+| C-h           | Insert a new row above the current line   |
+| C-k           | Delete the current row or horizontal line |
+| C-u           | Delete a column                           |
+| C-z           | Blank field or active region              |
 
 * C-c Leader Key
 ** Org-mode
 
-| Keybinding  | Description                                |
-|-------------+--------------------------------------------|
-| C-h         | Show available keys                        |
-| C-h/j/k/l   | Meta-left/down/up/right (meta-left is off) |
-| C-p/n       | Org previous/next visible heading          |
-| c           | GTD capture                                |
-| C           | Org roam capture                           |
-| ,           | Org set todo                               |
-| .           | Org set priority                           |
-| C-z         | Add org note                               |
-| C-w         | Org refile                                 |
-| C-/         | Org tag                                    |
-| C-e         | Org set effort                             |
-| ,/.         | Previous/Next code block                   |
-| f           | Insert file link                           |
-| w           | Insert link                                |
-| C-a         | Insert any date                            |
-| C-t         | Insert today's date                        |
-| C-y         | Insert screenshot                          |
-| C-v         | Toggle heading                             |
-| C-i         | Toggle item                                |
-| C-m         | Org insert todo heading                    |
-| C-s         | Org schedule                               |
-| C-d         | Org deadline                               |
-| C-o         | Org open at point                          |
-| C-q         | Insert subheading                          |
-| C-r         | Insert heading same level                  |
-| /           | Org time stamp                             |
-| b           | Paste directly into a code block           |
-| h           | Widen                                      |
-| j           | Narrow forward                             |
-| k           | Narrow backward                            |
-| l           | Narrow to subtree                          |
-| u           | Narrow to code block                       |
-| z           | Insert footnote                            |
-| C-x C-p     | Next link                                  |
-| C-x C-n     | Previous link                              |
-| C-x C-j     | Go to currently clocked task               |
+| Keybinding | Description                                |
+|------------+--------------------------------------------|
+| C-h        | Show available keys                        |
+| C-h/j/k/l  | Meta-left/down/up/right (meta-left is off) |
+| C-p/n      | Org previous/next visible heading          |
+| c          | GTD capture                                |
+| C          | Org roam capture                           |
+| C-t        | Org set todo                               |
+| C-c i      | Org clarify item GTD                       |
+| C-w        | Org refile                                 |
+| C-/        | Org tag                                    |
+| C-e        | Org set effort                             |
+| ,/.        | Previous/Next code block                   |
+| <          | Org date from calendar                     |
+| f          | Insert file link                           |
+| w          | Insert link                                |
+| C-a        | Insert any date                            |
+| C-y        | Insert screenshot                          |
+| C-v        | Toggle heading                             |
+| C-i        | Toggle item                                |
+| C-m        | Org insert todo heading                    |
+| C-s        | Org schedule                               |
+| C-d        | Org deadline                               |
+| C-o        | Org open at point                          |
+| C-q        | Insert subheading                          |
+| C-r        | Insert heading same level                  |
+| /          | Org time stamp                             |
+| b          | Paste directly into a code block           |
+| h          | Widen                                      |
+| j          | Narrow forward                             |
+| k          | Narrow backward                            |
+| l          | Narrow to subtree                          |
+| u          | Narrow to code block                       |
+| z          | Insert footnote                            |
+| C-x C-p    | Next link                                  |
+| C-x C-n    | Previous link                              |
+| C-x C-j    | Go to currently clocked task               |
 
 ** Org-roam
 
 | Keybinding | Description                              |
 |------------+------------------------------------------|
 | C-c        | Org ctrl-c-ctrl-c (toggle checkbox etc.) |
-| p          | Complete at point                        |
+| P          | Complete at point                        |
 | r          | Toggle org roam buffer                   |
 | F          | Create/find new roam node                |
 | L          | Insert link to other node                |
@@ -236,7 +234,6 @@ The world's greatest programmer once said:
 | C-h        | Show available keys       |
 | C-u        | Symbol put                |
 | C-n/p      | Symbol jump next/prev     |
-| M-P/N      | Symbol jump first/last    |
 | C-s        | Symbol save               |
 | C-f        | Symbol switch forward     |
 | C-b        | Symbol switch backward    |
@@ -254,12 +251,12 @@ The world's greatest programmer once said:
 |------------+-------------------------|
 | e          | Mark element            |
 | b          | Mark code block         |
-| p          | Mark paragraph          |
+| .          | Mark paragraph          |
 | w          | Mark word               |
 | h          | Mark symbol             |
 | H          | Mark symbol with prefix |
 | a          | Mark next accessor      |
-| c          | Mark method call        |
+| ,          | Mark method call        |
 | q          | Mark inside quotes      |
 | Q          | Mark outside quotes     |
 | j          | Mark inside pairs       |
@@ -277,21 +274,21 @@ The world's greatest programmer once said:
 |------------+---------------------------------------------------------------------------|
 | h/j/k/l    | Navigation                                                                |
 | a/e        | Beginning/end of week                                                     |
-| A/E        | Forward/Backward month                                                    |
+| A/E        | Backward/forward month                                                    |
 | p/n        | Beginning/end of month                                                    |
 | P/N        | Beginning/end of year                                                     |
-| [/]        | Forward/Backward year                                                     |
+| [/]        | Backward/forward year                                                     |
 | </>        | Scroll left/right                                                         |
 | v/V        | Scroll left/right 3 months                                                |
 | SPC        | Set mark                                                                  |
 | m/M        | Mark diary and holidays entries/Unmark                                    |
 | u/U        | Diary view entry at point/Show all entries                                |
 | d/D        | Org roam dailies capture date/goto date                                   |
-| s/S        | Show sunrise-sunset for month/today's sunrise-sunset                      |
+| s/S        | Show sunrise-sunset for today's date/month                                |
 | g/G        | Show holidays at point/List holidays                                      |
-| ./.        | Go to todays date/Go to date                                              |
+| ./,        | Go to todays date/Go to date                                              |
 | C-x C-x    | Exchange point and mark                                                   |
-| c/C        | Count number of days between the mark and the point/until the end of year |
+| c/C        | Count days in region/Print day of year                                    |
 | ?          | Go to help                                                                |
 | q          | Quit                                                                      |
 | i w        | Diary insert weekly entry                                                 |
@@ -304,14 +301,14 @@ The world's greatest programmer once said:
 | Keybinding      | Description                                                        |
 |-----------------+--------------------------------------------------------------------|
 | RET             | Go to org file with the item at point                              |
-| j/k             | Previous/next item                                                 |
+| j/k             | Next/previous item                                                 |
 | p/n             | Backward/forward block                                             |
 | l/w/m/y         | Day/week/month/year view                                           |
 | I/O/J/Q         | Start/stop/jump to current/cancel                                  |
 | u/U/M/K/F/L/T   | Toggle diary/clock/deadlines/habits/follow mode/log mode/time grid |
 | h/H             | Show the tags for item/Set tag                                     |
 | f/b             | Go forward/backward in time in agenda                              |
-| q/Q             | Quit/Exit and kill buffers created by agenda                       |
+| q/Q             | Quit/Cancel current clock                                         |
 | [/]             | Scroll up/down                                                     |
 | C-c C-n/C-c C-p | Next/Previous date line                                            |
 | <               | Change date of this item                                           |
@@ -321,14 +318,14 @@ The world's greatest programmer once said:
 | .               | Go to today's date                                                 |
 | ,               | Go to date                                                         |
 | c               | Go to calendar                                                     |
-| C               | org roam capture                                                   |
+| C               | GTD capture                                                        |
 | ;               | Recenter                                                           |
 | TAB             | Go to entry at point                                               |
 | r               | Beginning of buffer                                                |
 | Z               | Archive completed GTD items                                        |
 | z               | Add time-stamped note to agenda entry                              |
 | i               | Make a diary entry                                                 |
-| d               | Make it easy to mark a task ad doing                               |
+| d               | Make it easy to mark a task as doing                               |
 | x               | Make it easy to mark a task as done                                |
 | X               | Make it easy to mark a task as cancelled                           |
 | o               | Delete other windows                                               |
@@ -337,7 +334,6 @@ The world's greatest programmer once said:
 | g               | Refresh agenda view                                                |
 | W               | Open the link in the current entry                                 |
 | G               | List holidays                                                      |
-| C-/             | Agenda undo                                                        |
 | -/=             | Priority up/down                                                   |
 | s               | Org save all org buffers                                           |
 | e               | Set effort                                                         |
@@ -363,7 +359,7 @@ The world's greatest programmer once said:
 | Keybinding | Description                   |
 |------------+-------------------------------|
 | h/j/k/l    | Navigation                    |
-| ,/.        | Forward/backward paragraph    |
+| ,/.        | Backward/forward paragraph    |
 | ;/:        | Recenter                      |
 | a/e        | Beginning/end of line         |
 | {/}        | Beginning/end of buffer       |
@@ -373,7 +369,7 @@ The world's greatest programmer once said:
 | s          | Search                        |
 | S          | Search case sensitively       |
 | ?          | Info help                     |
-| DEL        | Info up                       |
+| H          | Info up                       |
 | g          | Info goto node                |
 | L          | Info history                  |
 | f/b        | Info history forward/backward |
@@ -385,19 +381,15 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 
 | Keybinding | Description                                                  |
 |------------+--------------------------------------------------------------|
-| M-'        | Copy last entry to clipboard                                 |
-| M-u        | tl/org-kill-line-backward                                    |
-| M-n        | tl/newline-at-end-of-line                                    |
-| M-d        | kill-word                                                    |
-|            |                                                              |
-|            |                                                              |
+| M-u        | Kill current buffer                                         |
+| M-n        | New Ghostel terminal                                        |
+| M-t        | Treemacs current project                                    |
 | M-a        | Embark act                                                   |
-| M-h        | Treemacs                                                     |
 | M-i        | jinx-correct                                                 |
-| M-w        | jinx-correct-word                                            |
+| M-w        | Swap window                                                  |
 | M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
 | M-p        | jinx auto correct save                                       |
-| M-u        | jinx auto correct                                            |
+| M-]        | jinx auto correct                                            |
 
 ** Agent-shell
 Agent-shell session config:
@@ -407,15 +399,15 @@ Agent-shell session config:
 | M-v        | agent-shell-switch-buffer             |
 | C-c C-q    | agent-shell-queue-request             |
 | C-c C-o    | agent-shell-other-buffer              |
-| C-c RET    | agent-shell-set-session-mode          |
-| C-c C-t    | agent-shell-set-session-thought-level |
-| C-c v      | agent-shell-set-session-config-option |
-| C-c C-v    | agent-shell-set-session-model         |
+| M-RET      | god-local-mode                       |
+| C-c C-e    | agent-shell-restart                  |
+| C-c v      | agent-shell-set-session-model        |
+| C-c C-v    | agent-shell-set-session-config-option |
 | C-c C-c    | agent-shell-interrupt                 |
-| C-c C-a    | toggle auto-confirming questions      |
+| C-c C-a    | toggle auto-accepting prompts       |
 | C-c C-w    | tl/agent-shell-copy-session-id        |
 | C-c C-r    | agent-shell-resume-session            |
-| C-c C-h    | help page                             |
+| C-c C-h    | comint-show-maximum-output           |
 
 Oh-My-Pi chat buffer - using Fable 5:
 | Keybinding | Description                                 |
@@ -443,8 +435,8 @@ Chat buffer - using Gemini3.1-flash-lite
 | M-\        | gptel-abort                 |
 | C-M-s      | gptel-system-prompt         |
 | C-v r      | gptel--mark-response        |
-| C-c C-a    | gptel-end-of-response       |
-| C-c C-e    | gptel-beginning-of-response |
+| C-c C-a    | gptel-beginning-of-response |
+| C-c C-e    | gptel-end-of-response       |
 | C-c C-r    | gptel--regenerate           |
 | C-c C-f    | gptel--next-variant         |
 | C-c C-b    | gptel--previous-variant     |
@@ -454,7 +446,7 @@ Gptel custom commands:
 |------------+--------------------------------------|
 | C-M-r      | gptel-rewrite                        |
 | C-M-e      | gptel-rewrite directive menu         |
-| C-M-i      | gptel-rewrite from directive message |
+| C-M-i      | Open GPTel rewrite transient suffix |
 | C-M-v      | Send to gptel session                |
 | C-M-q      | Respond to echo area                 |
 | C-M-k      | Prompt from kill ring                |
@@ -485,7 +477,7 @@ Gptel custom commands:
 | n          | Create directory                                 |
 | N          | Create empty file                                |
 | f          | Dired go to file                                 |
-| s          | Toggle sorting by date                           |
+| H          | Toggle omitted files                             |
 | w          | Copy names of marked files                       |
 | g          | Revert buffer                                    |
 
@@ -493,53 +485,53 @@ Gptel custom commands:
 
 | Keybinding | Description                          |
 |------------+--------------------------------------|
-| S-p/n/f/b  | Drag stuff up/down/left/right        |
-| S-</>      | Beginning/End of buffer              |
+| S-p/n/f/b  | Drag up/down, winner redo/undo      |
+| </>        | Beginning/End of buffer              |
 | z          | Repeat action                        |
 | S-t        | Kmacro start macro or insert counter |
 | S-y        | Kmacro end or call macro             |
-| [          | Scroll down command                  |
-| ]          | Scroll up command                    |
+| [          | Copy to beginning of file            |
+| ]          | Copy to end of file                  |
 | {          | Delete till beginning of file        |
 | }          | Delete till end of file              |
-| C-S-\      | Query-replace                        |
-| S-r        | Rectangle mark mode                  |
+| \vert      | Query replace                        |
+| S-r        | Undo redo                            |
 | S-m        | Org meta return                      |
-| C-c C-,    | Select the source code block         |
+| SPC        | Toggle mark command                 |
 | ,          | Backward paragraph                   |
 | .          | Forward paragraph                    |
-| e          | Org end of line                      |
-| a          | Org beginning of line                |
+| e          | Smart end of line                   |
+| a          | Smart beginning of line             |
 | w          | Copy to system clipboard             |
-| ?          | Undo redo                            |
+| ?          | Diff buffer with file                |
 | y          | Paste from system clipboard          |
-| S-h        | Open treemacs                        |
+| S-h        | Copy line/region downward            |
 | -/=        | Priority up/down                     |
 | b          | Backward word                        |
 | f          | Forward word                         |
-| d          | Kill region or forward delete        |
+| d          | Kill region to clipboard             |
 | p          | Org backward sentence                |
 | n          | Org forward sentence                 |
 | \          | Universal argument                   |
 | M-1-9      | Universal argument shortcut          |
-| S-i        | Org cycle or shift tab               |
+| S-i        | Goto last change reverse             |
 | S-q        | Goto last change                     |
-| S-o        | Goto last change reverse             |
-| S-a        | Go to org heading                    |
-| S-e        | Go to mark                           |
+| S-o        | Kill line forward to clipboard       |
+| S-a        | Copy line backward                   |
+| S-e        | Copy line forward                    |
 | ;          | Recenter top bottom                  |
 | :          | Move to window line top bottom       |
-| t          | Zap up to char                       |
-| u          | New line                             |
+| t          | Treemacs                             |
+| u          | Scroll down command                  |
 | S-s        | Mark symbol                          |
 | ~          | tl/toggle-letter-case                |
-| S-l        | Multi cursors next line              |
-| S-j        | Join line                            |
+| S-l        | Zap up to char                       |
+| S-j        | Org newline and indent               |
 | S-d        | Kill whole line                      |
 | S-v        | Mark whole line                      |
-| S-w        | Copy current line or region          |
-| S-z        | Surround bold                        |
-| S-x        | Surround italic                      |
+| S-w        | Copy whole line                     |
+| S-z        | Org shift tab                        |
+| S-x        | Surround bold                        |
 | S-c        | Surround code                        |
 
 ** Org-tempo
@@ -581,23 +573,21 @@ You can specify the image name in the file itself by adding a line like this at 
 | Keybinding | Description                                 |
 |------------+---------------------------------------------|
 | ?          | treemacs-common-helpful-hydra               |
-| j          | treemacs-next-line                          |
-| k          | treemacs-previous-line                      |
+| j          | treemacs-next-neighbour                     |
+| k          | treemacs-previous-neighbour                 |
 | h          | treemacs-root-up                            |
 | l          | treemacs-root-down                          |
-| H          | treemacs-goto-parent-node                   |
+| K          | treemacs-goto-parent-node                   |
 | u          | treemacs-collapse-parent-node               |
 | .          | treemacs-toggle-show-dotfiles               |
-| M-j        | treemacs-next-neighbour                     |
-| M-k        | treemacs-previous-neighbour                 |
-| M-p        | treemacs-move-project-up                    |
-| M-n        | treemacs-move-project-down                  |
+| J          | treemacs-next-line                          |
+| /          | isearch-forward                             |
 | RET        | treemacs-RET-action                         |
 | TAB        | treemacs-TAB-action                         |
 | =          | treemacs-fit-window-width                   |
 | W          | treemacs-extra-wide-toggle                  |
-| <          | treemacs-decrement-width                    |
-| >          | treemacs-increment-width                    |
+| <          | treemacs-decrease-width                     |
+| >          | treemacs-increase-width                     |
 | g          | treemacs-refresh                            |
 | d          | treemacs-delete-file                        |
 | r          | treemacs-rename-file                        |
@@ -606,7 +596,6 @@ You can specify the image name in the file itself by adding a line like this at 
 | ac         | treemacs-copy-file                          |
 | q          | treemacs-quit                               |
 | Q          | treemacs-kill-buffer                        |
-| P          | treemacs-peek-mode                          |
 | m          | treemacs-move-file                          |
 | s          | treemacs-resort                             |
 | b          | treemacs-add-bookmark                       |
@@ -671,7 +660,9 @@ You can specify the image name in the file itself by adding a line like this at 
 | p a        | treemacs-add-project-to-workspace      |
 | p d        | treemacs-remove-project-from-workspace |
 | p r        | treemacs-rename-project                |
-| p c c      | treemacs-collapse-project              |
+| p n        | treemacs-next-project                  |
+| p p        | treemacs-previous-project              |
+| C-j/k      | Next-previous project                  |
 | p b        | move project up                        |
 | p f        | move project down                      |
 | S-TAB      | treemacs-collapse-all-projects         |
