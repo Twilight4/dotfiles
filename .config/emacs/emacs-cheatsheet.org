@@ -399,17 +399,17 @@ Agent-shell session config:
 | M-v        | agent-shell-switch-buffer             |
 | C-c C-q    | agent-shell-queue-request             |
 | C-c C-o    | agent-shell-other-buffer              |
-| M-RET      | god-local-mode                       |
-| C-c C-e    | agent-shell-restart                  |
-| C-c v      | agent-shell-set-session-model        |
+| M-RET      | god-local-mode                        |
+| C-c C-e    | agent-shell-restart                   |
+| C-c v      | agent-shell-set-session-model         |
 | C-c C-v    | agent-shell-set-session-config-option |
 | C-c C-c    | agent-shell-interrupt                 |
-| C-c C-a    | toggle auto-accepting prompts       |
+| C-c C-a    | toggle auto-accepting prompts         |
 | C-c C-w    | tl/agent-shell-copy-session-id        |
 | C-c C-r    | agent-shell-resume-session            |
-| C-c C-h    | comint-show-maximum-output           |
+| C-c C-h    | comint-show-maximum-output            |
 
-Oh-My-Pi chat buffer - using Fable 5:
+Oh-My-Pi chat buffer:
 | Keybinding | Description                                 |
 |------------+---------------------------------------------|
 | M-r        | Prompts history                             |
