@@ -167,9 +167,7 @@
   (global-unset-key (kbd "C-x w")))
 
 (with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-x n b") nil)   ;; org-narrow-to-block
-  (define-key org-mode-map (kbd "C-x n s") nil)   ;; org-narrow-to-subtree
-  (define-key org-mode-map (kbd "C-x n e") nil))  ;; org-narrow-to-element
+  (define-key org-mode-map (kbd "C-x n") nil))
 
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "C-q") nil)
@@ -486,6 +484,7 @@
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "r" '(consult-register :wk "Consult register")
     "z" '(zoxide-travel :wk "Find directory with Zoxide")
+    "h" '(dashboard-open :wk "Open emacs dashboard")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
 	;; GPTel and agent-shell
@@ -514,7 +513,7 @@
     "C-w" '(ace-swap-window :wk "Swap windows")
     "k" '(tl/strip-comments-in-region :wk "Delete comments from selected region")
     "u" '(undo-tree-visualise :wk "Undo tree visualise")
-    "RET" '(toggle-window-maximize :wk "Toggle window maximization")
+    "RET" '(tl/toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")
     "C-]" '(enlarge-window-horizontally :wk "Enlarge window horizontally")
     "C-<" '(shrink-window :wk "Shrink window")
@@ -1935,17 +1934,11 @@ Adding rainbow coloring to parentheses.
 Function for toggling maximization of window split.
 
 #+begin_src emacs-lisp
-(defvar previous-window-config nil
-  "Variable to store the previous window configuration.")
-
-(defun toggle-window-maximize ()
-  "Toggle maximization of the current split window."
+(defun tl/toggle-window-maximize ()
+  "Maximize the current window, or restore the previous layout with Winner."
   (interactive)
-  (if (and previous-window-config (eq (window-configuration-p previous-window-config) t))
-      (progn
-        (set-window-configuration previous-window-config)
-        (setq previous-window-config nil))
-    (setq previous-window-config (current-window-configuration))
+  (if (one-window-p t)
+      (winner-undo)
     (delete-other-windows)))
 #+end_src
 
@@ -2126,6 +2119,8 @@ Words auto-completion
   (global-corfu-mode)
   :bind
   (:map corfu-map
+        ("C-j" . corfu-next)
+        ("C-k" . corfu-previous)
         ("TAB" . tl/corfu-accept-then-space)
         ("SPC" . nil)))
 
@@ -2381,6 +2376,181 @@ This is useful when followed by an immediate kill."
        (treemacs-git-mode 'simple)))
 
     (treemacs-hide-gitignored-files-mode nil)))
+
+;; Treemacs-only zoxide travel.  This reads zoxide's db.zo directly instead of
+;; calling the zoxide executable, so invoking it never starts a shell process or
+;; opens/switches to a file buffer.
+(with-eval-after-load 'treemacs
+  (require 'cl-lib)
+
+  (defun tl/treemacs--set-workspace-projects (workspace projects)
+    "Set WORKSPACE's Treemacs project list to PROJECTS.
+Use `cl-struct-slot-value' instead of `(setf (treemacs-workspace->projects ...))'
+because this block is macroexpanded before Treemacs registers the struct setter."
+    (setf (cl-struct-slot-value 'treemacs-workspace 'projects workspace)
+          projects))
+
+  (defun tl/zoxide--db-file ()
+    "Return the zoxide database path without invoking zoxide."
+    (let ((data-dir (or (getenv "_ZO_DATA_DIR")
+                        (expand-file-name
+                         "zoxide"
+                         (or (getenv "XDG_DATA_HOME")
+                             (expand-file-name "~/.local/share"))))))
+      (unless (file-name-absolute-p data-dir)
+        (user-error "_ZO_DATA_DIR must be absolute: %s" data-dir))
+      (expand-file-name "db.zo" (file-name-as-directory data-dir))))
+
+  (defun tl/zoxide--read-db-bytes ()
+    "Read zoxide's binary database as a unibyte string."
+    (let ((db-file (tl/zoxide--db-file)))
+      (unless (file-readable-p db-file)
+        (user-error "No readable zoxide database at %s" db-file))
+      (with-temp-buffer
+        (set-buffer-multibyte nil)
+        (let ((coding-system-for-read 'binary))
+          (insert-file-contents-literally db-file))
+        (buffer-string))))
+
+  (defun tl/zoxide--ensure-bytes (bytes offset size)
+    "Signal if BYTES cannot provide SIZE bytes at OFFSET."
+    (when (> (+ offset size) (length bytes))
+      (user-error "Corrupt zoxide database: truncated record")))
+
+  (defun tl/zoxide--u32-le (bytes offset)
+    "Read an unsigned little-endian u32 from BYTES at OFFSET."
+    (tl/zoxide--ensure-bytes bytes offset 4)
+    (+ (aref bytes offset)
+       (ash (aref bytes (+ offset 1)) 8)
+       (ash (aref bytes (+ offset 2)) 16)
+       (ash (aref bytes (+ offset 3)) 24)))
+
+  (defun tl/zoxide--u64-le (bytes offset)
+    "Read an unsigned little-endian u64 from BYTES at OFFSET."
+    (tl/zoxide--ensure-bytes bytes offset 8)
+    (let ((value 0)
+          (shift 0))
+      (dotimes (i 8 value)
+        (setq value (+ value (ash (aref bytes (+ offset i)) shift))
+              shift (+ shift 8)))))
+
+  (defun tl/zoxide--f64-le (bytes offset)
+    "Read an IEEE-754 little-endian f64 from BYTES at OFFSET."
+    (let* ((bits (tl/zoxide--u64-le bytes offset))
+           (negative (not (zerop (logand (ash bits -63) 1))))
+           (exponent (logand (ash bits -52) #x7ff))
+           (fraction (logand bits (1- (ash 1 52))))
+           (sign (if negative -1.0 1.0))
+           (fraction-scale (float (ash 1 52))))
+      (cond
+       ((= exponent 0)
+        (* sign (expt 2.0 -1022) (/ fraction fraction-scale)))
+       ((= exponent #x7ff)
+        0.0)
+       (t
+        (* sign
+           (expt 2.0 (- exponent 1023))
+           (+ 1.0 (/ fraction fraction-scale)))))))
+
+  (defun tl/zoxide--score (rank last-accessed)
+    "Return zoxide's frecency score for RANK and LAST-ACCESSED."
+    (let ((age (max 0 (- (floor (float-time)) last-accessed))))
+      (* rank
+         (cond
+          ((< age 3600) 4.0)
+          ((< age 86400) 2.0)
+          ((< age 604800) 0.5)
+          (t 0.25)))))
+
+  (defun tl/zoxide--read-entry (bytes offset)
+    "Read one zoxide entry from BYTES at OFFSET.
+Return (ENTRY . NEXT-OFFSET), where ENTRY is (PATH RANK LAST-ACCESSED SCORE)."
+    (let* ((path-size (tl/zoxide--u64-le bytes offset))
+           (path-start (+ offset 8))
+           (path-end (+ path-start path-size)))
+      (tl/zoxide--ensure-bytes bytes path-start path-size)
+      (let* ((path (decode-coding-string
+                    (substring bytes path-start path-end)
+                    'utf-8-unix))
+             (rank-offset path-end)
+             (last-accessed-offset (+ rank-offset 8))
+             (next-offset (+ last-accessed-offset 8))
+             (rank (tl/zoxide--f64-le bytes rank-offset))
+             (last-accessed (tl/zoxide--u64-le bytes last-accessed-offset)))
+        (cons (list path rank last-accessed (tl/zoxide--score rank last-accessed))
+              next-offset))))
+
+  (defun tl/zoxide--entries ()
+    "Return zoxide database entries sorted by zoxide frecency."
+    (let* ((bytes (tl/zoxide--read-db-bytes))
+           (version (tl/zoxide--u32-le bytes 0))
+           (count (tl/zoxide--u64-le bytes 4))
+           (offset 12)
+           entries)
+      (unless (= version 3)
+        (user-error "Unsupported zoxide database version %s; expected 3" version))
+      (when (> count 100000)
+        (user-error "Refusing suspicious zoxide database with %s entries" count))
+      (dotimes (_ count)
+        (let ((entry+offset (tl/zoxide--read-entry bytes offset)))
+          (push (car entry+offset) entries)
+          (setq offset (cdr entry+offset))))
+      (sort entries
+            (lambda (a b)
+              (let ((score-a (nth 3 a))
+                    (score-b (nth 3 b)))
+                (if (= score-a score-b)
+                    (string-lessp (car a) (car b))
+                  (> score-a score-b)))))))
+
+  (defun tl/zoxide--directory-candidates ()
+    "Return existing zoxide directories in frecency order."
+    (let ((seen (make-hash-table :test 'equal))
+          candidates)
+      (dolist (entry (tl/zoxide--entries) (nreverse candidates))
+        (let ((path (car entry)))
+          (when (and (file-directory-p path)
+                     (not (gethash path seen)))
+            (puthash path t seen)
+            (push path candidates))))))
+
+  (defun tl/treemacs-zoxide-travel ()
+    "Show and expand a zoxide-ranked directory as the focused Treemacs root.
+This command is intentionally valid only inside `treemacs-mode'.  It reads the
+zoxide database directly, prompts with `completing-read', updates the current
+Treemacs buffer, then expands the new root as `treemacs-TAB-action' would,
+without calling zoxide, `find-file', `dired', `switch-to-buffer', or Treemacs
+window-selection commands."
+    (interactive)
+    (unless (eq major-mode 'treemacs-mode)
+      (user-error "Run tl/treemacs-zoxide-travel from a Treemacs buffer"))
+    (let* ((candidates (tl/zoxide--directory-candidates))
+           (selection (progn
+                        (unless candidates
+                          (user-error "No existing directories found in zoxide database"))
+                        (completing-read "Treemacs zoxide: " candidates nil t)))
+           (path (treemacs-canonical-path selection))
+           (name (file-name-nondirectory (directory-file-name path)))
+           (workspace (treemacs-current-workspace)))
+      (tl/treemacs--set-workspace-projects
+       workspace
+       (list (treemacs-project->create!
+              :name name
+              :path path
+              :path-status (treemacs--get-path-status path))))
+      (treemacs--invalidate-buffer-project-cache)
+      (treemacs--consolidate-projects)
+      (goto-char (point-min))
+      (when-let ((button (treemacs-current-button)))
+        (when (eq (treemacs-button-get button :state) 'root-node-closed)
+          (treemacs-TAB-action)))
+      (treemacs--evade-image)
+      (hl-line-highlight)
+      (when-let ((window (get-buffer-window (current-buffer) (selected-frame))))
+        (set-window-point window (point)))
+      path))
+
+  (define-key treemacs-mode-map (kbd "z") #'tl/treemacs-zoxide-travel))
 
 ;; Treemacs global keybinds
 ;(global-set-key (kbd "C-c C-p r") 'treemacs-rename-project)
@@ -2707,7 +2877,7 @@ Transient newer verion for gptel to work.
 Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
 #+begin_src emacs-lisp
 (use-package gptel
-  :hook (gptel-mode . (gptel-highlight-mode))
+  :hook (gptel-mode . gptel-highlight-mode)
   :ensure t
   :bind (:map gptel-mode-map
               ("C-c C-e" . gptel-end-of-response)
@@ -2716,6 +2886,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
               ("C-c C-b" . tl/gptel-previous-variant)
               ("C-c C-a" . gptel-beginning-of-response))
   :config
+  (remove-hook 'gptel-mode-hook #'gptel-mode)
+  (remove-hook 'gptel-highlight-mode-hook #'gptel-mode)
   (add-hook 'gptel-post-stream-hook 'gptel-auto-scroll)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   (setq gptel-default-mode 'org-mode)
@@ -2853,9 +3025,23 @@ Gptel custom functions
   (interactive)
   (tl/gptel-suffix-send '("m" "e")))
 
+(defun tl/gptel-gemini-buffer ()
+  "Return the *Gemini* GPTel buffer, creating it when needed."
+  (or (get-buffer "*Gemini*")
+      (progn
+        (unless (require 'gptel nil t)
+          (user-error "gptel is not available"))
+        (gptel "*Gemini*"))))
+
+(defun tl/gptel-open-gemini ()
+  "Switch to the *Gemini* GPTel buffer, creating it when needed."
+  (interactive)
+  (switch-to-buffer (tl/gptel-gemini-buffer)))
+
 (defun tl/gptel-send-to-session ()
   "Ask a prompt in the minibuffer, redirecting the response to the *Gemini* gptel session (=gptel-menu m + g=)."
   (interactive)
+  (tl/gptel-gemini-buffer)
   (tl/gptel-suffix-send (list "m" "g*Gemini*")))
 
 (defun tl/gptel-suffix-send-with-kill-ring-clipboard (args)
@@ -2980,11 +3166,13 @@ other ACP agent).  Use with caution."
    :install-instructions "curl -fsSL https://omp.sh/install | sh"))
 
 (defun tl/agent-shell-omp-start ()
-  "Start an interactive oh-my-pi agent shell."
+  "Start an interactive oh-my-pi agent shell and return its buffer."
   (interactive)
   (require 'agent-shell)
-  (agent-shell--dwim :config (tl/agent-shell-omp-make-config)
-                     :new-shell t))
+  (let ((buffer (agent-shell-start :config (tl/agent-shell-omp-make-config))))
+    (when (buffer-live-p buffer)
+      (switch-to-buffer buffer))
+    buffer))
 
 (with-eval-after-load 'agent-shell
   (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
@@ -2997,6 +3185,15 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 (use-package ghostel
   :ensure t
   :config
+  (defun tl/ghostel-disable-god-mode ()
+    "Keep newly-created Ghostel buffers in terminal input mode."
+    (when (bound-and-true-p god-local-mode)
+      (god-local-mode -1)))
+
+  (add-hook 'ghostel-mode-hook #'tl/ghostel-disable-god-mode)
+  (with-eval-after-load 'god-mode
+    (add-to-list 'god-exempt-major-modes 'ghostel-mode))
+
   ;; Keybindings - pass through terminal
   (define-key ghostel-semi-char-mode-map (kbd "M-:") #'ghostel--send-event)
   (define-key ghostel-semi-char-mode-map (kbd "C-h") #'ghostel--send-event)
@@ -3019,7 +3216,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key ghostel-semi-char-mode-map (kbd "M-k") #'previous-multiframe-window)
   (define-key ghostel-semi-char-mode-map (kbd "M-j") #'next-multiframe-window)
   (define-key ghostel-semi-char-mode-map (kbd "M-l") #'consult-buffer)
-  (define-key ghostel-semi-char-mode-map (kbd "M-m") #'toggle-window-maximize)
+  (define-key ghostel-semi-char-mode-map (kbd "M-m") #'tl/toggle-window-maximize)
   (define-key ghostel-semi-char-mode-map (kbd "C-s") #'consult-line)
   (define-key ghostel-semi-char-mode-map (kbd "M-RET") #'god-local-mode)
   (define-key ghostel-semi-char-mode-map (kbd "M-`") #'ghostel-clear-scrollback)
@@ -3089,7 +3286,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 (global-set-key (kbd "M-s") 'tl/ghostel-new-yazi)
 (global-set-key (kbd "M-k") 'previous-multiframe-window)
 (global-set-key (kbd "M-j") 'next-multiframe-window)
-(global-set-key (kbd "M-m") 'toggle-window-maximize)
+(global-set-key (kbd "M-m") 'tl/toggle-window-maximize)
 (global-set-key (kbd "M-w") 'ace-swap-window)
 (global-set-key (kbd "M-c") 'delete-window)
 (global-set-key (kbd "M-;") 'tl/split-window-right)
@@ -3272,7 +3469,7 @@ It allows you to jump to the locations of the last changes made in the buffer:
 
 ;; Hide leading stars
 (setq org-hide-leading-stars nil
-      org-superstar-leading-bullet ?\s
+      org-superstar-leading-fallback ?\s
       org-indent-mode-turns-on-hiding-stars nil
       org-superstar-remove-leading-stars t)
 
@@ -3913,20 +4110,55 @@ Let’s make creating an Org buffer just that little bit easier.
   :hook (org-mode . org-autolist-mode))
 #+end_src
 
-*** olivetti
-I use Olivetti to center =org-mode= buffers for centering the contents of the buffer horizontally to seem more like you are editing a document.
+*** Olivetti
+I use Olivetti to center =org-mode= buffers for centering the contents of the buffer horizontally.
 
 #+begin_src emacs-lisp
+(defun tl/org-olivetti ()
+  "Enable `olivetti-mode' in Org buffers."
+  (when (require 'olivetti nil t)
+    (setq-local olivetti-body-width 0.85)
+    (olivetti-mode 1)))
+
+(defun tl/org-agenda-olivetti ()
+  "Enable `olivetti-mode' in Org agenda buffers."
+  (when (require 'olivetti nil t)
+    (setq-local olivetti-body-width 0.50)
+    (setq-local truncate-lines nil)
+    (olivetti-mode 1)))
+
+(defun tl/agent-shell-omp-buffer-p ()
+  "Return non-nil when current buffer is an Oh My Pi agent-shell buffer."
+  (and (boundp 'agent-shell--state)
+       (eq (alist-get :identifier
+                      (alist-get :agent-config agent-shell--state))
+           'oh-my-pi)))
+
+(defun tl/agent-shell-olivetti ()
+  "Enable `olivetti-mode' in Oh My Pi agent-shell buffers."
+  (when (tl/agent-shell-omp-buffer-p)
+    (tl/org-olivetti)))
+
+(add-hook 'org-mode-hook #'tl/org-olivetti)
+(add-hook 'org-agenda-mode-hook #'tl/org-agenda-olivetti)
+(add-hook 'agent-shell-mode-hook #'tl/agent-shell-olivetti)
+
 (use-package olivetti
-  :hook ((org-mode . olivetti-mode)
-         (org-agenda-mode . tl/org-agenda-olivetti))
   :config
   (setq-default olivetti-body-width 0.85)
-  (remove-hook 'olivetti-mode-on-hook 'visual-line-mode)
-  
-  (defun tl/org-agenda-olivetti ()
-    (setq-local olivetti-body-width 0.45)
-    (olivetti-mode 1)))
+  (remove-hook 'olivetti-mode-on-hook #'visual-line-mode)
+  ;; `elpaca' can finish activating packages after relevant buffers already
+  ;; exist, so hooks alone can miss buffers opened early during startup.
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (cond
+       ((derived-mode-p 'org-mode)
+        (tl/org-olivetti))
+       ((eq major-mode 'org-agenda-mode)
+        (tl/org-agenda-olivetti))
+       ((and (derived-mode-p 'agent-shell-mode)
+             (tl/agent-shell-omp-buffer-p))
+        (tl/agent-shell-olivetti))))))
 #+end_src
 
 *** =Org-mode= config
