@@ -56,6 +56,7 @@ The world's greatest programmer once said:
 | C-t        | Toggle         |
 | C-e        | Eval/edit file |
 | C-d        | Dired          |
+| v          | Diff-hl        |
 
 ** General keys
 
@@ -64,6 +65,7 @@ The world's greatest programmer once said:
 | C-h         | Show available keys                |
 | .           | Create or find file                |
 | ,           | Find recent files                  |
+| z           | Zoxide                             |
 | i           | Process inbox GTD                  |
 | B           | Switch to clarify buffer GTD       |
 | I           | Org clarify item GTD               |
@@ -84,6 +86,9 @@ The world's greatest programmer once said:
 | C-b         | Switch to buffer                   |
 | C-o         | Open image in swappy               |
 | m           | Select macro to run                |
+| C-M-\       | indent-rigidly                     |
+| C-M-<right> | Forward sexp (like brackets)       |
+| C-M-<left>  | Backward sexp                      |
 | C-x C-f C-i | timeclock-in                       |
 | C-x C-f C-o | timeclock-out                      |
 | C-x C-f C-s | timeclock-status-string            |
@@ -398,7 +403,7 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 Agent-shell session config:
 | Keybinding | Description                           |
 |------------+---------------------------------------|
-| C-x v      | tl/agent-shell-omp-start              |
+| C-x SPC    | tl/agent-shell-omp-start              |
 | M-v        | agent-shell-switch-buffer             |
 | C-c C-q    | agent-shell-queue-request             |
 | C-c C-o    | agent-shell-other-buffer              |
