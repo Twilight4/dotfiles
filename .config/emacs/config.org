@@ -386,6 +386,7 @@
 (eval-after-load 'org-agenda
   '(progn
      (define-key org-agenda-mode-map (kbd "a") 'org-gtd-clarify-agenda-item)
+     (define-key org-agenda-mode-map (kbd "M-m") 'tl/toggle-window-maximize)
      (define-key org-agenda-mode-map (kbd "v") 'org-gtd-area-of-focus-set-on-agenda-item)
      (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
      (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
@@ -3478,6 +3479,10 @@ It allows you to jump to the locations of the last changes made in the buffer:
 
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+
+;; Trying to change the black stars in terminal to the same as background color
+;; (with-eval-after-load 'org
+;;   (set-face-attribute 'org-hide nil :foreground "#040305"))
 #+end_src
 
 *** Org-transclusion
