@@ -297,6 +297,7 @@ alias gpraise='git blame'
 alias grb='git branch -r'
 alias gb='git branch'
 alias gco='git checkout'
+alias ompc='omp commit --model=zai/glm-4.7-flash'
 
 
 ##############################################################################################################
