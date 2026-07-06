@@ -5,6 +5,10 @@
 
 * Table of Contents :toc:
 - [[#elpaca][Elpaca]]
+- [[#gui-configuration][GUI Configuration]]
+  - [[#frame-configuration][Frame configuration]]
+  - [[#transparency][Transparency]]
+  - [[#centaur-tabs][Centaur-tabs]]
 - [[#keybindings][Keybindings]]
   - [[#global-keybindings][Global keybindings]]
   - [[#general-keybindings][General keybindings]]
@@ -70,6 +74,7 @@
 - [[#other-packages][Other Packages]]
   - [[#anzu][Anzu]]
   - [[#diff-hl][Diff-hl]]
+  - [[#beacon][Beacon]]
   - [[#zoxide][Zoxide]]
   - [[#markdown-mode][Markdown Mode]]
   - [[#undo-tree-mode][Undo tree mode]]
@@ -142,12 +147,62 @@
 (elpaca-wait)
 #+end_src
 
+* GUI Configuration
+** Frame configuration
+These settings only take effect on graphical frames — text-terminal frames ignore font =:family=/=:height= — so a single =config.org= serves both =emacsclient -c= (GUI) and =emacsclient -nw= (terminal) frames from the same =--daemon=. The font mirrors kitty's =JetBrainsMonoNLNerdFont= at 14pt so GUI text matches the kitty session. Animated cursor and window borders are provided by [[*Holo-layer][Holo-layer]], which supersedes the =window-divider-mode= / =vertical-border= approach used on the terminal.
+
 #+begin_src emacs-lisp
-;; (require 'org)
-;; (require 'ol)
-;; (require 'ox)
+;; Font — mirror kitty's "JetBrainsMonoNL Nerd Font" @ 14pt.
+;; `default-frame-alist' is the daemon-safe path: the :font frame parameter is
+;; applied to each frame as it is created, so it reaches a pgtk GUI frame even
+;; though no frame exists yet when the daemon loads config.
+(set-face-attribute 'default nil
+                    :family "JetBrainsMonoNL Nerd Font"
+                    :height 140)
+(add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL Nerd Font-14"))
+
 #+end_src
 
+** Transparency
+It's always better to set transparency in option for respective applications that supports it rather than setting it in window manager.
+
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
+#+end_src
+
+** Centaur-tabs
+[[https://github.com/ema2159/centaur-tabs][Centaur Tabs]] is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple op en buffers. No point if using Emacs TUI.
+
+#+begin_src emacs-lisp
+(use-package centaur-tabs
+ :if window-system
+ :ensure t
+ :demand
+ :init
+ ;; Set the style to rounded with icons                                                                           
+ (setq centaur-tabs-style "bar"
+       centaur-tabs-set-icons t                                                                               
+       centaur-tabs-height 26
+       centaur-tabs-modified-marker "o"                                                                         
+       centaur-tabs-close-button ""                                                                            
+       centaur-tabs-set-bar 'above
+       centaur-tabs-gray-out-icons 'buffer)                                                                          
+ :config
+ ;; Enable centaur-tabs
+ (centaur-tabs-mode t))
+(setq x-underline-at-descent-line t)                                                                          
+
+(global-set-key (kbd "C->") 'centaur-tabs-move-current-tab-to-right)
+(global-set-key (kbd "C-<") 'centaur-tabs-move-current-tab-to-left)
+(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
+(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
+(global-set-key (kbd "C-<tab>") 'centaur-tabs-ace-jump)
+(global-set-key (kbd "C-M-f") 'centaur-tabs-forward-tab)
+(global-set-key (kbd "C-M-b") 'centaur-tabs-backward-tab)
+(global-set-key (kbd "C-M-p") 'centaur-tabs-forward-group)
+(global-set-key (kbd "C-M-n") 'centaur-tabs-backward-group)
+#+end_src
+ 
 * Keybindings
 ** Global keybindings
 *** Disable conflicting keybindings
@@ -839,6 +894,9 @@
 
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
+
+;; Use only system clipboard - I wish it worked but I'm on wayland
+;(setq x-select-enable-clipboard t)
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
@@ -2248,6 +2306,14 @@ This is useful when followed by an immediate kill."
         (ignored . "i")))
 #+end_src
 
+** Beacon
+#+begin_src emacs-lisp
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1))
+#+end_src
+
 ** Zoxide
 #+begin_src emacs-lisp
 (use-package zoxide
@@ -2272,7 +2338,8 @@ This is useful when followed by an immediate kill."
   :init
   (global-undo-tree-mode)
   :config
-  ;; Prevent undo-tree files from polluting your file system
+  ;; undo-tree never prunes its tree, so for heavily-edited files (e.g. this config) auto-save-history grows the on-disk
+  ;; tree without bound and rewrites the whole thing on every save
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
   
@@ -2331,12 +2398,12 @@ This is useful when followed by an immediate kill."
           treemacs-max-git-entries                 5000
           treemacs-missing-project-action          'ask
           treemacs-move-forward-on-expand          nil
-          treemacs-no-png-images                   t
+          treemacs-no-png-images                   nil
           treemacs-no-delete-other-windows         t
           treemacs-project-follow-cleanup          nil
           treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
           treemacs-position                        'left
-          treemacs-read-string-input               'from-minibuffer
+          treemacs-read-string-input               'from-child-frame
           treemacs-recenter-distance               0.1
           treemacs-recenter-after-file-follow      nil
           treemacs-recenter-after-tag-follow       nil
@@ -2368,6 +2435,7 @@ This is useful when followed by an immediate kill."
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode 'always)
     (when treemacs-python-executable
       (treemacs-git-commit-diff-mode t))
 
@@ -3506,7 +3574,7 @@ It allows you to jump to the locations of the last changes made in the buffer:
 
 ;; Hide leading stars
 (setq org-hide-leading-stars nil
-      org-superstar-leading-fallback ?\s
+      org-superstar-leading-bullet ?\s
       org-indent-mode-turns-on-hiding-stars nil
       org-superstar-remove-leading-stars t)
 
@@ -4164,7 +4232,7 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
 (defun tl/org-agenda-olivetti ()
   "Enable `olivetti-mode' in Org agenda buffers."
   (when (require 'olivetti nil t)
-    (setq-local olivetti-body-width 0.50)
+    (setq-local olivetti-body-width 0.70)
     (setq-local truncate-lines nil)
     (olivetti-mode 1)))
 
@@ -4306,7 +4374,7 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
          ("properties" "⚙" "⚙")
          ("end" "∎" "∎"))
        org-modern-horizontal-rule (make-string 36 ?─)
-  (setq org-modern-keyword
+       org-modern-keyword
         '((t . t)
           ("title" . "𝙏")
           ("subtitle" . "𝙩")
@@ -4343,7 +4411,7 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
           ("name" . "⁍")
           ("header" . "›")
           ("caption" . "☰")
-          ("results" . "🠶")))))
+          ("results" . "🠶"))))
 #+end_src
 
 *** Org-super-agenda
