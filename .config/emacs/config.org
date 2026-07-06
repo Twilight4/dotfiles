@@ -3102,7 +3102,9 @@ Below we register the official =filesystem= server (launched on demand via =npx=
       . (:command "npx"
          :args ("-y" "@modelcontextprotocol/server-filesystem")
          ;; `:roots' = directories the server may touch. mcp.el expands "~".
-         :roots (,user-emacs-directory "~/")))))
+         :roots (,user-emacs-directory "~/")))
+   ("fetch"                                      ; URL reader (HTML to markdown), spawned by uvx (needs uv installed)
+      . (:command "uvx" :args ("mcp-server-fetch")))))
   :config
   (require 'mcp-hub)
   ;; Boot every configured server once gptel (and thus mcp) has loaded.
