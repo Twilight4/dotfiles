@@ -38,6 +38,7 @@ The world's greatest programmer once said:
   - [[#m-key-bindings][M-key bindings]]
   - [[#agent-shell][Agent-shell]]
   - [[#gptel][GPTel]]
+  - [[#mcp][MCP]]
   - [[#dired][Dired]]
   - [[#god-mode][God-mode]]
   - [[#org-tempo][Org-tempo]]
@@ -451,6 +452,19 @@ Gptel custom commands:
 | C-M-q      | Respond to echo area                 |
 | C-M-k      | Prompt from kill ring                |
 | C-M-j      | Response to kill ring                |
+
+** MCP
+Manage servers interactively:
+| key   | command                    | action                       |
+|-------+----------------------------+------------------------------|
+| C-x v | mcp-hub                    | View mcp hub server          |
+| s     | mcp-hub-start-server       | Start server at cursor       |
+| k     | mcp-hub-close-server       | Stop server at cursor        |
+| r     | mcp-hub-restart-server     | Restart server at cursor     |
+| S     | mcp-hub-start-all-server   | Start all configured servers |
+| R     | mcp-hub-restart-all-server | Restart all servers          |
+| K     | mcp-hub-close-all-server   | Stop all servers             |
+| l     | mcp-hub-view-log           | View a server's log          |
 
 ** Dired
 

@@ -76,6 +76,7 @@
   - [[#treemacs][Treemacs]]
   - [[#dired][Dired]]
   - [[#gptel][GPTel]]
+  - [[#mcp][MCP]]
   - [[#agent-shell][Agent-shell]]
   - [[#ghostel][Ghostel]]
   - [[#drag-stuff][Drag-stuff]]
@@ -484,6 +485,7 @@
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "r" '(consult-register :wk "Consult register")
+    "v" '(mcp-hub :wk "View mcp hub servers")
     "z" '(zoxide-travel :wk "Find directory with Zoxide")
     "h" '(dashboard-open :wk "Open emacs dashboard")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
@@ -3082,6 +3084,38 @@ The reply is also piped through `tl/wl-copy' to the Wayland clipboard
 once it arrives (the kill-ring destination is asynchronous)."
   (interactive)
   (tl/gptel-suffix-send-with-kill-ring-clipboard '("m" "k")))
+#+end_src
+
+** MCP
+[[https://github.com/lizqwerscott/mcp.el][mcp.el]] is an Emacs *client* for the [[https://modelcontextprotocol.io][Model Context Protocol]] - a standard way for LLM tools to be supplied by standalone "MCP servers". With it,
+=gptel= can call tools (read/write files, fetch URLs, query databases, hit APIs) provided by any MCP server you configure.
+
+Below we register the official =filesystem= server (launched on demand via =npx=), scoped to my Emacs directory and home.
+#+begin_src emacs-lisp
+;; Install and configure servers
+(use-package mcp
+  :ensure t
+  :after gptel                                  ; mcp is consumed by gptel here, so defer until it loads
+  :custom
+  (mcp-hub-servers
+   `(("filesystem"                               ; stdio server, spawned by npx
+      . (:command "npx"
+         :args ("-y" "@modelcontextprotocol/server-filesystem")
+         ;; `:roots' = directories the server may touch. mcp.el expands "~".
+         :roots (,user-emacs-directory "~/")))))
+  :config
+  (require 'mcp-hub)
+  ;; Boot every configured server once gptel (and thus mcp) has loaded.
+  ;; Idempotent: servers already running are skipped.
+  (mcp-hub-start-all-server))
+
+;; Bridge MCP tools into gptel
+(with-eval-after-load 'gptel
+  (require 'gptel-integrations)
+  ;; Register every connected server's tools as gptel tools. On the first
+  ;; gptel buffer this also starts any not-yet-running servers; later calls
+  ;; are a no-op (tools are already registered globally).
+  (add-hook 'gptel-mode-hook #'gptel-mcp-connect))
 #+end_src
 
 ** Agent-shell
