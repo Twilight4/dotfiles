@@ -132,6 +132,7 @@ packages=(
   "hunspell-pl"
   "duf"
   "ncdu"
+  "socat"
   "rlwrap"
   "speedtest-cli"
   "googler"
