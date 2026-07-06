@@ -14,6 +14,7 @@
   - [[#general-keybindings][General keybindings]]
 - [[#preferences][Preferences]]
   - [[#better-defaults][Better defaults]]
+  - [[#word-motion][Word motion]]
   - [[#littering][Littering]]
   - [[#scrolling][Scrolling]]
 - [[#ui-configuration][UI Configuration]]
@@ -51,7 +52,6 @@
   - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#select-text-block][Select Text Block]]
   - [[#smart-move-beginningend-of-line][Smart move beginning/end of line]]
-  - [[#smart-forwardbackward-word][Smart forward/backward word]]
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
   - [[#no-littering][No-littering]]
@@ -197,10 +197,10 @@ It's always better to set transparency in option for respective applications tha
 (global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
 (global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
 (global-set-key (kbd "C-<tab>") 'centaur-tabs-ace-jump)
-(global-set-key (kbd "C-M-f") 'centaur-tabs-forward-tab)
-(global-set-key (kbd "C-M-b") 'centaur-tabs-backward-tab)
-(global-set-key (kbd "C-M-p") 'centaur-tabs-forward-group)
-(global-set-key (kbd "C-M-n") 'centaur-tabs-backward-group)
+(global-set-key (kbd "M-f") 'centaur-tabs-forward-tab)
+(global-set-key (kbd "M-b") 'centaur-tabs-backward-tab)
+(global-set-key (kbd "C-M-f") 'centaur-tabs-forward-group)
+(global-set-key (kbd "C-M-b") 'centaur-tabs-backward-group)
 #+end_src
  
 * Keybindings
@@ -230,6 +230,7 @@ It's always better to set transparency in option for respective applications tha
 (define-key global-map (kbd "M-e") nil)
 (define-key global-map (kbd "M-v") nil)
 (define-key global-map (kbd "M-a") nil)
+(define-key global-map (kbd "M-`") nil)
 (define-key global-map (kbd "M-q") nil)
 (define-key global-map (kbd "M-r") nil)
 (define-key global-map (kbd "M-,") nil)
@@ -334,6 +335,7 @@ It's always better to set transparency in option for respective applications tha
 (global-set-key (kbd "C-o") 'org-kill-line)
 (global-set-key (kbd "M-t") 'treemacs-add-and-display-current-project-exclusively)
 (global-set-key (kbd "C-t") 'treemacs)
+(global-set-key (kbd "M-`") 'tl/subword-mode-toggle)
 (global-set-key (kbd "C-q") 'delete-frame)
 (global-set-key (kbd "M-q") (lambda () (interactive) (save-buffer) (delete-frame)))
 (global-set-key (kbd "C-r") 'undo-tree-undo)
@@ -370,11 +372,11 @@ It's always better to set transparency in option for respective applications tha
 (define-key minibuffer-local-map (kbd "C-k") 'previous-line)
 ;; Yank
 (global-set-key (kbd "M-y") 'consult-yank-pop)
-;; Forward/backward entire words
-(global-set-key (kbd "M-f") 'tl/forward-entire-word)
-(global-set-key (kbd "M-b") 'tl/backward-entire-word)
+;; Avy
+(global-set-key (kbd "M-a") 'avy-goto-char-in-line)
+(global-set-key (kbd "M-e") 'avy-goto-char-2)
 ;; Spell-checker
-(global-set-key (kbd "M-a") 'embark-act)
+;(global-set-key (kbd "M-a") 'embark-act)
 (global-set-key (kbd "M-i") 'jinx-correct)
 ;(global-set-key (kbd "M-n") 'jinx-correct-nearest)      ;; Jinx-correct works the same
 ;(global-set-key (kbd "M-w") 'jinx-correct-all)
@@ -900,6 +902,34 @@ It's always better to set transparency in option for respective applications tha
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
+#+end_src
+
+** Word motion
+=tl/subword-mode-toggle= cycles word motion globally (bound to =M-`=) through three mutually exclusive states: default → subword → superword → default. Subword makes =C-f=/=C-b= stop inside CamelCase identifiers (=camelCaseWord= → =camel= / =Case= / =Word=); superword treats symbols like =snake_case_word= as a single word. This pairs with =(global-subword-mode 0)= in [[Better defaults]] — Emacs starts in the default state, and =M-`= flips between the two behaviors without ever leaving both on at once.
+
+#+begin_src emacs-lisp
+(defun tl/subword-mode-toggle ()
+  "Cycle the global word-motion mode: default -> subword -> superword -> default.
+Subword: `C-f'/`C-b' stop inside CamelCase identifiers.
+Superword: they treat symbols like snake_case as a single word.
+The two modes are mutually exclusive; only one is active at a time."
+  (interactive)
+  (cond
+   ;; default -> subword
+   ((and (not global-subword-mode) (not global-superword-mode))
+    (global-superword-mode -1)
+    (global-subword-mode 1)
+    (message "Subword mode"))
+   ;; subword -> superword
+   (global-subword-mode
+    (global-subword-mode -1)
+    (global-superword-mode 1)
+    (message "Superword mode"))
+   ;; superword -> default
+   (t
+    (global-subword-mode -1)
+    (global-superword-mode -1)
+    (message "Word motion: default"))))
 #+end_src
 
 ** Littering
@@ -1816,34 +1846,6 @@ or to the end of the line if already there."
     (skip-chars-backward " \t")         ;; move back over trailing whitespace
     (when (= old-pos (point))
       (end-of-line))))                   ;; if already there, move to absolute end
-#+end_src
-
-** Smart forward/backward word
-Move the cursor through entire strings.
-
-#+begin_src emacs-lisp
-(defun tl/forward-entire-word (&optional arg)
-  "Move point forward by ARG non-whitespace chunks.
-A chunk is any sequence of non-whitespace characters, including
-punctuation like .,,-,_:/."
-  (interactive "^p")
-  (let ((arg (or arg 1)))
-    (dotimes (_ arg)
-      ;; Skip whitespace first
-      (skip-syntax-forward " ")
-      ;; Skip everything until next whitespace
-      (skip-syntax-forward "^ "))))
-
-(defun tl/backward-entire-word (&optional arg)
-  "Move point backward by ARG non-whitespace chunks.
-A chunk is any sequence of non-whitespace characters."
-  (interactive "^p")
-  (let ((arg (or arg 1)))
-    (dotimes (_ arg)
-      ;; Skip whitespace first
-      (skip-syntax-backward " ")
-      ;; Skip everything until previous whitespace
-      (skip-syntax-backward "^ "))))
 #+end_src
 
 ** Screenshot automation
