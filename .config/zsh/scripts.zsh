@@ -771,6 +771,7 @@ gh-sync() {
         "$HOME/desktop/workspace/dotfiles:Twilight4/dotfiles"
         "$HOME/documents/org:Twilight4/org"
         "$HOME/.config/cheat:Twilight4/cheats"
+        "$HOME/desktop/workspace/ai-projects:Twilight4/ai-projects"
     )
 
     # Commit message for changes
@@ -786,6 +787,20 @@ gh-sync() {
     for entry in "${REPOS[@]}"; do
         local repo_dir="${entry%%:*}"
         local repo="${entry##*:}"
+
+        # --- Special Case: ai-projects (Push Only) ---
+        if [[ "$repo" == *"ai-projects" ]]; then
+            echo
+            if [ -d "$repo_dir" ]; then
+                echo -e "${GREEN}Processing $repo (Push only)...${NC}"
+                cd "$repo_dir" || continue
+                git push
+                cd - > /dev/null
+            else
+                echo -e "${RED}Directory $repo_dir not found. Skipping push for $repo.${NC}"
+            fi
+            continue
+        fi
 
         # Clone the repository if it does not exist
         if [ ! -d "$repo_dir" ]; then
@@ -812,8 +827,8 @@ gh-sync() {
             echo -e "${YELLOW}No changes in $(basename "$repo_dir").${NC}"
         fi
 
-        # Back to the previous directory
-        cd -
+        # Back to the previous directory (silenced output)
+        cd - > /dev/null
     done
 
     echo
