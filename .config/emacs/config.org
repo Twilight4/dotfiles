@@ -82,6 +82,7 @@
   - [[#dired][Dired]]
   - [[#gptel][GPTel]]
   - [[#mcp][MCP]]
+  - [[#emacs-mcp-server][Emacs MCP Server]]
   - [[#agent-shell][Agent-shell]]
   - [[#ghostel][Ghostel]]
   - [[#drag-stuff][Drag-stuff]]
@@ -3190,6 +3191,40 @@ Below we register the official =filesystem= server (launched on demand via =npx=
   (add-hook 'gptel-mode-hook #'gptel-mcp-connect))
 #+end_src
 
+** Emacs MCP Server
+Where the =mcp= package above is an MCP *client* (it consumes external servers from inside Emacs), =rhblind/emacs-mcp-server= is the inverse: an MCP *server* written in pure Elisp that runs inside this very Emacs process and exposes it over a Unix socket. External LLM clients — including the =oh-my-pi= coding agent — can then =eval-elisp=, read/write buffers, inspect diagnostics, and drive org-mode/org-roam against the *live* session.
+
+It listens on a Unix domain socket bridged to clients via =socat= (already installed at =/usr/bin/socat=). We pin the socket to =~/.cache/emacs/emacs-mcp-server.sock= (matching this config's =user-emacs-directory=) and auto-start the server on launch.
+
+#+begin_src emacs-lisp
+;; `mcp-server' is the inverse of the `mcp' package above: it runs an MCP
+;; *server* inside this Emacs process over a Unix socket, so external LLM
+;; clients (e.g. oh-my-pi) can eval Elisp, touch buffers, and drive org-mode
+;; against this live session.
+(use-package mcp-server
+  :ensure (mcp-server
+           :host github
+           :repo "rhblind/emacs-mcp-server"
+           ;; Root *.el + the self-registering tools/*.el + the stdio<->socket
+           ;; wrapper scripts external clients may invoke.
+           :files ("*.el" "tools/*.el" "mcp-wrapper.py" "mcp-wrapper.sh"))
+  :custom
+  ;; Pin the socket directory so the client config points at a stable path.
+  ;; `user-emacs-directory' is ~/.cache/emacs/ here (see "No-littering"); the
+  ;; socket lands at ~/.cache/emacs/emacs-mcp-server.sock.
+  (mcp-server-socket-directory (expand-file-name "~/.cache/emacs/"))
+  :config
+  ;; Boot once init is fully done — by then org-roam is loaded too, so its
+  ;; tools register. Re-run with M-x mcp-server-restart after changing settings.
+  (add-hook 'emacs-startup-hook #'mcp-server-start-unix))
+
+;; SECURITY: `eval-elisp' is enabled by default, which is full remote-code
+;; execution into this Emacs. That is the whole point for OMP, but to lock it
+;; down, restrict the exposed tools, e.g.:
+;;   (setq mcp-server-emacs-tools-enabled '(org-agenda org-search org-get-node))
+;; Management: M-x mcp-server-status | mcp-server-get-socket-path | mcp-server-security-show-audit-log | mcp-server-stop | mcp-server-restart
+#+end_src
+
 ** Agent-shell
 #+begin_src emacs-lisp
 (use-package agent-shell
@@ -3272,11 +3307,25 @@ other ACP agent).  Use with caution."
                     :context-buffer buffer))
    :install-instructions "curl -fsSL https://omp.sh/install | sh"))
 
-(defun tl/agent-shell-omp-start ()
-  "Start an interactive oh-my-pi agent shell and return its buffer."
-  (interactive)
+(defun tl/agent-shell-omp-start (&optional arg)
+  "Start an interactive oh-my-pi agent shell and return its buffer.
+
+Without a prefix ARG, the shell runs in the current buffer's
+`default-directory' (resolved through project detection via
+`agent-shell-cwd').  With a prefix ARG, prompt for a directory to
+use as the shell's working directory -- handy for pointing OMP at a
+project tree (e.g. a linux source dir with its own context files)
+without first navigating there.  The chosen directory becomes the
+omp subprocess `cwd' and the shell title."
+  (interactive "P")
   (require 'agent-shell)
-  (let ((buffer (agent-shell-start :config (tl/agent-shell-omp-make-config))))
+  (let* ((default-directory
+          (if arg
+              (file-name-as-directory
+               (expand-file-name
+                (read-directory-name "OMP working directory: ")))
+            default-directory))
+         (buffer (agent-shell-start :config (tl/agent-shell-omp-make-config))))
     (when (buffer-live-p buffer)
       (switch-to-buffer buffer))
     buffer))
