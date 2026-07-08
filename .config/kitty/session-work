@@ -24,8 +24,9 @@ launch --title notes emacsclient -nw --eval "(tl/ghostel-new-named \"*ghostel-no
 
 # Create AI tab
 new_tab omp-agents
-cd ~
+cd ~/desktop/workspace/ai-projects/
 launch --title omp-agent emacsclient -nw --eval "(tl/agent-shell-omp-start)"
+focus
 
 # Create GPtel tab
 new_tab gemini
