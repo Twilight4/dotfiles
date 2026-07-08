@@ -60,6 +60,7 @@
   - [[#rainbow-delimeters][Rainbow-delimeters]]
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#buffer-move][Buffer-move]]
+  - [[#swap-window-states][Swap window states]]
   - [[#maximize-window-split][Maximize-window-split]]
   - [[#disable-mouse][Disable mouse]]
 - [[#completion-framework][Completion Framework]]
@@ -575,7 +576,7 @@ It's always better to set transparency in option for respective applications tha
     "m" '(consult-kmacro :wk "Select macro to run")
     "K" '(kubernetes-overview :wk "Kubernetes overview")
     ;;"" '(dashboard-open :wk "Open emacs dashboard")    ;; Don't use atm
-    "C-w" '(ace-swap-window :wk "Swap windows")
+    "C-w" '(tl/swap-window :wk "Swap windows")
     "k" '(tl/strip-comments-in-region :wk "Delete comments from selected region")
     "u" '(undo-tree-visualise :wk "Undo tree visualise")
     "RET" '(tl/toggle-window-maximize :wk "Toggle window maximization")
@@ -1999,6 +2000,32 @@ Adding rainbow coloring to parentheses.
       (select-window other-win))))
 #+end_src
 
+** Swap window states
+=window-swap-states= (built-in, =window.el=) swaps two windows' full state — buffer, point, mark, start, and hscroll — so unlike =ace-swap-window= (which exchanges only buffers and drops your reading position) nothing is lost. With exactly two windows it swaps the selected window with the other one directly, no picker — the reliable common case; with three or more it prompts via the =ace-window= picker (=aw-select=, dispatch disabled) when available, falling back to the next window.
+
+#+begin_src emacs-lisp
+(defun tl/swap-window ()
+  "Swap the selected window's state with another window.
+Uses `window-swap-states', so buffer, point, mark, and start all
+travel together (unlike `ace-swap-window', which swaps only buffers).
+With exactly two windows, swaps with the other one directly -- no
+picker, the reliable common case. With three or more, prompts for the
+target with the `ace-window' picker (`aw-select') when available,
+falling back to the next window otherwise."
+  (interactive)
+  (let* ((selected (selected-window))
+         (target (if (= (count-windows) 2)
+                     (next-window selected)
+                   (if (fboundp 'aw-select)
+                       (let ((aw-dispatch-alist nil)) ; picker only, no dispatch actions
+                         (aw-select "Swap with window: "))
+                     (next-window selected)))))
+    (if (and (window-live-p target) (not (eq target selected)))
+        (progn (window-swap-states selected target)
+               (select-window target))
+      (message "No window to swap with"))))
+#+end_src
+
 ** Maximize-window-split
 Function for toggling maximization of window split.
 
@@ -3356,7 +3383,7 @@ working directory, isolating the agent to that single project."
                       projects))))
     (agent-shell-start :config (tl/agent-shell-omp-make-config))))
 
-(defcustom tl/agent-shell-omp-quick-model "zai/glm-4.7-flash"
+(defcustom tl/agent-shell-omp-quick-model "zai/glm-4.7"
   "Model used by `tl/agent-shell-send-to-session' for quick prompts.
 Must be a model id reported as available by the `omp acp' backend."
   :type 'string)
@@ -3634,7 +3661,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 (global-set-key (kbd "M-k") 'previous-multiframe-window)
 (global-set-key (kbd "M-j") 'next-multiframe-window)
 (global-set-key (kbd "M-m") 'tl/toggle-window-maximize)
-(global-set-key (kbd "M-w") 'ace-swap-window)
+(global-set-key (kbd "M-w") 'tl/swap-window)
 (global-set-key (kbd "M-c") 'delete-window)
 (global-set-key (kbd "M-;") 'tl/split-window-right)
 (global-set-key (kbd "M-/") 'tl/split-window-below)
