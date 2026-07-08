@@ -84,6 +84,7 @@
   - [[#mcp][MCP]]
   - [[#emacs-mcp-server][Emacs MCP Server]]
   - [[#agent-shell][Agent-shell]]
+  - [[#agent-shell-dictation-push-to-talk][Agent-shell dictation (push-to-talk)]]
   - [[#agent-shell-attention][Agent-shell Attention]]
   - [[#ghostel][Ghostel]]
   - [[#drag-stuff][Drag-stuff]]
@@ -3363,6 +3364,74 @@ outside a project-local `.omp/'."
   ;; Buffer name and header reflect the chosen project, not the monorepo root.
   (advice-add 'agent-shell--project-name :around #'tl/agent-shell-project-name)
   (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
+#+end_src
+
+** Agent-shell dictation (push-to-talk)
+OMP's hold-=Space= speech-to-text is a TUI-only feature: it lives in the interactive editor's input loop (=onSpaceHoldStart= / =onSpaceHoldEnd=, gated by =SPACE_HOLD_RELEASE_MS=). agent-shell runs =omp acp= — the headless ACP protocol — which never starts the TUI, so the gesture has no code path to fire in the agent-shell buffer. This is a press-to-toggle alternative (the same shape as OMP's =app.stt.toggle= chord): it records via =pw-record= and transcribes with the same on-device Parakeet TDT model OMP's TUI uses, driven standalone through sherpa-onnx. The transcriber at =~/.config/.local/bin/omp-stt-transcribe= reuses the cached model at =~/.omp/agent/cache/tiny-models/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8/=, so dictation matches the TUI experience. Install the runtime once with =uv tool install sherpa-onnx=. Bound to =C-c SPC= in =agent-shell-mode-map=.
+
+#+begin_src emacs-lisp
+(defvar tl/agent-shell-dictate--proc nil
+  "Background `pw-record' process while dictating, or nil.")
+(defvar tl/agent-shell-dictate--file "/tmp/omp-dictate.wav"
+  "Temp WAV written by `pw-record' for dictation.")
+(defvar tl/agent-shell-dictate--buffer nil
+  "Buffer that started the current dictation recording.")
+
+(defun tl/agent-shell-dictate ()
+  "Press-to-talk speech-to-text for the agent-shell prompt.
+Records 16 kHz mono with `pw-record', then transcribes with the
+OMP-cached Parakeet model via sherpa-onnx and inserts the text at
+point.  First call starts recording; second call stops and transcribes.
+This mirrors OMP's `app.stt.toggle' press-to-toggle alternative, needed
+because `omp acp' (agent-shell's backend) does not run the TUI STT path."
+  (interactive)
+  (if tl/agent-shell-dictate--proc
+      (progn
+        (message "transcribing…")
+        (signal-process tl/agent-shell-dictate--proc 2)) ; SIGINT flushes the WAV header
+    (setq tl/agent-shell-dictate--buffer (current-buffer))
+    (let ((proc (start-process "omp-dictate" "*omp-dictate*"
+                               "pw-record" "--rate" "16000" "--channels" "1"
+                               tl/agent-shell-dictate--file)))
+      (set-process-sentinel
+       proc
+       (lambda (p _event)
+         (when (memq (process-status p) '(exit signal))
+           (setq tl/agent-shell-dictate--proc nil)
+           (tl/agent-shell-dictate--transcribe))))
+      (setq tl/agent-shell-dictate--proc proc))
+    (message "● REC — press again to transcribe")))
+
+(defun tl/agent-shell-dictate--transcribe ()
+  "Asynchronously transcribe the recording; insert the result at point."
+  (let ((buf tl/agent-shell-dictate--buffer)
+        (file tl/agent-shell-dictate--file))
+    (if (not (file-exists-p file))
+        (message "dictation: no recording file")
+      (let ((script (expand-file-name "omp-stt-transcribe"
+                                      "~/.config/.local/bin"))
+            (accum ""))
+        (let ((proc (make-process
+                     :name "omp-stt"
+                     :buffer nil
+                     :command (list script file)
+                     :noquery t)))
+          (set-process-filter
+           proc
+           (lambda (_p out) (setq accum (concat accum out))))
+          (set-process-sentinel
+           proc
+           (lambda (_p _event)
+             (let ((text (string-trim accum)))
+               (if (string-empty-p text)
+                   (message "dictation: no speech detected")
+                 (when (buffer-live-p buf)
+                   (with-current-buffer buf
+                     (insert text) (insert " ")))
+                 (message "dictation: %s" text))))))))))
+
+(with-eval-after-load 'agent-shell
+  (define-key agent-shell-mode-map (kbd "C-c SPC") #'tl/agent-shell-dictate))
 #+end_src
 
 ** Agent-shell Attention
