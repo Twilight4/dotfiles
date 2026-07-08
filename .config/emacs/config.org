@@ -86,6 +86,7 @@
   - [[#agent-shell][Agent-shell]]
   - [[#agent-shell-dictation-push-to-talk][Agent-shell dictation (push-to-talk)]]
   - [[#agent-shell-attention][Agent-shell Attention]]
+  - [[#agent-shell-bookmark][Agent-shell Bookmark]]
   - [[#ghostel][Ghostel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
@@ -182,19 +183,19 @@ It's always better to set transparency in option for respective applications tha
  :ensure t
  :demand
  :init
- ;; Set the style to rounded with icons                                                                           
+ ;; Set the style to rounded with icons
  (setq centaur-tabs-style "bar"
-       centaur-tabs-set-icons t                                                                               
+       centaur-tabs-set-icons t
        centaur-tabs-height 26
-       centaur-tabs-modified-marker "o"                                                                         
-       centaur-tabs-close-button ""                                                                            
+       centaur-tabs-modified-marker "o"
+       centaur-tabs-close-button ""
        centaur-tabs-set-bar 'above
-       centaur-tabs-gray-out-icons 'buffer)                                                                          
+       centaur-tabs-gray-out-icons 'buffer)
  :config
  ;; Enable centaur-tabs
  (centaur-tabs-mode t))
 
-(setq x-underline-at-descent-line t)                                                                          
+(setq x-underline-at-descent-line t)
 
 (global-set-key (kbd "C->") 'centaur-tabs-move-current-tab-to-right)
 (global-set-key (kbd "C-<") 'centaur-tabs-move-current-tab-to-left)
@@ -206,7 +207,7 @@ It's always better to set transparency in option for respective applications tha
 (global-set-key (kbd "C-M-f") 'centaur-tabs-forward-group)
 (global-set-key (kbd "C-M-b") 'centaur-tabs-backward-group)
 #+end_src
- 
+
 * Keybindings
 ** Global keybindings
 *** Disable conflicting keybindings
@@ -294,7 +295,6 @@ It's always better to set transparency in option for respective applications tha
   (define-key org-mode-map (kbd "M-<left>") nil)
   (define-key org-mode-map (kbd "M-<right>") nil))
 
-
 ;; Calendar-mode
 (with-eval-after-load 'calendar
   (define-key calendar-mode-map (kbd "i h") 'nil)
@@ -361,7 +361,7 @@ It's always better to set transparency in option for respective applications tha
 (global-set-key (kbd "C-M-e") 'tl/gptel-rewrite-directive-menu)
 (global-set-key (kbd "C-M-s") 'gptel-system-prompt)
 (global-set-key (kbd "M-v") 'agent-shell-switch-buffer)
-;(global-set-key (kbd "C-M-n") 'gptel--rewrite-next)
+(global-set-key (kbd "C-M-n") 'tl/agent-shell-send-to-session)  ;; send prompt to a new OMP agent-shell
 ;(global-set-key (kbd "C-M-p") 'gptel--rewrite-previous)
 (global-set-key (kbd "C-M-k") 'tl/gptel-prompt-from-kill-ring)   ;; prompt from kill ring
 (global-set-key (kbd "C-M-q") 'tl/gptel-respond-to-echo-area)    ;; respond to echo area
@@ -528,7 +528,7 @@ It's always better to set transparency in option for respective applications tha
     "," '(consult-recent-file :wk "Find recent files")
     ;"." '(find-file :wk "Find file")
     "C-b" '(consult-buffer :wk "Switch to buffer")
-    ;; "y" '(consult-yank-pop :wk "Clipboard history")      ;;   bound to M-y 
+    ;; "y" '(consult-yank-pop :wk "Clipboard history")      ;;   bound to M-y
     "C-\\" '(indent-region :wk "Indent region")
     "i" '(org-gtd-process-inbox :wk "Process inbox")
     "f" '(hl-todo-insert :wk "Insert todo heading at point")
@@ -657,7 +657,7 @@ It's always better to set transparency in option for respective applications tha
 
   (tl/leader-keys
     "C-t" '(:ignore t :wk "Toggle/Table")
-	;; Toggle 
+	;; Toggle
     "C-t l" '(display-line-numbers-mode :wk "Toggle line numbers")
     "C-t v" '(visual-line-mode :wk "Toggle truncated lines")
     "C-t h" '(hl-line-mode :wk "Toggle line highlight in frame")
@@ -744,6 +744,7 @@ It's always better to set transparency in option for respective applications tha
  "C-i" '(org-toggle-item :wk "Toggle item")
  "C-m" '(org-insert-todo-heading :wk "Insert todo heading")
  "h" '(widen :wk "Widen")
+ "SPC" '(tl/agent-shell-dictate :wk "Use speach to text tool")
  "j" '(tl/org-narrow-forward :wk "Narrow forward")
  "k" '(tl/org-narrow-backward :wk "Narrow backward")
  "l" '(org-narrow-to-subtree :wk "Narrow to subtree")
@@ -1503,7 +1504,7 @@ The =kill-this-buffer= command wasn't working.
 (use-package yaml-mode
   :ensure t
   :mode ("\\.yml\\'" "\\.yaml\\'"))
-                   
+
 ;(setq tab-width 2)
 ;(setq indent-tabs-mode nil)
 
@@ -1765,7 +1766,7 @@ Version: 2025-02-05"
     (insert (shell-command-to-string "wl-paste -n"))))
 #+end_src
 
-** Paste directly into a code block template 
+** Paste directly into a code block template
 #+begin_src emacs-lisp
 (defun tl/org-insert-template-and-paste ()
   "Insert an Org structure template and paste Wayland clipboard content using wl-paste."
@@ -1843,7 +1844,7 @@ Move to first non-whitespace character. If already there, move to beginning of l
       (move-beginning-of-line 1))))
 
 (defun tl/smart-move-end-of-line ()
-  "Move point to the last non-whitespace character on the line, 
+  "Move point to the last non-whitespace character on the line,
 or to the end of the line if already there."
   (interactive)
   (let ((old-pos (point)))
@@ -2349,16 +2350,16 @@ This is useful when followed by an immediate kill."
   ;; tree without bound and rewrites the whole thing on every save
   (setq undo-tree-auto-save-history t)
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
-  
+
   ;; More compact diff display
   (setq undo-tree-visualizer-diff t)
   (setq undo-tree-visualizer-timestamps t)
-  
+
   ;; Increase the undo limits
   (setq undo-limit 800000)
   (setq undo-strong-limit 12000000)
   (setq undo-outer-limit 120000000)
- 
+
   ;; Rebind visualizer commands
   (define-key undo-tree-map (kbd "M-_") nil)
   (define-key undo-tree-visualizer-mode-map (kbd "h") 'undo-tree-visualize-switch-branch-left)
@@ -2666,7 +2667,7 @@ window-selection commands."
   (define-key treemacs-mode-map (kbd "wp") 'treemacs-create-workspace-from-project)
   ;; bind the prefix key in treemacs-mode
   (define-key treemacs-mode-map (kbd "p") 'treemacs-project-prefix)
-  ;; Project Keybinds  
+  ;; Project Keybinds
   (define-key treemacs-mode-map (kbd "pf") 'treemacs-move-project-down)
   (define-key treemacs-mode-map (kbd "pn") 'treemacs-next-project)
   (define-key treemacs-mode-map (kbd "pp") 'treemacs-previous-project)
@@ -3297,7 +3298,11 @@ other ACP agent).  Use with caution."
              (propertize "OFF (prompts require confirmation)" 'face 'success))))
 
 ;; OH-MY-PI CONFIGURATION
-(defun tl/agent-shell-omp-make-config ()
+(defun tl/agent-shell-omp-make-config (&optional default-model-id)
+  "Build the oh-my-pi agent-shell config.
+DEFAULT-MODEL-ID, when non-nil, is a nullary function returning a model id
+string; agent-shell's init state machine sets it on the session before the
+first prompt is sent.  `tl/agent-shell-omp-start' leaves it nil (OMP default)."
   (agent-shell-make-agent-config
    :identifier 'oh-my-pi
    :mode-line-name "OMP"
@@ -3309,6 +3314,7 @@ other ACP agent).  Use with caution."
                     :command "omp"
                     :command-params '("acp")
                     :context-buffer buffer))
+   :default-model-id default-model-id
    :install-instructions "curl -fsSL https://omp.sh/install | sh"))
 
 (defcustom tl/agent-shell-projects-root
@@ -3349,6 +3355,52 @@ working directory, isolating the agent to that single project."
                                        (mapcar #'car projects) nil t)
                       projects))))
     (agent-shell-start :config (tl/agent-shell-omp-make-config))))
+
+(defcustom tl/agent-shell-omp-quick-model "zai/glm-4.7-flash"
+  "Model used by `tl/agent-shell-send-to-session' for quick prompts.
+Must be a model id reported as available by the `omp acp' backend."
+  :type 'string)
+
+(defun tl/agent-shell--omp-quick-buffer ()
+  "Return the most recently used oh-my-pi agent-shell buffer, or nil."
+  (cl-find-if
+   (lambda (buffer)
+     (eq 'oh-my-pi
+         (map-nested-elt (with-current-buffer buffer agent-shell--state)
+                         '(:agent-config :identifier))))
+   (agent-shell-buffers)))
+
+(defun tl/agent-shell-send-to-session (prompt)
+  "Ask PROMPT in the minibuffer and send it to the OMP agent-shell buffer.
+Reuses the most recently accessed oh-my-pi agent-shell buffer when one
+exists; otherwise starts a new one.  The model is forced to
+`tl/agent-shell-omp-quick-model': if the session is live and the current
+model differs, it is switched first and PROMPT is sent once the change
+succeeds.  For a freshly started shell the model is set during session
+init via the config's :default-model-id, so PROMPT is queued until both
+the session and model are ready."
+  (interactive
+   (list (read-string "OMP prompt: ")))
+  (require 'agent-shell)
+  (require 'cl-lib)
+  (let ((buffer (or (tl/agent-shell--omp-quick-buffer)
+                    (agent-shell-start
+                     :config (tl/agent-shell-omp-make-config
+                              (lambda () tl/agent-shell-omp-quick-model))))))
+    (unless (buffer-live-p buffer)
+      (user-error "Failed to start agent-shell"))
+    (with-current-buffer buffer
+      (let ((current-model (map-nested-elt agent-shell--state '(:session :model-id))))
+        (if (and current-model
+                 (not (string= current-model tl/agent-shell-omp-quick-model)))
+            (agent-shell--config-option-set-model-id
+             :model-id tl/agent-shell-omp-quick-model
+             :on-success
+             (lambda ()
+               (agent-shell--insert-to-shell-buffer
+                :text prompt :submit t :shell-buffer buffer)))
+          (agent-shell-insert :text prompt :submit t :shell-buffer buffer))))
+    buffer))
 
 (defun tl/agent-shell-project-name (orig-fn)
   "Return the chosen OMP project name instead of the git-monorepo root.
@@ -3456,6 +3508,23 @@ because `omp acp' (agent-shell's backend) does not run the TUI STT path."
   (agent-shell-attention-mode 1))
 #+end_src
 
+** Agent-shell Bookmark
+[[https://github.com/dcluna/agent-shell-bookmark][agent-shell-bookmark]] makes =agent-shell= sessions bookmarkable and org-linkable. A bookmark captures the buffer name, session ID, agent identifier (e.g. =oh-my-pi=), and project path; jumping switches to the live buffer when present, otherwise resumes the session by ID through the stored agent config — the same agent that created it, looked up in =agent-shell-agent-configs= (where the OMP config is registered) — falling back to the session-list prompt when the ID is stale.  Both modules self-register on load: the bookmark handler installs via =agent-shell-mode-hook=, and =agent-shell-ol= calls =org-link-set-parameters=, so the only =:config= work is requiring the ol module. No dedicated keys are added — it rides the existing =C-x= leader bookmark bindings (=C-x x= =bookmark-set= in a session, =C-x b= =consult-bookmark= to jump) since it extends the standard =bookmark.el= system, and =org-store-link= in a session captures an =[[agent-shell:/path::session-id::agent-id][Buffer]]= link to embed in notes; following it resumes the exact conversation.
+
+#+begin_src emacs-lisp
+(use-package agent-shell-bookmark
+  ;; Clones the whole repo, which provides two features: `agent-shell-bookmark'
+  ;; (bookmark support) and `agent-shell-ol' (org-link type).
+  :ensure (:host github :repo "dcluna/agent-shell-bookmark")
+  :after agent-shell
+  ;; Load eagerly once agent-shell is up so the bookmark handler and org-link
+  ;; type register before the first bookmark store/link attempt.
+  :demand t
+  :config
+  ;; Register the `agent-shell' org-link type for `org-store-link'/`org-open-at-point'.
+  (require 'agent-shell-ol))
+#+end_src
+
 ** Ghostel
 Ghostel's features include synchronized output, true color, the Kitty keyboard and graphics protocols, hyperlinks, desktop notifications, progress reports and a lot more. Shell integration (directory tracking, prompt navigation) all works out of the box for bash, zsh and fish.
 
@@ -3480,7 +3549,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key ghostel-semi-char-mode-map (kbd "M-y") #'ghostel--send-event)
   (define-key ghostel-semi-char-mode-map (kbd "C-_") #'ghostel--send-event)
   ;(define-key ghostel-semi-char-mode-map (kbd "ESC") #'ghostel--send-event)
-  ;; Custom Keybindings  
+  ;; Custom Keybindings
   (define-key ghostel-semi-char-mode-map (kbd "C-x ,") #'tl/consult-ghostel)
   (define-key ghostel-semi-char-mode-map (kbd "C-x .") #'tl/consult-new-org)
   (define-key ghostel-semi-char-mode-map (kbd "C-c C-p") #'ghostel-previous-hyperlink)
@@ -3543,20 +3612,20 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   "Safely view, live-preview, and select Ghostel terminal buffers."
   (interactive)
   (when (fboundp 'consult--multi)
-    (consult--multi 
+    (consult--multi
      `((:name     "Ghostel Terminals"
         :narrow   ?g                     ; Press 'g' to narrow strictly to terms
         :category buffer
         :face     consult-buffer
         :history  buffer-name-history
         :state    ,#'consult--buffer-state ; Keeps safe live-preview window rendering
-        :items    ,(lambda () 
-                     (consult--buffer-query 
+        :items    ,(lambda ()
+                     (consult--buffer-query
                       :sort 'visibility
                       :as #'buffer-name
-                      :predicate (lambda (buf) 
-                                   (provided-mode-derived-p 
-                                    (buffer-local-value 'major-mode buf) 
+                      :predicate (lambda (buf)
+                                   (provided-mode-derived-p
+                                    (buffer-local-value 'major-mode buf)
                                     'ghostel-mode)))))))))
 
 ;; replace original keybindings with these and comment out these kitty.conf keybindings
@@ -5461,7 +5530,6 @@ One little annoyance with this is the interaction between microtype and =Verbati
 
 (add-hook 'org-export-before-parsing-hook #'tl/org-latex-no-protrusion-in-code)
 #+end_src
-
 
 #+begin_src emacs-lisp
 (defun tl/org-latex-example-block-engraved (orig-fn example-block contents info)
