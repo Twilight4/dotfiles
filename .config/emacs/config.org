@@ -84,6 +84,7 @@
   - [[#mcp][MCP]]
   - [[#emacs-mcp-server][Emacs MCP Server]]
   - [[#agent-shell][Agent-shell]]
+  - [[#agent-shell-attention][Agent-shell Attention]]
   - [[#ghostel][Ghostel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
@@ -191,6 +192,7 @@ It's always better to set transparency in option for respective applications tha
  :config
  ;; Enable centaur-tabs
  (centaur-tabs-mode t))
+
 (setq x-underline-at-descent-line t)                                                                          
 
 (global-set-key (kbd "C->") 'centaur-tabs-move-current-tab-to-right)
@@ -543,6 +545,7 @@ It's always better to set transparency in option for respective applications tha
     "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "r" '(consult-register :wk "Consult register")
+    "j" '(agent-shell-attention-jump :wk "Jump to pending agent")
     "v" '(mcp-hub :wk "View mcp hub servers")
     "z" '(zoxide-travel :wk "Find directory with Zoxide")
     "h" '(dashboard-open :wk "Open emacs dashboard")
@@ -3307,31 +3310,81 @@ other ACP agent).  Use with caution."
                     :context-buffer buffer))
    :install-instructions "curl -fsSL https://omp.sh/install | sh"))
 
-(defun tl/agent-shell-omp-start (&optional arg)
-  "Start an interactive oh-my-pi agent shell and return its buffer.
+(defcustom tl/agent-shell-projects-root
+  (expand-file-name "~/desktop/workspace/ai-projects/")
+  "Root holding per-project subdirectories, each with its own `.omp/'.
+`tl/agent-shell-omp-start' offers the `.omp'-bearing subdirectories here
+\(e.g. `linux', `devops') and scopes the chosen project's agent-shell to it."
+  :type 'directory)
 
-Without a prefix ARG, the shell runs in the current buffer's
-`default-directory' (resolved through project detection via
-`agent-shell-cwd').  With a prefix ARG, prompt for a directory to
-use as the shell's working directory -- handy for pointing OMP at a
-project tree (e.g. a linux source dir with its own context files)
-without first navigating there.  The chosen directory becomes the
-omp subprocess `cwd' and the shell title."
-  (interactive "P")
+(defun tl/agent-shell-cwd-nearest-omp ()
+  "Return the nearest ancestor of `default-directory' holding a `.omp/' dir.
+Bound as `agent-shell-cwd-function' so an agent-shell session scopes to its
+own project subtree instead of the repository root: a shell started in
+`ai-projects/linux/' runs with cwd `linux/', loading only that project's
+context and excluding every sibling.  The user-level `~/.omp/' is never
+matched, so sessions outside a project fall back to normal project-root
+detection."
+  (when-let* ((dir (locate-dominating-file default-directory ".omp")))
+    (unless (file-equal-p dir (expand-file-name "~/"))
+      (file-name-as-directory dir))))
+
+(defun tl/agent-shell-omp-start ()
+  "Start an Oh My Pi agent shell scoped to a chosen project.
+Prompts for one of the `.omp'-bearing subdirectories of
+`tl/agent-shell-projects-root'; the selection becomes the subprocess
+working directory, isolating the agent to that single project."
+  (interactive)
   (require 'agent-shell)
-  (let* ((default-directory
-          (if arg
-              (file-name-as-directory
-               (expand-file-name
-                (read-directory-name "OMP working directory: ")))
-            default-directory))
-         (buffer (agent-shell-start :config (tl/agent-shell-omp-make-config))))
-    (when (buffer-live-p buffer)
-      (switch-to-buffer buffer))
-    buffer))
+  (let* ((projects
+          (delq nil
+                (mapcar (lambda (dir)
+                          (and (file-directory-p (expand-file-name ".omp" dir))
+                               (cons (file-name-nondirectory (directory-file-name dir))
+                                     (file-name-as-directory dir))))
+                        (directory-files tl/agent-shell-projects-root t "\\`[^.]"))))
+         (default-directory
+          (cdr (assoc (completing-read "OMP project: "
+                                       (mapcar #'car projects) nil t)
+                      projects))))
+    (agent-shell-start :config (tl/agent-shell-omp-make-config))))
+
+(defun tl/agent-shell-project-name (orig-fn)
+  "Return the chosen OMP project name instead of the git-monorepo root.
+Used as :around advice on `agent-shell--project-name' so both the buffer
+name and the header line reflect the scoped project.  Falls back to ORIG-FN
+outside a project-local `.omp/'."
+  (or (when-let* ((dir (tl/agent-shell-cwd-nearest-omp)))
+        (file-name-nondirectory (directory-file-name dir)))
+      (funcall orig-fn)))
 
 (with-eval-after-load 'agent-shell
+  (setq agent-shell-cwd-function #'tl/agent-shell-cwd-nearest-omp)
+  ;; Buffer name and header reflect the chosen project, not the monorepo root.
+  (advice-add 'agent-shell--project-name :around #'tl/agent-shell-project-name)
   (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
+#+end_src
+
+** Agent-shell Attention
+[[https://github.com/ultronozm/agent-shell-attention.el][agent-shell-attention]] tracks which =agent-shell= buffers are waiting for input and surfaces a compact =AS:n/m= indicator plus jump/dashboard commands. In a terminal workflow its value is the D-Bus notification (delivered by SwayNC) that fires on turn completion or permission requests — alerted even when Emacs is not focused — and the dashboard (=C-u C-u= on the jump key) gives a one-screen overview of every live agent buffer, since there is no mouse or GUI buffer list to fall back on.
+
+#+begin_src emacs-lisp
+(use-package agent-shell-attention
+  :ensure (:host github :repo "ultronozm/agent-shell-attention.el")
+  :after agent-shell
+  :demand t
+  :config
+  ;; D-Bus notification on turn completion / permission prompts (verified via
+  ;; `notifications-notify' + SwayNC).  The main terminal benefit.
+  (setq agent-shell-attention-notify-function
+        #'agent-shell-attention-notify-default)
+  ;; Show pending/busy as AS:n/m — useful with several OMP agents running.
+  (setq agent-shell-attention-render-function
+        #'agent-shell-attention-render-active)
+  ;; doom-modeline renders global-mode-string; the default mode-line-misc-info
+  ;; slot is not part of its format.
+  (setq agent-shell-attention-indicator-location 'global-mode-string)
+  (agent-shell-attention-mode 1))
 #+end_src
 
 ** Ghostel
