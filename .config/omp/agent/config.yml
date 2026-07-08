@@ -1,0 +1,33 @@
+setupVersion: 1
+modelRoles: 
+  default: zai/glm-5.2:high
+  smol: zai/glm-4.7-flash:minimal
+  slow: zai/glm-5.2:high
+  advisor: zai/glm-5.2
+  tiny: zai/glm-4.7-flash:minimal
+tui: 
+  textSizing: true
+terminal: 
+  showImages: false
+images: 
+  autoResize: true
+  blockImages: true
+personality: default
+stt: 
+  enabled: true
+  submitTrigger: never
+features: 
+  unexpectedStopDetection: false
+tools: 
+  approvalMode: yolo
+bash: 
+  enabled: true
+task: 
+  disabledAgents: 
+    []
+browser: 
+  headless: true
+memory: 
+  backend: local
+providers: 
+  tinyModelDevice: default

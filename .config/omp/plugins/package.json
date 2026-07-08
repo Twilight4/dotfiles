@@ -1,0 +1,13 @@
+{
+  "name": "omp-plugins",
+  "private": true,
+  "dependencies": {
+    "@dietrichgebert/ponytail": "https://github.com/DietrichGebert/ponytail",
+    "@oh-my-pi/pi-tui": "^16.3.10",
+    "@yuuang/ffi-rs-linux-x64-gnu": "^1.3.2",
+    "fff": "https://github.com/dmtrKovalenko/fff",
+    "pi-account-switcher": "npm:pi-account-switcher",
+    "pi-agent-browser-native": "npm:pi-agent-browser-native",
+    "superpowers": "https://github.com/obra/superpowers"
+  }
+}
