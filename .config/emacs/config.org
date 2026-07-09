@@ -1,6 +1,7 @@
 #+TITLE: GNU Emacs Config
 #+AUTHOR: Twilight4
 #+DESCRIPTION: Personal Emacs config
+#+PROPERTY: header-args :tangle yes
 #+STARTUP: show3levels
 
 * Table of Contents :toc:
@@ -154,18 +155,46 @@
 
 * GUI Configuration
 ** Frame configuration
-These settings only take effect on graphical frames — text-terminal frames ignore font =:family=/=:height= — so a single =config.org= serves both =emacsclient -c= (GUI) and =emacsclient -nw= (terminal) frames from the same =--daemon=. The font mirrors kitty's =JetBrainsMonoNLNerdFont= at 14pt so GUI text matches the kitty session. Animated cursor and window borders are provided by [[*Holo-layer][Holo-layer]], which supersedes the =window-divider-mode= / =vertical-border= approach used on the terminal.
+These settings only take effect on graphical frames — text-terminal frames ignore font =:family=/=:height= — so a single =config.org= serves both =emacsclient -c= (GUI) and =emacsclient -nw= (terminal) frames from the same =--daemon=. The font is =JetBrainsMonoNerdFont= at 14pt — the ligature-capable variant (not the "NL" no-ligature cut kitty still uses) so programming ligatures (arrows, comparison/logic operators) render via the =ligature.el= block below. To match kitty exactly, point kitty at the same variant later. 
 
 #+begin_src emacs-lisp
-;; Font — mirror kitty's "JetBrainsMonoNL Nerd Font" @ 14pt.
+;; Font — JetBrains Mono Nerd Font (ligature variant) @ 14pt.
+;; Switched from the "NL" (no-ligature) cut so programming ligatures compose;
 ;; `default-frame-alist' is the daemon-safe path: the :font frame parameter is
 ;; applied to each frame as it is created, so it reaches a pgtk GUI frame even
 ;; though no frame exists yet when the daemon loads config.
 (set-face-attribute 'default nil
-                    :family "JetBrainsMonoNL Nerd Font"
+                    :family "JetBrainsMono Nerd Font"
                     :height 140)
-(add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL Nerd Font-14"))
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-14"))
 
+;; Programming ligatures. The font must carry the OpenType features (JetBrains
+;; Mono does); `ligature.el' composes multi-char operators into single glyphs
+;; via `composition-function-table'. Registered against `t' so the rule set
+;; applies in every major mode (prog, org, text, ...) and `global-ligature-mode'
+;; turns the minor mode on everywhere.
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures
+   't
+   '("->" "<-" "<==" "==>" "=>" ">=" "<=" "==" "===" "!=" "!==" "&&" "||" "|||"
+     "??" "?." "?:" "::" ":::" ":=" "::=" "##" "###" "<!--" "-->" "</>" "</"
+     "/=" "//" "///" "/*" "*/" "++" "+++" "+=" "-=" "*=" "%=" "&=" "|=" "^="
+     "<<" ">>" "<<=" ">>=" "<->" "<~>" "<~" "<|>" "<||" "<=>" ".." "..." "..<"
+     "**" "***" "*>" "#{" "#[" "#:" "#=" "#_("))
+  (global-ligature-mode t))
+
+;; Baseline line spacing for monospace/code buffers; text buffers override it.
+(setq-default line-spacing 0.05)
+;; Box (block) cursor (user preference).
+(setq-default cursor-type 'box)
+
+;; Zooming in-out
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 #+end_src
 
 ** Transparency
@@ -974,7 +1003,11 @@ The two modes are mutually exclusive; only one is active at a time."
               mouse-wheel-tilt-scroll t
               scroll-margin 7                               ;; It's nice to maintain a little margin
               scroll-preserve-screen-position t
-              scroll-conservatively 10)
+              scroll-conservatively 10000)
+
+(setq pixel-scroll-precision-interpolate-page t)
+(defalias 'scroll-up-command 'pixel-scroll-interpolate-down)
+(defalias 'scroll-down-command 'pixel-scroll-interpolate-up)
 #+end_src
 
 * UI Configuration
@@ -2139,6 +2172,14 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (add-function :override (symbol-function 'marginalia--annotate-local-file)
                 #'+marginalia--annotate-local-file-colorful)
 )
+
+;; File icons in the minibuffer / marginalia annotations.
+(use-package nerd-icons-completion
+  :ensure t
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup))
 #+end_src
 
 ** Consult
@@ -2226,14 +2267,21 @@ Words auto-completion
   :config
   (corfu-terminal-mode +1))
 
+;; File-type icons beside Corfu completion candidates.
+(use-package nerd-icons-corfu
+  :ensure t
+  :after corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+
 (use-package cape
   :ensure t
-  :commands (cape-dabbrev cape-file cape-elisp-block cape-dict)
   :init
   ;; Add to the global default value of completion-at-point-functions
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-elisp-block)
+  (add-hook 'completion-at-point-functions #'cape-history)
   :config
   ;; Default dictionary (Polish)
   ;; I made this wordlist out of hunspell-pl package instead of installing words-pl package cuz the words-pl has too much redundant words (60mb over 5mb)
@@ -2375,7 +2423,7 @@ This is useful when followed by an immediate kill."
   :config
   ;; undo-tree never prunes its tree, so for heavily-edited files (e.g. this config) auto-save-history grows the on-disk
   ;; tree without bound and rewrites the whole thing on every save
-  (setq undo-tree-auto-save-history t)
+  (setq undo-tree-auto-save-history nil)
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 
   ;; More compact diff display
@@ -2709,15 +2757,12 @@ window-selection commands."
 
   ;; General Keybinds
   (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
-  (define-key treemacs-mode-map (kbd "J") 'treemacs-next-line)
-  ;(define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
   (define-key treemacs-mode-map (kbd "h") 'treemacs-root-up)
   (define-key treemacs-mode-map (kbd "l") 'treemacs-root-down)
   (define-key treemacs-mode-map (kbd "u") 'treemacs-collapse-parent-node)
   (define-key treemacs-mode-map (kbd ".") 'treemacs-toggle-show-dotfiles)
-  (define-key treemacs-mode-map (kbd "K") 'treemacs-goto-parent-node)
-  (define-key treemacs-mode-map (kbd "j") 'treemacs-next-neighbour)
-  (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-neighbour)
+  (define-key treemacs-mode-map (kbd "j") 'treemacs-next-line)
+  (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
   (define-key treemacs-mode-map (kbd "/") 'isearch-forward)
   (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
   (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
@@ -2762,93 +2807,18 @@ window-selection commands."
   ;(define-key treemacs-mode-map (kbd "tv") 'treemacs-fringe-indicator-mode)
   ;(define-key treemacs-mode-map (kbd "td") 'treemacs-git-commit-diff-mode)
 
-;; Adding treemacs tui icons
-(with-eval-after-load 'treemacs
-  (setq treemacs-icon-fallback-text (propertize "󰈔 " 'face '(:foreground "#aaaaaa")))
-
-  (treemacs-modify-theme "Default"
-    :config
-    (progn
-      ;; directories
-      (treemacs-create-icon :icon (propertize "󰝰 " 'face '(:foreground "#5599ff")) :fallback (propertize "󰝰 " 'face '(:foreground "#5599ff")) :extensions (dir-open))
-      (treemacs-create-icon :icon (propertize "󰉋 " 'face '(:foreground "#5599ff")) :fallback (propertize "󰉋 " 'face '(:foreground "#5599ff")) :extensions (dir-closed))
-      ;; root
-      (treemacs-create-icon :icon (propertize "󱉭 " 'face '(:foreground "#ff9944")) :fallback (propertize "󱉭 " 'face '(:foreground "#ff9944")) :extensions (root-open))
-      (treemacs-create-icon :icon (propertize "󱉭 " 'face '(:foreground "#ff9944")) :fallback (propertize "󱉭 " 'face '(:foreground "#ff9944")) :extensions (root-closed))
-      ;; fallback
-      (treemacs-create-icon :icon (propertize "󰈔 " 'face '(:foreground "#aaaaaa")) :fallback (propertize "󰈔 " 'face '(:foreground "#aaaaaa")) :extensions (fallback))
-
-      ;; shell / scripts
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#89e051")) :fallback (propertize " " 'face '(:foreground "#89e051")) :extensions ("sh" "bash" "zsh" "fish" "bashrc" "zshrc" "zshenv" "zprofile" ".bashrc" ".zshrc" ".zshenv"))
-      ;; images
-      (treemacs-create-icon :icon (propertize "󰈟 " 'face '(:foreground "#a8d8ea")) :fallback (propertize "󰈟 " 'face '(:foreground "#a8d8ea")) :extensions ("png" "jpg" "jpeg" "gif" "bmp" "svg" "webp" "ico" "tiff"))
-      ;; video
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#fd971f")) :fallback (propertize " " 'face '(:foreground "#fd971f")) :extensions ("mp4" "mkv" "avi" "mov" "webm" "flv" "wmv"))
-      ;; audio
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#bc5fd3")) :fallback (propertize " " 'face '(:foreground "#bc5fd3")) :extensions ("mp3" "wav" "ogg" "flac" "aac" "m4a"))
-      ;; archives
-      (treemacs-create-icon :icon (propertize "󰛫 " 'face '(:foreground "#e8b86d")) :fallback (propertize "󰛫 " 'face '(:foreground "#e8b86d")) :extensions ("zip" "tar" "gz" "bz2" "xz" "7z" "rar" "zst"))
-      ;; pdf / docs
-      (treemacs-create-icon :icon (propertize "󰈦 " 'face '(:foreground "#ff5555")) :fallback (propertize "󰈦 " 'face '(:foreground "#ff5555")) :extensions ("pdf"))
-      (treemacs-create-icon :icon (propertize "󰈬 " 'face '(:foreground "#6699ff")) :fallback (propertize "󰈬 " 'face '(:foreground "#6699ff")) :extensions ("doc" "docx" "odt"))
-      (treemacs-create-icon :icon (propertize "󰈛 " 'face '(:foreground "#27ae60")) :fallback (propertize "󰈛 " 'face '(:foreground "#27ae60")) :extensions ("xls" "xlsx" "ods" "csv"))
-      ;; markdown / text / org
-      (treemacs-create-icon :icon (propertize "󰍔 " 'face '(:foreground "#ededed")) :fallback (propertize "󰍔 " 'face '(:foreground "#ededed")) :extensions ("md"))
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#77aa99")) :fallback (propertize " " 'face '(:foreground "#77aa99")) :extensions ("org"))
-      (treemacs-create-icon :icon (propertize "󰈙 " 'face '(:foreground "#ededed")) :fallback (propertize "󰈙 " 'face '(:foreground "#ededed")) :extensions ("txt"))
-      ;; web
-      (treemacs-create-icon :icon (propertize "󰌝 " 'face '(:foreground "#e44d26")) :fallback (propertize "󰌝 " 'face '(:foreground "#e44d26")) :extensions ("html" "htm"))
-      (treemacs-create-icon :icon (propertize "󰌜 " 'face '(:foreground "#264de4")) :fallback (propertize "󰌜 " 'face '(:foreground "#264de4")) :extensions ("css" "scss" "sass" "less"))
-      ;; js / ts
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#cbcb41")) :fallback (propertize " " 'face '(:foreground "#cbcb41")) :extensions ("js" "mjs" "cjs" "json" "jsonc"))
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#519aba")) :fallback (propertize " " 'face '(:foreground "#519aba")) :extensions ("ts" "tsx"))
-      (treemacs-create-icon :icon (propertize "󰜈 " 'face '(:foreground "#61dafb")) :fallback (propertize "󰜈 " 'face '(:foreground "#61dafb")) :extensions ("jsx"))
-      ;; python
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#ffbc03")) :fallback (propertize " " 'face '(:foreground "#ffbc03")) :extensions ("py" "pyc" "pyd" "pyi"))
-      ;; rust
-      (treemacs-create-icon :icon (propertize "󱘗 " 'face '(:foreground "#dea584")) :fallback (propertize "󱘗 " 'face '(:foreground "#dea584")) :extensions ("rs"))
-	  ;; php
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#a074c4")) :fallback (propertize " " 'face '(:foreground "#a074c4")) :extensions ("php"))
-      ;; go
-      (treemacs-create-icon :icon (propertize "󰟓 " 'face '(:foreground "#00add8")) :fallback (propertize "󰟓 " 'face '(:foreground "#00add8")) :extensions ("go"))
-      ;; c / c++
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#5c9bd6")) :fallback (propertize " " 'face '(:foreground "#5c9bd6")) :extensions ("c" "h"))
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#519aba")) :fallback (propertize " " 'face '(:foreground "#519aba")) :extensions ("cpp" "cc" "cxx" "hpp"))
-      ;; java
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#b07219")) :fallback (propertize " " 'face '(:foreground "#b07219")) :extensions ("java" "jar" "class"))
-      ;; lua
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#51a0cf")) :fallback (propertize " " 'face '(:foreground "#51a0cf")) :extensions ("lua"))
-      ;; config / data
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#6d8086")) :fallback (propertize " " 'face '(:foreground "#6d8086")) :extensions ("json" "jsonc"))
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#6d8086")) :fallback (propertize " " 'face '(:foreground "#6d8086")) :extensions ("db"))
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#aaaaaa")) :fallback (propertize " " 'face '(:foreground "#aaaaaa")) :extensions ("yaml" "yml"))
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#9c4221")) :fallback (propertize " " 'face '(:foreground "#9c4221")) :extensions ("toml"))
-      (treemacs-create-icon :icon (propertize "󰗀 " 'face '(:foreground "#fd971f")) :fallback (propertize "󰗀 " 'face '(:foreground "#fd971f")) :extensions ("xml"))
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#aaaaaa")) :fallback (propertize " " 'face '(:foreground "#aaaaaa")) :extensions ("ini" "cfg" "conf" "config"))
-      ;; git
-      (treemacs-create-icon :icon (propertize "󰊢 " 'face '(:foreground "#f54d27")) :fallback (propertize "󰊢 " 'face '(:foreground "#f54d27")) :extensions ("gitignore" "gitconfig" "gitmodules" "gitattributes"))
-      ;; docker
-      (treemacs-create-icon :icon (propertize "󰡨 " 'face '(:foreground "#2496ed")) :fallback (propertize "󰡨 " 'face '(:foreground "#2496ed")) :extensions ("Dockerfile" "dockerignore" "docker-compose.yml" "docker-compose.yaml"))
-      ;; makefile
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#6d8086")) :fallback (propertize " " 'face '(:foreground "#6d8086")) :extensions ("Makefile" "makefile" "mk"))
-	  ;; elisp
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#8172be")) :fallback (propertize " " 'face '(:foreground "#8172be")) :extensions ("el" "elc"))
-	  ;; log
-      (treemacs-create-icon :icon (propertize "󰌱 " 'face '(:foreground "#aaaaaa")) :fallback (propertize "󰌱 " 'face '(:foreground "#aaaaaa")) :extensions ("log"))
-	  ;; ttf
-      (treemacs-create-icon :icon (propertize " " 'face '(:foreground "#aaaaaa")) :fallback (propertize " " 'face '(:foreground "#aaaaaa")) :extensions ("ttf"))
-	  ;; pem / certs
-      (treemacs-create-icon :icon (propertize "󰌋 " 'face '(:foreground "#cbcb41")) :fallback (propertize "󰌋 " 'face '(:foreground "#cbcb41")) :extensions ("pem" "crt" "cer" "key" "pub"))
-      ;; license
-      (treemacs-create-icon :icon (propertize "󰿃 " 'face '(:foreground "#cbcb41")) :fallback (propertize "󰿃 " 'face '(:foreground "#cbcb41")) :extensions ("LICENSE" "LICENCE")))))
+;; Treemacs nerd-icons theme — replaces the previous manual per-extension
+;; `treemacs-create-icon' bindings with the curated treemacs-nerd-icons set
+;; (covers hundreds of file types; icons render via "Symbols Nerd Font Mono").
+(use-package treemacs-nerd-icons
+  :ensure t
+  :after treemacs
+  :config
+  (treemacs-load-theme "nerd-icons"))
 
 ;(use-package treemacs-projectile
 ;  :after (treemacs projectile)
 ;  :ensure t)
-
-(use-package treemacs-icons-dired
-  :hook (dired-mode . treemacs-icons-dired-enable-once)
-  :ensure t)
 #+end_src
 
 ** Dired
@@ -2879,6 +2849,10 @@ window-selection commands."
 
 (autoload 'dired-omit-mode "dired-x")
 
+(use-package nerd-icons-dired
+  :ensure t
+  :hook (dired-mode . nerd-icons-dired-mode))
+
 (defun tl-dired-mode-setup ()
   ;; Navigation
   (define-key dired-mode-map (kbd "h") 'dired-up-directory)
@@ -2886,11 +2860,11 @@ window-selection commands."
   (define-key dired-mode-map (kbd "k") 'peep-dired-prev-file)
   (define-key dired-mode-map (kbd "l") 'dired-open-file)
   ;; File Operations
-  (define-key dired-mode-map (kbd "y") 'dired-ranger-copy)
+  (define-key dired-mode-map (kbd "w") 'dired-ranger-copy)
   (define-key dired-mode-map (kbd "m") 'dired-ranger-move)
-  (define-key dired-mode-map (kbd "p") 'dired-ranger-paste)
-  (define-key dired-mode-map (kbd "n") 'dired-create-directory)
-  (define-key dired-mode-map (kbd "N") 'dired-create-empty-file)
+  (define-key dired-mode-map (kbd "y") 'dired-ranger-paste)
+  (define-key dired-mode-map (kbd "N") 'dired-create-directory)
+  (define-key dired-mode-map (kbd "n") 'dired-create-empty-file)
   (define-key dired-mode-map (kbd "f") 'dired-goto-file)
   ;; Misc
   (define-key dired-mode-map (kbd "SPC") 'dired-mark)
@@ -4444,19 +4418,22 @@ Let’s make creating an Org buffer just that little bit easier.
 *** Org-mode font faces
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
-  ;; Set faces for heading levels
-  (dolist (face '((org-level-1 . "#50C1F7")
-                  (org-level-2 . "#7FA7FB")
-                  (org-level-3 . "#FA95A2")
-                  (org-level-4 . "#84DDF8")
-                  (org-level-5 . "#50C1F7")
-                  (org-level-6 . "#7FA7FB")
-                  (org-level-7 . "#FA95A2")
-                  (org-level-8 . "#84DDF8")))
-        (set-face-attribute (car face) nil
-                            :foreground (cdr face)
-                            :slant 'italic
-                            :weight 'bold)))
+  "Set heading faces: per-level color plus a descending size hierarchy.
+HEIGHT is a scale factor relative to the default face height."
+  (dolist (spec '((org-level-1 "#50C1F7" 1.30)
+                  (org-level-2 "#7FA7FB" 1.20)
+                  (org-level-3 "#FA95A2" 1.10)
+                  (org-level-4 "#84DDF8" 1.05)
+                  (org-level-5 "#50C1F7" 1.00)
+                  (org-level-6 "#7FA7FB" 1.00)
+                  (org-level-7 "#FA95A2" 1.00)
+                  (org-level-8 "#84DDF8" 1.00)))
+    (pcase-let ((`(,face ,fg ,height) spec))
+      (set-face-attribute face nil
+                          :foreground fg
+                          :height height
+                          :slant 'italic
+                          :weight 'bold))))
 
 ;; Call org-font-setup when entering org-mode
 (add-hook 'org-mode-hook #'tl/org-font-setup)
@@ -4538,6 +4515,7 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
              (tl/agent-shell-omp-buffer-p))
         (tl/agent-shell-olivetti))))))
 #+end_src
+
 
 *** =Org-mode= config
 #+begin_src emacs-lisp
