@@ -995,19 +995,20 @@ The two modes are mutually exclusive; only one is active at a time."
 
 ** Scrolling
 #+begin_src emacs-lisp
-(setq-default pixel-scroll-precision-mode t
-              fast-but-imprecise-scrolling t
-              mouse-wheel-scroll-amount '(1 ((shift) . 1))  ;; one line at a time
-              mouse-wheel-progressive-speed nil             ;; don't accelerate scrolling
-              mouse-wheel-follow-mouse t                    ;; scroll window under mouse
-              mouse-wheel-tilt-scroll t
-              scroll-margin 7                               ;; It's nice to maintain a little margin
-              scroll-preserve-screen-position t
-              scroll-conservatively 10000)
+(pixel-scroll-precision-mode 1)
 
-(setq pixel-scroll-precision-interpolate-page t)
-(defalias 'scroll-up-command 'pixel-scroll-interpolate-down)
-(defalias 'scroll-down-command 'pixel-scroll-interpolate-up)
+(setq-default fast-but-imprecise-scrolling t
+              mouse-wheel-scroll-amount '(1 ((shift) . 1))
+              mouse-wheel-progressive-speed nil
+              mouse-wheel-follow-mouse t
+              mouse-wheel-tilt-scroll t
+              scroll-margin 7
+              scroll-preserve-screen-position t
+              scroll-conservatively 10000
+              pixel-scroll-precision-interpolate-page t)
+
+(defalias 'scroll-up-command   #'pixel-scroll-interpolate-down)
+(defalias 'scroll-down-command #'pixel-scroll-interpolate-up)
 #+end_src
 
 * UI Configuration
@@ -3632,8 +3633,8 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 ;; replace original keybindings with these and comment out these kitty.conf keybindings
 (global-set-key (kbd "M-n") 'tl/ghostel-new)
 (global-set-key (kbd "M-s") 'tl/ghostel-new-yazi)
-(global-set-key (kbd "M-k") 'previous-multiframe-window)
-(global-set-key (kbd "M-j") 'next-multiframe-window)
+(global-set-key (kbd "M-j") 'previous-multiframe-window)
+(global-set-key (kbd "M-k") 'next-multiframe-window)
 (global-set-key (kbd "M-m") 'tl/toggle-window-maximize)
 (global-set-key (kbd "M-w") 'tl/swap-window)
 (global-set-key (kbd "M-c") 'delete-window)
@@ -4515,7 +4516,6 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
              (tl/agent-shell-omp-buffer-p))
         (tl/agent-shell-olivetti))))))
 #+end_src
-
 
 *** =Org-mode= config
 #+begin_src emacs-lisp
