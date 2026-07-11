@@ -16,12 +16,12 @@ bindkey ' ' magic-space                           # do history expansion on spac
 #bindkey '^v' edit-command-line-and-redraw
 #bindkey '^@' toggle-selection-mode
 #bindkey "^[^M" accept-and-hold
-#bindkey -M emacs -s '^[T' 'fpdf\r'
+bindkey -M emacs -s '^[t' 'fpdf\r'
 #bindkey -M emacs -s '^[I' 'fimg\r'
 #bindkey -M emacs -s '^[Z' 'fchtce\r'
 #bindkey -M emacs -s '^[R' 'frg '
-#bindkey -M emacs -s '^[G' 'fpars\r'
-#bindkey -M emacs -s '^[H' 'fparr\r'
+bindkey -M emacs -s '^[g' 'fpars\r'
+bindkey -M emacs -s '^[q' 'fparr\r'
 
 # Movement
 bindkey '^H' backward-char
@@ -110,7 +110,7 @@ bindkey -M emacs -s '^[L' 'nb-^I'
 
 # List files
 bindkey -M emacs -s '^[u' 'fwork\r'
-bindkey -M emacs -s '^[fnp' 'fproj\r'
+bindkey -M emacs -s '^[p' 'fnp\r'
 #bindkey -M emacs -s '^[D' 'fdev\r'
 #bindkey -M emacs -s '^[e' 'ftrack\r'
 bindkey -M emacs -s '^[y' 'fclip\r'
