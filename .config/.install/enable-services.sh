@@ -61,6 +61,7 @@ services=(
 	"nohang"
   "cronie"
   "acpid"
+  "docker"
 )
 
 # Enable services
