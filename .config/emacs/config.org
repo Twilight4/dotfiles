@@ -9,7 +9,7 @@
 - [[#gui-configuration][GUI Configuration]]
   - [[#frame-configuration][Frame configuration]]
   - [[#transparency][Transparency]]
-  - [[#centaur-tabs][Centaur-tabs]]
+  - [[#tab-bar--workspaces][Tab bar & workspaces]]
 - [[#keybindings][Keybindings]]
   - [[#global-keybindings][Global keybindings]]
   - [[#general-keybindings][General keybindings]]
@@ -56,6 +56,7 @@
   - [[#screenshot-automation][Screenshot automation]]
   - [[#pdf-links-automation][Pdf-links automation]]
   - [[#no-littering][No-littering]]
+  - [[#session-persistence--crash-recovery][Session persistence & crash recovery]]
   - [[#rainbow-mode][Rainbow-mode]]
   - [[#mark-whole-line][Mark whole line]]
   - [[#rainbow-delimeters][Rainbow-delimeters]]
@@ -77,6 +78,7 @@
   - [[#anzu][Anzu]]
   - [[#diff-hl][Diff-hl]]
   - [[#beacon][Beacon]]
+  - [[#goggles][Goggles]]
   - [[#zoxide][Zoxide]]
   - [[#markdown-mode][Markdown Mode]]
   - [[#undo-tree-mode][Undo tree mode]]
@@ -89,6 +91,7 @@
   - [[#agent-shell-dictation-push-to-talk][Agent-shell dictation (push-to-talk)]]
   - [[#agent-shell-attention][Agent-shell Attention]]
   - [[#agent-shell-bookmark][Agent-shell Bookmark]]
+  - [[#agent-recall][Agent-recall]]
   - [[#ghostel][Ghostel]]
   - [[#drag-stuff][Drag-stuff]]
   - [[#god-mode][God-Mode]]
@@ -201,41 +204,157 @@ These settings only take effect on graphical frames — text-terminal frames ign
 It's always better to set transparency in option for respective applications that supports it rather than setting it in window manager.
 
 #+begin_src emacs-lisp
-(add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
+(add-to-list 'default-frame-alist '(alpha-background . 91)) ; For all new frames henceforth
 #+end_src
 
-** Centaur-tabs
-[[https://github.com/ema2159/centaur-tabs][Centaur Tabs]] is an Emacs package that enhances the tab bar functionality, providing a more visually appealing way to manage multiple op en buffers. No point if using Emacs TUI.
+** Tab bar & workspaces
+=tab-bar= — one tab per workspace/context, the kitty-tab analogue — plus =tabspaces= for buffer isolation and session save/restore across restarts. Named workspaces are built from recipes via =tl/open-workspace= (bound under =C-x w=), mirroring the kitty =session-agenda= / =session-work= sessions, which already drove these same =tl/= openers through =emacsclient -nw=.
 
 #+begin_src emacs-lisp
-(use-package centaur-tabs
- :if window-system
- :ensure t
- :demand
- :init
- ;; Set the style to rounded with icons
- (setq centaur-tabs-style "bar"
-       centaur-tabs-set-icons t
-       centaur-tabs-height 26
-       centaur-tabs-modified-marker "o"
-       centaur-tabs-close-button ""
-       centaur-tabs-set-bar 'above
-       centaur-tabs-gray-out-icons 'buffer)
- :config
- ;; Enable centaur-tabs
- (centaur-tabs-mode t))
+;; Native tab bar = workspace tabs. `tab-bar-show' hides the bar until a
+;; second tab exists.
+(tab-bar-mode 1)
+(tab-bar-history-mode 1)
+(setq tab-bar-show 1
+      tab-bar-new-tab-choice "*dashboard*"
+      ;; Only the tabs themselves — no `«»' history arrows (left) or `+'
+      tab-bar-format '(tab-bar-format-tabs)
+      ;; Tab width = its name length (kitty-style). The default `t' stretches
+      ;; every tab to fill the bar
+      tab-bar-auto-width nil
+      ;; One-char gap between tabs, rendered in the `tab-bar' face (= the bar
+      ;; background), so it reads as a #040305 gap between #16161e tab blocks.
+      tab-bar-separator " "
+      ;; No per-tab `x' close button; closing is via keys (M-C / C-x w d).
+      tab-bar-close-button-show nil)
 
-(setq x-underline-at-descent-line t)
+;; Kitty-style tab names: pad one space each side and carry the tab face onto
+;; the padding, so the highlight doesn't hug the text — the name floats on a
+;; small colored margin like kitty's tab padding.
+(defun tl/tab-name-kitty (tab _i)
+  "Return TAB's name padded with the tab face (kitty-style, no text-hugging)."
+  (let ((name (alist-get 'name tab))
+        (face (if (eq (car tab) 'current-tab)
+                  'tab-bar-tab 'tab-bar-tab-inactive)))
+    (propertize (concat " " name " ") 'face face)))
+(setq tab-bar-tab-name-format-function #'tl/tab-name-kitty)
 
-(global-set-key (kbd "C->") 'centaur-tabs-move-current-tab-to-right)
-(global-set-key (kbd "C-<") 'centaur-tabs-move-current-tab-to-left)
-(global-set-key (kbd "M-U") 'centaur-tabs-kill-other-buffers-in-current-group)
-(global-set-key (kbd "M-o") 'centaur-tabs--create-new-tab)
-(global-set-key (kbd "C-<tab>") 'centaur-tabs-ace-jump)
-(global-set-key (kbd "M-f") 'centaur-tabs-forward-tab)
-(global-set-key (kbd "M-b") 'centaur-tabs-backward-tab)
-(global-set-key (kbd "C-M-f") 'centaur-tabs-forward-group)
-(global-set-key (kbd "C-M-b") 'centaur-tabs-backward-group)
+;; --- Mirror kitty's tab-bar + cursor colors. The pywal-generated
+;; colors-kitty.conf is the source of truth (theme.conf includes it LAST, so it
+;; overrides); `tl/sync-kitty-tab-colors' re-reads it and applies the colors,
+;; so regenerating the pywal scheme is mirrored here with no second edit.
+;; Defined here; applied after `load-theme' in "Color theme" and hooked into
+;; `enable-theme-functions' to survive theme reloads. ---
+(defconst tl/kitty-theme-file
+  (expand-file-name "~/.cache/wal/colors-kitty.conf")
+  "Pywal-generated kitty color file, included LAST by kitty's theme.conf.
+Holds the real tab/cursor colors (active/inactive tab fg+bg, cursor).
+tab_bar_background is not set here — it stays #040305 from theme.conf.")
+
+(defun tl/kitty-color (key &optional fallback)
+  "Read the #rrggbb color for KEY (e.g. \"active_tab_foreground\") from kitty.
+Return the hex string, or FALLBACK when colors-kitty.conf or the key is absent."
+  (or (and (file-readable-p tl/kitty-theme-file)
+           (with-temp-buffer
+             (insert-file-contents tl/kitty-theme-file)
+             (goto-char (point-min))
+             (when (re-search-forward
+                    (concat "^\\s-*" (regexp-quote key)
+                            "\\s-+\\(#[0-9a-fA-F]\\{6\\}\\)")
+                    nil t)
+               (match-string 1))))
+      fallback))
+
+(defun tl/sync-kitty-tab-colors (&optional _theme)
+  "Apply kitty's tab-bar and cursor colors to the Emacs faces.
+Sources: `tl/kitty-theme-file' (pywal) — active/inactive tab fg+bg, cursor."
+  (interactive)
+  (let ((bar-bg (tl/kitty-color "tab_bar_background"      "#040305"))
+        (act-fg (tl/kitty-color "active_tab_foreground"   "#061C24"))
+        (act-bg (tl/kitty-color "active_tab_background"   "#adb6b7"))
+        (ina-fg (tl/kitty-color "inactive_tab_foreground" "#adb6b7"))
+        (ina-bg (tl/kitty-color "inactive_tab_background" "#061C24"))
+        (cursor (tl/kitty-color "cursor"                  "#adb6b7")))
+    (set-face-attribute 'tab-bar nil :background bar-bg :box nil)
+    (set-face-attribute 'tab-bar-tab nil
+                        :background act-bg :foreground act-fg :box nil)
+    (set-face-attribute 'tab-bar-tab-inactive nil
+                        :background ina-bg :foreground ina-fg :box nil)
+    (set-face-attribute 'cursor nil :background cursor)))
+
+;; tabspaces: buffer isolation per tab + named-session save/restore.
+;; `:demand' so the daemon loads it at init (not deferred); buffer filtering
+;; is OFF so all buffers are visible in every tab (matches kitty semantics).
+(use-package tabspaces
+  :ensure t
+  :demand t
+  :hook (after-init . tabspaces-mode)
+  :config
+  (setq tabspaces-use-filtered-buffers nil
+        tabspaces-session-auto-restore t
+        tabspaces-session-file
+        (expand-file-name "tabspaces-session" user-emacs-directory))
+  (add-hook 'kill-emacs-hook #'tabspaces-save-session))
+
+;; Tab navigation
+(global-set-key (kbd "M-f")     'tab-bar-switch-to-next-tab)
+(global-set-key (kbd "M-b")     'tab-bar-switch-to-prev-tab)
+(global-set-key (kbd "C-<tab>") 'tab-bar-switch-to-tab)
+(global-set-key (kbd "M-o")     'tab-bar-new-tab)
+(global-set-key (kbd "M-O")     'tab-bar-rename-tab)
+(global-set-key (kbd "C->")     (lambda () (interactive) (tab-bar-move-tab  1)))
+(global-set-key (kbd "C-<")     (lambda () (interactive) (tab-bar-move-tab -1)))
+(global-set-key (kbd "M-C")     'tab-bar-close-tab)
+
+;; --- Named workspace recipes (mirror the kitty session files) -------------
+;; Each entry: (WORKSPACE-SYM (TAB-NAME . OPENER) ...). OPENER is a command
+;; symbol or a zero-arg function, run inside the tab it creates.
+(defconst tl/workspace-recipes
+  '((agenda
+     ("Agenda"     . tl/org-agenda-o)
+     ("New Org"    . tl/buffer-org-new-kitty)
+     ("Cheatsheet" . (lambda () (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
+     ("Calendar"   . (lambda () (org-goto-calendar) (delete-other-windows)))
+     ("Journal"    . org-roam-dailies-goto-today))
+    (work
+     ("cli"         . (lambda () (tl/ghostel-new-named "ghostel-cli")))
+     ("workspace"   . tl/ghostel-new-yazi)
+     ("cheatsheets" . (lambda () (tl/ghostel-new-named "ghostel-cheatsheets")))
+     ("notes"       . (lambda () (tl/ghostel-new-named "ghostel-notes")))
+     ("omp-agents"  . tl/agent-shell-omp-start)
+     ("gemini"      . tl/gptel-open-gemini)))
+  "Alist of WORKSPACE -> list of (TAB-NAME . OPENER) recipes.")
+
+(defun tl/--tab-index (name)
+  "1-based index of the tab named NAME, or nil if absent."
+  (cl-loop for tab in (tab-bar-tabs)
+           for i from 1
+           when (equal (alist-get 'name tab) name) return i))
+
+(defun tl/open-workspace (name)
+  "Open workspace NAME, creating its recipe tabs if absent.
+Existing tabs are reused (idempotent), so re-opening just focuses the
+workspace. Switches to the workspace's first tab when done."
+  (interactive
+   (list (intern (completing-read "Workspace: "
+                                  (mapcar #'car tl/workspace-recipes)))))
+  (let ((recipe (alist-get name tl/workspace-recipes)))
+    (if (not recipe)
+        (user-error "No recipe for workspace `%s'" name)
+      (dolist (entry recipe)
+        (pcase-let ((`(,tab-name . ,opener) entry))
+          (let ((idx (tl/--tab-index tab-name)))
+            (if idx
+                (tab-bar-select-tab idx)
+              (tab-bar-new-tab)
+              (tab-bar-rename-tab tab-name)
+              (condition-case err
+                  (if (commandp opener) (call-interactively opener) (funcall opener))
+                (error (message "opener %S failed in tab %S: %s"
+                                opener tab-name (error-message-string err))))))))
+      (let ((first (car (mapcar #'car recipe))))
+        (when-let ((idx (tl/--tab-index first)))
+          (tab-bar-select-tab idx))))))
 #+end_src
 
 * Keybindings
@@ -253,9 +372,9 @@ It's always better to set transparency in option for respective applications tha
 (global-unset-key (kbd "M-s"))
 (global-unset-key (kbd "<f2>"))
 
-(with-eval-after-load 'hi-lock
-  (define-key hi-lock-map (kbd "C-x w") nil)
-  (global-unset-key (kbd "C-x w")))
+;; (with-eval-after-load 'hi-lock
+;;   (define-key hi-lock-map (kbd "C-x w") nil)
+;;   (global-unset-key (kbd "C-x w")))
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-x n") nil))
@@ -291,7 +410,6 @@ It's always better to set transparency in option for respective applications tha
 (define-key global-map (kbd "M-i") nil)
 (define-key global-map (kbd "C-c TAB") nil)
 (define-key global-map (kbd "M-u") nil)
-(define-key global-map (kbd "M-f") nil)
 (define-key global-map (kbd "M-h") nil)
 (define-key global-map (kbd "C-p") nil)
 (define-key global-map (kbd "C-n") nil)
@@ -300,8 +418,7 @@ It's always better to set transparency in option for respective applications tha
 (define-key global-map (kbd "C-f") nil)
 (define-key global-map (kbd "C-b") nil)
 (define-key global-map (kbd "M-;") nil)
-(define-key global-map (kbd "M-b") nil)
-(define-key global-map (kbd "C-y") nil)
+;(define-key global-map (kbd "C-y") nil)
 (define-key global-map (kbd "M-j") nil)
 (define-key global-map (kbd "M-k") nil)
 (define-key global-map (kbd "M-l") nil)
@@ -347,12 +464,12 @@ It's always better to set transparency in option for respective applications tha
 (global-set-key (kbd "C-g") 'keyboard-escape-quit)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "<f12>") 'kill-emacs)
+(global-set-key (kbd "<f11>") 'restart-emacs)
 ;; Bindings that have a prefix key and have to be overwritten
 (with-eval-after-load 'winner
   (define-key winner-mode-map (kbd "C-c <left>") nil)
   (define-key winner-mode-map (kbd "C-c <right>") nil)
-  (define-key winner-mode-map (kbd "C-x w") 'winner-undo)
-  (define-key winner-mode-map (kbd "C-x W") 'winner-redo))
+)
 
 (with-eval-after-load 'undo-tree
   (define-key undo-tree-map (kbd "C-x r") nil))
@@ -370,8 +487,10 @@ It's always better to set transparency in option for respective applications tha
 (global-set-key (kbd "M-t") 'treemacs-add-and-display-current-project-exclusively)
 (global-set-key (kbd "C-t") 'treemacs)
 (global-set-key (kbd "M-`") 'tl/subword-mode-toggle)
-(global-set-key (kbd "C-q") 'delete-frame)
-(global-set-key (kbd "M-q") (lambda () (interactive) (save-buffer) (delete-frame)))
+;(global-set-key (kbd "C-q") 'delete-frame)
+;(global-set-key (kbd "M-q") (lambda () (interactive) (save-buffer) (delete-frame)))
+(global-set-key (kbd "M-n") 'tl/better-next-buffer)
+(global-set-key (kbd "M-p") 'tl/better-previous-buffer)
 (global-set-key (kbd "C-r") 'undo-tree-undo)
 (global-set-key (kbd "C-u") 'tl/org-kill-line-backward)
 (global-set-key (kbd "C-f") 'forward-word)
@@ -569,11 +688,10 @@ It's always better to set transparency in option for respective applications tha
     ;"C-l" '(tl/log-entry-small :wk "Use small log entry")
     ;"C-k" '(tl/report-entry :wk "Use report entry")
     ;"" '(org-transclusion-add :wk "Add org transclusion")  ;; Org tansclusion package - not using
-    "C-p" '(tl/better-previous-buffer :wk "Previous Buffer")
-    "C-n" '(tl/better-next-buffer :wk "Next Buffer")
+    "RET" '(tl/ghostel-new :wk "Open new terminal")
     "C-u" '(tl/kill-current-buffer :wk "Kill current buffer")
     "C-a" '(tl/org-agenda-o :wk "Agenda overview")
-    "C-q" '(save-buffers-kill-terminal :wk "Exit Emacs")
+    "C-q" '(save-buffers-kill-emacs :wk "Exit Emacs")
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "r" '(consult-register :wk "Consult register")
     "j" '(agent-shell-attention-jump :wk "Jump to pending agent")
@@ -730,6 +848,19 @@ It's always better to set transparency in option for respective applications tha
     "C-d C-r" '(rename-this-file-and-buffer :wk "Rename file")
     "C-d C-b" '(rename-buffer :wk "Rename buffer")
     "C-d C-p" '(peep-dired :wk "Peep-dired"))
+
+  (tl/leader-keys
+    "w"   '(:ignore t :wk "Workspaces")
+    "w a" '((lambda () (interactive) (tl/open-workspace 'agenda)) :wk "Agenda workspace")
+    "w w" '((lambda () (interactive) (tl/open-workspace 'work))   :wk "Work workspace")
+    "w o" '(tl/open-workspace :wk "Open workspace...")
+    "w n" '(tab-bar-new-tab :wk "New tab")
+    "w d" '(tab-bar-close-tab :wk "Close tab")
+    "w r" '(tab-bar-rename-tab :wk "Rename tab")
+    "w s" '(tab-bar-switch-to-tab :wk "Switch to tab")
+    "w s" '(desktop-read :wk "Restore last desktop-mode session buffers")
+    "w s" '(desktop-change-dir :wk "Desktop mode change directory")
+    "w s" '(desktop-clear :wk "Clear desktop-mode sesssions"))
 #+end_src
 
 *** C-c leader key
@@ -891,7 +1022,7 @@ It's always better to set transparency in option for respective applications tha
 (tool-bar-mode -1)                                ; Disable tool bar
 (scroll-bar-mode -1)                              ; Disable scroll bar
 (tooltip-mode -1)                                 ; Disable tooltips
-(fringe-mode -1)                                  ; Disable the narrow areas on the sides of the window
+(fringe-mode 0)                                     ; Disable fringes (0px width; -1 is an invalid pixel width that breaks olivetti)
 (global-display-line-numbers-mode -1)             ; Disable displaying line numbers
 (global-auto-revert-mode t)                       ; Automatically show changes if the file has changed
 (save-place-mode 1)                               ; Open files back up at same position
@@ -1036,6 +1167,12 @@ The two modes are mutually exclusive; only one is active at a time."
 ;; Mode line
 (set-face-attribute 'mode-line nil :background "#161b24")
 (set-face-attribute 'mode-line-inactive nil :background "#161b24")
+;; Apply kitty's tab-bar/cursor colors (mirrors theme.conf via
+;; `tl/sync-kitty-tab-colors', defined in "Tab bar & workspaces"). Runs after
+;; `load-theme'; the hook re-applies on every theme enable so the mirror
+;; survives theme reloads.
+(tl/sync-kitty-tab-colors)
+(add-hook 'enable-theme-functions #'tl/sync-kitty-tab-colors)
 ;; Highlight-line and org block
 ;(set-face-attribute 'org-block nil :background "#0e0e16")
 ;(set-face-attribute 'hl-line nil :background "#0B0B10")
@@ -1166,8 +1303,7 @@ When we have the default file encoding (LF UTF-8), it really isn’t worth notin
   "Hide modeline encoding indicator for LF UTF-8."
   (setq-local doom-modeline-buffer-encoding
               (and (memq (coding-system-category buffer-file-coding-system) '(undecided utf-8))
-                   (memq (coding-system-eol-type buffer-file-coding-system) '(0)))
-              ))
+                   (memq (coding-system-eol-type buffer-file-coding-system) '(0)))))
 
 (add-hook 'after-change-major-mode-hook 'doom-modeline-conditional-buffer-encoding)
 #+end_src
@@ -1948,6 +2084,48 @@ I use the =no-littering= package to keep folders where I edit files and the emac
   (setq mc/list-file "~/.config/emacs/mc-list.el"))
 #+end_src
 
+** Session persistence & crash recovery
+Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland display drops): =super-save= writes file-visiting buffers to disk on focus/buffer/idle events (so unsaved edits survive), and =desktop-save-mode= snapshots the full buffer/window/point layout and restores it on restart. Versioned backups stay OFF (single-user, single-daemon). Both write under the =no-littering= =user-emacs-directory= (~/.cache/emacs/).
+
+#+begin_src emacs-lisp
+;; Save file-visiting buffers to the real file on natural events — the
+;; replacement for the disabled `auto-save-default'. Files are always on disk.
+(use-package super-save
+  :ensure t
+  :demand t
+  :config
+  (setq super-save-auto-save-when-idle t
+        super-save-idle-duration 5
+        super-save-silent t)
+  (super-save-mode 1))
+
+;; Snapshot the full session (buffers, windows, point) and restore on restart.
+;; Save on KILL, not an idle timer: `desktop-auto-save-timeout' is an idle timer
+;; (fires only after N s idle following a window-config change)
+;; `desktop-save-mode' puts its real saver (`desktop-kill') on
+;; `kill-emacs-query-functions' = interactive C-x C-c only; `(kill-emacs)' and a
+;; daemon stop run only `kill-emacs-hook', whose desktop handler just releases
+;; the lock. So we add an explicit save to `kill-emacs-hook' to cover every exit.
+;; Caveat: a HARD crash (SIGKILL / Wayland drop on PGTK) runs no hook at all —
+;; then you restore the last clean snapshot; `super-save' keeps file contents
+;; safe either way, so only the window LAYOUT is at risk.
+(desktop-save-mode 1)
+(setq desktop-save t                        ; save on exit without prompting
+      desktop-auto-save-timeout nil         ; disable the idle autosave timer
+      desktop-restore-frames t
+      desktop-load-locked-desktop nil       ; avoid dual-daemon restore race
+      desktop-path (list (expand-file-name "var/desktop" user-emacs-directory))
+      desktop-files-not-to-save
+      "\\(^/[^/:]*:\\)\\|\\(sitemap\\.org\\)") ; skip TRAMP + transient
+;; Guarantee a snapshot on EVERY exit path (interactive + `(kill-emacs)' + stop).
+(defun tl/desktop-save-on-kill ()
+  "Save the desktop on any kill path, including non-interactive `kill-emacs'."
+  (when (and desktop-save-mode desktop-dirname)
+    (let ((desktop-save t))          ; save unconditionally, no prompt
+      (desktop-save desktop-dirname))))
+(add-hook 'kill-emacs-hook #'tl/desktop-save-on-kill)
+#+end_src
+
 ** Rainbow-mode
 Display the actual color as a background for any hex color value (ex. #ffffff). The code block below enables =rainbow-mode= in all programming modes (=prog-mode=) as well as =org-mode=, which is why rainbow works in this document.
 
@@ -2064,11 +2242,17 @@ falling back to the next window otherwise."
 Function for toggling maximization of window split.
 
 #+begin_src emacs-lisp
+(defvar previous-window-config nil
+  "Variable to store the previous window configuration.")
+
 (defun tl/toggle-window-maximize ()
   "Maximize the current window, or restore the previous layout with Winner."
   (interactive)
-  (if (one-window-p t)
-      (winner-undo)
+  (if (and previous-window-config (eq (window-configuration-p previous-window-config) t))
+      (progn
+        (set-window-configuration previous-window-config)
+        (setq previous-window-config nil))
+    (setq previous-window-config (current-window-configuration))
     (delete-other-windows)))
 #+end_src
 
@@ -2178,9 +2362,10 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (use-package nerd-icons-completion
   :ensure t
   :after marginalia
+  :demand t
+  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
   :config
-  (nerd-icons-completion-mode)
-  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup))
+  (nerd-icons-completion-mode))
 #+end_src
 
 ** Consult
@@ -2268,7 +2453,7 @@ Words auto-completion
   :config
   (corfu-terminal-mode +1))
 
-;; File-type icons beside Corfu completion candidates.
+;; File-type icons beside Corfu completion candidates. 
 (use-package nerd-icons-corfu
   :ensure t
   :after corfu
@@ -2328,13 +2513,13 @@ Words autocorrection
 (fset 'tl/jinx-auto-correct
       (kbd "M-x jinx-correct RET 1"))
 
-(global-set-key (kbd "M-]") 'tl/jinx-auto-correct)
+(global-set-key (kbd "M-[") 'tl/jinx-auto-correct)
 
 ;; Macro to quickly mark the underlined word as correct and save
 (fset 'tl/jinx-auto-correct-save
       (kbd "M-x jinx-correct RET @"))
 
-(global-set-key (kbd "M-p") 'tl/jinx-auto-correct-save)
+(global-set-key (kbd "M-]") 'tl/jinx-auto-correct-save)
 
 ;; Switch between the en_US and pl_PL dictionaries
 (defun tl/jinx-toggle-single-dictionary ()
@@ -2396,6 +2581,15 @@ This is useful when followed by an immediate kill."
   :ensure t
   :config
   (beacon-mode 1))
+#+end_src
+
+** Goggles
+#+begin_src emacs-lisp
+(use-package goggles
+  :ensure t
+  :hook ((prog-mode text-mode) . goggles-mode)
+  :config
+  (setq-default goggles-pulse t)) ; nil = static highlight like vhl
 #+end_src
 
 ** Zoxide
@@ -3237,7 +3431,10 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
 (use-package agent-shell
    :ensure t
    :bind (:map agent-shell-mode-map
-               ("M-RET" . god-local-mode)
+               ("<tab>" . god-local-mode)
+               ("C-." . agent-shell-next-item)
+               ("C-," . agent-shell-previous-item)
+               ("<backspace>" . backward-delete-char)
                ("C-c C-w" . tl/agent-shell-copy-session-id)
                ("C-c C-r" . agent-shell-resume-session)
                ("C-c C-e" . agent-shell-restart)
@@ -3257,6 +3454,7 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
      (agent-shell-openai-make-authentication :login t))
    (setq agent-shell-openai-codex-acp-command '("codex-acp"))
    (setq agent-shell-session-strategy 'new)
+   (setq agent-shell-prefer-session-resume nil)
    ;; Pick GPT-5.5 if it appears in Codex’s “Available models”
    (setq agent-shell-openai-default-model-id "gpt-5.5"))
 
@@ -3308,7 +3506,7 @@ first prompt is sent.  `tl/agent-shell-omp-start' leaves it nil (OMP default)."
   (agent-shell-make-agent-config
    :identifier 'oh-my-pi
    :mode-line-name "OMP"
-   :buffer-name "Oh My Pi"
+   :buffer-name "oh-my-pi"
    :shell-prompt "omp> "
    :shell-prompt-regexp "omp> "
    :client-maker (lambda (buffer)
@@ -3527,6 +3725,17 @@ because `omp acp' (agent-shell's backend) does not run the TUI STT path."
   (require 'agent-shell-ol))
 #+end_src
 
+** Agent-recall
+#+begin_src emacs-lisp
+(use-package agent-recall
+  :ensure t
+  :hook (agent-shell-mode . agent-recall-track-sessions)  
+  :config
+  (setq agent-recall-search-paths '("~/desktop/workspace/ai-projects/devops" "~/desktop/workspace/ai-projects/linux"))
+        agent-recall-search-function 'consult-ripgrep
+		agent-recall-browse-sort 'modified-desc)
+#+end_src
+
 ** Ghostel
 Ghostel's features include synchronized output, true color, the Kitty keyboard and graphics protocols, hyperlinks, desktop notifications, progress reports and a lot more. Shell integration (directory tracking, prompt navigation) all works out of the box for bash, zsh and fish.
 
@@ -3553,21 +3762,31 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   ;(define-key ghostel-semi-char-mode-map (kbd "ESC") #'ghostel--send-event)
   ;; Custom Keybindings
   (define-key ghostel-semi-char-mode-map (kbd "C-x ,") #'tl/consult-ghostel)
+  (define-key ghostel-semi-char-mode-map (kbd "M-v") #'agent-shell-switch-buffer)
+  (define-key ghostel-semi-char-mode-map (kbd "M-p") #'tl/better-previous-buffer)
+  (define-key ghostel-semi-char-mode-map (kbd "M-n") #'tl/better-next-buffer)
+  (define-key ghostel-semi-char-mode-map (kbd "<tab>") #'god-local-mode)
   (define-key ghostel-semi-char-mode-map (kbd "C-x .") #'tl/consult-new-org)
   (define-key ghostel-semi-char-mode-map (kbd "C-c C-p") #'ghostel-previous-hyperlink)
   (define-key ghostel-semi-char-mode-map (kbd "C-c C-n") #'ghostel-next-hyperlink)
   (define-key ghostel-semi-char-mode-map (kbd "C-c C-f") #'ghostel-previous)
   (define-key ghostel-semi-char-mode-map (kbd "C-c C-b") #'ghostel-next)
   (define-key ghostel-semi-char-mode-map (kbd "C-v") #'ghostel-send-C-c)
+  (define-key ghostel-semi-char-mode-map (kbd "M-f") #'tab-bar-switch-to-next-tab)
+  (define-key ghostel-semi-char-mode-map (kbd "M-b") #'tab-bar-switch-to-prev-tab)
+  (define-key ghostel-semi-char-mode-map (kbd "C-<tab>") #'tab-bar-switch-to-tab)
+  (define-key ghostel-semi-char-mode-map (kbd "M-o") #'tab-bar-new-tab)
+  (define-key ghostel-semi-char-mode-map (kbd "M-O") #'tab-bar-rename-tab)
+  (define-key ghostel-semi-char-mode-map (kbd "M-C") #'tab-bar-close-tab)
+  (define-key ghostel-semi-char-mode-map (kbd "C->") (lambda () (interactive) (tab-bar-move-tab  1)))
+  (define-key ghostel-semi-char-mode-map (kbd "C-<") (lambda () (interactive) (tab-bar-move-tab -1)))
   (define-key ghostel-semi-char-mode-map (kbd "M-c") #'delete-window)
-  (define-key ghostel-semi-char-mode-map (kbd "M-n") #'tl/ghostel-new)
   (define-key ghostel-semi-char-mode-map (kbd "M-s") #'tl/ghostel-new-yazi)
   (define-key ghostel-semi-char-mode-map (kbd "M-k") #'previous-multiframe-window)
   (define-key ghostel-semi-char-mode-map (kbd "M-j") #'next-multiframe-window)
   (define-key ghostel-semi-char-mode-map (kbd "M-l") #'consult-buffer)
   (define-key ghostel-semi-char-mode-map (kbd "M-m") #'tl/toggle-window-maximize)
   (define-key ghostel-semi-char-mode-map (kbd "C-s") #'consult-line)
-  (define-key ghostel-semi-char-mode-map (kbd "M-RET") #'god-local-mode)
   (define-key ghostel-semi-char-mode-map (kbd "M-`") #'ghostel-clear-scrollback)
   (define-key ghostel-semi-char-mode-map (kbd "M-;") #'tl/split-window-right)
   (define-key ghostel-semi-char-mode-map (kbd "M-/") #'tl/split-window-below)
@@ -3585,11 +3804,11 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
     (rename-buffer name t)))
 
 (defun tl/ghostel-new ()
-  "Always open a new ghostel buffer with a custom name prefixed with *ghostel-*."
+  "Always open a new ghostel buffer with a custom name prefixed with ghostel-."
   (interactive)
   (let* ((current-prefix-arg '(4))
-         (input (read-string "Buffer name: *ghostel-" '("*" . 0)))
-         (name (concat "*ghostel-" input)))
+         (input (read-string "Buffer name: ghostel-" nil))
+         (name (concat "ghostel-" input)))
     (call-interactively #'ghostel)
     (rename-buffer name t)))
 
@@ -3600,7 +3819,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
         (default-directory default-directory))
     ;; 1. Spawn a clean, isolated ghostel buffer instance
     (call-interactively #'ghostel)
-    (rename-buffer "*ghostel-yazi*" t)
+    (rename-buffer "ghostel-yazi" t)
     ;; 2. Give the underlying shell a tiny moment to wake up, then feed it yazi
     (run-with-timer 0.05 nil
                     (lambda (buf)
@@ -3631,7 +3850,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
                                     'ghostel-mode)))))))))
 
 ;; replace original keybindings with these and comment out these kitty.conf keybindings
-(global-set-key (kbd "M-n") 'tl/ghostel-new)
+;(global-set-key (kbd "M-n") 'tl/ghostel-new)
 (global-set-key (kbd "M-s") 'tl/ghostel-new-yazi)
 (global-set-key (kbd "M-j") 'previous-multiframe-window)
 (global-set-key (kbd "M-k") 'next-multiframe-window)
@@ -3686,8 +3905,10 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key god-local-mode-map (kbd "C-S-j") #'org-newline-and-indent)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
   (define-key god-local-mode-map (kbd "C-S-l") #'zap-up-to-char)
-  (define-key god-local-mode-map (kbd "C-S-f") #'winner-redo)
-  (define-key god-local-mode-map (kbd "C-S-b") #'winner-undo)
+  ;; (define-key god-local-mode-map (kbd "C-S-f") #'winner-redo)
+  ;; (define-key god-local-mode-map (kbd "C-S-b") #'winner-undo)
+  (define-key god-local-mode-map (kbd "C-S-f") #'tab-bar-history-forward)
+  (define-key god-local-mode-map (kbd "C-S-b") #'tab-bar-history-back)
   ;(define-key god-local-mode-map (kbd "C-S-f") #'drag-stuff-right)
   ;(define-key god-local-mode-map (kbd "C-S-b") #'drag-stuff-left)
   ;; (define-key god-local-mode-map (kbd "C-S-b") #'tl/select-block)          ;; not using at the moment
@@ -4604,7 +4825,7 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
         ("DONE" :inverse-video t :foreground "#696c71")
         ("CNCL" :inverse-video t :foreground "#d95757"))
        org-modern-footnote (cons nil (cadr org-script-display))
-       org-modern-table nil
+       org-modern-table t
        org-modern-label-border nil
        org-modern-block-fringe nil
        org-modern-block-name
