@@ -8,6 +8,10 @@
     "fff": {
       "command": "/home/twilight/.local/bin/fff-mcp",
       "args": []
+    },
+    "docker-mcp": {
+      "command": "docker",
+      "args": ["mcp", "gateway", "run", "--profile", "dev_workflow"]
     }
   }
 }
