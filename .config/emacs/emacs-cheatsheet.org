@@ -418,6 +418,7 @@ Oh-My-Pi chat buffer:
 | Keybinding | Description                                 |
 |------------+---------------------------------------------|
 | M-r        | Prompts history                             |
+| C-,/.      | Previous/next item                          |
 | M-p/n      | Previous/next input history                 |
 | TAB/S-TAB  | Next/Previous prompt answer                 |
 | C-c h      | Show output last message                    |
