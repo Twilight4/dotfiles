@@ -47,9 +47,7 @@
   - [[#multiple-cursors][Multiple-cursors]]
   - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
   - [[#i-search---search-current-word][I-Search - Search Current Word]]
-  - [[#clipboard-adjustments][Clipboard adjustments]]
   - [[#paste-directly-into-a-code-block-template][Paste directly into a code block template]]
-  - [[#copy-current-line][Copy current line]]
   - [[#toggle-selection-mode][Toggle selection mode]]
   - [[#select-text-block][Select Text Block]]
   - [[#smart-move-beginningend-of-line][Smart move beginning/end of line]]
@@ -70,8 +68,6 @@
   - [[#orderless][Orderless]]
   - [[#marginalia][Marginalia]]
   - [[#consult][Consult]]
-  - [[#embark][Embark]]
-  - [[#embark-consult][Embark-consult]]
   - [[#corfu][Corfu]]
   - [[#jinx][Jinx]]
 - [[#other-packages][Other Packages]]
@@ -917,12 +913,12 @@ workspace. Switches to the workspace's first tab when done."
  "C-r" '(org-insert-heading-respect-content :wk "Insert heading on the same level")
  "z" '(org-footnote-action :wk "Insert footnote")
  ;; Org timer
- "C-x ;" '(org-timer-set-timer :wk "Set org timer")
- "C-x ." '(org-timer-pause-or-continue :wk "Pause or continue org timer")
- "C-x ," '(org-timer-stop :wk "Stop org timer")
- "C-x -" '(org-timer-item :wk "Insert org timer item")
- "C-x 0" '(org-timer-start :wk "Start org timer")
- "C-x '" '(org-timer-show-remaining-time :wk "Show remaining org timer time")
+ "C-x C-;" '(org-timer-set-timer :wk "Set org timer")
+ "C-x C-." '(org-timer-pause-or-continue :wk "Pause or continue org timer")
+ "C-x C-," '(org-timer-stop :wk "Stop org timer")
+ "C-x C--" '(org-timer-item :wk "Insert org timer item")
+ "C-x C-0" '(org-timer-start :wk "Start org timer")
+ "C-x C-'" '(org-timer-show-remaining-time :wk "Show remaining org timer time")
  ;; Org-Roam
  "P" '(completion-at-point :wk "Complete at point")
  "r" '(org-roam-buffer-toggle :wk "Toggle Org roam buffer")
@@ -1768,8 +1764,8 @@ it will auto tangle after saving.
          ("C-x C-x C-e" . mc/edit-ends-of-lines)
          ("C-x C-x C-j" . mc/mark-all-like-this)
          ("C-x C-x C-k" . mc/mark-all-in-region)
-         ("C-x C-x C-r" . set-rectangular-region-anchor)
-         ("C-x C-x r" . rectangle-mark-mode)))    ;; Backspace to delete, 't' to replace chars TODO
+         ("C-x C-x r" . set-rectangular-region-anchor)
+         ("C-x C-x C-r" . rectangle-mark-mode)))    ;; Backspace to delete, 't' to replace chars TODO
 #+end_src
 
 ** Buffer-switching adjustment
@@ -1895,48 +1891,6 @@ Version: 2025-02-05"
     (isearch-yank-string (buffer-substring-no-properties xbeg xend))))
 #+end_src
 
-** Clipboard adjustments
-#+begin_src emacs-lisp
-(defun tl/kill-region-to-clipboard ()
-  "Kill the region if active."
-  (interactive)
-  (if (region-active-p)
-      (progn
-        (kill-ring-save (region-beginning) (region-end))
-        (let ((process-connection-type nil))
-          (start-process "wl-copy" "*wl-copy*" "wl-copy")
-          (process-send-string "wl-copy" (current-kill 0))
-          (process-send-eof "wl-copy"))
-        (message "Copied to clipboard")
-        (delete-region (region-beginning) (region-end)))
-    (message "No active region")))
-
-;; Function to always copy to the system clipboard
-(defun tl/copy-to-system-clipboard ()
-  (interactive)
-  (if (region-active-p)
-      (progn
-        (kill-ring-save (region-beginning) (region-end))
-        (let ((process-connection-type nil))
-          (start-process "wl-copy" "*wl-copy*" "wl-copy" "-n")
-          (process-send-string "wl-copy" (current-kill 0))
-          (process-send-eof "wl-copy"))
-        (message "Copied to clipboard"))
-    (message "No active region")))
-
-;; By default when you want to paste over the selected region, it doesn't replace it
-;; I have bound pasting from system clipboard in terminal in zhs shell by using wl-clipboard on C-y in emacs-mode file
-;; Don't bind pasting in terminal config cuz it will affect other TUI tools like emacs and the keys won't be modifiable
-(defun tl/paste-from-system-clipboard ()
-  "Paste from system clipboard, either replacing the selected region or inserting at point."
-  (interactive)
-  (if (use-region-p)
-      (progn
-        (delete-region (region-beginning) (region-end))
-        (insert (shell-command-to-string "wl-paste -n")))
-    (insert (shell-command-to-string "wl-paste -n"))))
-#+end_src
-
 ** Paste directly into a code block template
 #+begin_src emacs-lisp
 (defun tl/org-insert-template-and-paste ()
@@ -1953,20 +1907,6 @@ Version: 2025-02-05"
   ;; Close the special edit buffer if opened
   (when (eq major-mode 'org-src-mode)
     (org-edit-src-exit)))
-#+end_src
-
-** Copy current line
-#+begin_src emacs-lisp
-(defun tl/copy-current-line ()
-  "Copy the current line to the system clipboard using wl-copy and display a message."
-  (interactive)
-  (let ((line (buffer-substring-no-properties
-               (line-beginning-position)
-               (line-end-position))))
-    (with-temp-buffer
-      (insert line)
-      (call-process-region (point-min) (point-max) "wl-copy")))
-  (message "Line copied to clipboard."))
 #+end_src
 
 ** Toggle selection mode
@@ -2373,40 +2313,6 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (use-package consult
   :ensure t
   :config)
-#+end_src
-
-** Embark
-[[https://github.com/oantolin/embark][Embark]] is a emacs mini-buffer actions Rooted in keymaps.
-
-#+begin_src emacs-lisp
-(use-package embark
-  :ensure t
-  :bind
-  ;(("C-." . embark-act)         ;; pick some comfortable binding
-  ; ("C-;" . embark-dwim)        ;; good alternative: M-.
-  ; ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
-  ;; strategy, if you want to see the documentation from multiple providers.
-  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-#+end_src
-
-** Embark-consult
-#+begin_src emacs-lisp
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t ; only need to install it, embark loads it after consult if found
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
 #+end_src
 
 ** Corfu
@@ -3157,6 +3063,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   :bind (:map gptel-mode-map
               ("C-c C-e" . gptel-end-of-response)
               ("C-c C-r" . tl/gptel-regenerate)
+              ("RET" . gptel-send)
               ("C-c C-f" . tl/gptel-next-variant)
               ("C-c C-b" . tl/gptel-previous-variant)
               ("C-c C-a" . gptel-beginning-of-response))
@@ -3433,20 +3340,26 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
    :bind (:map agent-shell-mode-map
                ("<tab>" . god-local-mode)
                ("C-." . agent-shell-next-item)
+               ("M-p" . tl/better-previous-buffer)
+               ("M-n" . tl/better-next-buffer)
+               ("C-j" . comint-previous-input)
+               ("C-k" . comint-next-input)
                ("C-," . agent-shell-previous-item)
                ("<backspace>" . backward-delete-char)
+               ("C-c C-f" . agent-shell-fork)
+               ("C-c C-s" . agent-recall-consult-search)
+               ("C-c C-b" . agent-recall-browse)
+               ("C-c C-r" . agent-recall-resume)
                ("C-c C-w" . tl/agent-shell-copy-session-id)
-               ("C-c C-r" . agent-shell-resume-session)
+               ("C-c r" . agent-shell-resume-session)
                ("C-c C-e" . agent-shell-restart)
                ("C-c C-h" . comint-show-maximum-output)
                ("C-c h" . comint-show-output)
                ("C-c C-v" . agent-shell-set-session-config-option)
                ("C-c v" . agent-shell-set-session-model)
-               ("C-c C-s" . shell-maker-save-output)
+               ("C-c s" . shell-maker-save-output)
                ("C-c C-q" . agent-shell-queue-request)
                ("C-c C-g" . comint-clear-buffer)
-               ("C-c s" . shell-maker-save-session-transcript)
-               ("C-c r" . shell-maker-restore-session-from-transcript)
                ("C-c C-a" . tl/agent-shell-toggle-auto-accept)
                ("C-c C-l" . shell-maker-narrow-to-prompt))
    :config
@@ -3894,6 +3807,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key god-local-mode-map (kbd ">") #'end-of-buffer)
   ;; Ctrl+h/j/k/l/f/b/a/e
   (define-key god-local-mode-map (kbd "h") #'tl/backward-char-skip-invisible)
+  (define-key god-local-mode-map (kbd "C-h") #'tl/backward-char-skip-invisible)
   (define-key god-local-mode-map (kbd "l") #'tl/forward-char-skip-invisible)
   (define-key god-local-mode-map (kbd "j") #'next-line)
   (define-key god-local-mode-map (kbd "k") #'previous-line)
@@ -3926,12 +3840,12 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key god-local-mode-map (kbd "C-S-o") #'tl/kill-line-forward-to-clipboard)
 
   ;; Ctrl+w
-  (define-key god-local-mode-map (kbd "w") #'tl/copy-to-system-clipboard)
+  (define-key god-local-mode-map (kbd "w") #'kill-ring-save)
   (define-key god-local-mode-map (kbd "C-w") #'backward-kill-word)
   (define-key god-local-mode-map (kbd "C-S-w") #'tl/copy-whole-line)
 
   ;; Ctrl+d
-  (define-key god-local-mode-map (kbd "d") #'tl/kill-region-to-clipboard)
+  (define-key god-local-mode-map (kbd "d") #'kill-region)
   (define-key god-local-mode-map (kbd "C-d") #'kill-word)
   (define-key god-local-mode-map (kbd "C-S-d") #'kill-whole-line)
 
@@ -3997,7 +3911,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
-  (define-key god-local-mode-map (kbd "y") #'tl/paste-from-system-clipboard)
+  (define-key god-local-mode-map (kbd "y") #'org-yank)
   (define-key god-local-mode-map (kbd "\\") #'universal-argument)
   (define-key god-local-mode-map (kbd "g") #'tl/clean-whitespace)
   (define-key god-local-mode-map (kbd "G") #'tl/clean-whitespace-zero-lines)           ;; Must be bound to "G" instead of "C-S-g" to work
@@ -4825,8 +4739,10 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
         ("DONE" :inverse-video t :foreground "#696c71")
         ("CNCL" :inverse-video t :foreground "#d95757"))
        org-modern-footnote (cons nil (cadr org-script-display))
-       org-modern-table t
-       org-modern-label-border nil
+       ;org-modern-table t
+       ;org-modern-label-border nil
+	   org-modern-table-vertical 1
+       org-modern-table-horizontal 0.2
        org-modern-block-fringe nil
        org-modern-block-name
        '((t . t)
@@ -4843,43 +4759,43 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
          ("end" "∎" "∎"))
        org-modern-horizontal-rule (make-string 36 ?─)
        org-modern-keyword
-        '((t . t)
-          ("title" . "𝙏")
-          ("subtitle" . "𝙩")
-          ("author" . "𝘼")
-          ("chapter" . "§")
-          ("year" . "𝘿")
-          ("email" . "")
-          ("date" . "𝘿")
-          ("property" . "☸")
-          ("options" . "⌥")
-          ("startup" . "⏻")
-          ("macro" . "𝓜")
-          ("bind" . "")
-          ("print_glossary" . "ᴬᶻ")
-          ("glossary_sources" . "")
-          ("include" . "⇤")
-          ("setupfile" . "⇚")
-          ("html_head" . "🅷")
-          ("html" . "🅗")
-          ("latex_class" . "🄻")
-          ("latex_class_options" . "🄻")
-          ("latex_header" . "🅻")
-          ("latex_header_extra" . "🅻⁺")
-          ("latex" . "🅛")
-          ("beamer_theme" . "🄱")
-          ("beamer_color_theme" . "🄱")
-          ("beamer_font_theme" . "🄱𝐀")
-          ("beamer_header" . "🅱")
-          ("beamer" . "🅑")
-          ("attr_latex" . "🄛")
-          ("attr_html" . "🄗")
-          ("attr_org" . "⒪")
-          ("call" . "")
-          ("name" . "⁍")
-          ("header" . "›")
-          ("caption" . "☰")
-          ("results" . "🠶"))))
+       '((t . t)
+         ("title" . "𝙏")
+         ("subtitle" . "𝙩")
+         ("author" . "𝘼")
+         ("chapter" . "§")
+         ("year" . "𝘿")
+         ("email" . #("" 0 1 (display (raise -0.14))))
+         ("date" . "𝘿")
+         ("property" . "☸")
+         ("options" . "⌥")
+         ("startup" . "⏻")
+         ("macro" . "𝓜")
+         ("bind" . #("" 0 1 (display (raise -0.1))))
+         ("print_glossary" . #("ᴬᶻ" 0 1 (display (raise -0.1))))
+         ("glossary_sources" . #("" 0 1 (display (raise -0.14))))
+         ("include" . "⇤")
+         ("setupfile" . "⇚")
+         ("html_head" . "🅷")
+         ("html" . "🅗")
+         ("latex_class" . "🄻")
+         ("latex_class_options" . #("🄻" 1 2 (display (raise -0.14))))
+         ("latex_header" . "🅻")
+         ("latex_header_extra" . "🅻⁺")
+         ("latex" . "🅛")
+         ("beamer_theme" . "🄱")
+         ("beamer_color_theme" . #("🄱" 1 2 (display (raise -0.12))))
+         ("beamer_font_theme" . "🄱𝐀")
+         ("beamer_header" . "🅱")
+         ("beamer" . "🅑")
+         ("attr_latex" . "🄛")
+         ("attr_html" . "🄗")
+         ("attr_org" . "⒪")
+         ("call" . #("" 0 1 (display (raise -0.15))))
+         ("name" . "⁍")
+         ("header" . "›")
+         ("caption" . "☰")
+         ("results" . "🠶"))))
 #+end_src
 
 *** Org-super-agenda
