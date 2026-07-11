@@ -4,7 +4,7 @@
 cd ~/
 # Create a window (title sets the tab title)
 # We pass the desired buffer name directly to avoid interactive prompts
-launch --title cli emacsclient -nw --eval "(tl/ghostel-new-named \"*ghostel-cli*\")"
+launch --title cli emacsclient -nw --eval "(tl/ghostel-new-named \"ghostel-cli\")"
 
 # Create a new tab
 new_tab workspace
@@ -15,12 +15,12 @@ launch --title workspace emacsclient -nw --eval "(tl/ghostel-new-yazi)"
 # Create a new tab
 new_tab cheatsheets
 cd ~
-launch --title cheatsheets emacsclient -nw --eval "(tl/ghostel-new-named \"*ghostel-cheatsheets*\")"
+launch --title cheatsheets emacsclient -nw --eval "(tl/ghostel-new-named \"ghostel-cheatsheets\")"
 
 # Create a new tab
 new_tab notes
 cd ~
-launch --title notes emacsclient -nw --eval "(tl/ghostel-new-named \"*ghostel-notes*\")"
+launch --title notes emacsclient -nw --eval "(tl/ghostel-new-named \"ghostel-notes\")"
 
 # Create AI tab
 new_tab omp-agents
