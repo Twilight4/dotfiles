@@ -59,8 +59,8 @@
   - [[#mark-whole-line][Mark whole line]]
   - [[#rainbow-delimeters][Rainbow-delimeters]]
   - [[#electric-pair-mode][Electric-pair-mode]]
-  - [[#buffer-move][Buffer-move]]
   - [[#swap-window-states][Swap window states]]
+  - [[#cycle-window-position][Cycle window position]]
   - [[#maximize-window-split][Maximize-window-split]]
   - [[#disable-mouse][Disable mouse]]
 - [[#completion-framework][Completion Framework]]
@@ -625,7 +625,7 @@ workspace. Switches to the workspace's first tab when done."
      (define-key org-agenda-mode-map (kbd "Z") 'org-gtd-archive-completed-items)
      (define-key org-agenda-mode-map (kbd "x") 'tl/org-agenda-done)
      (define-key org-agenda-mode-map (kbd "d") 'tl/org-agenda-doing)
-     (define-key org-agenda-mode-map (kbd "l") 'tl/org-agenda-day-view)
+     (define-key org-agenda-mode-map (kbd "l") 'org-agenda-day-view)
      (define-key org-agenda-mode-map (kbd "X") 'tl/org-agenda-canc)
      (define-key org-agenda-mode-map (kbd "W") 'org-agenda-open-link)
      (define-key org-agenda-mode-map (kbd ";") 'recenter-top-bottom)
@@ -714,7 +714,7 @@ workspace. Switches to the workspace's first tab when done."
     "." '(clone-indirect-buffer-other-window :wk "Clone indirect buffer in new window")
     "q" '(delete-window :wk "Delete window")
     "C-j" '(other-window :wk "Switch window down")
-    "C-k" '(previous-multiframe-window :wk "Switch window up")
+    "C-k" '((lambda () (interactive) (other-window -1)) :wk "Switch window up")
     "m" '(consult-kmacro :wk "Select macro to run")
     "K" '(kubernetes-overview :wk "Kubernetes overview")
     ;;"" '(dashboard-open :wk "Open emacs dashboard")    ;; Don't use atm
@@ -793,6 +793,7 @@ workspace. Switches to the workspace's first tab when done."
     "C-s C-f" '(describe-function :wk "Describe function")
     "C-s C-k" '(describe-key-briefly :wk "Describe key briefly")
     "C-s C-l" '(describe-key :wk "Describe key")
+    "C-s C-c" '(describe-command :wk "Describe command")
     "C-s C-r" '((lambda () (interactive)
               (load-file "~/.config/emacs/init.el")
               (ignore (elpaca-process-queues)))
@@ -2123,37 +2124,6 @@ Adding rainbow coloring to parentheses.
                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 #+end_src
 
-** Buffer-move
-[[https://www.emacswiki.org/emacs/buffer-move.el][Buffer-move]] functions allow easily moving windows around.
-
-#+begin_src emacs-lisp
-(require 'windmove)
-
-;;;###autoload
-(defun buf-move-prev ()
-  "Swap the current buffer with the buffer in the previous window."
-  (interactive)
-  (let* ((other-win (windmove-find-other-window 'left))
-         (buf-this-buf (window-buffer (selected-window))))
-    (if (null other-win)
-        (error "No window on the left")
-      (set-window-buffer (selected-window) (window-buffer other-win))
-      (set-window-buffer other-win buf-this-buf)
-      (select-window other-win))))
-
-;;;###autoload
-(defun buf-move-next ()
-  "Swap the current buffer with the buffer in the next window."
-  (interactive)
-  (let* ((other-win (windmove-find-other-window 'right))
-         (buf-this-buf (window-buffer (selected-window))))
-    (if (null other-win)
-        (error "No window on the right")
-      (set-window-buffer (selected-window) (window-buffer other-win))
-      (set-window-buffer other-win buf-this-buf)
-      (select-window other-win))))
-#+end_src
-
 ** Swap window states
 =window-swap-states= (built-in, =window.el=) swaps two windows' full state — buffer, point, mark, start, and hscroll — so unlike =ace-swap-window= (which exchanges only buffers and drops your reading position) nothing is lost. With exactly two windows it swaps the selected window with the other one directly, no picker — the reliable common case; with three or more it prompts via the =ace-window= picker (=aw-select=, dispatch disabled) when available, falling back to the next window.
 
@@ -2178,6 +2148,31 @@ falling back to the next window otherwise."
         (progn (window-swap-states selected target)
                (select-window target))
       (message "No window to swap with"))))
+#+end_src
+
+** Cycle window position
+=window-swap-states= cycles the selected window's buffer one step through =window-list= (wrapping) — the analogue of kitty's =move_window_forward= / =move_window_backward=. Unlike [[#buffer-move][Buffer-move]] (directional: left/right) and [[#swap-window-states][Swap window states]] (ace-picker pick), this moves the window one position forward/backward in window order. Full state travels (buffer, point, mark), and focus follows the buffer.
+
+#+begin_src emacs-lisp
+(defun tl/move-window-forward ()
+  "Move the selected window's buffer to the next window (kitty move_window_forward).
+Swaps full window state with the next window in `window-list',
+wrapping, and follows the buffer.  No-op with a single window."
+  (interactive)
+  (let* ((wins (window-list))
+         (target (or (cadr (memq (selected-window) wins)) (car wins))))
+    (window-swap-states nil target)
+    (select-window target)))
+
+(defun tl/move-window-backward ()
+  "Move the selected window's buffer to the previous window (kitty move_window_backward).
+Swaps full window state with the previous window in `window-list',
+wrapping, and follows the buffer.  No-op with a single window."
+  (interactive)
+  (let* ((wins (reverse (window-list)))
+         (target (or (cadr (memq (selected-window) wins)) (car wins))))
+    (window-swap-states nil target)
+    (select-window target)))
 #+end_src
 
 ** Maximize-window-split
@@ -2480,7 +2475,10 @@ This is useful when followed by an immediate kill."
 #+begin_src emacs-lisp
 (use-package diff-hl
   :hook ((prog-mode . diff-hl-mode)
-         (dired-mode . diff-hl-dired-mode))
+         (dired-mode . diff-hl-dired-mode)
+         (markdown-mode . diff-hl-mode)
+         (org-mode . diff-hl-mode)
+         (text-mode . diff-hl-mode))
   :config
   ;; Use the margin instead of fringes in terminal Emacs
   (diff-hl-margin-mode)
@@ -3708,8 +3706,8 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key ghostel-semi-char-mode-map (kbd "C->") (lambda () (interactive) (tab-bar-move-tab  1)))
   (define-key ghostel-semi-char-mode-map (kbd "C-<") (lambda () (interactive) (tab-bar-move-tab -1)))
   (define-key ghostel-semi-char-mode-map (kbd "M-c") #'delete-window)
-  (define-key ghostel-semi-char-mode-map (kbd "M-j") #'previous-multiframe-window)
-  (define-key ghostel-semi-char-mode-map (kbd "M-k") #'next-multiframe-window)
+  (define-key ghostel-semi-char-mode-map (kbd "M-j") (lambda () (interactive) (other-window -1)))
+  (define-key ghostel-semi-char-mode-map (kbd "M-k") (lambda () (interactive) (other-window 1)))
   (define-key ghostel-semi-char-mode-map (kbd "M-l") #'consult-buffer)
   (define-key ghostel-semi-char-mode-map (kbd "M-m") #'tl/toggle-window-maximize)
   (define-key ghostel-semi-char-mode-map (kbd "C-s") #'consult-line)
@@ -3760,8 +3758,10 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 
 ;; replace original keybindings with these and comment out these kitty.conf keybindings
 ;(global-set-key (kbd "M-n") 'tl/ghostel-new)
-(global-set-key (kbd "M-j") 'previous-multiframe-window)
-(global-set-key (kbd "M-k") 'next-multiframe-window)
+(global-set-key (kbd "M-j") (lambda () (interactive) (other-window -1))) ; cycle prev window (this frame, wraps)
+(global-set-key (kbd "M-k") (lambda () (interactive) (other-window 1)))  ; cycle next window (this frame, wraps)
+(global-set-key (kbd "M-J") 'tl/move-window-backward)
+(global-set-key (kbd "M-K") 'tl/move-window-forward)
 (global-set-key (kbd "M-m") 'tl/toggle-window-maximize)
 (global-set-key (kbd "M-w") 'tl/swap-window)
 (global-set-key (kbd "M-c") 'delete-window)
@@ -4018,6 +4018,12 @@ While =org-hide-emphasis-markers= is very nice, it can sometimes make edits whic
 		  org-alert-notify-cutoff 10          ;; how long before a scheduled event a notification should be sent - 10 minutes
 		  org-alert-notify-after-event-cutoff 5  ;; controls how long after a scheduled event to continue sending notifications - 5 minutes
 		  org-alert-notification-title "Emacs Agenda")  ;; org-alert uses the title *org* by default
+  ;; org-alert's default time regex uses a GREEDY ".*" before the HH:MM capture group, so for a
+  ;; range like 09:40-10:00 it grabs the END (10:00); with cutoff 10 the alert then fires near the
+  ;; END of the window (e.g. 9:54) instead of around the start.  Make that ".*" non-greedy so it
+  ;; grabs the START time -> alerts fire when the task begins.
+  (setq org-alert-time-match-string
+        (replace-regexp-in-string "<\\.\\*" "<.*?" org-alert-time-match-string))
   (org-alert-enable))
 #+end_src
 
@@ -4649,28 +4655,29 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
   (when (tl/agent-shell-omp-buffer-p)
     (tl/org-olivetti)))
 
-(defvar tl/agent-shell-header-scale 0.7
-  "Scale factor for the graphical Oh My Pi agent-shell header bar.
-agent-shell renders its header as a fixed-size SVG image whose height
-is 3× the frame char-height, so shrinking the `header-line' face has no
-visible effect; the only lever is the header model's :font-height and
-:font-size, which scale the whole bar (height, text, icon) uniformly.
-1.0 = native size.")
+(defvar tl/agent-shell-header-scale 0.5
+  "Scale factor for the graphical Oh My Pi agent-shell header bar HEIGHT.
+agent-shell renders its header as a fixed-size SVG image whose height is
+3× the frame char-height, so shrinking the `header-line' face has no
+effect; scaling the header model's :font-height (icon + layout) is the
+lever.  The text (:font-size) is kept as large as the scaled bar allows,
+not shrunk with it.  1.0 = native size.")
 
 (defun tl/agent-shell-scale-header-model (model)
-  "Scale the graphical agent-shell header MODEL's font metrics.
-See `tl/agent-shell-header-scale'.  Applied as :filter-return advice on
-`agent-shell--make-header-model'; leaves non-graphical styles untouched."
+  "Scale the graphical agent-shell header MODEL's height, keeping text large.
+Scales :font-height by `tl/agent-shell-header-scale' and clamps :font-size
+to the scaled height, so the bar shortens without shrinking the text more
+than the shorter bar requires.  Applied as :filter-return advice on
+`agent-shell--make-header-model'; non-graphical styles are untouched."
   (when (and (boundp 'agent-shell-header-style)
              (eq agent-shell-header-style 'graphical)
              (numberp tl/agent-shell-header-scale)
              (/= tl/agent-shell-header-scale 1.0))
-    (let ((s tl/agent-shell-header-scale))
-      (map-put! model :font-height
-                (max 1 (round (* s (map-elt model :font-height)))))
-      (map-put! model :font-size
-                (* s (or (map-elt model :font-size)
-                         (map-elt model :font-height))))))
+    (let* ((base-h (map-elt model :font-height))
+           (new-h (max 1 (round (* tl/agent-shell-header-scale base-h))))
+           (native-size (or (map-elt model :font-size) base-h)))
+      (map-put! model :font-height new-h)
+      (map-put! model :font-size (min new-h native-size))))
   model)
 
 (add-hook 'org-mode-hook #'tl/org-olivetti)
@@ -4898,11 +4905,11 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
        (0.5 . org-upcoming-deadline)
        (0.0 . org-upcoming-distant-deadline)))
 
-;; Agenda command
+;; Agenda command (no habits)
 (defun tl/org-agenda-o ()
  "Run org agenda command 'o'."
  (interactive)
- (org-agenda nil "o")
+ (org-agenda nil "O")
  (delete-other-windows)
  (beginning-of-buffer))
 
@@ -4942,10 +4949,10 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                            :tag "@Project1"
                            :order 7)
                           (:name " Project 2"
-                           :tag "@Project3"
+                           :tag "@Project2"
                            :order 8)
                           (:name " Project 3"
-                           :tag "@Project2"
+                           :tag "@Project3"
                            :order 9)
                           (:name " Assignments"
                            :tag "@Assignment"
@@ -4977,6 +4984,27 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name "󰃶 Trivial"
                            :tag "@Trivial"
                            :order 80)))))))))
+
+;; "O" — Overview with @Habit (Daily Habits) todos hidden.
+;; Derived from "o": same blocks, but @Habit items are discarded in the alltodo list,
+;; so they vanish instead of falling into the catch-all bucket. Editing "o"'s groups
+;; carries over automatically.
+(require 'cl-lib)
+(defun tl/org-agenda--hide-habits (groups)
+  "Return org-super-agenda GROUPS with @Habit items discarded (hidden)."
+  (cons '(:discard (:tag "@Habit"))
+        (cl-remove-if (lambda (g) (equal (plist-get g :tag) "@Habit")) groups)))
+
+(let* ((o-cmd  (assoc "o" org-agenda-custom-commands))
+       (blocks (copy-tree (nth 2 o-cmd)))
+       (todo   (seq-find (lambda (b) (eq (car-safe b) 'alltodo)) blocks))
+       (cell   (and todo (assq 'org-super-agenda-groups (nth 2 todo))))
+       (form   (cadr cell)))
+  (when (and cell (eq (car-safe form) 'quote))
+    (setcdr cell (list (list 'quote
+                             (tl/org-agenda--hide-habits (cadr form)))))
+    (add-to-list 'org-agenda-custom-commands
+                 (list "O" "Overview (no habits)" blocks))))
 #+end_src
 
 *** Org-gtd-capture

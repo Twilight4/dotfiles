@@ -390,6 +390,8 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | M-i        | jinx-correct                                                 |
 | M-w        | Swap window                                                  |
 | M-n/M-p    | jinx-next and jinx-previous (inside the jinx-correct prompt) |
+| M-S-j     | Move window backward (cycle toward previous window)          |
+| M-S-k     | Move window forward (cycle toward next window)               |
 | M-p        | jinx auto correct save                                       |
 | M-]        | jinx auto correct                                            |
 
