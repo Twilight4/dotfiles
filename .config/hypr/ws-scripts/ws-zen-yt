@@ -28,11 +28,11 @@ if zen_youtube_on_target_ws; then
 
 elif zen_youtube_anywhere; then
     # YouTube tab exists but NOT on workspace 5 → open new one on 5
-    hyprctl dispatch exec "[workspace $TARGET_WS] zen-browser -P Youtube"
+    hyprctl dispatch exec "[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube"
 
 else
     # No YouTube tab at all → launch Zen YouTube profile on 5
-    hyprctl dispatch exec "[workspace $TARGET_WS] zen-browser -P Youtube"
+    hyprctl dispatch exec "[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube"
 fi
 
 DEBUG=1

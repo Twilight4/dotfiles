@@ -10,7 +10,7 @@ hyprctl dispatch workspace 4
 # Check if FreeTube is running
 if ! is_freetube_running; then
   # If FreeTube is not running, launch it
-  hyprctl dispatch exec 'freetube --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL --gpu-context=wayland'
+  hyprctl dispatch exec 'uwsm app -- freetube --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL --gpu-context=wayland'
 else
   # If FreeTube is running, focus on its window
   hyprctl dispatch focuswindow 'class:^(FreeTube)$'

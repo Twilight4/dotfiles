@@ -5,7 +5,7 @@ is_kitty_running() {
 }
 
 if ! is_kitty_running; then
-  hyprctl dispatch exec 'emacsclient -c'
+  hyprctl dispatch exec 'uwsm app -- emacsclient -c'
 else
   hyprctl dispatch focuswindow 'class:^(emacs)$'
 fi

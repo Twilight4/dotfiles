@@ -276,7 +276,8 @@ Sources: `tl/kitty-theme-file' (pywal) — active/inactive tab fg+bg, cursor."
                         :background act-bg :foreground act-fg :box nil)
     (set-face-attribute 'tab-bar-tab-inactive nil
                         :background ina-bg :foreground ina-fg :box nil)
-    (set-face-attribute 'cursor nil :background cursor)))
+    (set-face-attribute 'cursor nil :background cursor)
+    (set-cursor-color cursor)))
 
 ;; tabspaces: buffer isolation per tab + named-session save/restore.
 ;; `:demand' so the daemon loads it at init (not deferred); buffer filtering
@@ -314,9 +315,7 @@ Sources: `tl/kitty-theme-file' (pywal) — active/inactive tab fg+bg, cursor."
      ("Journal"    . org-roam-dailies-goto-today))
     (work
      ("cli"         . (lambda () (tl/ghostel-new-named "ghostel-cli")))
-     ("workspace"   . tl/ghostel-new-yazi)
-     ("cheatsheets" . (lambda () (tl/ghostel-new-named "ghostel-cheatsheets")))
-     ("notes"       . (lambda () (tl/ghostel-new-named "ghostel-notes")))
+     ("cli-2" . (lambda () (tl/ghostel-new-named "ghostel-2")))
      ("omp-agents"  . tl/agent-shell-omp-start)
      ("gemini"      . tl/gptel-open-gemini)))
   "Alist of WORKSPACE -> list of (TAB-NAME . OPENER) recipes.")
@@ -1169,6 +1168,9 @@ The two modes are mutually exclusive; only one is active at a time."
 ;; survives theme reloads.
 (tl/sync-kitty-tab-colors)
 (add-hook 'enable-theme-functions #'tl/sync-kitty-tab-colors)
+;; New daemon frames re-inherit the theme's cursor spec; re-override.
+(add-hook 'after-make-frame-functions
+          (lambda (frame) (with-selected-frame frame (tl/sync-kitty-tab-colors))))
 ;; Highlight-line and org block
 ;(set-face-attribute 'org-block nil :background "#0e0e16")
 ;(set-face-attribute 'hl-line nil :background "#0B0B10")
@@ -2230,6 +2232,18 @@ The following configuration will add a few improvements:
   (savehist-mode))
 
 (setq history-length 25)
+#+end_src
+
+#+begin_src emacs-lisp
+;; Display the Vertico candidate menu in a centered child frame (GUI
+;; only; falls back to the normal minibuffer in a terminal).
+(use-package vertico-posframe
+  :ensure t
+  :after vertico
+  :custom
+  (vertico-posframe-poshandler #'posframe-poshandler-frame-center)
+  :config
+  (vertico-posframe-mode 1))
 #+end_src
 
 ** Orderless
@@ -3694,7 +3708,6 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key ghostel-semi-char-mode-map (kbd "C->") (lambda () (interactive) (tab-bar-move-tab  1)))
   (define-key ghostel-semi-char-mode-map (kbd "C-<") (lambda () (interactive) (tab-bar-move-tab -1)))
   (define-key ghostel-semi-char-mode-map (kbd "M-c") #'delete-window)
-  (define-key ghostel-semi-char-mode-map (kbd "M-s") #'tl/ghostel-new-yazi)
   (define-key ghostel-semi-char-mode-map (kbd "M-j") #'previous-multiframe-window)
   (define-key ghostel-semi-char-mode-map (kbd "M-k") #'next-multiframe-window)
   (define-key ghostel-semi-char-mode-map (kbd "M-l") #'consult-buffer)
@@ -3725,23 +3738,6 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
     (call-interactively #'ghostel)
     (rename-buffer name t)))
 
-(defun tl/ghostel-new-yazi ()
-  "Always open a new ghostel buffer in the active directory and launch yazi instantly."
-  (interactive)
-  (let ((current-prefix-arg '(4))
-        (default-directory default-directory))
-    ;; 1. Spawn a clean, isolated ghostel buffer instance
-    (call-interactively #'ghostel)
-    (rename-buffer "ghostel-yazi" t)
-    ;; 2. Give the underlying shell a tiny moment to wake up, then feed it yazi
-    (run-with-timer 0.05 nil
-                    (lambda (buf)
-                      (when (buffer-live-p buf)
-                        (with-current-buffer buf
-                          ;; Inject "y" string followed by a newline carriage return
-                          (ghostel-send-string "y\n"))))
-                    (current-buffer))))
-
 (defun tl/consult-ghostel ()
   "Safely view, live-preview, and select Ghostel terminal buffers."
   (interactive)
@@ -3764,7 +3760,6 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 
 ;; replace original keybindings with these and comment out these kitty.conf keybindings
 ;(global-set-key (kbd "M-n") 'tl/ghostel-new)
-(global-set-key (kbd "M-s") 'tl/ghostel-new-yazi)
 (global-set-key (kbd "M-j") 'previous-multiframe-window)
 (global-set-key (kbd "M-k") 'next-multiframe-window)
 (global-set-key (kbd "M-m") 'tl/toggle-window-maximize)
@@ -3794,6 +3789,29 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 (use-package god-mode
   :init
   (god-mode)
+
+  ;; Rectangle-aware w/d/y: when `rectangle-mark-mode' is active these operate
+  ;; on the rectangle instead of the linear region.  Note: copy/kill a rectangle
+  ;; deactivates the mark and turns `rectangle-mark-mode' OFF, so yank-rectangle
+  ;; only fires while a rectangle is still actively marked.
+  (defun tl/god-copy ()
+    "Copy the region, or the rectangle when `rectangle-mark-mode' is active."
+    (interactive)
+    (call-interactively
+     (if (bound-and-true-p rectangle-mark-mode)
+         #'copy-rectangle-as-kill #'kill-ring-save)))
+  (defun tl/god-kill ()
+    "Kill the region, or the rectangle when `rectangle-mark-mode' is active."
+    (interactive)
+    (call-interactively
+     (if (bound-and-true-p rectangle-mark-mode)
+         #'kill-rectangle #'kill-region)))
+  (defun tl/god-yank ()
+    "Yank, or yank the rectangle when `rectangle-mark-mode' is active."
+    (interactive)
+    (call-interactively
+     (if (bound-and-true-p rectangle-mark-mode)
+         #'yank-rectangle #'org-yank)))
   ;(global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key - rebinded to toggle god mode on TAB
 
   ;; Ctrl+[/]{/}/,/./</>
@@ -3840,12 +3858,12 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key god-local-mode-map (kbd "C-S-o") #'tl/kill-line-forward-to-clipboard)
 
   ;; Ctrl+w
-  (define-key god-local-mode-map (kbd "w") #'kill-ring-save)
+  (define-key god-local-mode-map (kbd "w") #'tl/god-copy)
   (define-key god-local-mode-map (kbd "C-w") #'backward-kill-word)
   (define-key god-local-mode-map (kbd "C-S-w") #'tl/copy-whole-line)
 
   ;; Ctrl+d
-  (define-key god-local-mode-map (kbd "d") #'kill-region)
+  (define-key god-local-mode-map (kbd "d") #'tl/god-kill)
   (define-key god-local-mode-map (kbd "C-d") #'kill-word)
   (define-key god-local-mode-map (kbd "C-S-d") #'kill-whole-line)
 
@@ -3896,6 +3914,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 
   ;; Marking
   (define-key god-local-mode-map (kbd "SPC") #'toggle-mark-command)   ;; Upgrading the mark command 'C-SPC'
+  (define-key god-local-mode-map (kbd "M-SPC") #'rectangle-mark-mode)
   ;(define-key god-local-mode-map (kbd "C-@") #'consult-mark)         ;; TODO not working
   (define-key god-local-mode-map (kbd "C-S-v") #'tl/mark-whole-line)
   (define-key god-local-mode-map (kbd "|") #'anzu-query-replace)       ;; TODO - try: anzu-query-replace-at-cursor-thing, anzu-replace-at-cursor-thing, anzu-query-replace-at-cursor
@@ -3911,7 +3930,7 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
-  (define-key god-local-mode-map (kbd "y") #'org-yank)
+  (define-key god-local-mode-map (kbd "y") #'tl/god-yank)
   (define-key god-local-mode-map (kbd "\\") #'universal-argument)
   (define-key god-local-mode-map (kbd "g") #'tl/clean-whitespace)
   (define-key god-local-mode-map (kbd "G") #'tl/clean-whitespace-zero-lines)           ;; Must be bound to "G" instead of "C-S-g" to work
@@ -4630,9 +4649,35 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
   (when (tl/agent-shell-omp-buffer-p)
     (tl/org-olivetti)))
 
+(defvar tl/agent-shell-header-scale 0.7
+  "Scale factor for the graphical Oh My Pi agent-shell header bar.
+agent-shell renders its header as a fixed-size SVG image whose height
+is 3× the frame char-height, so shrinking the `header-line' face has no
+visible effect; the only lever is the header model's :font-height and
+:font-size, which scale the whole bar (height, text, icon) uniformly.
+1.0 = native size.")
+
+(defun tl/agent-shell-scale-header-model (model)
+  "Scale the graphical agent-shell header MODEL's font metrics.
+See `tl/agent-shell-header-scale'.  Applied as :filter-return advice on
+`agent-shell--make-header-model'; leaves non-graphical styles untouched."
+  (when (and (boundp 'agent-shell-header-style)
+             (eq agent-shell-header-style 'graphical)
+             (numberp tl/agent-shell-header-scale)
+             (/= tl/agent-shell-header-scale 1.0))
+    (let ((s tl/agent-shell-header-scale))
+      (map-put! model :font-height
+                (max 1 (round (* s (map-elt model :font-height)))))
+      (map-put! model :font-size
+                (* s (or (map-elt model :font-size)
+                         (map-elt model :font-height))))))
+  model)
+
 (add-hook 'org-mode-hook #'tl/org-olivetti)
 (add-hook 'org-agenda-mode-hook #'tl/org-agenda-olivetti)
 (add-hook 'agent-shell-mode-hook #'tl/agent-shell-olivetti)
+(advice-add 'agent-shell--make-header-model :filter-return
+            #'tl/agent-shell-scale-header-model)
 
 (use-package olivetti
   :config
@@ -4729,9 +4774,9 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                          (43 . "•")
                          (42 . "-"))
        org-modern-priority-faces
-         '((?A :inverse-video nil :foreground "#f07178")
-          (?B :inverse-video nil :foreground "#f08000")
-          (?C :inverse-video nil :foreground "#ffd700"))
+        '((?A :inverse-video nil :foreground "#f07178")
+         (?B :inverse-video nil :foreground "#f08000")
+         (?C :inverse-video nil :foreground "#ffd700"))
        org-modern-todo-faces
        '(("TODO" :inverse-video t :foreground "#ffb454")
         ("DOING" :inverse-video t :foreground "#7fd962")

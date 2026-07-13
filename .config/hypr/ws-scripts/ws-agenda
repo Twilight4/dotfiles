@@ -5,7 +5,7 @@ is_kitty_running() {
 }
 
 if ! is_kitty_running; then
-  hyprctl dispatch exec 'kitty -1 -o confirm_os_window_close=1 -T agenda-kitty --class agenda-kitty --session ~/.config/kitty/session-agenda'
+  hyprctl dispatch exec 'uwsm app -- kitty -1 -o confirm_os_window_close=1 -T agenda-kitty --class agenda-kitty --session ~/.config/kitty/session-agenda'
 else
   hyprctl dispatch focuswindow 'class:^(agenda-kitty)$'
 fi

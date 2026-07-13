@@ -6,6 +6,6 @@ if pgrep -x hypridle > /dev/null; then
     notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Disabled"
 else
     notify-send -u low -t 4000 -i ~/.config/mako/icons/load.png "Hypridle" "Enabled"
-    hyprctl dispatch exec 'kitty --hold -T kitty-idling-script --class kitty-idling-script -e hypridle'
+    hyprctl dispatch exec 'uwsm app -- kitty --hold -T kitty-idling-script --class kitty-idling-script -e hypridle'
     sleep 0.4
 fi

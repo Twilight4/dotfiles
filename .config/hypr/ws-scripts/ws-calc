@@ -5,7 +5,7 @@ is_kitty_running() {
 }
 
 if ! is_kitty_running; then
-  hyprctl dispatch exec 'gnome-calculator'
+  hyprctl dispatch exec 'uwsm app -- gnome-calculator'
 else
   hyprctl dispatch togglespecialworkspace floating
   hyprctl dispatch focuswindow 'class:^(org.gnome.Calculator)$'
