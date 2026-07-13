@@ -2062,6 +2062,8 @@ Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland
       desktop-path (list (expand-file-name "var/desktop" user-emacs-directory))
       desktop-files-not-to-save
       "\\(^/[^/:]*:\\)\\|\\(sitemap\\.org\\)") ; skip TRAMP + transient
+;; Don't persist registers across restarts — leave register state session-local.
+(setq desktop-globals-to-save (delq 'register-alist desktop-globals-to-save))
 ;; Guarantee a snapshot on EVERY exit path (interactive + `(kill-emacs)' + stop).
 (defun tl/desktop-save-on-kill ()
   "Save the desktop on any kill path, including non-interactive `kill-emacs'."
