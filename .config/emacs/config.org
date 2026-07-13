@@ -792,6 +792,7 @@ workspace. Switches to the workspace's first tab when done."
     "C-s C-d" '(describe-mode :wk "Display documentation of current modes")
     "C-s C-f" '(describe-function :wk "Describe function")
     "C-s C-k" '(describe-key-briefly :wk "Describe key briefly")
+    "C-s C-v" '(describe-key-variable :wk "Describe key briefly")
     "C-s C-l" '(describe-key :wk "Describe key")
     "C-s C-c" '(describe-command :wk "Describe command")
     "C-s C-r" '((lambda () (interactive)
@@ -3981,10 +3982,6 @@ It allows you to jump to the locations of the last changes made in the buffer:
 
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-
-;; Trying to change the black stars in terminal to the same as background color
-;; (with-eval-after-load 'org
-;;   (set-face-attribute 'org-hide nil :foreground "#040305"))
 #+end_src
 
 *** Org-transclusion
