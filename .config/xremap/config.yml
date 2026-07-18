@@ -1,29 +1,71 @@
-# xremap — mirror personal Emacs movement/kill binds into Zen Browser.
-# Source of truth: ~/.config/emacs/config.el lines 427-442 (global-set-key block).
-# Scoped to Zen via window class so terminals / Emacs / everything else is unaffected.
+# xremap — personal Emacs binds mirrored into Zen Browser (CapsLock = Ctrl).
+# Source: ~/.config/emacs/config.el 427-442 + standard Emacs adds + recovered defaults.
+# Zen-scoped via window class; terminals / Emacs / everything else untouched.
 #
-# Caveat: xremap operates at the evdev level, so while Zen is focused these
-# override Zen's OWN browser shortcuts (C-f=Find, C-l=focus URL bar, C-u=View Source,
-# C-j=Downloads, C-k=Search bar, C-b=Bookmarks, C-h=History). Use F6/Alt-D for the
-# URL bar and Zen's Keyboard Shortcuts settings to rebind features you still need.
+# Why the modmap: Ctrl lives on CapsLock (Hyprland kb_options=ctrl:nocaps), and
+# xremap runs BELOW xkb at raw evdev -> it sees KEY_CAPSLOCK, not KEY_LEFTCTRL.
+# The modmap translates CapsLock->Ctrl first so the C-* keymap matches.
 #
-# Default exact_match=false means holding Shift auto-selects (C-h -> Shift-left), matching
-# Emacs mark behavior for free.
+# Movement uses `with_mark` so C-SPC (set_mark) starts a region and movement
+# extends the selection. C-g cancels; any kill (C-o/C-u/M-d/C-w) clears it.
+# A same-key C-SPC toggle is not natively supported by xremap (set_mark is true/false).
+#
+# "Recovered defaults": the Zen shortcuts this config overrides (C-w, C-l, ...) are
+# re-exposed as the SAME key with Alt instead of Ctrl (M-w -> C-w, etc.). 5 defaults
+# (Find/Bookmarks/bookmark-page/open-file/view-source) collide with Emacs M-binds
+# (M-f/M-b/M-d/M-o/M-u) and are left to their non-xremap alternatives.
+modmap:
+  - name: caps-as-ctrl
+    application:
+      only: [zen]
+    remap:
+      CapsLock: LEFTCTRL
+
 keymap:
-  - name: emacs-movement-kill
+  - name: emacs-binds
     application:
       only: [zen]
     remap:
       # char movement
-      C-h: left        # backward-char  (tl/backward-char-skip-invisible)
-      C-l: right       # forward-char   (tl/forward-char-skip-invisible)
-      # line movement
-      C-k: up          # previous-line
-      C-j: down        # next-line
+      C-h: { with_mark: left }          # backward-char
+      C-l: { with_mark: right }         # forward-char
+      # line movement (C-k/C-p = up, C-j/C-n = down)
+      C-k: { with_mark: up }            # previous-line
+      C-j: { with_mark: down }          # next-line
+      C-p: { with_mark: up }            # previous-line
+      C-n: { with_mark: down }          # next-line
       # word movement
-      C-f: C-right     # forward-word
-      C-b: C-left      # backward-word
-      # kill line / kill to beginning — cut to preserve Emacs kill-ring yankability;
-      # swap C-x -> delete below if you'd rather not touch the clipboard.
-      C-o: [Shift-end, C-x]     # org-kill-line           (kill to end of line)
-      C-u: [Shift-home, C-x]    # tl/org-kill-line-backward (kill to beginning)
+      C-f: { with_mark: C-right }       # forward-word
+      C-b: { with_mark: C-left }        # backward-word
+      # line start / end
+      C-a: { with_mark: home }          # beginning-of-line
+      C-e: { with_mark: end }           # end-of-line
+      # region
+      C-space: { set_mark: true }       # set-mark-command (start region; move to extend)
+      C-g: [esc, { set_mark: false }]   # keyboard-quit (cancel region)
+      # page up / down
+      M-u: pageup
+      M-o: pagedown
+      # tabs — mirrors emacs M-f/M-b = tab-bar-switch-to-next/prev-tab
+      M-f: C-Tab                        # next tab
+      M-b: C-Shift-Tab                  # previous tab
+      M-r: C-r                        # reload page (was C-r in Zen)
+      # kills (cut -> yankable); clear the mark after
+      C-o: [Shift-end,     C-x, { set_mark: false }]  # kill to end of line
+      C-u: [Shift-home,    C-x, { set_mark: false }]  # kill to beginning of line
+      M-d: [Shift-C-right, C-x, { set_mark: false }]  # kill word forward
+      C-w: [Shift-C-left,  C-x, { set_mark: false }]  # kill word backward
+      C-d: delete                        # delete-char forward
+      C-r: [C-z, { set_mark: false }] # undo
+      # recover lost Zen defaults — same key, Alt instead of Ctrl
+      M-w: C-w       # close tab
+      M-l: C-l       # focus URL bar      (F6 also works)
+      M-j: C-j       # Downloads
+      M-k: C-k       # focus search bar
+      M-h: C-h       # History sidebar
+      M-n: C-n       # new window
+      M-p: C-p       # print
+      M-a: C-a       # select all
+      M-s: C-b       # bookmark sidebar   (was C-b; M-b kept as prev-tab)
+      M-g: C-d       # bookmark this page (was C-d; M-d kept as kill-word-fwd)
+      C-slash: C-f    # Find (was C-f)
