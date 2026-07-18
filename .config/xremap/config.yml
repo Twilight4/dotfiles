@@ -40,6 +40,8 @@ keymap:
       # line start / end
       C-a: { with_mark: home }          # beginning-of-line
       C-e: { with_mark: end }           # end-of-line
+      # C-m = RET (Emacs newline)
+      C-m: enter
       # region
       C-space: { set_mark: true }       # set-mark-command (start region; move to extend)
       C-g: [esc, { set_mark: false }]   # keyboard-quit (cancel region)
@@ -68,4 +70,5 @@ keymap:
       M-a: C-a       # select all
       M-s: C-b       # bookmark sidebar   (was C-b; M-b kept as prev-tab)
       M-g: C-d       # bookmark this page (was C-d; M-d kept as kill-word-fwd)
+      M-m: C-m       # mute current tab   (was C-m; C-m kept as Enter)
       C-slash: C-f    # Find (was C-f)
