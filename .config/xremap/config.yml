@@ -1,0 +1,29 @@
+# xremap — mirror personal Emacs movement/kill binds into Zen Browser.
+# Source of truth: ~/.config/emacs/config.el lines 427-442 (global-set-key block).
+# Scoped to Zen via window class so terminals / Emacs / everything else is unaffected.
+#
+# Caveat: xremap operates at the evdev level, so while Zen is focused these
+# override Zen's OWN browser shortcuts (C-f=Find, C-l=focus URL bar, C-u=View Source,
+# C-j=Downloads, C-k=Search bar, C-b=Bookmarks, C-h=History). Use F6/Alt-D for the
+# URL bar and Zen's Keyboard Shortcuts settings to rebind features you still need.
+#
+# Default exact_match=false means holding Shift auto-selects (C-h -> Shift-left), matching
+# Emacs mark behavior for free.
+keymap:
+  - name: emacs-movement-kill
+    application:
+      only: [zen]
+    remap:
+      # char movement
+      C-h: left        # backward-char  (tl/backward-char-skip-invisible)
+      C-l: right       # forward-char   (tl/forward-char-skip-invisible)
+      # line movement
+      C-k: up          # previous-line
+      C-j: down        # next-line
+      # word movement
+      C-f: C-right     # forward-word
+      C-b: C-left      # backward-word
+      # kill line / kill to beginning — cut to preserve Emacs kill-ring yankability;
+      # swap C-x -> delete below if you'd rather not touch the clipboard.
+      C-o: [Shift-end, C-x]     # org-kill-line           (kill to end of line)
+      C-u: [Shift-home, C-x]    # tl/org-kill-line-backward (kill to beginning)

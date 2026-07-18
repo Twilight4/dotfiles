@@ -89,6 +89,7 @@ packages=(
   "zoxide"
   "nwg-dock-hyprland"
   "zen-browser-bin"
+  "xremap-hypr-bin"
   "python-click"
   "torbrowser-launcher"
   "tealdeer"
