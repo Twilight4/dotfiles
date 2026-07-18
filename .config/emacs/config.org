@@ -3768,6 +3768,7 @@ package's wholesale keymap regeneration can't wipe them."
     (define-key ghostel-semi-char-mode-map (kbd "C-u") #'ghostel--send-event)
     (define-key ghostel-semi-char-mode-map (kbd "M-y") #'ghostel--send-event)
     (define-key ghostel-semi-char-mode-map (kbd "C-_") #'ghostel--send-event)
+    (define-key ghostel-semi-char-mode-map (kbd "M-[") #'ghostel--send-event)
     ;; Custom keybindings
     (define-key ghostel-semi-char-mode-map (kbd "C-x ,") #'tl/consult-ghostel)
     (define-key ghostel-semi-char-mode-map (kbd "M-v") #'agent-shell-switch-buffer)
