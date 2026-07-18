@@ -200,7 +200,71 @@ These settings only take effect on graphical frames — text-terminal frames ign
 It's always better to set transparency in option for respective applications that supports it rather than setting it in window manager.
 
 #+begin_src emacs-lisp
-(add-to-list 'default-frame-alist '(alpha-background . 91)) ; For all new frames henceforth
+;; `alpha-background' (Emacs 29+): only the background goes translucent — text
+;; and glyphs stay opaque — unlike the legacy `alpha' parameter which faded
+;; everything. Range: 0 (fully transparent) .. 100 (opaque). 91 is the default
+;; translucent level — wallpaper reads through, text stays crisp. TTY frames
+;; ignore `alpha-background', so every command here is a harmless no-op there.
+(defvar tl/frame-alpha-background 91
+  "Current background alpha (0-100). 100=opaque, lower=more translucent.
+Single source of truth: every transparency command reads and updates this,
+then mirrors it to all live frames and `default-frame-alist' (new frames).")
+(defvar tl/frame-alpha-saved 91
+  "Last translucent (<100) alpha. `tl/toggle-frame-transparency' restores it.
+Updated whenever a non-100 alpha is set, so toggle-off→on returns to the
+level the user last chose rather than always 91.")
+(defvar tl/frame-alpha-default 91
+  "Default translucent alpha. `tl/reset-frame-transparency' returns here.")
+
+(defun tl/set-frame-transparency (alpha)
+  "Set background alpha to ALPHA (0-100) on all live and future frames.
+ALPHA is clamped to [0,100]. Values below 100 are remembered in
+`tl/frame-alpha-saved' so the toggle can restore them. Interactive
+prefix reads a number from the minibuffer."
+  (interactive "NAlpha (0-100, lower=more transparent): ")
+  (let ((alpha (max 0 (min 100 alpha))))
+    (setq tl/frame-alpha-background alpha)
+    (when (< alpha 100)
+      (setq tl/frame-alpha-saved alpha))
+    (dolist (f (frame-list))
+      (set-frame-parameter f 'alpha-background alpha))
+    (setq default-frame-alist
+          (cons (cons 'alpha-background alpha)
+                (assq-delete-all 'alpha-background default-frame-alist)))
+    (message "Frame alpha: %d%%" alpha)))
+
+(defun tl/toggle-frame-transparency ()
+  "Toggle between opaque (100) and the last translucent alpha.
+Off (100) → restore `tl/frame-alpha-saved'. On (<100) → go to 100."
+  (interactive)
+  (if (= tl/frame-alpha-background 100)
+      (tl/set-frame-transparency tl/frame-alpha-saved)
+    (tl/set-frame-transparency 100)))
+
+(defun tl/more-transparent (n)
+  "Decrease alpha by N (default 5) — more see-through.
+Mirrors `text-scale-decrease' (C--) under the transparency prefix."
+  (interactive "p")
+  (tl/set-frame-transparency (- tl/frame-alpha-background (if (> n 1) n 5))))
+
+(defun tl/less-transparent (n)
+  "Increase alpha by N (default 5) — more opaque.
+Mirrors `text-scale-increase' (C-=) under the transparency prefix."
+  (interactive "p")
+  (tl/set-frame-transparency (+ tl/frame-alpha-background (if (> n 1) n 5))))
+
+(defun tl/reset-frame-transparency ()
+  "Reset alpha to `tl/frame-alpha-default' (91)."
+  (interactive)
+  (tl/set-frame-transparency tl/frame-alpha-default))
+
+;; Default transparency for new frames — `tl/set-frame-transparency' keeps this
+;; in sync on every change.
+(add-to-list 'default-frame-alist
+             (cons 'alpha-background tl/frame-alpha-background))
+
+;; Bindings live under the `C-x C-t' "Toggle/Table" prefix (tl/leader-keys
+;; block, search "Toggle/Table"), as `C-t t/-/=/0/s' — which-key lists them.
 #+end_src
 
 ** Tab bar & workspaces
@@ -808,6 +872,13 @@ workspace. Switches to the workspace's first tab when done."
     "C-t h" '(hl-line-mode :wk "Toggle line highlight in frame")
     "C-t i" '(org-indent-mode :wk "Toggle indentation mode")
     "C-t m" '(toggle-mode-line :wk "Toggle mode line")
+    "C-t o" '(olivetti-mode :wk "Toggle olivetti mode")
+    ;; Frame transparency (`alpha-background')
+    "C-t t" '(tl/toggle-frame-transparency :wk "Toggle frame transparency")
+    "C-t -" '(tl/more-transparent       :wk "More transparent")
+    "C-t =" '(tl/less-transparent       :wk "More opaque")
+    "C-t 0" '(tl/reset-frame-transparency :wk "Reset transparency")
+    "C-t s" '(tl/set-frame-transparency :wk "Set transparency (numeric)")
     ;"" '(org-transclusion-mode :wk "Org Transclusion mode")     ;; not using it
     ;; Org-table
     "C-t C-\\" '(org-table-create-or-convert-from-region :wk "Create empty table or convert from region")
