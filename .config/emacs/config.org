@@ -560,7 +560,7 @@ workspace. Switches to the workspace's first tab when done."
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "DEL") 'smart-hungry-delete-backward-char)
 (global-set-key (kbd "<deletechar>") 'smart-hungry-delete-forward-char)
-(global-set-key (kbd "C-d") 'kill-word)
+(global-set-key (kbd "C-d") 'smart-hungry-delete-forward-char)
 (global-set-key (kbd "C-\\") 'universal-argument)
 (global-set-key (kbd "M-\\") 'gptel-abort)
 (global-set-key (kbd "C-M-\\") 'indent-rigidly)
@@ -1132,8 +1132,11 @@ workspace. Switches to the workspace's first tab when done."
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 
-;; Use only system clipboard - I wish it worked but I'm on wayland
-;(setq x-select-enable-clipboard t)
+;; pgtk GUI Emacs forwards every kill to the Wayland clipboard via
+;; `interprogram-cut-function' (= `gui-select-text'), so C-u/C-o/C-w/M-d leak.
+;; Disable it so kills stay in the kill-ring; explicit `tl/*-to-clipboard'
+;; wrappers (which call wl-copy directly) remain the only path to the clipboard.
+(setq interprogram-cut-function nil)
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
@@ -3887,21 +3890,36 @@ package's wholesale keymap regeneration can't wipe them."
   (defun tl/god-copy ()
     "Copy the region, or the rectangle when `rectangle-mark-mode' is active."
     (interactive)
-    (call-interactively
-     (if (bound-and-true-p rectangle-mark-mode)
-         #'copy-rectangle-as-kill #'kill-ring-save)))
+    ;; `interprogram-cut-function' is nil globally so editing kills (C-u/C-o/
+    ;; C-w/M-d) don't leak to the Wayland clipboard. Rebind it here so this
+    ;; explicit copy reaches the system clipboard via `tl/wl-copy', matching the
+    ;; other `tl/*-to-clipboard' ops. (copy-rectangle-as-kill never calls
+    ;; kill-new, so the rectangle path is unaffected and stays kill-ring-only.)
+    (let ((interprogram-cut-function #'tl/wl-copy))
+      (call-interactively
+       (if (bound-and-true-p rectangle-mark-mode)
+           #'copy-rectangle-as-kill #'kill-ring-save))))
   (defun tl/god-kill ()
     "Kill the region, or the rectangle when `rectangle-mark-mode' is active."
     (interactive)
-    (call-interactively
-     (if (bound-and-true-p rectangle-mark-mode)
-         #'kill-rectangle #'kill-region)))
+    ;; Rebind like `tl/god-copy' so this explicit kill (cut) reaches the system
+    ;; clipboard via `tl/wl-copy' (global `interprogram-cut-function' is nil).
+    (let ((interprogram-cut-function #'tl/wl-copy))
+      (call-interactively
+       (if (bound-and-true-p rectangle-mark-mode)
+           #'kill-rectangle #'kill-region))))
   (defun tl/god-yank ()
     "Yank, or yank the rectangle when `rectangle-mark-mode' is active."
     (interactive)
     (call-interactively
      (if (bound-and-true-p rectangle-mark-mode)
          #'yank-rectangle #'org-yank)))
+  ;; Make `delete-selection-mode' delete the active region before yanking,
+  ;; so `y' in god-mode replaces the selection instead of inserting at point.
+  ;; `tl/god-yank' wraps `org-yank'/`yank-rectangle' via `call-interactively',
+  ;; which hides it from `delete-selection-pre-hook' (it checks only the
+  ;; top-level command symbol). Mirrors `(put 'yank 'delete-selection 'yank)'.
+  (put 'tl/god-yank 'delete-selection 'yank)
   ;(global-set-key (kbd "C-@") #'god-local-mode)                       ;; Prefix key - rebinded to toggle god mode on TAB
 
   ;; Ctrl+[/]{/}/,/./</>
@@ -3954,7 +3972,7 @@ package's wholesale keymap regeneration can't wipe them."
 
   ;; Ctrl+d
   (define-key god-local-mode-map (kbd "d") #'tl/god-kill)
-  (define-key god-local-mode-map (kbd "C-d") #'kill-word)
+  (define-key god-local-mode-map (kbd "C-d") #'smart-hungry-delete-forward-char)
   (define-key god-local-mode-map (kbd "C-S-d") #'kill-whole-line)
 
   ;; Ctrl+n
