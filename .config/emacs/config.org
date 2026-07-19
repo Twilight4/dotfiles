@@ -1137,11 +1137,20 @@ workspace. Switches to the workspace's first tab when done."
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 
-;; pgtk GUI Emacs forwards every kill to the Wayland clipboard via
-;; `interprogram-cut-function' (= `gui-select-text'), so C-u/C-o/C-w/M-d leak.
-;; Disable it so kills stay in the kill-ring; explicit `tl/*-to-clipboard'
-;; wrappers (which call wl-copy directly) remain the only path to the clipboard.
-(setq interprogram-cut-function nil)
+;; pgtk GUI Emacs bridges the kill-ring and the Wayland clipboard two ways:
+;;  - `interprogram-cut-function' (= `gui-select-text') leaks every kill
+;;    (C-u/C-o/C-w/M-d) to the clipboard;
+;;  - `interprogram-paste-function' (= `gui-selection-value') makes
+;;    `current-kill' *re-import* the clipboard on every call, so any text the
+;;    user copied outside Emacs (or an old error string) gets prepended to the
+;;    kill-ring, clobbering freshly-killed subtrees. This broke `org-paste-
+;;    subtree' (every agenda DONE/clarify/refile clobbered the just-copied
+;;    subtree with stale clipboard text → "The kill is not a (set of) tree(s)").
+;; Disable BOTH so kills stay in the kill-ring; explicit `tl/*-to-clipboard'
+;; wrappers (which call wl-copy directly) and `wl-paste' remain the only path
+;; to/from the system clipboard.
+(setq interprogram-cut-function nil
+      interprogram-paste-function nil)
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
@@ -5215,15 +5224,25 @@ The following snippet sets up a hook for all Org task state changes and then mov
                                 ("Entries")))))
 
 (defun tl/org-roam-copy-finished-to-today ()
+  "Copy the just-finished heading into today's roam daily note.
+Works in both `org-mode' and `org-agenda-mode' buffers."
   (interactive)
-  (let ((org-refile-keep t)
-        (org-roam-dailies-capture-templates
+  ;; ponytail: when fired from `org-after-todo-state-change-hook' via
+  ;; `org-agenda-todo', the current buffer is the agenda (no file, no
+  ;; subtree). `org-refile' then runs `org-copy-subtree' on agenda text
+  ;; (a no-op) and `org-paste-subtree' on the stale kill ring, raising
+  ;; "The kill is not a (set of) tree(s)". Resolve the agenda line's
+  ;; heading marker and refile from the real org buffer instead.
+  (let* ((src-marker (if (eq major-mode 'org-agenda-mode)
+                         (org-get-at-bol 'org-hd-marker)
+                       (point-marker)))
+         (org-refile-keep t)
+         (org-roam-dailies-capture-templates
           '(("t" "tasks" entry "%?"
              :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
-        (org-after-refile-insert-hook #'save-buffer)
-        (org-reverse-note-order t)
-        today-file
-        pos)
+         (org-after-refile-insert-hook #'save-buffer)
+         (org-reverse-note-order t)
+         today-file pos)
     (save-window-excursion
       (org-roam-dailies--capture (current-time) t)
       (setq today-file (buffer-file-name))
@@ -5235,10 +5254,13 @@ The following snippet sets up a hook for all Org task state changes and then mov
               (end-of-line)
               (insert "\n\n* Tasks")))
         (setq pos (point))))
-
-    (unless (equal (file-truename today-file)
-                   (file-truename (buffer-file-name)))
-      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+    (when (and src-marker (marker-buffer src-marker))
+      (with-current-buffer (marker-buffer src-marker)
+        (save-excursion
+          (goto-char src-marker)
+          (unless (equal (file-truename today-file)
+                         (file-truename (buffer-file-name)))
+            (org-refile nil nil (list "Tasks" today-file nil pos))))))))
 
 (add-to-list 'org-after-todo-state-change-hook
              (lambda ()
