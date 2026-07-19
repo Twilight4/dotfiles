@@ -3597,10 +3597,16 @@ working directory, isolating the agent to that single project."
           (cdr (assoc (completing-read "OMP project: "
                                        (mapcar #'car projects) nil t)
                       projects))))
-    ;; agent-shell-start ignores agent-shell-prefer-viewport-interaction; force viewport after.
-    (let ((shell-buffer (agent-shell-start :config (tl/agent-shell-omp-make-config))))
-      (when agent-shell-prefer-viewport-interaction
-        (agent-shell-viewport--show-buffer :shell-buffer shell-buffer))
+    ;; `agent-shell-start' bypasses `agent-shell-prefer-viewport-interaction'
+    ;; (only `agent-shell--dwim' honors it).  Start with :no-focus and display
+    ;; ourselves so the shell buffer never flashes before the viewport.
+    (let ((shell-buffer (agent-shell--start
+                         :config (tl/agent-shell-omp-make-config)
+                         :no-focus t
+                         :new-session t)))
+      (if agent-shell-prefer-viewport-interaction
+          (agent-shell-viewport--show-buffer :shell-buffer shell-buffer)
+        (agent-shell--display-buffer shell-buffer))
       shell-buffer)))
 
 (defcustom tl/agent-shell-omp-quick-model "zai/glm-4.7"
