@@ -396,44 +396,56 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | M-]        | jinx auto correct                                            |
 
 ** Agent-shell
-Agent-shell session config:
-| Keybinding  | Description                                           |
-|-------------+-------------------------------------------------------|
-| C-x SPC     | start OMP agent-shell (pick project: linux/devops)    |
-| C-\ C-x SPC | start OMP agent-shell with arbitrary CWD              |
-| M-v         | agent-shell-switch-buffer                             |
-| C-x j       | switch to agent awaiting reply                        |
-| C-\ C-x j   | switch to agent awaiting reply from all active agents |
-| C-c C-q     | agent-shell-queue-request                             |
-| C-c C-o     | agent-shell-other-buffer                              |
-| M-RET       | god-local-mode                                        |
-| C-c C-e     | agent-shell-restart                                   |
-| C-c v       | agent-shell-set-session-model                         |
-| C-c C-v     | agent-shell-set-session-config-option                 |
-| C-c C-f     | agent-shell-fork                                      |
-| C-c C-c     | agent-shell-interrupt                                 |
-| C-c C-a     | toggle auto-accepting prompts                         |
-| C-c C-w     | tl/agent-shell-copy-session-id                        |
-| C-c C-r     | agent-shell-resume-session                            |
-| C-c C-h     | comint-show-maximum-output                            |
+Agent-shell global keymaps:
+| Keybinding | Description                                           |
+|------------+-------------------------------------------------------|
+| C-x SPC    | start OMP agent-shell (pick project)                  |
+| M-v        | agent-shell-switch-buffer                             |
+| C-x j      | switch to agent awaiting reply                        |
+| C-\ C-x j  | switch to agent awaiting reply from all active agents |
 
-Oh-My-Pi chat buffer:
-| Keybinding | Description                                 |
-|------------+---------------------------------------------|
-| M-r        | Prompts history                             |
-| C-,/.      | Previous/next item                          |
-| M-p/n      | Previous/next input history                 |
-| TAB/S-TAB  | Next/Previous prompt answer                 |
-| C-c h      | Show output last message                    |
-| C-c C-h    | Show maximum output last message            |
-| C-c C-l    | shell-maker-narrow-to-prompt                |
-| C-M-h      | shell-maker-mark-output                     |
-| C-c C-s    | shell-maker-save-output                     |
-| C-c s      | shell-maker-save-session-transcript         |
-| C-c r      | shell-maker-restore-session-from-transcript |
-| C-c C-z    | comint-stop-subjob                          |
-| C-c C-\    | comint-quit-subjob                          |
-| C-c C-g    | comint-clear-buffer                         |
+OMP Viewport buffers:
+| Keybinding | Description                           |
+|------------+---------------------------------------|
+| M-r        | Prompts history                       |
+| C-p/n      | Previous/next input history           |
+| C-c C-l    | Show output last message in view-mode |
+| C-c C-s    | agent-recall-consult-search           |
+| C-c C-b    | agent-recall-browse                   |
+| C-c RET    | Set session mode                      |
+| C-tab      | cycle mode                            |
+| C-c C-v    | agent-shell-set session-model         |
+| C-c C-t    | agent-shell-set thought level         |
+| C-c C-q    | agent-shell-queue-request             |
+| C-c C-e    | agent-shell-restart                   |
+| C-c C-f    | agent-shell-fork                      |
+| C-c C-c    | agent-shell compose send/interrupt    |
+| C-c C-a    | toggle auto-accepting prompts         |
+| C-c C-w    | tl/agent-shell-copy-session-id        |
+| C-c C-r    | agent-shell-resume-session            |
+| C-c C-o    | agent-shell-other-buffer              |
+
+OMP Viewport view-mode:
+| Keybinding | Description                           |
+|------------+---------------------------------------|
+| j/k        | next/previous item                    |
+| f/b        | next/previous page                    |
+| 1          | reply "1"                             |
+| 5          | reply "5"                             |
+| 9          | reply "9"                             |
+| q          | queue request                         |
+| r          | reply                                 |
+| R          | quote reply                           |
+| y          | reply "yes"                           |
+| m          | reply "more"                          |
+| a          | reply "again"                         |
+| c          | reply "continue"                      |
+| v          | set model                             |
+| s          | set mode                              |
+| t          | set thought level                     |
+| l          | Show output last message in view-mode |
+| ;          | recenter                              |
+| </>        | beginning/end of buffer               |
 
 Agent-shell-browse command (transcript mode):
 | Keybinding | Description                            |

@@ -856,7 +856,7 @@ workspace. Switches to the workspace's first tab when done."
     "C-s C-d" '(describe-mode :wk "Display documentation of current modes")
     "C-s C-f" '(describe-function :wk "Describe function")
     "C-s C-k" '(describe-key-briefly :wk "Describe key briefly")
-    "C-s C-v" '(describe-key-variable :wk "Describe key briefly")
+    "C-s C-v" '(describe-variable :wk "Describe key briefly")
     "C-s C-l" '(describe-key :wk "Describe key")
     "C-s C-c" '(describe-command :wk "Describe command")
     "C-s C-r" '((lambda () (interactive)
@@ -1126,8 +1126,13 @@ workspace. Switches to the workspace's first tab when done."
 ;; Set src block automatic indent to 0 instead of 2
 (setq org-edit-src-content-indentation 0)
 
-;; Increase garbage collection threshold
+;; GC: 50 MB threshold during init for startup speed, then drop to 8 MB.
+;; A high runtime threshold lets the malloc arena balloon — glibc never
+;; returns freed bytes to the OS, so RSS ratchets up with every GC cycle.
+;; 8 MB keeps the arena small; `gc-cons-percentage' (0.1) still bounds peak.
 (setq gc-cons-threshold (* 50 1000 1000))
+(add-hook 'emacs-startup-hook
+          (lambda () (setq gc-cons-threshold (* 8 1000 1000))))
 
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -3429,35 +3434,36 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
    :ensure t
    :bind (:map agent-shell-mode-map
                ("<tab>" . god-local-mode)
-               ("C-." . agent-shell-next-item)
-               ("M-p" . tl/better-previous-buffer)
-               ("M-n" . tl/better-next-buffer)
-               ("C-k" . comint-previous-input)
-               ("C-j" . comint-next-input)
-               ("C-," . agent-shell-previous-item)
-               ("<backspace>" . backward-delete-char)
-               ("C-c C-f" . agent-shell-fork)
-               ("C-c C-s" . agent-recall-consult-search)
-               ("C-c C-b" . agent-recall-browse)
-               ("C-c C-r" . agent-recall-resume)
-               ("C-c C-w" . tl/agent-shell-copy-session-id)
-               ("C-c r" . agent-shell-resume-session)
-               ("C-c C-e" . agent-shell-restart)
-               ("C-c C-h" . comint-show-maximum-output)
-               ("C-c h" . comint-show-output)
-               ("C-c C-v" . agent-shell-set-session-config-option)
-               ("C-c v" . agent-shell-set-session-model)
-               ("C-c s" . shell-maker-save-output)
-               ("C-c C-q" . agent-shell-queue-request)
-               ("C-c C-g" . comint-clear-buffer)
-               ("C-c C-a" . tl/agent-shell-toggle-auto-accept)
-               ("C-c C-l" . shell-maker-narrow-to-prompt))
+               ("<backspace>" . backward-delete-char))
+               ;("M-p" . tl/better-previous-buffer)
+               ;("M-n" . tl/better-next-buffer)
+               ;("C-k" . comint-previous-input)
+               ;("C-j" . comint-next-input)
+               ;("C-." . agent-shell-next-item)
+               ;("C-," . agent-shell-previous-item)
+               ;("C-c C-f" . agent-shell-fork)
+               ;("C-c C-s" . agent-recall-consult-search)
+               ;("C-c C-b" . agent-recall-browse)
+               ;("C-c C-r" . agent-recall-resume)
+               ;("C-c C-w" . tl/agent-shell-copy-session-id)
+               ;("C-c r" . agent-shell-resume-session)
+               ;("C-c C-e" . agent-shell-restart)
+               ;("C-c C-h" . comint-show-maximum-output)
+               ;("C-c h" . comint-show-output)
+               ;("C-c C-v" . agent-shell-set-session-config-option)
+               ;("C-c v" . agent-shell-set-session-model)
+               ;("C-c s" . shell-maker-save-output)
+               ;("C-c C-q" . agent-shell-queue-request)
+               ;("C-c C-g" . comint-clear-buffer)
+               ;("C-c C-a" . tl/agent-shell-toggle-auto-accept)
+               ;("C-c C-l" . shell-maker-narrow-to-prompt))
    :config
    (setq agent-shell-openai-authentication
      (agent-shell-openai-make-authentication :login t))
    (setq agent-shell-openai-codex-acp-command '("codex-acp"))
    (setq agent-shell-session-strategy 'new)
    (setq agent-shell-prefer-session-resume nil)
+   (setq agent-shell-prefer-viewport-interaction t)
    ;; Pick GPT-5.5 if it appears in Codex’s “Available models”
    (setq agent-shell-openai-default-model-id "gpt-5.5"))
 
@@ -3616,6 +3622,64 @@ outside a project-local `.omp/'."
 
 (with-eval-after-load 'agent-shell
   (setq agent-shell-cwd-function #'tl/agent-shell-cwd-nearest-omp)
+  (setq agent-shell-header-style 'text)                     ;; Text header
+  ;; Bindings
+  (define-key agent-shell-viewport-view-mode-map (kbd "TAB") #'god-local-mode)
+  (define-key agent-shell-list-edit-mode-map (kbd "TAB") #'god-local-mode)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-f") #'agent-shell-fork)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-f") #'agent-shell-fork)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-s") #'agent-recall-consult-search)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-s") #'agent-recall-consult-search)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-b") #'agent-recall-browse)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-b") #'agent-recall-browse)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-r") #'agent-recall-resume)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-r") #'agent-recall-resume)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-w") #'tl/agent-shell-copy-session-id)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-w") #'tl/agent-shell-copy-session-id)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c r") #'agent-shell-resume-session)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c r") #'agent-shell-resume-session)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-e") #'agent-shell-restart)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-e") #'agent-shell-restart)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-q") #'agent-shell-viewport-queue-request)
+  (define-key agent-shell-viewport-view-mode-map (kbd "q") #'agent-shell-viewport-queue-request)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-a") #'tl/agent-shell-toggle-auto-accept)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-a") #'tl/agent-shell-toggle-auto-accept)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-l") #'agent-shell-viewport-view-last)
+  (define-key agent-shell-viewport-view-mode-map (kbd "l") #'agent-shell-viewport-view-last)
+  ;; Vie/Edit mode-specific bindings
+  (define-key agent-shell-viewport-view-mode-map (kbd "j") #'agent-shell-viewport-next-item)
+  (define-key agent-shell-viewport-view-mode-map (kbd "k") #'agent-shell-viewport-previous-item)
+  (define-key agent-shell-viewport-view-mode-map (kbd ">") #'end-of-buffer)
+  (define-key agent-shell-viewport-view-mode-map (kbd "<") #'beginning-of-buffer)
+  (define-key agent-shell-viewport-view-mode-map (kbd ";") #'recenter-top-bottom)
+  (define-key agent-shell-viewport-view-mode-map (kbd "R") #'nil)
+  (define-key agent-shell-viewport-view-mode-map (kbd "p") #'nil)
+  (define-key agent-shell-viewport-view-mode-map (kbd "n") #'nil)
+  (define-key agent-shell-viewport-view-mode-map (kbd "o") #'nil)
+  ;; viewport-edit-mode enables agent-shell-list-edit-mode (minor), whose map
+  ;; shadows the major-mode map and rebinds TAB to indent-line.  Bind there.
+  (define-key agent-shell-list-edit-mode-map (kbd "C-p") #'agent-shell-viewport-previous-history)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-n") #'agent-shell-viewport-next-history)
+  (define-key agent-shell-list-edit-mode-map (kbd "M-p") #'tl/better-previous-buffer)
+  (define-key agent-shell-list-edit-mode-map (kbd "M-n") #'tl/better-next-buffer)
+  ;; agent-shell buffers are output streams; their `buffer-undo-list' grows
+  ;; unboundedly (~588K entries / 30min for an active OMP session), dominating
+  ;; live cons count and RSS. Disable undo — same convention as shell-mode /
+  ;; term-mode / ielm. Covers both the comint shell buffer and its viewport.
+  (add-hook 'agent-shell-mode-hook #'buffer-disable-undo)
+  (add-hook 'agent-shell-viewport-view-mode-hook #'buffer-disable-undo)
+  ;; agent-shell's heartbeat default is 10 Hz — every 100 ms it rebuilds the
+  ;; header and forces a modeline update + redisplay. With the OMP shell
+  ;; visible that's ~73 K conses/s of GC churn (drives `command-execute' +
+  ;; `redisplay_internal' to the top of every memory profile) and the
+  ;; malloc arena ratchets up. 2 Hz is visually equivalent and ~5× cheaper.
+  ;; Only applies when the caller didn't pass an explicit rate.
+  (defun tl/agent-shell-heartbeat-slow (orig-fn &rest args)
+    "Lower `agent-shell-heartbeat-make' from the default 10 Hz to 2 Hz."
+    (unless (plist-get args :beats-per-second)
+      (setq args (append args (list :beats-per-second 2))))
+    (apply orig-fn args))
+  (advice-add 'agent-shell-heartbeat-make :around #'tl/agent-shell-heartbeat-slow)
   ;; Buffer name and header reflect the chosen project, not the monorepo root.
   (advice-add 'agent-shell--project-name :around #'tl/agent-shell-project-name)
   (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
@@ -3753,7 +3817,9 @@ Ghostel's features include synchronized output, true color, the Kitty keyboard a
 
   (add-hook 'ghostel-mode-hook #'tl/ghostel-disable-god-mode)
   (with-eval-after-load 'god-mode
-    (add-to-list 'god-exempt-major-modes 'ghostel-mode))
+    (add-to-list 'god-exempt-major-modes 'ghostel-mode)
+    (add-to-list 'god-exempt-major-modes 'agent-shell-viewport-view-mode)
+    (add-to-list 'god-exempt-major-modes 'agent-shell-viewport-edit-mode))
 
   ;; ghostel rewrites `ghostel-semi-char-mode-map' from scratch on
   ;; every `ghostel--rebuild-semi-char-keymap' (fired at load and whenever
@@ -4759,36 +4825,9 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
   (when (tl/agent-shell-omp-buffer-p)
     (tl/org-olivetti)))
 
-(defvar tl/agent-shell-header-scale 0.5
-  "Scale factor for the graphical Oh My Pi agent-shell header bar HEIGHT.
-agent-shell renders its header as a fixed-size SVG image whose height is
-3× the frame char-height, so shrinking the `header-line' face has no
-effect; scaling the header model's :font-height (icon + layout) is the
-lever.  The text (:font-size) is kept as large as the scaled bar allows,
-not shrunk with it.  1.0 = native size.")
-
-(defun tl/agent-shell-scale-header-model (model)
-  "Scale the graphical agent-shell header MODEL's height, keeping text large.
-Scales :font-height by `tl/agent-shell-header-scale' and clamps :font-size
-to the scaled height, so the bar shortens without shrinking the text more
-than the shorter bar requires.  Applied as :filter-return advice on
-`agent-shell--make-header-model'; non-graphical styles are untouched."
-  (when (and (boundp 'agent-shell-header-style)
-             (eq agent-shell-header-style 'graphical)
-             (numberp tl/agent-shell-header-scale)
-             (/= tl/agent-shell-header-scale 1.0))
-    (let* ((base-h (map-elt model :font-height))
-           (new-h (max 1 (round (* tl/agent-shell-header-scale base-h))))
-           (native-size (or (map-elt model :font-size) base-h)))
-      (map-put! model :font-height new-h)
-      (map-put! model :font-size (min new-h native-size))))
-  model)
-
 (add-hook 'org-mode-hook #'tl/org-olivetti)
 (add-hook 'org-agenda-mode-hook #'tl/org-agenda-olivetti)
 (add-hook 'agent-shell-mode-hook #'tl/agent-shell-olivetti)
-(advice-add 'agent-shell--make-header-model :filter-return
-            #'tl/agent-shell-scale-header-model)
 
 (use-package olivetti
   :config
