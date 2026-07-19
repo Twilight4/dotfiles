@@ -1152,6 +1152,31 @@ workspace. Switches to the workspace's first tab when done."
 (setq interprogram-cut-function nil
       interprogram-paste-function nil)
 
+;; With the GUI clipboard bridge off (above), `C-y'/`yank' see only the
+;; kill-ring in EVERY buffer, so text copied outside Emacs (browser, etc.)
+;; never pastes.  Re-enabling `interprogram-paste-function' would reopen
+;; the 2026-07-19 org-mode loop (every `current-kill' re-imports and
+;; clobbers freshly-killed subtrees).  Instead, pull the Wayland clipboard
+;; into the kill-ring on `focus-in' -- the moment you return to Emacs after
+;; copying.  Editing kills stay local; unchanged clipboards are skipped, so
+;; in-Emacs kill-then-yank is never disturbed.
+(defvar tl/last-clipboard-seen nil
+  "Last Wayland clipboard text pulled by `tl/sync-clipboard-on-focus'.
+Prevents re-prepending unchanged clipboard content on refocus.")
+(defun tl/sync-clipboard-on-focus ()
+  "Pull the Wayland clipboard into the kill-ring when Emacs gains focus.
+Bridges the nil `interprogram-paste-function' so `C-y' pastes text copied
+outside Emacs.  No-op on TTY frames, when `wl-paste' is missing, or when
+the clipboard is empty/unchanged."
+  (when (and (display-graphic-p) (executable-find "wl-paste"))
+    (let ((clip (shell-command-to-string "wl-paste")))
+      (unless (or (string-empty-p clip)
+                  (equal clip tl/last-clipboard-seen))
+        (setq tl/last-clipboard-seen clip)
+        (unless (equal clip (current-kill 0 t))
+          (kill-new clip))))))
+(add-hook 'focus-in-hook #'tl/sync-clipboard-on-focus)
+
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
 #+end_src
@@ -3572,7 +3597,11 @@ working directory, isolating the agent to that single project."
           (cdr (assoc (completing-read "OMP project: "
                                        (mapcar #'car projects) nil t)
                       projects))))
-    (agent-shell-start :config (tl/agent-shell-omp-make-config))))
+    ;; agent-shell-start ignores agent-shell-prefer-viewport-interaction; force viewport after.
+    (let ((shell-buffer (agent-shell-start :config (tl/agent-shell-omp-make-config))))
+      (when agent-shell-prefer-viewport-interaction
+        (agent-shell-viewport--show-buffer :shell-buffer shell-buffer))
+      shell-buffer)))
 
 (defcustom tl/agent-shell-omp-quick-model "zai/glm-4.7"
   "Model used by `tl/agent-shell-send-to-session' for quick prompts.
