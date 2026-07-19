@@ -433,9 +433,7 @@ OMP Viewport view-mode:
 | 1          | reply "1"                             |
 | 5          | reply "5"                             |
 | 9          | reply "9"                             |
-| q          | queue request                         |
 | r          | reply                                 |
-| R          | quote reply                           |
 | y          | reply "yes"                           |
 | m          | reply "more"                          |
 | a          | reply "again"                         |
