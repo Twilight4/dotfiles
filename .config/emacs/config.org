@@ -5157,7 +5157,7 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                            :order 12)
                           (:name " Side-quests"
                            :tag "@Side_quests"
-                           :order 12)
+                           :order 10)
                           (:name " Due Soon"
                            :deadline future
                            :order 20)
