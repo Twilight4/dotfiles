@@ -4940,6 +4940,7 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
   '((:startgroup)
      ;; Overview agenda
      ("@Work" . ?w)
+     ("@Side_quests" . ?s)
      ("@Important" . ?i)
      ("@Assignment" . ?a)
      ("@Issue" . ?I)
@@ -5154,6 +5155,9 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name " Research"
                            :tag "@Research"
                            :order 12)
+                          (:name " Side-quests"
+                           :tag "@Side_quests"
+                           :order 12)
                           (:name " Due Soon"
                            :deadline future
                            :order 20)
@@ -5341,7 +5345,7 @@ Works in both `org-mode' and `org-agenda-mode' buffers."
   :demand t
   :custom
   (org-gtd-directory "~/documents/org/agenda")
-  (org-gtd-areas-of-focus '("Work" "Social Life" "Side-hustle" "Habit"))
+  (org-gtd-areas-of-focus '("Work" "Social Life" "Side-quests" "Habit"))
   (org-edna-use-inheritance t)
   (org-gtd-organize-hooks '(org-gtd-set-area-of-focus org-set-tags-command))
   :config
