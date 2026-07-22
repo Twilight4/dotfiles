@@ -7,11 +7,12 @@ modelRoles:
   tiny: zai/glm-4.7-flash:minimal
 tui: 
   textSizing: true
+  renderMermaid: true
 terminal: 
-  showImages: false
+  showImages: true
 images: 
   autoResize: true
-  blockImages: true
+  blockImages: false
 personality: default
 stt: 
   enabled: true
