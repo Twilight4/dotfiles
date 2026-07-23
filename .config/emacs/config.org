@@ -3703,7 +3703,6 @@ outside a project-local `.omp/'."
   (define-key agent-shell-viewport-view-mode-map (kbd "R") #'nil)
   (define-key agent-shell-viewport-view-mode-map (kbd "p") #'nil)
   (define-key agent-shell-viewport-view-mode-map (kbd "n") #'nil)
-  (define-key agent-shell-viewport-view-mode-map (kbd "o") #'nil)
   ;; viewport-edit-mode enables agent-shell-list-edit-mode (minor), whose map
   ;; shadows the major-mode map and rebinds TAB to indent-line.  Bind there.
   (define-key agent-shell-list-edit-mode-map (kbd "C-p") #'agent-shell-viewport-previous-history)
