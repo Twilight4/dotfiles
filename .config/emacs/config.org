@@ -916,7 +916,7 @@ workspace. Switches to the workspace's first tab when done."
     "C-d C-r" '(rename-this-file-and-buffer :wk "Rename file")
     "C-d C-b" '(rename-buffer :wk "Rename buffer")
     "C-d C-p" '(peep-dired :wk "Peep-dired")
-    "C-d h" '(dired-hide-details-mode :wk "Toggle file details"))
+    "C-d C-h" '(dired-hide-details-mode :wk "Toggle file details"))
 
   (tl/leader-keys
     "w"   '(:ignore t :wk "Workspaces")
@@ -3070,9 +3070,6 @@ window-selection commands."
 (use-package peep-dired
   :after dired
   :config
-  ;; j/k live in the *minor-mode* map so they steer the peep preview only while
-  ;; peep-dired is ON; with it off they fall through to dired-mode-map's
-  ;; next/previous-line (below) — no hook/advice needed.
   (define-key peep-dired-mode-map (kbd "j") 'peep-dired-next-file)
   (define-key peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
 
@@ -3080,6 +3077,7 @@ window-selection commands."
 (setq dired-listing-switches "-agho --group-directories-first"
       dired-omit-files "^\\.[^.].*"
       dired-omit-verbose nil
+      dired-hide-details-mode 1
       dired-hide-details-hide-symlink-targets nil
 	  trash-directory "~/.config/.local/share/Trash/files"              ;; don't think it works
       delete-by-moving-to-trash t)
@@ -3104,9 +3102,6 @@ window-selection commands."
   ;; Misc
   (define-key dired-mode-map (kbd "SPC") 'dired-mark)
   (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
-  ;; Display: hide perms/owner/size/date by default → icons + names only.
-  ;; Toggle (peek at details) via `C-x C-d h'. Stock `(' unbound.
-  (dired-hide-details-mode 1)
   (define-key dired-mode-map (kbd "(") nil)
   ;; Other
   ;(define-key dired-mode-map (kbd "l") 'dired-single-buffer)
