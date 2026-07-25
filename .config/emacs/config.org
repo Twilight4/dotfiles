@@ -1174,7 +1174,7 @@ the clipboard is empty/unchanged."
       (unless (or (string-empty-p clip)
                   (equal clip tl/last-clipboard-seen))
         (setq tl/last-clipboard-seen clip)
-        (unless (equal clip (current-kill 0 t))
+        (unless (and kill-ring (equal clip (current-kill 0 t)))
           (kill-new clip))))))
 (add-hook 'focus-in-hook #'tl/sync-clipboard-on-focus)
 
