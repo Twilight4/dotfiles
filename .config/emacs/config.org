@@ -2762,6 +2762,17 @@ This is useful when followed by an immediate kill."
 
     (treemacs-hide-gitignored-files-mode nil)))
 
+;; Keep God mode out of Treemacs buffers.  The globalized `god-mode' minor
+;; mode auto-activates `god-local-mode' in every buffer whose major mode isn't
+;; in `god-exempt-major-modes'; without this, single-key Treemacs prefixes like
+;; `wa' (treemacs-create-workspace) get intercepted by God mode (`w' -> copy).
+(defun tl/treemacs-disable-god-mode ()
+  "Turn off `god-local-mode' in the current Treemacs buffer."
+  (when (bound-and-true-p god-local-mode)
+    (god-local-mode -1)))
+(with-eval-after-load 'god-mode
+  (add-to-list 'god-exempt-major-modes 'treemacs-mode))
+(add-hook 'treemacs-mode-hook #'tl/treemacs-disable-god-mode)
 ;; Treemacs-only zoxide travel.  This reads zoxide's db.zo directly instead of
 ;; calling the zoxide executable, so invoking it never starts a shell process or
 ;; opens/switches to a file buffer.
