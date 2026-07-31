@@ -39,6 +39,7 @@
   - [[#remove-inline---comments-from-region][Remove inline “# …” comments from region]]
   - [[#expand-region][Expand-region]]
   - [[#kill-current-buffer][Kill current buffer]]
+  - [[#copy-word-on-point][Copy word on point]]
   - [[#symbol-overlay][Symbol-overlay]]
   - [[#yaml-syntax-highlighting][Yaml syntax highlighting]]
   - [[#terraform-mode][Terraform-mode]]
@@ -574,12 +575,14 @@ workspace. Switches to the workspace's first tab when done."
 (global-set-key (kbd "C-M-e") 'tl/gptel-rewrite-directive-menu)
 (global-set-key (kbd "C-M-s") 'gptel-system-prompt)
 (global-set-key (kbd "M-v") 'agent-shell-switch-buffer)
-(global-set-key (kbd "C-M-n") 'tl/agent-shell-send-to-session)  ;; send prompt to a new OMP agent-shell
+;(global-set-key (kbd "C-M-n") 'tl/agent-shell-send-to-session)  ;; send prompt to a new OMP agent-shell
 ;(global-set-key (kbd "C-M-p") 'gptel--rewrite-previous)
 (global-set-key (kbd "C-M-k") 'tl/gptel-prompt-from-kill-ring)   ;; prompt from kill ring
 (global-set-key (kbd "C-M-q") 'tl/gptel-respond-to-echo-area)    ;; respond to echo area
 (global-set-key (kbd "C-M-v") 'tl/gptel-send-to-session)         ;; send to gptel session
+(global-set-key (kbd "C-M-m") 'tl/gptel-send-to-session)         ;; send to gptel session
 (global-set-key (kbd "C-M-j") 'tl/gptel-respond-to-kill-ring)    ;; response to kill ring
+(global-set-key (kbd "C-M-n") 'tl/gptel-respond-from-minibuffer) ;; respond from minibuffer to current buffer
 ;; Work only in org-mode-map
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "TAB") #'god-local-mode)
@@ -598,6 +601,11 @@ workspace. Switches to the workspace's first tab when done."
 ;(global-set-key (kbd "M-n") 'jinx-correct-nearest)      ;; Jinx-correct works the same
 ;(global-set-key (kbd "M-w") 'jinx-correct-all)
 ;(global-set-key (kbd "M-w") 'jinx-correct-select)
+
+;; Diff-mode
+;(eval-after-load 'diff
+;  '(progn
+;     (define-key diff-mode-map (kbd "TAB") 'god-local-mode)))
 
 ;; Info-mode
 (eval-after-load 'info
@@ -855,19 +863,26 @@ workspace. Switches to the workspace's first tab when done."
     "C-f C-e" '(timeclock-workday-elapsed-string :wk "Elapsed work time"))
 
   (tl/leader-keys
-    "C-s" '(:ignore t :wk "Help")
-    "C-s C-h" '(help-for-help :wk "Get help")
-    "C-s C-i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
-    "C-s C-o" '(info :wk "Enter info, the documentation browser")
-    "C-s C-e" '(info-emacs-manual :wk "Display emacs manual in info mode")
-    "C-s C-q" '(info-display-manual :wk "Display info buffer displaying MANUAL")
-    "C-s C-d" '(describe-mode :wk "Display documentation of current modes")
-    "C-s C-f" '(describe-function :wk "Describe function")
-    "C-s C-k" '(describe-key-briefly :wk "Describe key briefly")
-    "C-s C-v" '(describe-variable :wk "Describe key briefly")
-    "C-s C-l" '(describe-key :wk "Describe key")
-    "C-s C-c" '(describe-command :wk "Describe command")
-    "C-s C-r" '((lambda () (interactive)
+    "C-e" '(:ignore t :wk "Emacs")
+    "C-e C-h" '(help-for-help :wk "Get help")
+    "C-e C-i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
+    "C-e C-o" '(info :wk "Enter info, the documentation browser")
+    "C-e e" '(info-emacs-manual :wk "Display emacs manual in info mode")
+    "C-e C-q" '(info-display-manual :wk "Display info buffer displaying MANUAL")
+    "C-e C-d" '(describe-mode :wk "Display documentation of current modes")
+    "C-e C-f" '(describe-function :wk "Describe function")
+    "C-e C-k" '(describe-key-briefly :wk "Describe key briefly")
+    "C-e C-v" '(describe-variable :wk "Describe key briefly")
+    "C-e C-l" '(describe-key :wk "Describe key")
+    "C-e c" '(describe-command :wk "Describe command")
+    "C-e C-r" '(eval-region :wk "Evaluate a region")
+    "C-e C-b" '(eval-buffer :wk "Evaluate a buffer")
+    "C-e C-e" '(org-export-dispatch :wk "Org export dispatch")
+    "C-e C-p" '(org-latex-export-to-pdf :wk "Export as PDF in current working directory")
+    "C-e C-t" '(org-babel-tangle :wk "Org babel tangle")
+    "C-e C-c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
+    "C-e C-s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
+    "C-e r" '((lambda () (interactive)
               (load-file "~/.config/emacs/init.el")
               (ignore (elpaca-process-queues)))
               :wk "Reload emacs"))
@@ -899,32 +914,26 @@ workspace. Switches to the workspace's first tab when done."
     "C-t C-z" '(org-table-blank-field :wk "Blank field or active region"))
 
   (tl/leader-keys
-    "C-e" '(:ignore t :wk "Eval/Edit File")
-    "C-e C-r" '(eval-region :wk "Evaluate a region")
-    "C-e C-b" '(eval-buffer :wk "Evaluate a buffer")
-    "C-e C-e" '(org-export-dispatch :wk "Org export dispatch")
-    "C-e C-p" '(org-latex-export-to-pdf :wk "Export as PDF in current working directory")
-    "C-e C-t" '(org-babel-tangle :wk "Org babel tangle")
-    "C-e C-g" '(find-grep-dired :wk "Search for string in files in DIR")
-    "C-e C-d" '((lambda () (interactive) (dired "~/.config/emacs/")) :wk "Open user-emacs-directory in dired")
-    "C-e C-c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
-    "C-e C-s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
-
-  (which-key-add-key-based-replacements
-    "C-x e c" "Edit config"
-    "C-x e s" "Edit emacs cheatsheet")
-
-  (tl/leader-keys
     "C-d" '(:ignore t :wk "Dired")
     "C-d ." '(dired :wk "Open dired")
-    "C-d C-f" '(wdired-finish-edit :wk "Writable dired finish edit")
-    "C-d C-w" '(wdired-change-to-wdired-mode :wk "Writable dired")
     "C-d C-j" '(dired-jump :wk "Dired jump to current")
     "C-d C-d" '(delete-this-file :wk "Delete file")
     "C-d C-r" '(rename-this-file-and-buffer :wk "Rename file")
     "C-d C-b" '(rename-buffer :wk "Rename buffer")
-    "C-d C-p" '(peep-dired :wk "Peep-dired")
-    "C-d C-h" '(dired-hide-details-mode :wk "Toggle file details"))
+    ;"C-d C-f" '(wdired-finish-edit :wk "Writable dired finish edit")
+    ;"C-d C-w" '(wdired-change-to-wdired-mode :wk "Writable dired")
+    ;"C-d C-p" '(peep-dired :wk "Peep-dired")
+    ;"C-d C-h" '(dired-hide-details-mode :wk "Toggle file details")
+    ;; Bookmarks
+    "C-d C-e" '((lambda () (interactive) (dired "~/.config/emacs/")) :wk "Open user-emacs-directory in dired")
+    "C-d C-o" '((lambda () (interactive) (dired "~/downloads/")) :wk "Open user-emacs-directory in dired")
+    "C-d C-p" '((lambda () (interactive) (dired "~/pictures/")) :wk "Open user-emacs-directory in dired")
+    "C-d C-s" '((lambda () (interactive) (dired "~/pictures/screenshots")) :wk "Open user-emacs-directory in dired")
+    "C-d C-w" '((lambda () (interactive) (dired "~/desktop/workspace")) :wk "Open user-emacs-directory in dired")
+    "C-d C-c" '((lambda () (interactive) (dired "~/.config")) :wk "Open user-emacs-directory in dired")
+    "C-d C-i" '((lambda () (interactive) (dired "~/documents")) :wk "Open user-emacs-directory in dired")
+    "C-d C-m" '((lambda () (interactive) (dired "~/music")) :wk "Open user-emacs-directory in dired")
+    "C-d C-v" '((lambda () (interactive) (dired "~/video")) :wk "Open user-emacs-directory in dired"))
 
   (tl/leader-keys
     "w"   '(:ignore t :wk "Workspaces")
@@ -1783,6 +1792,23 @@ The =kill-this-buffer= command wasn't working.
 (defun tl/kill-current-buffer ()
   (interactive)
   (kill-buffer (current-buffer)))
+#+end_src
+
+** Copy word on point
+
+#+begin_src emacs-lisp
+(defun tl/copy-current-word ()
+  "Copy the current word including special characters to the kill-ring and display it."
+  (interactive)
+  (let* ((bounds (bounds-of-thing-at-point 'symbol))
+         (word (if bounds
+                   (buffer-substring-no-properties (car bounds) (cdr bounds))
+                 (thing-at-point 'word t))))
+    (if word
+        (progn
+          (kill-new word)
+          (message "Copied: %s" word))
+      (message "No word at point"))))
 #+end_src
 
 ** Symbol-overlay
@@ -3232,12 +3258,13 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (setq gptel-default-mode 'org-mode)
   ;(setf (alist-get 'org-mode gptel-prompt-prefix-alist) "**** ")
 
-  (setq gptel-model 'gemini-3.1-flash-lite
+  (setq gptel-model 'gemini-3.5-flash-lite
         gptel-backend (gptel-make-gemini "Gemini"
 						:stream t
 						:key #'gptel-api-key-from-auth-source
-						:models '(gemini-3.1-flash-lite
-                                  gemini-3.5-flash)))
+						:models '(gemini-3.5-flash-lite
+						          gemini-3.6-flash
+                                  gemini-3.1-pro-preview)))
 
   ;; GPTel directives - more prompts
   ;; https://github.com/f/awesome-chatgpt-prompts
@@ -3363,6 +3390,11 @@ Gptel custom functions
   "Ask a prompt in the minibuffer and show the response in the echo area (=gptel-menu m + e=)."
   (interactive)
   (tl/gptel-suffix-send '("m" "e")))
+
+(defun tl/gptel-respond-from-minibuffer ()
+  "Ask a prompt in the minibuffer and show the response in the echo area (=gptel-menu m + e=)."
+  (interactive)
+  (tl/gptel-suffix-send '("m")))
 
 (defun tl/gptel-gemini-buffer ()
   "Return the *Gemini* GPTel buffer, creating it when needed."
@@ -3729,6 +3761,7 @@ outside a project-local `.omp/'."
   (define-key agent-shell-viewport-view-mode-map (kbd "u") #'scroll-down-command)
   (define-key agent-shell-viewport-view-mode-map (kbd "o") #'scroll-up-command)
   (define-key agent-shell-viewport-view-mode-map (kbd "R") #'nil)
+  (define-key agent-shell-viewport-edit-mode-map (kbd "C-<tab>") #'nil)
   (define-key agent-shell-viewport-view-mode-map (kbd "p") #'nil)
   (define-key agent-shell-viewport-view-mode-map (kbd "n") #'nil)
   ;; viewport-edit-mode enables agent-shell-list-edit-mode (minor), whose map
@@ -4128,7 +4161,7 @@ package's wholesale keymap regeneration can't wipe them."
 
   ;; Ctrl+s
   (define-key god-local-mode-map (kbd "s") #'basic-save-buffer)
-  (define-key god-local-mode-map (kbd "C-s") #'tl/search-current-word)
+  (define-key god-local-mode-map (kbd "C-s") #'tl/copy-current-word)
   (define-key god-local-mode-map (kbd "C-S-s") #'er/mark-symbol)
 
   ;; Org priorities
