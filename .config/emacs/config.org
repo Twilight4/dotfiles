@@ -440,8 +440,11 @@ workspace. Switches to the workspace's first tab when done."
 
 ;; Unbinding Global Keybindings
 (define-key global-map (kbd "C-q") nil)
+(define-key global-map (kbd "C-M-<left>") nil)
+(define-key global-map (kbd "C-M-<right>") nil)
 (define-key global-map (kbd "M-e") nil)
 (define-key global-map (kbd "M-v") nil)
+(define-key global-map (kbd "C-/") nil)
 (define-key global-map (kbd "M-a") nil)
 (define-key global-map (kbd "M-`") nil)
 (define-key global-map (kbd "M-q") nil)
@@ -537,6 +540,8 @@ workspace. Switches to the workspace's first tab when done."
 (global-set-key (kbd "TAB") 'god-local-mode)
 (global-set-key (kbd "C-a") 'tl/smart-move-beginning-of-line)
 (global-set-key (kbd "C-e") 'tl/smart-move-end-of-line)
+(global-set-key (kbd "C-M-h") 'backward-sexp)
+(global-set-key (kbd "C-M-l") 'forward-sexp)
 ;(global-set-key (kbd "C-q") 'yaml-indent-line)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
@@ -684,6 +689,7 @@ workspace. Switches to the workspace's first tab when done."
      (define-key org-agenda-mode-map (kbd "T") 'org-agenda-toggle-time-grid)
      (define-key org-agenda-mode-map (kbd "M") 'org-agenda-toggle-deadlines)
      (define-key org-agenda-mode-map (kbd "C") 'org-gtd-capture)
+     (define-key org-agenda-mode-map (kbd "C-r") 'org-agenda-undo)
      (define-key org-agenda-mode-map (kbd "C-d") 'tl/org-remove-deadline)
      (define-key org-agenda-mode-map (kbd "C-s") 'tl/org-remove-scheduled)
      (define-key org-agenda-mode-map (kbd "Z") 'org-gtd-archive-completed-items)
@@ -697,10 +703,12 @@ workspace. Switches to the workspace's first tab when done."
      (define-key org-agenda-mode-map (kbd "D") 'org-agenda-deadline)
      (define-key org-agenda-mode-map (kbd "-") 'org-agenda-priority-up)
      (define-key org-agenda-mode-map (kbd "=") 'org-agenda-priority-down)
+     (define-key org-agenda-mode-map (kbd "C-/") 'consult-line)
      ;(define-key org-agenda-mode-map (kbd ";") 'org-agenda-archive)
      ;(define-key org-agenda-mode-map (kbd ":") 'org-agenda-archive-default-with-confirmation)
      ;; Unbinding the keybinds I don't use
      (define-key org-agenda-mode-map (kbd ":") 'nil)
+     (define-key org-agenda-mode-map (kbd "C-x C-s") 'nil)
      (define-key org-agenda-mode-map (kbd "+") 'nil)
      (define-key org-agenda-mode-map (kbd ">") 'nil)
      (define-key org-agenda-mode-map (kbd "~") 'nil)
@@ -816,8 +824,8 @@ workspace. Switches to the workspace's first tab when done."
     "C-c C-a" '(consult-org-agenda :wk "Go to org agenda heading")
     "C-c C-h" '(consult-org-heading :wk "Go to org heading")
 	;; GTD
-    "C-c e" '(org-gtd-engage :wk "GTD Engage")
-    "C-c E" '(org-gtd-engage-tagged :wk "GTD Engage tagged")
+    "C-c E" '(org-gtd-engage :wk "GTD Engage")
+    "C-c e" '(org-gtd-engage-tagged :wk "GTD Engage tagged")
     "C-c s" '(org-gtd-reflect-someday-maybe :wk "List your someday items")
     "C-c S" '(org-gtd-reflect-someday-review :wk "Review your someday items")
     "C-c p" '(org-gtd-reflect-stuck-projects :wk "Find projects without next actions")
@@ -2773,6 +2781,7 @@ This is useful when followed by an immediate kill."
 (with-eval-after-load 'god-mode
   (add-to-list 'god-exempt-major-modes 'treemacs-mode))
 (add-hook 'treemacs-mode-hook #'tl/treemacs-disable-god-mode)
+
 ;; Treemacs-only zoxide travel.  This reads zoxide's db.zo directly instead of
 ;; calling the zoxide executable, so invoking it never starts a shell process or
 ;; opens/switches to a file buffer.
@@ -3005,7 +3014,7 @@ window-selection commands."
   (define-key treemacs-mode-map (kbd ".") 'treemacs-toggle-show-dotfiles)
   (define-key treemacs-mode-map (kbd "j") 'treemacs-next-line)
   (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
-  (define-key treemacs-mode-map (kbd "/") 'isearch-forward)
+  (define-key treemacs-mode-map (kbd "/") 'consult-line)
   (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
   (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
   ;(define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
@@ -3487,9 +3496,9 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
    :ensure t
    :bind (:map agent-shell-mode-map
                ("<tab>" . god-local-mode)
-               ("<backspace>" . backward-delete-char))
-               ;("M-p" . tl/better-previous-buffer)
-               ;("M-n" . tl/better-next-buffer)
+               ("<backspace>" . backward-delete-char)
+               ("M-p" . tl/better-previous-buffer)
+               ("M-n" . tl/better-next-buffer))
                ;("C-k" . comint-previous-input)
                ;("C-j" . comint-next-input)
                ;("C-." . agent-shell-next-item)
@@ -4160,7 +4169,8 @@ package's wholesale keymap regeneration can't wipe them."
   (define-key god-local-mode-map (kbd "|") #'anzu-query-replace)       ;; TODO - try: anzu-query-replace-at-cursor-thing, anzu-replace-at-cursor-thing, anzu-query-replace-at-cursor
 
   ;; Search
-  (define-key god-local-mode-map (kbd "/") #'isearch-forward)
+  ;(define-key god-local-mode-map (kbd "/") #'isearch-forward)
+  (define-key god-local-mode-map (kbd "/") #'consult-line)
 
   ;; Misc
   (define-key god-local-mode-map (kbd "r") #'undo-tree-undo)
