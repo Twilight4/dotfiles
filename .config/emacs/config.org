@@ -2816,10 +2816,15 @@ This is useful when followed by an immediate kill."
 
   (defun tl/treemacs--set-workspace-projects (workspace projects)
     "Set WORKSPACE's Treemacs project list to PROJECTS.
-Use `cl-struct-slot-value' instead of `(setf (treemacs-workspace->projects ...))'
-because this block is macroexpanded before Treemacs registers the struct setter."
-    (setf (cl-struct-slot-value 'treemacs-workspace 'projects workspace)
-          projects))
+Set the struct slot by offset at runtime.  This defun is macroexpanded
+before Treemacs registers its types, so a `setf' of `cl-struct-slot-value'
+\(or the `treemacs-workspace->projects' setter) errors at load time on an
+unknown `treemacs-workspace' type; resolving the slot offset at call time
+sidesteps that load-time type check."
+    (let ((idx (cl-struct-slot-offset 'treemacs-workspace 'projects)))
+      (if (eq (cl-struct-sequence-type 'treemacs-workspace) 'list)
+          (setcar (nthcdr idx workspace) projects)
+        (aset workspace idx projects))))
 
   (defun tl/zoxide--db-file ()
     "Return the zoxide database path without invoking zoxide."
