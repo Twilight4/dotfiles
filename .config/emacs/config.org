@@ -3255,7 +3255,8 @@ window-selection commands."
   ;; Misc
   (define-key dired-mode-map (kbd "SPC") 'dired-mark)
   (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
-  ;; `e' prefix — dired edit/view actions (e was an unused key; no command sacrificed)
+  (define-key dired-mode-map (kbd "t") 'tl/dired-ghostel-here) ; yazi-style: drop into a terminal here
+  ;; `e' prefix — dired edit/view actions (e was an unused key)
   (define-key dired-mode-map (kbd "e") (make-sparse-keymap))
   (define-key dired-mode-map (kbd "e w") 'wdired-change-to-wdired-mode)
   (define-key dired-mode-map (kbd "e p") 'peep-dired)
@@ -4123,6 +4124,24 @@ package's wholesale keymap regeneration can't wipe them."
   (interactive)
   (tl/split-window-right)
   (call-interactively #'dired-jump))
+
+(defun tl/dired-ghostel-here ()
+  "Replace the dired buffer with a Ghostel terminal in its directory.
+Mirrors yazi's 'q': leave the file manager and drop into a shell at
+the current directory, in the same window.  The terminal buffer is
+named `ghostel-<dir>' (e.g. `ghostel-~/documents/org'); an existing
+terminal for that directory is reused instead of spawning a new one."
+  (interactive)
+  (unless (derived-mode-p 'dired-mode)
+    (user-error "Not in a dired buffer"))
+  (let* ((dir (dired-current-directory))
+         (name (concat "ghostel-" (abbreviate-file-name (directory-file-name dir))))
+         (dired-buf (current-buffer)))
+    (if (get-buffer name)
+        (switch-to-buffer name)
+      (let ((default-directory dir))
+        (tl/ghostel-new-named name)))
+    (kill-buffer dired-buf)))
 
 ;; replace original keybindings with these and comment out these kitty.conf keybindings
 ;(global-set-key (kbd "M-n") 'tl/ghostel-new)
