@@ -355,13 +355,15 @@ Sources: `tl/kitty-theme-file' (pywal) — active/inactive tab fg+bg, cursor."
 (use-package tabspaces
   :ensure t
   :demand t
-  :hook (after-init . tabspaces-mode)
   :config
   (setq tabspaces-use-filtered-buffers nil
         tabspaces-session-auto-restore t
         tabspaces-session-file
         (expand-file-name "tabspaces-session" user-emacs-directory))
-  (add-hook 'kill-emacs-hook #'tabspaces-save-session))
+  (add-hook 'kill-emacs-hook #'tabspaces-save-session)
+  ;; Enable here (not `:hook after-init'): elpaca loads tabspaces async, so the
+  ;; after-init hook can register too late and leave the mode off.
+  (tabspaces-mode 1))
 
 ;; Tab navigation
 (global-set-key (kbd "M-f")     'tab-bar-switch-to-next-tab)
