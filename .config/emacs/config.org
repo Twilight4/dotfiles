@@ -4605,8 +4605,9 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (let ((text-to-copy (buffer-substring-no-properties
                        (point)                      ; Start from the current point
                        (point-max))))               ; End at the end of the file
-    (when (zerop (call-process "wl-copy" nil nil nil text-to-copy))
-      (message "Text copied to clipboard."))))
+    (kill-new text-to-copy)
+    (tl/wl-copy text-to-copy)
+    (message "Copied to end of file.")))
 
 (defun tl/copy-to-beginning-of-file ()
   "Copy the text from the current point to the end of the file to the clipboard."
@@ -4614,8 +4615,9 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (let ((text-to-copy (buffer-substring-no-properties
                        (point)                      ; Start from the current point
                        (point-min))))               ; End at the end of the file
-    (when (zerop (call-process "wl-copy" nil nil nil text-to-copy))
-      (message "Text copied to clipboard."))))
+    (kill-new text-to-copy)
+    (tl/wl-copy text-to-copy)
+    (message "Copied to beginning of file.")))
 
 (defun tl/delete-to-end-of-file ()
   "Delete text from the current position to the end of the file."
@@ -4633,8 +4635,9 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (let ((text-to-copy (buffer-substring-no-properties
                        (point)                      ; Start from the current point
                        (line-end-position))))       ; End at the end of the line
-    (when (zerop (call-process "wl-copy" nil nil nil text-to-copy))
-      (message "Text copied to clipboard."))))
+    (kill-new text-to-copy)
+    (tl/wl-copy text-to-copy)
+    (message "Copied to end of line.")))
 
 (defun tl/copy-line-backward ()
   "Copy the text from the current point to the beginning of the line to the clipboard."
@@ -4642,8 +4645,9 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (let ((text-to-copy (buffer-substring-no-properties
                        (line-beginning-position)  ; Start from the beginning of the line
                        (point))))                 ; End at the current point
-    (when (zerop (call-process "wl-copy" nil nil nil text-to-copy))
-      (message "Text copied to clipboard."))))
+    (kill-new text-to-copy)
+    (tl/wl-copy text-to-copy)
+    (message "Copied to beginning of line.")))
 
 (defun tl/kill-line-forward-to-clipboard ()
   "Kill the text from the current point to the end of the line and copy it to the clipboard."
@@ -4676,9 +4680,8 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (let ((line (buffer-substring-no-properties
                (line-beginning-position)
                (line-end-position))))
-    (with-temp-buffer
-      (insert line)
-      (call-process-region (point-min) (point-max) "wl-copy"))
+    (kill-new line)
+    (tl/wl-copy line)
     (message "Copied line to clipboard.")))
 
 ;; Similar to org-table-copy-down but for normal emacs buffers
