@@ -1004,10 +1004,6 @@ owning tab and raises the window displaying the chosen buffer."
     "C-d C-d" '(delete-this-file :wk "Delete file")
     "C-d C-r" '(rename-this-file-and-buffer :wk "Rename file")
     "C-d C-b" '(rename-buffer :wk "Rename buffer")
-    ;"C-d C-f" '(wdired-finish-edit :wk "Writable dired finish edit")
-    ;"C-d C-w" '(wdired-change-to-wdired-mode :wk "Writable dired")
-    ;"C-d C-p" '(peep-dired :wk "Peep-dired")
-    ;"C-d C-h" '(dired-hide-details-mode :wk "Toggle file details")
     ;; Bookmarks
     "C-d C-e" '((lambda () (interactive) (dired "~/.config/emacs/")) :wk "Open user-emacs-directory in dired")
     "C-d C-o" '((lambda () (interactive) (dired "~/downloads/")) :wk "Open downloads directory in dired")
@@ -1017,7 +1013,9 @@ owning tab and raises the window displaying the chosen buffer."
     "C-d C-c" '((lambda () (interactive) (dired "~/.config")) :wk "Open .config directory in dired")
     "C-d C-i" '((lambda () (interactive) (dired "~/documents")) :wk "Open documents directory in dired")
     "C-d C-m" '((lambda () (interactive) (dired "~/music")) :wk "Open music directory in dired")
-    "C-d C-v" '((lambda () (interactive) (dired "~/videos")) :wk "Open videos directory in dired"))
+    "C-d C-v" '((lambda () (interactive) (dired "~/videos")) :wk "Open videos directory in dired")
+    "C-d C-h" '((lambda () (interactive) (dired "~")) :wk "Open home directory in dired")
+    "C-d C-R" '((lambda () (interactive) (dired "~/documents/org/roam")) :wk "Open org-roam directory in dired"))
 
   (tl/leader-keys
     "w"   '(:ignore t :wk "Workspaces")
@@ -3254,6 +3252,12 @@ window-selection commands."
   ;; Misc
   (define-key dired-mode-map (kbd "SPC") 'dired-mark)
   (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
+  ;; `d' prefix — dired actions (d becomes a prefix; flag-deletion moves to d d)
+  (define-key dired-mode-map (kbd "d") (make-sparse-keymap))
+  (define-key dired-mode-map (kbd "d d") 'dired-flag-file-deletion)
+  (define-key dired-mode-map (kbd "d w") 'wdired-change-to-wdired-mode)
+  (define-key dired-mode-map (kbd "d p") 'peep-dired)
+  (define-key dired-mode-map (kbd "d h") 'dired-hide-details-mode)
   ;; Other
   ;(define-key dired-mode-map (kbd "l") 'dired-single-buffer)
   ;(define-key dired-mode-map (kbd "h") 'dired-single-up-directory)
@@ -3322,18 +3326,6 @@ window-selection commands."
   (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
 
-;(defun tl/dired-link (path)
-;  (let ((target path))
-;    (lambda () (interactive) (message "Path: %s" target) (dired path))))
-
-;  (tl/leader-keys
-;    ;; Dired bookmarks
-;    "d H"  `(,(tl/dired-link "~") :wk "Home")
-;    "d R"  `(,(tl/dired-link "~/documents/org/roam") :wk "Org Roam")
-;    "d D"  `(,(tl/dired-link "~/downloads") :wk "Downloads")
-;    "d P"  `(,(tl/dired-link "~/pictures") :wk "Pictures")
-;    "d V"  `(,(tl/dired-link "~/videos") :wk "Videos")
-;    "d C"  `(,(tl/dired-link "~/.config") :wk ".config"))
 #+end_src
 
 ** GPTel
@@ -4043,7 +4035,11 @@ package's wholesale keymap regeneration can't wipe them."
     (define-key ghostel-semi-char-mode-map (kbd "C-s") #'consult-line)
     (define-key ghostel-semi-char-mode-map (kbd "M-`") #'ghostel-clear-scrollback)
     (define-key ghostel-semi-char-mode-map (kbd "M-;") #'tl/split-window-right)
-    (define-key ghostel-semi-char-mode-map (kbd "M-/") #'tl/split-window-below)
+    (define-key ghostel-semi-char-mode-map (kbd "M-S-;") #'tl/consult-ghostel-right)
+    (define-key ghostel-semi-char-mode-map (kbd "M-S-/") #'tl/consult-ghostel-below)
+    (define-key ghostel-semi-char-mode-map (kbd "C-M-;") #'tl/dired-jump-right)
+    (define-key ghostel-semi-char-mode-map (kbd "C-M-/") #'tl/split-window-below)
+    (define-key ghostel-semi-char-mode-map (kbd "M-/") #'tl/dired-jump-below)
     (define-key ghostel-semi-char-mode-map (kbd "M-=") #'enlarge-window)
     (define-key ghostel-semi-char-mode-map (kbd "M--") #'shrink-window)
     (define-key ghostel-semi-char-mode-map (kbd "M-_") #'enlarge-window-horizontally)
