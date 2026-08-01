@@ -1216,6 +1216,7 @@ owning tab and raises the window displaying the chosen buffer."
 (setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
  truncate-string-elipsis "…"                      ; Unicode ellispis are nicer than "...", and also save /precious/ space
  display-time-default-load-average nil            ; I don't think I've ever found this useful
+ display-time-load-average nil                   ; runtime gate: display-time-mode sets this to 0 at enable, so nil it to actually hide the load number
  use-dialog-box nil                               ; This setting disables the display of dialog boxes, such as confirmation or warning pop-ups
  use-file-dialog nil                              ; This setting disables the use of file selection dialogs, instead emacs will rely on command-line or programmatic methods for file operations
  display-line-numbers-type 'relative              ; Relative line numbers are fantastic for knowing how far away line numbers are, then 12 <UP> gets you exactly where you think
@@ -1414,7 +1415,9 @@ The two modes are mutually exclusive; only one is active at a time."
   (setq doom-modeline-height 15      ;; Sets modeline height
         doom-modeline-bar-width 5    ;; Sets right bar width
         doom-modeline-persp-name t   ;; Adds perspective name to modeline
-        doom-modeline-persp-icon t)) ;; Adds folder icon next to persp name
+        doom-modeline-persp-icon t   ;; Adds folder icon next to persp name
+        doom-modeline-time-clock-size 1.0)  ;; Analog clock radius = height*0.5*1.0 (~7.5px); default 0.7 was tiny
+  (set-face-foreground 'doom-modeline-time "#39bae6")) ;; Colour the clock + time text (was muted modeline gray)
 
 ;; Changing font size for doom modeline (default 1.0)
 ;(custom-set-faces
