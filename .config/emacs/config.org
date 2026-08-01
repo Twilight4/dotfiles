@@ -98,6 +98,7 @@
   - [[#editing-features-for-org][Editing features for org]]
   - [[#org-configuration][Org configuration]]
   - [[#exporting][Exporting]]
+- [[#performance-optimizations][Performance Optimizations]]
 
 * Elpaca
 #+begin_src emacs-lisp
@@ -269,7 +270,7 @@ Mirrors `text-scale-increase' (C-=) under the transparency prefix."
 #+end_src
 
 ** Tab bar & workspaces
-=tab-bar= — one tab per workspace/context, the kitty-tab analogue — plus =tabspaces= for buffer isolation and session save/restore across restarts. Named workspaces are built from recipes via =tl/open-workspace= (bound under =C-x w=), mirroring the kitty =session-agenda= / =session-work= sessions, which already drove these same =tl/= openers through =emacsclient -nw=.
+=tab-bar= — one tab per workspace/context, plus =tabspaces= for buffer isolation and session save/restore across restarts. Named workspaces are built from recipes via =tl/open-workspace= (bound under =C-x w=).
 
 #+begin_src emacs-lisp
 ;; Native tab bar = workspace tabs. `tab-bar-show' hides the bar until a
@@ -365,7 +366,8 @@ Sources: `tl/kitty-theme-file' (pywal) — active/inactive tab fg+bg, cursor."
 ;; Tab navigation
 (global-set-key (kbd "M-f")     'tab-bar-switch-to-next-tab)
 (global-set-key (kbd "M-b")     'tab-bar-switch-to-prev-tab)
-(global-set-key (kbd "C-<tab>") 'tab-bar-switch-to-tab)
+;(global-set-key (kbd "C-<tab>") 'tab-bar-switch-to-tab)
+(global-set-key (kbd "C-<tab>") 'tl/switch-through-visible-tab-buffer)
 (global-set-key (kbd "M-o")     'tab-bar-new-tab)
 (global-set-key (kbd "M-O")     'tab-bar-rename-tab)
 (global-set-key (kbd "C->")     (lambda () (interactive) (tab-bar-move-tab  1)))
@@ -419,6 +421,81 @@ workspace. Switches to the workspace's first tab when done."
       (let ((first (car (mapcar #'car recipe))))
         (when-let ((idx (tl/--tab-index first)))
           (tab-bar-select-tab idx))))))
+
+;; --- Cycle focus across buffers visible in EVERY tab (consult) ---------
+;; Each tab carries a frozen `ws' (window-state) snapshot; only the live tab
+;; has real windows, so other tabs' buffers are recovered by walking `ws' for
+;; every `(buffer . NAME)' leaf (stable regardless of how internal windows
+;; encode children/siblings across Emacs builds). `consult' lists them with
+;; live preview + a tab annotation; choosing one switches to its tab and
+;; raises the window that displays it. Bound to `C-x w b'.
+(defun tl/window-state-buffers (ws)
+  "Return buffer names displayed in window-state WS."
+  (let (names)
+    (cl-labels ((walk (x)
+                  (cond
+                   ((and (consp x) (eq (car x) 'buffer))
+                    (let ((nm (or (and (stringp (cdr x)) (cdr x))   ; (buffer . "n") dotted
+                                  (and (stringp (cadr x)) (cadr x))))) ; (buffer "n" ...) list form
+                      (when nm (push nm names))))
+                   ((consp x) (walk (car x)) (walk (cdr x))))))
+      (walk ws))
+    (delete-dups (nreverse names))))
+
+(defun tl/switch-through-visible-tab-buffer ()
+  "Jump with `consult' to a buffer visible in any `tab-bar' tab.
+Cycle candidates with `C-n'/`C-p'/<up>/<down>; `RET' switches to the
+owning tab and raises the window displaying the chosen buffer."
+  (interactive)
+  (unless (bound-and-true-p tab-bar-mode)
+    (user-error "Enable `tab-bar-mode' first (M-x tab-bar-mode)"))
+  (let* ((tabs (tab-bar-tabs))
+         (table (make-hash-table :test 'equal)) ; buf -> tab-names
+         (order nil))                          ; first-seen buf order
+    (dolist (tab tabs)
+      (let* ((tname (alist-get 'name tab))
+             ;; The current tab keeps its live state in the frame, not a `ws'
+             ;; snapshot (a snapshot is captured only when you LEAVE a tab), so
+             ;; snapshot the live frame; other tabs use their stored `ws'.
+             (ws (or (alist-get 'ws tab)
+                     (when (eq (car tab) 'current-tab)
+                       (window-state-get nil t)))))
+        (dolist (b (tl/window-state-buffers ws))
+          (when (get-buffer b)
+            (unless (gethash b table) (push b order))
+            (cl-pushnew tname (gethash b table) :test #'equal)))))
+    (setq order (nreverse order))
+    (if (null order)
+        (user-error "No visible buffers in any tab")
+      (let* ((orig-win (selected-window))
+             (orig-buf (window-buffer orig-win))
+             (choice
+              (consult--read
+               order
+               :prompt "Visible buffer (all tabs): "
+               :category 'buffer
+               :require-match t
+               :annotate (lambda (cand)
+                           (if-let ((ts (gethash cand table)))
+                               (format " [%s]" (mapconcat #'identity ts ", "))
+                             ""))
+               :state (consult--buffer-state))))
+        ;; consult previews/returns by switching the ORIGINATING window to
+        ;; `choice' (`consult--buffer-action' = switch-to-buffer); undo that so
+        ;; the window we ran from is left untouched — we jump to the buffer's
+        ;; own tab/window instead. norecord avoids disturbing the buffer list
+        ;; (consult restores it on `return'). Do this BEFORE the tab switch,
+        ;; while orig-win is still a live window.
+        (unless (eq (window-buffer orig-win) orig-buf)
+          (with-selected-window orig-win
+            (switch-to-buffer orig-buf t)))
+        (let* ((tab-name (car (gethash choice table)))
+               (idx (cl-position tab-name tabs :test #'equal
+                                 :key (lambda (t) (alist-get 'name t)))))
+          (when idx (tab-bar-select-tab (1+ idx)))
+          (if-let ((win (get-buffer-window choice (selected-frame))))
+              (select-window win)
+            (switch-to-buffer choice)))))))
 #+end_src
 
 * Keybindings
@@ -550,6 +627,8 @@ workspace. Switches to the workspace's first tab when done."
 (global-set-key (kbd "M-S-<backspace>") 'erase-buffer)
 ;(global-set-key (kbd "C-q") 'yaml-indent-line)
 (global-set-key (kbd "C-k") 'previous-line)
+(global-set-key (kbd "M-m") 'tab-bar-history-back)
+(global-set-key (kbd "M-M") 'tab-bar-history-forward)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'tl/backward-char-skip-invisible)
 (global-set-key (kbd "C-l") 'tl/forward-char-skip-invisible)
@@ -947,6 +1026,7 @@ workspace. Switches to the workspace's first tab when done."
     "w n" '(tab-bar-new-tab :wk "New tab")
     "w d" '(tab-bar-close-tab :wk "Close tab")
     "w r" '(tab-bar-rename-tab :wk "Rename tab")
+    "w b" '(tl/switch-through-visible-tab-buffer :wk "Buffer (all tabs)")
     "w s" '(tab-bar-switch-to-tab :wk "Switch to tab")
     "w s" '(desktop-read :wk "Restore last desktop-mode session buffers")
     "w s" '(desktop-change-dir :wk "Desktop mode change directory")
@@ -1148,13 +1228,9 @@ workspace. Switches to the workspace's first tab when done."
 ;; Set src block automatic indent to 0 instead of 2
 (setq org-edit-src-content-indentation 0)
 
-;; GC: 50 MB threshold during init for startup speed, then drop to 8 MB.
-;; A high runtime threshold lets the malloc arena balloon — glibc never
-;; returns freed bytes to the OS, so RSS ratchets up with every GC cycle.
-;; 8 MB keeps the arena small; `gc-cons-percentage' (0.1) still bounds peak.
-(setq gc-cons-threshold (* 50 1000 1000))
-(add-hook 'emacs-startup-hook
-          (lambda () (setq gc-cons-threshold (* 8 1000 1000))))
+;; GC tuning now lives in =early-init.el= — it must run *before* this file is
+;; tangled by `org-babel-load-file', or the expensive tangle phase isn't covered.
+;; See [[#performance-optimizations][Performance Optimizations]].
 
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -2242,6 +2318,24 @@ Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland
     (let ((desktop-save t))          ; save unconditionally, no prompt
       (desktop-save desktop-dirname))))
 (add-hook 'kill-emacs-hook #'tl/desktop-save-on-kill)
+;; Restore on FIRST client frame (daemon), not at after-init. The daemonp
+;; guard above disables after-init `desktop-read' (it crashes the frameless
+;; daemon's `server-start'); this takes over once a real display exists, so
+;; `desktop-read' is safe and gets a frame to lay buffers/windows into.
+;; Restores: file buffers (with point/mark, in list order) + the saved
+;; frameset (window splits, tab-bar tabs, frame set). Runs once per daemon
+;; life; a TTY first-frame defers to a later GUI frame (`display-graphic-p').
+(defvar tl/desktop-restored nil
+  "Non-nil once `desktop-read' has restored the session into the daemon.")
+(defun tl/desktop-restore-on-first-frame ()
+  "Restore the saved desktop the first time a GUI client frame is created."
+  (unless tl/desktop-restored
+    (when (and desktop-save-mode (display-graphic-p))
+      (let ((file (expand-file-name desktop-base-file-name (car desktop-path))))
+        (when (file-exists-p file)
+          (setq tl/desktop-restored t)
+          (desktop-read (car desktop-path)))))))
+(add-hook 'server-after-make-frame-hook #'tl/desktop-restore-on-first-frame)
 #+end_src
 
 ** Rainbow-mode
@@ -3995,6 +4089,24 @@ package's wholesale keymap regeneration can't wipe them."
                                    (provided-mode-derived-p
                                     (buffer-local-value 'major-mode buf)
                                     'ghostel-mode)))))))))
+
+(defun tl/consult-ghostel-below ()
+  "Split the window below, then select an existing Ghostel buffer."
+  (interactive)
+  (tl/split-window-below)
+  (call-interactively #'tl/consult-ghostel))
+
+(defun tl/consult-ghostel-right ()
+  "Split the window to the right, then select an existing Ghostel buffer."
+  (interactive)
+  (tl/split-window-right)
+  (call-interactively #'tl/consult-ghostel))
+
+(defun tl/ghostel-new-below ()
+  "Split the window below and open a new Ghostel terminal."
+  (interactive)
+  (tl/split-window-below)
+  (tl/ghostel-new-named (generate-new-buffer-name "ghostel")))
 
 ;; replace original keybindings with these and comment out these kitty.conf keybindings
 ;(global-set-key (kbd "M-n") 'tl/ghostel-new)
@@ -6048,4 +6160,49 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
                  (cdr unicode) latex))))
 
        (advice-add 'org-ascii-latex-fragment :override #'tl/org-ascii-latex-fragment-unicode))))
+#+end_src
+
+* Performance Optimizations
+:PROPERTIES:
+:CUSTOM_ID: performance-optimizations
+:END:
+
+Runtime tuning for this Emacs 30 native-comp build. The startup-critical opts
+(GC deferral, =file-name-handler-alist= blanking, frame-inhibit, auto-mode
+case-fold) live in =early-init.el= — they only work there, because this file is
+*tangled then loaded* by =init.el= *after* =early-init.el= has already run.
+
+The settings below tune *steady-state* behavior: they take effect once packages
+are loaded and are safe to re-evaluate at any time (verified live in the daemon).
+
+#+begin_src emacs-lisp
+;; --- Read subprocess output in 1 MB chunks --------------------------------
+;; Emacs 30's default is 64 KB (older Emacsen shipped 4 KB). 1 MB cuts the
+;; number of `read()' syscalls fired by process filters — helps `consult-ripgrep',
+;; magit's git subprocess, compilation/shell buffers, and any future LSP.
+;; Cheap and safe: a filter that reads less simply returns a shorter chunk.
+(setq read-process-output-max (* 1024 1024))   ; 1 MB
+
+;; --- Defer native-comp signature computation ------------------------------
+;; This build reports `(native-comp-available-p)' => t. Deferring sign
+;; compilation avoids blocking the async (.eln) compiler on certificate checks
+;; and lets background compilation of installed packages proceed faster.
+(setq comp-defer-sign-compilation t)
+
+;; --- Survive minified / very-long-line files ------------------------------
+;; `global-so-long-mode' (built in since Emacs 27) detects buffers whose lines
+;; are too long for Emacs to handle briskly and mitigates them locally (disables
+;; font-lock, line numbers, etc.). Without it, opening a multi-MB minified
+;; JS/JSON/CSV can pin a core and freeze the frame for minutes.
+(when (fboundp 'global-so-long-mode)
+  (global-so-long-mode 1))
+
+;; --- Defer font-lock in large buffers -------------------------------------
+;; `locally-defer-font-lock' (defined under [[#org-mode][Org Mode]]) switches
+;; jit-lock to deferred + stealth mode once a buffer exceeds 50 KB, so editing
+;; big files stops feeling like "typing through molasses". Small buffers keep
+;; instant font-lock (its `when' guard is a no-op below the threshold).
+;; Activated here for *every* file / major-mode, not just org.
+(add-hook 'find-file-hook #'locally-defer-font-lock)
+(add-hook 'after-change-major-mode-hook #'locally-defer-font-lock)
 #+end_src
