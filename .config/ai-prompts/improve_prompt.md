@@ -512,6 +512,8 @@ END PROMPT WRITING KNOWLEDGE
 
 1. Output the prompt in clean, human-readable Markdown format.
 2. Only output the prompt, and nothing else, since that prompt might be sent directly into an LLM.
+3. Do NOT wrap the output in a code block. No triple-backtick fences (no ```markdown or any other language tag) — emit the prompt as plain Markdown text.
+4. Do NOT include placeholders or instructions that ask the reader to manually insert code, data, or files inline (e.g. "insert your code here" sections or `; Insert the user's code` markers). The improved prompt must assume the target LLM/agent already operates in-context with direct read/write access to the relevant files and code. So it must NEVER, in either direction, ask for copy-paste: no input placeholders for the user to paste code in, AND no output instruction to produce "complete, copy-pasteable" code blocks as a deliverable. Instead, the improved prompt directs the agent to edit the files directly in place and report what it changed. Do not request "provide the complete code", "output the corrected block ready to be evaluated", or any equivalent — the agent applies edits itself.
 
 # INPUT
 
