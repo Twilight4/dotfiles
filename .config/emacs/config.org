@@ -1798,7 +1798,7 @@ The =kill-this-buffer= command wasn't working.
 
 #+begin_src emacs-lisp
 (defun tl/copy-current-word ()
-  "Copy the current word including special characters to the kill-ring and display it."
+  "Copy the current word including special characters to the kill-ring and system clipboard, and display it."
   (interactive)
   (let* ((bounds (bounds-of-thing-at-point 'symbol))
          (word (if bounds
@@ -1807,6 +1807,7 @@ The =kill-this-buffer= command wasn't working.
     (if word
         (progn
           (kill-new word)
+          (tl/wl-copy word)
           (message "Copied: %s" word))
       (message "No word at point"))))
 #+end_src
