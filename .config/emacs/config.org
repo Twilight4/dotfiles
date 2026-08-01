@@ -36,6 +36,7 @@
   - [[#nicer-org-return][Nicer org-return]]
   - [[#clean-empty-lines][Clean Empty Lines]]
   - [[#split-and-switch-to-window][Split and switch to window]]
+  - [[#diff-configorg-with-dotfiles-configorg][Diff config.org with dotfiles config.org]]
   - [[#remove-inline---comments-from-region][Remove inline “# …” comments from region]]
   - [[#expand-region][Expand-region]]
   - [[#kill-current-buffer][Kill current buffer]]
@@ -274,6 +275,10 @@ Mirrors `text-scale-increase' (C-=) under the transparency prefix."
 #+begin_src emacs-lisp
 ;; Native tab bar = workspace tabs. `tab-bar-show' hides the bar until a
 ;; second tab exists.
+;; M-N selects tab N (M-9 = last, M-0 = most-recent). Must precede
+;; `tab-bar-mode': enabling it calls `tab-bar--define-keys', which reads this
+;; and binds M-digits in `tab-bar-mode-map' — overriding `digit-argument'.
+(setq tab-bar-select-tab-modifiers '(meta))
 (tab-bar-mode 1)
 (tab-bar-history-mode 1)
 (setq tab-bar-show 1
@@ -543,6 +548,7 @@ workspace. Switches to the workspace's first tab when done."
 (global-set-key (kbd "C-e") 'tl/smart-move-end-of-line)
 (global-set-key (kbd "C-M-h") 'backward-sexp)
 (global-set-key (kbd "C-M-l") 'forward-sexp)
+(global-set-key (kbd "M-S-<backspace>") 'erase-buffer)
 ;(global-set-key (kbd "C-q") 'yaml-indent-line)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "C-j") 'next-line)
@@ -812,7 +818,7 @@ workspace. Switches to the workspace's first tab when done."
     ";" '(tl/split-window-right :wk "Split window right")
     "C-;" '(tl/split-window-right :wk "Split window right"))
     ;"C-c" '(split-window-vertically :wk "Split window vertically")
-    ;"C-c" '(split-window-horizontally :wk "Split window horizontally"))
+    ;"C-c" '(split-window-horizontally :wk "Split window horizontally")
     ;; Unbound
     ;"C-c" '(clone-indirect-buffer :wk "Create indirect buffer copy in a split")
 	;"C-s" '(save-some-buffers :wk "Save multiple buffers")
@@ -869,6 +875,7 @@ workspace. Switches to the workspace's first tab when done."
     "C-e C-o" '(info :wk "Enter info, the documentation browser")
     "C-e e" '(info-emacs-manual :wk "Display emacs manual in info mode")
     "C-e C-q" '(info-display-manual :wk "Display info buffer displaying MANUAL")
+    "C-e d" '(tl/diff-emacs-config :wk "Diff emacs config with dotfiles repo")
     "C-e C-d" '(describe-mode :wk "Display documentation of current modes")
     "C-e C-f" '(describe-function :wk "Describe function")
     "C-e C-k" '(describe-key-briefly :wk "Describe key briefly")
@@ -881,7 +888,7 @@ workspace. Switches to the workspace's first tab when done."
     "C-e C-p" '(org-latex-export-to-pdf :wk "Export as PDF in current working directory")
     "C-e C-t" '(org-babel-tangle :wk "Org babel tangle")
     "C-e C-c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
-    "C-e C-s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org")))
+    "C-e C-s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org"))
     "C-e r" '((lambda () (interactive)
               (load-file "~/.config/emacs/init.el")
               (ignore (elpaca-process-queues)))
@@ -926,14 +933,14 @@ workspace. Switches to the workspace's first tab when done."
     ;"C-d C-h" '(dired-hide-details-mode :wk "Toggle file details")
     ;; Bookmarks
     "C-d C-e" '((lambda () (interactive) (dired "~/.config/emacs/")) :wk "Open user-emacs-directory in dired")
-    "C-d C-o" '((lambda () (interactive) (dired "~/downloads/")) :wk "Open user-emacs-directory in dired")
-    "C-d C-p" '((lambda () (interactive) (dired "~/pictures/")) :wk "Open user-emacs-directory in dired")
-    "C-d C-s" '((lambda () (interactive) (dired "~/pictures/screenshots")) :wk "Open user-emacs-directory in dired")
-    "C-d C-w" '((lambda () (interactive) (dired "~/desktop/workspace")) :wk "Open user-emacs-directory in dired")
-    "C-d C-c" '((lambda () (interactive) (dired "~/.config")) :wk "Open user-emacs-directory in dired")
-    "C-d C-i" '((lambda () (interactive) (dired "~/documents")) :wk "Open user-emacs-directory in dired")
-    "C-d C-m" '((lambda () (interactive) (dired "~/music")) :wk "Open user-emacs-directory in dired")
-    "C-d C-v" '((lambda () (interactive) (dired "~/video")) :wk "Open user-emacs-directory in dired"))
+    "C-d C-o" '((lambda () (interactive) (dired "~/downloads/")) :wk "Open downloads directory in dired")
+    "C-d C-p" '((lambda () (interactive) (dired "~/pictures/")) :wk "Open pictures directory in dired")
+    "C-d C-s" '((lambda () (interactive) (dired "~/pictures/screenshots")) :wk "Open screenshots directory in dired")
+    "C-d C-w" '((lambda () (interactive) (dired "~/desktop/workspace")) :wk "Open workspace directory in dired")
+    "C-d C-c" '((lambda () (interactive) (dired "~/.config")) :wk "Open .config directory in dired")
+    "C-d C-i" '((lambda () (interactive) (dired "~/documents")) :wk "Open documents directory in dired")
+    "C-d C-m" '((lambda () (interactive) (dired "~/music")) :wk "Open music directory in dired")
+    "C-d C-v" '((lambda () (interactive) (dired "~/videos")) :wk "Open videos directory in dired"))
 
   (tl/leader-keys
     "w"   '(:ignore t :wk "Workspaces")
@@ -1762,6 +1769,14 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
   (other-window 1))
 #+end_src
 
+** Diff config.org with dotfiles config.org
+#+begin_src emacs-lisp
+(defun tl/diff-emacs-config ()
+  (interactive)
+  (diff "/home/twilight/.config/emacs/config.org"
+        "/home/twilight/desktop/workspace/dotfiles/.config/emacs/config.org"))
+#+end_src
+
 ** Remove inline “# …” comments from region
 #+begin_src emacs-lisp
 (defun tl/strip-comments-in-region (start end)
@@ -2204,6 +2219,16 @@ Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland
 ;; then you restore the last clean snapshot; `super-save' keeps file contents
 ;; safe either way, so only the window LAYOUT is at risk.
 (desktop-save-mode 1)
+;; `desktop.el' installs an anonymous `after-init-hook' lambda that calls
+;; `desktop-read' whenever `desktop-save-mode' is non-nil.  In a frameless
+;; daemon that buffer/frame restore aborts startup before `server-start'
+;; ("Error: server did not start correctly"), so neutralize the auto-restore
+;; in daemon mode only: clear the mode var BEFORE desktop's lambda runs
+;; (prepend) so it skips the read, then re-enable it AFTER (append) so the
+;; save side keeps working.  Plain GUI startup is unchanged.
+(when (daemonp)
+  (add-hook 'after-init-hook (lambda () (setq desktop-save-mode nil)) nil)
+  (add-hook 'after-init-hook (lambda () (desktop-save-mode 1)) t))
 (setq desktop-save t                        ; save on exit without prompting
       desktop-auto-save-timeout nil         ; disable the idle autosave timer
       desktop-restore-frames t
@@ -3155,7 +3180,6 @@ window-selection commands."
   ;; Misc
   (define-key dired-mode-map (kbd "SPC") 'dired-mark)
   (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
-  (define-key dired-mode-map (kbd "(") nil)
   ;; Other
   ;(define-key dired-mode-map (kbd "l") 'dired-single-buffer)
   ;(define-key dired-mode-map (kbd "h") 'dired-single-up-directory)
@@ -3165,6 +3189,7 @@ window-selection commands."
   ;; `peep-dired' use-package :config (the minor-mode map overrides these
   ;; next/previous-line bindings only while peeping).
   ;; Unbinding the keybinds I don't use
+  (define-key dired-mode-map (kbd "(") nil)
   (define-key dired-mode-map (kbd "o") 'nil)
   (define-key dired-mode-map (kbd "a") 'nil)
   (define-key dired-mode-map (kbd "c") 'nil)
@@ -3268,14 +3293,12 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
         gptel-backend (gptel-make-gemini "Gemini"
 						:stream t
 						:key #'gptel-api-key-from-auth-source
-						:models '(gemini-3.5-flash-lite
-						          gemini-3.6-flash
+						:models '(gemini-3.6-flash
+						          gemini-3.5-flash-lite
                                   gemini-3.1-pro-preview)))
 
-  ;; GPTel directives - more prompts
+  ;; GPTel directives
   ;; https://github.com/f/awesome-chatgpt-prompts
-  ;; https://github.com/danielmiessler/fabric/tree/main/patterns
-  ;; Check out the find prompt script https://github.com/f/awesome-chatgpt-prompts/blob/main/scripts/find-prompt
   (setq gptel-directives
 		`((default . "To assist:  Be terse.  Do not offer unprompted advice or clarifications. Speak directly and be willing to make creative guesses. Explain your reasoning. Be willing to reference less reputable sources for ideas. Never apologize.  Ask questions when unsure.")
           (prompt_enhancer . "Act as a Prompt Enhancer AI that takes user-input prompts and transforms them into more engaging, detailed, and thought-provoking questions. Provide the enhanced prompt and only prompt as output without any additional text or note.")
@@ -3291,35 +3314,20 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
           ,@(let ((res))
               (pcase-dolist (`(,sym ,filename)
                              '((improve_prompt "improve_prompt.md")
-                               (create_command "create_command.md")
-                               (extract_poc "extract_poc.md")
+                               (extract_writing "extract_writing.md")
                                (extract_wisdom "extract_wisdom.md")
                                (clean_text "clean_text.md")
-                               (analyze_threat_report "analyze_threat_report.md")
-                               (analyze_malware "analyze_malware.md")
-                               (analyze_incident "analyze_incident.md")
                                (create_summary "create_summary.md")
-                               (explain_code "explain_code.md")
-                               (extract_book_recommendations "extract_book_recommendations.md")
-                               (extract_videoid "extract_videoid.md"))
-                             ;; I RAN OUT OF KEY PLACEHOLDERS
-										;(summarize_newsletter "summarize_newsletter.md")
-										;(write_micro_essay "write_micro_essay.md")
-										;(summarize_git_changes "summarize_git_changes.md")
-										;(improve_academic_writing "improve_academic_writing.md")
-										;(rate_content "rate_content.md")
-										;(get_youtube_rss "get_youtube_rss.md"))
-                             res)
+                               (explain_code "explain_code.md")))
                 (when-let* ((big-prompt (locate-user-emacs-file filename))
                             (_ (file-exists-p big-prompt)))
-  				  (push
-  				   `(,sym . ,(with-temp-buffer
-  							   (insert-file-contents big-prompt)
-  							   (goto-char (point-min))
-  							   (when (search-forward-regexp "^#" nil t)
-                                 (goto-char (match-beginning 0)))
-  							   (buffer-substring-no-properties (point) (point-max))))
-  				   res)))
+                  (push `(,sym . ,(with-temp-buffer
+                                    (insert-file-contents big-prompt)
+                                    (goto-char (point-min))
+                                    (when (search-forward-regexp "^#" nil t)
+                                      (goto-char (match-beginning 0)))
+                                    (buffer-substring-no-properties (point) (point-max))))
+                        res)))
               res)))
   (setq-default gptel--system-message (alist-get 'default gptel-directives))
 
@@ -3537,26 +3545,6 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
                ("<backspace>" . backward-delete-char)
                ("M-p" . tl/better-previous-buffer)
                ("M-n" . tl/better-next-buffer))
-               ;("C-k" . comint-previous-input)
-               ;("C-j" . comint-next-input)
-               ;("C-." . agent-shell-next-item)
-               ;("C-," . agent-shell-previous-item)
-               ;("C-c C-f" . agent-shell-fork)
-               ;("C-c C-s" . agent-recall-consult-search)
-               ;("C-c C-b" . agent-recall-browse)
-               ;("C-c C-r" . agent-recall-resume)
-               ;("C-c C-w" . tl/agent-shell-copy-session-id)
-               ;("C-c r" . agent-shell-resume-session)
-               ;("C-c C-e" . agent-shell-restart)
-               ;("C-c C-h" . comint-show-maximum-output)
-               ;("C-c h" . comint-show-output)
-               ;("C-c C-v" . agent-shell-set-session-config-option)
-               ;("C-c v" . agent-shell-set-session-model)
-               ;("C-c s" . shell-maker-save-output)
-               ;("C-c C-q" . agent-shell-queue-request)
-               ;("C-c C-g" . comint-clear-buffer)
-               ;("C-c C-a" . tl/agent-shell-toggle-auto-accept)
-               ;("C-c C-l" . shell-maker-narrow-to-prompt))
    :config
    (setq agent-shell-openai-authentication
      (agent-shell-openai-make-authentication :login t))
@@ -3755,6 +3743,7 @@ outside a project-local `.omp/'."
   (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-a") #'tl/agent-shell-toggle-auto-accept)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-a") #'tl/agent-shell-toggle-auto-accept)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-l") #'agent-shell-viewport-view-last)
+  (define-key agent-shell-viewport-view-mode-map (kbd "/") #'consult-line)
   (define-key agent-shell-viewport-view-mode-map (kbd "l") #'agent-shell-viewport-view-last)
   ;; Vie/Edit mode-specific bindings
   (define-key agent-shell-viewport-view-mode-map (kbd "j") #'agent-shell-viewport-next-item)
@@ -5017,11 +5006,12 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
      ("@Research" . ?r)
      ("@Habit" . ?h)
      ("@Effort" . ?e)
+     ("@Upwork_Project" . ?u)
      ("@Project1" . ?1)
      ("@Project2" . ?2)
      ("@Project3" . ?3)
      ("@Watch" . ?W)
-     ("@Purchase" . ?u)
+     ("@Purchase" . ?U)
      ("@Read" . ?R)
      ("@Trivial" . ?t)
      ("@Calendar" . ?c)
@@ -5204,9 +5194,12 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                            :priority "A"
 						   :face (:foreground "#f38ba8" :weight bold)
                            :order 4)
-                          (:name "  Career-related"
-                           :tag "@Work"
+                          (:name " Upwork Project"
+                           :tag "@Upwork_Project"
                            :order 5)
+                          (:name " Career-related"
+                           :tag "@Work"
+                           :order 6)
                           (:name " Project 1"
                            :tag "@Project1"
                            :order 7)
@@ -5216,9 +5209,6 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name " Project 3"
                            :tag "@Project3"
                            :order 9)
-                          (:name " Assignments"
-                           :tag "@Assignment"
-                           :order 8)
                           (:name "Issues"
                            :tag "@Issue"
                            :order 9)
@@ -5280,6 +5270,9 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
 
     ("l" "Todo with link" entry (file "~/documents/org/agenda/inbox.org")
          "* TODO %?\n  %U\n  %i\n %a" :empty-lines 1 :kill-buffer t)
+
+    ("u" "Upwork" entry (file "~/documents/org/agenda/inbox.org")
+         "* TODO Build AI automation workflows :@Upwork_Project:\n:PROPERTIES:\n:Client: \n:Budget: \n:Rate: \n:END:\n  %U\n** Build plan\n- Tech stack\n- how it will work, what exactly we're building\n- what database\n- what framework\n- design - how should it look, what should it be like\n- etc\n\n*** First prompt - build plan\n#+begin_comment\nuse plan mode, advisor, prompt enhancer\n#+end_comment\n\nI want to build a %^{Project name}.\n\nbefore we code anything, first, I want to create a build plan\nAsk me some questions about how it should work, in order to clarify the product requirements, technical requirements, engineering principles, and hard constraints\n\nWhat kind of architecture should we use?\nWhat are some considerations we should have to scale?\nsearch around, figure out how we do it, report back with two or three options, don't start the work yet\nand then revise, what are your recommendations of things that I could add or improve here?\n\n*** Create AGENTS.md file\n#+begin_example\nAnalyze our build plan and create an AGENTS.md file following these principles:\n\n1. Keep it under 150 lines total - focus only on universally applicable information\n2. Cover the essentials: WHAT (tech stack, project structure), WHY (purpose), and HOW (build/test commands)\n3. Use Progressive Disclosure: instead of including all instructions, create a brief index pointing to other markdown files in research/ for specialized topics\n4. Include file:line references instead of code snippets\n\nStructure it as: project overview, tech stack, key directories/their purposes, essential build/test commands, and a list of additional documentation files oh-my-pi should check when relevant.\n\nWhen you work on a new feature or bug, create a git branch first. Then work on changes in that branch for the remainder of the session.\n\nAdditionally, extract patterns you observe into separate files:\n- research/architectural_patterns.md - document the architectural patterns, design decisions, and conventions used (e.g., dependency injection, state management, API design patterns). Make sure these are patterns that appear in multiple files.\n\nReference these files in the AGENTS.md's \"Additional Documentation\" section.\n#+end_example\n\n** Implementation plan\n1. files structure\n2. database structure\n3. authentication\n4. etc\n\n** LLM Builds it for you\nplease start with step 1 (from build plan)\nverify each step and build step by step with iterations so I can learn and understand everything end to end\n\n** Test and refine\nreview everything, fix bugs" :empty-lines 1 :kill-buffer t)
 
     ("a" "Appointment" entry (file "~/documents/org/agenda/inbox.org")
          "* %<%I:%M %p> - %a :@Calendar:\n\n%?\n\n"
