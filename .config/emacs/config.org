@@ -858,6 +858,7 @@ owning tab and raises the window displaying the chosen buffer."
     "j" '(agent-shell-attention-jump :wk "Jump to pending agent")
     "v" '(mcp-hub :wk "View mcp hub servers")
     "z" '(zoxide-travel :wk "Find directory with Zoxide")
+    "Z" '(zoxide-find-file :wk "Find directory with Zoxide")
     "h" '(dashboard-open :wk "Open emacs dashboard")
     "O" '(tl/switch-to-or-create-org-buffer :wk "Switch to org buffer")
     "a" '(mark-whole-buffer :wk "Mark whole buffer")
@@ -3245,6 +3246,8 @@ window-selection commands."
   ;; Navigation
   (define-key dired-mode-map (kbd "h") 'dired-up-directory)
   (define-key dired-mode-map (kbd "l") 'dired-open-file)
+  (define-key dired-mode-map (kbd "z") 'zoxide-travel)
+  (define-key dired-mode-map (kbd "Z") 'zoxide-find-file)
   ;; File Operations
   (define-key dired-mode-map (kbd "w") 'dired-ranger-copy)
   (define-key dired-mode-map (kbd "m") 'dired-ranger-move)
@@ -3255,12 +3258,25 @@ window-selection commands."
   ;; Misc
   (define-key dired-mode-map (kbd "SPC") 'dired-mark)
   (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
-  (define-key dired-mode-map (kbd "RET") 'tl/dired-ghostel-here) ; yazi-style: drop into a terminal here
+  (define-key dired-mode-map (kbd "RET") 'tl/dired-ghostel-here)
   ;; `e' prefix — dired edit/view actions (e was an unused key)
   (define-key dired-mode-map (kbd "e") (make-sparse-keymap))
   (define-key dired-mode-map (kbd "e w") 'wdired-change-to-wdired-mode)
   (define-key dired-mode-map (kbd "e p") 'peep-dired)
   (define-key dired-mode-map (kbd "e h") 'dired-hide-details-mode)
+  ;; Bookmarks — mirror the C-x C-d leader. Shifted to uppercase where the
+  ;; lowercase key is already an edit action: P (p=peep), W (w=wdired), H (h=hide).
+  (define-key dired-mode-map (kbd "e e") (lambda () (interactive) (dired "~/.config/emacs/")))
+  (define-key dired-mode-map (kbd "e o") (lambda () (interactive) (dired "~/downloads/")))
+  (define-key dired-mode-map (kbd "e P") (lambda () (interactive) (dired "~/pictures/")))
+  (define-key dired-mode-map (kbd "e s") (lambda () (interactive) (dired "~/pictures/screenshots")))
+  (define-key dired-mode-map (kbd "e W") (lambda () (interactive) (dired "~/desktop/workspace")))
+  (define-key dired-mode-map (kbd "e c") (lambda () (interactive) (dired "~/.config")))
+  (define-key dired-mode-map (kbd "e i") (lambda () (interactive) (dired "~/documents")))
+  (define-key dired-mode-map (kbd "e m") (lambda () (interactive) (dired "~/music")))
+  (define-key dired-mode-map (kbd "e v") (lambda () (interactive) (dired "~/videos")))
+  (define-key dired-mode-map (kbd "e H") (lambda () (interactive) (dired "~")))
+  (define-key dired-mode-map (kbd "e r") (lambda () (interactive) (dired "~/documents/org/roam")))
   ;; Other
   ;(define-key dired-mode-map (kbd "l") 'dired-single-buffer)
   ;(define-key dired-mode-map (kbd "h") 'dired-single-up-directory)
@@ -4040,8 +4056,8 @@ package's wholesale keymap regeneration can't wipe them."
     (define-key ghostel-semi-char-mode-map (kbd "M-S-;") #'tl/consult-ghostel-right)
     (define-key ghostel-semi-char-mode-map (kbd "M-S-/") #'tl/consult-ghostel-below)
     (define-key ghostel-semi-char-mode-map (kbd "C-M-;") #'tl/dired-jump-right)
-    (define-key ghostel-semi-char-mode-map (kbd "C-M-/") #'tl/split-window-below)
-    (define-key ghostel-semi-char-mode-map (kbd "M-/") #'tl/dired-jump-below)
+    (define-key ghostel-semi-char-mode-map (kbd "M-/") #'tl/split-window-below)
+    (define-key ghostel-semi-char-mode-map (kbd "C-M-/") #'tl/dired-jump-below)
     (define-key ghostel-semi-char-mode-map (kbd "M-=") #'enlarge-window)
     (define-key ghostel-semi-char-mode-map (kbd "M--") #'shrink-window)
     (define-key ghostel-semi-char-mode-map (kbd "M-_") #'enlarge-window-horizontally)
