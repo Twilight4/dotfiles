@@ -888,11 +888,12 @@ owning tab and raises the window displaying the chosen buffer."
     "C-]" '(enlarge-window-horizontally :wk "Enlarge window horizontally")
     "C-<" '(shrink-window :wk "Shrink window")
     "C-[" '(shrink-window-horizontally :wk "Shrink window horizontally")
-    "C-/" '(tl/split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
-    "C-_" '(tl/split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
+    ;"C-/" '(tl/split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
+    ;"C-_" '(tl/split-window-below :wk "Split window below")    ;; it's not a mistake, it's for god-mode
+    ;"C-;" '(tl/split-window-right :wk "Split window right and open new ghostel buffer"))
     "/" '(balance-windows :wk "Balance windows")
-    ";" '(tl/split-window-right :wk "Split window right")
-    "C-;" '(tl/split-window-right :wk "Split window right"))
+    "C-/" '(tl/ghostel-new-below :wk "Split window below and open new ghostel buffer")
+    "C-;" '(tl/ghostel-new-right :wk "Split window right"))
     ;"C-c" '(split-window-vertically :wk "Split window vertically")
     ;"C-c" '(split-window-horizontally :wk "Split window horizontally")
     ;; Unbound
@@ -4108,6 +4109,24 @@ package's wholesale keymap regeneration can't wipe them."
   (tl/split-window-below)
   (tl/ghostel-new-named (generate-new-buffer-name "ghostel")))
 
+(defun tl/ghostel-new-right ()
+  "Split the window to the right and open a new Ghostel terminal."
+  (interactive)
+  (tl/split-window-right)
+  (tl/ghostel-new-named (generate-new-buffer-name "ghostel")))
+
+(defun tl/dired-jump-below ()
+  "Split the window below, then dired-jump to the current file's directory."
+  (interactive)
+  (tl/split-window-below)
+  (call-interactively #'dired-jump))
+
+(defun tl/dired-jump-right ()
+  "Split the window to the right, then dired-jump to the current file's directory."
+  (interactive)
+  (tl/split-window-right)
+  (call-interactively #'dired-jump))
+
 ;; replace original keybindings with these and comment out these kitty.conf keybindings
 ;(global-set-key (kbd "M-n") 'tl/ghostel-new)
 (global-set-key (kbd "M-j") (lambda () (interactive) (other-window -1))) ; cycle prev window (this frame, wraps)
@@ -4117,7 +4136,11 @@ package's wholesale keymap regeneration can't wipe them."
 (global-set-key (kbd "M-w") 'tl/swap-window)
 (global-set-key (kbd "M-c") 'delete-window)
 (global-set-key (kbd "M-;") 'tl/split-window-right)
+(global-set-key (kbd "M-S-;") 'tl/consult-ghostel-right)
+(global-set-key (kbd "C-M-;") 'tl/dired-jump-right)
 (global-set-key (kbd "M-/") 'tl/split-window-below)
+(global-set-key (kbd "M-S-/") 'tl/consult-ghostel-below)
+(global-set-key (kbd "C-M-/") 'tl/dired-jump-below)
 (global-set-key (kbd "M-=") 'enlarge-window)
 (global-set-key (kbd "M--") 'shrink-window)
 (global-set-key (kbd "M-,") 'tl/consult-ghostel)
@@ -6163,17 +6186,13 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 #+end_src
 
 * Performance Optimizations
-:PROPERTIES:
-:CUSTOM_ID: performance-optimizations
-:END:
-
 Runtime tuning for this Emacs 30 native-comp build. The startup-critical opts
 (GC deferral, =file-name-handler-alist= blanking, frame-inhibit, auto-mode
 case-fold) live in =early-init.el= — they only work there, because this file is
 *tangled then loaded* by =init.el= *after* =early-init.el= has already run.
 
 The settings below tune *steady-state* behavior: they take effect once packages
-are loaded and are safe to re-evaluate at any time (verified live in the daemon).
+are loaded and are safe to re-evaluate at any time.
 
 #+begin_src emacs-lisp
 ;; --- Read subprocess output in 1 MB chunks --------------------------------
