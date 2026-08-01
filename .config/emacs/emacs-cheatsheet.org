@@ -502,9 +502,9 @@ Manage servers interactively:
 | D          | Delete current file                              |
 | R          | Rename current or marked files                   |
 | C          | Copy current file or marked files                |
+| y          | Copy current file or marked files into copy ring |
 | d          | Flag the current file for deletion               |
 | x          | Delete the files flagged for deletion            |
-| y          | Copy current file or marked files into copy ring |
 | SPC        | Mark current file                                |
 | u          | Unmark current file                              |
 | U          | Unmark all files in current buffer               |
