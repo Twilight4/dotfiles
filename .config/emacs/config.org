@@ -63,7 +63,6 @@
   - [[#electric-pair-mode][Electric-pair-mode]]
   - [[#swap-window-states][Swap window states]]
   - [[#cycle-window-position][Cycle window position]]
-  - [[#maximize-window-split][Maximize-window-split]]
   - [[#disable-mouse][Disable mouse]]
 - [[#completion-framework][Completion Framework]]
   - [[#vertico][Vertico]]
@@ -675,7 +674,6 @@ workspace. Switches to the workspace's first tab when done."
 (eval-after-load 'org-agenda
   '(progn
      (define-key org-agenda-mode-map (kbd "a") 'org-gtd-clarify-agenda-item)
-     (define-key org-agenda-mode-map (kbd "M-m") 'tl/toggle-window-maximize)
      (define-key org-agenda-mode-map (kbd "v") 'org-gtd-area-of-focus-set-on-agenda-item)
      (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-item)
      (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-item)
@@ -807,7 +805,6 @@ workspace. Switches to the workspace's first tab when done."
     "C-w" '(tl/swap-window :wk "Swap windows")
     "k" '(tl/strip-comments-in-region :wk "Delete comments from selected region")
     "u" '(undo-tree-visualise :wk "Undo tree visualise")
-    "RET" '(tl/toggle-window-maximize :wk "Toggle window maximization")
     "C->" '(enlarge-window :wk "Enlarge window")
     "C-]" '(enlarge-window-horizontally :wk "Enlarge window horizontally")
     "C-<" '(shrink-window :wk "Shrink window")
@@ -2351,24 +2348,6 @@ wrapping, and follows the buffer.  No-op with a single window."
          (target (or (cadr (memq (selected-window) wins)) (car wins))))
     (window-swap-states nil target)
     (select-window target)))
-#+end_src
-
-** Maximize-window-split
-Function for toggling maximization of window split.
-
-#+begin_src emacs-lisp
-(defvar previous-window-config nil
-  "Variable to store the previous window configuration.")
-
-(defun tl/toggle-window-maximize ()
-  "Maximize the current window, or restore the previous layout with Winner."
-  (interactive)
-  (if (and previous-window-config (eq (window-configuration-p previous-window-config) t))
-      (progn
-        (set-window-configuration previous-window-config)
-        (setq previous-window-config nil))
-    (setq previous-window-config (current-window-configuration))
-    (delete-other-windows)))
 #+end_src
 
 ** Disable mouse
@@ -3966,7 +3945,6 @@ package's wholesale keymap regeneration can't wipe them."
     (define-key ghostel-semi-char-mode-map (kbd "M-j") (lambda () (interactive) (other-window -1)))
     (define-key ghostel-semi-char-mode-map (kbd "M-k") (lambda () (interactive) (other-window 1)))
     (define-key ghostel-semi-char-mode-map (kbd "M-l") #'consult-buffer)
-    (define-key ghostel-semi-char-mode-map (kbd "M-m") #'tl/toggle-window-maximize)
     (define-key ghostel-semi-char-mode-map (kbd "C-s") #'consult-line)
     (define-key ghostel-semi-char-mode-map (kbd "M-`") #'ghostel-clear-scrollback)
     (define-key ghostel-semi-char-mode-map (kbd "M-;") #'tl/split-window-right)
@@ -4024,7 +4002,6 @@ package's wholesale keymap regeneration can't wipe them."
 (global-set-key (kbd "M-k") (lambda () (interactive) (other-window 1)))  ; cycle next window (this frame, wraps)
 (global-set-key (kbd "M-J") 'tl/move-window-backward)
 (global-set-key (kbd "M-K") 'tl/move-window-forward)
-(global-set-key (kbd "M-m") 'tl/toggle-window-maximize)
 (global-set-key (kbd "M-w") 'tl/swap-window)
 (global-set-key (kbd "M-c") 'delete-window)
 (global-set-key (kbd "M-;") 'tl/split-window-right)
