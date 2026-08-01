@@ -3255,7 +3255,7 @@ window-selection commands."
   ;; Misc
   (define-key dired-mode-map (kbd "SPC") 'dired-mark)
   (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
-  (define-key dired-mode-map (kbd "t") 'tl/dired-ghostel-here) ; yazi-style: drop into a terminal here
+  (define-key dired-mode-map (kbd "RET") 'tl/dired-ghostel-here) ; yazi-style: drop into a terminal here
   ;; `e' prefix — dired edit/view actions (e was an unused key)
   (define-key dired-mode-map (kbd "e") (make-sparse-keymap))
   (define-key dired-mode-map (kbd "e w") 'wdired-change-to-wdired-mode)
