@@ -3386,7 +3386,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
               ("RET" . gptel-send)
               ("C-c C-f" . tl/gptel-next-variant)
               ("C-c C-b" . tl/gptel-previous-variant)
-              ("C-c C-a" . gptel-beginning-of-response))
+              ("C-c C-a" . gptel-beginning-of-response)
+              ("C-c C-k" . tl/gptel-restart))
   :config
   (remove-hook 'gptel-mode-hook #'gptel-mode)
   (remove-hook 'gptel-highlight-mode-hook #'gptel-mode)
@@ -3528,6 +3529,20 @@ Gptel custom functions
   "Switch to the *Gemini* GPTel buffer, creating it when needed."
   (interactive)
   (switch-to-buffer (tl/gptel-gemini-buffer)))
+
+(defun tl/gptel-restart ()
+  "Clear the conversation by recreating the current GPTel buffer.
+Kills the buffer (dropping all history and buffer-local settings like
+model and system-message) and opens a fresh GPTel buffer of the same
+name, mirroring `agent-shell-restart'.  Any in-flight response is
+aborted first so its callback can't land in a dead buffer."
+  (interactive)
+  (unless (bound-and-true-p gptel-mode)
+    (user-error "Not in a GPTel buffer"))
+  (let ((name (buffer-name)))
+    (gptel-abort (current-buffer))
+    (kill-buffer (current-buffer))
+    (switch-to-buffer (gptel name))))
 
 (defun tl/gptel-send-to-session ()
   "Ask a prompt in the minibuffer, redirecting the response to the *Gemini* gptel session (=gptel-menu m + g=)."
