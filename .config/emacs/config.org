@@ -183,8 +183,8 @@ These settings only take effect on graphical frames — text-terminal frames ign
      "??" "?." "?:" "::" ":::" ":=" "::=" "##" "###" "<!--" "-->" "</>" "</"
      "/=" "//" "///" "/*" "*/" "++" "+++" "+=" "-=" "*=" "%=" "&=" "|=" "^="
      "<<" ">>" "<<=" ">>=" "<->" "<~>" "<~" "<|>" "<||" "<=>" ".." "..." "..<"
-     "**" "***" "*>" "#{" "#[" "#:" "#=" "#_("))
-  (global-ligature-mode t))
+     "**" "***" "*>" "#{" "#[" "#:" "#=")
+  (global-ligature-mode t)))
 
 ;; Baseline line spacing for monospace/code buffers; text buffers override it.
 (setq-default line-spacing 0.05)
