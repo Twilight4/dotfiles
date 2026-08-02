@@ -169,6 +169,11 @@ These settings only take effect on graphical frames — text-terminal frames ign
                     :height 140)
 (add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-14"))
 
+;(set-face-attribute 'default nil
+;                    :family "Roboto Mono Nerd Font"
+;                    :height 140)
+;(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-14"))
+
 ;; Programming ligatures. The font must carry the OpenType features (JetBrains
 ;; Mono does); `ligature.el' composes multi-char operators into single glyphs
 ;; via `composition-function-table'. Registered against `t' so the rule set
@@ -936,7 +941,8 @@ owning tab and raises the window displaying the chosen buffer."
     "C-c C-l" '(consult-line :wk "Search for line")
     "C-c C-u" '(consult-line-multi :wk "Search for line in multiple buffers")
     "C-c C-k" '(consult-keep-lines :wk "Select lines with a live preview")
-    "C-c C-f" '(consult-focus-lines :wk "Hide/Show lines using overlays"))
+    ;"C-c C-f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
+    "C-c C-f" '(consult-find :wk "Hide/Show lines using overlays"))
 
 	(tl/leader-keys
     "C-f" '(:ignore t :wk "Clock")
@@ -3245,6 +3251,11 @@ window-selection commands."
   :ensure t
   :hook (dired-mode . nerd-icons-dired-mode))
 
+(defun tl/dired-copy-full-path ()
+  "Copy the full path of the current file/directory to the kill-ring."
+  (interactive)
+  (dired-copy-filename-as-kill 0))
+
 (defun tl-dired-mode-setup ()
   ;; Display: hide perms/owner/size/date by default
   (dired-hide-details-mode 1)
@@ -3253,6 +3264,8 @@ window-selection commands."
   (define-key dired-mode-map (kbd "l") 'dired-open-file)
   (define-key dired-mode-map (kbd "z") 'zoxide-travel)
   (define-key dired-mode-map (kbd "Z") 'zoxide-find-file)
+  (define-key dired-mode-map (kbd "W") 'dired-copy-filename-as-kill)
+  (define-key dired-mode-map (kbd "E") 'tl/dired-copy-full-path)
   ;; File Operations
   (define-key dired-mode-map (kbd "w") 'dired-ranger-copy)
   (define-key dired-mode-map (kbd "m") 'dired-ranger-move)
@@ -3260,6 +3273,10 @@ window-selection commands."
   (define-key dired-mode-map (kbd "N") 'dired-create-directory)
   (define-key dired-mode-map (kbd "n") 'dired-create-empty-file)
   (define-key dired-mode-map (kbd "f") 'dired-goto-file)
+  (define-key dired-mode-map (kbd "F") 'consult-find)
+  (define-key dired-mode-map (kbd "L") 'dired-do-find-marked-files)
+  (define-key dired-mode-map (kbd "S-<return>") 'dired-open-xdg)
+  ;(define-key dired-mode-map (kbd "e") 'consult-ripgrep)
   ;; Misc
   (define-key dired-mode-map (kbd "SPC") 'dired-mark)
   (define-key dired-mode-map (kbd "H") 'dired-omit-mode)
@@ -3293,13 +3310,13 @@ window-selection commands."
   ;; Unbinding the keybinds I don't use
   (define-key dired-mode-map (kbd "(") nil)
   (define-key dired-mode-map (kbd "o") 'nil)
+  (define-key dired-mode-map (kbd "p") 'nil)
   (define-key dired-mode-map (kbd "a") 'nil)
   (define-key dired-mode-map (kbd "c") 'nil)
   (define-key dired-mode-map (kbd "S") 'nil)
   (define-key dired-mode-map (kbd "!") 'nil)
   (define-key dired-mode-map (kbd "M") 'nil)
   (define-key dired-mode-map (kbd "O") 'nil)
-  (define-key dired-mode-map (kbd "Z") 'nil)
   (define-key dired-mode-map (kbd "i") 'nil)
   (define-key dired-mode-map (kbd "W") 'nil)
   (define-key dired-mode-map (kbd "T") 'nil)
@@ -3639,7 +3656,7 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
      (agent-shell-openai-make-authentication :login t))
    (setq agent-shell-openai-codex-acp-command '("codex-acp"))
    (setq agent-shell-session-strategy 'new)
-   (setq agent-shell-prefer-session-resume nil)
+   (setq agent-shell-session-restore-verbosity 'full)
    (setq agent-shell-prefer-viewport-interaction t)
    ;; Pick GPT-5.5 if it appears in Codex’s “Available models”
    (setq agent-shell-openai-default-model-id "gpt-5.5"))

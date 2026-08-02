@@ -4,8 +4,10 @@
 (setq mc/cmds-to-run-for-all
       '(
 		er/mark-symbol
+		kill-rectangle
 		org-kill-line
 		org-self-insert-command
+		org-toggle-heading
 		org-toggle-item
 		scroll-up-line
 		smart-hungry-delete-backward-char
@@ -15,19 +17,32 @@
 		tl/backward-entire-word
 		tl/forward-char-skip-invisible
 		tl/forward-entire-word
+		tl/god-copy
+		tl/god-yank
+		tl/mark-whole-line
+		tl/org-kill-line-backward
 		tl/paste-from-system-clipboard
 		tl/smart-move-beginning-of-line
 		tl/smart-move-end-of-line
 		toggle-mark-command
+		yank-rectangle
+		zap-up-to-char
 		))
 
 (setq mc/cmds-to-run-once
       '(
 		basic-save-buffer
+		beginning-of-buffer
 		corfu-quit
+		end-of-buffer
 		god-local-mode
 		org-backward-sentence
+		org-ctrl-c-ctrl-c
 		org-forward-sentence
+		org-insert-heading
 		repeat
+		scroll-down-line
+		tl/copy-to-system-clipboard
+		tl/subword-mode-toggle
 		tl/toggle-letter-case
 		))

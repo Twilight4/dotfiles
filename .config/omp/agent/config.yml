@@ -1,3 +1,5 @@
+mcp:
+  enabled: true
 setupVersion: 1
 modelRoles: 
   default: zai/glm-5.2:high
