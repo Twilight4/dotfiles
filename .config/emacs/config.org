@@ -3252,6 +3252,13 @@ window-selection commands."
   :ensure t
   :hook (dired-mode . nerd-icons-dired-mode))
 
+;; Colorize dired buffer — permissions, sizes, dates, symlinks, headers.
+;; Works on top of the standard `ls' output (no need for lsd/eza).
+(use-package diredfl
+  :ensure t
+  :config
+  (diredfl-global-mode))
+
 (defun tl/dired-copy-full-path ()
   "Copy the full path of the current file/directory to the kill-ring."
   (interactive)
