@@ -3257,9 +3257,28 @@ window-selection commands."
 (use-package diredfl
   :ensure t
   (diredfl-global-mode)
-  (set-face-attribute 'diredfl-date-time nil :foreground "#c678dd")
+  (set-face-attribute 'diredfl-date-time nil :foreground "#dbb7ff")
+  (set-face-attribute 'diredfl-number nil :foreground "#81f3cd")
   (add-hook 'enable-theme-functions
-            (lambda (_) (set-face-attribute 'diredfl-date-time nil :foreground "#c678dd"))))
+            (lambda (_)
+              (set-face-attribute 'diredfl-date-time nil :foreground "#dbb7ff")
+              (set-face-attribute 'diredfl-number nil :foreground "#81f3cd"))))
+
+;; Hide the hardlinks count column (the number after permissions).
+(defun tl/dired-hide-hardlinks ()
+  "Visually hide the hardlinks column in dired."
+  (remove-overlays (point-min) (point-max) 'tl-dired-hardlink t)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward
+            "^  .[rwx-]\\{9\\} +\\([0-9]+\\) +"
+            nil t)
+      (let ((ov (make-overlay (match-beginning 1) (match-end 1))))
+        (overlay-put ov 'invisible t)
+        (overlay-put ov 'evaporate t)
+        (overlay-put ov 'tl-dired-hardlink t)))))
+
+(add-hook 'dired-after-readin-hook #'tl/dired-hide-hardlinks)
 
 (defun tl/dired-copy-full-path ()
   "Copy the full path of the current file/directory to the kill-ring."
