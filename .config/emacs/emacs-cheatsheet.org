@@ -375,33 +375,131 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | M-S-k     | Move window forward (cycle toward next window)               |
 
 ** Dired
+*** Global (C-d prefix)
+| Keybinding | Description                           |
+|------------+---------------------------------------|
+| C-d .      | Open dired (prompt for directory)     |
+| C-d C-j    | Dired jump to current file's dir      |
+| C-d C-d    | Delete file backing current buffer    |
+| C-d C-r    | Rename file backing current buffer    |
+| C-d C-b    | Rename buffer                         |
+| C-d C-e    | Dired ~/.config/emacs/                |
+| C-d C-o    | Dired ~/downloads/                    |
+| C-d C-p    | Dired ~/pictures/                     |
+| C-d C-s    | Dired ~/pictures/screenshots          |
+| C-d C-w    | Dired ~/desktop/workspace             |
+| C-d C-c    | Dired ~/.config                       |
+| C-d C-i    | Dired ~/documents                     |
+| C-d C-m    | Dired ~/music                         |
+| C-d C-v    | Dired ~/videos                        |
+| C-d C-h    | Dired ~                               |
+| C-d r      | Dired ~/documents/org/roam            |
 
+*** Navigation
+| Keybinding | Description                                |
+|------------+--------------------------------------------|
+| h          | Up to parent directory                     |
+| l          | Open file/dir (external apps for media)    |
+| j/k        | Next/previous file                         |
+| L          | Open file in other window                  |
+| f          | Jump to file by name                       |
+| F          | consult-find                               |
+| r          | consult-grep                               |
+| /          | consult-line                              |
+| RET        | Open ghostel terminal in current dir       |
+| S-<return> | Open file with xdg-open                    |
+| z          | zoxide-travel (fuzzy jump by frecency)     |
+| Z          | zoxide-find-file                           |
+| C          | Copy full path to kill-ring                |
+| c          | Copy filename to kill-ring                |
+
+*** Marks
+| Keybinding | Description                           |
+|------------+---------------------------------------|
+| SPC        | Toggle mark/unmark on current file    |
+| C-a        | Toggle (invert) all marks             |
+| C-j/C-k    | Jump to next/previous marked file     |
+| u          | Unmark all files                      |
+| C-r        | Dired undo                            |
+
+*** m prefix (marking operations)
+| Keybinding | Description                                    |
+|------------+------------------------------------------------|
+| m e        | Mark all executable files                      |
+| m d        | Mark all directories                           |
+| m s        | Mark all symlinks                              |
+| m f        | Mark all files in current subdirectory         |
+| m n        | Mark files whose name matches a regex          |
+| m g        | Mark files whose content matches a regex       |
+| m u        | Uppercase filenames of marked files            |
+| m l        | Lowercase filenames of marked files            |
+
+*** File operations
+| Keybinding | Description                                    |
+|------------+------------------------------------------------|
+| D          | Delete marked files                            |
+| R          | Rename/move marked files                       |
+| W          | Copy marked files to target directory          |
+| S          | Create symbolic links for marked files         |
+| M          | Change file permissions (chmod)                |
+| N          | Create directory                               |
+| n          | Create empty file                              |
+| o          | Open all marked files                          |
+
+*** Dired-ranger clipboard
 | Keybinding | Description                                      |
 |------------+--------------------------------------------------|
-| h/j/k/l    | Navigation                                       |
-| D          | Delete current file                              |
-| R          | Rename current or marked files                   |
-| C          | Copy current file or marked files                |
-| d          | Flag the current file for deletion               |
-| x          | Delete the files flagged for deletion            |
-| y          | Copy current file or marked files into copy ring |
-| SPC        | Mark current file                                |
-| u          | Unmark current file                              |
-| U          | Unmark all files in current buffer               |
-| =          | Run dired-diff                                   |
-| C-/        | Dired undo                                       |
-| DEL        | Unmark backwards                                 |
-| M-DEL      | Remove a mark from every file                    |
-| t          | Toggle marks in all files                        |
-| F          | Find all marked files                            |
-| m          | Move items from copy ring to current directory   |
-| p          | Paste items from copy ring to current directory  |
-| n          | Create directory                                 |
-| N          | Create empty file                                |
-| f          | Dired go to file                                 |
-| s          | Toggle sorting by date                           |
-| w          | Copy names of marked files                       |
-| g          | Revert buffer                                    |
+| w          | Copy marked files into ranger clipboard          |
+| x          | Move marked files into ranger clipboard          |
+| y          | Paste from ranger clipboard into current dir     |
+
+*** Subdir navigation
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| i          | Insert subdirectory listing inline   |
+| G          | Go to a specific subdirectory        |
+| d          | Kill (remove) subdirectory listing   |
+| I          | Hide/show current subdirectory       |
+| M-i        | Hide/show all subdirectories         |
+| C-n/C-p    | Next/previous subdirectory           |
+
+*** Sort & display
+| Keybinding | Description                              |
+|------------+------------------------------------------|
+| t          | Toggle sort (name/time)                  |
+| .          | Toggle dotfile visibility (omit mode)    |
+| H          | Toggle details (perms/owner/size/date)   |
+| g          | Revert buffer (refresh listing)          |
+
+*** Wdired & editing
+| Keybinding  | Description                                    |
+|-------------+------------------------------------------------|
+| M-w         | Enter wdired (writable dired)                  |
+| C-c C-c     | Commit wdired changes (standard)               |
+| C-c C-k     | Cancel wdired changes (standard)               |
+| \vert       | anzu-query-replace                             |
+| M-SPC       | Rectangle mark mode (useful in wdired)         |
+
+*** Peep-dired
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| P          | Toggle peep-dired (file preview)     |
+| j/k        | Next/previous file while peeping     |
+
+*** b prefix (bookmarks — mirrors C-d leader)
+| Keybinding | Description                      |
+|------------+----------------------------------|
+| b e        | Dired ~/.config/emacs/           |
+| b o        | Dired ~/downloads/               |
+| b p        | Dired ~/pictures/                |
+| b s        | Dired ~/pictures/screenshots     |
+| b w        | Dired ~/desktop/workspace        |
+| b c        | Dired ~/.config                  |
+| b i        | Dired ~/documents                |
+| b m        | Dired ~/music                    |
+| b v        | Dired ~/videos                   |
+| b h        | Dired ~                          |
+| b r        | Dired ~/documents/org/roam       |
 
 ** God-mode
 
