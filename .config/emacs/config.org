@@ -3239,7 +3239,7 @@ window-selection commands."
   (define-key peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
 
 ;; Dired config
-(setq dired-listing-switches "-agho --group-directories-first"
+(setq dired-listing-switches "-Agho --group-directories-first --time-style=+%d-%b-%H:%M"
       dired-omit-files "^\\.[^.].*"
       dired-omit-verbose nil
       dired-hide-details-hide-symlink-targets nil
