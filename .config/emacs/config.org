@@ -3257,12 +3257,13 @@ window-selection commands."
 (use-package diredfl
   :ensure t
   (diredfl-global-mode)
+  (tl/diredfl-apply-faces)
+  (add-hook 'enable-theme-functions #'tl/diredfl-apply-faces))
+
+(defun tl/diredfl-apply-faces (&optional _)
+  "Apply custom diredfl face colors. Hooked into `enable-theme-functions'."
   (set-face-attribute 'diredfl-date-time nil :foreground "#dbb7ff")
-  (set-face-attribute 'diredfl-number nil :foreground "#81f3cd")
-  (add-hook 'enable-theme-functions
-            (lambda (_)
-              (set-face-attribute 'diredfl-date-time nil :foreground "#dbb7ff")
-              (set-face-attribute 'diredfl-number nil :foreground "#81f3cd"))))
+  (set-face-attribute 'diredfl-number nil :foreground "#81f3cd"))
 
 ;; Hide the hardlinks count column (the number after permissions).
 (defun tl/dired-hide-hardlinks ()
@@ -3301,6 +3302,7 @@ window-selection commands."
   (define-key dired-mode-map (kbd "j") 'next-line)
   (define-key dired-mode-map (kbd "k") 'previous-line)
   (define-key dired-mode-map (kbd "L") 'dired-find-file-other-window)
+  (define-key dired-mode-map (kbd "C-l") 'dired-display-file)
   (define-key dired-mode-map (kbd "f") 'dired-goto-file)
   (define-key dired-mode-map (kbd "F") 'consult-find)
   (define-key dired-mode-map (kbd "r") 'consult-grep)

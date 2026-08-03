@@ -402,6 +402,7 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | l          | Open file/dir (external apps for media)    |
 | j/k        | Next/previous file                         |
 | L          | Open file in other window                  |
+| C-l        | Open file in other window (no focus switch) |
 | f          | Jump to file by name                       |
 | F          | consult-find                               |
 | r          | consult-grep                               |
