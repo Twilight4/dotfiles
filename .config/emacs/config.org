@@ -3239,7 +3239,7 @@ window-selection commands."
   (define-key peep-dired-mode-map (kbd "k") 'peep-dired-prev-file))
 
 ;; Dired config
-(setq dired-listing-switches "-Agho --group-directories-first --time-style=+%d-%b-%H:%M"
+(setq dired-listing-switches "-Agho --group-directories-first --time-style=+%d_%b_%H:%M"
       dired-omit-files "^\\.[^.].*"
       dired-omit-verbose nil
       dired-hide-details-hide-symlink-targets nil
@@ -3256,8 +3256,10 @@ window-selection commands."
 ;; Works on top of the standard `ls' output (no need for lsd/eza).
 (use-package diredfl
   :ensure t
-  :config
-  (diredfl-global-mode))
+  (diredfl-global-mode)
+  (set-face-attribute 'diredfl-date-time nil :foreground "#c678dd")
+  (add-hook 'enable-theme-functions
+            (lambda (_) (set-face-attribute 'diredfl-date-time nil :foreground "#c678dd"))))
 
 (defun tl/dired-copy-full-path ()
   "Copy the full path of the current file/directory to the kill-ring."
