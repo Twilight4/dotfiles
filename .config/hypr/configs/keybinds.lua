@@ -13,6 +13,7 @@ hl.bind(SUPER .. " + T", hl.dsp.window.float({ action = "toggle" }))  -- togglef
 hl.bind(SUPER .. " + SHIFT + S", hl.dsp.window.center())             -- centerwindow
 hl.bind("CTRL + ALT + End", hl.dsp.exec_cmd("uwsm app -- kitty -1 --class kitty-sync -T kitty-sync --session ~/.config/kitty/session-sync"))
 hl.bind(SUPER .. " + CTRL + End", hl.dsp.exec_cmd("sudo poweroff"))
+hl.bind(SUPER .. " + CTRL + Delete", hl.dsp.exec_cmd("uwsm stop"))
 
 -- Plugins
 hl.bind(SUPER .. " + grave", function() if hl.plugin.hyprexpo ~= nil then hl.plugin.hyprexpo.expo() end end)  -- hyprexpo+ (sandwich) plugin call
