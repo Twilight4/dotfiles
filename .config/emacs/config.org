@@ -4332,8 +4332,8 @@ package's wholesale keymap regeneration can't wipe them."
     (define-key ghostel-semi-char-mode-map (kbd "C-M-/") #'tl/dired-jump-below)
     (define-key ghostel-semi-char-mode-map (kbd "M-=") #'enlarge-window)
     (define-key ghostel-semi-char-mode-map (kbd "M--") #'shrink-window)
-    (define-key ghostel-semi-char-mode-map (kbd "M-_") #'enlarge-window-horizontally)
-    (define-key ghostel-semi-char-mode-map (kbd "M-+") #'shrink-window-horizontally)
+    (define-key ghostel-semi-char-mode-map (kbd "M-<") #'enlarge-window-horizontally)
+    (define-key ghostel-semi-char-mode-map (kbd "M->") #'shrink-window-horizontally)
     )
   ;; `ghostel--rebuild-semi-char-keymap' takes no args, so our key-setting
   ;; function doubles as valid :after advice — re-applied after every rebuild.
@@ -4451,8 +4451,8 @@ terminal for that directory is reused instead of spawning a new one."
 (global-set-key (kbd "M-.") 'tl/consult-new-org)
 (global-set-key (kbd "M-l") 'consult-buffer)
 (global-set-key (kbd "M-u") 'tl/kill-current-buffer)
-(global-set-key (kbd "M-_") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-+") 'shrink-window-horizontally)
+(global-set-key (kbd "M-<") 'enlarge-window-horizontally)
+(global-set-key (kbd "M->") 'shrink-window-horizontally)
 #+end_src
 
 ** Drag-stuff
