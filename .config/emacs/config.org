@@ -3360,6 +3360,7 @@ window-selection commands."
 ;; Works on top of the standard `ls' output (no need for lsd/eza).
 (use-package diredfl
   :ensure t
+  :config
   (diredfl-global-mode)
   (tl/diredfl-apply-faces)
   (add-hook 'enable-theme-functions #'tl/diredfl-apply-faces))
