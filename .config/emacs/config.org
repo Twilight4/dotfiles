@@ -368,7 +368,12 @@ Sources: `tl/kitty-theme-file' (pywal) — active/inactive tab fg+bg, cursor."
   (add-hook 'kill-emacs-hook #'tabspaces-save-session)
   ;; Enable here (not `:hook after-init'): elpaca loads tabspaces async, so the
   ;; after-init hook can register too late and leave the mode off.
-  (tabspaces-mode 1))
+  (tabspaces-mode 1)
+  ;; Free `C-c TAB': tabspaces binds it as a minor-mode prefix, which has
+  ;; higher precedence than org-mode-map and so shadows our `C-c TAB' →
+  ;; `org-toggle-item'. All workspace ops live under `C-x w', so the
+  ;; tabspaces prefix is unused.
+  (define-key tabspaces-mode-map (kbd "C-c TAB") nil))
 
 ;; Tab navigation
 (global-set-key (kbd "M-f")     'tab-bar-switch-to-next-tab)
@@ -586,6 +591,8 @@ owning tab and raises the window displaying the chosen buffer."
   (define-key org-mode-map (kbd "C-j") nil)
   (define-key org-mode-map (kbd "M-h") nil)
   (define-key org-mode-map (kbd "M-t") nil)
+  (define-key org-mode-map (kbd "C-M-t") nil)
+  (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-,") nil)
   (define-key org-mode-map (kbd "M-RET") nil)
   (define-key org-mode-map (kbd "C-c M-f") nil)
@@ -642,8 +649,10 @@ owning tab and raises the window displaying the chosen buffer."
 (global-set-key (kbd "C-h") 'tl/backward-char-skip-invisible)
 (global-set-key (kbd "C-l") 'tl/forward-char-skip-invisible)
 (global-set-key (kbd "C-o") 'org-kill-line)
-(global-set-key (kbd "M-t") 'treemacs-add-and-display-current-project-exclusively)
-(global-set-key (kbd "C-t") 'treemacs)
+(global-set-key (kbd "C-M-t") 'treemacs-find-tag)
+(global-set-key (kbd "M-t") 'treemacs-add-and-display-current-project)
+(global-set-key (kbd "M-T") 'treemacs-add-and-display-current-project-exclusively)
+(global-set-key (kbd "C-t") 'treemacs-select-window)
 (global-set-key (kbd "M-`") 'tl/subword-mode-toggle)
 ;(global-set-key (kbd "C-q") 'delete-frame)
 ;(global-set-key (kbd "M-q") (lambda () (interactive) (save-buffer) (delete-frame)))
@@ -864,6 +873,7 @@ owning tab and raises the window displaying the chosen buffer."
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "r" '(consult-register :wk "Consult register")
     "j" '(agent-shell-attention-jump :wk "Jump to pending agent")
+    "RET" '(exchange-point-and-mark :wk "Exchange point and mark")
     "v" '(mcp-hub :wk "View mcp hub servers")
     "z" '(zoxide-travel :wk "Find directory with Zoxide")
     "Z" '(zoxide-find-file :wk "Find directory with Zoxide")
@@ -969,7 +979,7 @@ owning tab and raises the window displaying the chosen buffer."
     "C-e C-d" '(describe-mode :wk "Display documentation of current modes")
     "C-e C-f" '(describe-function :wk "Describe function")
     "C-e C-k" '(describe-key-briefly :wk "Describe key briefly")
-    "C-e C-v" '(describe-variable :wk "Describe key briefly")
+    "C-e C-v" '(describe-variable :wk "Describe variable")
     "C-e C-l" '(describe-key :wk "Describe key")
     "C-e c" '(describe-command :wk "Describe command")
     "C-e C-r" '(eval-region :wk "Evaluate a region")
@@ -1028,7 +1038,7 @@ owning tab and raises the window displaying the chosen buffer."
     "C-d C-m" '((lambda () (interactive) (dired "~/music")) :wk "Open music directory in dired")
     "C-d C-v" '((lambda () (interactive) (dired "~/videos")) :wk "Open videos directory in dired")
     "C-d C-h" '((lambda () (interactive) (dired "~")) :wk "Open home directory in dired")
-    "C-d r" '((lambda () (interactive) (dired "~/documents/org/roam")) :wk "Open org-roam directory in dired"))
+    "C-d r" '((lambda () (interactive) (dired "~/documents/org/roam/nothing-personal/")) :wk "Open org-roam directory in dired"))
 
   (tl/leader-keys
     "w"   '(:ignore t :wk "Workspaces")
@@ -1084,7 +1094,7 @@ owning tab and raises the window displaying the chosen buffer."
  "C-y" '(tl/org-insert-screenshot :wk "Insert current screenshot")
  ;"C-y" '(insert-current-time :wk "Insert current time")      ;; key bound to insert screenshot
  "C-v" '(org-toggle-heading :wk "Toggle heading")
- "C-i" '(org-toggle-item :wk "Toggle item")
+ "TAB" '(org-toggle-item :wk "Toggle item")
  "C-m" '(org-insert-todo-heading :wk "Insert todo heading")
  "h" '(widen :wk "Widen")
  "SPC" '(tl/agent-shell-dictate :wk "Use speach to text tool")
@@ -2865,7 +2875,15 @@ This is useful when followed by an immediate kill."
           treemacs-project-follow-cleanup          nil
           treemacs-persist-file                    (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
           treemacs-position                        'left
-          treemacs-read-string-input               'from-child-frame
+          ;; 'from-minibuffer (NOT the cfrs child frame).  On pgtk/Wayland the
+          ;; cfrs child-frame prompt (recursive-edit + x-focus-frame) leaves
+          ;; keyboard focus stuck on the hidden posframe after the prompt exits,
+          ;; freezing the session until a stray keypress, and God mode also enters
+          ;; that non-minibuffer buffer.  'from-minibuffer is treemacs's OWN
+          ;; default on Wayland (see `treemacs-read-string-input' defcustom) and
+          ;; avoids both: the minibuffer exits cleanly on RET and God mode already
+          ;; exempts it.
+          treemacs-read-string-input               'from-minibuffer
           treemacs-recenter-distance               0.1
           treemacs-recenter-after-file-follow      nil
           treemacs-recenter-after-tag-follow       nil
@@ -3102,29 +3120,74 @@ window-selection commands."
 
   (define-key treemacs-mode-map (kbd "z") #'tl/treemacs-zoxide-travel))
 
-;; Treemacs global keybinds
-;(global-set-key (kbd "C-c C-p r") 'treemacs-rename-project)
-;(global-set-key (kbd "C-c C-p c c") 'treemacs-collapse-project)
-;(global-set-key (kbd "C-c C-p c o") 'treemacs-collapse-all-projects)
-;(global-set-key (kbd "S-TAB") 'treemacs-collapse-all-projects)
-;(global-set-key (kbd "C-c C-w b") 'treemacs-bookmark)
-;(global-set-key (kbd "C-c C-w C-f") 'treemacs-find-file)
-;(global-set-key (kbd "C-c C-w C-t") 'treemacs-find-tag)
-;(global-set-key (kbd "C-c C-w w") 'treemacs-select-window)
-;(global-set-key (kbd "C-c C-w 1") 'treemacs-delete-other-windows)
-;(global-set-key (kbd "C-c C-w C-h") 'treemacs-show-changelog)
-;(global-set-key (kbd "C-c C-w t") 'treemacs-load-theme)
-;(global-set-key (kbd "C-c C-w i") 'treemacs-icon-catalogue)
-;(global-set-key (kbd "C-c C-w n") 'treemacs-narrow-to-current-file)
-;(global-set-key (kbd "C-c C-p P") 'treemacs-projectile)
-;(global-set-key (kbd "C-c C-p C-a") 'treemacs-add-and-display-current-project)
-;(global-set-key (kbd "C-c C-p C-e") 'treemacs-add-and-display-current-project-exclusively)
-;(global-set-key (kbd "C-c C-w C-s") 'treemacs-select-scope-type)
-
 ;; Treemacs-mode keybinds
 (with-eval-after-load 'treemacs
+  ;; Dired-parity commands — Treemacs ships no invert-marks or first/last-node,
+  ;; so build them on its own marking primitives (`treemacs--marked-paths' list
+  ;; + annotation faces) and its button-based line navigation.
+  (defun tl/treemacs-toggle-marks ()
+    "Invert marks on every visible Treemacs node (mirrors dired's `C-a')."
+    (interactive)
+    (unless (eq major-mode 'treemacs-mode)
+      (user-error "Run tl/treemacs-toggle-marks from a Treemacs buffer"))
+    (let (visible projects)
+      (save-excursion
+        (goto-char (point-min))
+        (while (< (point) (point-max))
+          (when-let ((path (treemacs--prop-at-point :path)))
+            (unless (member path visible)
+              (push path visible)))
+          (forward-line 1)))
+      (setq visible (nreverse visible))
+      ;; Split visible nodes into marked→unmark and unmarked→mark; marks on
+      ;; collapsed (non-visible) nodes are kept.  The annotation STORE
+      ;; (`treemacs--annotation-store') is the source of truth for the mark
+      ;; *face*, separate from the `treemacs--marked-paths' list, so update it
+      ;; via set/remove-annotation-face before re-rendering (mirroring
+      ;; `treemacs-mark-or-unmark-path-at-point').
+      (let (to-remove to-add hidden)
+        (dolist (p visible)
+          (if (member p treemacs--marked-paths)
+              (push p to-remove)
+            (push p to-add)))
+        (dolist (p treemacs--marked-paths)
+          (unless (member p visible)
+            (push p hidden)))
+        (dolist (p to-remove)
+          (treemacs-remove-annotation-face p treemacs--mark-annotation-source))
+        (dolist (p to-add)
+          (treemacs-set-annotation-face p 'treemacs-marked-file-face treemacs--mark-annotation-source))
+        (setq treemacs--marked-paths (append (nreverse hidden) (nreverse to-add))))
+      (dolist (p visible)
+        (when-let ((proj (treemacs--find-project-for-path p)))
+          (unless (member proj projects)
+            (push proj projects))))
+      (dolist (proj projects)
+        (treemacs-apply-annotations (treemacs-project->path proj)))
+      (treemacs-pulse-on-success "Inverted marks on %d visible node(s)."
+                                 (length visible))))
+
+  (defun tl/treemacs-first-node ()
+    "Move point to the first node in the Treemacs buffer."
+    (interactive)
+    (goto-char (point-min))
+    (ignore-errors (forward-button 1))
+    (forward-line 0)
+    (treemacs--evade-image))
+
+  (defun tl/treemacs-last-node ()
+    "Move point to the last node in the Treemacs buffer."
+    (interactive)
+    (goto-char (point-max))
+    (ignore-errors (backward-button 1))
+    (forward-line 0)
+    (treemacs--evade-image))
+
   (define-prefix-command 'treemacs-project-prefix)
   (define-prefix-command 'treemacs-workspace-prefix)
+  ;; `y' freed — the default `treemacs-copy-map' prefix duplicates our `c' prefix.
+  (define-key treemacs-mode-map (kbd "y") nil)
+  (define-key treemacs-mode-map (kbd "C-x RET") nil)
   ;; Workspace Keybinds
   (define-key treemacs-mode-map (kbd "w") 'treemacs-workspace-prefix)
   (define-key treemacs-mode-map (kbd "ws") 'treemacs-switch-workspace)
@@ -3134,52 +3197,58 @@ window-selection commands."
   (define-key treemacs-mode-map (kbd "we") 'treemacs-edit-workspaces)
   (define-key treemacs-mode-map (kbd "wn") 'treemacs-next-workspace)
   (define-key treemacs-mode-map (kbd "wf") 'treemacs-set-fallback-workspace)
-  (define-key treemacs-mode-map (kbd "wA") 'treemacs-add-project-to-workspace)
   (define-key treemacs-mode-map (kbd "wp") 'treemacs-create-workspace-from-project)
-  ;; bind the prefix key in treemacs-mode
-  (define-key treemacs-mode-map (kbd "p") 'treemacs-project-prefix)
   ;; Project Keybinds
-  (define-key treemacs-mode-map (kbd "pf") 'treemacs-move-project-down)
-  (define-key treemacs-mode-map (kbd "pn") 'treemacs-next-project)
-  (define-key treemacs-mode-map (kbd "pp") 'treemacs-previous-project)
-  (define-key treemacs-mode-map (kbd "pr") 'treemacs-rename-project)
-  (define-key treemacs-mode-map (kbd "pa") 'treemacs-add-project-to-workspace)
-  (define-key treemacs-mode-map (kbd "pb") 'treemacs-move-project-up)
-  (define-key treemacs-mode-map (kbd "pd") 'treemacs-remove-project-from-workspace)
-  (define-key treemacs-mode-map (kbd "ps") 'treemacs-select-directory)
-  ;(define-key treemacs-mode-map (kbd "") 'treemacs-collapse-project)
-  ;(define-key treemacs-mode-map (kbd "") 'treemacs-collapse-all-projects)
-  (define-key treemacs-mode-map (kbd "S-TAB") 'treemacs-collapse-all-projects)
+  (define-key treemacs-mode-map (kbd "C-k") 'treemacs-previous-project)
+  (define-key treemacs-mode-map (kbd "C-j") 'treemacs-next-project)
+  (define-key treemacs-mode-map (kbd "C-S-j") 'treemacs-move-project-down)
+  (define-key treemacs-mode-map (kbd "C-S-k") 'treemacs-move-project-up)
+  (define-key treemacs-mode-map (kbd "C-r") 'treemacs-rename-project)
+  (define-key treemacs-mode-map (kbd "C-p") 'treemacs-add-project-to-workspace)
+  (define-key treemacs-mode-map (kbd "C-d") 'treemacs-remove-project-from-workspace)
+  (define-key treemacs-mode-map (kbd "<backtab>") 'treemacs-collapse-project)
 
   ;; General Keybinds
+  (define-key treemacs-mode-map (kbd "S") 'treemacs-select-directory)
   (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
   (define-key treemacs-mode-map (kbd "h") 'treemacs-root-up)
   (define-key treemacs-mode-map (kbd "l") 'treemacs-root-down)
-  (define-key treemacs-mode-map (kbd "u") 'treemacs-collapse-parent-node)
+  ;(define-key treemacs-mode-map (kbd "u") 'treemacs-collapse-parent-node)
   (define-key treemacs-mode-map (kbd ".") 'treemacs-toggle-show-dotfiles)
   (define-key treemacs-mode-map (kbd "j") 'treemacs-next-line)
   (define-key treemacs-mode-map (kbd "k") 'treemacs-previous-line)
   (define-key treemacs-mode-map (kbd "/") 'consult-line)
   (define-key treemacs-mode-map (kbd "RET") 'treemacs-RET-action)
   (define-key treemacs-mode-map (kbd "TAB") 'treemacs-TAB-action)
+  (define-key treemacs-mode-map (kbd "SPC") 'treemacs-mark-or-unmark-path-at-point)
+  (define-key treemacs-mode-map (kbd "W") 'treemacs-copy-marked-files)
+  (define-key treemacs-mode-map (kbd "u") 'treemacs-reset-marks)
+  (define-key treemacs-mode-map (kbd "R") 'treemacs-move-marked-files)
+  (define-key treemacs-mode-map (kbd "M") 'treemacs-show-marked-files)
+  (define-key treemacs-mode-map (kbd "D") 'treemacs-delete-marked-files)
+  ;; Dired-parity keybinds: invert all marks (C-a) + jump to first/last node (< / >)
+  (define-key treemacs-mode-map (kbd "C-a") 'tl/treemacs-toggle-marks)
+  (define-key treemacs-mode-map (kbd "<") 'tl/treemacs-first-node)
+  (define-key treemacs-mode-map (kbd ">") 'tl/treemacs-last-node)
   ;(define-key treemacs-mode-map (kbd "w") 'treemacs-set-width)
   (define-key treemacs-mode-map (kbd "=") 'treemacs-fit-window-width)
-  (define-key treemacs-mode-map (kbd "W") 'treemacs-extra-wide-toggle)
-  (define-key treemacs-mode-map (kbd "<") 'treemacs-decrease-width)
-  (define-key treemacs-mode-map (kbd ">") 'treemacs-increase-width)
+  (define-key treemacs-mode-map (kbd "|") 'treemacs-extra-wide-toggle)
+  (define-key treemacs-mode-map (kbd "M-<") 'treemacs-decrease-width)
+  (define-key treemacs-mode-map (kbd "M->") 'treemacs-increase-width)
   (define-key treemacs-mode-map (kbd "g") 'treemacs-refresh)
   (define-key treemacs-mode-map (kbd "d") 'treemacs-delete-file)
   (define-key treemacs-mode-map (kbd "r") 'treemacs-rename-file)
   (define-key treemacs-mode-map (kbd "m") 'treemacs-move-file)
-  (define-key treemacs-mode-map (kbd "af") 'treemacs-create-file)
-  (define-key treemacs-mode-map (kbd "ad") 'treemacs-create-dir)
-  (define-key treemacs-mode-map (kbd "ac") 'treemacs-copy-file)
+  (define-key treemacs-mode-map (kbd "y") 'treemacs-copy-file)
+  (define-key treemacs-mode-map (kbd "n") 'treemacs-create-file)
+  (define-key treemacs-mode-map (kbd "N") 'treemacs-create-dir)
+  (define-key treemacs-mode-map (kbd "f") 'consult-find)
   (define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
   (define-key treemacs-mode-map (kbd ";") 'recenter-top-bottom)
   (define-key treemacs-mode-map (kbd ":") 'move-to-window-line-top-bottom)
   (define-key treemacs-mode-map (kbd "t") 'treemacs-quit)
   (define-key treemacs-mode-map (kbd "Q") 'treemacs-kill-buffer)
-  ;; (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
+  (define-key treemacs-mode-map (kbd "P") 'treemacs-peek-mode)
   (define-key treemacs-mode-map (kbd "s") 'treemacs-resort)
   (define-key treemacs-mode-map (kbd "b") 'treemacs-add-bookmark)
   (define-key treemacs-mode-map (kbd "B") 'treemacs-bookmark)
@@ -3244,7 +3313,9 @@ window-selection commands."
       dired-omit-verbose nil
       dired-hide-details-hide-symlink-targets nil
 	  trash-directory "~/.config/.local/share/Trash/files"              ;; don't think it works
-      delete-by-moving-to-trash t)
+      delete-by-moving-to-trash t
+      dired-create-destination-dirs 'always
+      dired-create-destination-dirs-on-trailing-dirsep t)
 
 (autoload 'dired-omit-mode "dired-x")
 
@@ -3321,6 +3392,18 @@ Positions cursor at the filename."
           (dired-move-to-filename)
         (goto-char start)))))
 
+(defun tl/dired-first-file ()
+  "Move to the first file line in the dired buffer."
+  (interactive)
+  (goto-char (point-min))
+  (tl/dired-next-line))
+
+(defun tl/dired-last-file ()
+  "Move to the last file line in the dired buffer."
+  (interactive)
+  (goto-char (point-max))
+  (tl/dired-prev-line))
+
 (defun tl/dired-create-empty-file (filename)
   "Create an empty file in the dired subdir at point."
   (interactive
@@ -3349,6 +3432,8 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd "C-l") 'dired-display-file)
   (define-key dired-mode-map (kbd "f") 'dired-goto-file)
   (define-key dired-mode-map (kbd "F") 'consult-find)
+  (define-key dired-mode-map (kbd "O") 'find-name-dired)
+  (define-key dired-mode-map (kbd "C-o") 'find-grep-dired)
   (define-key dired-mode-map (kbd "r") 'consult-grep)
   (define-key dired-mode-map (kbd "/") 'consult-line)
   (define-key dired-mode-map (kbd "RET") 'tl/dired-ghostel-here)
@@ -3390,6 +3475,8 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd "N") 'tl/dired-create-directory)
   (define-key dired-mode-map (kbd "n") 'tl/dired-create-empty-file)
   (define-key dired-mode-map (kbd "o") 'dired-do-find-marked-files)
+  (define-key dired-mode-map (kbd "<") 'tl/dired-first-file)
+  (define-key dired-mode-map (kbd ">") 'tl/dired-last-file)
   ;; Dired-ranger clipboard (w=copy, x=move, y=paste)
   (define-key dired-mode-map (kbd "w") 'dired-ranger-copy)
   ;;(define-key dired-mode-map (kbd "m") 'dired-ranger-move)  ; commented: m is now prefix
@@ -3421,6 +3508,7 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd "b r") (lambda () (interactive) (dired "~/documents/org/roam")))
   ;; Unbind — flagging system, regex/bulk prefixes, unused standard keys
   (define-key dired-mode-map (kbd "%") nil)
+  (define-key dired-mode-map (kbd "$") nil)
   (define-key dired-mode-map (kbd "*") nil)
   (define-key dired-mode-map (kbd "&") nil)
   (define-key dired-mode-map (kbd "M-{") nil)
@@ -3430,15 +3518,12 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd "p") nil)
   (define-key dired-mode-map (kbd "a") nil)
   (define-key dired-mode-map (kbd "!") nil)
-  (define-key dired-mode-map (kbd "O") nil)
   (define-key dired-mode-map (kbd "T") nil)
   (define-key dired-mode-map (kbd "Y") nil)
   (define-key dired-mode-map (kbd "A") nil)
   (define-key dired-mode-map (kbd "v") nil)
   (define-key dired-mode-map (kbd "V") nil)
   (define-key dired-mode-map (kbd "B") nil)
-  (define-key dired-mode-map (kbd "<") nil)
-  (define-key dired-mode-map (kbd ">") nil)
   (define-key dired-mode-map (kbd "?") nil)
   (define-key dired-mode-map (kbd "^") nil)
   (define-key dired-mode-map (kbd "+") nil)
@@ -4169,8 +4254,11 @@ package's wholesale keymap regeneration can't wipe them."
     ;; Custom keybindings
     (define-key ghostel-semi-char-mode-map (kbd "C-x ,") #'tl/consult-ghostel)
     (define-key ghostel-semi-char-mode-map (kbd "M-v") #'agent-shell-switch-buffer)
-    (define-key ghostel-semi-char-mode-map (kbd "C-t") #'treemacs)
+    (define-key ghostel-semi-char-mode-map (kbd "C-t") #'treemacs-select-window)
+    (define-key ghostel-semi-char-mode-map (kbd "M-g") #'delete-other-windows)
     (define-key ghostel-semi-char-mode-map (kbd "M-p") #'tl/better-previous-buffer)
+    (define-key ghostel-semi-char-mode-map (kbd "M-m") #'tab-bar-history-back)
+    (define-key ghostel-semi-char-mode-map (kbd "M-M") #'tab-bar-history-forward)
     (define-key ghostel-semi-char-mode-map (kbd "M-n") #'tl/better-next-buffer)
     (define-key ghostel-semi-char-mode-map (kbd "M-<return>") #'god-local-mode)
     (define-key ghostel-semi-char-mode-map (kbd "C-x .") #'tl/consult-new-org)
@@ -4489,7 +4577,7 @@ terminal for that directory is reused instead of spawning a new one."
   (define-key god-local-mode-map (kbd "r") #'undo-tree-undo)
   (define-key god-local-mode-map (kbd "C-S-r") #'undo-tree-redo)
   (define-key god-local-mode-map (kbd "?") #'diff-buffer-with-file)
-  (define-key god-local-mode-map (kbd "t") #'treemacs)
+  (define-key god-local-mode-map (kbd "t") #'treemacs-select-window)
   (define-key god-local-mode-map (kbd "z") #'repeat)
   (define-key god-local-mode-map (kbd "C-S-m") #'org-meta-return)
   (define-key god-local-mode-map (kbd "~") #'tl/toggle-letter-case)
