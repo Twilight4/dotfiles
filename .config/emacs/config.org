@@ -721,20 +721,13 @@ owning tab and raises the window displaying the chosen buffer."
 ;; mode not in `god-exempt-major-modes'; exempting `diff-mode' (and forcing
 ;; it off in the hook, like treemacs/ghostel) stops the auto-enable.  TAB is
 ;; NOT redefined here: the global TAB->god-local-mode binding already lets you
-;; opt back into God nav in a diff buffer; what changed is it no longer turns
-;; ON by itself.  j/k/J/K give hunk/file nav because our global C-n/C-p are
-;; rebound to newline commands, so a God-off diff buffer needs its own keys
-;; (C-j/C-k still do plain line nav globally).
+;; opt back into God nav in a diff buffer; what changed is it no longer turns ON by itself.
 (with-eval-after-load 'god-mode
   (add-to-list 'god-exempt-major-modes 'diff-mode))
 (with-eval-after-load 'diff
   (add-hook 'diff-mode-hook
             (lambda () (when (bound-and-true-p god-local-mode)
-                         (god-local-mode -1))))
-  (define-key diff-mode-map (kbd "j") #'diff-hunk-next)
-  (define-key diff-mode-map (kbd "k") #'diff-hunk-prev)
-  (define-key diff-mode-map (kbd "J") #'diff-file-next)
-  (define-key diff-mode-map (kbd "K") #'diff-file-prev))
+                         (god-local-mode -1)))))
 
 ;; Info-mode
 (eval-after-load 'info
