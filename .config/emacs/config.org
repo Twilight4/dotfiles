@@ -37,6 +37,7 @@
   - [[#clean-empty-lines][Clean Empty Lines]]
   - [[#split-and-switch-to-window][Split and switch to window]]
   - [[#diff-configorg-with-dotfiles-configorg][Diff config.org with dotfiles config.org]]
+  - [[#diff-current-file-with-another-file][Diff current file with another file]]
   - [[#remove-inline---comments-from-region][Remove inline “# …” comments from region]]
   - [[#expand-region][Expand-region]]
   - [[#kill-current-buffer][Kill current buffer]]
@@ -715,10 +716,10 @@ owning tab and raises the window displaying the chosen buffer."
 ;(global-set-key (kbd "M-w") 'jinx-correct-all)
 ;(global-set-key (kbd "M-w") 'jinx-correct-select)
 
-;; Diff-mode
-;(eval-after-load 'diff
-;  '(progn
-;     (define-key diff-mode-map (kbd "TAB") 'god-local-mode)))
+;; Diff-mode — TAB toggles god-local-mode (per-mode override, like org-mode-map;
+;; diff-mode-map has no TAB binding, so without this the stale global default wins)
+(with-eval-after-load 'diff
+  (define-key diff-mode-map (kbd "TAB") #'god-local-mode))
 
 ;; Info-mode
 (eval-after-load 'info
@@ -868,7 +869,7 @@ owning tab and raises the window displaying the chosen buffer."
     ;; "y" '(consult-yank-pop :wk "Clipboard history")      ;;   bound to M-y
     "C-\\" '(indent-region :wk "Indent region")
     "i" '(org-gtd-process-inbox :wk "Process inbox")
-    "f" '(hl-todo-insert :wk "Insert todo heading at point")
+    "f" '(tl/diff-current-file :wk "Diff current file with another")
     "L" '(tl/toggle-dict-both :wk "Switch between dictionaries (auto-correct and completion)")
     "B" '(org-gtd-clarify-switch-to-buffer :wk "Switch to clarify buffer")
 	;"C-p" '(find-file-at-point :wk "Find file at point")
@@ -1885,6 +1886,17 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
         "/home/twilight/desktop/workspace/dotfiles/.config/emacs/config.org"))
 #+end_src
 
+** Diff current file with another file
+#+begin_src emacs-lisp
+(defun tl/diff-current-file (other)
+  "Diff the file visited by the current buffer against OTHER."
+  (interactive
+   (list (read-file-name "Diff current file with: ")))
+  (unless (buffer-file-name)
+    (user-error "Current buffer is not visiting a file"))
+  (diff (buffer-file-name) other))
+#+end_src
+
 ** Remove inline “# …” comments from region
 #+begin_src emacs-lisp
 (defun tl/strip-comments-in-region (start end)
@@ -2171,19 +2183,22 @@ Version: 2025-02-05"
 ** Paste directly into a code block template
 #+begin_src emacs-lisp
 (defun tl/org-insert-template-and-paste ()
-  "Insert an Org structure template and paste Wayland clipboard content using wl-paste."
+  "Insert an Org structure template and paste the Wayland clipboard into it.
+The clipboard content is inserted directly into the block body without
+opening the org-src special edit buffer."
   (interactive)
-  ;; Insert structure template normally (shows the selection prompt)
   (call-interactively #'org-insert-structure-template)
-  ;; Move to the inside of the block
-  (when (org-in-block-p '("src" "example" "quote" "code" "verse"))
-    (org-edit-special))
-  ;; Insert clipboard content using wl-paste
-  (let ((clip (shell-command-to-string "wl-paste")))
-    (insert clip))
-  ;; Close the special edit buffer if opened
-  (when (eq major-mode 'org-src-mode)
-    (org-edit-src-exit)))
+  ;; `org-insert-structure-template' leaves point in different places depending
+  ;; on the template: at the end of the #+begin line for a bare `src', but at
+  ;; the start of the #+end line when the template carries a language (e.g.
+  ;; `src emacs-lisp', `quote'). Locate the #+begin line deterministically,
+  ;; drop onto the first body line, and insert the trimmed clipboard on its own
+  ;; line before #+end -- works regardless of where point landed.
+  (let ((clip (string-trim-right (shell-command-to-string "wl-paste"))))
+    (re-search-backward "^[ \t]*#\\+begin_")
+    (forward-line 1)
+    (beginning-of-line)
+    (insert clip "\n")))
 #+end_src
 
 ** Toggle selection mode

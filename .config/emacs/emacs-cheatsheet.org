@@ -82,6 +82,7 @@ The world's greatest programmer once said:
 | C-b         | Switch to buffer                   |
 | C-o         | Open image in swappy               |
 | m           | Select macro to run                |
+| C-x C-m     | Exchange point and mark            |
 | C-x C-f C-u | timeclock-in                       |
 | C-x C-f C-o | timeclock-out                      |
 | C-x C-f C-s | timeclock-status-string            |
@@ -283,8 +284,8 @@ The world's greatest programmer once said:
 | j/k             | Previous/next item                                                 |
 | p/n             | Backward/forward block                                             |
 | l/w/m/y         | Day/week/month/year view                                           |
-| I/O/J/U         | Start/stop/jump to current/cancel                                  |
-| u/R/M/K/F/L/T   | Toggle diary/clock/deadlines/habits/follow mode/log mode/time grid |
+| I/O/J/Q         | Start/stop/jump to current/cancel                                  |
+| u/R/U/K/F/L/T   | Toggle diary/clock/deadlines/habits/follow mode/log mode/time grid |
 | h/H             | Show the tags for item/Set tag                                     |
 | f/b             | Go forward/backward in time in agenda                              |
 | q/Q             | Quit/Exit and kill buffers created by agenda                       |
@@ -436,16 +437,18 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | m l        | Lowercase filenames of marked files            |
 
 *** File operations
-| Keybinding | Description                                    |
-|------------+------------------------------------------------|
-| D          | Delete marked files                            |
-| R          | Rename/move marked files                       |
-| W          | Copy marked files to target directory          |
-| S          | Create symbolic links for marked files         |
-| M          | Change file permissions (chmod)                |
-| N          | Create directory                               |
-| n          | Create empty file                              |
-| o          | Open all marked files                          |
+| Keybinding | Description                            |
+|------------+----------------------------------------|
+| D          | Delete marked files                    |
+| R          | Rename/move marked files               |
+| W          | Copy marked files to target directory  |
+| S          | Create symbolic links for marked files |
+| M          | Change file permissions (chmod)        |
+| N          | Create directory                       |
+| n          | Create empty file                      |
+| o          | Open all marked files                  |
+| O          | Use find to display files by name      |
+| C-o        | use find to display files by grep      |
 
 *** Dired-ranger clipboard
 | Keybinding | Description                                      |
