@@ -3529,7 +3529,7 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd ".") 'dired-omit-mode)
   (define-key dired-mode-map (kbd "H") 'dired-hide-details-mode)
   ;; Wdired + editing
-  (define-key dired-mode-map (kbd "M-w") 'wdired-change-to-wdired-mode)
+  (define-key dired-mode-map (kbd "M-r") 'wdired-change-to-wdired-mode)
   (define-key dired-mode-map (kbd "|") 'anzu-query-replace)
   (define-key dired-mode-map (kbd "M-SPC") 'rectangle-mark-mode)
   (define-key dired-mode-map (kbd "P") 'peep-dired)
@@ -4075,6 +4075,8 @@ outside a project-local `.omp/'."
   ;; Bindings
   (define-key agent-shell-viewport-view-mode-map (kbd "TAB") #'god-local-mode)
   (define-key agent-shell-list-edit-mode-map (kbd "TAB") #'god-local-mode)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-<tab>") #'tl/switch-through-visible-tab-buffer)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-<tab>") #'tl/switch-through-visible-tab-buffer)
   (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-f") #'agent-shell-fork)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-f") #'agent-shell-fork)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-s") #'agent-recall-consult-search)

@@ -49,7 +49,7 @@ hl.window_rule({ match = { class = "xdg-desktop-portal-kde" }, float = true, cen
 hl.window_rule({ match = { class = "wlfreerdp" },      float = true, center = true })
 hl.window_rule({ match = { class = "org.kde.polkit-kde-authentication-agent-1" }, float = true, center = true })
 hl.window_rule({ match = { class = "zen" },     workspace = "2" })
-hl.window_rule({ match = { class = "ferdium" }, workspace = "3" })
+hl.window_rule({ match = { class = "(?i)^ferdium$" }, workspace = "3" })  -- real class is "Ferdium"; (?i) = case-insensitive
 hl.window_rule({ match = { class = "^freetube" }, opaque = true, workspace = "4" })
 hl.window_rule({ match = { class = "WebCord" },  workspace = "special:other" })
 hl.window_rule({ match = { class = "kitty-idling-script" }, workspace = "special:other silent" })
