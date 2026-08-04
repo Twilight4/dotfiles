@@ -1,12 +1,10 @@
 #!/bin/bash
-
 is_kitty_running() {
   hyprctl clients | grep 'org.gnome.Calculator' >/dev/null
 }
-
 if ! is_kitty_running; then
-  hyprctl dispatch exec 'uwsm app -- gnome-calculator'
+  hyprctl dispatch 'hl.dsp.exec_cmd([=[uwsm app -- gnome-calculator]=])'
 else
-  hyprctl dispatch togglespecialworkspace floating
-  hyprctl dispatch focuswindow 'class:^(org.gnome.Calculator)$'
+  hyprctl dispatch 'hl.dsp.workspace.toggle_special("floating")'
+  hyprctl dispatch 'hl.dsp.focus({window="class:^(org.gnome.Calculator)$"})'
 fi

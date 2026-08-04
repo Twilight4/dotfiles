@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-
 hyprlock&
 sleep 0.4
-hyprctl dispatch dpms off
+hyprctl dispatch 'hl.dsp.dpms({action="off"})'

@@ -21,15 +21,15 @@ zen_running_anywhere() {
 # MAIN LOGIC
 if zen_on_target_ws; then
   # Zen Browser exists on workspace 2 → switch to it
-  hyprctl dispatch workspace "$TARGET_WS"
+  hyprctl dispatch "hl.dsp.focus({workspace=$TARGET_WS})"
 
 elif zen_running_anywhere; then
   # Zen Browser exists but not on workspace 2 → open an additional window on WS2
-  hyprctl dispatch exec "[workspace $TARGET_WS] uwsm app -- zen-browser -P 'Default (release)'"
+  hyprctl dispatch "hl.dsp.exec_cmd([=[[workspace $TARGET_WS] uwsm app -- zen-browser -P 'Default (release)']=])"
 
 else
   # No Zen Browser running → start it on WS2
-  hyprctl dispatch exec "[workspace $TARGET_WS] uwsm app -- zen-browser -P 'Default (release)'"
+  hyprctl dispatch "hl.dsp.exec_cmd([=[[workspace $TARGET_WS] uwsm app -- zen-browser -P 'Default (release)']=])"
 fi
 
 DEBUG=1

@@ -24,15 +24,15 @@ zen_youtube_anywhere() {
 # MAIN LOGIC
 if zen_youtube_on_target_ws; then
     # YouTube tab already on workspace 5
-    hyprctl dispatch workspace "$TARGET_WS"
+    hyprctl dispatch "hl.dsp.focus({workspace=$TARGET_WS})"
 
 elif zen_youtube_anywhere; then
     # YouTube tab exists but NOT on workspace 5 → open new one on 5
-    hyprctl dispatch exec "[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube"
+    hyprctl dispatch "hl.dsp.exec_cmd([=[[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube]=])"
 
 else
     # No YouTube tab at all → launch Zen YouTube profile on 5
-    hyprctl dispatch exec "[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube"
+    hyprctl dispatch "hl.dsp.exec_cmd([=[[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube]=])"
 fi
 
 DEBUG=1

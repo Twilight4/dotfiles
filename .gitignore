@@ -1,0 +1,5 @@
+
+# editor temp/backup files (Emacs undo-tree, lockfiles, backups)
+*~
+.*.~undo-tree~
+.#*

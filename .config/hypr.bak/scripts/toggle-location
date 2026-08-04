@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Check if geoclue agent is running
+if pgrep -f /usr/lib/geoclue-2.0/demos/agent > /dev/null; then
+    # If the agent is running, kill the process to disable location
+    pkill -f /usr/lib/geoclue-2.0/demos/agent
+    # Send notification that location has been turned off
+    notify-send -t 4000 -u low -i ~/.config/mako/icons/location.png "Location Service: Off"
+else
+    # If the agent is not running, start the agent to enable location
+    /usr/lib/geoclue-2.0/demos/agent &
+    # Send notification that location has been turned on
+    notify-send -t 4000 -u low -i ~/.config/mako/icons/location.png "Location Service: On"
+fi

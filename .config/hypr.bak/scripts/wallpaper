@@ -1,0 +1,95 @@
+#!/bin/bash
+
+# Cache file for holding the current wallpaper
+cache_file="$HOME/.cache/current_wallpaper"
+rasi_file="$HOME/.cache/current_wallpaper.rasi"
+rasi_file2="$HOME/.cache/current_wallpaper2.rasi"
+
+current_wallpaper=$(cat "$cache_file")
+DIR="$HOME/pictures/wallpapers/landscapes"
+PICS=($(find ${DIR} -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.gif" \)))
+RANDOMPICS=${PICS[ $RANDOM % ${#PICS[@]} ]}
+newwall=$(echo $RANDOMPICS | sed "s|$DIR||g")
+
+case $1 in
+
+    # Load wallpaper from .cache of last session
+    "init")
+        if [ -f ~/.cache/current_wallpaper ]; then
+            swaybg -m fill -i $current_wallpaper&
+            notify-send "Colors and Wallpaper updated" "with image $(cat "$cache_file" | sed "s|$DIR/||g")"
+            wal -q -i $current_wallpaper -s -t
+
+            ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
+        else
+            swaybg -m fill -i ${RANDOMPICS}&
+            notify-send "Colors and Wallpaper updated" "with image $newwall"
+            wal -q -i ${RANDOMPICS} -s -t
+
+            echo "$RANDOMPICS" > "$cache_file"
+            echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
+            echo "* { current-image: url(\"$RANDOMPICS\", width); }" > "$rasi_file2"
+
+            ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
+        fi
+    ;;
+
+    # Select wallpaper with rofi
+    "select")
+        selected=$( find "$DIR/" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec basename {} \; | sort -R | while read rfile
+        do
+            echo -en "$rfile\x00icon\x1f$DIR/${rfile}\n"
+        done | rofi -dmenu -replace -config ~/.config/rofi/themes/config-wallpaper.rasi)
+        if [ ! "$selected" ]; then
+            echo "No wallpaper selected"
+            exit
+        fi
+
+        swaybg -m fill -i $DIR/$selected&
+        notify-send "Colors and Wallpaper updated" "with image $selected"
+        wal -q -i $DIR/$selected -s -t
+
+        echo "$DIR/$selected" > "$cache_file"
+        echo "* { current-image: url(\"$DIR/$selected\", height); }" > "$rasi_file"
+        echo "* { current-image: url(\"$DIR/$selected\", width); }" > "$rasi_file2"
+
+        ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
+        sudo cp $(cat ~/.cache/current_wallpaper) /usr/share/sddm/themes/pixie/assets/background.jpg
+    ;;
+
+    # Randomly select wallpaper
+    *)
+        swaybg -m fill -i ${RANDOMPICS}&
+        notify-send "Colors and Wallpaper updated" "with image $newwall"
+
+        wal -q -i ${RANDOMPICS} -s -t
+
+        echo "$RANDOMPICS" > "$cache_file"
+        echo "* { current-image: url(\"$RANDOMPICS\", height); }" > "$rasi_file"
+        echo "* { current-image: url(\"$RANDOMPICS\", width); }" > "$rasi_file2"
+
+        ln -sf $(cat ~/.cache/current_wallpaper) ~/.cache/.current_wallpaper
+        ;;
+esac
+
+# Load current pywal color scheme
+source "$HOME/.cache/wal/colors.sh"
+
+# Reload waybar with new colors
+if [ -f ~/.config/hypr/scripts/waybar-reset-theme ]; then
+    ~/.config/hypr/scripts/waybar-reset-theme
+else
+    echo "Error: The required file does not exist."
+fi
+
+# Reload swaync with new colors
+if [ -f ~/.config/hypr/scripts/swaync-reset-theme ]; then
+    ~/.config/hypr/scripts/swaync-reset-theme
+else
+    echo "Error: The required file does not exist."
+fi
+
+# Reload cava-pywal (note, need to manually restart cava once wallpaper changes)
+ln -sf "$HOME/.cache/wal/cava-colors" "$HOME/.config/cava/config" || true
+
+echo "DONE!"

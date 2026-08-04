@@ -1,17 +1,16 @@
 #!/bin/bash
-
 # Function to check if FreeTube is running
 is_freetube_running() {
   hyprctl clients | grep 'FreeTube' >/dev/null
 }
 
-hyprctl dispatch workspace 4
+hyprctl dispatch 'hl.dsp.focus({workspace=4})'
 
 # Check if FreeTube is running
 if ! is_freetube_running; then
   # If FreeTube is not running, launch it
-  hyprctl dispatch exec 'uwsm app -- freetube --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL --gpu-context=wayland'
+  hyprctl dispatch 'hl.dsp.exec_cmd([=[uwsm app -- freetube --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL --gpu-context=wayland]=])'
 else
   # If FreeTube is running, focus on its window
-  hyprctl dispatch focuswindow 'class:^(FreeTube)$'
+  hyprctl dispatch 'hl.dsp.focus({window="class:^(FreeTube)$"})'
 fi

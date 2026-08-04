@@ -1,13 +1,11 @@
 #!/bin/bash
-
-STATE=$(hyprctl -j getoption decoration:blur:passes | jq ".int")
+# MIGRATION: `hyprctl keyword` is gone -> `hyprctl eval 'hl.config({...})'`.
+STATE=$(hyprctl -j getoption decoration.blur.passes | jq ".int")
 
 if [ "${STATE}" == "4" ]; then
-	hyprctl keyword decoration:blur:size 5
-	hyprctl keyword decoration:blur:passes 2
+	hyprctl eval 'hl.config({decoration={blur={size=5, passes=2}}})' >/dev/null
   notify-send -t 3000 "Normal blur"
 else
-  hyprctl keyword decoration:blur:size 12
-	hyprctl keyword decoration:blur:passes 4
-  notify-send -t 3000 "Glassy blur"
+  hyprctl eval 'hl.config({decoration={blur={size=12, passes=4}}})' >/dev/null
+	notify-send -t 3000 "Glassy blur"
 fi

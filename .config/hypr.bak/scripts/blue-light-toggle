@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+GAMMA_FILE="/tmp/hyprsunset_gamma"
+ICON="$HOME/.config/mako/icons/night-mode.png"
+
+# Check if night mode is currently active by reading gamma file
+if [[ -f "$GAMMA_FILE" ]] && [[ "$(cat "$GAMMA_FILE")" == "90" ]]; then
+    # Night mode is ON → turn it OFF
+    hyprctl hyprsunset identity
+    
+    # Reset gamma to 100 when turning off night mode
+    echo "100" > "$GAMMA_FILE"
+    
+    notify-send -u low -t 4000 -i "$ICON" "Night mode: Off"
+else
+    # Night mode is OFF → turn it ON
+    hyprctl hyprsunset temperature 4500 gamma 90
+    
+    # Update gamma file to reflect night mode gamma (90)
+    echo "90" > "$GAMMA_FILE"
+    
+    notify-send -u low -t 4000 -i "$ICON" "Night mode: On"
+fi

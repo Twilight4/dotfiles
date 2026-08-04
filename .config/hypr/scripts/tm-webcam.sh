@@ -1,14 +1,12 @@
 #!/bin/bash
-
 # Function to check if 'ffplay' process is running
 is_webcam_running() {
 	hyprctl clients | grep 'ffplay' >/dev/null
 }
-
 # Spawn webcam if it's not running, else only focus
 if ! is_webcam_running; then
     # Spawn 'webcam.sh' only if it was not running
-    hyprctl dispatch exec 'uwsm app -- ~/.config/.local/bin/webcam.sh'
+    hyprctl dispatch 'hl.dsp.exec_cmd([=[uwsm app -- ~/.config/.local/bin/webcam.sh]=])'
 else
-    hyprctl dispatch focuswindow '^ffplay$'
+    hyprctl dispatch 'hl.dsp.focus({window="class:^ffplay$"})'
 fi

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+STATE=$(hyprctl -j getoption decoration:blur:passes | jq ".int")
+
+if [ "${STATE}" == "4" ]; then
+	hyprctl keyword decoration:blur:size 5
+	hyprctl keyword decoration:blur:passes 2
+  notify-send -t 3000 "Normal blur"
+else
+  hyprctl keyword decoration:blur:size 12
+	hyprctl keyword decoration:blur:passes 4
+  notify-send -t 3000 "Glassy blur"
+fi

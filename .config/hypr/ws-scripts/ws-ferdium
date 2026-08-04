@@ -1,17 +1,16 @@
 #!/bin/bash
-
-# Function to check if Netflix is running
+# Function to check if Ferdium is running
 is_netflix_running() {
   hyprctl clients | grep 'Ferdium' >/dev/null
 }
 
-hyprctl dispatch workspace 3
+hyprctl dispatch 'hl.dsp.focus({workspace=3})'
 
 # Check if netflix is running
 if ! is_netflix_running; then
   # If netflix is not running, launch it
-  hyprctl dispatch exec 'uwsm app -- ferdium --socket=wayland --ozone-platform-hint=auto --ozone-platform=wayland --enable-features-WaylandWindowDecorations'
+  hyprctl dispatch 'hl.dsp.exec_cmd([=[uwsm app -- ferdium --socket=wayland --ozone-platform-hint=auto --ozone-platform=wayland --enable-features-WaylandWindowDecorations]=])'
 else
   # If netflix is running, focus on its window
-  hyprctl dispatch focuswindow 'class:^(Ferdium)$'
+  hyprctl dispatch 'hl.dsp.focus({window="class:^(Ferdium)$"})'
 fi

@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+iDIR="$HOME/.config/mako/icons"
+GAMMA_FILE="/tmp/hyprsunset_gamma"
+# Initialize gamma value if file doesn't exist
+if [[ ! -f "$GAMMA_FILE" ]]; then
+    echo "100" > "$GAMMA_FILE"
+fi
+# Get current gamma value
+get_gamma() {
+    cat "$GAMMA_FILE"
+}
+# Get icons based on gamma value (mapped to 0-150 range)
+get_icon() {
+    current=$(get_gamma)
+    if [[ "$current" -le 30 ]]; then
+        icon="$iDIR/brightness-20.png"
+    elif [[ "$current" -le 60 ]]; then
+        icon="$iDIR/brightness-40.png"
+    elif [[ "$current" -le 90 ]]; then
+        icon="$iDIR/brightness-60.png"
+    elif [[ "$current" -le 120 ]]; then
+        icon="$iDIR/brightness-80.png"
+    else
+        icon="$iDIR/brightness-100.png"
+    fi
+}
+# Notify user
+notify_user() {
+    get_icon
+    notify-send -h string:x-canonical-private-synchronous:sys-notify -u low -i "$icon" "Gamma : $(get_gamma)"
+}
+# Increase gamma
+inc_gamma() {
+    current=$(get_gamma)
+    new_gamma=$((current + 10))
+    if [[ $new_gamma -gt 150 ]]; then
+        new_gamma=150
+    fi
+    echo "$new_gamma" > "$GAMMA_FILE"
+    hyprctl hyprsunset gamma +10 && notify_user
+}
+# Decrease gamma
+dec_gamma() {
+    current=$(get_gamma)
+    new_gamma=$((current - 10))
+    if [[ $new_gamma -lt 0 ]]; then
+        new_gamma=0
+    fi
+    echo "$new_gamma" > "$GAMMA_FILE"
+    hyprctl hyprsunset gamma -10 && notify_user
+}
+# Execute accordingly
+if [[ "$1" == "--get" ]]; then
+    get_gamma
+elif [[ "$1" == "--inc" ]]; then
+    inc_gamma
+elif [[ "$1" == "--dec" ]]; then
+    dec_gamma
+else
+    get_gamma
+fi

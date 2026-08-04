@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Command to turn night mode on
+ON_COMMAND="hyprctl keyword decoration:screen_shader ~/.config/hypr/shaders/flux.glsl && notify-send -u low -t 4000 -i '$HOME/.config/mako/icons/night-mode.png' 'Night mode: On'"
+
+# Command to turn night mode off
+OFF_COMMAND="hyprctl keyword decoration:screen_shader '[[EMPTY]]' && notify-send -u low -t 4000 -i '$HOME/.config/mako/icons/night-mode.png' 'Night mode: Off'"
+
+# Check if night mode is currently on
+CURRENT_SHADER=$(hyprctl getoption decoration:screen_shader | grep 'str:' | awk '{print $2}')
+
+# Toggle between on and off
+if [[ "$CURRENT_SHADER" == "[[EMPTY]]" || -z "$CURRENT_SHADER" ]]; then
+    # Night mode is off, turn it on
+    eval "$ON_COMMAND"
+else
+    # Night mode is on, turn it off
+    eval "$OFF_COMMAND"
+fi

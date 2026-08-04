@@ -1,0 +1,43 @@
+#!/bin/bash
+# Cycles monitor profiles defined in workspaces.conf:
+#   TV only -> Main only -> 2 Monitors -> TV only -> ...
+# Toggles the `monitor=` lines per section (comment/uncomment), reloads
+# Hyprland so the new profile applies, and fires a notification.
+# ponytail: state is derived from the file itself (no separate state file) —
+# the active profile is whichever section has an uncommented `monitor=` line.
+
+CONF="$HOME/.config/hypr/configs/workspaces.conf"
+MODES=("TV only" "Main only" "2 Monitors")
+HEADER_RE='^# (TV only|Main only|2 Monitors)$'
+
+# --- determine current profile: first section with an uncommented monitor= line
+current=$(awk -v re="$HEADER_RE" '
+  $0 ~ re                { hdr=$0; sub(/^# /, "", hdr); in_sec=1; next }
+  in_sec && /^monitor *=/  { print hdr; exit }
+  in_sec && /^#monitor *=/ { next }
+  in_sec && /^$/           { in_sec=0 }
+' "$CONF")
+
+# --- pick next profile in the cycle
+next="${MODES[0]}"
+for i in "${!MODES[@]}"; do
+  if [ "${MODES[$i]}" = "$current" ]; then
+    next="${MODES[$(( (i+1) % ${#MODES[@]} ))]}"
+    break
+  fi
+done
+
+# --- rewrite: uncomment monitor= under "$next", comment under the others
+awk -v target="$next" -v re="$HEADER_RE" '
+  $0 ~ re {
+    hdr=$0; sub(/^# /, "", hdr)
+    in_sec = (hdr == target) ? 1 : 2   # 1 = active (uncomment), 2 = inactive (comment)
+    print; next
+  }
+  in_sec == 1 && /^#monitor *=/ { sub(/^#/, ""); print; next }
+  in_sec == 2 && /^monitor *=/  { print "#" $0; next }
+  { print }
+' "$CONF" > "$CONF.tmp" && mv "$CONF.tmp" "$CONF"
+
+hyprctl reload >/dev/null 2>&1
+notify-send -u low -t 1500 "Monitor profile" "Switched to: ${next}"

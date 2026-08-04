@@ -1,0 +1,17 @@
+#!/bin/bash
+
+THEME='Graphite-blue-Dark-compact'
+ICONS='Papirus-Dark'
+CURSOR='Bibata-Modern-Classic'
+FONT='Sans 10'
+
+SCHEMA='gsettings set org.gnome.desktop.interface'
+
+apply_themes() {
+	${SCHEMA} gtk-theme "$THEME"
+	${SCHEMA} icon-theme "$ICONS"
+	${SCHEMA} cursor-theme "$CURSOR"
+	${SCHEMA} font-name "$FONT"
+}
+
+apply_themes

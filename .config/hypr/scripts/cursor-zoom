@@ -1,7 +1,8 @@
 #!/bin/bash
-
-if [ $(hyprctl -j getoption misc:cursor_zoom_factor | jq '.float' | sed 's/\..*$//') == 1 ]; then
-  $(hyprctl keyword misc:cursor_zoom_factor 2) &> /dev/null
+# MIGRATION: cursor_zoom_factor moved from misc to the cursor subcategory
+# (now cursor.zoom_factor), and `hyprctl keyword` is gone -> `hyprctl eval 'hl.config'`.
+if [ $(hyprctl -j getoption cursor.zoom_factor | jq '.float' | sed 's/\..*$//') == 1 ]; then
+  hyprctl eval 'hl.config({cursor={zoom_factor=2}})' >/dev/null
 else
-  $(hyprctl keyword misc:cursor_zoom_factor 1) &> /dev/null
+  hyprctl eval 'hl.config({cursor={zoom_factor=1}})' >/dev/null
 fi
