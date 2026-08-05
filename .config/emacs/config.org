@@ -6,6 +6,7 @@
 
 * Table of Contents :toc:
 - [[#elpaca][Elpaca]]
+  - [[#elpaca-outdated-packages][Elpaca outdated packages]]
 - [[#gui-configuration][GUI Configuration]]
   - [[#frame-configuration][Frame configuration]]
   - [[#transparency][Transparency]]
@@ -154,6 +155,194 @@
 ;; Block until current queue processed.
 (elpaca-wait)
 #+end_src
+** Elpaca outdated packages
+Show how many installed Elpaca packages are behind their upstream =HEAD= as a modeline segment. Elpaca deliberately does NOT auto-update installed packages (=elpaca-update-menus= only refreshes the recipe catalog, never installed packages), so without an explicit check the count silently drifts — e.g. =agent-shell= sat at v0.57 for months while upstream reached v0.69.
+
+Counting needs a =git fetch= on every package source (~15-60 s for ~118 repos), so it runs in a /background process/ (never blocks startup) and caches the result, reporting the outcome in =*Messages*= (outdated count, total, and elapsed time). The heavy lifting lives in the tracked =elpaca-outdated= shell script (=~/.config/.local/bin/=, reusable from a shell: =elpaca-outdated= for the count, =elpaca-outdated --list= for =<behind>\t<pkg>= detail). The segment sits in =global-mode-string= — the slot =doom-modeline= renders (unlike =mode-line-misc-info=); it is hidden when everything is up to date, otherwise coloured by severity — white (1-4), yellow (5-10), red (11+), tunable via =tl/elpaca-outdated-yellow-at=/=red-at= and the =…-color-…= defcustoms — like a Waybar package indicator. =mouse-1= updates all packages; the two commands also live under =C-x C-e= (=o= recheck, =u= update all).
+
+#+begin_src emacs-lisp
+(defvar tl/elpaca-outdated-count nil
+  "Number of installed Elpaca packages behind upstream, or nil if not checked.")
+
+(defvar tl/elpaca-outdated--proc nil
+  "Background process computing `tl/elpaca-outdated-count', or nil.")
+
+(defvar tl/elpaca-outdated--timers nil
+  "Active refresh timers for `tl/elpaca-outdated-count'.")
+
+(defcustom tl/elpaca-outdated-script
+  (expand-file-name ".local/bin/elpaca-outdated"
+                    (or (getenv "XDG_CONFIG_HOME") "~/.config"))
+  "Shell script that prints the outdated-package count to stdout."
+  :type 'file)
+
+(defcustom tl/elpaca-outdated-refresh-hours 6
+  "Hours between automatic rechecks of the outdated-package count."
+  :type 'number)
+
+(defcustom tl/elpaca-outdated-yellow-at 5
+  "Outdated count at/above which the segment turns yellow."
+  :type 'natnum)
+
+(defcustom tl/elpaca-outdated-red-at 11
+  "Outdated count at/above which the segment turns red."
+  :type 'natnum)
+
+(defcustom tl/elpaca-outdated-color-white "#cdd6f4"
+  "Segment colour when only a few packages are outdated (below `yellow-at')."
+  :type 'color)
+
+(defcustom tl/elpaca-outdated-color-yellow "#f9e2af"
+  "Segment colour for a moderate number of outdated packages."
+  :type 'color)
+
+(defcustom tl/elpaca-outdated-color-red "#f38ba8"
+  "Segment colour for many outdated packages (at/above `red-at')."
+  :type 'color)
+
+(defvar tl/elpaca-outdated--start-time nil
+  "`float-time' when the current check started, for elapsed-time reporting.")
+
+(defun tl/elpaca-outdated--total ()
+  "Number of installed Elpaca package source directories."
+  (let ((dir (bound-and-true-p elpaca-sources-directory)))
+    (if (and dir (file-directory-p dir))
+        (length (seq-filter (lambda (f) (file-directory-p (expand-file-name f dir)))
+                            (directory-files dir nil "\\`[^.]")))
+      0)))
+
+(defun tl/elpaca-outdated--report (ok)
+  "Message the result of a check.  OK non-nil means the script exited cleanly."
+  (let* ((total (tl/elpaca-outdated--total))
+         (elapsed (and tl/elpaca-outdated--start-time
+                       (- (float-time) tl/elpaca-outdated--start-time)))
+         (secs (if elapsed (format " (%.1fs)" elapsed) ""))
+         (n tl/elpaca-outdated-count))
+    (cond
+     ((not ok) (message "Elpaca: update check failed%s"
+                        (if elapsed (format " after %.1fs" elapsed) "")))
+     ((null n) (message "Elpaca: update check produced no count%s" secs))
+     ((zerop n) (message "Elpaca: all %d packages up to date%s" total secs))
+     (t (message "Elpaca: %d of %d packages outdated%s" n total secs)))))
+
+(defun tl/elpaca-outdated--sentinel (proc _event)
+  "Parse PROC output into `tl/elpaca-outdated-count', refresh modeline, report."
+  (when (memq (process-status proc) '(exit signal))
+    (let ((ok (eq (process-status proc) 'exit))
+          (buf (process-buffer proc)))
+      (setq tl/elpaca-outdated--proc nil)
+      (setq tl/elpaca-outdated-count
+            (when ok
+              (let ((out (with-current-buffer buf (string-trim (buffer-string)))))
+                (and (string-match-p "\\`[0-9]+\\'" out)
+                     (string-to-number out)))))
+      (when (buffer-live-p buf) (kill-buffer buf))
+      (tl/elpaca-outdated--report ok)
+      (force-mode-line-update t))))
+
+(defun tl/elpaca-outdated-update ()
+  "Asynchronously count Elpaca packages behind upstream.
+Updates `tl/elpaca-outdated-count' (shown in the modeline) once the
+background check finishes, and reports the result in *Messages*.
+No-op if a check is already in flight or the script is missing."
+  (interactive)
+  (unless (and tl/elpaca-outdated--proc
+               (process-live-p tl/elpaca-outdated--proc))
+    (if (not (file-executable-p tl/elpaca-outdated-script))
+        (message "elpaca-outdated: script not executable at %s"
+                 tl/elpaca-outdated-script)
+      (let ((total (tl/elpaca-outdated--total)))
+        (message "Elpaca: checking %d package%s for updates..."
+                 total (if (= total 1) "" "s")))
+      (setq tl/elpaca-outdated--start-time (float-time))
+      (let ((buf (generate-new-buffer " *elpaca-outdated*")))
+        (setq tl/elpaca-outdated--proc
+              (make-process
+               :name "elpaca-outdated"
+               :buffer buf
+               :command (list tl/elpaca-outdated-script)
+               :sentinel #'tl/elpaca-outdated--sentinel
+               :noquery t))))))
+
+(defcustom tl/elpaca-outdated-icon nil
+  "Icon for the outdated-packages segment.
+nil uses the `nf-fa-cube' nerd-icons Font Awesome cube icon.  Set to a
+literal glyph string to override (paste the exact char — a Nerd Font
+PUA codepoint needs the `Symbols Nerd Font Mono' family, which the
+segment applies automatically)."
+  :type '(choice (const :tag "nf-fa-cube (default)" nil)
+                 (string :tag "Custom icon glyph")))
+
+(defun tl/elpaca-outdated--color (n)
+  "Return the modeline colour for outdated count N (white → yellow → red)."
+  (cond
+   ((>= n tl/elpaca-outdated-red-at) tl/elpaca-outdated-color-red)
+   ((>= n tl/elpaca-outdated-yellow-at) tl/elpaca-outdated-color-yellow)
+   (t tl/elpaca-outdated-color-white)))
+
+(defun tl/elpaca-outdated--icon (color)
+  "Return the segment icon propertized with COLOR.
+The built-in `nf-fa-cube' glyph keeps the nerd-font `:family'; a custom
+glyph (`tl/elpaca-outdated-icon') is left to font fallback so icons from
+other fonts still render, with only the foreground overridden."
+  (let* ((custom tl/elpaca-outdated-icon)
+         (glyph (or custom
+                    (and (fboundp 'nerd-icons-faicon)
+                         (nerd-icons-faicon "nf-fa-cube"))
+                    (and (fboundp 'nerd-icons-mdicon)
+                         (nerd-icons-mdicon "nf-md-package_up"))
+                    "↑"))
+         (face (if custom
+                   `(:foreground ,color)
+                 `(:family "Symbols Nerd Font Mono" :foreground ,color))))
+    (propertize glyph 'face face 'font-lock-face face)))
+
+(defun tl/elpaca-outdated-update-all ()
+  "Fetch, merge, and rebuild every Elpaca package with upstream updates.
+Wraps `elpaca-pull-all' (alias `elpaca-update-all'), Elpaca's own
+update-all: fetch upstream, merge, rebuild the queued packages, then
+process the build queue.  Rebuilt packages only take effect after an
+Emacs restart.  Rechecks the count once the queue settles."
+  (interactive)
+  (if (not (y-or-n-p "Fetch, merge, and rebuild ALL Elpaca packages? "))
+      (message "Aborted")
+    (message "Elpaca: fetching + merging + rebuilding all packages...")
+    (elpaca-pull-all t)
+    (run-with-idle-timer 20 nil #'tl/elpaca-outdated-update)))
+
+(defun tl/elpaca-outdated-modeline-segment ()
+  "Return a modeline string with the outdated-package count and icon.
+Hidden when the count is zero or not yet checked.  Colour scales with
+the count (white → yellow → red), like a Waybar package indicator."
+  (let ((n tl/elpaca-outdated-count))
+    (when (and (integerp n) (> n 0))
+      (let ((color (tl/elpaca-outdated--color n)))
+        (concat " "
+                (tl/elpaca-outdated--icon color)
+                " "
+                (propertize
+                 (number-to-string n)
+                 'face `(:foreground ,color)
+                 'mouse-face 'mode-line-highlight
+                 'help-echo "mouse-1: update all Elpaca packages\nC-x C-e o: recheck  •  C-x C-e u: update all\n(`elpaca-outdated --list' in a shell for the detail)"
+                 'local-map (make-mode-line-mouse-map
+                             'mouse-1 #'tl/elpaca-outdated-update-all)))))))
+
+;; doom-modeline renders `global-mode-string' (unlike mode-line-misc-info).
+;; `add-to-list' is idempotent (equal check), so re-eval won't duplicate it.
+(add-to-list 'global-mode-string
+             '(:eval (tl/elpaca-outdated-modeline-segment)) t)
+
+;; Check once after startup settles (idle, so it never competes with boot),
+;; then refresh periodically.  Cancel any prior timers first so re-eval is clean.
+(with-eval-after-load 'elpaca
+  (mapc #'cancel-timer tl/elpaca-outdated--timers)
+  (let ((secs (* 3600 tl/elpaca-outdated-refresh-hours)))
+    (setq tl/elpaca-outdated--timers
+          (list (run-with-idle-timer 30 nil #'tl/elpaca-outdated-update)
+                (run-with-timer secs secs #'tl/elpaca-outdated-update)))))
+#+end_src
+
 
 * GUI Configuration
 ** Frame configuration
@@ -1047,6 +1236,7 @@ owning tab and raises the window displaying the chosen buffer."
   (tl/leader-keys
     "C-e" '(:ignore t :wk "Emacs")
     "C-e C-h" '(help-for-help :wk "Get help")
+    ;"C-e SPC" '(tl/omp-skills-desc :wk "Output OMP skills descriptions")
     "C-e C-i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
     "C-e C-o" '(info :wk "Enter info, the documentation browser")
     "C-e e" '(info-emacs-manual :wk "Display emacs manual in info mode")
@@ -1062,9 +1252,13 @@ owning tab and raises the window displaying the chosen buffer."
     "C-e C-b" '(eval-buffer :wk "Evaluate a buffer")
     "C-e C-e" '(org-export-dispatch :wk "Org export dispatch")
     "C-e C-p" '(org-latex-export-to-pdf :wk "Export as PDF in current working directory")
+    "C-e h" '(org-html-export-to-html :wk "Export as HTML in current working directory")
+    "C-e C-m" '(org-html-export-to-html :wk "Export as HTML in current working directory")
     "C-e C-t" '(org-babel-tangle :wk "Org babel tangle")
     "C-e C-c" '(lambda () (interactive) (find-file "~/.config/emacs/config.org"))
     "C-e C-s" '(lambda () (interactive) (find-file "~/desktop/workspace/dotfiles/.config/emacs/emacs-cheatsheet.org"))
+    "C-e u" '(tl/elpaca-outdated-update-all :wk "Update all Elpaca packages")
+    "C-e o" '(tl/elpaca-outdated-update :wk "Recheck outdated Elpaca packages")
     "C-e r" '((lambda () (interactive)
               (load-file "~/.config/emacs/init.el")
               (ignore (elpaca-process-queues)))
@@ -1105,6 +1299,7 @@ owning tab and raises the window displaying the chosen buffer."
     "C-d C-b" '(rename-buffer :wk "Rename buffer")
     ;; Bookmarks
     "C-d C-e" '((lambda () (interactive) (dired "~/.config/emacs/")) :wk "Open user-emacs-directory in dired")
+    "C-d c" '((lambda () (interactive) (dired "~/.config/cheat/tools")) :wk "Open cheat directory in dired")
     "C-d C-o" '((lambda () (interactive) (dired "~/downloads/")) :wk "Open downloads directory in dired")
     "C-d C-p" '((lambda () (interactive) (dired "~/pictures/")) :wk "Open pictures directory in dired")
     "C-d C-s" '((lambda () (interactive) (dired "~/pictures/screenshots")) :wk "Open screenshots directory in dired")
@@ -1125,7 +1320,8 @@ owning tab and raises the window displaying the chosen buffer."
     "w d" '(tab-bar-close-tab :wk "Close tab")
     "w r" '(tab-bar-rename-tab :wk "Rename tab")
     "w b" '(tl/switch-through-visible-tab-buffer :wk "Buffer (all tabs)")
-    "w s" '(tab-bar-switch-to-tab :wk "Switch to tab")
+    "w s" '(tab-bar-switch-to-tab :wk "Switch to tab"))
+) ;; close use-package general
 #+end_src
 
 *** C-c leader key
@@ -1255,7 +1451,7 @@ owning tab and raises the window displaying the chosen buffer."
  ;; Copy surround automation
  "c" '(copy-surrounded-by-equals :wk "Copy org equals command")
  "m" '(copy-surrounded-by-stars :wk "Copy org stars command")
-))
+)
 #+end_src
 
 * Preferences
@@ -2392,7 +2588,6 @@ Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland
         super-save-idle-duration 5
         super-save-silent t)
   (super-save-mode 1))
-
 #+end_src
 
 ** Rainbow-mode
@@ -3494,6 +3689,7 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd "C-a") 'dired-toggle-marks)
   (define-key dired-mode-map (kbd "C-j") 'dired-next-marked-file)
   (define-key dired-mode-map (kbd "C-k") 'dired-prev-marked-file)
+  (define-key dired-mode-map (kbd "X") 'dired-do-async-shell-command)
   ;; `m' prefix — marking operations
   (define-key dired-mode-map (kbd "m") (make-sparse-keymap))
   (define-key dired-mode-map (kbd "m e") 'dired-mark-executables)
@@ -3504,8 +3700,11 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd "m g") 'dired-mark-files-containing-regexp)
   (define-key dired-mode-map (kbd "m u") 'dired-upcase)
   (define-key dired-mode-map (kbd "m l") 'dired-downcase)
+  (define-key dired-mode-map (kbd "m c") 'dired-change-marks)
   ;; File operations
-  (define-key dired-mode-map (kbd "d") 'dired-kill-subdir)
+  (define-key dired-mode-map (kbd "d") 'dired-flag-file-deletion)
+  (define-key dired-mode-map (kbd "C-d") 'dired-do-flagged-delete)
+  (define-key dired-mode-map (kbd "C-u") 'dired-kill-subdir)
   (define-key dired-mode-map (kbd "D") 'dired-do-delete)
   (define-key dired-mode-map (kbd "R") 'dired-do-rename)
   (define-key dired-mode-map (kbd "W") 'dired-do-copy)
@@ -3547,6 +3746,8 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd "b r") (lambda () (interactive) (dired "~/documents/org/roam")))
   ;; Unbind — flagging system, regex/bulk prefixes, unused standard keys
   (define-key dired-mode-map (kbd "%") nil)
+  (define-key dired-mode-map (kbd "e") nil)
+  (define-key dired-mode-map (kbd "E") nil)
   (define-key dired-mode-map (kbd "$") nil)
   (define-key dired-mode-map (kbd "*") nil)
   (define-key dired-mode-map (kbd "&") nil)
@@ -3653,7 +3854,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
                                (extract_writing "extract_writing.md")
                                (extract_wisdom "extract_wisdom.md")
                                (clean_text "clean_text.md")
-                               (create_summary "create_summary.md")
+                               (summarize "summarize.md")
+                               (summarize_micro "summarize_micro.md")
                                (explain_code "explain_code.md")))
                 (when-let* ((big-prompt (locate-user-emacs-file filename))
                             (_ (file-exists-p big-prompt)))
@@ -5687,7 +5889,7 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
          "* TODO %?\n  %U\n  %i\n %a" :empty-lines 1 :kill-buffer t)
 
     ("u" "Upwork" entry (file "~/documents/org/agenda/inbox.org")
-         "* TODO Build AI automation workflows :@Upwork_Project:\n:PROPERTIES:\n:Client: \n:Budget: \n:Rate: \n:END:\n  %U\n** Build plan\n- Tech stack\n- how it will work, what exactly we're building\n- what database\n- what framework\n- design - how should it look, what should it be like\n- etc\n\n*** First prompt - build plan\n#+begin_comment\nuse plan mode, advisor, prompt enhancer\n#+end_comment\n\nI want to build a %^{Project name}.\n\nbefore we code anything, first, I want to create a build plan\nAsk me some questions about how it should work, in order to clarify the product requirements, technical requirements, engineering principles, and hard constraints\n\nWhat kind of architecture should we use?\nWhat are some considerations we should have to scale?\nsearch around, figure out how we do it, report back with two or three options, don't start the work yet\nand then revise, what are your recommendations of things that I could add or improve here?\n\n*** Create AGENTS.md file\n#+begin_example\nAnalyze our build plan and create an AGENTS.md file following these principles:\n\n1. Keep it under 150 lines total - focus only on universally applicable information\n2. Cover the essentials: WHAT (tech stack, project structure), WHY (purpose), and HOW (build/test commands)\n3. Use Progressive Disclosure: instead of including all instructions, create a brief index pointing to other markdown files in research/ for specialized topics\n4. Include file:line references instead of code snippets\n\nStructure it as: project overview, tech stack, key directories/their purposes, essential build/test commands, and a list of additional documentation files oh-my-pi should check when relevant.\n\nWhen you work on a new feature or bug, create a git branch first. Then work on changes in that branch for the remainder of the session.\n\nAdditionally, extract patterns you observe into separate files:\n- research/architectural_patterns.md - document the architectural patterns, design decisions, and conventions used (e.g., dependency injection, state management, API design patterns). Make sure these are patterns that appear in multiple files.\n\nReference these files in the AGENTS.md's \"Additional Documentation\" section.\n#+end_example\n\n** Implementation plan\n1. files structure\n2. database structure\n3. authentication\n4. etc\n\n** LLM Builds it for you\nplease start with step 1 (from build plan)\nverify each step and build step by step with iterations so I can learn and understand everything end to end\n\n** Test and refine\nreview everything, fix bugs" :empty-lines 1 :kill-buffer t)
+         "* TODO Build AI automation workflows :@Upwork_Project:\n:PROPERTIES:\n:Client: \n:Budget: \n:Rate: \n:END:\n  %U\n** Sales call\n- [ ] Open by stating the agenda and end on 'Sound good?' - sets the frame and puts you in control from sentence one (frame: I ask about your business, then you ask me anything, then I recommend next steps). Removes their uncertainty; whoever frames the call controls where it ends.\n- [ ] Ask what they sell and what they charge (what the business does, who the customers are, the goal of the project). Price tells you how serious this is and what level of work it needs - get specific, don't let them stay vague.\n- [ ] Ask exactly who buys from them. 'Entrepreneurs' is not enough - push for something like 'fitness coaches trying to get their first 10 clients online.' The more specific, the better you can speak to those people.\n- [ ] Pin down exactly what you're delivering (lead-gen page vs sales page vs webinar reg - each is different) before any talk of price or timeline, so there's no confusion later.\n- [ ] Ask 'why now - what made you reach out? Is something not working?' to surface the real reason they're hiring you. You'll reuse this pain point later.\n- [ ] Write down their exact words as they answer - you'll mirror their language back so they feel understood.\n- [ ] Before naming a price, summarize what you heard in their own words ('Let me make sure I got this right...'). Shows you listened AND confirms you're ready to deliver.\n- [ ] Walk them through what working with you looks like - they don't need every detail, just that you have a clear plan. This is a free sample of the experience and makes them more likely to hire you.\n- [ ] Say how long delivery will take.\n- [ ] Do NOT bring up price until they ask. Waiting keeps you in charge - the opposite of someone desperate.\n- [ ] When they ask, state the number flat and STOP talking - don't justify, don't fill the silence. Filling it signals you're not confident in your price.\n- [ ] Once they're in, confirm the next step immediately and get paid first: 'I'll send the contract today. Once the milestone is funded, we get started. Sounds good?'\n\n** Build plan\n- Tech stack\n- how it will work, what exactly we're building\n- what database\n- what framework\n- design - how should it look, what should it be like\n- etc\n\n*** First prompt - build plan\n#+begin_comment\nuse plan mode, advisor, prompt enhancer\n#+end_comment\n\nI want to build a %^{Project name}.\n\nbefore we code anything, first, I want to create a build plan\nAsk me some questions about how it should work, in order to clarify the product requirements, technical requirements, engineering principles, and hard constraints\n\nWhat kind of architecture should we use?\nWhat are some considerations we should have to scale?\nsearch around, figure out how we do it, report back with two or three options, don't start the work yet\nand then revise, what are your recommendations of things that I could add or improve here?\n\n*** Create AGENTS.md file\n#+begin_example\nAnalyze our build plan and create an AGENTS.md file following these principles:\n\n1. Keep it under 150 lines total - focus only on universally applicable information\n2. Cover the essentials: WHAT (tech stack, project structure), WHY (purpose), and HOW (build/test commands)\n3. Use Progressive Disclosure: instead of including all instructions, create a brief index pointing to other markdown files in research/ for specialized topics\n4. Include file:line references instead of code snippets\n\nStructure it as: project overview, tech stack, key directories/their purposes, essential build/test commands, and a list of additional documentation files oh-my-pi should check when relevant.\n\nWhen you work on a new feature or bug, create a git branch first. Then work on changes in that branch for the remainder of the session.\n\nAdditionally, extract patterns you observe into separate files:\n- research/architectural_patterns.md - document the architectural patterns, design decisions, and conventions used (e.g., dependency injection, state management, API design patterns). Make sure these are patterns that appear in multiple files.\n\nReference these files in the AGENTS.md's \"Additional Documentation\" section.\n#+end_example\n\n** Implementation plan\n1. files structure\n2. database structure\n3. authentication\n4. etc\n\n** LLM Builds it for you\nplease start with step 1 (from build plan)\nverify each step and build step by step with iterations so I can learn and understand everything end to end\n\n** Test and refine\nreview everything, fix bugs" :empty-lines 1 :kill-buffer t)
 
     ("a" "Appointment" entry (file "~/documents/org/agenda/inbox.org")
          "* %<%I:%M %p> - %a :@Calendar:\n\n%?\n\n"

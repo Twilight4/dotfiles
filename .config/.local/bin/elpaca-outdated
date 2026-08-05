@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Count installed Elpaca packages that are behind their upstream HEAD.
+# Prints the count to stdout. Reused by the Emacs modeline segment
+# `tl/elpaca-outdated-modeline-segment' (run async, so it never blocks).
+#
+# Usage:
+#   elpaca-outdated           print the number of outdated packages
+#   elpaca-outdated --list    print "<commits-behind>\t<package>" lines (sorted)
+#
+# Env: ELPACA_SOURCES_DIR overrides the sources path (default ~/.emacs.d/elpaca/sources).
+set -uo pipefail
+
+BASE="${ELPACA_SOURCES_DIR:-$HOME/.emacs.d/elpaca/sources}"
+[ -d "$BASE" ] || { echo 0; exit 0; }
+export BASE
+
+mode="${1:-count}"
+
+if [ "$mode" = "--list" ]; then
+  find "$BASE" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' \
+    | xargs -P 8 -I{} bash -c '
+        cd "$BASE/{}" || exit
+        git fetch -q origin 2>/dev/null || exit
+        r=$(git rev-parse --verify -q origin/HEAD 2>/dev/null \
+          || git rev-parse --verify -q origin/main 2>/dev/null \
+          || git rev-parse --verify -q origin/master 2>/dev/null)
+        [ -n "$r" ] || exit
+        b=$(git rev-list --count HEAD.."$r" 2>/dev/null)
+        [ -n "$b" ] && [ "$b" -gt 0 ] 2>/dev/null && printf "%s\t%s\n" "$b" "{}"' \
+    | sort -rn
+else
+  # Each behind package emits one "x"; wc -l counts them.
+  find "$BASE" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' \
+    | xargs -P 8 -I{} bash -c '
+        cd "$BASE/{}" || exit
+        git fetch -q origin 2>/dev/null || exit
+        r=$(git rev-parse --verify -q origin/HEAD 2>/dev/null \
+          || git rev-parse --verify -q origin/main 2>/dev/null \
+          || git rev-parse --verify -q origin/master 2>/dev/null)
+        [ -n "$r" ] || exit
+        b=$(git rev-list --count HEAD.."$r" 2>/dev/null)
+        [ -n "$b" ] && [ "$b" -gt 0 ] 2>/dev/null && echo x' \
+    | wc -l | tr -d ' '
+fi
