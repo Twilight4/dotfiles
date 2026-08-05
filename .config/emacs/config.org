@@ -89,6 +89,7 @@
   - [[#emacs-mcp-server][Emacs MCP Server]]
   - [[#agent-shell][Agent-shell]]
   - [[#agent-shell-dictation-push-to-talk][Agent-shell dictation (push-to-talk)]]
+  - [[#agent-shell-quick-commit-c-c-m][Agent-shell quick commit (C-c m)]]
   - [[#agent-shell-attention][Agent-shell Attention]]
   - [[#agent-shell-bookmark][Agent-shell Bookmark]]
   - [[#agent-recall][Agent-recall]]
@@ -2947,7 +2948,12 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 #+begin_src emacs-lisp
 (use-package consult
   :ensure t
-  :config)
+  :config
+  ;; consult-find's default prunes EVERY dot-directory (*/.[A-Za-z]*), so
+  ;; ~/.config, ~/.local, etc. are invisible. Prune only the noisy ones;
+  ;; dotfiles stay searchable. Add/remove -path clauses as needed.
+  (setq consult-find-args
+        "find . -not ( -path */.git -prune -o -path */.cache -prune -o -path */.emacs.d -prune )"))
 #+end_src
 
 ** Corfu
@@ -4532,6 +4538,19 @@ because `omp acp' (agent-shell's backend) does not run the TUI STT path."
 
 (with-eval-after-load 'agent-shell
   (define-key agent-shell-mode-map (kbd "C-c SPC") #'tl/agent-shell-dictate))
+#+end_src
+
+** Agent-shell quick commit (C-c m)
+A keybinding that runs =omp commit --model=zai/glm-4.7= directly in a =*compilation*= buffer — instant and token-free, unlike the =/ompc= slash command (which routes through the session LLM). It inherits the agent-shell buffer's =default-directory= (the project root), so it commits in whichever project the shell is scoped to.
+
+#+begin_src emacs-lisp
+(defun tl/agent-shell-omp-commit ()
+  "Run `omp commit --model=zai/glm-4.7' in a compile buffer from the project root."
+  (interactive)
+  (compile "omp commit --model=zai/glm-4.7"))
+
+(with-eval-after-load 'agent-shell
+  (define-key agent-shell-mode-map (kbd "C-c m") #'tl/agent-shell-omp-commit))
 #+end_src
 
 ** Agent-shell Attention
