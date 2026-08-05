@@ -33,6 +33,7 @@
   - [[#code-folding][Code Folding]]
 - [[#editing-features][Editing Features]]
   - [[#improved-file-management][Improved file management]]
+  - [[#omp-skills-overview][OMP skills overview]]
   - [[#skip-over-invisible-text-in-links][Skip over invisible text in links]]
   - [[#nicer-org-return][Nicer org-return]]
   - [[#clean-empty-lines][Clean Empty Lines]]
@@ -155,6 +156,7 @@
 ;; Block until current queue processed.
 (elpaca-wait)
 #+end_src
+
 ** Elpaca outdated packages
 Show how many installed Elpaca packages are behind their upstream =HEAD= as a modeline segment. Elpaca deliberately does NOT auto-update installed packages (=elpaca-update-menus= only refreshes the recipe catalog, never installed packages), so without an explicit check the count silently drifts — e.g. =agent-shell= sat at v0.57 for months while upstream reached v0.69.
 
@@ -342,7 +344,6 @@ the count (white → yellow → red), like a Waybar package indicator."
           (list (run-with-idle-timer 30 nil #'tl/elpaca-outdated-update)
                 (run-with-timer secs secs #'tl/elpaca-outdated-update)))))
 #+end_src
-
 
 * GUI Configuration
 ** Frame configuration
@@ -1107,129 +1108,6 @@ owning tab and raises the window displaying the chosen buffer."
 #+end_src
 
 ** General keybindings
-*** OMP skills overview
-
-A momentary popup (bound under the =C-x C-e= "Emacs" leader as =C-x C-e SPC=) that lists the currently active OMP skills and agents defined in the registry =.omp/= dir (=~/desktop/workspace/ai-projects/.omp=). Each entry's =description= frontmatter is glossed to its first sentence so the table scans at a glance; the data is parsed live from disk on every invocation, so newly added skills/agents appear automatically. Press =q= to close.
-
-#+begin_src emacs-lisp
-(defvar tl/omp-skills-registry-dir
-  (expand-file-name "~/desktop/workspace/ai-projects/.omp")
-  "Registry OMP directory holding `skills/' and `agents/'.")
-
-(defun tl/omp-skills--scalar (s)
-  "Strip one layer of surrounding YAML quotes from S."
-  (let ((s (string-trim s)))
-    (if (and (>= (length s) 2)
-             (memq (aref s 0) '(?\" ?'))
-             (eq (aref s 0) (aref s (1- (length s)))))
-        (substring s 1 -1)
-      s)))
-
-(defun tl/omp-skills--gloss (s)
-  "Shorten description S to its first sentence, capped near 74 chars."
-  (let* ((s (string-trim s))
-         (em (string-match " — " s))
-         (pe (string-match "\\. " s))
-         (cut (cond ((and em pe) (min em pe)) ((or em pe) (or em pe))))
-         (s (if cut (substring s 0 cut) s))
-         (cap 74))
-    (if (> (length s) cap)
-        (let* ((trunc (substring s 0 cap))
-               (sp (string-match "[ \t][^ \t]*$" trunc)))
-          (concat (if sp (substring trunc 0 sp) trunc) "…"))
-      s)))
-
-(defun tl/omp-skills--parse-frontmatter (file fallback-name)
-  "Parse FILE's YAML frontmatter; return (NAME . DESC) with DESC glossed.
-FALLBACK-NAME is used when no `name:' field is present."
-  (with-temp-buffer
-    (insert-file-contents file)
-    (goto-char (point-min))
-    (let (name desc)
-      (when (looking-at-p "^---[ \t]*$")
-        (forward-line 1)
-        (save-restriction
-          (narrow-to-region
-           (point)
-           (save-excursion
-             (if (re-search-forward "^---[ \t]*$" nil t)
-                 (match-beginning 0)
-               (point-max))))
-          (save-excursion
-            (when (re-search-forward "^name:[ \t]*\\(.+\\)$" nil t)
-              (setq name (tl/omp-skills--scalar (match-string 1)))))
-          (save-excursion
-            (when (re-search-forward "^description:[ \t]*\\(.*\\)$" nil t)
-              (let ((v (string-trim (match-string 1))))
-                (if (string-match-p "\\`[|>]" v)
-                    (progn
-                      (forward-line 1)
-                      (when (looking-at "[ \t]+")
-                        (setq desc (string-trim (thing-at-point 'line)))))
-                  (setq desc (tl/omp-skills--scalar v))))))))
-      (cons (or name fallback-name)
-            (tl/omp-skills--gloss (or desc "(no description)"))))))
-
-(defun tl/omp-skills-desc ()
-  "Pop up a momentary buffer listing registry OMP skills and agents."
-  (interactive)
-  (let* ((skills-dir (expand-file-name "skills" tl/omp-skills-registry-dir))
-         (agents-dir (expand-file-name "agents" tl/omp-skills-registry-dir))
-         entries)
-    (dolist (d (directory-files skills-dir t "\\`[^.]" nil))
-      (let ((skill (expand-file-name "SKILL.md" d)))
-        (when (file-exists-p skill)
-          (push (cons "skill" (tl/omp-skills--parse-frontmatter
-                               skill (file-name-nondirectory d)))
-                entries))))
-    (dolist (f (directory-files agents-dir t "\\.md\\'" nil))
-      (push (cons "agent" (tl/omp-skills--parse-frontmatter
-                           f (file-name-base f)))
-            entries))
-    (if (null entries)
-        (message "No OMP skills/agents found under %s"
-                 (abbreviate-file-name tl/omp-skills-registry-dir))
-      (let ((maxname (apply #'max (mapcar (lambda (e) (length (cadr e))) entries)))
-            (buf (get-buffer-create "*OMP Skills*"))
-            (inhibit-read-only t))
-        (with-current-buffer buf
-          (special-mode)
-          (erase-buffer)
-          (insert (propertize
-                   (format "OMP skills & agents  —  %s"
-                           (abbreviate-file-name tl/omp-skills-registry-dir))
-                   'face 'bold)
-                  "\n"
-                  (propertize "(press q to close)" 'face 'shadow)
-                  "\n\n")
-          (dolist (type '("skill" "agent"))
-            (let ((items (delq nil
-                               (mapcar (lambda (e)
-                                         (and (string= (car e) type) e))
-                                       entries))))
-              (when items
-                (setq items (sort items
-                                  (lambda (a b) (string< (cadr a) (cadr b)))))
-                (insert (propertize
-                         (if (string= type "skill") "SKILLS" "AGENTS")
-                         'face 'bold)
-                        "\n")
-                (dolist (it items)
-                  (let ((name (cadr it))
-                        (desc (cddr it)))
-                    (insert "  "
-                            (propertize name 'face 'font-lock-constant-face)
-                            (make-string (+ 2 (- maxname (length name))) ?\s)
-                            desc "\n")))
-                (insert "\n"))))
-          (goto-char (point-min)))
-        (let ((win (display-buffer
-                    buf
-                    '(display-buffer-at-bottom
-                      . ((window-height . fit-window-to-buffer))))))
-          (when win (select-window win)))))))
-#+end_src
-
 *** C-x leader key
 #+begin_src emacs-lisp
 (use-package general
@@ -2063,6 +1941,152 @@ It takes user input for the new name using the interactive keyword, checks if th
         (rename-file filename new-name 1))
       (set-visited-file-name new-name)
       (rename-buffer new-name))))
+#+end_src
+
+** OMP skills overview
+A momentary popup (bound under the =C-x C-e= "Emacs" leader as =C-x C-e SPC=) that lists the currently active OMP skills, agents, and slash commands relevant to this machine. Skills and agents are read from the registry =.omp/= dir (=~/desktop/workspace/ai-projects/.omp=); slash commands from =~/.omp/agent/commands/=. Each entry's =description= frontmatter is glossed to its first sentence so the table scans at a glance; the data is parsed live from disk on every invocation, so newly added entries appear automatically. The =SKILLS= header notes the =/skill:<name>= invocation form; press =q= to close.
+
+#+begin_src emacs-lisp
+(defvar tl/omp-skills-registry-dir
+  (expand-file-name "~/desktop/workspace/ai-projects/.omp")
+  "Registry OMP directory holding `skills/' and `agents/'.")
+
+(defun tl/omp-skills--scalar (s)
+  "Strip one layer of surrounding YAML quotes from S."
+  (let ((s (string-trim s)))
+    (if (and (>= (length s) 2)
+             (memq (aref s 0) '(?\" ?'))
+             (eq (aref s 0) (aref s (1- (length s)))))
+        (substring s 1 -1)
+      s)))
+
+(defun tl/omp-skills--gloss (s)
+  "Shorten description S to its first sentence, capped near 74 chars."
+  (let* ((s (string-trim s))
+         (em (string-match " — " s))
+         (pe (string-match "\\. " s))
+         (cut (cond ((and em pe) (min em pe)) ((or em pe) (or em pe))))
+         (s (if cut (substring s 0 cut) s))
+         (cap 74))
+    (if (> (length s) cap)
+        (let* ((trunc (substring s 0 cap))
+               (sp (string-match "[ \t][^ \t]*$" trunc)))
+          (concat (if sp (substring trunc 0 sp) trunc) "…"))
+      s)))
+
+(defun tl/omp-skills--parse-frontmatter (file fallback-name)
+  "Parse FILE's YAML frontmatter; return (NAME . DESC) with DESC glossed.
+FALLBACK-NAME is used when no `name:' field is present."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (goto-char (point-min))
+    (let (name desc)
+      (when (looking-at-p "^---[ \t]*$")
+        (forward-line 1)
+        (save-restriction
+          (narrow-to-region
+           (point)
+           (save-excursion
+             (if (re-search-forward "^---[ \t]*$" nil t)
+                 (match-beginning 0)
+               (point-max))))
+          (save-excursion
+            (when (re-search-forward "^name:[ \t]*\\(.+\\)$" nil t)
+              (setq name (tl/omp-skills--scalar (match-string 1)))))
+          (save-excursion
+            (when (re-search-forward "^description:[ \t]*\\(.*\\)$" nil t)
+              (let ((v (string-trim (match-string 1))))
+                (if (string-match-p "\\`[|>]" v)
+                    (progn
+                      (forward-line 1)
+                      (when (looking-at "[ \t]+")
+                        (setq desc (string-trim (thing-at-point 'line)))))
+                  (setq desc (tl/omp-skills--scalar v))))))))
+      (cons (or name fallback-name)
+            (tl/omp-skills--gloss (or desc "(no description)"))))))
+
+(defun tl/omp-skills--parse-command-file (file)
+  "Parse a command FILE (.md YAML frontmatter or .toml); return (NAME . DESC)."
+  (if (string-match "\\.toml\\'" file)
+      (let (desc)
+        (with-temp-buffer
+          (insert-file-contents file)
+          (goto-char (point-min))
+          (when (re-search-forward "^description\\s-*=" nil t)
+            (setq desc (string-trim (buffer-substring-no-properties
+                                     (point) (line-end-position))))))
+        (cons (file-name-base file)
+              (tl/omp-skills--gloss (tl/omp-skills--scalar (or desc "(no description)")))))
+    (tl/omp-skills--parse-frontmatter file (file-name-base file))))
+
+(defun tl/omp-skills-desc ()
+  "Pop up a momentary buffer listing registry OMP skills, agents and commands."
+  (interactive)
+  (let* ((skills-dir (expand-file-name "skills" tl/omp-skills-registry-dir))
+         (agents-dir (expand-file-name "agents" tl/omp-skills-registry-dir))
+         entries)
+    (dolist (d (directory-files skills-dir t "\\`[^.]" nil))
+      (let ((skill (expand-file-name "SKILL.md" d)))
+        (when (file-exists-p skill)
+          (push (cons "skill" (tl/omp-skills--parse-frontmatter
+                               skill (file-name-nondirectory d)))
+                entries))))
+    (dolist (f (directory-files agents-dir t "\\.md\\'" nil))
+      (push (cons "agent" (tl/omp-skills--parse-frontmatter
+                           f (file-name-base f)))
+            entries))
+    (dolist (dir (list (expand-file-name "~/.omp/agent/commands/")
+                       (expand-file-name "commands" tl/omp-skills-registry-dir)))
+      (when (file-directory-p dir)
+        (dolist (f (directory-files dir t "\\.\\(md\\|toml\\)\\'" nil))
+          (push (cons "command" (tl/omp-skills--parse-command-file f))
+                entries))))
+    (if (null entries)
+        (message "No OMP skills/agents found under %s"
+                 (abbreviate-file-name tl/omp-skills-registry-dir))
+      (let ((maxname (apply #'max (mapcar (lambda (e) (length (cadr e))) entries)))
+            (buf (get-buffer-create "*OMP Skills*"))
+            (inhibit-read-only t))
+        (with-current-buffer buf
+          (special-mode)
+          (erase-buffer)
+          (insert (propertize
+                   (format "OMP skills, agents & commands  —  %s"
+                           (abbreviate-file-name tl/omp-skills-registry-dir))
+                   'face 'bold)
+                  "\n"
+                  (propertize "(press q to close)" 'face 'shadow)
+                  "\n\n")
+          (dolist (type '("skill" "agent" "command"))
+            (let ((items (delq nil
+                               (mapcar (lambda (e)
+                                         (and (string= (car e) type) e))
+                                       entries))))
+              (when items
+                (setq items (sort items
+                                  (lambda (a b) (string< (cadr a) (cadr b)))))
+                (insert (propertize
+                         (cond
+                          ((string= type "skill")   "SKILLS  (invoke with /skill:<name>)")
+                          ((string= type "agent")   "AGENTS")
+                          ((string= type "command") "COMMANDS  (slash commands — type /name)")
+                          (t (capitalize type)))
+                         'face 'bold)
+                        "\n")
+                (dolist (it items)
+                  (let ((name (cadr it))
+                        (desc (cddr it)))
+                    (insert "  "
+                            (propertize name 'face 'font-lock-constant-face)
+                            (make-string (+ 2 (- maxname (length name))) ?\s)
+                            desc "\n")))
+                (insert "\n"))))
+          (goto-char (point-min)))
+        (let ((win (display-buffer
+                    buf
+                    '(display-buffer-at-bottom
+                      . ((window-height . fit-window-to-buffer))))))
+          (when win (select-window win)))))))
 #+end_src
 
 ** Skip over invisible text in links
