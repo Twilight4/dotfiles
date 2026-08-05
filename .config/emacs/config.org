@@ -357,13 +357,13 @@ These settings only take effect on graphical frames — text-terminal frames ign
 ;; though no frame exists yet when the daemon loads config.
 (set-face-attribute 'default nil
                     :family "JetBrainsMono Nerd Font"
-                    :height 140)
-(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-14"))
+                    :height 150)
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-15"))
 
 ;(set-face-attribute 'default nil
 ;                    :family "Roboto Mono Nerd Font"
-;                    :height 140)
-;(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-14"))
+;                    :height 150)
+;(add-to-list 'default-frame-alist '(font . "Roboto Mono Nerd Font-15"))
 
 ;; Programming ligatures. The font must carry the OpenType features (JetBrains
 ;; Mono does); `ligature.el' composes multi-char operators into single glyphs
@@ -1944,7 +1944,7 @@ It takes user input for the new name using the interactive keyword, checks if th
 #+end_src
 
 ** OMP skills overview
-A momentary popup (bound under the =C-x C-e= "Emacs" leader as =C-x C-e SPC=) that lists the currently active OMP skills, agents, and slash commands relevant to this machine. Skills and agents are read from the registry =.omp/= dir (=~/desktop/workspace/ai-projects/.omp=); slash commands from =~/.omp/agent/commands/=. Each entry's =description= frontmatter is glossed to its first sentence so the table scans at a glance; the data is parsed live from disk on every invocation, so newly added entries appear automatically. The =SKILLS= header notes the =/skill:<name>= invocation form; press =q= to close.
+A momentary popup (bound under the =C-x C-e= "Emacs" leader as =C-x C-e SPC=) that lists the currently active OMP skills and agents defined in the registry =.omp/= dir (=~/desktop/workspace/ai-projects/.omp=). Each entry's =description= frontmatter is glossed to its first sentence so the table scans at a glance; the data is parsed live from disk on every invocation, so newly added skills/agents appear automatically. Press =q= to close.
 
 #+begin_src emacs-lisp
 (defvar tl/omp-skills-registry-dir
@@ -2005,22 +2005,8 @@ FALLBACK-NAME is used when no `name:' field is present."
       (cons (or name fallback-name)
             (tl/omp-skills--gloss (or desc "(no description)"))))))
 
-(defun tl/omp-skills--parse-command-file (file)
-  "Parse a command FILE (.md YAML frontmatter or .toml); return (NAME . DESC)."
-  (if (string-match "\\.toml\\'" file)
-      (let (desc)
-        (with-temp-buffer
-          (insert-file-contents file)
-          (goto-char (point-min))
-          (when (re-search-forward "^description\\s-*=" nil t)
-            (setq desc (string-trim (buffer-substring-no-properties
-                                     (point) (line-end-position))))))
-        (cons (file-name-base file)
-              (tl/omp-skills--gloss (tl/omp-skills--scalar (or desc "(no description)")))))
-    (tl/omp-skills--parse-frontmatter file (file-name-base file))))
-
 (defun tl/omp-skills-desc ()
-  "Pop up a momentary buffer listing registry OMP skills, agents and commands."
+  "Pop up a momentary buffer listing registry OMP skills and agents."
   (interactive)
   (let* ((skills-dir (expand-file-name "skills" tl/omp-skills-registry-dir))
          (agents-dir (expand-file-name "agents" tl/omp-skills-registry-dir))
@@ -2035,12 +2021,6 @@ FALLBACK-NAME is used when no `name:' field is present."
       (push (cons "agent" (tl/omp-skills--parse-frontmatter
                            f (file-name-base f)))
             entries))
-    (dolist (dir (list (expand-file-name "~/.omp/agent/commands/")
-                       (expand-file-name "commands" tl/omp-skills-registry-dir)))
-      (when (file-directory-p dir)
-        (dolist (f (directory-files dir t "\\.\\(md\\|toml\\)\\'" nil))
-          (push (cons "command" (tl/omp-skills--parse-command-file f))
-                entries))))
     (if (null entries)
         (message "No OMP skills/agents found under %s"
                  (abbreviate-file-name tl/omp-skills-registry-dir))
@@ -2051,13 +2031,13 @@ FALLBACK-NAME is used when no `name:' field is present."
           (special-mode)
           (erase-buffer)
           (insert (propertize
-                   (format "OMP skills, agents & commands  —  %s"
+                   (format "OMP skills & agents  —  %s"
                            (abbreviate-file-name tl/omp-skills-registry-dir))
                    'face 'bold)
                   "\n"
                   (propertize "(press q to close)" 'face 'shadow)
                   "\n\n")
-          (dolist (type '("skill" "agent" "command"))
+          (dolist (type '("skill" "agent"))
             (let ((items (delq nil
                                (mapcar (lambda (e)
                                          (and (string= (car e) type) e))
@@ -2066,11 +2046,7 @@ FALLBACK-NAME is used when no `name:' field is present."
                 (setq items (sort items
                                   (lambda (a b) (string< (cadr a) (cadr b)))))
                 (insert (propertize
-                         (cond
-                          ((string= type "skill")   "SKILLS  (invoke with /skill:<name>)")
-                          ((string= type "agent")   "AGENTS")
-                          ((string= type "command") "COMMANDS  (slash commands — type /name)")
-                          (t (capitalize type)))
+                         (if (string= type "skill") "SKILLS" "AGENTS")
                          'face 'bold)
                         "\n")
                 (dolist (it items)
