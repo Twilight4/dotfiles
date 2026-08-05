@@ -376,6 +376,63 @@ Sources: `tl/kitty-theme-file' (pywal) — active/inactive tab fg+bg, cursor."
   ;; tabspaces prefix is unused.
   (define-key tabspaces-mode-map (kbd "C-c TAB") nil))
 
+;; Evict the killed `*tabspaces--placeholder*' after session restore.
+;; tabspaces switches into a transient placeholder buffer while rebuilding each
+;; tab, then kills it (tabspaces.el ~L1290); a tab window may still reference
+;; it, so selecting that tab makes `tab-bar-select-restore-windows' show a
+;; ` *Old buffer *tabspaces--placeholder*' window ("This window displayed the
+;; buffer ..."). Seed any such window with `*scratch*' and reap the leftover
+;; Old-buffer buffers, so no tab is left pointing at the dead placeholder.
+(defun tl/tabspaces--seed-placeholder-windows (seed)
+  "Replace windows showing the placeholder (or its ` *Old buffer*') with SEED."
+  (dolist (w (delq nil
+                   (mapcar (lambda (win)
+                             (let ((bn (buffer-name (window-buffer win))))
+                               (and (or (string-prefix-p
+                                         " *Old buffer *tabspaces--placeholder"
+                                         (or bn ""))
+                                        (equal bn "*tabspaces--placeholder*"))
+                                    win)))
+                           (window-list nil 'nomini))))
+    (set-window-buffer w seed)))
+
+(defun tl/tabspaces-evict-placeholder (&rest _)
+  "Evict the killed `*tabspaces--placeholder*' from every tab after restore.
+Runs as `:after' advice on `tabspaces-restore-session': walk each tab, seed any
+window still showing the placeholder (or the ` *Old buffer*' it became) with
+`*scratch*', and reap the leftover Old-buffer buffers. Wrapped so a scrub
+error can never abort the restore."
+  (condition-case err
+      (when (and (fboundp 'tab-bar--current-tab)
+                 (fboundp 'tab-bar--tab-index-by-name)
+                 (frame-parameter nil 'tabs))
+        (let ((seed (get-buffer-create "*scratch*"))
+              (cur-name (alist-get 'name (tab-bar--current-tab)))
+              (names (delq nil
+                           (mapcar (lambda (tab) (alist-get 'name tab))
+                                   (frame-parameter nil 'tabs))))
+              others)
+          (dolist (n names)
+            (unless (equal n cur-name) (push n others)))
+          ;; scrub the active tab in place, then every other tab; each switch
+          ;; re-captures the prior tab's now-clean window state.
+          (tl/tabspaces--seed-placeholder-windows seed)
+          (dolist (name (nreverse others))
+            (when-let* ((idx (tab-bar--tab-index-by-name name)))
+              (tab-bar-select-tab (1+ idx))
+              (tl/tabspaces--seed-placeholder-windows seed)))
+          ;; return to the start tab so the last-scrubbed tab is re-captured.
+          (when-let* ((start (tab-bar--tab-index-by-name cur-name)))
+            (tab-bar-select-tab (1+ start)))
+          (dolist (b (buffer-list))
+            (let ((bn (buffer-name b)))
+              (when (and bn (string-prefix-p
+                             " *Old buffer *tabspaces--placeholder" bn))
+                (kill-buffer b))))))
+    (error (message "tl/tabspaces-evict-placeholder: %S" err))))
+
+(advice-add 'tabspaces-restore-session :after #'tl/tabspaces-evict-placeholder)
+
 ;; Tab navigation
 (global-set-key (kbd "M-f")     'tab-bar-switch-to-next-tab)
 (global-set-key (kbd "M-b")     'tab-bar-switch-to-prev-tab)
