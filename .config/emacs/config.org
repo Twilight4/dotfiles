@@ -1220,7 +1220,7 @@ owning tab and raises the window displaying the chosen buffer."
     "C-c C-u" '(consult-line-multi :wk "Search for line in multiple buffers")
     "C-c C-k" '(consult-keep-lines :wk "Select lines with a live preview")
     ;"C-c C-f" '(consult-focus-lines :wk "Hide/Show lines using overlays")
-    "C-c C-f" '(consult-find :wk "Hide/Show lines using overlays"))
+    "C-c C-f" '(consult-fd :wk "Hide/Show lines using overlays"))
 
 	(tl/leader-keys
     "C-f" '(:ignore t :wk "Clock")
@@ -2949,11 +2949,12 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
 (use-package consult
   :ensure t
   :config
-  ;; consult-find's default prunes EVERY dot-directory (*/.[A-Za-z]*), so
-  ;; ~/.config, ~/.local, etc. are invisible. Prune only the noisy ones;
-  ;; dotfiles stay searchable. Add/remove -path clauses as needed.
-  (setq consult-find-args
-        "find . -not ( -path */.git -prune -o -path */.cache -prune -o -path */.emacs.d -prune )"))
+  ;; fd is the finder (consult-find rebound to consult-fd everywhere). --hidden
+  ;; surfaces dot-directories (~/.config etc.); --exclude .git drops the .git/
+  ;; noise fd would otherwise descend. Add more --exclude flags if needed.
+  (setq consult-fd-args
+        '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
+          "--full-path --color=never --hidden --exclude .git"))
 #+end_src
 
 ** Corfu
@@ -3604,7 +3605,7 @@ window-selection commands."
   (define-key treemacs-mode-map (kbd "y") 'treemacs-copy-file)
   (define-key treemacs-mode-map (kbd "n") 'treemacs-create-file)
   (define-key treemacs-mode-map (kbd "N") 'treemacs-create-dir)
-  (define-key treemacs-mode-map (kbd "f") 'consult-find)
+  (define-key treemacs-mode-map (kbd "f") 'consult-fd)
   (define-key treemacs-mode-map (kbd "q") 'treemacs-quit)
   (define-key treemacs-mode-map (kbd ";") 'recenter-top-bottom)
   (define-key treemacs-mode-map (kbd ":") 'move-to-window-line-top-bottom)
@@ -3794,7 +3795,7 @@ Positions cursor at the filename."
   (define-key dired-mode-map (kbd "L") 'dired-find-file-other-window)
   (define-key dired-mode-map (kbd "C-l") 'dired-display-file)
   (define-key dired-mode-map (kbd "f") 'dired-goto-file)
-  (define-key dired-mode-map (kbd "F") 'consult-find)
+  (define-key dired-mode-map (kbd "F") 'consult-fd)
   (define-key dired-mode-map (kbd "O") 'find-name-dired)
   (define-key dired-mode-map (kbd "C-o") 'find-grep-dired)
   (define-key dired-mode-map (kbd "r") 'consult-grep)
@@ -4537,7 +4538,7 @@ because `omp acp' (agent-shell's backend) does not run the TUI STT path."
                  (message "dictation: %s" text))))))))))
 
 (with-eval-after-load 'agent-shell
-  (define-key agent-shell-mode-map (kbd "C-c SPC") #'tl/agent-shell-dictate))
+  (define-key agent-shell-viewport-edit-mode-map (kbd "C-c SPC") #'tl/agent-shell-dictate))
 #+end_src
 
 ** Agent-shell quick commit (C-c m)
@@ -4550,7 +4551,7 @@ A keybinding that runs =omp commit --model=zai/glm-4.7= directly in a =*compilat
   (compile "omp commit --model=zai/glm-4.7"))
 
 (with-eval-after-load 'agent-shell
-  (define-key agent-shell-mode-map (kbd "C-c m") #'tl/agent-shell-omp-commit))
+  (define-key agent-shell-viewport-edit-mode-map (kbd "C-c m") #'tl/agent-shell-omp-commit))
 #+end_src
 
 ** Agent-shell Attention
