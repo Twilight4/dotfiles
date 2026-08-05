@@ -1323,7 +1323,6 @@ owning tab and raises the window displaying the chosen buffer."
     "w r" '(tab-bar-rename-tab :wk "Rename tab")
     "w b" '(tl/switch-through-visible-tab-buffer :wk "Buffer (all tabs)")
     "w s" '(tab-bar-switch-to-tab :wk "Switch to tab"))
-) ;; close use-package general
 #+end_src
 
 *** C-c leader key
@@ -1453,7 +1452,7 @@ owning tab and raises the window displaying the chosen buffer."
  ;; Copy surround automation
  "c" '(copy-surrounded-by-equals :wk "Copy org equals command")
  "m" '(copy-surrounded-by-stars :wk "Copy org stars command")
-)
+))
 #+end_src
 
 * Preferences
@@ -2955,6 +2954,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   (setq consult-fd-args
         '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
           "--full-path --color=never --hidden --exclude .git"))
+  )
 #+end_src
 
 ** Corfu
