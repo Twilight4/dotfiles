@@ -264,6 +264,8 @@ alias tun0='echo $(ifconfig tun0 | rg "inet " | cut -b 9- | cut  -d" " -f2)'
 # Show open ports
 alias openports='netstat -nape --inet'
 alias port="netstat -tulpn | rg"
+# PrivateBin (privatebin-cli): upload a file as an encrypted, self-destructing paste
+alias pb='privatebin create --attachment --filename'   # pb <file> -> shareable URL (key is in the #fragment)
 
 # Updates
 alias guorg='\cd ~/documents/org/ && git add . && git commit -m "update" && git push && \cd -'
