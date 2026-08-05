@@ -1107,6 +1107,129 @@ owning tab and raises the window displaying the chosen buffer."
 #+end_src
 
 ** General keybindings
+*** OMP skills overview
+
+A momentary popup (bound under the =C-x C-e= "Emacs" leader as =C-x C-e SPC=) that lists the currently active OMP skills and agents defined in the registry =.omp/= dir (=~/desktop/workspace/ai-projects/.omp=). Each entry's =description= frontmatter is glossed to its first sentence so the table scans at a glance; the data is parsed live from disk on every invocation, so newly added skills/agents appear automatically. Press =q= to close.
+
+#+begin_src emacs-lisp
+(defvar tl/omp-skills-registry-dir
+  (expand-file-name "~/desktop/workspace/ai-projects/.omp")
+  "Registry OMP directory holding `skills/' and `agents/'.")
+
+(defun tl/omp-skills--scalar (s)
+  "Strip one layer of surrounding YAML quotes from S."
+  (let ((s (string-trim s)))
+    (if (and (>= (length s) 2)
+             (memq (aref s 0) '(?\" ?'))
+             (eq (aref s 0) (aref s (1- (length s)))))
+        (substring s 1 -1)
+      s)))
+
+(defun tl/omp-skills--gloss (s)
+  "Shorten description S to its first sentence, capped near 74 chars."
+  (let* ((s (string-trim s))
+         (em (string-match " — " s))
+         (pe (string-match "\\. " s))
+         (cut (cond ((and em pe) (min em pe)) ((or em pe) (or em pe))))
+         (s (if cut (substring s 0 cut) s))
+         (cap 74))
+    (if (> (length s) cap)
+        (let* ((trunc (substring s 0 cap))
+               (sp (string-match "[ \t][^ \t]*$" trunc)))
+          (concat (if sp (substring trunc 0 sp) trunc) "…"))
+      s)))
+
+(defun tl/omp-skills--parse-frontmatter (file fallback-name)
+  "Parse FILE's YAML frontmatter; return (NAME . DESC) with DESC glossed.
+FALLBACK-NAME is used when no `name:' field is present."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (goto-char (point-min))
+    (let (name desc)
+      (when (looking-at-p "^---[ \t]*$")
+        (forward-line 1)
+        (save-restriction
+          (narrow-to-region
+           (point)
+           (save-excursion
+             (if (re-search-forward "^---[ \t]*$" nil t)
+                 (match-beginning 0)
+               (point-max))))
+          (save-excursion
+            (when (re-search-forward "^name:[ \t]*\\(.+\\)$" nil t)
+              (setq name (tl/omp-skills--scalar (match-string 1)))))
+          (save-excursion
+            (when (re-search-forward "^description:[ \t]*\\(.*\\)$" nil t)
+              (let ((v (string-trim (match-string 1))))
+                (if (string-match-p "\\`[|>]" v)
+                    (progn
+                      (forward-line 1)
+                      (when (looking-at "[ \t]+")
+                        (setq desc (string-trim (thing-at-point 'line)))))
+                  (setq desc (tl/omp-skills--scalar v))))))))
+      (cons (or name fallback-name)
+            (tl/omp-skills--gloss (or desc "(no description)"))))))
+
+(defun tl/omp-skills-desc ()
+  "Pop up a momentary buffer listing registry OMP skills and agents."
+  (interactive)
+  (let* ((skills-dir (expand-file-name "skills" tl/omp-skills-registry-dir))
+         (agents-dir (expand-file-name "agents" tl/omp-skills-registry-dir))
+         entries)
+    (dolist (d (directory-files skills-dir t "\\`[^.]" nil))
+      (let ((skill (expand-file-name "SKILL.md" d)))
+        (when (file-exists-p skill)
+          (push (cons "skill" (tl/omp-skills--parse-frontmatter
+                               skill (file-name-nondirectory d)))
+                entries))))
+    (dolist (f (directory-files agents-dir t "\\.md\\'" nil))
+      (push (cons "agent" (tl/omp-skills--parse-frontmatter
+                           f (file-name-base f)))
+            entries))
+    (if (null entries)
+        (message "No OMP skills/agents found under %s"
+                 (abbreviate-file-name tl/omp-skills-registry-dir))
+      (let ((maxname (apply #'max (mapcar (lambda (e) (length (cadr e))) entries)))
+            (buf (get-buffer-create "*OMP Skills*"))
+            (inhibit-read-only t))
+        (with-current-buffer buf
+          (special-mode)
+          (erase-buffer)
+          (insert (propertize
+                   (format "OMP skills & agents  —  %s"
+                           (abbreviate-file-name tl/omp-skills-registry-dir))
+                   'face 'bold)
+                  "\n"
+                  (propertize "(press q to close)" 'face 'shadow)
+                  "\n\n")
+          (dolist (type '("skill" "agent"))
+            (let ((items (delq nil
+                               (mapcar (lambda (e)
+                                         (and (string= (car e) type) e))
+                                       entries))))
+              (when items
+                (setq items (sort items
+                                  (lambda (a b) (string< (cadr a) (cadr b)))))
+                (insert (propertize
+                         (if (string= type "skill") "SKILLS" "AGENTS")
+                         'face 'bold)
+                        "\n")
+                (dolist (it items)
+                  (let ((name (cadr it))
+                        (desc (cddr it)))
+                    (insert "  "
+                            (propertize name 'face 'font-lock-constant-face)
+                            (make-string (+ 2 (- maxname (length name))) ?\s)
+                            desc "\n")))
+                (insert "\n"))))
+          (goto-char (point-min)))
+        (let ((win (display-buffer
+                    buf
+                    '(display-buffer-at-bottom
+                      . ((window-height . fit-window-to-buffer))))))
+          (when win (select-window win)))))))
+#+end_src
+
 *** C-x leader key
 #+begin_src emacs-lisp
 (use-package general
@@ -1236,7 +1359,7 @@ owning tab and raises the window displaying the chosen buffer."
   (tl/leader-keys
     "C-e" '(:ignore t :wk "Emacs")
     "C-e C-h" '(help-for-help :wk "Get help")
-    ;"C-e SPC" '(tl/omp-skills-desc :wk "Output OMP skills descriptions")
+    "C-e SPC" '(tl/omp-skills-desc :wk "OMP skills overview")
     "C-e C-i" '(Info-goto-emacs-command-node :wk "Go to info mode in emacs MANUAL for command")
     "C-e C-o" '(info :wk "Enter info, the documentation browser")
     "C-e e" '(info-emacs-manual :wk "Display emacs manual in info mode")
