@@ -1126,9 +1126,6 @@ owning tab and raises the window displaying the chosen buffer."
     "w r" '(tab-bar-rename-tab :wk "Rename tab")
     "w b" '(tl/switch-through-visible-tab-buffer :wk "Buffer (all tabs)")
     "w s" '(tab-bar-switch-to-tab :wk "Switch to tab")
-    "w s" '(desktop-read :wk "Restore last desktop-mode session buffers")
-    "w s" '(desktop-change-dir :wk "Desktop mode change directory")
-    "w s" '(desktop-clear :wk "Clear desktop-mode sesssions"))
 #+end_src
 
 *** C-c leader key
@@ -2382,7 +2379,7 @@ I use the =no-littering= package to keep folders where I edit files and the emac
 #+end_src
 
 ** Session persistence & crash recovery
-Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland display drops): =super-save= writes file-visiting buffers to disk on focus/buffer/idle events (so unsaved edits survive), and =desktop-save-mode= snapshots the full buffer/window/point layout and restores it on restart. Versioned backups stay OFF (single-user, single-daemon). Both write under the =no-littering= =user-emacs-directory= (~/.cache/emacs/).
+Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland display drops): =super-save= writes file-visiting buffers to disk on focus/buffer/idle events so unsaved edits survive. Tab/window *layout* restore is =tabspaces=' job (it's the only thing that can restore tab-bar tabs — =frameset.el= has no tab handling). =desktop-save-mode= was removed: it fought tabspaces on the first client frame over the window config, and under Wayland the compositor controls frame placement anyway, so its one unique value (frame geometry) was already moot. Versioned backups stay OFF (single-user, single-daemon). Writes under the =no-littering= =user-emacs-directory= (~/.cache/emacs/).
 
 #+begin_src emacs-lisp
 ;; Save file-visiting buffers to the real file on natural events — the
@@ -2396,61 +2393,6 @@ Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland
         super-save-silent t)
   (super-save-mode 1))
 
-;; Snapshot the full session (buffers, windows, point) and restore on restart.
-;; Save on KILL, not an idle timer: `desktop-auto-save-timeout' is an idle timer
-;; (fires only after N s idle following a window-config change)
-;; `desktop-save-mode' puts its real saver (`desktop-kill') on
-;; `kill-emacs-query-functions' = interactive C-x C-c only; `(kill-emacs)' and a
-;; daemon stop run only `kill-emacs-hook', whose desktop handler just releases
-;; the lock. So we add an explicit save to `kill-emacs-hook' to cover every exit.
-;; Caveat: a HARD crash (SIGKILL / Wayland drop on PGTK) runs no hook at all —
-;; then you restore the last clean snapshot; `super-save' keeps file contents
-;; safe either way, so only the window LAYOUT is at risk.
-(desktop-save-mode 1)
-;; `desktop.el' installs an anonymous `after-init-hook' lambda that calls
-;; `desktop-read' whenever `desktop-save-mode' is non-nil.  In a frameless
-;; daemon that buffer/frame restore aborts startup before `server-start'
-;; ("Error: server did not start correctly"), so neutralize the auto-restore
-;; in daemon mode only: clear the mode var BEFORE desktop's lambda runs
-;; (prepend) so it skips the read, then re-enable it AFTER (append) so the
-;; save side keeps working.  Plain GUI startup is unchanged.
-(when (daemonp)
-  (add-hook 'after-init-hook (lambda () (setq desktop-save-mode nil)) nil)
-  (add-hook 'after-init-hook (lambda () (desktop-save-mode 1)) t))
-(setq desktop-save t                        ; save on exit without prompting
-      desktop-auto-save-timeout nil         ; disable the idle autosave timer
-      desktop-restore-frames t
-      desktop-load-locked-desktop nil       ; avoid dual-daemon restore race
-      desktop-path (list (expand-file-name "var/desktop" user-emacs-directory))
-      desktop-files-not-to-save
-      "\\(^/[^/:]*:\\)\\|\\(sitemap\\.org\\)") ; skip TRAMP + transient
-;; Don't persist registers across restarts — leave register state session-local.
-(setq desktop-globals-to-save (delq 'register-alist desktop-globals-to-save))
-;; Guarantee a snapshot on EVERY exit path (interactive + `(kill-emacs)' + stop).
-(defun tl/desktop-save-on-kill ()
-  "Save the desktop on any kill path, including non-interactive `kill-emacs'."
-  (when (and desktop-save-mode desktop-dirname)
-    (let ((desktop-save t))          ; save unconditionally, no prompt
-      (desktop-save desktop-dirname))))
-(add-hook 'kill-emacs-hook #'tl/desktop-save-on-kill)
-;; Restore on FIRST client frame (daemon), not at after-init. The daemonp
-;; guard above disables after-init `desktop-read' (it crashes the frameless
-;; daemon's `server-start'); this takes over once a real display exists, so
-;; `desktop-read' is safe and gets a frame to lay buffers/windows into.
-;; Restores: file buffers (with point/mark, in list order) + the saved
-;; frameset (window splits, tab-bar tabs, frame set). Runs once per daemon
-;; life; a TTY first-frame defers to a later GUI frame (`display-graphic-p').
-(defvar tl/desktop-restored nil
-  "Non-nil once `desktop-read' has restored the session into the daemon.")
-(defun tl/desktop-restore-on-first-frame ()
-  "Restore the saved desktop the first time a GUI client frame is created."
-  (unless tl/desktop-restored
-    (when (and desktop-save-mode (display-graphic-p))
-      (let ((file (expand-file-name desktop-base-file-name (car desktop-path))))
-        (when (file-exists-p file)
-          (setq tl/desktop-restored t)
-          (desktop-read (car desktop-path)))))))
-(add-hook 'server-after-make-frame-hook #'tl/desktop-restore-on-first-frame)
 #+end_src
 
 ** Rainbow-mode
