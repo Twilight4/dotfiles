@@ -77,6 +77,7 @@
 - [[#other-packages][Other Packages]]
   - [[#anzu][Anzu]]
   - [[#diff-hl][Diff-hl]]
+  - [[#magit][Magit]]
   - [[#beacon][Beacon]]
   - [[#goggles][Goggles]]
   - [[#zoxide][Zoxide]]
@@ -3126,6 +3127,18 @@ This is useful when followed by an immediate kill."
         (ignored . "i")))
 #+end_src
 
+** Magit
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure t
+  :init
+  ;; The default global set includes C-x M-g, but our C-x C-[ (= C-x ESC)
+  ;; shrink-window-horizontally occupies that prefix, so define-key signals
+  ;; and package activation aborts. `recommended' avoids the conflict:
+  ;; C-x g status, C-c g dispatch, C-c f file-dispatch.
+  (setq magit-define-global-key-bindings 'recommended))
+#+end_src
+
 ** Beacon
 #+begin_src emacs-lisp
 (use-package beacon
@@ -4422,12 +4435,13 @@ outside a project-local `.omp/'."
   (define-key agent-shell-viewport-view-mode-map (kbd "C-c r") #'agent-shell-resume-session)
   (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-e") #'agent-shell-restart)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-e") #'agent-shell-restart)
-  (define-key agent-shell-list-edit-mode-map (kbd "C-c C-q") #'agent-shell-viewport-queue-request)
-  (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-q") #'agent-shell-viewport-queue-request)
   (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-a") #'tl/agent-shell-toggle-auto-accept)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-a") #'tl/agent-shell-toggle-auto-accept)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-l") #'agent-shell-viewport-view-last)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c b") #'tl/org-insert-template-and-paste)
+  (define-key agent-shell-viewport-view-mode-map (kbd "n") #'agent-shell-viewport-prompt-queue)
+  (define-key agent-shell-viewport-view-mode-map (kbd "N") #'agent-shell-viewport-prompt-queue-resume)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-n") #'agent-shell-viewport-prompt-queue-remove)
   (define-key agent-shell-viewport-view-mode-map (kbd "/") #'consult-line)
   (define-key agent-shell-viewport-view-mode-map (kbd "l") #'agent-shell-viewport-view-last)
   ;; Vie/Edit mode-specific bindings
