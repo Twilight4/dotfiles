@@ -647,7 +647,7 @@ error can never abort the restore."
      ("Calendar"   . (lambda () (org-goto-calendar) (delete-other-windows)))
      ("Journal"    . org-roam-dailies-goto-today))
     (work
-     ("IDE"         . (lambda () (treemacs)))
+     ("magit"         . (lambda () (treemacs)))
      ("cli" . (lambda () (tl/ghostel-new-named "ghostel-cli")))
      ("omp-agents"  . tl/agent-shell-omp-start)
      ("gemini"      . tl/gptel-open-gemini)))
@@ -3130,41 +3130,13 @@ This is useful when followed by an immediate kill."
 (use-package magit
   :ensure t
   :init
-  ;; No upstream global bindings — everything lives under our own C-x C-g
-  ;; prefix (tl/magit-map) with which-key labels. (Also avoids the default
-  ;; C-x M-g, which conflicts with our C-x C-[ = C-x ESC window binding and
-  ;; aborts package activation.)
+  ;; No upstream global bindings (default C-x M-g would conflict with our
+  ;; C-x C-[ = C-x ESC window binding and abort package activation).
+  ;; Entry points: M-g = magit-dispatch, C-M-g = magit-file-dispatch.
+  ;; (M-g is free: config.org unbinds it globally; goto-line is on C-c C-g.)
   (setq magit-define-global-key-bindings nil)
-  (defvar tl/magit-map
-    (let ((map (make-sparse-keymap)))
-      (define-key map (kbd "s") #'magit-status)
-      (define-key map (kbd "l") #'magit-log-current)
-      (define-key map (kbd "L") #'magit-log-all)
-      (define-key map (kbd "f") #'magit-log-buffer-file)
-      (define-key map (kbd "d") #'magit-diff-dwim)
-      (define-key map (kbd "D") #'magit-diff)
-      (define-key map (kbd "b") #'magit-blame)
-      (define-key map (kbd "B") #'magit-branch)
-      (define-key map (kbd "c") #'magit-commit)
-      (define-key map (kbd "P") #'magit-push)
-      (define-key map (kbd "F") #'magit-pull)
-      (define-key map (kbd "z") #'magit-stash)
-      (define-key map (kbd "r") #'magit-rebase)
-      (define-key map (kbd "m") #'magit-merge)
-      (define-key map (kbd "v") #'magit-revert)
-      (define-key map (kbd "y") #'magit-show-refs)
-      (define-key map (kbd "!") #'magit-git-command)
-      map)
-    "Personal magit prefix map, bound to C-x C-g.")
-  (keymap-global-set "C-x C-g" tl/magit-map)
-  (with-eval-after-load 'which-key
-    (which-key-add-key-based-replacements "C-x C-g" "magit")
-    (which-key-add-keymap-based-replacements tl/magit-map
-      "s" "status"        "l" "log (branch)"  "L" "log (all)"    "f" "log (file)"
-      "d" "diff (dwim)"   "D" "diff…"         "b" "blame"        "B" "branch…"
-      "c" "commit…"       "P" "push…"         "F" "pull…"        "z" "stash…"
-      "r" "rebase…"       "m" "merge…"        "v" "revert…"      "y" "refs"
-      "!" "git command")))
+  (keymap-global-set "M-g"   #'magit-dispatch)
+  (keymap-global-set "C-M-g" #'magit-file-dispatch))
 #+end_src
 
 ** Beacon

@@ -41,6 +41,7 @@ The world's greatest programmer once said:
   - [[#kubernetes-mode][Kubernetes-mode]]
   - [[#treemacs][Treemacs]]
   - [[#consult-buffer][Consult-buffer]]
+  - [[#magit][Magit]]
 
 * C-x Leader Key
 ** Prefix keys
@@ -688,3 +689,412 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | r SPC      | File registers   |
 | m SPC      | Bookmarks        |
 | p SPC      | Project          |
+
+** Magit
+
+Entry points are global; everything else happens inside Magit buffers.
+God-mode is automatically off in all Magit buffers (they derive from
+~special-mode~, which is in ~god-exempt-predicates~). Magit does not
+replace diff-hl: diff-hl still shows uncommitted changes in file
+fringes; Magit is the repo-level UI.
+
+When lost: press ~h~ or ~?~ in any Magit buffer to open the dispatch
+menu, ~H~ on a section to describe it, ~$~ to see the git process log.
+
+*** Entry points (global)
+
+| Keybinding | Description                                        |
+|------------+----------------------------------------------------|
+| M-g        | magit-dispatch — master menu of all Magit commands |
+| C-M-g      | magit-file-dispatch — commands for the current file (falls back to M-g outside file buffers) |
+
+Upstream global bindings (C-x g, C-c g, C-c f) are disabled via
+~magit-define-global-key-bindings nil~.
+
+*** Dispatch menu (M-g) — transient prefixes
+
+Single letters open a transient menu (a popup with flags/options);
+double letters run the default action directly. These same keys work
+inside every Magit buffer.
+
+| Key | Menu / command              |
+|-----+-----------------------------|
+| c   | commit                      |
+| b   | branch                      |
+| m   | merge                       |
+| r   | rebase                      |
+| V   | revert                      |
+| A   | cherry-pick                 |
+| x/X | reset (quick / menu)        |
+| z   | stash                       |
+| P   | push                        |
+| F   | pull                        |
+| f   | fetch                       |
+| M   | remote                      |
+| t   | tag                         |
+| T   | notes                       |
+| l/L | log / log-refresh           |
+| d/D | diff / diff-refresh         |
+| e/E | ediff (dwim / menu)         |
+| s/S | stage thing / stage all     |
+| u/U | unstage thing / unstage all |
+| k   | discard thing at point      |
+| a   | apply thing at point        |
+| v   | reverse thing at point      |
+| y   | refs (branches/tags list)   |
+| Y   | cherry (unmerged commits)   |
+| i   | gitignore                   |
+| o   | submodule                   |
+| O   | subtree                     |
+| Z/% | worktree                    |
+| B   | bisect                      |
+| w   | am (apply patches)          |
+| W   | patch (create/save)         |
+| R/K | file rename / untrack       |
+| C   | clone                       |
+| I   | init                        |
+| J   | repository buffer           |
+| j   | jump to status section      |
+| !   | run git/shell command       |
+| :   | git command (current dir)   |
+| q   | bury buffer                 |
+
+*** Navigation & sections (every Magit buffer)
+
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| n / p      | next / previous section              |
+| M-n / M-p  | next / previous sibling (file-to-file in diffs!) |
+| ^          | up to parent section                 |
+| TAB        | expand/collapse section              |
+| C-TAB      | cycle section visibility             |
+| S-TAB      | cycle visibility of ALL sections     |
+| 1..4       | show sections to level N (this one)  |
+| M-1..M-4   | show level N in whole buffer         |
+| RET        | visit thing at point (commit → diff, file → open) |
+| SPC / DEL  | scroll diff up / down (peek without leaving) |
+| < / >      | beginning / end of buffer (> = sparse-checkout in status) |
+| g / G      | refresh buffer / all buffers         |
+| q          | bury buffer                          |
+| $          | git process buffer (k kills process) |
+| h / ?      | dispatch menu (help)                 |
+| H          | describe section at point            |
+| C-w        | copy section value (hash, branch…)   |
+| M-w        | copy buffer's revision               |
+| C-c C-w    | copy thing at point                  |
+| C-c C-r    | jump to next reference               |
+| C-c C-e    | edit thing at point                  |
+| C-c C-o    | browse thing (open URL)              |
+
+*** Status buffer (staging & discarding)
+
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| s          | stage file or hunk at point          |
+| S          | stage all modified files             |
+| u          | unstage file or hunk at point        |
+| U          | unstage everything                   |
+| k          | discard change at point (file/hunk)  |
+| a          | apply change at point                |
+| v          | reverse change at point              |
+| x          | reset quickly (prompts for ref)      |
+| j          | jump to a status section             |
+| TAB        | on a file: show its inline diff      |
+| RET        | on a commit: view it; on a file: open it |
+
+*** Log buffer
+
+Menu keys (press l in any Magit buffer):
+
+| Key | Description                     |
+|-----+---------------------------------|
+| l l | log current branch              |
+| l h | log HEAD                        |
+| l o | log other branch/ref            |
+| l a | log all refs                    |
+| l L | log local branches              |
+| l b | log all branches                |
+| l u | log related (upstream…)         |
+| l r | reflog current branch           |
+| l O | reflog other                    |
+| l H | reflog HEAD                     |
+
+Inside the log buffer:
+
+| Keybinding | Description                       |
+|------------+-----------------------------------|
+| RET        | view commit (revision buffer)     |
+| SPC / DEL  | scroll commit diff up/down        |
+| C-c C-b/f  | move to older/newer visited commit |
+| C-c C-n    | move to parent commit             |
+| j          | jump to a revision                |
+| + / - / =  | more / fewer / toggle commit limit |
+| q          | bury log buffer                   |
+
+*** Revision buffer (viewing one commit)
+
+This is what RET on a commit opens: message on top, one section per
+changed file.
+
+| Keybinding | Description                    |
+|------------+--------------------------------|
+| M-n / M-p  | jump file to file              |
+| n / p      | next/previous section          |
+| TAB        | expand/collapse one file       |
+| 1..4       | files only → full hunks        |
+| + / - / 0  | more / less / default context  |
+| RET        | visit the file at that hunk    |
+| C-RET      | visit worktree file at hunk    |
+| C-c C-b/f  | previous / next visited commit |
+| j          | jump to another revision       |
+| q          | bury buffer                    |
+
+*** Diff buffer
+
+| Keybinding | Description                       |
+|------------+-----------------------------------|
+| s / u      | stage / unstage hunk at point     |
+| a          | apply hunk                        |
+| k          | discard hunk                      |
+| v          | reverse hunk                      |
+| j          | jump between diffstat and diff    |
+| RET        | visit file at hunk (at that line) |
+| C-RET      | visit worktree file               |
+| + / - / 0  | more / less / default context     |
+| D g        | refresh with current arguments    |
+| D t        | toggle refine-hunk (word diff)    |
+| D r        | switch range type                 |
+| D f        | flip revisions                    |
+| C-c C-b/f  | move through visited diffs        |
+| C-c C-t    | trace definition (log -L)         |
+| C-c C-e    | edit hunk's commit                |
+
+Diff menu (d in any Magit buffer):
+
+| Key | Description               |
+|-----+---------------------------|
+| d d | diff dwim (guess what you want) |
+| d u | unstaged changes          |
+| d s | staged changes            |
+| d w | working tree vs HEAD      |
+| d r | diff a range              |
+| d c | show a commit             |
+| d p | diff specific paths       |
+| d t | show a stash              |
+
+*** Committing
+
+Commit menu (c):
+
+| Key | Description                        |
+|-----+------------------------------------|
+| c c | create commit                      |
+| c a | amend HEAD                         |
+| c e | extend HEAD (no message edit)      |
+| c w | reword HEAD                        |
+| c f | fixup into a commit                |
+| c s | squash into a commit               |
+| c F | instant fixup (no prompt)          |
+| c S | instant squash (no prompt)         |
+
+Commit message buffer:
+
+| Keybinding | Description                  |
+|------------+------------------------------|
+| C-c C-c    | finish commit                |
+| C-c C-k    | cancel commit                |
+| C-c C-d    | show diff being committed    |
+| M-p / M-n  | previous commit messages     |
+| C-c M-s    | save message for later       |
+
+*** Branch menu (b)
+
+| Key | Description                 |
+|-----+-----------------------------|
+| b b | checkout branch             |
+| b c | create and checkout         |
+| b n | create (stay on current)    |
+| b l | checkout local branch       |
+| b r | checkout remote ref         |
+| b s | spinoff (move commits away) |
+| b S | spinout (branch + keep)     |
+| b x | reset branch to a ref       |
+| b k | delete branch               |
+| b m | rename branch               |
+| b C | configure branch            |
+
+*** Merge (m) & rebase (r)
+
+| Key | Description                     |
+|-----+---------------------------------|
+| m m | merge into current branch       |
+| m e | merge, editing message          |
+| m n | merge without committing        |
+| m s | squash merge                    |
+| m p | preview merge                   |
+| m a | merge-absorb / abort (in progress) |
+| m d | dissolve (merge + delete branch)|
+| r p | rebase onto pushremote          |
+| r u | rebase onto upstream            |
+| r e | rebase onto a branch            |
+| r i | interactive rebase              |
+| r f | autosquash rebase               |
+| r r | continue (in progress)          |
+| r s | skip (in progress)              |
+| r e | edit (in progress)              |
+| r a | abort (in progress)             |
+
+Interactive rebase buffer (git-rebase-todo):
+
+| Keybinding | Description              |
+|------------+--------------------------|
+| p / n      | move up / down (nav)     |
+| M-p / M-n  | move commit line up/down |
+| r          | reword                   |
+| e          | edit                     |
+| s          | squash                   |
+| f          | fixup                    |
+| k          | drop commit              |
+| c          | pick                     |
+| x          | exec shell command       |
+| b          | break                    |
+| RET        | show commit              |
+| C-c C-c    | start the rebase         |
+| C-c C-k    | cancel                   |
+
+*** Reset (x / X)
+
+| Key | Description              |
+|-----+--------------------------|
+| x   | reset quickly (prompt)   |
+| X m | reset mixed              |
+| X s | reset soft               |
+| X h | reset hard               |
+| X k | reset keep               |
+| X i | reset index only         |
+| X w | reset worktree only      |
+| X f | check out file from ref  |
+
+*** Stash menu (z)
+
+| Key | Description              |
+|-----+--------------------------|
+| z z | stash tracked + index    |
+| z w | stash worktree only      |
+| z i | stash index only         |
+| z Z | snapshot (keep working)  |
+| z a | apply stash              |
+| z p | pop stash                |
+| z k | drop stash               |
+| z v | view stash diff          |
+| z l | list stashes             |
+| z b | stash to new branch      |
+
+*** Push (P) / pull (F) / fetch (f)
+
+| Key | Description                  |
+|-----+------------------------------|
+| P p | push to pushremote           |
+| P u | push to upstream             |
+| P e | push elsewhere               |
+| P o | push other ref               |
+| P t | push tags                    |
+| F p | pull from pushremote         |
+| F u | pull from upstream           |
+| F e | pull a branch                |
+| f p | fetch from pushremote        |
+| f u | fetch from upstream          |
+| f e | fetch elsewhere              |
+| f a | fetch all remotes            |
+
+*** Tag (t) & remote (M)
+
+| Key | Description        |
+|-----+--------------------|
+| t t | create tag         |
+| t r | create release tag |
+| t k | delete tag         |
+| t p | prune tags         |
+| M a | add remote         |
+| M r | rename remote      |
+| M u | set remote URL     |
+| M k | remove remote      |
+| M p | prune remote refs  |
+
+*** Cherry-pick (A) & revert (V)
+
+| Key | Description                    |
+|-----+--------------------------------|
+| A a | apply commit (cherry-pick)     |
+| A A | copy commit / continue (in progress) |
+| A h | harvest (move to current)      |
+| A n | spinout                        |
+| A s | spinoff / skip (in progress)   |
+| V V | revert and commit              |
+| V v | revert without committing      |
+
+*** Blame
+
+Start with C-M-g B (or b in the blame transient). In a blame buffer:
+
+| Keybinding | Description                  |
+|------------+------------------------------|
+| n / p      | next / previous chunk        |
+| N / P      | next / previous chunk, same commit |
+| RET        | show the commit              |
+| M-w        | copy commit hash             |
+| c          | cycle blame style            |
+| q          | quit blame                   |
+
+*** Bisect (B)
+
+| Key | Description   |
+|-----+---------------|
+| B B | start bisect  |
+| B g | mark good     |
+| B b | mark bad      |
+| B k | skip          |
+| B s | run script    |
+| B r | reset (end)   |
+
+*** Worktree (Z) / submodule (o) / subtree (O)
+
+| Key | Description         |
+|-----+---------------------|
+| Z b | checkout worktree   |
+| Z c | new branch worktree |
+| Z g | worktree status     |
+| Z k | delete worktree     |
+| o a | add submodule       |
+| o p | populate            |
+| o u | update              |
+| o l | list submodules     |
+| O i | subtree import menu |
+| O e | subtree export menu |
+
+*** Patch (W / w), notes (T), ediff (e/E), run (!)
+
+| Key | Description              |
+|-----+--------------------------|
+| W c | create patches           |
+| W s | save diff as patch file  |
+| w w | apply patches (am)       |
+| w m | apply maildir patches    |
+| T T | edit notes               |
+| T r | remove note              |
+| e   | ediff dwim               |
+| E r | ediff compare revisions  |
+| E s | ediff stage              |
+| ! ! | git command at topdir    |
+| ! s | shell command at topdir  |
+| ! k | run gitk                 |
+
+*** Refs buffer (y)
+
+| Key | Description              |
+|-----+--------------------------|
+| y y | refs at HEAD             |
+| y c | refs for current branch  |
+| y o | refs for other branch    |
+| RET | visit ref                |
+
