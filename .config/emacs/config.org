@@ -647,7 +647,7 @@ error can never abort the restore."
      ("Calendar"   . (lambda () (org-goto-calendar) (delete-other-windows)))
      ("Journal"    . org-roam-dailies-goto-today))
     (work
-     ("magit"         . (lambda () (treemacs)))
+     ("magit" . (lambda () (dired "~/desktop/workspace") (call-interactively #'magit-status)))
      ("cli" . (lambda () (tl/ghostel-new-named "ghostel-cli")))
      ("omp-agents"  . tl/agent-shell-omp-start)
      ("gemini"      . tl/gptel-open-gemini)))
@@ -3136,7 +3136,11 @@ This is useful when followed by an immediate kill."
   ;; (M-g is free: config.org unbinds it globally; goto-line is on C-c C-g.)
   (setq magit-define-global-key-bindings nil)
   (keymap-global-set "M-g"   #'magit-dispatch)
-  (keymap-global-set "C-M-g" #'magit-file-dispatch))
+  (keymap-global-set "C-M-g" #'magit-file-dispatch)
+  ;; From a non-repo dir (e.g. the workspace magit tab's dired at
+  ;; ~/desktop/workspace), `magit-status' offers a completion list of git
+  ;; repos found here instead of raw path completion.
+  (setq magit-repository-directories '(("~/desktop/workspace" . 2))))
 #+end_src
 
 ** Beacon

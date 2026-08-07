@@ -1,0 +1,16 @@
+# Oh My Pi custom-models overlay (~/.omp/agent/models.yml).
+# modelOverrides merge into the *built-in* kimi-code models — no provider/apiKey
+# needed. File is reloaded on every `/model` selector open, so changes apply live.
+#
+# Why: Kimi K3 ships with maxTokens=131072 (128K output cap) and defaults to
+# "high" thinking effort. A single high-effort turn can emit tens of thousands
+# of thinking tokens, which counts against Kimi's hourly coding-plan limit.
+# Capping max-out bounds the worst case per turn. PRIMARY lever is still to run
+# K3 at low effort (e.g. `/model kimi-code/k3-256k:low`); this cap is the safety net.
+providers:
+  kimi-code:
+    modelOverrides:
+      k3:
+        maxTokens: 32768      # was 131072 — 4x lower ceiling per turn
+      k3-256k:
+        maxTokens: 32768      # was 131072
