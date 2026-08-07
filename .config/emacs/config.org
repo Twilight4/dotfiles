@@ -89,8 +89,9 @@
   - [[#mcp][MCP]]
   - [[#emacs-mcp-server][Emacs MCP Server]]
   - [[#agent-shell][Agent-shell]]
+  - [[#agent-shell-performance-fixes][Agent-shell performance fixes]]
   - [[#agent-shell-dictation-push-to-talk][Agent-shell dictation (push-to-talk)]]
-  - [[#agent-shell-quick-commit-c-c-m][Agent-shell quick commit (C-c m)]]
+  - [[#agent-shell-quick-commit][Agent-shell quick commit]]
   - [[#agent-shell-attention][Agent-shell Attention]]
   - [[#agent-shell-bookmark][Agent-shell Bookmark]]
   - [[#agent-recall][Agent-recall]]
@@ -1140,7 +1141,7 @@ owning tab and raises the window displaying the chosen buffer."
     "C-q" '(save-buffers-kill-emacs :wk "Exit Emacs")
     "C-o" '(tl/buffer-org-new :wk "New empty org buffer")
     "r" '(consult-register :wk "Consult register")
-    "g" '(tl/agent-shell-omp-commit :wk "Commit git changes in new buffer")
+    "G" '(tl/agent-shell-omp-commit :wk "Commit git changes in new buffer")
     "j" '(agent-shell-attention-jump :wk "Jump to pending agent")
     "RET" '(exchange-point-and-mark :wk "Exchange point and mark")
     "v" '(mcp-hub :wk "View mcp hub servers")
@@ -4168,8 +4169,7 @@ once it arrives (the kill-ring destination is asynchronous)."
 #+end_src
 
 ** MCP
-[[https://github.com/lizqwerscott/mcp.el][mcp.el]] is an Emacs *client* for the [[https://modelcontextprotocol.io][Model Context Protocol]] - a standard way for LLM tools to be supplied by standalone "MCP servers". With it,
-=gptel= can call tools (read/write files, fetch URLs, query databases, hit APIs) provided by any MCP server you configure.
+[[https://github.com/lizqwerscott/mcp.el][mcp.el]] is an Emacs *client* for the [[https://modelcontextprotocol.io][Model Context Protocol]] - a standard way for LLM tools to be supplied by standalone "MCP servers". With it, =gptel= can call tools (read/write files, fetch URLs, query databases, hit APIs) provided by any MCP server you configure.
 
 Below we register the official =filesystem= server (launched on demand via =npx=), scoped to my Emacs directory and home.
 #+begin_src emacs-lisp
@@ -4232,7 +4232,7 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
 ;; execution into this Emacs. That is the whole point for OMP, but to lock it
 ;; down, restrict the exposed tools, e.g.:
 ;;   (setq mcp-server-emacs-tools-enabled '(org-agenda org-search org-get-node))
-;; Management: M-x mcp-server-status | mcp-server-get-socket-path | mcp-server-security-show-audit-log | mcp-server-stop | mcp-server-restart
+;; Management: M-x mcp-server-status | mcp-server-get-socket-path | mcp-server-security-show-audit-log | mcp-server-stop | mcp-server-restart | mcp-server-list-clients
 #+end_src
 
 ** Agent-shell
@@ -4491,6 +4491,30 @@ outside a project-local `.omp/'."
   (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
 #+end_src
 
+
+** Agent-shell performance fixes
+Patches agent-shell's streaming path for CPU usage. The per-chunk hot loop is quadratic over a session: a single turn streams dozens-to-hundreds of chunks and the buffer grows monotonically, so any O(buffer) scan run once per chunk is O(n^2) over the session. The module (=my-agent-shell-perf-fix.el= in the config dir, with its =my-mk-toggle.el= toggle-macro dependency) has two layers:
+
+1. *Always-on optimisations* (behaviour-preserving) — replace the per-chunk =text-property-search= scans with an O(1) marker index keyed by fragment id; cache section starts so body/label lookups become O(1); skip rewriting labels and activity-group headers that haven't changed; scope the invisible-property clear to the trailing tail; and (perf-mode only) tag streaming chars =fontified= so font-lock + =goto-address= never re-run over them. Every lookup keeps the original scan as a fallback, so a stale index entry self-heals.
+2. *Perf-mode toggle* (=M-x my/agent-shell/perf-fix/toggle=, ON by default) — markdown rendering off, activity groups expanded, busy indicator off, shell-maker auto-scroll off while streaming; the final agent message is re-rendered once when the turn completes (=my/agent-shell/perf-fix-prettify-on-turn-complete=, on by default). =M-x my/agent-shell/prettify= renders the active region or block-at-point on demand, regardless of perf mode.
+
+It depends on =el-patch= (the patching mechanism) and =agent-shell=, both installed above/below.
+
+#+begin_src emacs-lisp
+;; The local Elisp modules (my-agent-shell-perf-fix, my-mk-toggle) live in the
+;; config dir alongside config.el; put it on load-path so `require' finds them.
+(add-to-list 'load-path (expand-file-name "~/.config/emacs"))
+
+;; el-patch is the live-patching mechanism the perf-fix module builds on.
+(use-package el-patch
+  :ensure t)
+
+;; Load the perf-fix module once agent-shell is configured.  The module itself
+;; requires el-patch + agent-shell at top level; el-patch is installed via the
+;; use-package above, so the require is warm after the first restart that builds it.
+(with-eval-after-load 'agent-shell
+  (require 'my-agent-shell-perf-fix))
+#+end_src
 ** Agent-shell dictation (push-to-talk)
 OMP's hold-=Space= speech-to-text is a TUI-only feature: it lives in the interactive editor's input loop (=onSpaceHoldStart= / =onSpaceHoldEnd=, gated by =SPACE_HOLD_RELEASE_MS=). agent-shell runs =omp acp= — the headless ACP protocol — which never starts the TUI, so the gesture has no code path to fire in the agent-shell buffer. This is a press-to-toggle alternative (the same shape as OMP's =app.stt.toggle= chord): it records via =pw-record= and transcribes with the same on-device Parakeet TDT model OMP's TUI uses, driven standalone through sherpa-onnx. The transcriber at =~/.config/.local/bin/omp-stt-transcribe= reuses the cached model at =~/.omp/agent/cache/tiny-models/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8/=, so dictation matches the TUI experience. Install the runtime once with =uv tool install sherpa-onnx=. Bound to =C-c SPC= in =agent-shell-mode-map=.
 
@@ -4559,7 +4583,7 @@ because `omp acp' (agent-shell's backend) does not run the TUI STT path."
   (define-key agent-shell-viewport-edit-mode-map (kbd "C-c SPC") #'tl/agent-shell-dictate))
 #+end_src
 
-** Agent-shell quick commit (C-c m)
+** Agent-shell quick commit
 A keybinding that runs =omp commit --model=zai/glm-4.7= directly in a =*compilation*= buffer — instant and token-free, unlike the =/ompc= slash command (which routes through the session LLM). It inherits the agent-shell buffer's =default-directory= (the project root), so it commits in whichever project the shell is scoped to.
 
 #+begin_src emacs-lisp
@@ -5972,27 +5996,30 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                           (:name " Upwork Project"
                            :tag "@Upwork_Project"
                            :order 5)
+                          (:name "󰚩 AI Prompts"
+                           :tag "@AI_prompts"
+                           :order 6)
                           (:name " Career-related"
                            :tag "@Work"
-                           :order 6)
+                           :order 7)
                           (:name " Project 1"
                            :tag "@Project1"
-                           :order 7)
+                           :order 8)
                           (:name " Project 2"
                            :tag "@Project2"
-                           :order 8)
+                           :order 9)
                           (:name " Project 3"
                            :tag "@Project3"
-                           :order 9)
-                          (:name "Issues"
-                           :tag "@Issue"
-                           :order 9)
-                          (:name " Research"
-                           :tag "@Research"
-                           :order 12)
+                           :order 10)
                           (:name " Side-quests"
                            :tag "@Side_quests"
-                           :order 10)
+                           :order 11)
+                          (:name "Issues"
+                           :tag "@Issue"
+                           :order 12)
+                          (:name " Research"
+                           :tag "@Research"
+                           :order 13)
                           (:name " Due Soon"
                            :deadline future
                            :order 20)
@@ -6035,6 +6062,50 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
                              (tl/org-agenda--hide-habits (cadr form)))))
     (add-to-list 'org-agenda-custom-commands
                  (list "O" "Overview (no habits)" blocks))))
+
+;; "/" in the agenda: regenerate the Overview showing only ONE super-agenda
+;; group.  `org-agenda-filter-by-tag' (and the tag preset) only hide item
+;; *lines*, leaving the now-empty group headers behind; swapping the
+;; `alltodo' block for a `tags-todo "+TAG"' block restricts collection, so
+;; only the chosen section's header is built.  Groups are read from the "o"
+;; command at runtime, so editing `org-super-agenda-groups' above updates
+;; the choices automatically.
+(defun tl/org-agenda-overview-groups ()
+  "Return (NAME . TAG) pairs for the tag-keyed groups of the \"o\" Overview."
+  (let* ((blocks (nth 2 (assoc "o" org-agenda-custom-commands)))
+         (todo   (seq-find (lambda (b) (eq (car-safe b) 'alltodo)) blocks))
+         (form   (cadr (assq 'org-super-agenda-groups (nth 2 todo))))
+         (groups (if (eq (car-safe form) 'quote) (cadr form) form)))
+    (delq nil
+          (mapcar (lambda (g)
+                    (when (plist-get g :tag)
+                      (cons (plist-get g :name) (plist-get g :tag))))
+                  groups))))
+
+(defun tl/org-agenda-filter-to-group ()
+  "Re-run the Overview showing only one super-agenda group.
+Swaps the Overview's `alltodo' block for a `tags-todo \"+TAG\"' block so
+non-matching entries are never collected and only the chosen section is
+built (unlike `org-agenda-filter-by-tag', which only hides item lines and
+leaves the empty group headers behind).  \"All\" restores the full view.
+Bound to \"/\" in `org-agenda-mode-map'."
+  (interactive)
+  (let* ((choices (cons '("All" . nil) (tl/org-agenda-overview-groups)))
+         (name    (completing-read "Show group: " choices nil t))
+         (tag     (cdr (assoc name choices)))
+         (blocks  (nth 2 (assoc "o" org-agenda-custom-commands))))
+    (if (null tag)
+        (org-agenda nil "o")
+      (org-agenda-run-series
+       (format "Overview: %s" name)
+       (list (mapcar (lambda (b)
+                       (if (eq (car-safe b) 'alltodo)
+                           (append (list 'tags-todo (concat "+" tag)) (cddr b))
+                         b))
+                     blocks))))))
+
+(with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "/") #'tl/org-agenda-filter-to-group))
 #+end_src
 
 *** Org-gtd-capture
@@ -6047,7 +6118,7 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
          "* TODO %?\n  %U\n  %i\n %a" :empty-lines 1 :kill-buffer t)
 
     ("u" "Upwork" entry (file "~/documents/org/agenda/inbox.org")
-         "* TODO Build AI automation workflows :@Upwork_Project:\n:PROPERTIES:\n:Client: \n:Budget: \n:Rate: \n:END:\n  %U\n** Sales call\n- [ ] Open by stating the agenda and end on 'Sound good?' - sets the frame and puts you in control from sentence one (frame: I ask about your business, then you ask me anything, then I recommend next steps). Removes their uncertainty; whoever frames the call controls where it ends.\n- [ ] Ask what they sell and what they charge (what the business does, who the customers are, the goal of the project). Price tells you how serious this is and what level of work it needs - get specific, don't let them stay vague.\n- [ ] Ask exactly who buys from them. 'Entrepreneurs' is not enough - push for something like 'fitness coaches trying to get their first 10 clients online.' The more specific, the better you can speak to those people.\n- [ ] Pin down exactly what you're delivering (lead-gen page vs sales page vs webinar reg - each is different) before any talk of price or timeline, so there's no confusion later.\n- [ ] Ask 'why now - what made you reach out? Is something not working?' to surface the real reason they're hiring you. You'll reuse this pain point later.\n- [ ] Write down their exact words as they answer - you'll mirror their language back so they feel understood.\n- [ ] Before naming a price, summarize what you heard in their own words ('Let me make sure I got this right...'). Shows you listened AND confirms you're ready to deliver.\n- [ ] Walk them through what working with you looks like - they don't need every detail, just that you have a clear plan. This is a free sample of the experience and makes them more likely to hire you.\n- [ ] Say how long delivery will take.\n- [ ] Do NOT bring up price until they ask. Waiting keeps you in charge - the opposite of someone desperate.\n- [ ] When they ask, state the number flat and STOP talking - don't justify, don't fill the silence. Filling it signals you're not confident in your price.\n- [ ] Once they're in, confirm the next step immediately and get paid first: 'I'll send the contract today. Once the milestone is funded, we get started. Sounds good?'\n\n** Build plan\n- Tech stack\n- how it will work, what exactly we're building\n- what database\n- what framework\n- design - how should it look, what should it be like\n- etc\n\n*** First prompt - build plan\n#+begin_comment\nuse plan mode, advisor, prompt enhancer\n#+end_comment\n\nI want to build a %^{Project name}.\n\nbefore we code anything, first, I want to create a build plan\nAsk me some questions about how it should work, in order to clarify the product requirements, technical requirements, engineering principles, and hard constraints\n\nWhat kind of architecture should we use?\nWhat are some considerations we should have to scale?\nsearch around, figure out how we do it, report back with two or three options, don't start the work yet\nand then revise, what are your recommendations of things that I could add or improve here?\n\n*** Create AGENTS.md file\n#+begin_example\nAnalyze our build plan and create an AGENTS.md file following these principles:\n\n1. Keep it under 150 lines total - focus only on universally applicable information\n2. Cover the essentials: WHAT (tech stack, project structure), WHY (purpose), and HOW (build/test commands)\n3. Use Progressive Disclosure: instead of including all instructions, create a brief index pointing to other markdown files in research/ for specialized topics\n4. Include file:line references instead of code snippets\n\nStructure it as: project overview, tech stack, key directories/their purposes, essential build/test commands, and a list of additional documentation files oh-my-pi should check when relevant.\n\nWhen you work on a new feature or bug, create a git branch first. Then work on changes in that branch for the remainder of the session.\n\nAdditionally, extract patterns you observe into separate files:\n- research/architectural_patterns.md - document the architectural patterns, design decisions, and conventions used (e.g., dependency injection, state management, API design patterns). Make sure these are patterns that appear in multiple files.\n\nReference these files in the AGENTS.md's \"Additional Documentation\" section.\n#+end_example\n\n** Implementation plan\n1. files structure\n2. database structure\n3. authentication\n4. etc\n\n** LLM Builds it for you\nplease start with step 1 (from build plan)\nverify each step and build step by step with iterations so I can learn and understand everything end to end\n\n** Test and refine\nreview everything, fix bugs" :empty-lines 1 :kill-buffer t)
+         "* TODO Build AI automation workflows [/] :@Upwork_Project:\n:PROPERTIES:\n:Client: \n:Budget: \n:Rate: \n:END:\n  %U\n** TODO Sales call\n- [ ] Open by stating the agenda and end on 'Sound good?' - sets the frame and puts you in control from sentence one (frame: I ask about your business, then you ask me anything, then I recommend next steps). Removes their uncertainty; whoever frames the call controls where it ends.\n- [ ] Ask what they sell and what they charge (what the business does, who the customers are, the goal of the project). Price tells you how serious this is and what level of work it needs - get specific, don't let them stay vague.\n- [ ] Ask exactly who buys from them. 'Entrepreneurs' is not enough - push for something like 'fitness coaches trying to get their first 10 clients online.' The more specific, the better you can speak to those people.\n- [ ] Pin down exactly what you're delivering (lead-gen page vs sales page vs webinar reg - each is different) before any talk of price or timeline, so there's no confusion later.\n- [ ] Ask 'why now - what made you reach out? Is something not working?' to surface the real reason they're hiring you. You'll reuse this pain point later.\n- [ ] Write down their exact words as they answer - you'll mirror their language back so they feel understood.\n- [ ] Before naming a price, summarize what you heard in their own words ('Let me make sure I got this right...'). Shows you listened AND confirms you're ready to deliver.\n- [ ] Walk them through what working with you looks like - they don't need every detail, just that you have a clear plan. This is a free sample of the experience and makes them more likely to hire you.\n- [ ] Say how long delivery will take.\n- [ ] Do NOT bring up price until they ask. Waiting keeps you in charge - the opposite of someone desperate.\n- [ ] When they ask, state the number flat and STOP talking - don't justify, don't fill the silence. Filling it signals you're not confident in your price.\n- [ ] Once they're in, confirm the next step immediately and get paid first: 'I'll send the contract today. Once the milestone is funded, we get started. Sounds good?'\n\n** TODO Build plan\n- Tech stack\n- how it will work, what exactly we're building\n- what database\n- what framework\n- design - how should it look, what should it be like\n- etc\n\n*** First prompt - build plan\n#+begin_comment\nuse plan mode, advisor, prompt enhancer, disable unused mcp servers to preserve token usage, make sure docker-desktop GUI is running for the docker-mcp server to work\n#+end_comment\n\nI want to build a %^{Project name}.\n\nbefore we code anything, first, I want to create a build plan\nAsk me some questions about how it should work, in order to clarify the product requirements, technical requirements, engineering principles, and hard constraints\n\nWhat kind of architecture should we use?\nWhat are some considerations we should have to scale?\nsearch around, figure out how we do it, report back with two or three options, don't start the work yet\nand then revise, what are your recommendations of things that I could add or improve here?\n\n*** Create AGENTS.md file\n#+begin_example\nAnalyze our build plan and create an AGENTS.md file following these principles:\n\n1. Keep it under 150 lines total - focus only on universally applicable information\n2. Cover the essentials: WHAT (tech stack, project structure), WHY (purpose), and HOW (build/test commands)\n3. Use Progressive Disclosure: instead of including all instructions, create a brief index pointing to other markdown files in research/ for specialized topics\n4. Include file:line references instead of code snippets\n\nStructure it as: project overview, tech stack, key directories/their purposes, essential build/test commands, and a list of additional documentation files oh-my-pi should check when relevant.\n\nWhen you work on a new feature or bug, create a git branch first. Then work on changes in that branch for the remainder of the session.\n\nAdditionally, extract patterns you observe into separate files:\n- research/architectural_patterns.md - document the architectural patterns, design decisions, and conventions used (e.g., dependency injection, state management, API design patterns). Make sure these are patterns that appear in multiple files.\n\nReference these files in the AGENTS.md's \"Additional Documentation\" section.\n#+end_example\n\n** TODO Implementation plan\n1. files structure\n2. database structure\n3. authentication\n4. etc\n\n** TODO LLM Builds it for you\nplease start with step 1 (from build plan)\nverify each step and build step by step with iterations so I can learn and understand everything end to end\n\n** TODO Test and refine\nreview everything, fix bugs" :empty-lines 1 :kill-buffer t)
 
     ("a" "Appointment" entry (file "~/documents/org/agenda/inbox.org")
          "* %<%I:%M %p> - %a :@Calendar:\n\n%?\n\n"
