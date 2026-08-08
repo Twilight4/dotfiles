@@ -159,6 +159,9 @@
 (require 'agent-shell)
 (declare-function agent-shell-ui--replace-label "agent-shell-ui"
                   (qualified-id section new-text &optional block-match))
+(declare-function agent-shell-viewport--buffer "agent-shell-viewport"
+                  (&key shell-buffer existing-only))
+(declare-function agent-shell-viewport-refresh "agent-shell-viewport" ())
 
 (defun my/agent-shell/perf-fix--render-off-p ()
   "Return non-nil when perf mode has disabled markdown rendering.
@@ -1831,6 +1834,18 @@ re-running is idempotent."
 ;; once per agent turn, synchronously, from the request's on-success
 ;; (agent-shell.el); a subscription is pure event dispatch -- no timer,
 ;; no polling, zero cost between events.
+;;
+;; After rendering the shell buffer, the handler ALSO refreshes the
+;; associated viewport buffer.  The viewport is a separate buffer (not an
+;; indirect buffer) whose copy of the response was left raw during the
+;; turn; agent-shell refreshes viewport CONTENT only on explicit
+;; navigation -- never on turn-complete (it updates only the header
+;; there, agent-shell.el ~line 7613).  Without the refresh the rendered
+;; shell buffer is invisible to a user looking at the viewport, the
+;; default surface under `agent-shell-prefer-viewport-interaction'.
+;; `shell-maker--command-and-response-at-point' extracts the response
+;; with `buffer-substring' (preserves text properties), so the rendered
+;; faces carry over.
 
 (defun my/agent-shell/perf-fix--prettify-last-message (event)
   "Prettify the turn's final agent message, when the turn finished normally.
@@ -1842,27 +1857,58 @@ token-limited turn leaves a partial message that stays raw -- and
 `my/agent-shell/perf-fix-prettify-on-turn-complete' is non-nil and the
 buffer is in perf mode.  OMP's `omp acp' reports a normal finish as the
 stop-reason `stop' (not the ACP-canonical `end_turn'); both are accepted
-so the gate also holds under a canonical-ACP backend."
+so the gate also holds under a canonical-ACP backend.
+
+This handler runs in the comint shell buffer (its `turn-complete'
+subscription is registered from `agent-shell-mode-hook').  After
+rendering the shell buffer's final message it ALSO refreshes the
+associated viewport buffer: the viewport is a separate buffer whose
+copy of the response was left raw during the turn (perf mode kept
+rendering off), and agent-shell refreshes viewport CONTENT only on
+explicit navigation -- never on turn-complete (it updates only the
+header there).  Without this refresh the rendered shell buffer is
+invisible to a user looking at the viewport, which is the default
+surface under `agent-shell-prefer-viewport-interaction'."
   (when (and my/agent-shell/perf-fix-prettify-on-turn-complete
              (my/agent-shell/perf-fix--render-off-p)
              (member (map-nested-elt event '(:data :stop-reason))
                      '("stop" "end_turn")))
-    (save-excursion
-      (goto-char (point-max))
-      (when-let* ((match (text-property-search-backward
-                          'agent-shell-ui-state nil
-                          (lambda (_ state)
-                            (and state
-                                 (string-match-p "agent_message_chunk"
-                                                 (or (map-elt state :qualified-id) ""))))
-                          t))
-                  (block (agent-shell-ui--block-range
-                          :position (prop-match-beginning match))))
-        (goto-char (map-elt block :start))
-        ;; Call `prettify--block' directly: `prettify' would honor an
-        ;; active region and prettify the user's selection instead of
-        ;; the turn's final message.
-        (my/agent-shell/prettify--block)))))
+    (let ((shell-buffer (current-buffer)))
+      (save-excursion
+        (goto-char (point-max))
+        (when-let* ((match (text-property-search-backward
+                            'agent-shell-ui-state nil
+                            (lambda (_ state)
+                              (and state
+                                   (string-match-p "agent_message_chunk"
+                                                   (or (map-elt state :qualified-id) ""))))
+                            t))
+                    (block (agent-shell-ui--block-range
+                            :position (prop-match-beginning match))))
+          (goto-char (map-elt block :start))
+          ;; Call `prettify--block' directly: `prettify' would honor an
+          ;; active region and prettify the user's selection instead of
+          ;; the turn's final message.
+          (my/agent-shell/prettify--block)))
+      ;; The viewport mirrors the shell's response but is never
+      ;; refreshed on turn-complete (only its header is).  Re-extract
+      ;; the now-rendered response so the viewport shows it;
+      ;; `shell-maker--command-and-response-at-point' preserves text
+      ;; properties, so the rendered faces carry over.  Skip edit mode
+      ;; (mid-compose) and a missing viewport.
+      (when-let* ((viewport-buffer (agent-shell-viewport--buffer
+                                     :shell-buffer shell-buffer
+                                     :existing-only t)))
+        (with-current-buffer viewport-buffer
+          (when (derived-mode-p 'agent-shell-viewport-view-mode)
+            (agent-shell-viewport-refresh)
+            ;; `refresh' leaves point at the top; the user was watching
+            ;; the stream at the bottom, so reseat at the end and follow
+            ;; in any visible viewport window.
+            (goto-char (point-max))
+            (when-let* ((win (get-buffer-window viewport-buffer)))
+              (set-window-point win (point-max))
+              (with-selected-window win (recenter -1)))))))))
 
 (defun my/agent-shell/perf-fix--subscribe-turn-complete ()
   "Subscribe this shell buffer's `turn-complete' to the prettify handler."
