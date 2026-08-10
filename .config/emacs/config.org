@@ -896,6 +896,8 @@ owning tab and raises the window displaying the chosen buffer."
 ;(global-set-key (kbd "C-q") 'yaml-indent-line)
 (global-set-key (kbd "C-k") 'previous-line)
 (global-set-key (kbd "M-m") 'tab-bar-history-back)
+(global-set-key (kbd "M-h") 'zoxide-travel)
+(global-set-key (kbd "M-H") 'zoxide-find-file)
 (global-set-key (kbd "M-M") 'tab-bar-history-forward)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'tl/backward-char-skip-invisible)
@@ -1322,6 +1324,7 @@ owning tab and raises the window displaying the chosen buffer."
     "w n" '(tab-bar-new-tab :wk "New tab")
     "w d" '(tab-bar-close-tab :wk "Close tab")
     "w r" '(tab-bar-rename-tab :wk "Rename tab")
+    "w R" '(tabspaces-restore-session :wk "Restore tabs session")
     "w b" '(tl/switch-through-visible-tab-buffer :wk "Buffer (all tabs)")
     "w s" '(tab-bar-switch-to-tab :wk "Switch to tab"))
 #+end_src
@@ -3594,6 +3597,7 @@ window-selection commands."
   (define-key treemacs-mode-map (kbd "S") 'treemacs-select-directory)
   (define-key treemacs-mode-map (kbd "?") 'treemacs-common-helpful-hydra)
   (define-key treemacs-mode-map (kbd "h") 'treemacs-root-up)
+  (define-key treemacs-mode-map (kbd "K") 'treemacs-goto-parent-node)
   (define-key treemacs-mode-map (kbd "l") 'treemacs-root-down)
   ;(define-key treemacs-mode-map (kbd "u") 'treemacs-collapse-parent-node)
   (define-key treemacs-mode-map (kbd ".") 'treemacs-toggle-show-dotfiles)
@@ -4174,32 +4178,35 @@ once it arrives (the kill-ring destination is asynchronous)."
 
 Below we register the official =filesystem= server (launched on demand via =npx=), scoped to my Emacs directory and home.
 #+begin_src emacs-lisp
-;; Install and configure servers
-(use-package mcp
-  :ensure t
-  :after gptel                                  ; mcp is consumed by gptel here, so defer until it loads
-  :custom
-  (mcp-hub-servers
-   `(("filesystem"                               ; stdio server, spawned by npx
-      . (:command "npx"
-         :args ("-y" "@modelcontextprotocol/server-filesystem")
-         ;; `:roots' = directories the server may touch. mcp.el expands "~".
-         :roots (,user-emacs-directory "~/")))
-   ("fetch"                                      ; URL reader (HTML to markdown), spawned by uvx (needs uv installed)
-      . (:command "uvx" :args ("mcp-server-fetch")))))
-  :config
-  (require 'mcp-hub)
-  ;; Boot every configured server once gptel (and thus mcp) has loaded.
-  ;; Idempotent: servers already running are skipped.
-  (mcp-hub-start-all-server))
+;; Not utilizing at the moment, maybe in the future
+;; the fetch server is starting with an error: Connection state change: `exited abnormally with code 1
 
-;; Bridge MCP tools into gptel
-(with-eval-after-load 'gptel
-  (require 'gptel-integrations)
-  ;; Register every connected server's tools as gptel tools. On the first
-  ;; gptel buffer this also starts any not-yet-running servers; later calls
-  ;; are a no-op (tools are already registered globally).
-  (add-hook 'gptel-mode-hook #'gptel-mcp-connect))
+;; ;; Install and configure servers
+;; (use-package mcp
+;;   :ensure t
+;;   :after gptel                                  ; mcp is consumed by gptel here, so defer until it loads
+;;   :custom
+;;   (mcp-hub-servers
+;;    `(("filesystem"                               ; stdio server, spawned by npx
+;;       . (:command "npx"
+;;          :args ("-y" "@modelcontextprotocol/server-filesystem")
+;;          ;; `:roots' = directories the server may touch. mcp.el expands "~".
+;;          :roots (,user-emacs-directory "~/")))
+;;    ("fetch"                                      ; URL reader (HTML to markdown), spawned by uvx (needs uv installed)
+;;       . (:command "uvx" :args ("mcp-server-fetch")))))
+;;   :config
+;;   (require 'mcp-hub)
+;;   ;; Boot every configured server once gptel (and thus mcp) has loaded.
+;;   ;; Idempotent: servers already running are skipped.
+;;   (mcp-hub-start-all-server))
+
+;; ;; Bridge MCP tools into gptel
+;; (with-eval-after-load 'gptel
+;;   (require 'gptel-integrations)
+;;   ;; Register every connected server's tools as gptel tools. On the first
+;;   ;; gptel buffer this also starts any not-yet-running servers; later calls
+;;   ;; are a no-op (tools are already registered globally).
+;;   (add-hook 'gptel-mode-hook #'gptel-mcp-connect))
 #+end_src
 
 ** Emacs MCP Server
