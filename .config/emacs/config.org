@@ -2013,7 +2013,7 @@ FALLBACK-NAME is used when no `name:' field is present."
   "Pop up a momentary buffer listing registry OMP skills and agents."
   (interactive)
   (let* ((skills-dir (expand-file-name "skills" tl/omp-skills-registry-dir))
-         (agents-dir (expand-file-name "agents" tl/omp-skills-registry-dir))
+         (agents-dir (expand-file-name "commands" tl/omp-skills-registry-dir))
          entries)
     (dolist (d (directory-files skills-dir t "\\`[^.]" nil))
       (let ((skill (expand-file-name "SKILL.md" d)))
@@ -2050,7 +2050,7 @@ FALLBACK-NAME is used when no `name:' field is present."
                 (setq items (sort items
                                   (lambda (a b) (string< (cadr a) (cadr b)))))
                 (insert (propertize
-                         (if (string= type "skill") "SKILLS" "AGENTS")
+                         (if (string= type "skill") "SKILLS" "COMMANDS")
                          'face 'bold)
                         "\n")
                 (dolist (it items)
@@ -3951,7 +3951,7 @@ Positions cursor at the filename."
 
 #+end_src
 
-** GPTel
+** [#B] GPTel
 Transient newer verion for gptel to work.
 #+begin_src emacs-lisp
 (use-package transient
@@ -3966,7 +3966,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   :bind (:map gptel-mode-map
               ("C-c C-e" . gptel-end-of-response)
               ("C-c C-r" . tl/gptel-regenerate)
-              ("RET" . gptel-send)
+              ("C-c C-c" . gptel-send)
+              ("RET" . org-return)
               ("C-c C-f" . tl/gptel-next-variant)
               ("C-c C-b" . tl/gptel-previous-variant)
               ("C-c C-a" . gptel-beginning-of-response)
@@ -4498,7 +4499,6 @@ outside a project-local `.omp/'."
   (advice-add 'agent-shell--project-name :around #'tl/agent-shell-project-name)
   (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
 #+end_src
-
 
 ** Agent-shell performance fixes
 Patches agent-shell's streaming path for CPU usage. The per-chunk hot loop is quadratic over a session: a single turn streams dozens-to-hundreds of chunks and the buffer grows monotonically, so any O(buffer) scan run once per chunk is O(n^2) over the session. The module (=my-agent-shell-perf-fix.el= in the config dir, with its =my-mk-toggle.el= toggle-macro dependency) has two layers:
