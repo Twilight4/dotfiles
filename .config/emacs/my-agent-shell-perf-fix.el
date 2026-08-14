@@ -158,7 +158,7 @@
 ;; bodies in any compile order.
 (require 'agent-shell)
 (declare-function agent-shell-ui--replace-label "agent-shell-ui"
-                  (qualified-id section new-text &optional block-match))
+                  (qualified-id section new-text block-start block-end))
 (declare-function agent-shell-viewport--buffer "agent-shell-viewport"
                   (&key shell-buffer existing-only))
 (declare-function agent-shell-viewport-refresh "agent-shell-viewport" ())
@@ -388,79 +388,57 @@ indexed; anything else returns nil."
            (and (my/agent-shell-ui--section-absent-p qid value) :absent))))
     (_ nil)))
 
-(defun my/agent-shell/perf-fix--label-unchanged-p (new-text region)
-  "Non-nil when NEW-TEXT already renders identically in REGION."
-  (string= (substring-no-properties new-text)
-           (buffer-substring-no-properties (car region) (cdr region))))
-(with-eval-after-load 'agent-shell-ui
-  ;; --- agent-shell-ui--replace-label: accept a pre-resolved block match
-  ;;     (skipping its own backward-from-point-max scan), skip unchanged
-  ;;     labels, and tag rewritten labels `fontified' in perf mode ---
 
-  (el-patch-defun agent-shell-ui--replace-label
-    ;; The label update runs on the per-chunk hot path; this function's
-    ;; own backward-from-point-max scan is O(buffer) per call.  Accept a
-    ;; pre-resolved BLOCK-MATCH (the caller derives it from the O(1)
-    ;; fragment index) so the scan is skipped when one is passed.
-    (el-patch-swap (qualified-id section new-text)
-                   (qualified-id section new-text &optional block-match))
+(with-eval-after-load 'agent-shell-ui
+  ;; --- agent-shell-ui--replace-label: tag rewritten labels `fontified'
+  ;;     in perf mode.  (Upstream now resolves the block via caller-
+  ;;     passed BLOCK-START/BLOCK-END and skips unchanged labels itself
+  ;;     -- `agent-shell-ui--label-rendered-p' -- absorbing this patch's
+  ;;     earlier index threading and label-skip; only the fontified tag
+  ;;     remains ours.) ---
+
+  (el-patch-defun agent-shell-ui--replace-label (qualified-id section new-text block-start block-end)
     "Replace the SECTION region of fragment QUALIFIED-ID with NEW-TEXT.
 
 SECTION is one of `label-left' or `label-right'.  Only the named label
 region is rewritten — the other label, the indicator, and the body of
 the same block stay untouched, so block tagging and fragment identity
-are preserved across label updates."
+are preserved across label updates.
+
+BLOCK-START and BLOCK-END bound QUALIFIED-ID's block, as the caller
+already resolved it.  Labels sit at the top of a block, so searching
+down from BLOCK-START lands on one within a few intervals.  Locating the
+block here instead meant walking back from `point-max' over everything
+below it, and an activity group's header, relabeled on every chunk, sits
+above its group's whole accumulated body (issue #757).  BLOCK-END is
+read at the point of use, so a marker following the edits made here can
+be handed in."
     (when (stringp new-text)
-      (when-let* ((block-match
-                   ;; When the caller passed a match, use it instead of
-                   ;; re-scanning backward from point-max (the O(buffer)
-                   ;; cost the index exists to remove).  The wrap recovers
-                   ;; the upstream scan verbatim as the original: the old
-                   ;; form is the bare search, the new form is the search
-                   ;; only when no match was supplied.
-                   (el-patch-wrap 2 0
-                     (or block-match
-                         (save-excursion
-                           (goto-char (point-max))
-                           (text-property-search-backward
-                            'agent-shell-ui-state nil
-                            (lambda (_ state)
-                              (equal (map-elt state :qualified-id) qualified-id))
-                            t)))))
-                  (region
+      (when-let* ((region
                    (save-excursion
-                     (goto-char (prop-match-beginning block-match))
+                     (goto-char block-start)
                      (when-let* ((m (text-property-search-forward
                                      'agent-shell-ui-section section t t)))
-                       (when (<= (prop-match-end m) (prop-match-end block-match))
+                       (when (<= (prop-match-end m) block-end)
                          (cons (prop-match-beginning m)
                                (prop-match-end m))))))
                   ;; Skip the rewrite when the label already renders
                   ;; identically: tool-call updates re-send unchanged
                   ;; status/title labels on every chunk, and the rewrite
-                  ;; (delete + insert + re-propertize) is pure waste on
-                  ;; the hot path.  A condition clause makes the whole
-                  ;; `when-let*' return nil when the text is unchanged,
-                  ;; so the rewrite body below never runs.  The
-                  ;; comparison is text-only -- labels are deterministic
-                  ;; renderings of the caller's state, so unchanged text
-                  ;; implies unchanged properties (no current caller
-                  ;; changes props only).
-                  (el-patch-add
-                    ((not (my/agent-shell/perf-fix--label-unchanged-p new-text region)))))
+                  ;; (delete + insert + re-propertize) is pure waste.  A
+                  ;; guard clause returning nil makes the whole `when-let*`
+                  ;; short-circuit so the rewrite body never runs.
+                  ((not (agent-shell-ui--label-rendered-p
+                         new-text section (car region) (cdr region)))))
         (let* ((region-start (car region))
                (region-end (cdr region))
                (state (get-text-property region-start 'agent-shell-ui-state)))
           (delete-region region-start region-end)
           (goto-char region-start)
           (let ((insert-start (point)))
-            (insert (agent-shell-ui-add-action-to-text
-                     new-text
-                     (lambda ()
-                       (interactive)
-                       (agent-shell-ui--toggle-fragment-at-point))
-                     (lambda ()
-                       (message "Press RET to toggle"))))
+            (insert (agent-shell-ui-make-foldable-text
+                     :text new-text
+                     :hint "toggle"))
             (let ((insert-end (point)))
               (add-text-properties insert-start insert-end
                                    `(agent-shell-ui-section ,section
@@ -903,9 +881,9 @@ NAVIGATION controls navigability:
  `always' (always navigatable).
 
 A group header (MODEL `:kind' `group') gets a fold triangle and no body of
-its own; its members render below it as separate fragments tagged with its
+its own; its children render below it as separate fragments tagged with its
 qualified-id via `:group-qualified-id'.  MODEL `:group-indent' visually
-indents a member's header line under its group header."
+indents a child's header line under its group header."
     (let* ((block-start (point))
            (kind (map-elt model :kind))
            (group (eq kind 'group))
@@ -926,7 +904,7 @@ indents a member's header line under its group header."
            (body-end)
            (collapsable))
 
-      ;; Insert collapse indicator.  A body (or a group header, whose members
+      ;; Insert collapse indicator.  A body (or a group header, whose children
       ;; are its collapsible content) gets a fold triangle; a plain labels-only
       ;; fragment reserves two columns so it aligns and doesn't jump when a
       ;; body arrives later.
@@ -935,20 +913,12 @@ indents a member's header line under its group header."
             (progn
               (setq collapsable (and body has-labels))
               (setq indicator-start (point))
-              (insert (agent-shell-ui-add-action-to-text
-                       (if expanded "▼ " "▶ ")
-                       (lambda ()
-                         (interactive)
-                         (agent-shell-ui--toggle-fragment-at-point))
-                       (lambda ()
-                         (message "Press RET to toggle"))))
+              (insert (agent-shell-ui-make-foldable-text
+                       :text (if expanded "▼ " "▶ ")
+                       :hint "toggle"))
               (setq indicator-end (point))
               (add-text-properties indicator-start indicator-end
                                    `(agent-shell-ui-section indicator
-                                                            keymap ,(agent-shell-ui-make-action-keymap
-                                                                     (lambda ()
-                                                                       (interactive)
-                                                                       (agent-shell-ui--toggle-fragment-at-point)))
                                                             read-only t
                                                             front-sticky (read-only))))
           (setq collapsable nil)
@@ -969,13 +939,9 @@ indents a member's header line under its group header."
 
       (when label-left
         (setq label-left-start (point))
-        (insert (agent-shell-ui-add-action-to-text
-                 label-left
-                 (lambda ()
-                   (interactive)
-                   (agent-shell-ui--toggle-fragment-at-point))
-                 (lambda ()
-                   (message "Press RET to toggle"))))
+        (insert (agent-shell-ui-make-foldable-text
+                 :text label-left
+                 :hint "toggle"))
         (setq label-left-end (point))
         (add-text-properties label-left-start label-left-end
                              `(agent-shell-ui-section label-left
@@ -988,13 +954,9 @@ indents a member's header line under its group header."
         (when need-space
           (insert " "))
         (setq label-right-start (point))
-        (insert (agent-shell-ui-add-action-to-text
-                 label-right
-                 (lambda ()
-                   (interactive)
-                   (agent-shell-ui--toggle-fragment-at-point))
-                 (lambda ()
-                   (message "Press RET to toggle"))))
+        (insert (agent-shell-ui-make-foldable-text
+                 :text label-right
+                 :hint "toggle"))
         (setq label-right-end (point))
         (add-text-properties label-right-start label-right-end
                              `(agent-shell-ui-section label-right
@@ -1021,11 +983,18 @@ indents a member's header line under its group header."
                                                       help-echo ,(agent-shell-ui--fragment-help-echo qualified-id)
                                                       read-only t
                                                       front-sticky (read-only))))
-      ;; Indent a group member's header line under its group header.  The
-      ;; body already carries its own (deeper) `line-prefix' from above.
-      (unless (string-empty-p group-indent)
-        (add-text-properties block-start (or label-right-end label-left-end indicator-end)
-                             `(line-prefix ,group-indent wrap-prefix ,group-indent)))
+    ;; Indent a group child's header line under its group header.  The
+    ;; body already carries its own (deeper) `line-prefix' from above.
+    ;; A child with neither label has no header line to indent (the
+    ;; indicator is only reserved alongside labels), so there is no end
+    ;; position and nothing to do.  A tool call carrying only a
+    ;; `toolCallId' renders that way: `agent-shell-make-tool-call-label'
+    ;; has no status, kind, title or description to work with and returns
+    ;; nil for both labels.
+    (when-let* (((not (string-empty-p group-indent)))
+                (header-end (or label-right-end label-left-end indicator-end)))
+      (add-text-properties block-start header-end
+                           `(line-prefix ,group-indent wrap-prefix ,group-indent)))
       ;; Include the newlines before the body in the invisible region
       (when collapsable
         (add-text-properties (or label-right-end label-left-end)
@@ -1198,27 +1167,28 @@ O(accumulated-body).  Label-only updates leave the body untouched."
                       (goto-char block-start)
                       (skip-chars-backward "\n")
                       (setq padding-start (point)))
-                    ;; Thread the branch-entry match (O(1) indexed, or
-                    ;; the search fallback) into the label rewrite so
-                    ;; `agent-shell-ui--replace-label' skips its own
-                    ;; backward-from-point-max scan.
+                    ;; Thread the branch-entry block bounds (O(1) indexed,
+                    ;; or the search fallback) into the label rewrite, as
+                    ;; the new `agent-shell-ui--replace-label' contract
+                    ;; expects caller-resolved BLOCK-START/BLOCK-END.
 
                     (when new-label-left
                       (agent-shell-ui--replace-label
                        qualified-id 'label-left new-label-left
-                       (el-patch-add match)))
+                       (el-patch-add block-start (prop-match-end match))))
                     (when new-label-right
                       ;; The label-left replacement above may have changed the
                       ;; block's length, moving label-right past the stale end
                       ;; of the branch-entry match.  `agent-shell-ui--replace-label'
-                      ;; bounds its section search by that match end; a stale
+                      ;; bounds its section search by that end; a stale
                       ;; end silently drops the label-right update for this
                       ;; chunk.  Re-derive the block from the index (O(1)) for
-                      ;; the argument.
+                      ;; the bounds.
                       (agent-shell-ui--replace-label
                        qualified-id 'label-right new-label-right
-                       (el-patch-add (or (my/agent-shell-ui--indexed-match qualified-id)
-                                         match))))
+                       (el-patch-add block-start
+                                     (prop-match-end (or (my/agent-shell-ui--indexed-match qualified-id)
+                                                         match)))))
                     ;; The body edit's three branches each return the
                     ;; post-edit body end (append-body/replace-body:
                     ;; insert-end; insert-fragment: body-end).  Capture it
