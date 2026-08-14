@@ -1552,25 +1552,33 @@ owning tab and raises the window displaying the chosen buffer."
 ;; never pastes.  Re-enabling `interprogram-paste-function' would reopen
 ;; the 2026-07-19 org-mode loop (every `current-kill' re-imports and
 ;; clobbers freshly-killed subtrees).  Instead, pull the Wayland clipboard
-;; into the kill-ring on `focus-in' -- the moment you return to Emacs after
-;; copying.  Editing kills stay local; unchanged clipboards are skipped, so
-;; in-Emacs kill-then-yank is never disturbed.
-(defvar tl/last-clipboard-seen nil
-  "Last Wayland clipboard text pulled by `tl/sync-clipboard-on-focus'.
-Prevents re-prepending unchanged clipboard content on refocus.")
-(defun tl/sync-clipboard-on-focus ()
-  "Pull the Wayland clipboard into the kill-ring when Emacs gains focus.
-Bridges the nil `interprogram-paste-function' so `C-y' pastes text copied
-outside Emacs.  No-op on TTY frames, when `wl-paste' is missing, or when
-the clipboard is empty/unchanged."
+;; into the kill-ring at yank time (and on `focus-in' as a convenience) --
+;; only the explicit yank consults the clipboard, so org's internal
+;; `current-kill' calls stay clean and the loop stays closed.
+;; `wl-paste --no-newline': bare `wl-paste' appends a bogus trailing "\n".
+(defun tl/sync-clipboard ()
+  "Import the Wayland clipboard into the kill-ring if it differs from the top.
+No-op on TTY frames, when `wl-paste' is missing, or when the clipboard is
+empty/already at the kill-ring top.  Compared against the live kill-ring top
+(not a cache), so re-copying the same text after intervening kills still
+imports."
   (when (and (display-graphic-p) (executable-find "wl-paste"))
-    (let ((clip (shell-command-to-string "wl-paste")))
+    (let ((clip (shell-command-to-string "wl-paste --no-newline")))
       (unless (or (string-empty-p clip)
-                  (equal clip tl/last-clipboard-seen))
-        (setq tl/last-clipboard-seen clip)
-        (unless (and kill-ring (equal clip (current-kill 0 t)))
-          (kill-new clip))))))
-(add-hook 'focus-in-hook #'tl/sync-clipboard-on-focus)
+                  (and kill-ring (equal clip (current-kill 0 t))))
+        (kill-new clip)))))
+(defun tl/sync-clipboard-before-yank (&rest _)
+  "Import the Wayland clipboard before yanking; advice for `yank'."
+  (tl/sync-clipboard))
+(advice-add 'yank :before #'tl/sync-clipboard-before-yank)
+;; `org-yank' can bypass `yank' entirely (its FOR-YANK subtree path calls
+;; `org-paste-subtree' directly), so it needs the same import -- otherwise a
+;; stale subtree on the kill-ring top shadows freshly-copied browser text.
+;; Safe with the 2026-07-19 loop: `org-copy-subtree'/`org-paste-subtree'
+;; (refile, agenda DONE) never call `yank'/`org-yank', so no re-import there.
+(with-eval-after-load 'org
+  (advice-add 'org-yank :before #'tl/sync-clipboard-before-yank))
+(add-hook 'focus-in-hook #'tl/sync-clipboard)
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
@@ -5316,7 +5324,7 @@ These functions automates the surround of word for style formatting with respect
     (if equal-text
         (progn
           (kill-new equal-text)
-          (start-process "wl-copy" "*wl-copy*" "wl-copy" equal-text)
+          (tl/wl-copy equal-text)
           (message "Copied to clipboard: %s" equal-text))
       (message "No text surrounded by equals signs found on the current line."))))
 
@@ -5329,7 +5337,7 @@ These functions automates the surround of word for style formatting with respect
     (if starred-text
         (progn
           (kill-new starred-text)
-          (start-process "wl-copy" "*wl-copy*" "wl-copy" starred-text)
+          (tl/wl-copy starred-text)
           (message "Copied to clipboard: %s" starred-text))
       (message "No text surrounded by stars found on the current line."))))
 #+end_src
@@ -5457,8 +5465,8 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
                        (point)                      ; Start from the current point
                        (line-end-position))))      ; End at the end of the line
     (kill-region (point) (line-end-position))     ; Kill the text
-    (when (zerop (call-process "wl-copy" nil nil nil text-to-kill))
-      (message "Text copied to clipboard."))))
+    (tl/wl-copy text-to-kill)
+    (message "Text copied to clipboard.")))
 
 (defun tl/kill-line-backward-to-clipboard ()
   "Kill the text from the current point to the beginning of the line and copy it to the clipboard."
@@ -5467,8 +5475,8 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
                        (line-beginning-position)  ; Start from the beginning of the line
                        (point))))                 ; End at the current point
     (kill-region (line-beginning-position) (point)) ; Kill the text
-    (when (zerop (call-process "wl-copy" nil nil nil text-to-kill))
-      (message "Text copied to clipboard."))))
+    (tl/wl-copy text-to-kill)
+    (message "Text copied to clipboard.")))
 
 (defun tl/org-kill-line-backward ()
   "Kill text from the cursor to the beginning of the line."
