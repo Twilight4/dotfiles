@@ -44,11 +44,9 @@
 ;; 2. PERF-FIX TOGGLE (user-space, feature tradeoffs)
 ;;    `tl/agent-shell-perf-fix-toggle', ON by default.
 ;;    - markdown rendering off (raw text, no per-chunk passes)
-;;    - activity groups expanded (skips the per-chunk group-collapse
-;;      re-derivation; only groups CREATED while perf mode is on start
-;;      expanded -- one already collapsed when the toggle is enabled
-;;      keeps its fold state and its members keep paying the collapse
-;;      re-apply until re-expanded)
+;;    - activity groups left at their agent-shell default (collapsed by
+;;      default; upstream issue #757's wrote-hidden skip keeps streaming
+;;      appends into collapsed groups cheap)
 ;;    - busy indicator off (no 10 Hz heartbeat redraw)
 ;;    - shell-maker auto-scroll off (a plain `disable' function; the
 ;;      toggle `advice-add's it as `:around' on enable and
@@ -606,8 +604,7 @@ No-op while that function has nothing to summarize (an empty group)."
 
 ;; Performance mode: `tl/agent-shell-perf-fix-toggle', ON by default.
 ;;   - markdown rendering off (raw text, no per-chunk passes)
-;;   - activity groups expanded (skips the per-chunk group-collapse
-;;     re-derivation, part of the fragment-search hot spot)
+;;   - activity groups left at the agent-shell default (collapsed by default)
 ;;   - busy indicator off (no 10 Hz heartbeat redraw)
 ;;   - shell-maker auto-scroll off (a plain `disable' function; the
 ;;     toggle `advice-add's it as `:around' on enable and
@@ -672,7 +669,6 @@ so the pre-perf values are what perf mode restores on disable.")
       (unless my/agent-shell/perf-fix--saved
         (setopt my/agent-shell/perf-fix--saved
                 `((agent-shell-markdown-render-function . ,agent-shell-markdown-render-function)
-                  (agent-shell-activity-group-expand-by-default . ,agent-shell-activity-group-expand-by-default)
                   (agent-shell-show-busy-indicator . ,agent-shell-show-busy-indicator)))))
     :enable
     (progn
@@ -680,7 +676,6 @@ so the pre-perf values are what perf mode restores on disable.")
                   :around
                   #'shell-maker--should-auto-scroll-p@disable)
       (setopt agent-shell-markdown-render-function #'ignore
-              agent-shell-activity-group-expand-by-default t
               agent-shell-show-busy-indicator nil))
     :disable
     (progn

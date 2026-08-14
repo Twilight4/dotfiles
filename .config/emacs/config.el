@@ -1,113 +1,3 @@
-#+TITLE: GNU Emacs Config
-#+AUTHOR: Twilight4
-#+DESCRIPTION: Personal Emacs config
-#+PROPERTY: header-args :tangle yes
-#+STARTUP: show3levels
-
-* Table of Contents :toc:
-- [[#elpaca][Elpaca]]
-  - [[#elpaca-outdated-packages][Elpaca outdated packages]]
-- [[#gui-configuration][GUI Configuration]]
-  - [[#frame-configuration][Frame configuration]]
-  - [[#transparency][Transparency]]
-  - [[#tab-bar--workspaces][Tab bar & workspaces]]
-- [[#keybindings][Keybindings]]
-  - [[#global-keybindings][Global keybindings]]
-  - [[#general-keybindings][General keybindings]]
-- [[#preferences][Preferences]]
-  - [[#better-defaults][Better defaults]]
-  - [[#word-motion][Word motion]]
-  - [[#littering][Littering]]
-  - [[#scrolling][Scrolling]]
-- [[#ui-configuration][UI Configuration]]
-  - [[#color-theme][Color theme]]
-  - [[#mode-line][Mode line]]
-  - [[#highlight-indent-guides][Highlight indent guides]]
-  - [[#toggle-mode-line][Toggle mode line]]
-  - [[#which-key][Which-key]]
-  - [[#dashboard][Dashboard]]
-  - [[#file-encoding][File encoding]]
-  - [[#ansi-colors][ANSI colors]]
-  - [[#youtube-link-export][YouTube link export]]
-  - [[#disable-automatic-bookmarking][Disable automatic bookmarking]]
-  - [[#code-folding][Code Folding]]
-- [[#editing-features][Editing Features]]
-  - [[#improved-file-management][Improved file management]]
-  - [[#omp-skills-overview][OMP skills overview]]
-  - [[#skip-over-invisible-text-in-links][Skip over invisible text in links]]
-  - [[#nicer-org-return][Nicer org-return]]
-  - [[#clean-empty-lines][Clean Empty Lines]]
-  - [[#split-and-switch-to-window][Split and switch to window]]
-  - [[#diff-configorg-with-dotfiles-configorg][Diff config.org with dotfiles config.org]]
-  - [[#diff-current-file-with-another-file][Diff current file with another file]]
-  - [[#remove-inline---comments-from-region][Remove inline “# …” comments from region]]
-  - [[#expand-region][Expand-region]]
-  - [[#kill-current-buffer][Kill current buffer]]
-  - [[#copy-word-on-point][Copy word on point]]
-  - [[#symbol-overlay][Symbol-overlay]]
-  - [[#yaml-syntax-highlighting][Yaml syntax highlighting]]
-  - [[#terraform-mode][Terraform-mode]]
-  - [[#auto-tangle-after-save][Auto tangle after save]]
-  - [[#smart-hungry-delete][Smart hungry-delete]]
-  - [[#multiple-cursors][Multiple-cursors]]
-  - [[#buffer-switching-adjustment][Buffer-switching adjustment]]
-  - [[#i-search---search-current-word][I-Search - Search Current Word]]
-  - [[#paste-directly-into-a-code-block-template][Paste directly into a code block template]]
-  - [[#toggle-selection-mode][Toggle selection mode]]
-  - [[#select-text-block][Select Text Block]]
-  - [[#smart-move-beginningend-of-line][Smart move beginning/end of line]]
-  - [[#screenshot-automation][Screenshot automation]]
-  - [[#pdf-links-automation][Pdf-links automation]]
-  - [[#no-littering][No-littering]]
-  - [[#session-persistence--crash-recovery][Session persistence & crash recovery]]
-  - [[#rainbow-mode][Rainbow-mode]]
-  - [[#mark-whole-line][Mark whole line]]
-  - [[#rainbow-delimeters][Rainbow-delimeters]]
-  - [[#electric-pair-mode][Electric-pair-mode]]
-  - [[#swap-window-states][Swap window states]]
-  - [[#cycle-window-position][Cycle window position]]
-  - [[#disable-mouse][Disable mouse]]
-- [[#completion-framework][Completion Framework]]
-  - [[#vertico][Vertico]]
-  - [[#orderless][Orderless]]
-  - [[#marginalia][Marginalia]]
-  - [[#consult][Consult]]
-  - [[#corfu][Corfu]]
-  - [[#jinx][Jinx]]
-- [[#other-packages][Other Packages]]
-  - [[#anzu][Anzu]]
-  - [[#diff-hl][Diff-hl]]
-  - [[#magit][Magit]]
-  - [[#beacon][Beacon]]
-  - [[#goggles][Goggles]]
-  - [[#zoxide][Zoxide]]
-  - [[#markdown-mode][Markdown Mode]]
-  - [[#undo-tree-mode][Undo tree mode]]
-  - [[#treemacs][Treemacs]]
-  - [[#dired][Dired]]
-  - [[#gptel][GPTel]]
-  - [[#mcp][MCP]]
-  - [[#emacs-mcp-server][Emacs MCP Server]]
-  - [[#agent-shell][Agent-shell]]
-  - [[#agent-shell-performance-fixes][Agent-shell performance fixes]]
-  - [[#agent-shell-dictation-push-to-talk][Agent-shell dictation (push-to-talk)]]
-  - [[#agent-shell-quick-commit][Agent-shell quick commit]]
-  - [[#agent-shell-attention][Agent-shell Attention]]
-  - [[#agent-shell-bookmark][Agent-shell Bookmark]]
-  - [[#agent-recall][Agent-recall]]
-  - [[#ghostel][Ghostel]]
-  - [[#drag-stuff][Drag-stuff]]
-  - [[#god-mode][God-Mode]]
-  - [[#goto-chg][Goto-chg]]
-- [[#org-mode][Org Mode]]
-  - [[#essential-packages][Essential packages]]
-  - [[#editing-features-for-org][Editing features for org]]
-  - [[#org-configuration][Org configuration]]
-  - [[#exporting][Exporting]]
-- [[#performance-optimizations][Performance Optimizations]]
-
-* Elpaca
-#+begin_src emacs-lisp
 ;;;  -*- lexical-binding: t; -*-
 
 (defvar elpaca-installer-version 0.12)
@@ -158,14 +48,7 @@
 
 ;; Block until current queue processed.
 (elpaca-wait)
-#+end_src
 
-** Elpaca outdated packages
-Show how many installed Elpaca packages are behind their upstream =HEAD= as a modeline segment. Elpaca deliberately does NOT auto-update installed packages (=elpaca-update-menus= only refreshes the recipe catalog, never installed packages), so without an explicit check the count silently drifts — e.g. =agent-shell= sat at v0.57 for months while upstream reached v0.69.
-
-Counting needs a =git fetch= on every package source (~15-60 s for ~118 repos), so it runs in a /background process/ (never blocks startup) and caches the result, reporting the outcome in =*Messages*= (outdated count, total, and elapsed time). The heavy lifting lives in the tracked =elpaca-outdated= shell script (=~/.config/.local/bin/=, reusable from a shell: =elpaca-outdated= for the count, =elpaca-outdated --list= for =<behind>\t<pkg>= detail). The segment sits in =global-mode-string= — the slot =doom-modeline= renders (unlike =mode-line-misc-info=); it is hidden when everything is up to date, otherwise coloured by severity — white (1-4), yellow (5-10), red (11+), tunable via =tl/elpaca-outdated-yellow-at=/=red-at= and the =…-color-…= defcustoms — like a Waybar package indicator. =mouse-1= updates all packages; the two commands also live under =C-x C-e= (=o= recheck, =u= update all).
-
-#+begin_src emacs-lisp
 (defvar tl/elpaca-outdated-count nil
   "Number of installed Elpaca packages behind upstream, or nil if not checked.")
 
@@ -346,13 +229,7 @@ the count (white → yellow → red), like a Waybar package indicator."
     (setq tl/elpaca-outdated--timers
           (list (run-with-idle-timer 30 nil #'tl/elpaca-outdated-update)
                 (run-with-timer secs secs #'tl/elpaca-outdated-update)))))
-#+end_src
 
-* GUI Configuration
-** Frame configuration
-These settings only take effect on graphical frames — text-terminal frames ignore font =:family=/=:height= — so a single =config.org= serves both =emacsclient -c= (GUI) and =emacsclient -nw= (terminal) frames from the same =--daemon=. The font is =JetBrainsMonoNerdFont= at 14pt — the ligature-capable variant (not the "NL" no-ligature cut kitty still uses) so programming ligatures (arrows, comparison/logic operators) render via the =ligature.el= block below. To match kitty exactly, point kitty at the same variant later. 
-
-#+begin_src emacs-lisp
 ;; Font — JetBrains Mono Nerd Font (ligature variant) @ 14pt.
 ;; Switched from the "NL" (no-ligature) cut so programming ligatures compose;
 ;; `default-frame-alist' is the daemon-safe path: the :font frame parameter is
@@ -395,12 +272,7 @@ These settings only take effect on graphical frames — text-terminal frames ign
 (global-set-key (kbd "C--") 'text-scale-decrease)
 (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
-#+end_src
 
-** Transparency
-It's always better to set transparency in option for respective applications that supports it rather than setting it in window manager.
-
-#+begin_src emacs-lisp
 ;; `alpha-background' (Emacs 29+): only the background goes translucent — text
 ;; and glyphs stay opaque — unlike the legacy `alpha' parameter which faded
 ;; everything. Range: 0 (fully transparent) .. 100 (opaque). 91 is the default
@@ -466,12 +338,7 @@ Mirrors `text-scale-increase' (C-=) under the transparency prefix."
 
 ;; Bindings live under the `C-x C-t' "Toggle/Table" prefix (tl/leader-keys
 ;; block, search "Toggle/Table"), as `C-t t/-/=/0/s' — which-key lists them.
-#+end_src
 
-** Tab bar & workspaces
-=tab-bar= — one tab per workspace/context, plus =tabspaces= for buffer isolation and session save/restore across restarts. Named workspaces are built from recipes via =tl/open-workspace= (bound under =C-x w=).
-
-#+begin_src emacs-lisp
 ;; Native tab bar = workspace tabs. `tab-bar-show' hides the bar until a
 ;; second tab exists.
 ;; M-N selects tab N (M-9 = last, M-0 = most-recent). Must precede
@@ -760,12 +627,7 @@ owning tab and raises the window displaying the chosen buffer."
           (if-let ((win (get-buffer-window choice (selected-frame))))
               (select-window win)
             (switch-to-buffer choice)))))))
-#+end_src
 
-* Keybindings
-** Global keybindings
-*** Disable conflicting keybindings
-#+begin_src emacs-lisp
 ;; This code sets up an empty keymap for C-x prefix effectively removing all default keybindings under the C-x prefix
 ;; If you still want to use some of the keybindings prefixed by C-x, you will need to manually rebind them using the 'general' package
 ;(define-key global-map (kbd "C-x") (make-sparse-keymap))
@@ -864,10 +726,7 @@ owning tab and raises the window displaying the chosen buffer."
   (define-key calendar-mode-map (kbd "t") 'nil)
   (define-key calendar-mode-map (kbd "x") 'nil)
   (define-key calendar-mode-map (kbd "y") 'nil))
-#+end_src
 
-*** Keybindings without a leader key
-#+begin_src emacs-lisp
 ;; Disable the org-goto command (sometimes it's randomly being invoked)
 (with-eval-after-load 'org
   (put 'org-goto 'disabled t))
@@ -1111,11 +970,7 @@ owning tab and raises the window displaying the chosen buffer."
 ;; Zero-width space (this is an exception keybinding)
 ;(global-set-key (kbd "C-c C-SPC")
 ;                (lambda () (interactive) (insert "\u200B")))
-#+end_src
 
-** General keybindings
-*** C-x leader key
-#+begin_src emacs-lisp
 (use-package general
   :config
 
@@ -1327,10 +1182,7 @@ owning tab and raises the window displaying the chosen buffer."
     "w R" '(tabspaces-restore-session :wk "Restore tabs session")
     "w b" '(tl/switch-through-visible-tab-buffer :wk "Buffer (all tabs)")
     "w s" '(tab-bar-switch-to-tab :wk "Switch to tab"))
-#+end_src
 
-*** C-c leader key
-#+begin_src emacs-lisp
 ;; Org bullet list navigation
 ;(define-key org-mode-map (kbd "C-M-f") 'org-shiftright)
 ;(define-key org-mode-map (kbd "C-M-b") 'org-shiftleft)
@@ -1410,10 +1262,7 @@ owning tab and raises the window displaying the chosen buffer."
  "T" '(org-roam-dailies-goto-tomorrow :wk "Go to daily tomorrow")
  "p" '(org-roam-dailies-goto-previous-note :wk "Go to daily in date")
  "n" '(org-roam-dailies-goto-next-note :wk "Go to daily in date"))
-#+end_src
 
-*** C-v leader key
-#+begin_src emacs-lisp
 (general-define-key
  :prefix "C-v"
  ;; Symbol-overlay
@@ -1457,11 +1306,7 @@ owning tab and raises the window displaying the chosen buffer."
  "c" '(copy-surrounded-by-equals :wk "Copy org equals command")
  "m" '(copy-surrounded-by-stars :wk "Copy org stars command")
 ))
-#+end_src
 
-* Preferences
-** Better defaults
-#+begin_src emacs-lisp
 (setq-default
  fill-column 120
  buffers-menu-max-size 30
@@ -1582,12 +1427,7 @@ imports."
 
 ;; Bookmarks location
 (setq bookmark-default-file "~/.config/emacs/bookmarks")
-#+end_src
 
-** Word motion
-=tl/subword-mode-toggle= cycles word motion globally (bound to =M-`=) through three mutually exclusive states: default → subword → superword → default. Subword makes =C-f=/=C-b= stop inside CamelCase identifiers (=camelCaseWord= → =camel= / =Case= / =Word=); superword treats symbols like =snake_case_word= as a single word. This pairs with =(global-subword-mode 0)= in [[Better defaults]] — Emacs starts in the default state, and =M-`= flips between the two behaviors without ever leaving both on at once.
-
-#+begin_src emacs-lisp
 (defun tl/subword-mode-toggle ()
   "Cycle the global word-motion mode: default -> subword -> superword -> default.
 Subword: `C-f'/`C-b' stop inside CamelCase identifiers.
@@ -1610,11 +1450,7 @@ The two modes are mutually exclusive; only one is active at a time."
     (global-subword-mode -1)
     (global-superword-mode -1)
     (message "Word motion: default"))))
-#+end_src
 
-** Littering
-*** Buffer Litter
-#+begin_src emacs-lisp
 ;; Kill *Help* after :q'ing
 (advice-add #'evil-quit :after (lambda (&rest r)
   (let ((buf (get-buffer "*Help*")))
@@ -1626,19 +1462,13 @@ The two modes are mutually exclusive; only one is active at a time."
 ;(setq-default message-log-max nil)
 ;(add-hook 'emacs-startup-hook (lambda () ;Kills the warning buffer for even emergency messages
 ;  (kill-buffer (get-buffer "*Messages*"))))
-#+end_src
 
-*** File litter
-#+begin_src emacs-lisp
 (setq make-backup-files nil ; stop creating ~ files
       auto-save-default nil ; Disable autosave # files
       create-lockfiles nil  ; Disable .# files
       ;; Prevent emacs from trying to write to init.el
       custom-file (concat user-emacs-directory "trash.el"))
-#+end_src
 
-** Scrolling
-#+begin_src emacs-lisp
 (pixel-scroll-precision-mode 1)
 
 (setq-default fast-but-imprecise-scrolling t
@@ -1653,11 +1483,7 @@ The two modes are mutually exclusive; only one is active at a time."
 
 (defalias 'scroll-up-command   #'pixel-scroll-interpolate-down)
 (defalias 'scroll-down-command #'pixel-scroll-interpolate-up)
-#+end_src
 
-* UI Configuration
-** Color theme
-#+begin_src emacs-lisp
 ;; Load defined themes
 (use-package doom-themes
   :ensure t
@@ -1703,10 +1529,7 @@ The two modes are mutually exclusive; only one is active at a time."
                           (make-glyph-code ?│)))
 
 (add-hook 'window-configuration-change-hook #'tl/set-vertical-border)
-#+end_src
 
-** Mode line
-#+begin_src emacs-lisp
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
@@ -1723,12 +1546,7 @@ The two modes are mutually exclusive; only one is active at a time."
 ;  '(mode-line ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
 ;  '(mode-line-active ((t (:family "JetBrains Mono Nerd Font" :height 0.95))))
 ;  '(mode-line-inactive ((t (:family "JetBrains Mono Nerd Font" :height 0.95)))))
-#+end_src
 
-** Highlight indent guides
-Show the indent guides highlight lines for scripts
-
-#+begin_src emacs-lisp
 (use-package highlight-indent-guides
   :ensure t
   :hook (after-change-major-mode . my/enable-highlight-indent-guides)
@@ -1746,16 +1564,7 @@ Show the indent guides highlight lines for scripts
                    (derived-mode-p 'yaml-mode)))
       (highlight-indent-guides-mode 1)))
   (set-face-foreground 'highlight-indent-guides-character-face "#505050"))
-#+end_src
 
-** Toggle mode line
-Function =toggle-mode-line= toggles the display of the mode line on and off.
-When called interactively, it checks if the mode line is currently visible by comparing it to nil.
-If it is visible, it sets the mode-line-format to the default value, effectively hiding the mode line.
-If it is not visible, it sets the mode-line-format to nil, showing the mode line.
-Finally, it redraws the display to reflect the changes.
-
-#+begin_src emacs-lisp
 (defun toggle-mode-line ()
   "Toggle the modeline on and off."
   (interactive)
@@ -1764,10 +1573,7 @@ Finally, it redraws the display to reflect the changes.
             (default-value 'mode-line-format)
           nil))
   (redraw-display))
-#+end_src
 
-** Which-key
-#+begin_src emacs-lisp
 (use-package which-key
   :init
     (which-key-mode 1)
@@ -1785,10 +1591,6 @@ Finally, it redraws the display to reflect the changes.
 	  which-key-allow-imprecise-window-fit nil
 	  which-key-separator " → " ))
 
-#+end_src
-
-** Dashboard
-#+begin_src emacs-lisp
 (use-package dashboard
   :ensure t
   :init
@@ -1805,12 +1607,7 @@ Finally, it redraws the display to reflect the changes.
                           (registers . 3)))
   :config
   (dashboard-setup-startup-hook))
-#+end_src
 
-** File encoding
-When we have the default file encoding (LF UTF-8), it really isn’t worth noting in the modeline.
-
-#+begin_src emacs-lisp
 ;; Setting up default encoding
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -1825,24 +1622,14 @@ When we have the default file encoding (LF UTF-8), it really isn’t worth notin
                    (memq (coding-system-eol-type buffer-file-coding-system) '(0)))))
 
 (add-hook 'after-change-major-mode-hook 'doom-modeline-conditional-buffer-encoding)
-#+end_src
 
-** ANSI colors
-It’s nice to see ANSI colour codes displayed, however I don’t want to disrupt ANSI codes in =Org= src blocks.
-
-#+begin_src emacs-lisp
 (add-hook 'text-mode-hook
   (lambda ()
     (unless (derived-mode-p 'org-mode)
       ;; Apply ANSI color codes
       (with-silent-modifications
         (ansi-color-apply-on-region (point-min) (point-max) t)))))
-#+end_src
 
-** YouTube link export
-The =[[yt:...]]= links preview nicely, but don’t export nicely.
-
-#+begin_src emacs-lisp
 (org-link-set-parameters "yt" :export #'+org-export-yt)
 (defun +org-export-yt (path desc backend _com)
   (cond ((org-export-derived-backend-p backend 'html)
@@ -1854,24 +1641,11 @@ allowfullscreen>%s</iframe>" path (or "" desc)))
         ((org-export-derived-backend-p backend 'latex)
          (format "\\href{https://youtu.be/%s}{%s}" path (or desc "youtube")))
         (t (format "https://youtu.be/%s" path))))
-#+end_src
 
-** Disable automatic bookmarking
-Disable Org's automatic =org-refile-last-stored=, =org-capture-last-stored=, and =org-capture-last-stored-marker= bookmarks.
-
-#+begin_src emacs-lisp
 ;; Org sets these bookmarks through `org-bookmark-names-plist'.
 ;; Omit the plist keys to disable the corresponding automatic bookmarks.
 (setq org-bookmark-names-plist nil)
-#+end_src
 
-** Code Folding
-The built-in =outline-minor-mode= provides structured code folding in modes such as Emacs Lisp and Python, allowing users to collapse and expand sections based on headings or indentation levels. This feature enhances navigation and improves the management of large files with hierarchical structures.
-
-Alternatively, =hs-minor-mode= offers basic code folding for blocks defined by curly braces, functions, or other language-specific delimiters. However, for more flexible folding that supports multiple nested levels, =outline-minor-mode= is generally the preferred choice, as it enables finer control over section visibility in deeply structured code.
-
-For example, to enable =outline-minor-mode= in Emacs Lisp:
-#+begin_src emacs-lisp
 ;; The built-in outline-minor-mode provides structured code folding in modes
 ;; such as Emacs Lisp and Python, allowing users to collapse and expand sections
 ;; based on headings or indentation levels. This feature enhances navigation and
@@ -1891,10 +1665,7 @@ For example, to enable =outline-minor-mode= in Emacs Lisp:
              (value (vconcat (mapcar (lambda (c) (+ face-offset c)) " ▼"))))
         (set-display-table-slot display-table 'selective-display value)
         (setq buffer-display-table display-table))))))
-#+end_src
 
-For folding based on indentation levels, the outline-indent Emacs package provides a minor mode that enables folding according to the indentation structure:
-#+begin_src emacs-lisp
 ;; The outline-indent Emacs package provides a minor mode that enables code
 ;; folding based on indentation levels.
 ;;
@@ -1918,19 +1689,7 @@ For folding based on indentation levels, the outline-indent Emacs package provid
 
   (add-hook 'yaml-mode-hook #'outline-indent-minor-mode)
   (add-hook 'yaml-ts-mode-hook #'outline-indent-minor-mode))
-#+end_src
 
-* Editing Features
-** Improved file management
-Function =delete-this-file= deletes the current file and kills the buffer associated with it.
-It first checks if there is a file being edited in the buffer.
-If not, it throws an error.
-Then, it prompts the user for confirmation to delete the file. If the user confirms, it proceeds to delete the file using =delete-file= and kills the buffer using =kill-this-buffer=.
-
-Function =rename-this-file-and-buffer= renames both the current buffer and the file it’s visiting to a new name specified by the user.
-It takes user input for the new name using the interactive keyword, checks if the buffer is visiting a file, renames the file if it exists, updates the visited file name, and renames the buffer accordingly.
-
-#+begin_src emacs-lisp
 (defun delete-this-file ()
   "Delete the current file, and kill the buffer."
   (interactive)
@@ -1953,12 +1712,7 @@ It takes user input for the new name using the interactive keyword, checks if th
         (rename-file filename new-name 1))
       (set-visited-file-name new-name)
       (rename-buffer new-name))))
-#+end_src
 
-** OMP skills overview
-A momentary popup (bound under the =C-x C-e= "Emacs" leader as =C-x C-e SPC=) that lists the currently active OMP skills and agents defined in the registry =.omp/= dir (=~/desktop/workspace/ai-projects/.omp=). Each entry's =description= frontmatter is glossed to its first sentence so the table scans at a glance; the data is parsed live from disk on every invocation, so newly added skills/agents appear automatically. Press =q= to close.
-
-#+begin_src emacs-lisp
 (defvar tl/omp-skills-registry-dir
   (expand-file-name "~/desktop/workspace/ai-projects/.omp")
   "Registry OMP directory holding `skills/' and `agents/'.")
@@ -2075,10 +1829,7 @@ FALLBACK-NAME is used when no `name:' field is present."
                     '(display-buffer-at-bottom
                       . ((window-height . fit-window-to-buffer))))))
           (when win (select-window win)))))))
-#+end_src
 
-** Skip over invisible text in links
-#+begin_src emacs-lisp
 (defun tl/forward-char-skip-invisible ()
   "Forward char, skipping over invisible text."
   (interactive)
@@ -2094,10 +1845,7 @@ FALLBACK-NAME is used when no `name:' field is present."
   (while (and (not (bobp))
               (get-char-property (1- (point)) 'invisible))
     (goto-char (previous-single-char-property-change (point) 'invisible))))
-#+end_src
 
-** Nicer org-return
-#+begin_src emacs-lisp
 (defun unpackaged/org-element-descendant-of (type element)
   "Return non-nil if ELEMENT is a descendant of TYPE.
 TYPE should be an element type, like `item' or `paragraph'.
@@ -2203,12 +1951,7 @@ appropriate.  In tables, insert a new row or end the table."
   (previous-line)
   (end-of-line)                    ; Move to the end of the current line
   (newline-and-indent))            ; Insert a newline and indent according to mode
-#+end_src
 
-** Clean Empty Lines
-Here's command to remove repeated blank lines and delete trailing white space.
-
-#+begin_src emacs-lisp
 (defun tl/clean-whitespace ()
   "Delete trailing whitespace, and replace repeated blank lines to just 1.
 Only space and tab is considered whitespace here.
@@ -2254,10 +1997,7 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
 		(while (re-search-forward "^[ \t]*\n+" nil t)
 		  (replace-match "")))))
   (message "%s done" 'tl/clean-whitespace-zero-lines))
-#+end_src
 
-** Split and switch to window
-#+begin_src emacs-lisp
 (defun tl/split-window-below ()
   "Split window below and switch to it."
   (interactive)
@@ -2269,18 +2009,12 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
   (interactive)
   (split-window-right)
   (other-window 1))
-#+end_src
 
-** Diff config.org with dotfiles config.org
-#+begin_src emacs-lisp
 (defun tl/diff-emacs-config ()
   (interactive)
   (diff "/home/twilight/.config/emacs/config.org"
         "/home/twilight/desktop/workspace/dotfiles/.config/emacs/config.org"))
-#+end_src
 
-** Diff current file with another file
-#+begin_src emacs-lisp
 (defun tl/diff-current-file (other)
   "Diff the file visited by the current buffer against OTHER."
   (interactive
@@ -2288,10 +2022,7 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
   (unless (buffer-file-name)
     (user-error "Current buffer is not visiting a file"))
   (diff (buffer-file-name) other))
-#+end_src
 
-** Remove inline “# …” comments from region
-#+begin_src emacs-lisp
 (defun tl/strip-comments-in-region (start end)
   "Remove all comments and any preceding spaces in the selected region."
   (interactive "r")
@@ -2305,26 +2036,14 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
         (when (re-search-forward (concat "\\s-*" comment ".*") (line-end-position) t)
           (replace-match ""))
         (forward-line -1)))))
-#+end_src
 
-** Expand-region
-#+begin_src emacs-lisp
 (use-package expand-region
   :ensure t)
-#+end_src
 
-** Kill current buffer
-The =kill-this-buffer= command wasn't working.
-
-#+begin_src emacs-lisp
 (defun tl/kill-current-buffer ()
   (interactive)
   (kill-buffer (current-buffer)))
-#+end_src
 
-** Copy word on point
-
-#+begin_src emacs-lisp
 (defun tl/copy-current-word ()
   "Copy the current word including special characters to the kill-ring and system clipboard, and display it."
   (interactive)
@@ -2338,18 +2057,12 @@ The =kill-this-buffer= command wasn't working.
           (tl/wl-copy word)
           (message "Copied: %s" word))
       (message "No word at point"))))
-#+end_src
 
-** Symbol-overlay
-#+begin_src emacs-lisp
 (use-package symbol-overlay
   :hook ((prog-mode html-mode yaml-mode conf-mode) . symbol-overlay-mode)
   :delight symbol-overlay-mode
   :ensure t)
-#+end_src
 
-** Yaml syntax highlighting
-#+begin_src emacs-lisp
 (use-package yaml-mode
   :ensure t
   :mode ("\\.yml\\'" "\\.yaml\\'"))
@@ -2375,24 +2088,12 @@ The =kill-this-buffer= command wasn't working.
 ;; (use-package k8s-mode
 ;;   :ensure t
 ;;   :hook (yaml-mode . k8s-mode))
-#+end_src
 
-** Terraform-mode
-#+begin_src emacs-lisp
 (use-package terraform-mode
   :ensure t
   :mode ("\\.tf\\'" "\\.tfvars\\'")
   :hook (terraform-mode . terraform-format-on-save-mode))
-#+end_src
 
-** Auto tangle after save
-If the file has:
-- =PROPERTY: header-args: terraform=
-- =#+begin_src terraform :tangle yes= in code blocks
-
-it will auto tangle after saving.
-
-#+begin_src emacs-lisp
 (defun tl/org-auto-tangle ()
   "Automatically tangle Org files on save if they have a tangle property."
   (when (and (string-equal (file-name-extension buffer-file-name) "org")
@@ -2402,12 +2103,7 @@ it will auto tangle after saving.
     (org-babel-tangle)))
 
 (add-hook 'after-save-hook #'tl/org-auto-tangle)
-#+end_src
 
-** Smart hungry-delete
-[[https://github.com/nflath/hungry-delete][Hungry Delete]] is a minor-mode that causes deletion to delete all whitespace in the direction you are deleting.
-
-#+begin_src emacs-lisp
 (use-package smart-hungry-delete
   :ensure t
   :bind (([remap backward-delete-char-untabify] . smart-hungry-delete-backward-char)
@@ -2431,10 +2127,7 @@ it will auto tangle after saving.
 
   (advice-add 'smart-hungry-delete-backward-char :around #'tl/smart-hungry-delete-wrapper)
   (advice-add 'smart-hungry-delete-forward-char :around #'tl/smart-hungry-delete-wrapper))
-#+end_src
 
-** Multiple-cursors
-#+begin_src emacs-lisp
 (use-package multiple-cursors
   :bind
         (("C-x C-x C-c" . mc/edit-lines)
@@ -2448,12 +2141,7 @@ it will auto tangle after saving.
          ("C-x C-x C-k" . mc/mark-all-in-region)
          ("C-x C-x r" . set-rectangular-region-anchor)
          ("C-x C-x C-r" . rectangle-mark-mode)))    ;; Backspace to delete, 't' to replace chars TODO
-#+end_src
 
-** Buffer-switching adjustment
-Skip default buffers like *Messages* when using =buffer-prev=/=next=
-
-#+begin_src emacs-lisp
 (defvar tl-fly-switch-buffer-map nil "repeat key map for `tl/better-next-buffer' etc.")
 (defun check-user-buffer-p ()
   "Return t if current buffer is a user buffer, else nil.
@@ -2547,10 +2235,7 @@ Version: 2024-09-16"
     (while (and (check-user-buffer-p) (< i 20))
       (setq i (1+ i)) (previous-buffer)))
   (set-transient-map tl-fly-switch-buffer-map))
-#+end_src
 
-** I-Search - Search Current Word
-#+begin_src emacs-lisp
 (defun tl/search-current-word ()
   "Call `isearch' on current word or selection.
 “word” here is A to Z, a to z, and hyphen [-] and lowline [_], independent of syntax table.
@@ -2571,10 +2256,7 @@ Version: 2025-02-05"
     (when (< xbeg (point)) (goto-char xbeg))
     (isearch-mode t)
     (isearch-yank-string (buffer-substring-no-properties xbeg xend))))
-#+end_src
 
-** Paste directly into a code block template
-#+begin_src emacs-lisp
 (defun tl/org-insert-template-and-paste ()
   "Insert an Org structure template and paste the Wayland clipboard into it.
 The clipboard content is inserted directly into the block body without
@@ -2592,24 +2274,14 @@ opening the org-src special edit buffer."
     (forward-line 1)
     (beginning-of-line)
     (insert clip "\n")))
-#+end_src
 
-** Toggle selection mode
-#+begin_src emacs-lisp
 (defun toggle-mark-command ()
   "Toggle the mark using `set-mark-command'."
   (interactive)
   (if (region-active-p)
       (deactivate-mark)
     (set-mark-command nil)))
-#+end_src
 
-** Select Text Block
-This lets you select current block of text. (a block here is text between empty lines.)
-
-If there's already a selection, extend selection downward by block.
-
-#+begin_src emacs-lisp
 (defun tl/select-block ()
   "Select the current/next block plus 1 blankline.
 If region is active, extend selection downward by block.
@@ -2626,10 +2298,7 @@ Version: 2023-11-14"
         (goto-char (match-end 0)))
       (push-mark (point) t t)
       (re-search-forward "\n[ \t]*\n" nil 1))))
-#+end_src
 
-** Smart move beginning/end of line
-#+begin_src emacs-lisp
 (defun tl/smart-move-beginning-of-line ()
   "Move point to first non-whitespace character or beginning of line.
 Move to first non-whitespace character. If already there, move to beginning of line."
@@ -2648,12 +2317,7 @@ or to the end of the line if already there."
     (skip-chars-backward " \t")         ;; move back over trailing whitespace
     (when (= old-pos (point))
       (end-of-line))))                   ;; if already there, move to absolute end
-#+end_src
 
-** Screenshot automation
-Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, prompt for filename, location of the screenshot and insert link to it at point.
-
-#+begin_src emacs-lisp
 (defun tl/org-insert-screenshot ()
   "Copy a screenshot from /tmp/screenshot.png to a specified directory with a timestamp as the filename, and insert an org-mode link to it at point."
   (interactive)
@@ -2672,10 +2336,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
   (let ((char (read-char-exclusive prompt)))
     (message "%c" char)
     char))
-#+end_src
 
-** Pdf-links automation
-#+begin_src emacs-lisp
 (defun open-pdf (path)
   "open pdf: links in org mode using zathura"
   (save-window-excursion
@@ -2692,12 +2353,7 @@ Copy screenshot from clipboard history which is saved in =/tmp/screenshot.png=, 
       (async-shell-command cmd))))
 
 (org-add-link-type "pdf" #'open-pdf)
-#+end_src
 
-** No-littering
-I use the =no-littering= package to keep folders where I edit files and the emacs configuration folder clean.
-
-#+begin_src emacs-lisp
 ;; Change the user-emacs-directory to keep unwanted things out of ~/config/emacs
 (setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
       url-history-file (expand-file-name "url/history" user-emacs-directory))
@@ -2707,12 +2363,7 @@ I use the =no-littering= package to keep folders where I edit files and the emac
   :config
   ;; override mc path after no-littering sets it
   (setq mc/list-file "~/.config/emacs/mc-list.el"))
-#+end_src
 
-** Session persistence & crash recovery
-Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland display drops): =super-save= writes file-visiting buffers to disk on focus/buffer/idle events so unsaved edits survive. Tab/window *layout* restore is =tabspaces=' job (it's the only thing that can restore tab-bar tabs — =frameset.el= has no tab handling). =desktop-save-mode= was removed: it fought tabspaces on the first client frame over the window config, and under Wayland the compositor controls frame placement anyway, so its one unique value (frame geometry) was already moot. Versioned backups stay OFF (single-user, single-daemon). Writes under the =no-littering= =user-emacs-directory= (~/.cache/emacs/).
-
-#+begin_src emacs-lisp
 ;; Save file-visiting buffers to the real file on natural events — the
 ;; replacement for the disabled `auto-save-default'. Files are always on disk.
 (use-package super-save
@@ -2723,19 +2374,11 @@ Two layers protect against a daemon/frame exit (PGTK Emacs dies when the Wayland
         super-save-idle-duration 5
         super-save-silent t)
   (super-save-mode 1))
-#+end_src
 
-** Rainbow-mode
-Display the actual color as a background for any hex color value (ex. #ffffff). The code block below enables =rainbow-mode= in all programming modes (=prog-mode=) as well as =org-mode=, which is why rainbow works in this document.
-
-#+begin_src emacs-lisp
 (use-package rainbow-mode
   :diminish
   :hook org-mode prog-mode)
-#+end_src
 
-** Mark whole line
-#+begin_src emacs-lisp
 (defun tl/mark-whole-line ()
   "Neovim-style visual line selection, with point always at BOL.
 
@@ -2759,31 +2402,18 @@ Display the actual color as a background for any hex color value (ex. #ffffff). 
     (forward-line 1)
     ;; Return point to BOL (Neovim-style)
     (beginning-of-line)))
-#+end_src
 
-** Rainbow-delimeters
-Adding rainbow coloring to parentheses.
-
-#+begin_src emacs-lisp
 (use-package rainbow-delimiters
   :hook ((emacs-lisp-mode . rainbow-delimiters-mode)
          (clojure-mode . rainbow-delimiters-mode)))
-#+end_src
 
-** Electric-pair-mode
-#+begin_src emacs-lisp
 ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
 ;; Otherwise, org-tempo is broken when you try to <s TAB...
 (add-hook 'org-mode-hook (lambda ()
            (setq-local electric-pair-inhibit-predicate
                    `(lambda (c)
                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
-#+end_src
 
-** Swap window states
-=window-swap-states= (built-in, =window.el=) swaps two windows' full state — buffer, point, mark, start, and hscroll — so unlike =ace-swap-window= (which exchanges only buffers and drops your reading position) nothing is lost. With exactly two windows it swaps the selected window with the other one directly, no picker — the reliable common case; with three or more it prompts via the =ace-window= picker (=aw-select=, dispatch disabled) when available, falling back to the next window.
-
-#+begin_src emacs-lisp
 (defun tl/swap-window ()
   "Swap the selected window's state with another window.
 Uses `window-swap-states', so buffer, point, mark, and start all
@@ -2804,12 +2434,7 @@ falling back to the next window otherwise."
         (progn (window-swap-states selected target)
                (select-window target))
       (message "No window to swap with"))))
-#+end_src
 
-** Cycle window position
-=window-swap-states= cycles the selected window's buffer one step through =window-list= (wrapping) — the analogue of kitty's =move_window_forward= / =move_window_backward=. Unlike [[#buffer-move][Buffer-move]] (directional: left/right) and [[#swap-window-states][Swap window states]] (ace-picker pick), this moves the window one position forward/backward in window order. Full state travels (buffer, point, mark), and focus follows the buffer.
-
-#+begin_src emacs-lisp
 (defun tl/move-window-forward ()
   "Move the selected window's buffer to the next window (kitty move_window_forward).
 Swaps full window state with the next window in `window-list',
@@ -2829,12 +2454,7 @@ wrapping, and follows the buffer.  No-op with a single window."
          (target (or (cadr (memq (selected-window) wins)) (car wins))))
     (window-swap-states nil target)
     (select-window target)))
-#+end_src
 
-** Disable mouse
-Making sure mouse is disabled.
-
-#+begin_src emacs-lisp
 ;; Very useful package, also suppressesthe messages in minibuffer
 (use-package disable-mouse
   :ensure t
@@ -2842,18 +2462,7 @@ Making sure mouse is disabled.
   (global-disable-mouse-mode))
 
 (xterm-mouse-mode -1)
-#+end_src
 
-* Completion Framework
-** Vertico
-Vertico provides minibuffer completions which doesn’t include any of the other cruft that comes along with the more heavy-weight third party options. One important feature is that it plugs in directly to Emacs’ own completion engine unlike Helm and Ivy which have their own layer on top. This enables all existing completion commands in Emacs to use Vertico’s UI with no extra configuration.
-
-The following configuration will add a few improvements:
-- Additional key bindings for users that like Vim-style movement keys
-- Saving completion history, Vertico will sort items based on history!
-- Adding extra metadata for completions in the margins using Marginalia
-
-#+begin_src emacs-lisp
 (use-package vertico
   :ensure t
   :bind (:map vertico-map
@@ -2865,9 +2474,7 @@ The following configuration will add a few improvements:
   (savehist-mode))
 
 (setq history-length 25)
-#+end_src
 
-#+begin_src emacs-lisp
 ;; Display the Vertico candidate menu in a centered child frame (GUI
 ;; only; falls back to the normal minibuffer in a terminal).
 (use-package vertico-posframe
@@ -2877,10 +2484,7 @@ The following configuration will add a few improvements:
   (vertico-posframe-poshandler #'posframe-poshandler-frame-center)
   :config
   (vertico-posframe-mode 1))
-#+end_src
 
-** Orderless
-#+begin_src emacs-lisp
 (use-package orderless
   :ensure t
   :config
@@ -2888,20 +2492,7 @@ The following configuration will add a few improvements:
 		read-buffer-completion-ignore-case t
 		completion-category-defaults nil
 		completion-category-overrides '((file (styles partial-completion)))))
-#+end_src
 
-** Marginalia
-Marginalia is nice, but the file metadata annotations are a little too plain.
-Specifically, I have these gripes:
-- File attributes would be nicer if coloured
-- I don’t care about the user/group information if the user/group is me
-- When a file time is recent, a relative age (e.g. 2h ago) is more useful than the date
-- An indication of file fatness would be nice
-
-Thanks to the =marginalia-annotator-registry=, we don’t have to advise, we can just add a new =file= annotator.
-Another small thing is the face used for docstrings. At the moment it’s (italic shadow), but I don’t like that.
-
-#+begin_src emacs-lisp
 (use-package marginalia
   :after vertico
   :ensure t
@@ -2953,10 +2544,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
   :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
   :config
   (nerd-icons-completion-mode))
-#+end_src
 
-** Consult
-#+begin_src emacs-lisp
 (use-package consult
   :ensure t
   :config
@@ -2967,12 +2555,7 @@ Another small thing is the face used for docstrings. At the moment it’s (itali
         '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
           "--full-path --color=never --hidden --exclude .git"))
   )
-#+end_src
 
-** Corfu
-Words auto-completion
-
-#+begin_src emacs-lisp
 ;; Insert a whitespace after completing a word
 (defun tl/corfu-accept-then-space ()
   "Accept the current Corfu completion, then insert a space."
@@ -3057,12 +2640,7 @@ Words auto-completion
     (interactive)
     (tl/jinx-toggle-single-dictionary)
     (tl/toggle-cape-dict-language)))
-#+end_src
 
-** Jinx
-Words autocorrection
-
-#+begin_src emacs-lisp
 (use-package jinx
   :ensure t
   :hook ((text-mode org-mode) . jinx-mode)
@@ -3093,13 +2671,7 @@ Words autocorrection
       (message "Spell checker dictionary set to: en_US")))
     (jinx-mode 0)
       (jinx-mode 1))
-#+end_src
 
-* Other Packages
-** Anzu
-Show number of matches while searching.
-
-#+begin_src emacs-lisp
 (use-package anzu
   :bind (([remap query-replace-regexp] . anzu-query-replace-regexp)
          ([remap query-replace] . anzu-query-replace))
@@ -3114,10 +2686,7 @@ This is useful when followed by an immediate kill."
     (isearch-exit)
     (goto-char isearch-other-end))
   (define-key isearch-mode-map [(control return)] 'tl/isearch-exit-other-end))
-#+end_src
 
-** Diff-hl
-#+begin_src emacs-lisp
 (use-package diff-hl
   :hook ((prog-mode . diff-hl-mode)
          (dired-mode . diff-hl-dired-mode)
@@ -3136,10 +2705,7 @@ This is useful when followed by an immediate kill."
         (change . "~")
         (unknown . "?")
         (ignored . "i")))
-#+end_src
 
-** Magit
-#+begin_src emacs-lisp
 (use-package magit
   :ensure t
   :init
@@ -3154,44 +2720,29 @@ This is useful when followed by an immediate kill."
   ;; ~/desktop/workspace), `magit-status' offers a completion list of git
   ;; repos found here instead of raw path completion.
   (setq magit-repository-directories '(("~/desktop/workspace" . 2))))
-#+end_src
 
-** Beacon
-#+begin_src emacs-lisp
 (use-package beacon
   :ensure t
   :config
   (beacon-mode 1))
-#+end_src
 
-** Goggles
-#+begin_src emacs-lisp
 (use-package goggles
   :ensure t
   :hook ((prog-mode text-mode) . goggles-mode)
   :config
   (setq-default goggles-pulse t)) ; nil = static highlight like vhl
-#+end_src
 
-** Zoxide
-#+begin_src emacs-lisp
 (use-package zoxide
   :ensure t
   :hook (dired-mode . zoxide-add))
-#+end_src
 
-** Markdown Mode
-#+begin_src emacs-lisp
 (use-package markdown-mode
   :ensure t
   :mode "\\.md\\'"
   :config
   ;; Disable Markdown keymaps (using just for syntax highlighting)
   (setq markdown-mode-map (make-sparse-keymap)))
-#+end_src
 
-** Undo tree mode
-#+begin_src emacs-lisp
 (use-package undo-tree
   :ensure t
   :demand t
@@ -3229,10 +2780,7 @@ This is useful when followed by an immediate kill."
   (define-key undo-tree-visualizer-mode-map (kbd "t") 'undo-tree-visualizer-toggle-timestamps)
   (define-key undo-tree-visualizer-mode-map (kbd "C-k") 'undo-tree-visualize-undo-to-x)
   (define-key undo-tree-visualizer-mode-map (kbd "C-j") 'undo-tree-visualize-redo-to-x))
-#+end_src
 
-** Treemacs
-#+begin_src emacs-lisp
 (use-package treemacs
   :ensure t
   :defer t
@@ -3678,12 +3226,7 @@ window-selection commands."
 ;(use-package treemacs-projectile
 ;  :after (treemacs projectile)
 ;  :ensure t)
-#+end_src
 
-** Dired
-=Dired= aka _directory editor_ is a built-in file management mode in emacs.
-
-#+begin_src emacs-lisp
 (use-package dired-open
   :config
   (setq dired-open-extensions '(("gif" . "swayimg")
@@ -3957,17 +3500,9 @@ Positions cursor at the filename."
   (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
   (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
 
-#+end_src
-
-** GPTel
-Transient newer verion for gptel to work.
-#+begin_src emacs-lisp
 (use-package transient
   :ensure t)
-#+end_src
 
-Auto-scroll, automatically to end of response and set =org-mode= as default mode for =gptel= command.
-#+begin_src emacs-lisp
 (use-package gptel
   :hook (gptel-mode . gptel-highlight-mode)
   :ensure t
@@ -4046,10 +3581,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
   (with-eval-after-load 'gptel-rewrite
     (advice-add 'gptel--rewrite-read-message :around
                 #'tl/gptel-suppress-corfu-terminal)))
-#+end_src
 
-Gptel custom functions
-#+begin_src emacs-lisp
 ;; Keep the globally bound commands stable by loading the relevant feature at call time
 ;; and failing with a useful error if upstream removes the private API
 (defun tl/gptel-call-private-command (feature command)
@@ -4180,13 +3712,7 @@ The reply is also piped through `tl/wl-copy' to the Wayland clipboard
 once it arrives (the kill-ring destination is asynchronous)."
   (interactive)
   (tl/gptel-suffix-send-with-kill-ring-clipboard '("m" "k")))
-#+end_src
 
-** MCP
-[[https://github.com/lizqwerscott/mcp.el][mcp.el]] is an Emacs *client* for the [[https://modelcontextprotocol.io][Model Context Protocol]] - a standard way for LLM tools to be supplied by standalone "MCP servers". With it, =gptel= can call tools (read/write files, fetch URLs, query databases, hit APIs) provided by any MCP server you configure.
-
-Below we register the official =filesystem= server (launched on demand via =npx=), scoped to my Emacs directory and home.
-#+begin_src emacs-lisp
 ;; Not utilizing at the moment, maybe in the future
 ;; the fetch server is starting with an error: Connection state change: `exited abnormally with code 1
 
@@ -4216,14 +3742,7 @@ Below we register the official =filesystem= server (launched on demand via =npx=
 ;;   ;; gptel buffer this also starts any not-yet-running servers; later calls
 ;;   ;; are a no-op (tools are already registered globally).
 ;;   (add-hook 'gptel-mode-hook #'gptel-mcp-connect))
-#+end_src
 
-** Emacs MCP Server
-Where the =mcp= package above is an MCP *client* (it consumes external servers from inside Emacs), =rhblind/emacs-mcp-server= is the inverse: an MCP *server* written in pure Elisp that runs inside this very Emacs process and exposes it over a Unix socket. External LLM clients — including the =oh-my-pi= coding agent — can then =eval-elisp=, read/write buffers, inspect diagnostics, and drive org-mode/org-roam against the *live* session.
-
-It listens on a Unix domain socket bridged to clients via =socat= (already installed at =/usr/bin/socat=). We pin the socket to =~/.cache/emacs/emacs-mcp-server.sock= (matching this config's =user-emacs-directory=) and auto-start the server on launch.
-
-#+begin_src emacs-lisp
 ;; `mcp-server' is the inverse of the `mcp' package above: it runs an MCP
 ;; *server* inside this Emacs process over a Unix socket, so external LLM
 ;; clients (e.g. oh-my-pi) can eval Elisp, touch buffers, and drive org-mode
@@ -4250,10 +3769,7 @@ It listens on a Unix domain socket bridged to clients via =socat= (already insta
 ;; down, restrict the exposed tools, e.g.:
 ;;   (setq mcp-server-emacs-tools-enabled '(org-agenda org-search org-get-node))
 ;; Management: M-x mcp-server-status | mcp-server-get-socket-path | mcp-server-security-show-audit-log | mcp-server-stop | mcp-server-restart | mcp-server-list-clients
-#+end_src
 
-** Agent-shell
-#+begin_src emacs-lisp
 (use-package agent-shell
    :ensure t
    :bind (:map agent-shell-mode-map
@@ -4539,17 +4055,7 @@ viewport (resolves the shell buffer, then refreshes the viewport copy)."
   ;; Buffer name and header reflect the chosen project, not the monorepo root.
   (advice-add 'agent-shell--project-name :around #'tl/agent-shell-project-name)
   (add-to-list 'agent-shell-agent-configs (tl/agent-shell-omp-make-config)))
-#+end_src
 
-** Agent-shell performance fixes
-Patches agent-shell's streaming path for CPU usage. The per-chunk hot loop is quadratic over a session: a single turn streams dozens-to-hundreds of chunks and the buffer grows monotonically, so any O(buffer) scan run once per chunk is O(n^2) over the session. The module (=my-agent-shell-perf-fix.el= in the config dir, with its =my-mk-toggle.el= toggle-macro dependency) has two layers:
-
-1. *Always-on optimisations* (behaviour-preserving) — replace the per-chunk =text-property-search= scans with an O(1) marker index keyed by fragment id; cache section starts so body/label lookups become O(1); skip rewriting labels and activity-group headers that haven't changed; scope the invisible-property clear to the trailing tail; and (perf-mode only) tag streaming chars =fontified= so font-lock + =goto-address= never re-run over them. Every lookup keeps the original scan as a fallback, so a stale index entry self-heals.
-2. *Perf-mode toggle* (=C-c P=, =M-x tl/agent-shell-perf-fix-toggle=, ON by default) — markdown rendering off, activity groups expanded, busy indicator off, shell-maker auto-scroll off while streaming; the final agent message is re-rendered once when the turn completes (=my/agent-shell/perf-fix-prettify-on-turn-complete=, on by default), and the viewport buffer is refreshed so its copy of the response picks up the rendering too (agent-shell refreshes viewport content only on navigation, never on turn-complete).  Manual inverse: =C-c p= (`tl/agent-shell-prettify`) renders the region or block at point regardless of perf-mode state.
-
-It depends on =el-patch= (the patching mechanism) and =agent-shell=.
-
-#+begin_src emacs-lisp
 ;; The local Elisp modules (my-agent-shell-perf-fix, my-mk-toggle) live in the
 ;; config dir alongside config.el; put it on load-path so `require' finds them.
 (add-to-list 'load-path (expand-file-name "~/.config/emacs"))
@@ -4563,12 +4069,7 @@ It depends on =el-patch= (the patching mechanism) and =agent-shell=.
 ;; use-package above, so the require is warm after the first restart that builds it.
 (with-eval-after-load 'agent-shell
   (require 'my-agent-shell-perf-fix))
-#+end_src
 
-** Agent-shell dictation (push-to-talk)
-OMP's hold-=Space= speech-to-text is a TUI-only feature: it lives in the interactive editor's input loop (=onSpaceHoldStart= / =onSpaceHoldEnd=, gated by =SPACE_HOLD_RELEASE_MS=). agent-shell runs =omp acp= — the headless ACP protocol — which never starts the TUI, so the gesture has no code path to fire in the agent-shell buffer. This is a press-to-toggle alternative (the same shape as OMP's =app.stt.toggle= chord): it records via =pw-record= and transcribes with the same on-device Parakeet TDT model OMP's TUI uses, driven standalone through sherpa-onnx. The transcriber at =~/.config/.local/bin/omp-stt-transcribe= reuses the cached model at =~/.omp/agent/cache/tiny-models/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v3-int8/=, so dictation matches the TUI experience. Install the runtime once with =uv tool install sherpa-onnx=. Bound to =C-c SPC= in =agent-shell-mode-map=.
-
-#+begin_src emacs-lisp
 (defvar tl/agent-shell-dictate--proc nil
   "Background `pw-record' process while dictating, or nil.")
 (defvar tl/agent-shell-dictate--file "/tmp/omp-dictate.wav"
@@ -4631,22 +4132,12 @@ because `omp acp' (agent-shell's backend) does not run the TUI STT path."
 
 (with-eval-after-load 'agent-shell
   (define-key agent-shell-viewport-edit-mode-map (kbd "C-c SPC") #'tl/agent-shell-dictate))
-#+end_src
 
-** Agent-shell quick commit
-A keybinding that runs =omp commit --model=zai/glm-4.7= directly in a =*compilation*= buffer — instant and token-free, unlike the =/ompc= slash command (which routes through the session LLM). It inherits the agent-shell buffer's =default-directory= (the project root), so it commits in whichever project the shell is scoped to.
-
-#+begin_src emacs-lisp
 (defun tl/agent-shell-omp-commit ()
   "Run `omp commit --model=zai/glm-4.7' in a compile buffer from the project root."
   (interactive)
   (compile "omp commit --model=zai/glm-4.7"))
-#+end_src
 
-** Agent-shell Attention
-[[https://github.com/ultronozm/agent-shell-attention.el][agent-shell-attention]] tracks which =agent-shell= buffers are waiting for input and surfaces a compact =AS:n/m= indicator plus jump/dashboard commands. In a terminal workflow its value is the D-Bus notification (delivered by SwayNC) that fires on turn completion or permission requests — alerted even when Emacs is not focused — and the dashboard (=C-u C-u= on the jump key) gives a one-screen overview of every live agent buffer, since there is no mouse or GUI buffer list to fall back on.
-
-#+begin_src emacs-lisp
 (use-package agent-shell-attention
   :ensure (:host github :repo "ultronozm/agent-shell-attention.el")
   :after agent-shell
@@ -4663,12 +4154,7 @@ A keybinding that runs =omp commit --model=zai/glm-4.7= directly in a =*compilat
   ;; slot is not part of its format.
   (setq agent-shell-attention-indicator-location 'global-mode-string)
   (agent-shell-attention-mode 1))
-#+end_src
 
-** Agent-shell Bookmark
-[[https://github.com/dcluna/agent-shell-bookmark][agent-shell-bookmark]] makes =agent-shell= sessions bookmarkable and org-linkable. A bookmark captures the buffer name, session ID, agent identifier (e.g. =oh-my-pi=), and project path; jumping switches to the live buffer when present, otherwise resumes the session by ID through the stored agent config — the same agent that created it, looked up in =agent-shell-agent-configs= (where the OMP config is registered) — falling back to the session-list prompt when the ID is stale.  Both modules self-register on load: the bookmark handler installs via =agent-shell-mode-hook=, and =agent-shell-ol= calls =org-link-set-parameters=, so the only =:config= work is requiring the ol module. No dedicated keys are added — it rides the existing =C-x= leader bookmark bindings (=C-x x= =bookmark-set= in a session, =C-x b= =consult-bookmark= to jump) since it extends the standard =bookmark.el= system, and =org-store-link= in a session captures an =[[agent-shell:/path::session-id::agent-id][Buffer]]= link to embed in notes; following it resumes the exact conversation.
-
-#+begin_src emacs-lisp
 (use-package agent-shell-bookmark
   ;; Clones the whole repo, which provides two features: `agent-shell-bookmark'
   ;; (bookmark support) and `agent-shell-ol' (org-link type).
@@ -4680,10 +4166,7 @@ A keybinding that runs =omp commit --model=zai/glm-4.7= directly in a =*compilat
   :config
   ;; Register the `agent-shell' org-link type for `org-store-link'/`org-open-at-point'.
   (require 'agent-shell-ol))
-#+end_src
 
-** Agent-recall
-#+begin_src emacs-lisp
 (use-package agent-recall
   :ensure t
   :hook (agent-shell-mode . agent-recall-track-sessions)  
@@ -4691,12 +4174,7 @@ A keybinding that runs =omp commit --model=zai/glm-4.7= directly in a =*compilat
   (setq agent-recall-search-paths '("~/desktop/workspace/ai-projects/devops" "~/desktop/workspace/ai-projects/linux"))
         agent-recall-search-function 'consult-ripgrep
 		agent-recall-browse-sort 'modified-desc)
-#+end_src
 
-** Ghostel
-Ghostel's features include synchronized output, true color, the Kitty keyboard and graphics protocols, hyperlinks, desktop notifications, progress reports and a lot more. Shell integration (directory tracking, prompt navigation) all works out of the box for bash, zsh and fish.
-
-#+begin_src emacs-lisp
 (use-package ghostel
   :ensure t
   :config
@@ -4886,17 +4364,11 @@ terminal for that directory is reused instead of spawning a new one."
 (global-set-key (kbd "M-u") 'tl/kill-current-buffer)
 (global-set-key (kbd "M-<") 'enlarge-window-horizontally)
 (global-set-key (kbd "M->") 'shrink-window-horizontally)
-#+end_src
 
-** Drag-stuff
-#+begin_src emacs-lisp
 (use-package drag-stuff
   :init
   (drag-stuff-global-mode 1))
-#+end_src
 
-** God-Mode
-#+begin_src emacs-lisp
 (use-package god-mode
   :init
   (god-mode)
@@ -5065,20 +4537,10 @@ terminal for that directory is reused instead of spawning a new one."
   ;; Visual indicators for God mode
   (custom-set-faces
    '(god-mode-lighter ((t (:inherit error))))))
-#+end_src
 
-** Goto-chg
-The goto-chg package provides a direct equivalent to Vim's C-o and C-i k
-It allows you to jump to the locations of the last changes made in the buffer:
-#+begin_src emacs-lisp
 (use-package goto-chg
   :ensure t)
-#+end_src
 
-* Org Mode
-** Essential packages
-*** Org-toc
-#+begin_src emacs-lisp
 (use-package toc-org
   :commands toc-org-enable
   :init
@@ -5087,10 +4549,7 @@ It allows you to jump to the locations of the last changes made in the buffer:
   (setq org-export-with-toc t)
   (setq org-export-with-toc-depth 4)       ;; Generate TOC with 4 headlines by default
   (setq org-startup-folded 'show3levels))  ;; Show only 3 levels of TOC on startup
-#+end_src
 
-*** Org-superstar
-#+begin_src emacs-lisp
 (use-package org-superstar
   :ensure t
   :config
@@ -5108,31 +4567,18 @@ It allows you to jump to the locations of the last changes made in the buffer:
 
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
-#+end_src
 
-*** Org-transclusion
-There’s a really cool package to transclude =Org= document content.
-
-#+begin_src emacs-lisp
 (use-package org-transclusion
   :ensure t
   :after org)
-#+end_src
 
-*** Org-appear
-While =org-hide-emphasis-markers= is very nice, it can sometimes make edits which occur at the border a bit more fiddley. We can improve this situation without sacrificing visual amenities with the =org-appear= package.
-
-#+begin_src emacs-lisp
 (use-package org-appear
  :ensure t
  :hook (org-mode . org-appear-mode)
  :config
  (setq org-appear-autoemphasis t
        org-appear-autosubmarkers t))
-#+end_src
 
-*** Org-alert
-#+begin_src emacs-lisp
 (use-package org-alert
   :ensure t
   :config
@@ -5148,12 +4594,7 @@ While =org-hide-emphasis-markers= is very nice, it can sometimes make edits whic
   (setq org-alert-time-match-string
         (replace-regexp-in-string "<\\.\\*" "<.*?" org-alert-time-match-string))
   (org-alert-enable))
-#+end_src
 
-*** Hl-todo
-Adding highlights to =todo= keywords and related words.
-
-#+begin_src emacs-lisp
 (use-package hl-todo
   :hook ((org-mode . hl-todo-mode)
          (prog-mode . hl-todo-mode))
@@ -5173,10 +4614,7 @@ Adding highlights to =todo= keywords and related words.
         ("NEXT"  . (:foreground "#fac863" :weight bold))
         ("DONE"  . (:foreground "#696c71" :weight bold))
         ("CNCL"  . (:foreground "#d95757" :weight bold))))
-#+end_src
 
-*** Org-fancy-priorities
-#+begin_src emacs-lisp
 ;; Enable prettify-symbols-mode
 (global-prettify-symbols-mode 1)
 
@@ -5195,10 +4633,7 @@ Adding highlights to =todo= keywords and related words.
    '((?A . (:foreground "#d95757"))
      (?B . (:foreground "#F08000"))
      (?C . (:foreground "#FFD700")))))
-#+end_src
 
-*** Highlight symbol
-#+begin_src emacs-lisp
 ;; This feature highlights all occurrences of the symbol (word) at the point in the current buffer
 ;; Similar to highlight-symbol-mode, but does not rely on font-lock functionality and does not provide functionality to navigate to different occurrences of the current symbol under point
 (use-package highlight-thing
@@ -5211,14 +4646,7 @@ Adding highlights to =todo= keywords and related words.
   highlight-thing-limit-to-region-in-large-buffers-p nil   ; restrict the highlighting to lines surrounding points, e.g. to reduce the load of highlighting in large buffers
   highlight-thing-narrow-region-lines 15
   highlight-thing-large-buffer-limit 5000))
-#+end_src
 
-** Editing features for org
-*** File links automation
-The =tl/org-insert-file-link-at-point= will insert a file, skipping the description prompt.
-The =tl/org-insert-file-link= will insert a file, skipping the type of link prompt.
-
-#+begin_src emacs-lisp
 ;; Insert link to a file aand skip the file select prompt
 (defun tl/org-insert-file-link-at-point ()
   "Insert a file link in Org mode without prompting for the link type."
@@ -5234,22 +4662,14 @@ The =tl/org-insert-file-link= will insert a file, skipping the type of link prom
                          (buffer-substring-no-properties (region-beginning) (region-end))
                        "")))
     (org-insert-link nil (read-file-name "File: ") description)))
-#+end_src
 
-*** Insert all links to directory
-#+begin_src emacs-lisp
 (defun org-insert-links-to-directory (directory)
   "Insert Org mode links to all files in the specified DIRECTORY."
   (interactive "DSelect directory: ")
   (mapc (lambda (file)
           (insert (format "[[file:%s][%s]]\n" file (file-name-nondirectory file))))
         (directory-files directory t "^[^\\.]" t)))
-#+end_src
 
-*** Style formatting
-This controls the color of *bold*, /italic/, _underline_, verbatim, +strikethrough+ in org-mode.
-
-#+begin_src emacs-lisp
 (setq org-emphasis-alist
   '(("*" (:inherit bold :slant italic :weight black :foreground "#e6b450"))
     ("/" (:inherit italic :foreground "#e7e4da"))
@@ -5257,12 +4677,7 @@ This controls the color of *bold*, /italic/, _underline_, verbatim, +strikethrou
     ("=" (:foreground "PaleGreen1"))
     ("~" (:foreground "slate blue"))
     ("+" (:strike-through t :foreground "dim gray"))))
-#+end_src
 
-*** Style formatting automation
-These functions automates the surround of word for style formatting with respective keys in visual mode.
-
-#+begin_src emacs-lisp
 (defun surround-with-bold (beg end)
   "Surround the region between BEG and END with asterisks for bold formatting."
   (interactive "r")
@@ -5340,10 +4755,7 @@ These functions automates the surround of word for style formatting with respect
   (interactive)
   (if (use-region-p)
       (surround-with-underline (region-beginning) (region-end))))
-#+end_src
 
-*** Copy surround automation
-#+begin_src emacs-lisp
 (defun copy-surrounded-by-equals ()
   "Copy text surrounded by equals signs on the current line to the system clipboard."
   (interactive)
@@ -5369,12 +4781,7 @@ These functions automates the surround of word for style formatting with respect
           (tl/wl-copy starred-text)
           (message "Copied to clipboard: %s" starred-text))
       (message "No text surrounded by stars found on the current line."))))
-#+end_src
 
-*** Heading focus
-If you want to see other headings while you are edit the current one, I found a [[https://stackoverflow.com/questions/25161792/emacs-org-mode-how-can-i-fold-everything-but-the-current-headline/28031539#28031539][StackOverflow]] answer and adapted for my need.
-
-#+begin_src emacs-lisp
 (defun org-show-current-heading-tidily ()
   (interactive)  ;Inteactive
   "Show next entry, keeping other entries closed."
@@ -5389,10 +4796,7 @@ If you want to see other headings while you are edit the current one, I found a 
     (org-reveal t)
     (org-show-entry)
     (show-children)))
-#+end_src
 
-*** Open images in external editor
-#+begin_src emacs-lisp
 ;; Open images in external editor such as swappy
 (defun tl/open-image-external-from-org ()
   "Open the image at point in an external viewer like swappy."
@@ -5400,10 +4804,7 @@ If you want to see other headings while you are edit the current one, I found a 
   (let* ((file (org-element-property :path (org-element-context)))
          (full-path (expand-file-name file)))
     (start-process "swappy" nil "swappy" "-f" full-path)))
-#+end_src
 
-*** Open videos in mpv
-#+begin_src emacs-lisp
 (defun tl/open-video-link-in-mpv ()
   "Open the video link at point in mpv."
   (interactive)
@@ -5414,12 +4815,7 @@ If you want to see other headings while you are edit the current one, I found a 
               (start-process "mpv" nil "mpv" path)
             (message "File not found: %s" path)))
       (message "Not a valid file link"))))
-#+end_src
 
-*** Narrow to subtree
-After executing =org-narrow-to-subtree= I want to be ableto move the narrowing along with point to the next subtree.
-
-#+begin_src emacs-lisp
 (defun tl/org-narrow-forward ()
   "Move to the next subtree at same level, and narrow to it."
   (interactive)
@@ -5433,10 +4829,7 @@ After executing =org-narrow-to-subtree= I want to be ableto move the narrowing a
   (widen)
   (org-backward-heading-same-level 1)
   (org-narrow-to-subtree))
-#+end_src
 
-*** Org text editing adjustments
-#+begin_src emacs-lisp
 (defun tl/copy-to-end-of-file ()
   "Copy the text from the current point to the end of the file to the clipboard."
   (interactive)
@@ -5564,13 +4957,7 @@ Version: 2020-06-26 2023-11-14"
      ((equal 2 (get this-command 'state))
       (downcase-region xp1 xp2)
       (put this-command 'state 0)))))
-#+end_src
 
-*** Org agenda and calendar automation
-=tl/org-agenda-done= function makes it easy to mark a task as done.
-=tl/mark-diary-and-holiday-entries= function marks holidays and diary entries at once.
-
-#+begin_src emacs-lisp
 (defun tl/org-agenda-doing (&optional arg)
   (interactive "P")
   (org-agenda-clock-in)
@@ -5605,12 +4992,7 @@ Version: 2020-06-26 2023-11-14"
   (if (eq major-mode 'org-agenda-mode)
       (org-agenda-schedule '(4))
     (org-schedule '(4))))
-#+end_src
 
-*** Source code block tag expansion
-=Org-tempo= allows for =<s= followed by TAB to expand to a =begin_src= tag.
-
-#+begin_src emacs-lisp
 (with-eval-after-load 'org
   (require 'org-tempo)
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
@@ -5622,12 +5004,7 @@ Version: 2020-06-26 2023-11-14"
 
 ;; Tell Org that "tf" blocks use terraform-mode
 (add-to-list 'org-src-lang-modes '("tf" . terraform))
-#+end_src
 
-*** Zero-width spaces
-Occasionally in Org you run into annoyances where you want to have two seperate blocks right together without a space. For example, to *emp​h*​asise part of a word, or put a currency symbol immediately before an inline source block. Zero width spaces are hacky but because this is emacs, we can make this feel much less hacky by making a minor addition to the org key map. Add filter to stop the space from being included in exports.
-
-#+begin_src emacs-lisp
 (defun org-export-remove-zero-width-space (text backend info)
   "Remove zero width spaces from TEXT."
   (unless (org-export-derived-backend-p backend 'org)
@@ -5635,12 +5012,7 @@ Occasionally in Org you run into annoyances where you want to have two seperate 
 
 (eval-after-load 'ox
   '(add-to-list 'org-export-filter-final-output-functions #'org-export-remove-zero-width-space t))
-#+end_src
 
-*** Insert date
-Some custom functions to insert the date.
-
- #+begin_src emacs-lisp
 (defun tl/insert-todays-date (prefix)
   (interactive "P")
   (let ((format (cond
@@ -5654,12 +5026,7 @@ Some custom functions to insert the date.
   "Insert DATE using the current locale."
   (interactive (list (calendar-read-date)))
   (insert (calendar-date-string date)))
-#+end_src
 
-*** Create new org buffer
-Let’s make creating an Org buffer just that little bit easier.
-
-#+begin_src emacs-lisp
 ;; for kitty alt+shift+n keybind to run this command in current window and select *new org* buffer
 (defun tl/consult-new-org ()
   "Open consult-buffer pre-filtered to *new-org* buffers."
@@ -5686,10 +5053,7 @@ Let’s make creating an Org buffer just that little bit easier.
       (set-window-buffer nil buffer)
       (with-current-buffer buffer
         (org-mode)))))
-#+end_src
 
-*** Switch or create scratchpad buffer
-#+begin_src emacs-lisp
 (defun tl/switch-to-or-create-org-buffer ()
   "Switch to an existing Org mode buffer named *new org* in ~/documents/org/new-org.org, or create a new one if it doesn't exist."
   (interactive)
@@ -5699,11 +5063,7 @@ Let’s make creating an Org buffer just that little bit easier.
       (find-file org-file)
       (rename-buffer "*scratchpad*")
       (org-mode))))
-#+end_src
 
-** Org configuration
-*** Org-mode font faces
-#+begin_src emacs-lisp
 (defun tl/org-font-setup ()
   "Set heading faces: per-level color plus a descending size hierarchy.
 HEIGHT is a scale factor relative to the default face height."
@@ -5744,18 +5104,10 @@ HEIGHT is a scale factor relative to the default face height."
 
 ;; Using org-src-font-lock-fontify-block we can apply language-appropriate syntax highlighting. Then, continuing on to {{{results(...)}}} , it can have the org-block face applied to match, and then the value-surrounding constructs hidden by mimicking the behaviour of prettify-symbols-mode.
 (setq org-inline-src-prettify-results '("⟨" . "⟩"))
-#+end_src
 
-*** Org-autolist
-#+begin_src emacs-lisp
 (use-package org-autolist
   :hook (org-mode . org-autolist-mode))
-#+end_src
 
-*** Olivetti
-I use Olivetti to center =org-mode= buffers for centering the contents of the buffer horizontally.
-
-#+begin_src emacs-lisp
 (defun tl/org-olivetti ()
   "Enable `olivetti-mode' in Org buffers."
   (when (require 'olivetti nil t)
@@ -5801,10 +5153,7 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
        ((and (derived-mode-p 'agent-shell-mode)
              (tl/agent-shell-omp-buffer-p))
         (tl/agent-shell-olivetti))))))
-#+end_src
 
-*** =Org-mode= config
-#+begin_src emacs-lisp
 (setq org-directory "~/documents/org/agenda"
       org-default-notes-file (expand-file-name "inbox.org" org-directory)
       org-ellipsis " ▼ "                           ; Elipsis character for folding headings
@@ -5866,12 +5215,7 @@ I use Olivetti to center =org-mode= buffers for centering the contents of the bu
      ("@Calendar" . ?c)
      (:endgroup)
 ))
-#+end_src
 
-*** Org-modern
-Fortifying org-mode buffers to be as pretty as possible is of paramount importance, and Minad's lovely org-modern goes a long way in this regard.
-
-#+begin_src emacs-lisp
 (use-package org-modern
  :ensure t
  :hook ((org-mode . org-modern-mode)
@@ -5949,10 +5293,7 @@ Fortifying org-mode buffers to be as pretty as possible is of paramount importan
          ("header" . "›")
          ("caption" . "☰")
          ("results" . "🠶"))))
-#+end_src
 
-*** Org-super-agenda
-#+begin_src emacs-lisp
 (use-package org-super-agenda
   :ensure t
   :after org
@@ -6156,10 +5497,7 @@ Bound to \"/\" in `org-agenda-mode-map'."
 
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "/") #'tl/org-agenda-filter-to-group))
-#+end_src
 
-*** Org-gtd-capture
-#+begin_src emacs-lisp
 (setq org-gtd-capture-templates
   `(("t" "Todo" entry (file "~/documents/org/agenda/inbox.org")
          "* TODO %?\n  %U\n\n  %i" :empty-lines 1 :kill-buffer t)
@@ -6181,10 +5519,7 @@ Bound to \"/\" in `org-agenda-mode-map'."
          :clock-in :clock-resume
          :empty-lines 1
 	       :kill-buffer t)))
-#+end_src
 
-*** Org-roam
-#+begin_src emacs-lisp
 (use-package org-roam
   :ensure t
   :custom
@@ -6211,14 +5546,7 @@ Bound to \"/\" in `org-agenda-mode-map'."
 ;  :after org-roam
 ;  :config
 ;  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
-#+end_src
 
-*** Org-roam-dailies
-Automatically move completed tasks to dailies - one interesting use for daily files is to keep a log of tasks that were completed on that particular day.
-
-The following snippet sets up a hook for all Org task state changes and then moves the completed (FINISHED or CANC) entry to today’s note file.
-
-#+begin_src emacs-lisp
 ; Org-roam dailies capture templates
 (setq org-roam-dailies-capture-templates
       '(("d" "default" entry
@@ -6278,12 +5606,7 @@ Works in both `org-mode' and `org-agenda-mode' buffers."
 
 ;; Save Org buffers after refiling
 ;(advice-add 'org-refile :after 'org-save-all-org-buffers)
-#+end_src
 
-*** Org-roam-ui
- Org-roam is nice by itself, but there are so extra nice packages which integrate with it.
-
-#+begin_src emacs-lisp
 (use-package websocket
   :after org-roam)
 
@@ -6298,10 +5621,7 @@ Works in both `org-mode' and `org-agenda-mode' buffers."
     (interactive)
     (unless org-roam-ui-mode (org-roam-ui-mode 1))
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-ui-port))))
-#+end_src
 
-*** Org-gtd
-#+begin_src emacs-lisp
 (setq org-gtd-update-ack "4.0.0")
 (use-package org-gtd
   :after org
@@ -6324,27 +5644,12 @@ Works in both `org-mode' and `org-agenda-mode' buffers."
         (next . "TODO")
         (done . "DONE")
         (canceled . "CNCL")))
-#+end_src
 
-** Exporting
-*** General settings
-By default Org only exports the first three levels of headings as … headings. This is rather unfortunate as my documents frequently stray far beyond three levels of depth. The two main formats I care about exporting to are LaTeX and HTML. When using an article class, LaTeX headlines go from =\section=, =\subsection=, =\subsubsection=, and =\paragraph= to =\subgraph= — five levels. HTML5 has six levels of headings (=<h1>= to =<h6>=), but first level Org headings get exported as =<h2>= elements — leaving five usable levels.
-
-As such, it would seem to make sense to recognise the first five levels of Org headings when exporting.
-#+begin_src emacs-lisp
 (setq org-export-headline-levels 5) ; I like nesting
-#+end_src
 
-Since I (roughly) track Org =HEAD=, it makes sense to include the git version in the creator string.
-#+begin_src emacs-lisp
 (setq org-export-creator-string
       (format "Emacs %s (Org mode %s–%s)" emacs-version (org-release) (org-git-version)))
-#+end_src
 
-*** Exporting org code
-With all our Org config and hooks, exporting an Org code block when using a font-lock based method can produce undesirable results. To address this, we can tweak =+org-babel-mode-alist= when exporting.
-
-#+begin_src emacs-lisp
 (defun +org-mode--fontlock-only-mode ()
   "Just apply org-mode's font-lock once."
   (let (org-mode-hook
@@ -6361,12 +5666,7 @@ With all our Org config and hooks, exporting an Org code block when using a font
                       (list (cons "org" #'+org-mode--fontlock-only)))))
 
 (add-hook 'org-export-before-processing-hook #'+org-export-babel-mask-org-config)
-#+end_src
 
-*** HTML export
-I want to tweak a whole bunch of things. While I’ll want my tweaks almost all the time, occasionally I may want to test how something turns out using a more default config. With that in mind, a global minor mode seems like the most appropriate architecture to use.
-
-#+begin_src emacs-lisp
 (define-minor-mode org-fancy-html-export-mode
   "Toggle my fabulous org export tweaks. While this mode itself does a little bit,
 the vast majority of the change in behaviour comes from switch statements in:
@@ -6387,13 +5687,7 @@ the vast majority of the change in behaviour comes from switch statements in:
     (setq org-html-style-default org-html-style-plain
           org-html-meta-tags #'org-html-meta-tags-default
           org-html-checkbox-type 'html)))
-#+end_src
 
-**** Extra header content
-We want to tack on a few more bits to the start of the body. Unfortunately, there doesn’t seem to be any nice variable or hook, so we’ll just override the relevant function.
-
-This is done to allow me to add the date and author to the page header, implement a CSS-only light/dark theme toggle, and a sprinkle of Open Graph metadata.
-#+begin_src emacs-lisp
 (defun tl/org-html-template-fancier (orig-fn contents info)
   "Return complete document string after HTML conversion.
 CONTENTS is the transcoded contents string.  INFO is a plist
@@ -6488,11 +5782,7 @@ compared to the default implementation."
      "</div>\n</body>\n</html>")))
 
 (advice-add 'org-html-template :around #'tl/org-html-template-fancier)
-#+end_src
 
-I think it would be nice if “Table of Contents” brought you back to the top of the page. Well, since we’ve done this much advising already…
-
-#+begin_src emacs-lisp
 (defun tl/org-html-toc-linked (depth info &optional scope)
   "Build a table of contents.
 
@@ -6525,12 +5815,7 @@ of contents as a string, or nil if it is empty."
                     (format "</%s>\n" outer-tag))))))))
 
 (advice-add 'org-html-toc :override #'tl/org-html-toc-linked)
-#+end_src
 
-**** Collapsable src and example blocks
-By wrapping the ~<pre>~ element in a ~<details>~ block, we can obtain collapsable blocks with no CSS, though we will toss a little in anyway to have this looking somewhat spiffy.
-
-#+begin_src emacs-lisp
 (defvar org-html-export-collapsed nil)
 
 (defun tl/org-html-src-block-collapsable (orig-fn src-block contents info)
@@ -6651,9 +5936,7 @@ By wrapping the ~<pre>~ element in a ~<details>~ block, we can obtain collapsabl
       mode))
 
 (advice-add 'org-html-src-block :around #'tl/org-html-src-block-collapsable)
-#+end_src
 
-#+begin_src emacs-lisp
 (defun org-html-block-collapsable (orig-fn block contents info)
   "Wrap the usual block in a <details>"
   (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
@@ -6687,24 +5970,10 @@ By wrapping the ~<pre>~ element in a ~<details>~ block, we can obtain collapsabl
 (advice-add 'org-html-example-block   :around #'org-html-block-collapsable)
 (advice-add 'org-html-fixed-width     :around #'org-html-block-collapsable)
 (advice-add 'org-html-property-drawer :around #'org-html-block-collapsable)
-#+end_src
 
-**** Include extra font-locking in htmlize
-Org uses [[https://github.com/hniksic/emacs-htmlize][htmlize.el]] to export buffers with syntax highlighting.
-
-The works fantastically, for the most part. Minor modes that provide font-locking are /not/ loaded, and so do not impact the result.
-
-By enabling these modes in ~htmlize-before-hook~ we can correct this behaviour.
-#+begin_src emacs-lisp
 (autoload #'highlight-numbers--turn-on "highlight-numbers")
 (add-hook 'htmlize-before-hook #'highlight-numbers--turn-on)
-#+end_src
 
-**** Handle table overflow
-In order to accommodate wide tables ---particularly on mobile devices--- we want to set a maximum width and scroll overflow. Unfortunately, this cannot be applied directly to the ~table~ element, so we have to wrap it in a ~div~.
-
-While we're at it, we can a link gutter, as we did with src blocks, and show the ~#+name~, if one is given.
-#+begin_src emacs-lisp
 ;; Define the advice
 (defadvice org-html-table (around org-html-table-wrapped activate)
   "Wrap the usual <table> in a <div>"
@@ -6724,15 +5993,7 @@ While we're at it, we can a link gutter, as we did with src blocks, and show the
                         (replace-regexp-in-string (format "<table id=\"%s\"" ref) "<table"
                                                   ad-do-it)
                       ad-do-it))))))
-#+end_src
 
-**** TOC as a collapsable tree
-The TOC is much nicer to navigate as a collapsable tree. Unfortunately we cannot achieve this with CSS alone. Thankfully we can avoid JS though, by adapting the TOC generation code to use a ~label~ for each item, and a hidden ~checkbox~ to keep track of state.
-
-To add this, we need to change one line in ~org-html--format-toc-headline~.
-
-Since we can actually accomplish the desired effect by adding advice /around/ the function, without overriding it --- let's do that to reduce the bug surface of this config a tad.
-#+begin_src emacs-lisp
 (defun tl/org-html--format-toc-headline-collapseable (orig-fn headline info)
   "Add a label and checkbox to ORIG-FN's usual output for collapsible TOC trees."
   (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
@@ -6743,14 +6004,7 @@ Since we can actually accomplish the desired effect by adding advice /around/ th
               id id (funcall orig-fn headline info)))))
 
 (advice-add 'org-html--format-toc-headline :around #'tl/org-html--format-toc-headline-collapseable)
-#+end_src
 
-Now, leaves (headings with no children) shouldn't have the ~label~ item. The
-obvious way to achieve this is by including some /if no children.../ logic in
-~org-html--format-toc-headline-colapseable~. Unfortunately, I can't my elisp isn't
-up to par to extract the number of child headings from the mountain of info that
-org provides.
-#+begin_src emacs-lisp
 (defun tl-org-html--toc-text-stripped-leaves (orig-fn toc-entries)
   "Remove label"
   (if (or (not org-fancy-html-export-mode) (bound-and-true-p org-msg-export-in-progress))
@@ -6759,12 +6013,7 @@ org provides.
                               (funcall orig-fn toc-entries))))
 
 (advice-add 'org-html--toc-text-stripped-leaves :around #'tl-org-html--toc-text-stripped-leaves)
-#+end_src
 
-**** Header anchors
-I want to add GitHub-style links on hover for headings.
-
-#+begin_src emacs-lisp
 (defun tl-org-export-html-headline-anchor (text backend info)
   (when (and (org-export-derived-backend-p backend 'html)
              (not (org-export-derived-backend-p backend 're-reveal))
@@ -6776,20 +6025,10 @@ I want to add GitHub-style links on hover for headings.
        text))))
 
 (advice-add 'org-export-to-buffer :filter-args #'tl-org-export-html-headline-anchor)
-#+end_src
 
-*** LaTeX export
-**** Compiling
-By default Org uses ~pdflatex~ \times 3 + ~bibtex~. ~latexmk~ + ~biber~ (which is used automatically with ~latexmk~) is superior combination.
-#+begin_src emacs-lisp
 ;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
-#+end_src
 
-**** Nicer checkboxes
-We'll assume that thanks to the clever preamble the various custom =\checkbox...= commands below are defined.
-
-#+begin_src emacs-lisp
 (defun +org-export-latex-fancy-item-checkboxes (backend)
   "Replace LaTeX item with fancy checkboxes."
   (when (org-export-derived-backend-p backend 'latex)
@@ -6806,10 +6045,7 @@ We'll assume that thanks to the clever preamble the various custom =\checkbox...
          t t)))))
 
 (add-hook 'org-export-before-parsing-hook #'+org-export-latex-fancy-item-checkboxes)
-#+end_src
 
-**** Class template
-#+begin_src emacs-lisp
 (unless (boundp 'org-latex-classes)
   (setq org-latex-classes nil))
 
@@ -6846,16 +6082,7 @@ We'll assume that thanks to the clever preamble the various custom =\checkbox...
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
-#+end_src
 
-**** Extra special strings
-LaTeX already recognises =---= and =--= as em/en-dashes, =\-= as a shy hyphen, and the
-conversion of =...= to =\ldots{}= is hardcoded into ~org-latex-plain-text~ (unlike
-~org-html-plain-text~).
-
-I'd quite like to also recognise =->= and =<-=, so let's set come up with some advice.
-
-#+begin_src emacs-lisp
 (defvar org-latex-extra-special-string-regexps
   '(("<->" . "\\\\(\\\\leftrightarrow{}\\\\)")
     ("->" . "\\\\textrightarrow{}")
@@ -6876,15 +6103,7 @@ I'd quite like to also recognise =->= and =<-=, so let's set come up with some a
     output))
 
 (advice-add 'org-latex-plain-text :around #'tl/org-latex-plain-text-extra-special-a)
-#+end_src
 
-**** Make verbatim different to code
-Since have just gone to so much effort above let's make the most of it by making
-=verbatim= use ~verb~ instead of ~protectedtexttt~ (default).
-
-This gives the same advantages as mentioned in the [[*Make verbatim different to code][HTML export section]].
-
-#+begin_src emacs-lisp
 (setq org-latex-text-markup-alist
       '((bold . "\\textbf{%s}")
         (code . protectedtexttt)
@@ -6892,24 +6111,13 @@ This gives the same advantages as mentioned in the [[*Make verbatim different to
         (strike-through . "\\sout{%s}")
         (underline . "\\uline{%s}")
         (verbatim . verb)))
-#+end_src
 
-**** Pretty code blocks
-We could just use minted for syntax highlighting --- however, we can do better! The =engrave-faces= package lets us use Emacs' font-lock for syntax highlighting, exporting that as LaTeX commands.
-
-#+begin_src emacs-lisp
 (use-package engrave-faces
   :ensure t
   :after ox-latex)
-#+end_src
 
-Using this as in LaTeX exports is now as easy as:
-#+begin_src emacs-lisp
 (setq org-latex-listings 'engraved)
-#+end_src
 
-One little annoyance with this is the interaction between microtype and =Verbatim= environments. Protrusion is not desirable here. Thankfully, we can patch the =Verbatim= environment to turn off protrusion locally.
-#+begin_src emacs-lisp
 (defun tl/org-latex-no-protrusion-in-code (backend)
   "Conditionally modify LaTeX export for code blocks."
   (when (and (eq backend 'latex) (featurep 'microtype))
@@ -6917,9 +6125,7 @@ One little annoyance with this is the interaction between microtype and =Verbati
           (concat org-latex-listings-options "\\microtypesetup{protrusion=false}"))))
 
 (add-hook 'org-export-before-parsing-hook #'tl/org-latex-no-protrusion-in-code)
-#+end_src
 
-#+begin_src emacs-lisp
 (defun tl/org-latex-example-block-engraved (orig-fn example-block contents info)
   "Like `org-latex-example-block', but supporting an engraved backend"
   (let ((output-block (funcall orig-fn example-block contents info)))
@@ -6928,17 +6134,9 @@ One little annoyance with this is the interaction between microtype and =Verbati
       output-block)))
 
 (advice-add 'org-latex-example-block :around #'tl/org-latex-example-block-engraved)
-#+end_src
 
-*** ASCII export
-To start with, why settle for ASCII when UTF-8 exists?
-#+begin_src emacs-lisp
 (setq org-ascii-charset 'utf-8)
-#+end_src
 
-The ASCII export is generally fairly nice. I think the main aspect that could benefit from improvement is the appearance of LaTeX fragments. There's a nice utility we can use to create unicode representation, which are much nicer. It's called ~latex2text~, and it's part of the =python-pylatexenc=.
-
-#+begin_src emacs-lisp
 (when (executable-find "latex2text")
   (eval-after-load 'ox-ascii
     '(progn
@@ -6973,18 +6171,7 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
                  (cdr unicode) latex))))
 
        (advice-add 'org-ascii-latex-fragment :override #'tl/org-ascii-latex-fragment-unicode))))
-#+end_src
 
-* Performance Optimizations
-Runtime tuning for this Emacs 30 native-comp build. The startup-critical opts
-(GC deferral, =file-name-handler-alist= blanking, frame-inhibit, auto-mode
-case-fold) live in =early-init.el= — they only work there, because this file is
-*tangled then loaded* by =init.el= *after* =early-init.el= has already run.
-
-The settings below tune *steady-state* behavior: they take effect once packages
-are loaded and are safe to re-evaluate at any time.
-
-#+begin_src emacs-lisp
 ;; --- Read subprocess output in 1 MB chunks --------------------------------
 ;; Emacs 30's default is 64 KB (older Emacsen shipped 4 KB). 1 MB cuts the
 ;; number of `read()' syscalls fired by process filters — helps `consult-ripgrep',
@@ -7014,4 +6201,3 @@ are loaded and are safe to re-evaluate at any time.
 ;; Activated here for *every* file / major-mode, not just org.
 (add-hook 'find-file-hook #'locally-defer-font-lock)
 (add-hook 'after-change-major-mode-hook #'locally-defer-font-lock)
-#+end_src
