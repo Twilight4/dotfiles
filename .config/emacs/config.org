@@ -3951,7 +3951,7 @@ Positions cursor at the filename."
 
 #+end_src
 
-** [#B] GPTel
+** GPTel
 Transient newer verion for gptel to work.
 #+begin_src emacs-lisp
 (use-package transient
@@ -4450,6 +4450,10 @@ outside a project-local `.omp/'."
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-e") #'agent-shell-restart)
   (define-key agent-shell-viewport-view-mode-map (kbd "C-c C-a") #'tl/agent-shell-toggle-auto-accept)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-a") #'tl/agent-shell-toggle-auto-accept)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c p") #'tl/agent-shell-prettify)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c p") #'tl/agent-shell-prettify)
+  (define-key agent-shell-viewport-view-mode-map (kbd "C-c P") #'tl/agent-shell-perf-fix-toggle)
+  (define-key agent-shell-list-edit-mode-map (kbd "C-c P") #'tl/agent-shell-perf-fix-toggle)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c C-l") #'agent-shell-viewport-view-last)
   (define-key agent-shell-list-edit-mode-map (kbd "C-c b") #'tl/org-insert-template-and-paste)
   (define-key agent-shell-viewport-view-mode-map (kbd "n") #'agent-shell-viewport-prompt-queue)
@@ -4504,7 +4508,7 @@ outside a project-local `.omp/'."
 Patches agent-shell's streaming path for CPU usage. The per-chunk hot loop is quadratic over a session: a single turn streams dozens-to-hundreds of chunks and the buffer grows monotonically, so any O(buffer) scan run once per chunk is O(n^2) over the session. The module (=my-agent-shell-perf-fix.el= in the config dir, with its =my-mk-toggle.el= toggle-macro dependency) has two layers:
 
 1. *Always-on optimisations* (behaviour-preserving) — replace the per-chunk =text-property-search= scans with an O(1) marker index keyed by fragment id; cache section starts so body/label lookups become O(1); skip rewriting labels and activity-group headers that haven't changed; scope the invisible-property clear to the trailing tail; and (perf-mode only) tag streaming chars =fontified= so font-lock + =goto-address= never re-run over them. Every lookup keeps the original scan as a fallback, so a stale index entry self-heals.
-2. *Perf-mode toggle* (=M-x my/agent-shell/perf-fix/toggle=, ON by default) — markdown rendering off, activity groups expanded, busy indicator off, shell-maker auto-scroll off while streaming; the final agent message is re-rendered once when the turn completes (=my/agent-shell/perf-fix-prettify-on-turn-complete=, on by default), and the viewport buffer is refreshed so its copy of the response picks up the rendering too (agent-shell refreshes viewport content only on navigation, never on turn-complete — without this the rendered shell buffer is invisible to a user looking at the viewport, the default surface). =M-x my/agent-shell/prettify= renders the active region or block-at-point on demand, regardless of perf mode.
+2. *Perf-mode toggle* (=C-c P=, =M-x tl/agent-shell-perf-fix-toggle=, ON by default) — markdown rendering off, activity groups expanded, busy indicator off, shell-maker auto-scroll off while streaming; the final agent message is re-rendered once when the turn completes (=my/agent-shell/perf-fix-prettify-on-turn-complete=, on by default), and the viewport buffer is refreshed so its copy of the response picks up the rendering too (agent-shell refreshes viewport content only on navigation, never on turn-complete).  Manual inverse: =C-c p= (`tl/agent-shell-prettify`) renders the region or block at point regardless of perf-mode state.
 
 It depends on =el-patch= (the patching mechanism) and =agent-shell=.
 

@@ -14,7 +14,8 @@
 
 NAME is a symbol.  The macro defines:
 - NAME/active-p — boolean state variable, initialised to :initial-p.
-- NAME/toggle   — interactive command that toggles the state.
+- NAME/toggle   — interactive command that toggles the state
+                  (:toggle-name overrides the command's name).
 
 Keyword arguments (plist):
 :init FORM       — evaluated before each state transition.
@@ -22,6 +23,7 @@ Keyword arguments (plist):
 :disable FORM    — evaluated when entering disabled state.
 :final FORM      — evaluated after each state transition.
 :initial-p VALUE — initial active state (default nil).
+:toggle-name SYM — command name override (default NAME/toggle).
 
 Each transition runs: init, enable/disable, final.
 At definition time the initial sequence is run to bring the system
@@ -33,7 +35,8 @@ into concordance with the initial state."
          (final     (plist-get plist :final))
          (initial-p (plist-get plist :initial-p))
          (active-var (intern (format "%s/active-p" name)))
-         (toggle-fn  (intern (format "%s/toggle" name)))
+         (toggle-fn  (or (plist-get plist :toggle-name)
+                         (intern (format "%s/toggle" name))))
          (init-f    (or init '(ignore)))
          (enable-f  (or enable '(ignore)))
          (disable-f (or disable '(ignore)))

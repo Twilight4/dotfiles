@@ -121,7 +121,7 @@
 ;;    update.
 ;;
 ;; 2. PERF-FIX TOGGLE (user-space, feature tradeoffs)
-;;    `my/agent-shell/perf-fix/toggle', ON by default.
+;;    `tl/agent-shell-perf-fix-toggle', ON by default.
 ;;    - markdown rendering off (raw text, no per-chunk passes)
 ;;    - activity groups expanded (skips the per-chunk group-collapse
 ;;      re-derivation; only groups CREATED while perf mode is on start
@@ -135,8 +135,8 @@
 ;;      function name, so re-enabling replaces cleanly and the
 ;;      original function is restored on disable; verified in batch)
 ;;
-;; 3. PRETTIFY REGION (user-space command)
-;;    `my/agent-shell/prettify-region': render markdown in the selected
+;; 3. PRETTIFY (user-space command)
+;;    `tl/agent-shell-prettify': render markdown in the selected
 ;;    region as if the toggle were disabled -- the real renderer runs on
 ;;    the fragment-block portion regardless of perf-mode state; images on
 ;;    (concordance with the default look); frozen spans skipped
@@ -1653,7 +1653,7 @@ with GROUP-EXPANDED as the group's initial fold state."
 
 ;;;; 2. Perf-fix toggle -- user-space feature tradeoffs
 
-;; Performance mode: `my/agent-shell/perf-fix/toggle', ON by default.
+;; Performance mode: `tl/agent-shell-perf-fix-toggle', ON by default.
 ;;   - markdown rendering off (raw text, no per-chunk passes)
 ;;   - activity groups expanded (skips the per-chunk group-collapse
 ;;     re-derivation, part of the fragment-search hot spot)
@@ -1714,6 +1714,7 @@ With `:initial-p' t the capture happens when agent-shell first loads,
 so the pre-perf values are what perf mode restores on disable.")
 
   (my/mk-toggle my/agent-shell/perf-fix
+    :toggle-name tl/agent-shell-perf-fix-toggle
     :initial-p my/agent-shell/perf-fix-default-on
     :init
     (progn
@@ -1803,7 +1804,7 @@ No-op with a message when point is not inside a block."
                                            (and (eq (car section) 'body)
                                                 my/agent-shell/perf-fix-prettify-images)))))))
 
-(defun my/agent-shell/prettify (&optional beg end)
+(defun tl/agent-shell-prettify (&optional beg end)
   "Render markdown as if perf mode were disabled.
 
 With an active region (or explicit BEG/END), prettifies the
