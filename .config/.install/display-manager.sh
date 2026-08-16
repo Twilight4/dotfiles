@@ -36,6 +36,10 @@ sudo mv /usr/share/wayland-sessions/hyprland.desktop /usr/share/wayland-sessions
 sudo mv /usr/share/wayland-sessions/hyprland-uwsm.desktop /usr/share/wayland-sessions/hyprland-uwsm.desktop.disabled
 sudo sed -i 's/^Name=.*/Name=Hyprland/' /usr/share/wayland-sessions/garuda-hyprland-uwsm.desktop
 
+# Greeter keyboard: match Hyprland layout and remap CapsLock to Ctrl so it can't
+# silently toggle on in SDDM (writes /etc/X11/xorg.conf.d/00-keyboard.conf)
+sudo localectl set-x11-keymap pl "" "" ctrl:nocaps
+
 echo "/etc/sddm.conf file created."
 
 # Wait 2 sec before clear so user knows what happened
