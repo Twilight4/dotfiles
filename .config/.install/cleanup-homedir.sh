@@ -11,7 +11,7 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "This will debloat the \$HOME directory. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will debloat the \$HOME directory. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 # Create necessary directories

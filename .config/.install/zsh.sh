@@ -12,7 +12,7 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "This will set the default shell to Zsh. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will set the default shell to Zsh. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 zsh_path=$(command -v zsh) || { err "zsh not found in PATH."; return 1; }

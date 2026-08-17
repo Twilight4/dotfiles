@@ -12,7 +12,7 @@ __      ____ _| | |_ __   __ _ _ __   ___ _ __ ___
 EOF
 
 # Prompt the user
-read -p "This will clone Twilight4/wallpapers repository. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will clone Twilight4/wallpapers repository. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 if [[ -d $HOME/pictures/wallpapers ]]; then

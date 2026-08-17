@@ -12,7 +12,7 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "This will take a minimum of 30 minutes. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will take a minimum of 30 minutes. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 bloat=(
@@ -258,6 +258,7 @@ packages=(
   "noise-suppression-for-voice-git"
 )
 
+# shellcheck disable=SC2034  # installed on demand via the commented-out call below
 extra=(
   "toilet"
   "espanso-wayland"

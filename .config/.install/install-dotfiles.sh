@@ -12,7 +12,7 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "This will install all dotfiles configurations. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will install all dotfiles configurations. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 # Exported so prompt-reboot.sh knows whether deleting the cloned repo is safe.

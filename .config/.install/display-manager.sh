@@ -15,7 +15,7 @@ ____  _           _               __  __
 EOF
 
     # Prompt the user
-    read -p "This will configure SDDM display manager. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+    read -rp "This will configure SDDM display manager. Press any key to continue or Ctrl+C to exit..." -n 1 -s
     echo
 
     info "Creating /etc/sddm.conf file..."

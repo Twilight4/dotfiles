@@ -13,7 +13,7 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "This will install auto-cpufreq. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will install auto-cpufreq. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 if ! command -v auto-cpufreq >/dev/null; then

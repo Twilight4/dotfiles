@@ -74,7 +74,7 @@ insert_after_pattern() {
 }
 
 # Prompt the user
-read -p "Do you want to append performance tweaks to the system (Recommended)? (y/n) " answer
+read -rp "Do you want to append performance tweaks to the system (Recommended)? (y/n) " answer
 if [[ $answer != "y" ]]; then
     info "No changes made."
     return 0
@@ -108,7 +108,7 @@ ok "Performance tweaks applied in sysctl.conf file."
 ########################################################
 # Prompt user to optimize GRUB config
 echo
-read -p "Do you want to optimize AMD CPU in the GRUB configuration (Recommended)? (y/n) " optimize_grub
+read -rp "Do you want to optimize AMD CPU in the GRUB configuration (Recommended)? (y/n) " optimize_grub
 echo
 if [[ $optimize_grub == "y" ]]; then
     grub_file="/etc/default/grub"
@@ -123,7 +123,7 @@ if [[ $optimize_grub == "y" ]]; then
 
     # Prompt user to disable GRUB menu
     echo
-    read -p "Do you want to disable the GRUB menu (not recommended if using snapshots/dual-booting)? (y/n) " disable_grub_menu
+    read -rp "Do you want to disable the GRUB menu (not recommended if using snapshots/dual-booting)? (y/n) " disable_grub_menu
     if [[ $disable_grub_menu == "y" ]]; then
         comment_out_line "GRUB_TIMEOUT=" "$grub_file"
         insert_after_pattern "#GRUB_TIMEOUT=" "GRUB_TIMEOUT=0" "$grub_file"

@@ -12,7 +12,7 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "This will install NVChad configuration. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will install NVChad configuration. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 # Clean-slate reinstall: remove any existing config/state so the starter

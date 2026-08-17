@@ -41,7 +41,7 @@ check_service_status() {
 }
 
 # Prompt the user
-read -p "This will enable the necessary services. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will enable the necessary services. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 # Not sure:

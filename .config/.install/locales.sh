@@ -11,7 +11,7 @@ cat <<"EOF"
 EOF
 
 # Prompt the user
-read -p "This will correct the data locale to English. Press any key to continue or Ctrl+C to exit..." -n 1 -s
+read -rp "This will correct the data locale to English. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
 if [[ $(localectl status) != *"LC_TIME=en_US.UTF-8"* ]]; then
