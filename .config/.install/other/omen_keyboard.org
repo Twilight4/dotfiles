@@ -2,7 +2,11 @@
 ** Install the kernel module using DKMS
 #+begin_src shell
 git clone -b rebase-6.2 https://github.com/ranisalt/hp-omen-linux-module
-sudo dkms install --force hp-omen-linux-module
+cd hp-omen-linux-module
+sudo dkms remove hp-omen-linux-module --all || true   # no-op on first install
+sudo dkms add hp-omen-linux-module
+sudo dkms build hp-omen-linux-module -k "$(uname -r)"
+sudo dkms install hp-omen-linux-module -k "$(uname -r)"
 #+end_src
 Reboot now.
 

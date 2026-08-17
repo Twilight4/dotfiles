@@ -135,12 +135,12 @@ sudo setfacl -R -b /var/lib/libvirt/images/
 
 Recursively grant user permissions to the directory:
 #+begin_src shell
-sudo setfacl -R -m u:twilight:rwX /var/lib/libvirt/images
+sudo setfacl -R -m "u:${USER}:rwX" /var/lib/libvirt/images
 #+end_src
 
 Enable default special permissions:
 #+begin_src shell
-sudo setfacl -m d:u:twilight:rwx /var/lib/libvirt/images
+sudo setfacl -m "d:u:${USER}:rwx" /var/lib/libvirt/images
 #+end_src
 
 Review new ACL permissions:
@@ -154,6 +154,8 @@ Now you have full access to the image directory without root privileges.
 ** QEMU
 Create new disk image:
 #+begin_src shell
+# NOTE: qemu-img overwrites an existing image.qcow2 silently — check it
+# doesn't exist first if the VM already has data.
 qemu-img create -f qcow2 image.qcow2 100G
 #+end_src
 
@@ -225,7 +227,7 @@ options vfio-pci ids=<GPU>,<AUDIO>
 
 ** Update initramfs
 #+begin_src shell
-sudo update-initramfs -c -k $(uname -r)
+sudo update-initramfs -c -k "$(uname -r)"
 reboot
 #+end_src
 
