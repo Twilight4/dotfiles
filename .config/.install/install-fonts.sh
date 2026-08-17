@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Sourced by install.sh — use `return`, not `exit`.
 
 clear
 cat <<"EOF"
- _____           _       
-|  ___|__  _ __ | |_ ___ 
+ _____           _
+|  ___|__  _ __ | |_ ___
 | |_ / _ \| '_ \| __/ __|
 |  _| (_) | | | | |_\__ \
 |_|  \___/|_| |_|\__|___/
@@ -14,63 +15,52 @@ EOF
 read -p "This will install fonts. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
-# Jetbrains nerd font
-echo
-echo "Installing fonts..."
-echo "Downloading and Extracting Jetbrains Mono Nerd Font..."
-DOWNLOAD_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
-# Maximum number of download attempts
-MAX_ATTEMPTS=3
-for ((ATTEMPT = 1; ATTEMPT <= MAX_ATTEMPTS; ATTEMPT++)); do
-    curl -OL "$DOWNLOAD_URL"&& break
-    echo "Download attempt $ATTEMPT failed. Retrying in 2 seconds..."
-    sleep 2
-done
+FONT_DIR="$HOME/.config/.local/share/fonts"
 
-# Check if the JetBrainsMono folder exists and delete it if it does
-if [ -d ~/.config/.local/share/fonts/JetBrainsMonoNerd ]; then
-    rm -rvf ~/.config/.local/share/fonts/JetBrainsMono
-fi
+# Download and install one Nerd Font release tarball.
+# Fails HARD (return 1 -> set -e aborts) when the download is exhausted or the
+# tarball is bad — the previous version silently continued past a failed
+# download and tar'd a missing file, which is why Meslo ended up uninstalled
+# while the script reported success.
+install_nerd_font() {
+    local name="$1" url="$2"
+    local dest="$FONT_DIR/$name"
+    local tarball
+    tarball=$(mktemp --suffix=.tar.xz)
 
-mkdir -pv ~/.config/.local/share/fonts/JetBrainsMono
+    info "Downloading $name Nerd Font..."
+    # -f: fail on HTTP errors; --retry: transient network resilience.
+    if ! curl -fL --retry 3 --retry-delay 2 -o "$tarball" "$url"; then
+        err "Download failed: $url"
+        rm -f "$tarball"
+        return 1
+    fi
+    # Guard against an empty/truncated download before touching the font dir.
+    if [[ ! -s $tarball ]] || ! tar -tJf "$tarball" &>/dev/null; then
+        err "Corrupt tarball for $name."
+        rm -f "$tarball"
+        return 1
+    fi
 
-# Extract the new files into the JetBrainsMono folder and log the output
-tar -xJkf JetBrainsMono.tar.xz -C ~/.config/.local/share/fonts/JetBrainsMono
+    # Deliberate rm: stale glyphs of the same family should not linger.
+    rm -rf "$dest"
+    mkdir -p "$dest"
+    tar -xJf "$tarball" -C "$dest"
+    rm -f "$tarball"
 
-# Cleanup
-rm -rf JetBrainsMono.tar.xz
+    # Verify the extract actually produced font files.
+    if ! find "$dest" -name '*.ttf' -print -quit | grep -q .; then
+        err "No .ttf files found in $dest after extraction."
+        return 1
+    fi
+    ok "$name installed."
+}
 
+install_nerd_font "JetBrainsMono" "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
+install_nerd_font "Meslo"         "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.tar.xz"
 
-# Meslo nerd font
-echo
-echo "Downloading and Extracting Meslo Nerd Font..."
-DOWNLOAD_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.tar.xz"
-# Maximum number of download attempts
-MAX_ATTEMPTS=3
-for ((ATTEMPT = 1; ATTEMPT <= MAX_ATTEMPTS; ATTEMPT++)); do
-    curl -OL "$DOWNLOAD_URL" && break
-    echo "Download attempt $ATTEMPT failed. Retrying in 2 seconds..."
-    sleep 2
-done
-
-# Check if the Meslo folder exists and delete it if it does
-if [ -d ~/.config/.local/share/fonts/Meslo ]; then
-    rm -rfv ~/.config/.local/share/fonts/Meslo
-fi
-
-mkdir -pv ~/.config/.local/share/fonts/Meslo
-
-# Extract the new files into the Meslo folder and log the output
-tar -xJkf Meslo.tar.xz -C ~/.config/.local/share/fonts/Meslo
-
-# Cleanup
-rm -rf Meslo.tar.xz
-
-# Update font cache and log the output
-fc-cache -v
+# Rebuild the cache so the new fonts are immediately visible.
+fc-cache -f >/dev/null
 
 echo
-echo "Fonts installed successfully."
-
-# Wait 2 sec before clear so user knows what happened
-sleep 2
+ok "Fonts installed successfully."
