@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Sourced by install.sh — use `return`, not `exit`. Expects DOTFILES_DIR.
 
 clear
 cat <<"EOF"
- ____        _    __ _ _           
-|  _ \  ___ | |_ / _(_) | ___  ___ 
+ ____        _    __ _ _
+|  _ \  ___ | |_ / _(_) | ___  ___
 | | | |/ _ \| __| |_| | |/ _ \/ __|
 | |_| | (_) | |_|  _| | |  __/\__ \
 |____/ \___/ \__|_| |_|_|\___||___/
@@ -14,86 +15,70 @@ EOF
 read -p "This will install all dotfiles configurations. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
-# Function to install dotfiles using symlinks
+# Exported so prompt-reboot.sh knows whether deleting the cloned repo is safe.
+INSTALL_METHOD=""
+export INSTALL_METHOD
+
+# Install dotfiles as symlinks: ~/.config/<app> -> $DOTFILES_DIR/.config/<app>
 install_symlinks() {
-	echo "Installing dotfiles using symlinks..."
-	_installSymLink kitty ~/.config/kitty ~/dotfiles/.config/kitty/ ~/.config
-	_installSymLink btop ~/.config/btop ~/dotfiles/.config/btop/ ~/.config
-	_installSymLink cava ~/.config/cava ~/dotfiles/.config/cava/ ~/.config
-	_installSymLink cheat ~/.config/cheat ~/dotfiles/.config/cheat/ ~/.config
-	_installSymLink emacs ~/.config/emacs ~/dotfiles/.config/emacs/ ~/.config
-	_installSymLink fontconfig ~/.config/fontconfig ~/dotfiles/.config/fontconfig/ ~/.config
-	_installSymLink foot ~/.config/foot ~/dotfiles/.config/foot/ ~/.config
-	_installSymLink fortune ~/.config/fortune ~/dotfiles/.config/fortune/ ~/.config
-	_installSymLink git ~/.config/git ~/dotfiles/.config/git/ ~/.config
-	_installSymLink gtklock ~/.config/gtklock ~/dotfiles/.config/gtklock/ ~/.config
-	_installSymLink lsd ~/.config/lsd ~/dotfiles/.config/lsd/ ~/.config
-	_installSymLink mpd ~/.config/mpd ~/dotfiles/.config/mpd/ ~/.config
-	_installSymLink mpv ~/.config/mpv ~/dotfiles/.config/mpv/ ~/.config
-	_installSymLink newsboat ~/.config/newsboat ~/dotfiles/.config/newsboat/ ~/.config
-	_installSymLink npm ~/.config/npm ~/dotfiles/.config/npm/ ~/.config
-	_installSymLink pipewire.conf.d ~/.config/pipewire.conf.d ~/dotfiles/.config/pipewire.conf.d/ ~/.config
-	_installSymLink wal ~/.config/wal ~/dotfiles/.config/wal/ ~/.config
-	_installSymLink zathura ~/.config/zathura ~/dotfiles/.config/zathura/ ~/.config
-	_installSymLink zsh ~/.config/zsh ~/dotfiles/.config/zsh/ ~/.config
-	_installSymLink user-dirs.dirs ~/.config/user-dirs.dirs ~/dotfiles/.config/user-dirs.dirs ~/.config
-	_installSymLink rofi ~/.config/rofi ~/dotfiles/.config/rofi/ ~/.config
-	_installSymLink swaync ~/.config/swaync ~/dotfiles/.config/swaync/ ~/.config
-	_installSymLink hypr ~/.config/hypr ~/dotfiles/.config/hypr/ ~/.config
-	_installSymLink waybar ~/.config/waybar ~/dotfiles/.config/waybar/ ~/.config
-	_installSymLink swaylock ~/.config/swaylock ~/dotfiles/.config/swaylock/ ~/.config
-	_installSymLink wlogout ~/.config/wlogout ~/dotfiles/.config/wlogout/ ~/.config
-	_installSymLink swappy ~/.config/swappy ~/dotfiles/.config/swappy/ ~/.config
-	_installSymLink gtk-3.0 ~/.config/gtk-3.0 ~/dotfiles/.config/gtk-3.0/ ~/.config/
-	_installSymLink gtk-4.0 ~/.config/gtk-4.0 ~/dotfiles/.config/gtk-4.0/ ~/.config/
+    info "Installing dotfiles using symlinks..."
+    local app
+    for app in kitty btop cava cheat emacs fontconfig foot fortune git gtklock \
+               lsd mpd mpv newsboat npm pipewire.conf.d wal zathura zsh \
+               rofi swaync hypr waybar swaylock wlogout swappy; do
+        _installSymLink "$app" "$HOME/.config/$app" "$DOTFILES_DIR/.config/$app/" "$HOME/.config"
+    done
+    # Single files and dirs nested one level deeper
+    _installSymLink user-dirs.dirs "$HOME/.config/user-dirs.dirs" "$DOTFILES_DIR/.config/user-dirs.dirs" "$HOME/.config"
+    _installSymLink gtk-3.0 "$HOME/.config/gtk-3.0" "$DOTFILES_DIR/.config/gtk-3.0/" "$HOME/.config/"
+    _installSymLink gtk-4.0 "$HOME/.config/gtk-4.0" "$DOTFILES_DIR/.config/gtk-4.0/" "$HOME/.config/"
+    INSTALL_METHOD=symlinks
 }
 
-# Function to install dotfiles by copying files to ~/.config
+# Install dotfiles by copying the whole .config over the live one
 install_by_copy() {
-	echo "Copying files to ~/.config..."
-	rm -rf ~/.config/
-	cp -r ~/dotfiles/.config ~/
-  echo "Files copied successfully."
+    info "Copying files to ~/.config..."
+    # Deliberate rm: clean-slate deploy, no merge with pre-existing configs.
+    rm -rf "$HOME/.config/"
+    cp -r "$DOTFILES_DIR/.config" "$HOME/"
+    ok "Files copied successfully."
+    INSTALL_METHOD=copy
 }
 
-# Main function
 main() {
-	echo "Choose installation method:"
-	echo "1. Use symlinks"
-	echo "2. Copy dotfiles to ~/.config"
-	echo "3. Skip installation"
+    echo "Choose installation method:"
+    echo "1. Use symlinks"
+    echo "2. Copy dotfiles to ~/.config"
+    echo "3. Skip installation"
 
-	read -p "Enter your choice: " choice
+    local choice
+    read -rp "Enter your choice: " choice
 
-	case $choice in
-	1) install_symlinks ;;
-	2) install_by_copy ;;
-	3) echo "Skipping installation..." ;;
-	*) echo "Invalid choice. Please enter a number between 1 and 3." ;;
-	esac
+    case $choice in
+        1) install_symlinks ;;
+        2) install_by_copy ;;
+        3) info "Skipping installation..." ;;
+        *) warn "Invalid choice. Please enter a number between 1 and 3." ;;
+    esac
 
-  # Copy the emacs AI prompts
-  SOURCE_DIR=~/dotfiles/.config/ai-prompts
-  DEST_DIR=~/.cache/emacs
-  
-  # Ensure the source directory exists
-  if [ -d "$SOURCE_DIR" ]; then
-    echo "Copying AI prompts from $SOURCE_DIR to $DEST_DIR..."
-    cp -r "$SOURCE_DIR" "$DEST_DIR"
-    echo "Copy completed successfully."
-  else
-    echo "Error: Source directory $SOURCE_DIR does not exist."
-  fi
+    # Copy the emacs AI prompts
+    local source_dir="$DOTFILES_DIR/.config/ai-prompts"
+    local dest_dir="$HOME/.cache/emacs"
 
-	# Setting mime type for org mode (org mode is not recognised as it's own mime type by default)
-	update-mime-database ~/.config/.local/share/mime
-	xdg-mime default emacs.desktop text/org
+    if [[ -d $source_dir ]]; then
+        info "Copying AI prompts from $source_dir to $dest_dir..."
+        cp -r "$source_dir" "$dest_dir"
+        ok "Copy completed successfully."
+    else
+        warn "Source directory $source_dir does not exist."
+    fi
 
-  # Update dirs
-  xdg-user-dirs-update
+    # Setting mime type for org mode (org mode is not recognised as its own mime type by default)
+    update-mime-database "$HOME/.config/.local/share/mime"
+    xdg-mime default emacs.desktop text/org
+
+    # Update dirs
+    xdg-user-dirs-update
 }
 
 main
-
-# Wait 2 sec before clear so user knows what happened
-sleep 2
