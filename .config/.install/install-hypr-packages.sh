@@ -162,7 +162,6 @@ packages=(
   "net-tools"
   "upower"
   "apparmor"
-  "thefuck"
   "libsecret"
   "chafa"
   "alsa-utils"
@@ -217,7 +216,6 @@ packages=(
   "eog"
   "mpv"
   "mpv-mpris"
-  "acpi"
   "acpid"
   "nvtop"
   "pamixer"
@@ -230,9 +228,7 @@ packages=(
   "freetube"
   "gnome-calculator"
   "dog"
-  "ripgrep"
   "rofi"
-  "swaybg"
   "ananicy-cpp"
   "nohang"
   "imagemagick"
@@ -304,7 +300,6 @@ extra=(
   "python-pywhat"
   "tabbed-git"
   "sway-audio-idle-inhibit-git"
-  "tabbed-git"
   "ffsend-bin"
   "ascii-image-converter-git"
   "boxes"
@@ -315,15 +310,14 @@ extra=(
 )
 
 # First you have to uninstall the bloat
-echo "Removing bloat..."
+info "Removing bloat..."
 _uninstallPackagesParu "${bloat[@]}"
 
 # Install packages
-echo "Installing packages..."
+info "Installing packages..."
 sudo pacman -Sy
 _installPackagesParu "${packages[@]}"
 #_installPackagesParu "${extra[@]}"
 
-# Wait 2 sec before clear so user knows what happened
 echo
-sleep 2
+ok "Package installation finished."

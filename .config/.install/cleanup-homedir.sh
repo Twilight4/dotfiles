@@ -79,22 +79,12 @@ for dir in ~/.local/state*; do
     echo "Moving directory: $dir..."
 done
 
-# Remove specific files and directories
-sudo rm -vf /home/"$(whoami)"/.bash*
+# Remove replaced files/dirs silently and deliberately: the setup uses
+# lowercase XDG dirs (~/documents, ...) and its own shell configs under
+# ~/.config, so these stock files are dead weight. All rm calls use -f so a
+# re-run with nothing left to delete does not error under set -e.
+sudo rm -vf "/home/$(whoami)"/.bash*
 rm -vrf ~/.local
 rm -vrf ~/.git
 rm -vrf ~/Documents ~/Pictures ~/Desktop ~/Downloads ~/Templates ~/Music ~/Videos ~/Public
-rm -vf ~/.viminfo
-rm -vf ~/.zsh*
-rm -vf ~/.zcompdump*
-rm -vf ~/.dircolors
-rm -vf ~/.Xresources
-rm -vf ~/.zcompdump
-rm -vf ~/.profile
-rm -vf ~/.gtkrc-2.0
-rm -vf ~/.gitconfig
-rm -vf ~/.zhistory
-rm -vf ~/.zshrc
-
-# Wait 2 sec before clear so user knows what happened
-sleep 2
+rm -vf ~/.viminfo ~/.zsh* ~/.zcompdump* ~/.dircolors ~/.Xresources ~/.profile ~/.gtkrc-2.0 ~/.gitconfig

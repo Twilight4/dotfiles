@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Sourced by install.sh — use `return`, not `exit`. Expects DOTFILES_DIR.
 
 clear
 cat <<"EOF"
- _   ___     ______ _               _ 
+ _   ___     ______ _               _
 | \ | \ \   / / ___| |__   __ _  __| |
 |  \| |\ \ / / |   | '_ \ / _` |/ _` |
 | |\  | \ V /| |___| | | | (_| | (_| |
@@ -14,34 +15,35 @@ EOF
 read -p "This will install NVChad configuration. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
-# Remove existing NVChad configuration if it exists
-if [[ -d "$HOME/.config/nvim" ]]; then
+# Clean-slate reinstall: remove any existing config/state so the starter
+# clone always lands on a fresh tree (safe to re-run).
+if [[ -d $HOME/.config/nvim ]]; then
     echo
-    rm -rvf "$HOME/.config/nvim"
-    rm -rf ~/.config/nvim
-    rm -rf ~/.local/state/nvim
-    rm -rf ~/.local/share/nvim
-    echo "Existing NVChad configuration removed."
+    rm -rf "$HOME/.config/nvim" \
+           "$HOME/.local/state/nvim" \
+           "$HOME/.local/share/nvim"
+    info "Existing NVChad configuration removed."
 fi
 
-# Clone the NVChad repository
+# Clone the NVChad starter
 if git clone https://github.com/NvChad/starter "$HOME/.config/nvim"; then
-    echo "NVChad configuration cloned successfully."
+    ok "NVChad configuration cloned successfully."
 
     # Set background color to the same as in kitty and emacs
-    echo -e "\n-- Disable the status line\nvim.opt.laststatus = 0\n\n-- set background color to #040305\nvim.cmd(\"highlight Normal guibg=#040305 ctermbg=black\")" >> ~/.config/nvim/init.lua
+    echo -e "\n-- Disable the status line\nvim.opt.laststatus = 0\n\n-- set background color to #040305\nvim.cmd(\"highlight Normal guibg=#040305 ctermbg=black\")" >> "$HOME/.config/nvim/init.lua"
 else
-    echo "Failed to clone NVChad repository."
-    exit 1
+    err "Failed to clone NVChad repository."
+    return 1
 fi
 
 # Copy custom lua file
-cp "$HOME/dotfiles/.config/nvim/lua/kitty+page.lua" "$HOME/.config/nvim/lua" && \
+if cp "$DOTFILES_DIR/.config/nvim/lua/kitty+page.lua" "$HOME/.config/nvim/lua"; then
+    echo
+    ok "Custom lua file copied successfully."
+else
+    err "Custom lua file not found in $DOTFILES_DIR."
+    return 1
+fi
+
 echo
-echo "Custom lua file copied successfully."
-
-# End of script
-echo "NVChad configuration installation complete."
-
-# Wait 2 sec before clear so user knows what happened
-sleep 2
+ok "NVChad configuration installation complete."

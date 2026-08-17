@@ -15,16 +15,18 @@ EOF
 read -p "This will clone Twilight4/wallpapers repository. Press any key to continue or Ctrl+C to exit..." -n 1 -s
 echo
 
-if [ -d ~/pictures/wallpapers ]; then
-    rm -rvf ~/pictures/wallpapers
+if [[ -d $HOME/pictures/wallpapers ]]; then
+    rm -rf "$HOME/pictures/wallpapers"
 fi
-mkdir -vp ~/pictures/
-mkdir -vp ~/.cache/
-git clone --depth 1 https://github.com/Twilight4/wallpapers ~/pictures/wallpapers
-rm -rvf ~/pictures/wallpapers/.git
-[ -f ~/pictures/wallpapers/aesthetic-wallpapers/default.png ] && cp -v ~/pictures/wallpapers/aesthetic-wallpapers/default.png ~/.cache/ && echo "Copied default.png" || echo "default.png does not exist."
+mkdir -pv "$HOME/pictures/"
+mkdir -pv "$HOME/.cache/"
+git clone --depth 1 https://github.com/Twilight4/wallpapers "$HOME/pictures/wallpapers"
+rm -rf "$HOME/pictures/wallpapers/.git"
+if [[ -f $HOME/pictures/wallpapers/aesthetic-wallpapers/default.png ]]; then
+    cp -v "$HOME/pictures/wallpapers/aesthetic-wallpapers/default.png" "$HOME/.cache/"
+    ok "Copied default.png"
+else
+    warn "default.png does not exist."
+fi
 echo
-echo "Wallpapers installed successfully."
-
-# Wait 2 sec before clear so user knows what happened
-sleep 2
+ok "Wallpapers installed successfully."
