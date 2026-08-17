@@ -1,29 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Sourced by install.sh — use `return`, not `exit`.
 
-SCRIPT=$(realpath "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
-if [ $SCRIPTPATH = "/home/$USER/.config" ]; then
-	echo "IMPORTANT: You're running the installation script from the installation target directory."
-	echo "Please move the dotfiles repository to i.e. ~/downloads/ and start the script again."
-	echo ""
-	if [ ! $mode == "dev" ]; then
-		exit
-	fi
+# Refuse to run when the repo was cloned into the live config dir: the deploy
+# step would then operate on its own target. `mode=dev` bypasses for testing.
+SCRIPTPATH=$(dirname "$(realpath "$0")")
+if [[ $SCRIPTPATH == "/home/$USER/.config" && ${mode:-} != "dev" ]]; then
+    echo "IMPORTANT: You're running the installation script from the installation target directory."
+    echo "Please move the dotfiles repository to i.e. ~/downloads/ and start the script again."
+    echo ""
+    return 1
 fi
 
 while true; do
-	read -p "START THE INSTALLATION? (y/n): " yn
-	case $yn in
-	[Yy]*)
-		echo "Installation started."
-		break
-		;;
-	[Nn]*)
-		echo "Installation canceled."
-		exit
-		break
-		;;
-	*) echo "Please answer yes or no." ;;
-	esac
+    read -rp "START THE INSTALLATION? (y/n): " yn
+    case $yn in
+        [Yy]*) echo "Installation started."; break ;;
+        [Nn]*) echo "Installation canceled."; return 1 ;;
+        *)     echo "Please answer yes or no." ;;
+    esac
 done
 echo ""
