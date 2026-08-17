@@ -1,67 +1,67 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Sourced by install.sh — use `return`, not `exit`.
 
 clear
 cat <<"EOF"
- ____            _                   _____                    _        
-/ ___| _   _ ___| |_ ___ _ __ ___   |_   _|_      _____  __ _| | _____ 
+ ____            _                   _____                    _
+/ ___| _   _ ___| |_ ___ _ __ ___   |_   _|_      _____  __ _| | _____
 \___ \| | | / __| __/ _ \ '_ ` _ \    | | \ \ /\ / / _ \/ _` | |/ / __|
  ___) | |_| \__ \ ||  __/ | | | | |   | |  \ V  V /  __/ (_| |   <\__ \
 |____/ \__, |___/\__\___|_| |_| |_|   |_|   \_/\_/ \___|\__,_|_|\_\___/
-       |___/                                                           
+       |___/
 
 EOF
 
 ########################################################
 # PERFORMANCE TWEAKS                                   #
 ########################################################
-# Function to check and append a line to a file if not already present
+# Append a line to a file if not already present (exact match).
 append_if_not_exists() {
     local line="$1"
     local file="$2"
-    
+
     # Create the file if it doesn't exist
-    if [ ! -f "$file" ]; then
+    if [[ ! -f $file ]]; then
         sudo touch "$file"
         sudo chmod 644 "$file"
-        echo "Created: $file"
+        info "Created: $file"
     fi
 
     # Check for exact match in the file
     if grep -Fxq "$line" "$file"; then
-        echo "Already present: $line"
+        info "Already present: $line"
     else
-        echo "$line" | sudo tee -a "$file" > /dev/null
-        echo "Added: $line"
+        echo "$line" | sudo tee -a "$file" >/dev/null
+        ok "Added: $line"
     fi
 }
 
-# Function to comment out a line if it exists
+# Comment out a line if it exists
 comment_out_line() {
     local pattern="$1"
     local file="$2"
-    
+
     if grep -q "^${pattern}" "$file"; then
         sudo sed -i "s/^${pattern}/#${pattern}/" "$file"
-        echo "Commented out: $pattern"
+        info "Commented out: $pattern"
     fi
 }
 
-# Function to uncomment a line if it exists
+# Uncomment a line if it exists
 uncomment_line() {
     local pattern="$1"
     local file="$2"
-    
+
     # Check if the line is commented out
     if grep -q "^#${pattern}" "$file"; then
-        # Uncomment the line
         sudo sed -i "s/^#${pattern}/${pattern}/" "$file"
-        echo "Uncommented: ${pattern}"
+        info "Uncommented: ${pattern}"
     else
-        echo "Line not commented: ${pattern}"
+        info "Line not commented: ${pattern}"
     fi
 }
 
-# Function to insert a new line after a specific pattern
+# Insert a new line after a specific pattern
 insert_after_pattern() {
     local pattern="$1"
     local new_line="$2"
@@ -69,15 +69,15 @@ insert_after_pattern() {
 
     if grep -q "^${pattern}" "$file"; then
         sudo sed -i "/^${pattern}/a $new_line" "$file"
-        echo "Inserted: $new_line"
+        info "Inserted: $new_line"
     fi
 }
 
 # Prompt the user
 read -p "Do you want to append performance tweaks to the system (Recommended)? (y/n) " answer
-if [[ "$answer" != "y" ]]; then
-    echo "No changes made."
-    exit 0
+if [[ $answer != "y" ]]; then
+    info "No changes made."
+    return 0
 fi
 
 # Define tweaks to be added
@@ -98,12 +98,10 @@ for tweak in "${sysctl_conf_tweaks[@]}"; do
 done
 
 # Special case for /etc/sysctl.d/99-splitlock.conf
-special_tweak="kernel.split_lock_mitigate=0"
-append_if_not_exists "$special_tweak" "/etc/sysctl.d/99-splitlock.conf"
+append_if_not_exists "kernel.split_lock_mitigate=0" "/etc/sysctl.d/99-splitlock.conf"
 
 echo
-echo "Performance tweaks applied in sysctl.conf file."
-
+ok "Performance tweaks applied in sysctl.conf file."
 
 ########################################################
 # GRUB MENU                                            #
@@ -112,7 +110,7 @@ echo "Performance tweaks applied in sysctl.conf file."
 echo
 read -p "Do you want to optimize AMD CPU in the GRUB configuration (Recommended)? (y/n) " optimize_grub
 echo
-if [[ "$optimize_grub" == "y" ]]; then
+if [[ $optimize_grub == "y" ]]; then
     grub_file="/etc/default/grub"
 
     # Comment out existing GRUB_CMDLINE_LINUX_DEFAULT line and add new one below it
@@ -126,20 +124,17 @@ if [[ "$optimize_grub" == "y" ]]; then
     # Prompt user to disable GRUB menu
     echo
     read -p "Do you want to disable the GRUB menu (not recommended if using snapshots/dual-booting)? (y/n) " disable_grub_menu
-    if [[ "$disable_grub_menu" == "y" ]]; then
+    if [[ $disable_grub_menu == "y" ]]; then
         comment_out_line "GRUB_TIMEOUT=" "$grub_file"
         insert_after_pattern "#GRUB_TIMEOUT=" "GRUB_TIMEOUT=0" "$grub_file"
     fi
 
     # Update GRUB configuration
     echo
-    echo "Updating GRUB configuration..."
+    info "Updating GRUB configuration..."
     sudo update-grub
     echo
-    echo "GRUB configuration optimized."
+    ok "GRUB configuration optimized."
 else
-    echo "No changes made to GRUB configuration."
+    info "No changes made to GRUB configuration."
 fi
-
-# Wait 2 sec before clear so user knows what happened
-sleep 2
