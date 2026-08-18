@@ -3160,7 +3160,17 @@ This is useful when followed by an immediate kill."
     (define-key magit-mode-map (kbd ";") #'recenter-top-bottom)
     ;; C-j = magit-next-line everywhere, instead of relying on magit's
     ;; `<remap> <next-line>' catching the global C-j = `next-line'.
-    (define-key magit-mode-map (kbd "C-j") #'magit-next-line))
+    (define-key magit-mode-map (kbd "C-j") #'magit-next-line)
+    ;; q/i = line scrolls — same binding as god-mode q/i; at the mode-map
+    ;; level so they also hold when god-local-mode is off. Log/blob/blame/
+    ;; rebase buffers keep their own upstream q (modal quits), and gitignore
+    ;; stays in the dispatch (M-g i).
+    (define-key magit-mode-map (kbd "q") #'scroll-up-line)
+    (define-key magit-mode-map (kbd "i") #'scroll-down-line)
+    ;; Displaced defaults: bury-buffer -> Q (upstream Q and : both run
+    ;; magit-git-command; : keeps it), gitignore -> M-i.
+    (define-key magit-mode-map (kbd "Q") #'magit-mode-bury-buffer)
+    (define-key magit-mode-map (kbd "M-i") #'magit-gitignore))
   ;; Upstream binds C-j in diff sections (`magit-diff-section-map', parent of
   ;; the file/hunk section maps; a section keymap shadows the mode map) to
   ;; `magit-diff-visit-worktree-file' — so C-j opened the file instead of
