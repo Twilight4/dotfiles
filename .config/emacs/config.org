@@ -3863,6 +3863,25 @@ Positions cursor at the filename."
   (let ((default-directory (dired-current-directory)))
     (dired-create-directory dirname)))
 
+;; consult-buffer restricted to dired buffers — shifted sibling of M-l.
+(defun tl/consult-dired ()
+  "Jump with `consult' to a dired buffer, with live preview.
+Like `consult-buffer', but lists only dired-mode buffers."
+  (interactive)
+  (when (fboundp 'consult--multi)
+    (consult--multi
+     `((:name     "Dired buffers"
+        :narrow   ?d                     ; Press 'd' to narrow to dired
+        :category buffer
+        :face     consult-buffer
+        :history  buffer-name-history
+        :state    ,#'consult--buffer-state ; Live preview of the dired window
+        :items    ,(lambda ()
+                     (consult--buffer-query
+                      :sort 'visibility
+                      :mode 'dired-mode
+                      :as #'consult--buffer-pair)))))))
+
 (defun tl-dired-mode-setup ()
   ;; Display: hide perms/owner/size/date by default
   (dired-hide-details-mode 1)
@@ -4931,6 +4950,7 @@ terminal for that directory is reused instead of spawning a new one."
 (global-set-key (kbd "M-,") 'tl/consult-ghostel)
 (global-set-key (kbd "M-.") 'tl/consult-new-org)
 (global-set-key (kbd "M-l") 'consult-buffer)
+(global-set-key (kbd "M-L") 'tl/consult-dired)
 (global-set-key (kbd "M-u") 'tl/kill-current-buffer)
 (global-set-key (kbd "M-<") 'enlarge-window-horizontally)
 (global-set-key (kbd "M->") 'shrink-window-horizontally)
