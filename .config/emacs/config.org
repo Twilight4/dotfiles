@@ -3162,9 +3162,10 @@ This is useful when followed by an immediate kill."
     ;; `<remap> <next-line>' catching the global C-j = `next-line'.
     (define-key magit-mode-map (kbd "C-j") #'magit-next-line)
     ;; q/i = line scrolls — same binding as god-mode q/i; at the mode-map
-    ;; level so they also hold when god-local-mode is off. Log/blob/blame/
-    ;; rebase buffers keep their own upstream q (modal quits), and gitignore
-    ;; stays in the dispatch (M-g i).
+    ;; level so they also hold when god-local-mode is off. Modes that shadow
+    ;; or bypass these are overridden below, so q/i/Q are uniform across all
+    ;; magit viewing buffers. git-rebase-mode is an editing buffer and keeps
+    ;; its own keys.
     (define-key magit-mode-map (kbd "q") #'scroll-up-line)
     (define-key magit-mode-map (kbd "i") #'scroll-down-line)
     ;; Displaced defaults: bury-buffer -> Q (upstream Q and : both run
@@ -3181,6 +3182,26 @@ This is useful when followed by an immediate kill."
     ;; C-j/C-S-j pairing); upstream also keeps it on C-<return>.
     (define-key magit-diff-section-map (kbd "C-S-j")
                 #'magit-diff-visit-worktree-file)))
+  ;; Uniform q/i/Q in the modes that shadow or bypass magit-mode-map.
+  ;; Log: only q is shadowed (i/Q inherit from magit-mode-map).
+  (with-eval-after-load 'magit-log
+    (define-key magit-log-mode-map (kbd "q") #'scroll-up-line)
+    ;; log-select is modal: pick on ./e/C-c C-c, abort on C-c C-k; Q runs
+    ;; the proper quit function instead of a plain bury.
+    (define-key magit-log-select-mode-map (kbd "q") #'scroll-up-line)
+    (define-key magit-log-select-mode-map (kbd "Q") #'magit-log-select-quit))
+  ;; Blob and blame are minor modes on the file buffer — magit-mode-map is
+  ;; not in their lookup chain, so all three keys are bound explicitly.
+  ;; (Blame keys live in magit-blame-read-only-mode-map, not
+  ;; magit-blame-mode-map, which only has C-c C-q.)
+  (with-eval-after-load 'magit-files
+    (define-key magit-blob-mode-map (kbd "q") #'scroll-up-line)
+    (define-key magit-blob-mode-map (kbd "i") #'scroll-down-line)
+    (define-key magit-blob-mode-map (kbd "Q") #'magit-bury-or-kill-buffer))
+  (with-eval-after-load 'magit-blame
+    (define-key magit-blame-read-only-mode-map (kbd "q") #'scroll-up-line)
+    (define-key magit-blame-read-only-mode-map (kbd "i") #'scroll-down-line)
+    (define-key magit-blame-read-only-mode-map (kbd "Q") #'magit-blame-quit))
 #+end_src
 
 ** Beacon
