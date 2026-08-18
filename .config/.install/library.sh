@@ -81,19 +81,3 @@ _uninstallPackagesParu() {
     ((${#toUninstall[@]})) || return 0
     paru --noconfirm -Rns "${toUninstall[@]}"
 }
-
-#------------------------------------------------------------ symlink deploy
-# $1 name (log label), $2 symlink path, $3 link source, $4 link target dir.
-# Deliberately REMOVES the existing target (file, dir, or symlink) instead of
-# backing it up: this bootstrap is meant to produce a clean slate with only
-# the repo's configs. All expansions quoted — an unquoted `rm -rf $symlink`
-# on a path with spaces deletes the wrong thing.
-_installSymLink() {
-    local name="$1" symlink="$2" linksource="$3" linktarget="$4"
-
-    if [[ -L $symlink || -e $symlink ]]; then
-        rm -rf "$symlink"
-    fi
-    ln -s "$linksource" "$linktarget"
-    info "[$name] $linksource -> $linktarget"
-}
