@@ -23,10 +23,10 @@ fi
 # Instructions for a user
 echo ""
 echo "Installation Finished."
-echo "To complete the setup, launch Hyprland, exit Hyprland and log in again."
+echo "To complete the setup, reboot and log in via SDDM (enabled by the installer)."
 echo ""
-echo "You can run Hyprland by typing:"
-echo "  Hyprland"
+echo "To start Hyprland from a TTY instead, use the uwsm-managed entry:"
+echo "  uwsm start garuda-hyprland-uwsm.desktop"
 echo ""
 echo "Once inside the desktop session, you can run the post-install workflow:"
 echo "  ~/.config/.install/post-install.sh"
