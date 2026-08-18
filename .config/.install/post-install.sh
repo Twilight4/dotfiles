@@ -13,7 +13,7 @@ SCRIPT_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
 source "$SCRIPT_DIR/library.sh"
 
 STEP=0
-TOTAL=16
+TOTAL=15
 
 #------------------------------------------------------------- flow helpers
 # banner <title> — step header
@@ -81,12 +81,12 @@ else
     fi
 fi
 
-#----------------------------------- 1.5. GNOME Keyring (passwordless)
+#--------------------------------------------------- 2. GNOME Keyring
 banner "GNOME Keyring — empty password"
 manual "The first time an app needs the keyring, a dialog appears." \
        "Just press Enter (empty password) to avoid secret-storage friction."
 
-#------------------------------------------------------ 2. Sync cloud data
+#----------------------------------------------------------- 3. Sync data
 banner "Sync cloud data (ssh keys via Mega, GitHub repos)"
 echo "Syncs ~/.ssh from Mega, pulls GitHub repos, applies small CLI fixes."
 if confirm_run; then
@@ -145,15 +145,7 @@ if confirm_run; then
     done
 fi
 
-#--------------------------------------- 3. Pentesting tools (optional)
-banner "Pentesting tools (optional)"
-echo "Installs Arch security categories via athena repos (nb-install-arch-categories)."
-echo "Blackarch repos intentionally skipped (buggy; athena covers it)."
-if confirm_run; then
-    run_or_fail "install pentest categories" nb-install-arch-categories
-fi
-
-#--------------------------------------------- 4. Zen browser (manual)
+#--------------------------------------------------- 4. Zen browser
 banner "Zen browser setup (manual)"
 manual "Create a profile named 'Default (release)'." \
        "Optional: zen-browser --ProfileManager → new profile 'YouTube'," \
@@ -161,7 +153,7 @@ manual "Create a profile named 'Default (release)'." \
        "Apply the config: https://github.com/Twilight4/zen-browser-config" \
        "Install the Proton Pass extension and log in to GitHub."
 
-#---------------------------------- 4b. Zen profiles.ini (automatable)
+#---------------------------------------------- 5. Zen profiles.ini
 banner "Zen profiles.ini — fix default profile"
 echo "Edits ~/.zen/profiles.ini so xdg-open uses 'Default (release)':"
 echo "  Default=1 under that profile, StartWithLastProfile=0."
@@ -175,18 +167,18 @@ elif confirm_run; then
     grep -n -B2 '^Default=1' "$profiles_ini" || true
 fi
 
-#------------------------------------------------ 5. Dock pins (manual)
+#------------------------------------------------------- 6. Dock pins
 banner "nwg-dock-hyprland pins (manual)"
 manual "Pin on the dock: Bluetooth, pavucontrol, gnome-clocks, kitty-2," \
        "  freetube, Netflix, zen browser, telegram, spotify, steam," \
        "  filemanager, protonmail, protonvpn, google maps, weather," \
        "  ferdium, outlook, Garuda toolbox, Blanket, calculator."
 
-#--------------------------------------------------- 6. Ferdium (manual)
+#-------------------------------------------------------- 7. Ferdium
 banner "Ferdium (manual)"
 manual "Log in to Ferdium and enable dark mode."
 
-#------------------------------------- 6b. Dock/rofi icons (automatable)
+#------------------------------------------------- 8. Dock/rofi icons
 banner "Fix dock/rofi icons"
 echo "Sets Papirus icons for google-maps-desktop and freetube .desktop entries."
 if confirm_run; then
@@ -205,7 +197,7 @@ if confirm_run; then
         /usr/share/icons/Papirus-Dark/128x128/apps/youtube.svg
 fi
 
-#------------------------------------------- 7. GTK theme (automatable)
+#-------------------------------------------------------- 9. GTK theme
 banner "GTK theme — Graphite-blue-Dark-compact"
 echo "Sets the GTK theme via gsettings (same as picking it in nwg-look)."
 if confirm_run; then
@@ -213,14 +205,14 @@ if confirm_run; then
         gsettings set org.gnome.desktop.interface gtk-theme "Graphite-blue-Dark-compact"
 fi
 
-#---------------------------------------- 8. gptel API key (manual)
+#-------------------------------------------------- 10. gptel API key
 banner "gptel API key (manual)"
 manual "Add your AI provider API key to the gptel configuration in Emacs." \
        "If Emacs doesn't load the config, it may not see ~/.config/emacs:" \
        "  move init.el to ~/.emacs.d/, or debug with:" \
        "  M-x org-babel-load-file ~/.config/emacs/config.org"
 
-#------------------------------------------------ 9. AI coding agent (OMP)
+#---------------------------------------------------- 11. AI coding agent
 banner "AI coding agent — uv, oh-my-pi, plugins, ai-projects links"
 echo "Installs uv + omp, restores the backed-up OMP config, installs plugins,"
 echo "and links the ai-projects skills/commands/global instructions."
@@ -274,15 +266,14 @@ if confirm_run; then
     fi
 fi
 
-#-------------------------------------------- 10. Docker MCP servers
+#--------------------------------------------------- 12. Docker MCP
 banner "Docker MCP — dev_workflow profile config"
 echo "Applies the static profile config, then asks for the GitHub PAT."
 if confirm_run; then
     run_or_fail "docker mcp profile config" docker mcp profile config dev_workflow \
         --set 'git.paths=["/home/twilight/desktop/workspace"]' \
         --set 'kubectl-mcp-server.kubeconfig=/home/twilight/.kube/config' \
-        --set 'kubernetes.config_path=/home/twilight/.kube/config' \
-        --set 'n8n.api_url=http://host.docker.internal:5678'
+        --set 'kubernetes.config_path=/home/twilight/.kube/config'
 
     echo
     info "Create a classic PAT: GitHub → Settings → Developer settings →"
@@ -302,7 +293,7 @@ if confirm_run; then
     info "Verify with: docker mcp gateway run --profile dev_workflow"
 fi
 
-#----------------------------------- 12. Yazi plugins (optional)
+#---------------------------------------------------- 13. Yazi plugins
 banner "Yazi plugins (optional)"
 echo "Installs 6 yazi plugins + the catppuccin-mocha flavor."
 if confirm_run; then
@@ -314,14 +305,14 @@ if confirm_run; then
     done
 fi
 
-#---------------------------------------- 12b. Telegram (manual)
+#-------------------------------------------------------- 14. Telegram
 banner "Telegram Desktop settings (manual)"
 manual "Notifications and Sounds: disable 'Draw attention to the window'." \
        "Notifications and Sounds: disable 'Allow sound'." \
        "Use the QT window frame; turn off animated emojis and stickers;" \
        "  'Include muted chats in unread count' → off."
 
-#------------------------------------------------- 13. k10temp (waybar)
+#------------------------------------------------------ 15. k10temp
 banner "CPU temperature module (k10temp)"
 echo "Waybar's temperature module needs the k10temp kernel module loaded."
 if confirm_run; then
