@@ -3153,7 +3153,24 @@ This is useful when followed by an immediate kill."
   ;; From a non-repo dir (e.g. the workspace magit tab's dired at
   ;; ~/desktop/workspace), `magit-status' offers a completion list of git
   ;; repos found here instead of raw path completion.
-  (setq magit-repository-directories '(("~/desktop/workspace" . 2))))
+  (setq magit-repository-directories '(("~/desktop/workspace" . 2)))
+  :config
+  ;; `;' recenter — same binding as Info, org-agenda, treemacs and god-mode.
+  (with-eval-after-load 'magit-mode
+    (define-key magit-mode-map (kbd ";") #'recenter-top-bottom)
+    ;; C-j = magit-next-line everywhere, instead of relying on magit's
+    ;; `<remap> <next-line>' catching the global C-j = `next-line'.
+    (define-key magit-mode-map (kbd "C-j") #'magit-next-line))
+  ;; Upstream binds C-j in diff sections (`magit-diff-section-map', parent of
+  ;; the file/hunk section maps; a section keymap shadows the mode map) to
+  ;; `magit-diff-visit-worktree-file' — so C-j opened the file instead of
+  ;; moving down whenever point sat on a staged/unstaged/diff section.
+  (with-eval-after-load 'magit-diff
+    (define-key magit-diff-section-map (kbd "C-j") #'magit-next-line)
+    ;; The displaced default keeps a C-j-adjacent home (treemacs-style
+    ;; C-j/C-S-j pairing); upstream also keeps it on C-<return>.
+    (define-key magit-diff-section-map (kbd "C-S-j")
+                #'magit-diff-visit-worktree-file)))
 #+end_src
 
 ** Beacon
