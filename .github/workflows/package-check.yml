@@ -1,0 +1,18 @@
+name: package-check
+
+on:
+  schedule:
+    # Weekly, Monday 06:00 UTC — failure emails the repo owner
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install check dependencies
+        run: pacman -Sy --noconfirm --needed curl grep sed
+      - name: Verify package names still exist
+        run: bash .config/.install/check-packages.sh
