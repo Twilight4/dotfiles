@@ -44,6 +44,7 @@ mkdir -p "$(dirname "$FAILED_PACKAGES_FILE")"
 ################
 source "$DOTFILES_DIR/.config/.install/library.sh"
 source "$DOTFILES_DIR/.config/.install/confirm-start.sh"
+source "$DOTFILES_DIR/.config/.install/sudoers-hooks.sh"
 source "$DOTFILES_DIR/.config/.install/install-hypr-packages.sh"
 source "$DOTFILES_DIR/.config/.install/system-tweaks.sh"
 source "$DOTFILES_DIR/.config/.install/cleanup-homedir.sh"
