@@ -22,6 +22,27 @@ err()  { printf '%sERROR: %s%s\n' "$_C_ERR" "$*" "$_C_OFF" >&2; }
 _isInstalledPacman() { pacman -Qq "$1" &>/dev/null; }
 _isInstalledParu()   { paru   -Qq "$1" &>/dev/null; }
 
+# Names that don't exist in the repos/AUR are appended here (one per line)
+# instead of killing the batch; install.sh offers a retry at the end.
+# Set and truncated by install.sh before sourcing modules.
+: "${FAILED_PACKAGES_FILE:=$HOME/.cache/dotfiles-failed-packages.txt}"
+
+# Keep only names that actually exist; record the rotten ones.
+# $1: "pacman"|"paru"; rest: package names. Prints the valid ones.
+_filterAvailable() {
+    local backend="$1" pkg
+    shift
+    for pkg in "$@"; do
+        if [[ $backend == pacman ]]; then
+            pacman -Si "$pkg" &>/dev/null || { printf '%s\n' "$pkg" >> "$FAILED_PACKAGES_FILE"; continue; }
+        else
+            # paru -Si covers repos AND the AUR
+            paru -Si "$pkg" &>/dev/null || { printf '%s\n' "$pkg" >> "$FAILED_PACKAGES_FILE"; continue; }
+        fi
+        printf '%s\n' "$pkg"
+    done
+}
+
 #--------------------------------------------------------- package install
 # Both install functions dedup their arguments: the package arrays in
 # install-hypr-packages.sh historically accumulated duplicates, and each dup
@@ -41,6 +62,8 @@ _installPackagesPacman() {
     done
 
     ((${#toInstall[@]})) || return 0
+    mapfile -t toInstall < <(_filterAvailable pacman "${toInstall[@]}")
+    ((${#toInstall[@]})) || { warn "Nothing left to install (see $FAILED_PACKAGES_FILE)."; return 0; }
     sudo pacman --noconfirm -S "${toInstall[@]}"
 }
 
@@ -59,6 +82,8 @@ _installPackagesParu() {
     done
 
     ((${#toInstall[@]})) || return 0
+    mapfile -t toInstall < <(_filterAvailable paru "${toInstall[@]}")
+    ((${#toInstall[@]})) || { warn "Nothing left to install (see $FAILED_PACKAGES_FILE)."; return 0; }
     # paru self-escalates for the pacman step — never prefix with sudo.
     paru --noconfirm -S "${toInstall[@]}"
 }
