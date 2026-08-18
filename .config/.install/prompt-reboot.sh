@@ -15,14 +15,14 @@ EOF
 # copying — ~/.config holds real files, nothing points back into the repo.
 if [[ -d ${DOTFILES_DIR:-$HOME/dotfiles} ]]; then
     cd "$HOME" || return 1
-    echo "Cleaning up dotfiles directory..."
+    info "Cleaning up dotfiles directory..."
     rm -rf "$DOTFILES_DIR"
-    echo "Dotfiles directory cleaned up."
+    ok "Dotfiles directory cleaned up."
 fi
 
 # Instructions for a user
 echo ""
-echo "Installation Finished."
+ok "Installation Finished."
 echo "To complete the setup, launch Hyprland, exit Hyprland and log in again."
 echo ""
 echo "You can run Hyprland by typing:"

@@ -24,10 +24,10 @@ EOF
                 break
                 ;;
             [Nn]*)
-                echo "Setup tty login skipped."
+                printf "\033[33m%s\033[0m\n" "Setup tty login skipped."
                 break
                 ;;
-            *) echo "Please answer yes or no." ;;
+            *) printf "\033[33m%s\033[0m\n" "Please answer yes or no." ;;
         esac
     done
     echo ""

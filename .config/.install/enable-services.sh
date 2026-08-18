@@ -82,7 +82,7 @@ sudo systemctl enable fstrim.timer
 # Check service status
 echo
 check_service_status "${services[@]}"
-echo "Check status of services:"
+info "Check status of services:"
 if systemctl is-enabled --quiet fstrim.timer; then
     ok "fstrim.timer: enabled"
 else

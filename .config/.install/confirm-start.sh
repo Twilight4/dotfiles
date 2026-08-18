@@ -5,8 +5,8 @@
 # step would then operate on its own target. `mode=dev` bypasses for testing.
 SCRIPTPATH=$(dirname "$(realpath "$0")")
 if [[ $SCRIPTPATH == "/home/$USER/.config" && ${mode:-} != "dev" ]]; then
-    echo "IMPORTANT: You're running the installation script from the installation target directory."
-    echo "Please move the dotfiles repository to i.e. ~/downloads/ and start the script again."
+    err "IMPORTANT: You're running the installation script from the installation target directory."
+    warn "Please move the dotfiles repository to i.e. ~/downloads/ and start the script again."
     echo ""
     return 1
 fi
@@ -14,9 +14,9 @@ fi
 while true; do
     read -rp "START THE INSTALLATION? (y/n): " yn
     case $yn in
-        [Yy]*) echo "Installation started."; break ;;
-        [Nn]*) echo "Installation canceled."; return 1 ;;
-        *)     echo "Please answer yes or no." ;;
+        [Yy]*) ok "Installation started."; break ;;
+        [Nn]*) warn "Installation canceled."; return 1 ;;
+        *)     warn "Please answer yes or no." ;;
     esac
 done
 echo ""

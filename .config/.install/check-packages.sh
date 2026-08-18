@@ -36,4 +36,4 @@ if ((${#missing[@]})); then
     printf '  %s\n' "${missing[@]}"
     exit 1
 fi
-echo "All package names in $(basename "$LIST_FILE") still exist."
+printf "\033[32m:: %s\033[0m\n" "All package names in $(basename "$LIST_FILE") still exist."

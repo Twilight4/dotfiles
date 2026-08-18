@@ -25,8 +25,8 @@ echo "
 | Welcome to Twilight4's dotfiles |
 |_________________________________|
 "
-echo "This script will delete all your configuration files."
-echo "Use at your own risk."
+printf '\033[33m%s\033[0m\n' "This script will delete all your configuration files."
+printf '\033[33m%s\033[0m\n' "Use at your own risk."
 echo ""
 
 # Fail fast on missing sudo rather than mid-chain with partial state.
@@ -57,25 +57,5 @@ source "$DOTFILES_DIR/.config/.install/fzf.sh"
 source "$DOTFILES_DIR/.config/.install/auto-cpufreq.sh"
 source "$DOTFILES_DIR/.config/.install/enable-services.sh"
 source "$DOTFILES_DIR/.config/.install/locales.sh"
+source "$DOTFILES_DIR/.config/.install/failed-packages.sh"
 source "$DOTFILES_DIR/.config/.install/prompt-reboot.sh"
-
-#############################
-# Failed packages follow-up #
-#############################
-if [[ -s $FAILED_PACKAGES_FILE ]]; then
-    echo
-    err "Some packages were not found in the repos/AUR (renamed or removed upstream):"
-    sed 's/^/  - /' "$FAILED_PACKAGES_FILE"
-    echo "Full list saved to: $FAILED_PACKAGES_FILE"
-    echo
-    read -rp "Attempt to install them again? (y/n): " retry
-    if [[ $retry == "y" ]]; then
-        mapfile -t failed_pkgs < "$FAILED_PACKAGES_FILE"
-        if paru --noconfirm -S "${failed_pkgs[@]}"; then
-            ok "Retry succeeded."
-            : > "$FAILED_PACKAGES_FILE"
-        else
-            err "Retry failed — the list stays in $FAILED_PACKAGES_FILE for manual resolution."
-        fi
-    fi
-fi

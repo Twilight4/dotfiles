@@ -39,10 +39,10 @@ fi
 
 for directory in "${directories[@]}"; do
     if [ ! -d "$directory" ]; then
-        echo "Creating directory: $directory..."
+        info "Creating directory: $directory..."
         mkdir -p "$directory"
     else
-        echo "Directory already exists: $directory"
+        info "Directory already exists: $directory"
     fi
 done
 
@@ -71,12 +71,12 @@ move_if_exists ~/package-lock.json ~/.config/node_modules/package-lock.json
 # Move .local/share* and .local/state* if they exist
 for dir in ~/.local/share*; do
     move_if_exists "$dir" ~/.config/.local/share
-    echo "Moving directory: $dir..."
+    info "Moving directory: $dir..."
 done
 
 for dir in ~/.local/state*; do
     move_if_exists "$dir" ~/.config/.local/state
-    echo "Moving directory: $dir..."
+    info "Moving directory: $dir..."
 done
 
 # Remove replaced files/dirs silently and deliberately: the setup uses

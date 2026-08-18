@@ -15,12 +15,12 @@ read -rp "Do you want to disable systemd-boot startup entry? (y/n): " disable_ch
 
 if [[ $disable_choice =~ ^[Yy]$ ]]; then
     if [[ -d /sys/firmware/efi/efivars && -d /boot/loader ]]; then
-        echo "Disabling systemd-boot startup entry"
+        printf "\033[34m:: %s\033[0m\n" "Disabling systemd-boot startup entry"
         sudo sed -i 's/^timeout/# timeout/' /boot/loader/loader.conf
-        echo "Disabled systemd-boot startup entry"
+        printf "\033[32m:: %s\033[0m\n" "Disabled systemd-boot startup entry"
     else
-        echo "systemd-boot is not being used."
+        printf "\033[33m%s\033[0m\n" "systemd-boot is not being used."
     fi
 else
-    echo "Disabling systemd-boot startup entry canceled by user."
+    printf "\033[33m%s\033[0m\n" "Disabling systemd-boot startup entry canceled by user."
 fi
