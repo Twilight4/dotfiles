@@ -22,9 +22,17 @@ fi
 
 # Instructions for a user
 echo ""
-ok "Installation Finished."
+echo "Installation Finished."
 echo "To complete the setup, launch Hyprland, exit Hyprland and log in again."
 echo ""
 echo "You can run Hyprland by typing:"
 echo "  Hyprland"
+echo ""
+echo "Once inside the desktop session, you can run the post-install workflow:"
+echo "  ~/.config/.install/post-install.sh"
+echo ""
+echo "It walks through the remaining bootstrap steps (hyprpm plugins, cloud"
+echo "sync, app theming, AI tooling, docker MCP, ...) with per-step prompts."
+echo "NOTE: it is tailored to Twilight4's personal apps and preferences —"
+echo "skip or edit steps that don't apply to you."
 echo ""
