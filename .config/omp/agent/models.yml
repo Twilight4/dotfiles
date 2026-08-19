@@ -11,6 +11,6 @@ providers:
   kimi-code:
     modelOverrides:
       k3:
-        maxTokens: 32768      # was 131072 — 4x lower ceiling per turn
+        maxTokens: 65536      # was 131072 — 2x lower ceiling per turn
       k3-256k:
-        maxTokens: 32768      # was 131072
+        maxTokens: 65536      # was 131072
