@@ -4000,6 +4000,11 @@ Like `consult-buffer', but lists only dired-mode buffers."
 
 (add-hook 'dired-mode-hook 'tl-dired-mode-setup)
 
+;; wdired-mode derives from dired-mode, so dired-mode-map's C-j
+;; (`dired-next-marked-file') shadows the global C-j = `next-line'.
+(with-eval-after-load 'wdired
+  (define-key wdired-mode-map (kbd "C-j") 'next-line))
+
 (use-package dired-rainbow
   :after dired
   :config
