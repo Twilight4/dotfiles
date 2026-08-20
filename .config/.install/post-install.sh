@@ -169,7 +169,7 @@ fi
 
 #------------------------------------------------------- 6. Dock pins
 banner "nwg-dock-hyprland pins (manual)"
-manual "Pin on the dock: Bluetooth, pavucontrol, gnome-clocks, kitty-2," \
+manual "Pin on the dock: Bluetooth, pavucontrol, gnome-clocks," \
        "  freetube, Netflix, zen browser, telegram, spotify, steam," \
        "  filemanager, protonmail, protonvpn, google maps, weather," \
        "  ferdium, outlook, Garuda toolbox, Blanket, calculator."
@@ -239,6 +239,11 @@ if confirm_run; then
         mkdir -p "$HOME/.omp/agent"
         cp -r "$omp_backup/." "$HOME/.omp/agent/"
         ok "OMP config restored to ~/.omp/agent."
+
+        # Rewrite backed-up absolute home paths (emacs MCP socket, fff-mcp)
+        # to the current user's home — the JSON format can't expand $HOME itself.
+        run_or_fail "mcp.json home-path rewrite" \
+            sed -i "s|/home/[a-zA-Z0-9_-]*|$HOME|g" "$HOME/.omp/agent/mcp.json"
     else
         warn "No OMP config backup at $omp_backup — skipping."
     fi
