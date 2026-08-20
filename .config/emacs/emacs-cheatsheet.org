@@ -400,16 +400,17 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 *** Navigation
 | Keybinding | Description                                |
 |------------+--------------------------------------------|
-| h          | Up to parent directory                     |
-| l          | Open file/dir (external apps for media)    |
+| h          | Up to parent directory (closes current buffer) |
+| l          | Enter dir in same buffer / open file (external apps) |
 | j/k        | Next/previous file                         |
 | C-f/C-b    | Half page down/up (yazi-style)             |
-| L          | Open file in other window                  |
+| H/L        | Back/forward through open dired buffers (yazi-style) |
 | C-l        | Open file in other window (no focus switch) |
 | f          | Jump to file by name                       |
 | F          | consult-find                               |
 | r          | consult-grep                               |
 | /          | consult-line                              |
+| %          | Narrow listing by name, yazi f (g restores) |
 | RET        | Open ghostel terminal in current dir       |
 | S-<return> | Open file with xdg-open                    |
 | z          | zoxide-travel (fuzzy jump by frecency)     |
@@ -472,7 +473,7 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 |------------+------------------------------------------|
 | t          | Toggle sort (name/time)                  |
 | .          | Toggle dotfile visibility (omit mode)    |
-| H          | Toggle details (perms/owner/size/date)   |
+| ,          | Toggle details (perms/owner/size/date)   |
 | g          | Revert buffer (refresh listing)          |
 
 *** Wdired & editing

@@ -3201,7 +3201,7 @@ This is useful when followed by an immediate kill."
   (with-eval-after-load 'magit-blame
     (define-key magit-blame-read-only-mode-map (kbd "q") #'scroll-up-line)
     (define-key magit-blame-read-only-mode-map (kbd "i") #'scroll-down-line)
-    (define-key magit-blame-read-only-mode-map (kbd "Q") #'magit-blame-quit))
+    (define-key magit-blame-read-only-mode-map (kbd "Q") #'magit-blame-quit)))
 #+end_src
 
 ** Beacon
@@ -3754,7 +3754,8 @@ window-selection commands."
       dired-omit-files "^\\.[^.].*"
       dired-omit-verbose nil
       dired-hide-details-hide-symlink-targets nil
-	  trash-directory "~/.config/.local/share/Trash/files"              ;; don't think it works
+      ;; delete-by-moving-to-trash uses the standard freedesktop trash
+      ;; (~/.local/share/Trash) when `trash-directory' is nil (default)
       delete-by-moving-to-trash t
       dired-create-destination-dirs 'always
       dired-create-destination-dirs-on-trailing-dirsep t)
@@ -3861,6 +3862,57 @@ lands on the filename."
   (interactive)
   (tl/dired-prev-line (/ (window-body-height) 2)))
 
+(defun tl/dired-enter ()
+  "Yazi-style `l': enter a directory reusing the current buffer, open
+files with external apps (`dired-open-file')."
+  (interactive)
+  (if (file-directory-p (dired-get-file-for-visit))
+      (dired-find-alternate-file)
+    (dired-open-file)))
+
+(defun tl/dired-up-alternate ()
+  "Yazi-style `h': go to the parent directory, killing the current
+dired buffer so buffers don't accumulate."
+  (interactive)
+  (let ((old (current-buffer)))
+    (dired-up-directory)
+    (kill-buffer old)))
+
+(defvar-local tl/dired-opened-at nil
+  "Creation time of this dired buffer; orders the H/L history jumps.")
+
+(defun tl/dired--buffers ()
+  "Live dired buffers, oldest first (by creation time)."
+  (let (bufs)
+    (dolist (b (buffer-list))
+      (when (with-current-buffer b (derived-mode-p 'dired-mode))
+        (push (cons b (or (buffer-local-value 'tl/dired-opened-at b) 0))
+              bufs)))
+    (mapcar #'car (sort bufs (lambda (a b) (< (cdr a) (cdr b)))))))
+
+(defun tl/dired--hist-jump (dir)
+  "Switch DIR steps through the dired buffers ordered by creation time.
+Wraps around at the ends.  Unlike MRU recency, creation order does not
+change when jumping, so back-then-forward round-trips (yazi H/L)."
+  (let* ((bufs (tl/dired--buffers))
+         (n (length bufs))
+         (pos 0))
+    (while (and (< pos n) (not (eq (nth pos bufs) (current-buffer))))
+      (setq pos (1+ pos)))
+    (if (or (= pos n) (< n 2))
+        (message "No other dired buffer")
+      (switch-to-buffer (nth (mod (+ pos dir) n) bufs)))))
+
+(defun tl/dired-hist-back ()
+  "Jump to the previously opened dired buffer, yazi-style H."
+  (interactive)
+  (tl/dired--hist-jump -1))
+
+(defun tl/dired-hist-forward ()
+  "Jump to the next opened dired buffer, yazi-style L."
+  (interactive)
+  (tl/dired--hist-jump 1))
+
 (defun tl/dired-create-empty-file (filename)
   "Create an empty file in the dired subdir at point."
   (interactive
@@ -3899,14 +3951,16 @@ Like `consult-buffer', but lists only dired-mode buffers."
 (defun tl-dired-mode-setup ()
   ;; Display: hide perms/owner/size/date by default
   (dired-hide-details-mode 1)
+  ;; Creation timestamp for the H/L dired-buffer history
+  (setq-local tl/dired-opened-at (float-time))
   ;; Navigation
-  (define-key dired-mode-map (kbd "h") 'dired-up-directory)
-  (define-key dired-mode-map (kbd "l") 'dired-open-file)
+  (define-key dired-mode-map (kbd "h") 'tl/dired-up-alternate)
+  (define-key dired-mode-map (kbd "l") 'tl/dired-enter)
   (define-key dired-mode-map (kbd "j") 'tl/dired-next-line)
   (define-key dired-mode-map (kbd "k") 'tl/dired-prev-line)
   (define-key dired-mode-map (kbd "C-f") 'tl/dired-half-page-down)
   (define-key dired-mode-map (kbd "C-b") 'tl/dired-half-page-up)
-  (define-key dired-mode-map (kbd "L") 'dired-find-file-other-window)
+  (define-key dired-mode-map (kbd "L") 'tl/dired-hist-forward)
   (define-key dired-mode-map (kbd "C-l") 'dired-display-file)
   (define-key dired-mode-map (kbd "f") 'dired-goto-file)
   (define-key dired-mode-map (kbd "F") 'consult-fd)
@@ -3969,7 +4023,8 @@ Like `consult-buffer', but lists only dired-mode buffers."
   ;; Sort / display
   (define-key dired-mode-map (kbd "t") 'dired-sort-toggle-or-edit)
   (define-key dired-mode-map (kbd ".") 'dired-omit-mode)
-  (define-key dired-mode-map (kbd "H") 'dired-hide-details-mode)
+  (define-key dired-mode-map (kbd ",") 'dired-hide-details-mode)
+  (define-key dired-mode-map (kbd "H") 'tl/dired-hist-back)
   ;; Wdired + editing
   (define-key dired-mode-map (kbd "M-r") 'wdired-change-to-wdired-mode)
   (define-key dired-mode-map (kbd "|") 'anzu-query-replace)
@@ -3989,7 +4044,7 @@ Like `consult-buffer', but lists only dired-mode buffers."
   (define-key dired-mode-map (kbd "b h") (lambda () (interactive) (dired "~")))
   (define-key dired-mode-map (kbd "b r") (lambda () (interactive) (dired "~/documents/org/roam")))
   ;; Unbind — flagging system, regex/bulk prefixes, unused standard keys
-  (define-key dired-mode-map (kbd "%") nil)
+  (define-key dired-mode-map (kbd "%") 'dired-narrow)
   (define-key dired-mode-map (kbd "e") nil)
   (define-key dired-mode-map (kbd "E") nil)
   (define-key dired-mode-map (kbd "$") nil)
@@ -4015,6 +4070,13 @@ Like `consult-buffer', but lists only dired-mode buffers."
   (define-key dired-mode-map (kbd "s") nil))
 
 (add-hook 'dired-mode-hook 'tl-dired-mode-setup)
+
+;; Live-narrow the dired listing by filename, yazi's `f' filter (on `%').
+;; Empty input (or `g' revert) restores the full listing.
+(use-package dired-narrow
+  :ensure t
+  :after dired
+  :commands dired-narrow)
 
 ;; wdired-mode derives from dired-mode, so dired-mode-map's C-j
 ;; (`dired-next-marked-file') shadows the global C-j = `next-line'.
