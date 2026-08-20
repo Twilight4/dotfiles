@@ -3181,7 +3181,7 @@ This is useful when followed by an immediate kill."
     ;; The displaced default keeps a C-j-adjacent home (treemacs-style
     ;; C-j/C-S-j pairing); upstream also keeps it on C-<return>.
     (define-key magit-diff-section-map (kbd "C-S-j")
-                #'magit-diff-visit-worktree-file)))
+                #'magit-diff-visit-worktree-file))
   ;; Uniform q/i/Q in the modes that shadow or bypass magit-mode-map.
   ;; Log: only q is shadowed (i/Q inherit from magit-mode-map).
   (with-eval-after-load 'magit-log
@@ -3878,6 +3878,17 @@ dired buffer so buffers don't accumulate."
     (dired-up-directory)
     (kill-buffer old)))
 
+(defun tl/dired-find-file-dwim ()
+  "With marked files, find them all (`dired-do-find-marked-files');
+otherwise open the file at point in another window
+(`dired-find-file-other-window', the binding displaced from L)."
+  (interactive)
+  (if (save-excursion
+        (goto-char (point-min))
+        (re-search-forward dired-re-mark nil t))
+      (dired-do-find-marked-files)
+    (dired-find-file-other-window)))
+
 (defvar-local tl/dired-opened-at nil
   "Creation time of this dired buffer; orders the H/L history jumps.")
 
@@ -3962,12 +3973,12 @@ Like `consult-buffer', but lists only dired-mode buffers."
   (define-key dired-mode-map (kbd "C-b") 'tl/dired-half-page-up)
   (define-key dired-mode-map (kbd "L") 'tl/dired-hist-forward)
   (define-key dired-mode-map (kbd "C-l") 'dired-display-file)
-  (define-key dired-mode-map (kbd "f") 'dired-goto-file)
+  (define-key dired-mode-map (kbd "f") 'dired-narrow)
   (define-key dired-mode-map (kbd "F") 'consult-fd)
   (define-key dired-mode-map (kbd "O") 'find-name-dired)
   (define-key dired-mode-map (kbd "C-o") 'find-grep-dired)
   (define-key dired-mode-map (kbd "r") 'consult-grep)
-  (define-key dired-mode-map (kbd "/") 'consult-line)
+  (define-key dired-mode-map (kbd "/") 'dired-goto-file)
   (define-key dired-mode-map (kbd "RET") 'tl/dired-ghostel-here)
   (define-key dired-mode-map (kbd "S-<return>") 'dired-open-xdg)
   (define-key dired-mode-map (kbd "z") 'zoxide-travel)
@@ -4010,7 +4021,7 @@ Like `consult-buffer', but lists only dired-mode buffers."
   (define-key dired-mode-map (kbd "M") 'dired-do-chmod)
   (define-key dired-mode-map (kbd "N") 'tl/dired-create-directory)
   (define-key dired-mode-map (kbd "n") 'tl/dired-create-empty-file)
-  (define-key dired-mode-map (kbd "o") 'dired-do-find-marked-files)
+  (define-key dired-mode-map (kbd "o") 'tl/dired-find-file-dwim)
   (define-key dired-mode-map (kbd "<") 'tl/dired-first-file)
   (define-key dired-mode-map (kbd ">") 'tl/dired-last-file)
   ;; Dired-ranger clipboard (w=copy, x=move, y=paste)
@@ -4044,7 +4055,7 @@ Like `consult-buffer', but lists only dired-mode buffers."
   (define-key dired-mode-map (kbd "b h") (lambda () (interactive) (dired "~")))
   (define-key dired-mode-map (kbd "b r") (lambda () (interactive) (dired "~/documents/org/roam")))
   ;; Unbind — flagging system, regex/bulk prefixes, unused standard keys
-  (define-key dired-mode-map (kbd "%") 'dired-narrow)
+  (define-key dired-mode-map (kbd "%") nil)
   (define-key dired-mode-map (kbd "e") nil)
   (define-key dired-mode-map (kbd "E") nil)
   (define-key dired-mode-map (kbd "$") nil)
@@ -4071,7 +4082,7 @@ Like `consult-buffer', but lists only dired-mode buffers."
 
 (add-hook 'dired-mode-hook 'tl-dired-mode-setup)
 
-;; Live-narrow the dired listing by filename, yazi's `f' filter (on `%').
+;; Live-narrow the dired listing by filename, yazi's `f' filter.
 ;; Empty input (or `g' revert) restores the full listing.
 (use-package dired-narrow
   :ensure t

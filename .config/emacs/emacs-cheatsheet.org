@@ -406,11 +406,10 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | C-f/C-b    | Half page down/up (yazi-style)             |
 | H/L        | Back/forward through open dired buffers (yazi-style) |
 | C-l        | Open file in other window (no focus switch) |
-| f          | Jump to file by name                       |
+| f          | Narrow listing by name, yazi filter (g restores) |
 | F          | consult-find                               |
 | r          | consult-grep                               |
-| /          | consult-line                              |
-| %          | Narrow listing by name, yazi f (g restores) |
+| /          | Jump to file by name                       |
 | RET        | Open ghostel terminal in current dir       |
 | S-<return> | Open file with xdg-open                    |
 | z          | zoxide-travel (fuzzy jump by frecency)     |
@@ -449,7 +448,7 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | M          | Change file permissions (chmod)                |
 | N          | Create directory                               |
 | n          | Create empty file                              |
-| o          | Open all marked files                          |
+| o          | Open all marked files; no marks: open at point in other window |
 
 *** Dired-ranger clipboard
 | Keybinding | Description                                      |
