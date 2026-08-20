@@ -2275,8 +2275,8 @@ Operates on whole buffer or active region, respects `narrow-to-region'."
 #+begin_src emacs-lisp
 (defun tl/diff-emacs-config ()
   (interactive)
-  (diff "/home/twilight/.config/emacs/config.org"
-        "/home/twilight/desktop/workspace/dotfiles/.config/emacs/config.org"))
+  (diff "~/.config/emacs/config.org"
+        "~/desktop/workspace/dotfiles/.config/emacs/config.org"))
 #+end_src
 
 ** Diff current file with another file
@@ -3032,7 +3032,7 @@ Words auto-completion
   ;; Default dictionary (Polish)
   ;; I made this wordlist out of hunspell-pl package instead of installing words-pl package cuz the words-pl has too much redundant words (60mb over 5mb)
   (setq tl/cape-dict-current-language 'polish)
-  (setq cape-dict-file "/home/twilight/documents/org/polish-words.txt")
+  (setq cape-dict-file (expand-file-name "~/documents/org/polish-words.txt"))
 
   ;; Add dictionary completion into the default completion chain
   (add-to-list 'completion-at-point-functions #'cape-dict)
@@ -3047,7 +3047,7 @@ Words auto-completion
       (setq tl/cape-dict-current-language 'english)
       (message "Current dictionary: English"))
      ((eq tl/cape-dict-current-language 'english)
-      (setq cape-dict-file "/home/twilight/documents/org/polish-words.txt")
+      (setq cape-dict-file (expand-file-name "~/documents/org/polish-words.txt"))
       (setq tl/cape-dict-current-language 'polish)
       (message "Current dictionary: Polish"))))
 
@@ -3847,6 +3847,20 @@ Positions cursor at the filename."
   (goto-char (point-max))
   (tl/dired-prev-line))
 
+(defun tl/dired-half-page-down ()
+  "Jump down half the window height, yazi-style C-d.
+Reuses `tl/dired-next-line', so headers are skipped and the cursor
+lands on the filename."
+  (interactive)
+  (tl/dired-next-line (/ (window-body-height) 2)))
+
+(defun tl/dired-half-page-up ()
+  "Jump up half the window height, yazi-style C-u.
+Reuses `tl/dired-prev-line', so headers are skipped and the cursor
+lands on the filename."
+  (interactive)
+  (tl/dired-prev-line (/ (window-body-height) 2)))
+
 (defun tl/dired-create-empty-file (filename)
   "Create an empty file in the dired subdir at point."
   (interactive
@@ -3890,6 +3904,8 @@ Like `consult-buffer', but lists only dired-mode buffers."
   (define-key dired-mode-map (kbd "l") 'dired-open-file)
   (define-key dired-mode-map (kbd "j") 'tl/dired-next-line)
   (define-key dired-mode-map (kbd "k") 'tl/dired-prev-line)
+  (define-key dired-mode-map (kbd "C-f") 'tl/dired-half-page-down)
+  (define-key dired-mode-map (kbd "C-b") 'tl/dired-half-page-up)
   (define-key dired-mode-map (kbd "L") 'dired-find-file-other-window)
   (define-key dired-mode-map (kbd "C-l") 'dired-display-file)
   (define-key dired-mode-map (kbd "f") 'dired-goto-file)

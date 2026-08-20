@@ -403,6 +403,7 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | h          | Up to parent directory                     |
 | l          | Open file/dir (external apps for media)    |
 | j/k        | Next/previous file                         |
+| C-f/C-b    | Half page down/up (yazi-style)             |
 | L          | Open file in other window                  |
 | C-l        | Open file in other window (no focus switch) |
 | f          | Jump to file by name                       |
@@ -692,9 +693,12 @@ Meta keys are only used in "insert mode", but only the necessary ones are used t
 | p SPC      | Project          |
 
 ** Magit
+
 Entry points are global; everything else happens inside Magit buffers.
 God-mode is automatically off in all Magit buffers (they derive from
-~special-mode~, which is in ~god-exempt-predicates~).
+~special-mode~, which is in ~god-exempt-predicates~). Magit does not
+replace diff-hl: diff-hl still shows uncommitted changes in file
+fringes; Magit is the repo-level UI.
 
 When lost: press ~h~ or ~?~ in any Magit buffer to open the dispatch
 menu, ~H~ on a section to describe it, ~$~ to see the git process log.
@@ -759,30 +763,30 @@ inside every Magit buffer.
 
 *** Navigation & sections (every Magit buffer)
 
-| Keybinding | Description                                               |
-|------------+-----------------------------------------------------------|
-| n / p      | next / previous section                                   |
-| M-n / M-p  | next / previous sibling (file-to-file in diffs!)          |
-| ^          | up to parent section                                      |
-| TAB        | expand/collapse section                                   |
-| C-TAB      | cycle section visibility                                  |
-| S-TAB      | cycle visibility of ALL sections                          |
-| 1..4       | show sections to level N (this one)                       |
-| M-1..M-4   | show level N in whole buffer                              |
-| RET        | visit thing at point (commit → diff, file → open)         |
-| SPC / DEL  | scroll diff up / down (peek without leaving)              |
+| Keybinding | Description                          |
+|------------+--------------------------------------|
+| n / p      | next / previous section              |
+| M-n / M-p  | next / previous sibling (file-to-file in diffs!) |
+| ^          | up to parent section                 |
+| TAB        | expand/collapse section              |
+| C-TAB      | cycle section visibility             |
+| S-TAB      | cycle visibility of ALL sections     |
+| 1..4       | show sections to level N (this one)  |
+| M-1..M-4   | show level N in whole buffer         |
+| RET        | visit thing at point (commit → diff, file → open) |
+| SPC / DEL  | scroll diff up / down (peek without leaving) |
 | < / >      | beginning / end of buffer (> = sparse-checkout in status) |
-| g / G      | refresh buffer / all buffers                              |
-| q          | bury buffer                                               |
-| $          | git process buffer (k kills process)                      |
-| h / ?      | dispatch menu (help)                                      |
-| H          | describe section at point                                 |
-| C-w        | copy section value (hash, branch…)                        |
-| M-w        | copy buffer's revision                                    |
-| C-c C-w    | copy thing at point                                       |
-| C-c C-r    | jump to next reference                                    |
-| C-c C-e    | edit thing at point                                       |
-| C-c C-o    | browse thing (open URL)                                   |
+| g / G      | refresh buffer / all buffers         |
+| q          | bury buffer                          |
+| $          | git process buffer (k kills process) |
+| h / ?      | dispatch menu (help)                 |
+| H          | describe section at point            |
+| C-w        | copy section value (hash, branch…)   |
+| M-w        | copy buffer's revision               |
+| C-c C-w    | copy thing at point                  |
+| C-c C-r    | jump to next reference               |
+| C-c C-e    | edit thing at point                  |
+| C-c C-o    | browse thing (open URL)              |
 
 *** Status buffer (staging & discarding)
 
