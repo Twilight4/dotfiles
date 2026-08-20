@@ -851,9 +851,9 @@ mega-sync-on() {
         echo -e "${GREEN}You are already logged in. Starting synchronization...${NC}"
 
         # Synchronize directories
-        mega-sync /home/twilight/desktop/projects /SYNCED-DATA/desktop/projects/
-        mega-sync /home/twilight/documents/pdfs /SYNCED-DATA/documents/pdfs
-        mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
+        mega-sync $HOME/desktop/projects /SYNCED-DATA/desktop/projects/
+        mega-sync $HOME/documents/pdfs /SYNCED-DATA/documents/pdfs
+        mega-sync $HOME/.ssh/ /SYNCED-DATA/.ssh/
 
         # Sync individual files
         mega-put ~/.config/FreeTube/history.db /SYNCED-DATA/.config/FreeTube 
@@ -878,9 +878,9 @@ mega-sync-off() {
     YELLOW='\033[1;33m'
     NC='\033[0m' # No Color
     
-    mega-sync -d /home/twilight/desktop/projects
-    mega-sync -d /home/twilight/documents/pdfs
-    mega-sync -d /home/twilight/.ssh/
+    mega-sync -d $HOME/desktop/projects
+    mega-sync -d $HOME/documents/pdfs
+    mega-sync -d $HOME/.ssh/
 
     echo -e "${GREEN}All specified directories have been unsynced.${NC}"
 

@@ -107,7 +107,7 @@ if confirm_run; then
     fi
 
     # Only the ssh keys sync (rest of Mega sync is retired)
-    run_or_fail "sync ~/.ssh" mega-sync /home/twilight/.ssh/ /SYNCED-DATA/.ssh/
+    run_or_fail "sync ~/.ssh" mega-sync "$HOME/.ssh/" /SYNCED-DATA/.ssh/
 
     # GitHub repos
     run_or_fail "gh-sync" gh-sync
@@ -271,9 +271,9 @@ banner "Docker MCP — dev_workflow profile config"
 echo "Applies the static profile config, then asks for the GitHub PAT."
 if confirm_run; then
     run_or_fail "docker mcp profile config" docker mcp profile config dev_workflow \
-        --set 'git.paths=["/home/twilight/desktop/workspace"]' \
-        --set 'kubectl-mcp-server.kubeconfig=/home/twilight/.kube/config' \
-        --set 'kubernetes.config_path=/home/twilight/.kube/config'
+        --set "git.paths=[\"$HOME/desktop/workspace\"]" \
+        --set "kubectl-mcp-server.kubeconfig=$HOME/.kube/config" \
+        --set "kubernetes.config_path=$HOME/.kube/config"
 
     echo
     info "Create a classic PAT: GitHub → Settings → Developer settings →"

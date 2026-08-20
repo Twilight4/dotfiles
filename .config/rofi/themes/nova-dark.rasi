@@ -47,7 +47,7 @@ configuration {
 
 	/*---------- File browser settings ----------*/
     filebrowser {
-  	  directory: "/home/twilight";
+  	  directory: "${HOME}";
       directories-first: true;
       sorting-method:    "name";
     }

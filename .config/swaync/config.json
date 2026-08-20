@@ -85,51 +85,51 @@
                 },
                 {
                     "label": "  ",
-                    "command": "/home/twilight/.config/hypr/scripts/toggle-location",
+                    "command": "$HOME/.config/hypr/scripts/toggle-location",
                     "type": "toggle"
                 },
                 {
                     "label":" 󰤄 ",
-                    "command": "/home/twilight/.config/hypr/scripts/night-mode",
+                    "command": "$HOME/.config/hypr/scripts/night-mode",
                     "type": "toggle"
                 },
                 {
                     "label": " 󰝟 ",
-                    "command": "/home/twilight/.config/hypr/scripts/volume --toggle",
+                    "command": "$HOME/.config/hypr/scripts/volume --toggle",
                     "type": "toggle"
                 },
                 {
                     "label": " 󰍭 ",
-                    "command": "/home/twilight/.config/hypr/scripts/volume --toggle-mic",
+                    "command": "$HOME/.config/hypr/scripts/volume --toggle-mic",
                     "type": "toggle"
                 },
                 {
                     "label": " 󰄀 ",
-                    "command": "/home/twilight/.config/.local/bin/webcam.sh",
+                    "command": "$HOME/.config/.local/bin/webcam.sh",
                     "type": "toggle"
                 },
                 {
                     "label":"  ",
-                    "command": "/home/twilight/.config/hypr/scripts/record-screen",
+                    "command": "$HOME/.config/hypr/scripts/record-screen",
                     "type": "toggle"
                 },
                 {
                     "label": " 󱊤 ",
-                    "command": "/home/twilight/.config/hypr/scripts/battery-saving",
+                    "command": "$HOME/.config/hypr/scripts/battery-saving",
                     "type": "toggle"
                 },
                 {
                     "label":" 󱂩 ",
-                    "command": "/home/twilight/.config/hypr/scripts/dock-toggle-hyprland",
+                    "command": "$HOME/.config/hypr/scripts/dock-toggle-hyprland",
                     "type": "toggle"
                 },
                 {
                     "label": " 󰸉 ",
-                    "command": "/home/twilight/.config/hypr/scripts/wallpaper select"
+                    "command": "$HOME/.config/hypr/scripts/wallpaper select"
                 },
                 {
                     "label": "  ",
-                    "command": "/home/twilight/.config/hypr/scripts/screenshot --area-edit"
+                    "command": "$HOME/.config/hypr/scripts/screenshot --area-edit"
                 }
             ]
         }
