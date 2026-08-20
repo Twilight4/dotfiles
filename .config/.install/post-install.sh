@@ -269,6 +269,17 @@ if confirm_run; then
     else
         warn "$ai_dir not found — run gh-sync (step 2) first, then re-run."
     fi
+
+    # agent-shell dictation: sherpa-onnx venv + omp-stt-transcribe shebang
+    # (the script's shebang is an absolute path to the uv tool's python)
+    run_or_fail "install sherpa-onnx" uv tool install sherpa-onnx
+    stt="$HOME/.config/.local/bin/omp-stt-transcribe"
+    if [[ -f $stt ]]; then
+        run_or_fail "omp-stt-transcribe shebang" \
+            sed -i "1s|.*|#!$HOME/.config/.local/share/uv/tools/sherpa-onnx/bin/python|" "$stt"
+    else
+        warn "$stt not found — skipping shebang fix."
+    fi
 fi
 
 #--------------------------------------------------- 12. Docker MCP
