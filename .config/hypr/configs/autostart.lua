@@ -23,9 +23,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("~/.config/hypr/ws-scripts/ws-emacs")
     hl.exec_cmd("~/.config/hypr/ws-scripts/ws-zen")
     hl.exec_cmd("uwsm app -- freetube --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL --gpu-context=wayland")
-    -- Music workspace (ws5): cliamp TUI, then load the Mixed playlist playing
-    hl.exec_cmd("uwsm app -- kitty --class kitty-cliamp -e cliamp")
-    hl.exec_cmd('sleep 2 && cliamp load --auto-play "Mixed"')
+    -- Music workspace (ws5): cliamp TUI with Mixed playlist playing at -20 dB, fullscreen visualizer
+    hl.exec_cmd("uwsm app -- kitty --class kitty-cliamp -e cliamp --vol -20 --playlist Mixed --auto-play")
+    hl.exec_cmd([[sleep 2 && hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})' && sleep 0.5 && wtype V]])
     hl.exec_cmd("uwsm app -- ferdium --socket=wayland --ozone-platform-hint=auto --ozone-platform=wayland --enable-features-WaylandWindowDecorations")
     -- Bluetooth fix
     hl.exec_cmd("rfkill block bluetooth && rfkill unblock bluetooth")

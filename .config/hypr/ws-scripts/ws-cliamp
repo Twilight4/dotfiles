@@ -1,14 +1,24 @@
 #!/bin/bash
 # Music workspace (ws5) — SUPER CTRL P
 # Ensures the Zen YouTube tab and the cliamp terminal exist on ws5,
-# then focuses the cliamp terminal.
+# (re)loads the Mixed playlist playing at -20 dB, then focuses the terminal.
 
 # Zen YouTube tab (open-or-focus logic lives in ws-zen-yt)
 ~/.config/hypr/ws-scripts/ws-zen-yt
 
-# cliamp terminal
 if hyprctl clients | grep -q 'kitty-cliamp'; then
+  # Already running: reload playlist + volume, focus
+  cliamp load --auto-play "Mixed"
+  cliamp volume -20
+  sleep 1  # let any zen window ws-zen-yt spawned settle before taking focus
   hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})'
 else
-  hyprctl dispatch 'hl.dsp.exec_cmd([=[uwsm app -- kitty --class kitty-cliamp -e cliamp]=])'
+  # Fresh launch: playlist + volume via startup flags, then fullscreen visualizer
+  hyprctl dispatch 'hl.dsp.exec_cmd([=[uwsm app -- kitty --class kitty-cliamp -e cliamp --vol -20 --playlist Mixed --auto-play]=])'
+  sleep 1
+  hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})'
+  # wtype sends V (fullscreen visualizer) only if the terminal actually took focus
+  [ "$(hyprctl -j activewindow | jq -r .class)" = "kitty-cliamp" ] && wtype V
+  # a late-spawning zen window steals focus; take it back once it settles
+  ( sleep 3; hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})' ) &
 fi
