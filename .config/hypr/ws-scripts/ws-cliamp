@@ -9,13 +9,15 @@
 if hyprctl clients | grep -q 'kitty-cliamp'; then
   # Already running: reload playlist + volume, focus
   cliamp load --auto-play "Mixed"
+  cliamp next && sleep 0.3 && cliamp next  # land on track 3 (REYFM - #original)
   cliamp volume -20
   sleep 1  # let any zen window ws-zen-yt spawned settle before taking focus
   hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})'
 else
   # Fresh launch: playlist + volume via startup flags, then fullscreen visualizer
   hyprctl dispatch 'hl.dsp.exec_cmd([=[uwsm app -- kitty --class kitty-cliamp -e cliamp --vol -20 --playlist Mixed --auto-play]=])'
-  sleep 1
+  sleep 2  # let the fresh instance map its window + IPC socket
+  cliamp next && sleep 0.3 && cliamp next  # land on track 3 (REYFM - #original)
   hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})'
   # wtype sends V (fullscreen visualizer) only if the terminal actually took focus
   [ "$(hyprctl -j activewindow | jq -r .class)" = "kitty-cliamp" ] && wtype V

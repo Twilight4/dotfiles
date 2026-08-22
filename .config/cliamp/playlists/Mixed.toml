@@ -1,0 +1,27 @@
+[[track]]
+path = "https://mangoradio.stream.laut.fm/mangoradio"
+title = "MANGORADIO"
+
+[[track]]
+path = "http://195.150.20.242:8000/rmf_fm"
+title = "RMF FM"
+
+[[track]]
+path = "https://listen.reyfm.de/original_192kbps.mp3"
+title = "REYFM - #original"
+
+[[track]]
+path = "http://zet-net-01.cdn.eurozet.pl:8400/"
+title = "Radio Zet"
+
+[[track]]
+path = "http://radio.cliamp.stream/ncs-house/stream"
+title = "NCS House"
+
+[[track]]
+path = "http://radio.cliamp.stream/ncs-phonk/stream"
+title = "NCS Phonk"
+
+[[track]]
+path = "http://radio.cliamp.stream/ncs-chill/stream"
+title = "NCS Chill"
