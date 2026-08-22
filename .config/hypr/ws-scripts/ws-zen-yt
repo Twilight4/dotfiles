@@ -1,41 +1,16 @@
 #!/bin/bash
+# Focus (or open) the Zen YouTube-profile window on the music workspace (ws5).
+# Detection is workspace-based, not title-based: plain zen windows are ruled to
+# ws2, so any zen window on ws5 is the YouTube-profile one. (Title matching
+# spawned a duplicate per press whenever the tab wasn't a "YouTube — Zen
+# Browser" title — e.g. YouTube Music.)
 
 TARGET_WS=5
 
-# Cache JSON
-CLIENTS_JSON="$(hyprctl -j clients)"
-
-# Function: check if Zen YouTube tab exists on workspace 5
-zen_youtube_on_target_ws() {
-  echo "$CLIENTS_JSON" | jq -e \
-    --arg ws "$TARGET_WS" \
-    '.[] |
-      select(.title | endswith("YouTube — Zen Browser")) |
-      select(.workspace.id == ($ws | tonumber))
-    ' >/dev/null
-}
-
-# Function: check if ANY Zen YouTube tab exists anywhere
-zen_youtube_anywhere() {
-  echo "$CLIENTS_JSON" | jq -e \
-    '.[] | select(.title | endswith("YouTube — Zen Browser"))' >/dev/null
-}
-
-# MAIN LOGIC
-if zen_youtube_on_target_ws; then
-    # YouTube tab already on workspace 5
-    hyprctl dispatch "hl.dsp.focus({workspace=$TARGET_WS})"
-
-elif zen_youtube_anywhere; then
-    # YouTube tab exists but NOT on workspace 5 → open new one on 5
-    hyprctl dispatch "hl.dsp.exec_cmd([=[[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube]=])"
-
+if hyprctl -j clients | jq -e --arg ws "$TARGET_WS" \
+  '.[] | select(.class == "zen" and .workspace.id == ($ws | tonumber))' >/dev/null; then
+  hyprctl dispatch "hl.dsp.focus({workspace=$TARGET_WS})"
+  hyprctl dispatch 'hl.dsp.focus({window="class:^(zen)$"})'
 else
-    # No YouTube tab at all → launch Zen YouTube profile on 5
-    hyprctl dispatch "hl.dsp.exec_cmd([=[[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube]=])"
+  hyprctl dispatch "hl.dsp.exec_cmd([=[[workspace $TARGET_WS] uwsm app -- zen-browser -P Youtube]=])"
 fi
-
-DEBUG=1
-log() { [ "$DEBUG" = 1 ] && echo "$@"; }
-log "Zen on WS $TARGET_WS: $(zen_youtube_on_target_ws; echo $?)"
-log "Zen anywhere: $(zen_youtube_anywhere; echo $?)"
