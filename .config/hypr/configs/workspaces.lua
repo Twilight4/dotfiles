@@ -4,7 +4,9 @@
 hl.workspace_rule({ workspace = "special:comma",     on_created_empty = "emacsclient -c" })
 hl.workspace_rule({ workspace = "special:scratchpad", on_created_empty = "~/.config/hypr/ws-scripts/ws-monitoring" })
 hl.workspace_rule({ workspace = "special:floating",   on_created_empty = "nautilus" })
-hl.workspace_rule({ workspace = "special:period",     on_created_empty = 'bash -c "blueman-manager & blanket & pavucontrol & kitty -T cava --class cava -e cava"' })
+
+-- Music workspace: Super + P on an empty ws5 pops kitty running cliamp
+hl.workspace_rule({ workspace = "5", on_created_empty = "kitty --class kitty-cliamp -e cliamp" })
 
 -- "Smart gaps" / "No gaps when only" (was flat: `workspace = w[tv1]s[false], gapsout:0, gapsin:0`)
 hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = 0, gaps_in = 0 })

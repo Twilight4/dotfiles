@@ -51,6 +51,7 @@ hl.window_rule({ match = { class = "org.kde.polkit-kde-authentication-agent-1" }
 hl.window_rule({ match = { class = "zen" },     workspace = "2" })
 hl.window_rule({ match = { class = "(?i)^ferdium$" }, workspace = "3" })  -- real class is "Ferdium"; (?i) = case-insensitive
 hl.window_rule({ match = { class = "^freetube" }, opaque = true, workspace = "4" })
+hl.window_rule({ match = { class = "kitty-cliamp" }, workspace = "5" })
 hl.window_rule({ match = { class = "WebCord" },  workspace = "special:other" })
 hl.window_rule({ match = { class = "kitty-idling-script" }, workspace = "special:other silent" })
 
@@ -71,12 +72,6 @@ hl.layer_rule({ match = { namespace = "swaync-notification-window" }, blur = tru
 -- 
 -- Apps on special workspaces #  (move X Y -> {X,Y})
 -- 
--- period workspace - controls
-hl.window_rule({ match = { class = "cava" },                    workspace = "special:period", move = { 1250, 720 } })
-hl.window_rule({ match = { class = "blueman-manager" },         workspace = "special:period", move = { 1200, 100 } })
-hl.window_rule({ match = { class = "org.pulseaudio.pavucontrol" }, workspace = "special:period", move = { 70, 70 } })
-hl.window_rule({ match = { class = "kitty-radio" },             workspace = "special:period" })
-hl.window_rule({ match = { class = "com.rafaelmardojai.Blanket" }, workspace = "special:period", move = { 50, 650 } })
 -- "N" workspace - floating
 hl.window_rule({ match = { class = "org.gnome.Nautilus" },   workspace = "special:floating", move = { 488, 139 } })
 hl.window_rule({ match = { class = "org.gnome.Calculator" }, workspace = "special:floating", move = { 1570, 57 } })

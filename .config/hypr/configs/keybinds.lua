@@ -151,7 +151,6 @@ hl.bind(SUPER .. " + L",      hl.dsp.workspace.toggle_special("other"))
 hl.bind(SUPER .. " + Comma",  hl.dsp.workspace.toggle_special("scratchpad"))
 hl.bind(SUPER .. " + M",      hl.dsp.workspace.toggle_special("comma"))
 hl.bind(SUPER .. " + N",      hl.dsp.workspace.toggle_special("floating"))
-hl.bind(SUPER .. " + Period", hl.dsp.workspace.toggle_special("period"))
 
 -- The five stacked `bind = SUPER, H, ...` lines were a hack to move the active
 -- window into special:magic while toggling it on/off. In Lua one key -> one
@@ -169,7 +168,6 @@ hl.bind(SUPER .. " + SHIFT + L",      hl.dsp.window.move({ workspace = "special:
 hl.bind(SUPER .. " + SHIFT + Comma",  hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }))
 hl.bind(SUPER .. " + SHIFT + M",      hl.dsp.window.move({ workspace = "special:comma",      follow = false }))
 hl.bind(SUPER .. " + SHIFT + N",      hl.dsp.window.move({ workspace = "special:floating",   follow = false }))
-hl.bind(SUPER .. " + SHIFT + Period", hl.dsp.window.move({ workspace = "special:period",     follow = false }))
 
 -- Mouse move/resize (was bindm -> mouse=true)
 hl.bind(SUPER .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
