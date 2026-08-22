@@ -127,7 +127,7 @@ hl.bind(SUPER .. " + CTRL + I", hl.dsp.exec_cmd("~/.config/hypr/ws-scripts/ws-em
 hl.bind(SUPER .. " + CTRL + W", hl.dsp.exec_cmd("~/.config/hypr/ws-scripts/ws-zen"))
 hl.bind(SUPER .. " + CTRL + U", hl.dsp.exec_cmd("~/.config/hypr/ws-scripts/ws-freetube"))
 hl.bind(SUPER .. " + CTRL + O", hl.dsp.exec_cmd("~/.config/hypr/ws-scripts/ws-ferdium"))
-hl.bind(SUPER .. " + CTRL + P", hl.dsp.exec_cmd("~/.config/hypr/ws-scripts/ws-zen-yt"))
+hl.bind(SUPER .. " + CTRL + P", hl.dsp.exec_cmd("~/.config/hypr/ws-scripts/ws-cliamp"))
 hl.bind(SUPER .. " + CTRL + N", hl.dsp.exec_cmd('bash -c "uwsm app -- gnome-clocks & uwsm app -- gnome-weather & uwsm app -- gnome-calculator &"'))
 
 -- Move window to a workspace

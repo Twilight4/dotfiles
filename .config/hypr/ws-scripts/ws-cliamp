@@ -1,0 +1,14 @@
+#!/bin/bash
+# Music workspace (ws5) — SUPER CTRL P
+# Ensures the Zen YouTube tab and the cliamp terminal exist on ws5,
+# then focuses the cliamp terminal.
+
+# Zen YouTube tab (open-or-focus logic lives in ws-zen-yt)
+~/.config/hypr/ws-scripts/ws-zen-yt
+
+# cliamp terminal
+if hyprctl clients | grep -q 'kitty-cliamp'; then
+  hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})'
+else
+  hyprctl dispatch 'hl.dsp.exec_cmd([=[uwsm app -- kitty --class kitty-cliamp -e cliamp]=])'
+fi
