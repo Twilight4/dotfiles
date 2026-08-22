@@ -79,6 +79,7 @@ packages=(
   "onefetch"
   "yazi"
   "jq"
+  "cliamp-bin"
   "poppler"
   "zoxide"
   "nwg-dock-hyprland"
