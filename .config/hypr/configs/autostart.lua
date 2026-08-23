@@ -25,7 +25,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm app -- freetube --enable-features=WaylandWindowDecorations --ozone-platform-hint=auto --enable-features=VaapiVideoDecodeLinuxGL --gpu-context=wayland")
     -- Music workspace (ws5): cliamp TUI with Mixed playlist playing at -20 dB, fullscreen visualizer
     hl.exec_cmd("uwsm app -- kitty --class kitty-cliamp -e cliamp --vol -20 --playlist Mixed --auto-play")
-    hl.exec_cmd([[sleep 2 && cliamp next && sleep 0.3 && cliamp next && hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})' && sleep 0.5 && wtype V]])
+    hl.exec_cmd([[sleep 2 && hyprctl dispatch 'hl.dsp.focus({window="class:^(kitty-cliamp)$"})' && sleep 0.5 && wtype V && sleep 0.3 && hyprctl dispatch 'hl.dsp.focus({workspace=1})']])
     hl.exec_cmd("uwsm app -- ferdium --socket=wayland --ozone-platform-hint=auto --ozone-platform=wayland --enable-features-WaylandWindowDecorations")
     -- Bluetooth fix
     hl.exec_cmd("rfkill block bluetooth && rfkill unblock bluetooth")
@@ -33,8 +33,8 @@ hl.on("hyprland.start", function()
     -- Wallpaper + waybar with pywal colors
     hl.exec_cmd("~/.config/hypr/scripts/wallpaper init")
     hl.exec_cmd("sleep 2 && killall -SIGUSR1 waybar")
-    -- Switch to empty workspace
-    hl.exec_cmd("sleep 2 && hyprctl dispatch 'hl.dsp.focus({workspace=6})'")
+    -- Land on workspace 1 (Emacs)
+    hl.exec_cmd("sleep 2 && hyprctl dispatch 'hl.dsp.focus({workspace=1})'")
     -- Cliphist clipboard manager
     hl.exec_cmd('uwsm app -a cliphist -- wl-paste -n --type text --watch cliphist store')
     hl.exec_cmd('uwsm app -a cliphist -- wl-paste -n --type image --watch cliphist store')
