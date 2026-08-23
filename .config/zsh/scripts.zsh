@@ -851,15 +851,11 @@ mega-sync-on() {
         echo -e "${GREEN}You are already logged in. Starting synchronization...${NC}"
 
         # Synchronize directories
-        mega-sync $HOME/desktop/projects /SYNCED-DATA/desktop/projects/
         mega-sync $HOME/documents/pdfs /SYNCED-DATA/documents/pdfs
         mega-sync $HOME/.ssh/ /SYNCED-DATA/.ssh/
 
-        # Sync individual files
-        mega-put ~/.config/FreeTube/history.db /SYNCED-DATA/.config/FreeTube 
-        mega-put ~/.config/FreeTube/playlists.db /SYNCED-DATA/.config/FreeTube 
-        mega-put ~/.config/FreeTube/profiles.db /SYNCED-DATA/.config/FreeTube 
-        mega-put ~/.config/FreeTube/settings.db /SYNCED-DATA/.config/FreeTube
+        # Sync Freetube
+		mega-put ~/.config/FreeTube/*.db /SYNCED-DATA/.config/FreeTube/
 
         echo -e "${GREEN}Synchronization completed.${NC}"
         echo -e "${GREEN}Please run 'mega-sync-off' to turn off syncing in order to keep a backup and log out.${NC}"
