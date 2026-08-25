@@ -27,6 +27,9 @@ check() {
 
 for group in bloat packages extra; do
     while IFS= read -r pkg; do
+        # ponytail: garuda-* lives only in the Garuda repo, which the plain
+        # Arch CI container can't query; bloat removal is a no-op if absent.
+        [[ $group == bloat && $pkg == garuda-* ]] && continue
         check "$pkg" "$group"
     done < <(extract_array "$group")
 done
