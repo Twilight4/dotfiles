@@ -60,6 +60,7 @@ packages=(
   "cpio"
   "hyprlock"
   "hypridle"
+  "impala"
   "hyprsunset"
   "speech-dispatcher"
   "qt5-wayland"
