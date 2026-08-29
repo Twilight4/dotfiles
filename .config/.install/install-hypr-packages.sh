@@ -53,6 +53,7 @@ bloat=(
 
 packages=(
   "hyprland"
+  "wvkbd"
   "ninja"
   "meson"
   "cmake"
