@@ -65,7 +65,6 @@
         "return-type": "json",       
         "exec": "~/.config/waybar/scripts/updates.sh",
         "restart-interval": 60,
-        "on-click": "kitty -1 -e ~/.config/.local/bin/sys-update.sh",
         "tooltip": false
     },
     
