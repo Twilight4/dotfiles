@@ -3,11 +3,7 @@
   "mcpServers": {
     "emacs": {
       "command": "socat",
-      "args": ["-", "UNIX-CONNECT:/home/twilight/.cache/emacs/emacs-mcp-server.sock"]
-    },
-    "fff": {
-      "command": "/home/twilight/.local/bin/fff-mcp",
-      "args": []
+      "args": ["-", "UNIX-CONNECT:/home/taeryn/.cache/emacs/emacs-mcp-server.sock"]
     },
     "docker-mcp": {
       "command": "docker",

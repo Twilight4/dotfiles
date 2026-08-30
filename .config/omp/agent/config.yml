@@ -1,36 +1,37 @@
 mcp:
   enabled: true
-setupVersion: 1
-modelRoles: 
-  default: zai/glm-5.2:high
-  smol: zai/glm-4.7-flash:minimal
-  slow: zai/glm-5.2:high
-  advisor: zai/glm-5.2
-  tiny: zai/glm-4.7-flash:minimal
-tui: 
+setupVersion: 2
+modelRoles:
+  default: kimi-code/k3-256k
+tui:
   textSizing: true
   renderMermaid: true
-terminal: 
+terminal:
   showImages: true
-images: 
+images:
   autoResize: true
   blockImages: false
 personality: default
-stt: 
+stt:
   enabled: true
   submitTrigger: never
-features: 
+features:
   unexpectedStopDetection: false
-tools: 
+tools:
   approvalMode: yolo
-bash: 
+bash:
   enabled: true
-task: 
-  disabledAgents: 
-    []
-browser: 
+task:
+  disabledAgents: []
+browser:
   headless: true
-memory: 
+memory:
   backend: local
-providers: 
+providers:
   tinyModelDevice: default
+symbolPreset: nerd
+composer:
+  shape: box
+theme:
+  dark: titanium
+  light: light

@@ -1,27 +1,22 @@
 {
   "plugins": {
-    "pi-account-switcher": {
-      "version": "0.1.2",
-      "enabledFeatures": null,
-      "enabled": true
-    },
-    "@oh-my-pi/pi-tui": {
-      "version": "16.3.10",
-      "enabledFeatures": null,
-      "enabled": true
-    },
     "superpowers": {
-      "version": "6.1.1",
-      "enabledFeatures": null,
-      "enabled": true
-    },
-    "@dietrichgebert/ponytail": {
-      "version": "4.8.4",
+      "version": "6.3.0",
       "enabledFeatures": null,
       "enabled": true
     },
     "pi-agent-browser-native": {
-      "version": "0.2.65",
+      "version": "0.5.0",
+      "enabledFeatures": null,
+      "enabled": true
+    },
+    "@ff-labs/pi-fff": {
+      "version": "0.10.6",
+      "enabledFeatures": null,
+      "enabled": true
+    },
+    "@dietrichgebert/ponytail": {
+      "version": "4.9.0",
       "enabledFeatures": null,
       "enabled": true
     }
