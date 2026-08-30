@@ -93,11 +93,6 @@ echo "slot, which fcitx5's waylandim frontend grabs exclusively. The deployed"
 echo "drop-in ~/.config/systemd/user/omarchy-fcitx5.service.d/override.conf"
 echo "disables waylandim. Trade-off: XCompose sequences stop working in"
 echo "Wayland-native apps (XWayland unaffected). Omarchy-only; skipped elsewhere."
-echo "Also: ~/.config/hypr/scripts/osk-menu-watch.sh auto-shows wvkbd in the"
-echo "Omarchy menu and forwards its keys via wtype (the menu search has no"
-echo "text-input-v3). Like the hyprgrass gesture bind, the autostart line is"
-echo "NOT tracked (autostart.lua is Omarchy-managed) — re-add manually:"
-echo '  o.launch_on_start(os.getenv("HOME") .. "/.config/hypr/scripts/osk-menu-watch.sh")'
 if ! systemctl --user list-unit-files 2>/dev/null | grep -q '^omarchy-fcitx5\.service'; then
     info "omarchy-fcitx5.service not found (not an Omarchy install) — skipping."
 elif confirm_run; then
