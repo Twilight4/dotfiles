@@ -139,7 +139,6 @@ alias mpc='mega-cd "/CLOUD-DATA/pictures" ; mega-ls --tree'
 alias mvd='mega-cd "/CLOUD-DATA/videos" ; mega-ls --tree'
 alias mdw='mega-cd "/CLOUD-DATA/downloads" ; mega-ls --tree'
 alias mdc='mega-cd "/CLOUD-DATA/documents" ; mega-ls --tree'
-alias msync='mega-cd "/SYNCED-DATA/" ; mega-ls --tree'
 # Note files
 alias ipt='emacsclient -nw "$HOME/documents/org/roam/red-team/ipt.org"'
 alias ept='emacsclient -nw "$HOME/documents/org/roam/red-team/ept.org"'
