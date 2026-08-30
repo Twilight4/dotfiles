@@ -769,6 +769,7 @@ gh-sync() {
     local REPOS=(
         "$HOME/desktop/workspace/nobility:Twilight4/nobility"
         "$HOME/desktop/workspace/dotfiles:Twilight4/dotfiles"
+        "$HOME/desktop/workspace/omarchy-dotfiles:Twilight4/omarchy-dotfiles"
         "$HOME/documents/org:Twilight4/org"
         "$HOME/.config/cheat:Twilight4/cheats"
         "$HOME/desktop/workspace/ai-projects:Twilight4/ai-projects"
@@ -833,64 +834,12 @@ gh-sync() {
 
     echo
     echo -e "${GREEN}All repositories processed.${NC}"
-}
 
-# Function to sync data with Mega cloud
-mega-sync-on() {
-    # ANSI color codes
-    GREEN='\033[0;32m'
-    RED='\033[0;31m'
-    YELLOW='\033[1;33m'
-    BLUE='\033[0;34m'
-    NC='\033[0m' # No Color
-
-    # Check if the user is already logged in
-    login_status=$(mega-login 2>&1)
-
-    if echo "$login_status" | grep -q "Already logged in. Please log out first."; then
-        echo -e "${GREEN}You are already logged in. Starting synchronization...${NC}"
-
-        # Synchronize directories
-        mega-sync $HOME/documents/pdfs /SYNCED-DATA/documents/pdfs
-        mega-sync $HOME/.ssh/ /SYNCED-DATA/.ssh/
-
-        # Sync Freetube
-		mega-put ~/.config/FreeTube/*.db /SYNCED-DATA/.config/FreeTube/
-
-        echo -e "${GREEN}Synchronization completed.${NC}"
-        echo -e "${GREEN}Please run 'mega-sync-off' to turn off syncing in order to keep a backup and log out.${NC}"
-        echo
-        echo -e "${BLUE}You can run 'watch mega-sync' command to check current syncing.${NC}"
+    # FreeTube profile DBs → Mega (one-way push; continuous sync = omaga-sync plugin)
+    if ls ~/.config/FreeTube/*.db >/dev/null 2>&1; then
+        mega-put ~/.config/FreeTube/*.db /config/FreeTube/
     else
-        echo -e "${RED}Please log in using 'mega-login <email> <pass>' and try again.${NC}"
-    fi
-}
-
-# Function to stop syncing data with Mega cloud
-mega-sync-off() {
-    # ANSI color codes
-    GREEN='\033[0;32m'
-    RED='\033[0;31m'
-    YELLOW='\033[1;33m'
-    NC='\033[0m' # No Color
-    
-    mega-sync -d $HOME/desktop/projects
-    mega-sync -d $HOME/documents/pdfs
-    mega-sync -d $HOME/.ssh/
-
-    echo -e "${GREEN}All specified directories have been unsynced.${NC}"
-
-    # Confirmation prompt before logging out
-    echo
-    echo -e "${YELLOW}Do you want to log out from Mega? (y/n)${NC} \c"
-    read -r logout_confirm
-
-    if [ "$logout_confirm" = "y" ]; then
-        mega-logout
-        echo
-        echo -e "${GREEN}Logged out successfully.${NC}"
-    else
-        echo -e "${GREEN}Logout cancelled.${NC}"
+        echo -e "${YELLOW}No FreeTube .db files — skipping mega-put.${NC}"
     fi
 }
 

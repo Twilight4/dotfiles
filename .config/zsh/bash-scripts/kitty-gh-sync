@@ -3,6 +3,7 @@
 # List of GitHub repositories with full paths
 REPOS=(
     "$HOME/desktop/workspace/dotfiles:Twilight4/dotfiles"
+    "$HOME/desktop/workspace/omarchy-dotfiles:Twilight4/omarchy-dotfiles"
     "$HOME/documents/org:Twilight4/org"
     "$HOME/.config/cheat:Twilight4/cheats"
     "$HOME/desktop/workspace/ai-projects:Twilight4/ai-projects"
@@ -67,3 +68,10 @@ done
 
 echo
 echo -e "${GREEN}All repositories processed.${NC}"
+
+# FreeTube profile DBs → Mega (one-way push; continuous sync = omaga-sync plugin)
+if ls ~/.config/FreeTube/*.db >/dev/null 2>&1; then
+    mega-put ~/.config/FreeTube/*.db /config/FreeTube/
+else
+    echo -e "${YELLOW}No FreeTube .db files — skipping mega-put.${NC}"
+fi

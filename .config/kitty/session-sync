@@ -7,7 +7,3 @@ launch --title shutdown sh -c 'echo -e "\n   \033[1;32mWill power off in 2 minut
 # Create a window (title sets the tab title)
 launch --title gh-sync sh -c '~/.config/zsh/bash-scripts/kitty-gh-sync && exec zsh'
 
-# --- Disabled mega-sync (uncomment to re-enable) ---
-# Shutdown cmd above previously chained: && ~/.config/zsh/bash-scripts/kitty-mega-sync-off
-#launch --title gh-sync sh -c 'watch -n 0.5 mega-sync'
-#launch --title mega-sync sh -c '~/.config/zsh/bash-scripts/kitty-mega-sync-on && exec zsh'

@@ -13,7 +13,7 @@ SCRIPT_DIR="$(cd "$(dirname "$(realpath "$0")")" && pwd)"
 source "$SCRIPT_DIR/library.sh"
 
 STEP=0
-TOTAL=16
+TOTAL=15
 
 #------------------------------------------------------------- flow helpers
 # banner <title> — step header
@@ -106,12 +106,16 @@ manual "The first time an app needs the keyring, a dialog appears." \
        "Just press Enter (empty password) to avoid secret-storage friction."
 
 #----------------------------------------------------------- 4. Sync data
-banner "Sync cloud data (ssh keys via Mega, GitHub repos)"
-echo "Syncs ~/.ssh from Mega, pulls GitHub repos, applies small CLI fixes."
+banner "Sync cloud data (ssh keys + FreeTube DBs via Mega, GitHub repos)"
+echo "One-time mega-get pulls (~/.ssh, FreeTube DBs), pulls GitHub repos, applies small CLI fixes."
 if confirm_run; then
-    # megacmd
-    if ! command -v mega-sync >/dev/null; then
-        run_or_fail "install megacmd" paru -S --noconfirm megacmd
+    # megacmd (paru on Garuda, yay on Omarchy)
+    if ! command -v mega-get >/dev/null; then
+        if command -v paru >/dev/null; then
+            run_or_fail "install megacmd" paru -S --noconfirm megacmd
+        else
+            run_or_fail "install megacmd" yay -S --noconfirm megacmd
+        fi
     fi
 
     # Mega login only if needed
@@ -125,8 +129,12 @@ if confirm_run; then
         info "Already logged into Mega."
     fi
 
-    # Only the ssh keys sync (rest of Mega sync is retired)
-    run_or_fail "sync ~/.ssh" mega-sync "$HOME/.ssh/" /SYNCED-DATA/.ssh/
+    # One-time pulls (continuous sync is handled by the omaga-sync plugin)
+    mkdir -p "$HOME/.ssh" "$HOME/.config/FreeTube"
+    run_or_fail "pull ~/.ssh keys" mega-get /ssh/* "$HOME/.ssh/"
+    run_or_fail "pull FreeTube DBs" mega-get /config/FreeTube/*.db "$HOME/.config/FreeTube/"
+    chmod 700 "$HOME/.ssh"
+    chmod 600 "$HOME/.ssh"/id_* 2>/dev/null || true
 
     # GitHub repos
     run_or_fail "gh-sync" gh-sync
@@ -197,26 +205,7 @@ manual "Pin on the dock: Bluetooth, pavucontrol, gnome-clocks," \
 banner "Ferdium (manual)"
 manual "Log in to Ferdium and enable dark mode."
 
-#------------------------------------------------- 9. Dock/rofi icons
-banner "Fix dock/rofi icons"
-echo "Sets Papirus icons for google-maps-desktop and freetube .desktop entries."
-if confirm_run; then
-    fix_icon() {
-        local desktop="$1" icon="$2"
-        if [[ -f $desktop ]]; then
-            sudo sed -i "s|^Icon=.*|Icon=$icon|" "$desktop"
-            ok "$(basename "$desktop") icon set."
-        else
-            warn "$desktop not found — skipping."
-        fi
-    }
-    fix_icon /usr/share/applications/google-maps-desktop.desktop \
-        /usr/share/icons/Papirus-Dark/128x128/apps/maps.svg
-    fix_icon /usr/share/applications/freetube.desktop \
-        /usr/share/icons/Papirus-Dark/128x128/apps/youtube.svg
-fi
-
-#------------------------------------------------------- 10. GTK theme
+#------------------------------------------------------- 9. GTK theme
 banner "GTK theme — Graphite-blue-Dark-compact"
 echo "Sets the GTK theme via gsettings (same as picking it in nwg-look)."
 if confirm_run; then
@@ -224,14 +213,14 @@ if confirm_run; then
         gsettings set org.gnome.desktop.interface gtk-theme "Graphite-blue-Dark-compact"
 fi
 
-#-------------------------------------------------- 11. gptel API key
+#-------------------------------------------------- 10. gptel API key
 banner "gptel API key (manual)"
 manual "Add your AI provider API key to the gptel configuration in Emacs." \
        "If Emacs doesn't load the config, it may not see ~/.config/emacs:" \
        "  move init.el to ~/.emacs.d/, or debug with:" \
        "  M-x org-babel-load-file ~/.config/emacs/config.org"
 
-#------------------------------------------------- 12. AI coding agent
+#------------------------------------------------- 11. AI coding agent
 banner "AI coding agent — uv, oh-my-pi, plugins, ai-projects links"
 echo "Installs uv + omp, restores the backed-up OMP config, installs plugins,"
 echo "and links the ai-projects skills/commands/global instructions."
@@ -302,7 +291,7 @@ if confirm_run; then
     fi
 fi
 
-#---------------------------------------------------- 13. Docker MCP
+#---------------------------------------------------- 12. Docker MCP
 banner "Docker MCP — dev_workflow profile config"
 echo "Applies the static profile config, then asks for the GitHub PAT."
 if confirm_run; then
@@ -329,7 +318,7 @@ if confirm_run; then
     info "Verify with: docker mcp gateway run --profile dev_workflow"
 fi
 
-#---------------------------------------------------- 14. Yazi plugins
+#---------------------------------------------------- 13. Yazi plugins
 banner "Yazi plugins (optional)"
 echo "Installs 6 yazi plugins + the catppuccin-mocha flavor."
 if confirm_run; then
@@ -341,14 +330,14 @@ if confirm_run; then
     done
 fi
 
-#-------------------------------------------------------- 15. Telegram
+#-------------------------------------------------------- 14. Telegram
 banner "Telegram Desktop settings (manual)"
 manual "Notifications and Sounds: disable 'Draw attention to the window'." \
        "Notifications and Sounds: disable 'Allow sound'." \
        "Use the QT window frame; turn off animated emojis and stickers;" \
        "  'Include muted chats in unread count' → off."
 
-#------------------------------------------------------ 16. k10temp
+#------------------------------------------------------ 15. k10temp
 banner "CPU temperature module (k10temp)"
 echo "Waybar's temperature module needs the k10temp kernel module loaded."
 if confirm_run; then
