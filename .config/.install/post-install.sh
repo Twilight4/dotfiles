@@ -270,6 +270,7 @@ if confirm_run; then
     # Plugins + agent-browser
     run_or_fail "npm agent-browser" npm install -g agent-browser
     run_or_fail "omp plugin: superpowers" omp install git:github.com/obra/superpowers
+    run_or_fail "omp plugin: ponytail" omp install npm:@dietrichgebert/ponytail
     run_or_fail "omp plugin: agent-browser" omp install npm:pi-agent-browser-native
     run_or_fail "omp plugin: pi-fff" omp install npm:@ff-labs/pi-fff
 
