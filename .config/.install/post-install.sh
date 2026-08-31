@@ -196,10 +196,10 @@ fi
 
 #-------------------------------------------------------- 7. Dock pins
 banner "nwg-dock-hyprland pins (manual)"
-manual "Pin on the dock: Bluetooth, pavucontrol, gnome-clocks," \
-       "  freetube, Netflix, zen browser, telegram, spotify, steam," \
-       "  filemanager, protonmail, protonvpn, google maps, weather," \
-       "  ferdium, outlook, Garuda toolbox, Blanket, calculator."
+manual "Pin on the dock: file manager, browser, camera, gnome-clocks," \
+       "  freetube, Netflix, steam," \
+       "  google maps, weather," \
+       "  ferdium, calculator."
 
 #--------------------------------------------------------- 8. Ferdium
 banner "Ferdium (manual)"
