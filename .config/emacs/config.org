@@ -504,31 +504,42 @@ Mirrors `text-scale-increase' (C-=) under the transparency prefix."
     (propertize (concat " " name " ") 'face face)))
 (setq tab-bar-tab-name-format-function #'tl/tab-name-kitty)
 
-;; --- Mirror kitty's tab-bar + cursor colors. The pywal-generated
-;; colors-kitty.conf is the source of truth (theme.conf includes it LAST, so it
-;; overrides); `tl/sync-kitty-tab-colors' re-reads it and applies the colors,
-;; so regenerating the pywal scheme is mirrored here with no second edit.
+;; --- Mirror kitty's tab-bar + cursor colors. The kitty color file is the
+;; source of truth; `tl/kitty-theme-file' picks it per machine: the
+;; pywal-generated colors-kitty.conf on Garuda (theme.conf includes it LAST,
+;; so it overrides), or — when pywal colors are absent — the Omarchy theme
+;; state file written by `omarchy theme set'. `tl/sync-kitty-tab-colors'
+;; re-reads it and applies the colors, so regenerating the scheme is
+;; mirrored here with no second edit.
 ;; Defined here; applied after `load-theme' in "Color theme" and hooked into
 ;; `enable-theme-functions' to survive theme reloads. ---
-(defconst tl/kitty-theme-file
-  (expand-file-name "~/.cache/wal/colors-kitty.conf")
-  "Pywal-generated kitty color file, included LAST by kitty's theme.conf.
-Holds the real tab/cursor colors (active/inactive tab fg+bg, cursor).
-tab_bar_background is not set here — it stays #040305 from theme.conf.")
+(defun tl/kitty-theme-file ()
+  "Return the kitty color file to mirror in Emacs.
+Prefers the pywal-generated colors-kitty.conf (Garuda: pywal writes it and
+kitty's theme.conf includes it LAST, so it wins); on Omarchy there is no
+pywal, and the theme state file is the equivalent source of truth. Missing
+keys fall back to the constants in `tl/sync-kitty-tab-colors'."
+  (let ((pywal (expand-file-name "~/.cache/wal/colors-kitty.conf"))
+        (omarchy (expand-file-name
+                  "~/.local/state/omarchy/current/theme/kitty.conf")))
+    (cond ((file-readable-p pywal) pywal)
+          ((file-readable-p omarchy) omarchy)
+          (t pywal))))
 
 (defun tl/kitty-color (key &optional fallback)
   "Read the #rrggbb color for KEY (e.g. \"active_tab_foreground\") from kitty.
-Return the hex string, or FALLBACK when colors-kitty.conf or the key is absent."
-  (or (and (file-readable-p tl/kitty-theme-file)
-           (with-temp-buffer
-             (insert-file-contents tl/kitty-theme-file)
-             (goto-char (point-min))
-             (when (re-search-forward
-                    (concat "^\\s-*" (regexp-quote key)
-                            "\\s-+\\(#[0-9a-fA-F]\\{6\\}\\)")
-                    nil t)
-               (match-string 1))))
-      fallback))
+Return the hex string, or FALLBACK when the theme file or the key is absent."
+  (let ((theme-file (tl/kitty-theme-file)))
+    (or (and (file-readable-p theme-file)
+             (with-temp-buffer
+               (insert-file-contents theme-file)
+               (goto-char (point-min))
+               (when (re-search-forward
+                      (concat "^\\s-*" (regexp-quote key)
+                              "\\s-+\\(#[0-9a-fA-F]\\{6\\}\\)")
+                      nil t)
+                 (match-string 1))))
+        fallback)))
 
 (defun tl/sync-kitty-tab-colors (&optional _theme)
   "Apply kitty's tab-bar and cursor colors to the Emacs faces.
