@@ -157,7 +157,7 @@ if confirm_run; then
     chmod 600 "$HOME/.ssh"/id_* 2>/dev/null || true
 
     # GitHub repos
-    run_or_fail "gh-sync" gh-sync
+    run_or_fail "gh-sync" zsh -c 'source ~/.config/zsh/scripts.zsh && gh-sync'
 
     # zsh-autopair: unbind C-h / ^? from autopair-delete (idempotent sed)
     autopair="$HOME/.config/zsh/plugins/zsh-autopair/autopair.zsh"
