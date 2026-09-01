@@ -61,6 +61,26 @@ run_or_fail() {
     fi
 }
 
+# pm_add <desc> <url> [rev] — hyprpm add; "already installed" is success
+# (makes re-runs idempotent instead of aborting run_or_fail).
+pm_add() {
+    local desc="$1"; shift
+    local out
+    if out=$(hyprpm add "$@" 2>&1); then
+        ok "$desc"
+    elif [[ $out == *"already installed"* ]]; then
+        info "$desc — already present."
+    else
+        err "$desc — FAILED."
+        return 1
+    fi
+}
+
+# Last hyprgrass commit compatible with Hyprland 0.56.x stable: main tracks
+# the 0.57-dev keybinds reorg and the v0.8.2 tag needs the older Log.hpp
+# layout. Bump when Hyprland stable moves past 0.56.
+HYPRGRASS_REV=56473e9e0b2da34bb3b871e90f40b3fc3d41ba9b
+
 #================================================================ Steps ====
 
 #-------------------------------------------------- 1. Hyprland plugins
@@ -76,10 +96,10 @@ if [[ -z ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then
 else
     if confirm_run; then
         run_or_fail "hyprpm update" hyprpm update
-        run_or_fail "add hyprland-plugins" hyprpm add https://github.com/hyprwm/hyprland-plugins
-        run_or_fail "add hyprexpo" hyprpm add https://github.com/sandwichfarm/hyprexpo
+        pm_add "add hyprland-plugins" https://github.com/hyprwm/hyprland-plugins
+        pm_add "add hyprexpo" https://github.com/sandwichfarm/hyprexpo
         run_or_fail "enable hyprexpo" hyprpm enable hyprexpo
-        run_or_fail "add hyprgrass" hyprpm add https://github.com/horriblename/hyprgrass
+        pm_add "add hyprgrass" https://github.com/horriblename/hyprgrass "$HYPRGRASS_REV"
         run_or_fail "enable hyprgrass" hyprpm enable hyprgrass
         run_or_fail "hyprpm reload" hyprpm reload
     fi
