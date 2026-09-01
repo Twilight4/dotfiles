@@ -541,16 +541,46 @@ Return the hex string, or FALLBACK when the theme file or the key is absent."
                  (match-string 1))))
         fallback)))
 
+(defconst tl/omarchy-colors-toml
+  (expand-file-name "~/.local/state/omarchy/current/theme/colors.toml")
+  "Omarchy theme palette — darker/lighter shades keyed by role.
+The kitty.conf themes omit the tab-bar keys pywal provides; colors.toml
+carries the generator's full palette (darker_background, dark_foreground,
+accent, ...), so it fills exactly those holes.")
+
+(defun tl/toml-color (key &optional fallback)
+  "Read the #rrggbb color for KEY from the Omarchy colors.toml palette.
+Return the hex string, or FALLBACK when the file or the key is absent."
+  (and (file-readable-p tl/omarchy-colors-toml)
+       (with-temp-buffer
+         (insert-file-contents tl/omarchy-colors-toml)
+         (goto-char (point-min))
+         (when (re-search-forward
+                (concat "^\\s-*" (regexp-quote key)
+                        "\\s-=\\s-*\"\\(#[0-9a-fA-F]\\{6\\}\\)\"")
+                nil t)
+           (match-string 1)))))
+
 (defun tl/sync-kitty-tab-colors (&optional _theme)
   "Apply kitty's tab-bar and cursor colors to the Emacs faces.
-Sources: `tl/kitty-theme-file' (pywal) — active/inactive tab fg+bg, cursor."
+Sources: the kitty theme (`tl/kitty-theme-file') first — pywal's
+colors-kitty.conf defines every key; Omarchy's kitty.conf only cursor +
+active_tab_background. The remaining tab keys fall back to shade-matched
+roles from the Omarchy colors.toml palette (darker/dark background, dark
+foreground, accent), then to the built-in constants."
   (interactive)
-  (let ((bar-bg (tl/kitty-color "tab_bar_background"      "#040305"))
-        (act-fg (tl/kitty-color "active_tab_foreground"   "#061C24"))
-        (act-bg (tl/kitty-color "active_tab_background"   "#adb6b7"))
-        (ina-fg (tl/kitty-color "inactive_tab_foreground" "#adb6b7"))
-        (ina-bg (tl/kitty-color "inactive_tab_background" "#061C24"))
-        (cursor (tl/kitty-color "cursor"                  "#adb6b7")))
+  (let ((bar-bg (tl/kitty-color "tab_bar_background"
+                                (tl/toml-color "darker_background" "#040305")))
+        (act-fg (tl/kitty-color "active_tab_foreground"
+                                (tl/toml-color "background" "#061C24")))
+        (act-bg (tl/kitty-color "active_tab_background"
+                                (tl/toml-color "accent" "#adb6b7")))
+        (ina-fg (tl/kitty-color "inactive_tab_foreground"
+                                (tl/toml-color "dark_foreground" "#adb6b7")))
+        (ina-bg (tl/kitty-color "inactive_tab_background"
+                                (tl/toml-color "dark_background" "#061C24")))
+        (cursor (tl/kitty-color "cursor"
+                                (tl/toml-color "accent" "#adb6b7"))))
     (set-face-attribute 'tab-bar nil :background bar-bg :box nil)
     (set-face-attribute 'tab-bar-tab nil
                         :background act-bg :foreground act-fg :box nil)
