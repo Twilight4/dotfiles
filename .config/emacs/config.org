@@ -1532,6 +1532,14 @@ owning tab and raises the window displaying the chosen buffer."
  ring-bell-function 'ignore)
 (global-goto-address-mode t)
 (setq browse-url-browser-function #'browse-url-xdg-open)
+;; Silence the Emacs 31 byte-compiler warning "`condition-case' condition
+;; should not be quoted: 'error" — emitted during startup by an in-memory
+;; compilation somewhere in the package set; cosmetic only (the quoted
+;; handler still works). Suppresses that one message, not the warning class.
+(advice-add 'byte-compile-warn-x :around
+            (lambda (o x fmt &rest args)
+              (unless (and (stringp fmt) (string-match-p "should not be quoted" fmt))
+                (apply o x fmt args))))
 
 ;; Location data for sunrise-sunset commands
 (setq calendar-latitude 52.23)
