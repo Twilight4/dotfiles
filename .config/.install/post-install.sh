@@ -14,6 +14,15 @@ source "$SCRIPT_DIR/library.sh"
 
 STEP=0
 TOTAL=15
+# Omarchy run (invoked by omarchy-dotfiles' run-post-install.sh): steps that
+# only apply to the Garuda rice are skipped — the fonts sanity re-install and
+# the Garuda default icons/themes removal (step 4), the GTK theme (step 9),
+# and the waybar k10temp module (step 15 — Omarchy 4 has no waybar).
+IS_OMARCHY=0
+if pacman -Qq omarchy &>/dev/null; then
+    IS_OMARCHY=1
+    TOTAL=13
+fi
 
 #------------------------------------------------------------- flow helpers
 # banner <title> — step header
@@ -172,24 +181,26 @@ if confirm_run; then
     # bat theme cache
     run_or_fail "bat cache build" bat cache --build
 
-    # Fonts sanity (Meslo was historically flaky; install-fonts is now strict)
-    if [[ -d $HOME/.config/.local/share/fonts/Meslo ]]; then
-        info "Fonts OK (Meslo present)."
-    else
-        warn "Meslo fonts missing — re-running install-fonts.sh..."
-        DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
-        bash "$SCRIPT_DIR/install-fonts.sh"
-    fi
-
-    # Remove Garuda default icons/themes (packages can't be uninstalled)
-    for junk in /usr/share/icons/candy-icons /usr/share/icons/BeautyLine /usr/share/themes/Sweet-Dark; do
-        if [[ -e $junk ]]; then
-            sudo rm -rf "$junk"
-            ok "Removed $junk"
+    if [[ $IS_OMARCHY == 0 ]]; then
+        # Fonts sanity (Meslo was historically flaky; install-fonts is now strict)
+        if [[ -d $HOME/.config/.local/share/fonts/Meslo ]]; then
+            info "Fonts OK (Meslo present)."
         else
-            info "$junk already absent."
+            warn "Meslo fonts missing — re-running install-fonts.sh..."
+            DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+            bash "$SCRIPT_DIR/install-fonts.sh"
         fi
-    done
+
+        # Remove Garuda default icons/themes (packages can't be uninstalled)
+        for junk in /usr/share/icons/candy-icons /usr/share/icons/BeautyLine /usr/share/themes/Sweet-Dark; do
+            if [[ -e $junk ]]; then
+                sudo rm -rf "$junk"
+                ok "Removed $junk"
+            else
+                info "$junk already absent."
+            fi
+        done
+    fi
 fi
 
 #---------------------------------------------------- 5. Zen browser
@@ -226,11 +237,13 @@ banner "Ferdium (manual)"
 manual "Log in to Ferdium and enable dark mode."
 
 #------------------------------------------------------- 9. GTK theme
-banner "GTK theme — Graphite-blue-Dark-compact"
-echo "Sets the GTK theme via gsettings (same as picking it in nwg-look)."
-if confirm_run; then
-    run_or_fail "set GTK theme" \
-        gsettings set org.gnome.desktop.interface gtk-theme "Graphite-blue-Dark-compact"
+if [[ $IS_OMARCHY == 0 ]]; then
+    banner "GTK theme — Graphite-blue-Dark-compact"
+    echo "Sets the GTK theme via gsettings (same as picking it in nwg-look)."
+    if confirm_run; then
+        run_or_fail "set GTK theme" \
+            gsettings set org.gnome.desktop.interface gtk-theme "Graphite-blue-Dark-compact"
+    fi
 fi
 
 #-------------------------------------------------- 10. gptel API key
@@ -358,14 +371,16 @@ manual "Notifications and Sounds: disable 'Draw attention to the window'." \
        "  'Include muted chats in unread count' → off."
 
 #------------------------------------------------------ 15. k10temp
-banner "CPU temperature module (k10temp)"
-echo "Waybar's temperature module needs the k10temp kernel module loaded."
-if confirm_run; then
-    if lsmod | grep -q k10temp; then
-        info "k10temp already loaded."
-    else
-        run_or_fail "modprobe k10temp" sudo modprobe k10temp
-        warn "To persist across reboots: echo k10temp | sudo tee /etc/modules-load.d/k10temp.conf"
+if [[ $IS_OMARCHY == 0 ]]; then
+    banner "CPU temperature module (k10temp)"
+    echo "Waybar's temperature module needs the k10temp kernel module loaded."
+    if confirm_run; then
+        if lsmod | grep -q k10temp; then
+            info "k10temp already loaded."
+        else
+            run_or_fail "modprobe k10temp" sudo modprobe k10temp
+            warn "To persist across reboots: echo k10temp | sudo tee /etc/modules-load.d/k10temp.conf"
+        fi
     fi
 fi
 
