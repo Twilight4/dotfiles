@@ -497,12 +497,8 @@ Mirrors `text-scale-increase' (C-=) under the transparency prefix."
 (setq tab-bar-show 1
       tab-bar-new-tab-choice "*dashboard*"
       ;; Only the tabs themselves — no `«»' history arrows (left) or `+'
-      ;; The trailing propertized space matters: xdisp's
-      ;; `extend_face_to_end_of_line' fills the rest of a tab-bar row with the
-      ;; LAST rendered face, so without it the last (e.g. active) tab's
-      ;; background stretches to the right edge instead of hugging its name.
-      tab-bar-format (list #'tab-bar-format-tabs
-                           (propertize " " 'face 'tab-bar))
+      ;; buttons. `tl/tab-bar-format-fill' must stay last — see its docstring.
+      tab-bar-format '(tab-bar-format-tabs tl/tab-bar-format-fill)
       ;; Tab width = its name length (kitty-style). The default `t' stretches
       ;; every tab to fill the bar
       tab-bar-auto-width nil
@@ -511,6 +507,16 @@ Mirrors `text-scale-increase' (C-=) under the transparency prefix."
       tab-bar-separator " "
       ;; No per-tab `x' close button; closing is via keys (M-C / C-x w d).
       tab-bar-close-button-show nil)
+
+;; Trailing fill entry for `tab-bar-format'. xdisp's
+;; `extend_face_to_end_of_line' fills the rest of a tab-bar row with the LAST
+;; rendered face, so without this the last (e.g. active) tab's background
+;; stretches to the right edge instead of hugging its name. It must return a
+;; menu-item: `tab-bar-format' elements are consumed as keymap entries, so a
+;; plain string element is silently dropped (verified on Emacs 31.1 pgtk).
+(defun tl/tab-bar-format-fill ()
+  "Trailing entry resetting the tab-bar row fill face to `tab-bar'."
+  `((fill menu-item ,(propertize " " 'face 'tab-bar) ignore)))
 
 ;; Kitty-style tab names: pad one space each side and carry the tab face onto
 ;; the padding, so the highlight doesn't hug the text — the name floats on a
