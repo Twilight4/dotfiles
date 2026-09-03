@@ -373,17 +373,31 @@ These settings only take effect on graphical frames — text-terminal frames ign
 ;; via `composition-function-table'. Registered against `t' so the rule set
 ;; applies in every major mode (prog, org, text, ...) and `global-ligature-mode'
 ;; turns the minor mode on everywhere.
+;; (use-package ligature
+;;   :ensure t
+;;   :config
+;;   (ligature-set-ligatures
+;;    't
+;;    '("->" "<-" "<==" "==>" "=>" ">=" "<=" "==" "===" "!=" "!==" "&&" "||" "|||"
+;;      "??" "?." "?:" "::" ":::" ":=" "::=" "##" "###" "<!--" "-->" "</>" "</"
+;;      "/=" "//" "///" "/*" "*/" "++" "+++" "+=" "-=" "*=" "%=" "&=" "|=" "^="
+;;      "<<" ">>" "<<=" ">>=" "<->" "<~>" "<~" "<|>" "<||" "<=>" ".." "..." "..<"
+;;      "**" "***" "*>" "#{" "#[" "#:" "#=")
+;;   (global-ligature-mode t)))
 (use-package ligature
   :ensure t
   :config
+  ;; ligature.el 2026+ API: (ligature-set-ligatures MODES LIGATURES) — 2 args.
+  ;; The old 3-arg call (MODES ENABLED LIGATURES) errors with
+  ;; "Wrong number of arguments: ligature-set-ligatures, 3".
   (ligature-set-ligatures
    't
    '("->" "<-" "<==" "==>" "=>" ">=" "<=" "==" "===" "!=" "!==" "&&" "||" "|||"
      "??" "?." "?:" "::" ":::" ":=" "::=" "##" "###" "<!--" "-->" "</>" "</"
      "/=" "//" "///" "/*" "*/" "++" "+++" "+=" "-=" "*=" "%=" "&=" "|=" "^="
      "<<" ">>" "<<=" ">>=" "<->" "<~>" "<~" "<|>" "<||" "<=>" ".." "..." "..<"
-     "**" "***" "*>" "#{" "#[" "#:" "#=")
-  (global-ligature-mode t)))
+     "**" "***" "*>" "#{" "#[" "#:" "#="))
+  (global-ligature-mode t))
 
 ;; Baseline line spacing for monospace/code buffers; text buffers override it.
 (setq-default line-spacing 0.05)
@@ -939,6 +953,7 @@ owning tab and raises the window displaying the chosen buffer."
 (global-set-key (kbd "M-m") 'tab-bar-history-back)
 (global-set-key (kbd "M-h") 'zoxide-travel)
 (global-set-key (kbd "M-H") 'zoxide-find-file)
+(global-set-key (kbd "C-q") 'bury-buffer)
 (global-set-key (kbd "M-M") 'tab-bar-history-forward)
 (global-set-key (kbd "C-j") 'next-line)
 (global-set-key (kbd "C-h") 'tl/backward-char-skip-invisible)
@@ -1006,6 +1021,7 @@ owning tab and raises the window displaying the chosen buffer."
 ;; Spell-checker
 ;(global-set-key (kbd "M-a") 'embark-act)
 (global-set-key (kbd "M-i") 'jinx-correct)
+(global-set-key (kbd "M-I") 'jinx-correct-all)
 ;(global-set-key (kbd "M-n") 'jinx-correct-nearest)      ;; Jinx-correct works the same
 ;(global-set-key (kbd "M-w") 'jinx-correct-all)
 ;(global-set-key (kbd "M-w") 'jinx-correct-select)
@@ -3048,11 +3064,12 @@ Words auto-completion
         ("TAB" . tl/corfu-accept-then-space)
         ("SPC" . nil)))
 
-(use-package corfu-terminal
-  :ensure t
-  :after corfu
-  :config
-  (corfu-terminal-mode +1))
+;; Corfu terminal not needed in Emacs 31+
+;; (use-package corfu-terminal
+;;   :ensure t
+;;   :after corfu
+;;   :config
+;;   (corfu-terminal-mode +1))
 
 ;; File-type icons beside Corfu completion candidates. 
 (use-package nerd-icons-corfu
@@ -4010,6 +4027,7 @@ Like `consult-buffer', but lists only dired-mode buffers."
   (define-key dired-mode-map (kbd "l") 'tl/dired-enter)
   (define-key dired-mode-map (kbd "j") 'tl/dired-next-line)
   (define-key dired-mode-map (kbd "k") 'tl/dired-prev-line)
+  (define-key dired-mode-map (kbd "q") 'scroll-up-line)
   (define-key dired-mode-map (kbd "C-f") 'tl/dired-half-page-down)
   (define-key dired-mode-map (kbd "C-b") 'tl/dired-half-page-up)
   (define-key dired-mode-map (kbd "L") 'tl/dired-hist-forward)
@@ -4231,23 +4249,8 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
                                     (buffer-substring-no-properties (point) (point-max))))
                         res)))
               res)))
-  (setq-default gptel--system-message (alist-get 'default gptel-directives))
+  (setq-default gptel--system-message (alist-get 'default gptel-directives)))
 
-  ;; Disable the corfu-terminal popon while reading a gptel prompt from the
-  ;; minibuffer.  `corfu--popup-support-p' returns nil for the minibuffer when
-  ;; `corfu-terminal-enable-on-minibuffer' is nil, so corfu falls back to the
-  ;; standard completion mechanism instead of drawing the terminal popup.
-  (defun tl/gptel-suppress-corfu-terminal (orig-fn &rest args)
-    "Call ORIG-FN with corfu-terminal disabled in the minibuffer."
-    (let ((corfu-terminal-enable-on-minibuffer nil))
-      (apply orig-fn args)))
-
-  (with-eval-after-load 'gptel-transient
-    (advice-add 'gptel--read-minibuffer-prompt :around
-                #'tl/gptel-suppress-corfu-terminal))
-  (with-eval-after-load 'gptel-rewrite
-    (advice-add 'gptel--rewrite-read-message :around
-                #'tl/gptel-suppress-corfu-terminal)))
 #+end_src
 
 Gptel custom functions
@@ -4719,12 +4722,27 @@ viewport (resolves the shell buffer, then refreshes the viewport copy)."
   (define-key agent-shell-list-edit-mode-map (kbd "C-n") #'agent-shell-viewport-next-history)
   (define-key agent-shell-list-edit-mode-map (kbd "M-p") #'tl/better-previous-buffer)
   (define-key agent-shell-list-edit-mode-map (kbd "M-n") #'tl/better-next-buffer)
-  ;; agent-shell buffers are output streams; their `buffer-undo-list' grows
-  ;; unboundedly (~588K entries / 30min for an active OMP session), dominating
-  ;; live cons count and RSS. Disable undo — same convention as shell-mode /
-  ;; term-mode / ielm. Covers both the comint shell buffer and its viewport.
-  (add-hook 'agent-shell-mode-hook #'buffer-disable-undo)
-  (add-hook 'agent-shell-viewport-view-mode-hook #'buffer-disable-undo)
+  ;; Undo in agent-shell: the package bounds the history itself — every
+  ;; render calls `agent-shell--reset-undo-history', leaving only the active
+  ;; prompt's pending input on `buffer-undo-list' (output renders under a
+  ;; `(buffer-undo-list t)' let). The old blanket `buffer-disable-undo'
+  ;; (added when the list grew unboundedly, ~588K entries/30min) also killed
+  ;; undo of prompt typing — that is fixed upstream now, so keep undo ON.
+  ;; undo-tree is disabled in these buffers: it expects to own
+  ;; `buffer-undo-list' and misbehaves when agent-shell resets it mid-stream;
+  ;; plain `undo'/`undo-redo' on the bounded list is the reliable pairing.
+  ;; `C-r' is globally `undo-tree-undo', so rebind it per-buffer to plain undo.
+  (add-hook 'agent-shell-mode-hook
+            (lambda ()
+              (when (bound-and-true-p undo-tree-mode) (undo-tree-mode -1))))
+  (add-hook 'agent-shell-viewport-view-mode-hook
+            (lambda ()
+              (when (bound-and-true-p undo-tree-mode) (undo-tree-mode -1))))
+  (dolist (map (list agent-shell-mode-map
+                     agent-shell-viewport-edit-mode-map
+                     agent-shell-viewport-view-mode-map))
+    (define-key map (kbd "C-r") #'undo)
+    (define-key map (kbd "C-S-r") #'undo-redo))
   ;; agent-shell's heartbeat default is 10 Hz — every 100 ms it rebuilds the
   ;; header and forces a modeline update + redisplay. With the OMP shell
   ;; visible that's ~73 K conses/s of GC churn (drives `command-execute' +
@@ -5164,7 +5182,6 @@ terminal for that directory is reused instead of spawning a new one."
   (define-key god-local-mode-map (kbd "C-S-h") #'tl/copy-down-current-line-or-region)
   (define-key god-local-mode-map (kbd "C-S-j") #'org-newline-and-indent)
   (define-key god-local-mode-map (kbd "C-S-k") #'join-line)
-  (define-key god-local-mode-map (kbd "C-S-q") #'bury-buffer)
   (define-key god-local-mode-map (kbd "C-S-l") #'zap-up-to-char)
   ;; (define-key god-local-mode-map (kbd "C-S-f") #'winner-redo)
   ;; (define-key god-local-mode-map (kbd "C-S-b") #'winner-undo)
