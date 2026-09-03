@@ -11,7 +11,7 @@ export EDITOR="emacsclient -n"
 export ALTERNATE_EDITOR=""
 export VISUAL="emacsclient -n"
 export TERMINAL="kitty -1"
-export BROWSER="brave"
+export BROWSER="zen"
 #export PAGER="moar -no-linenumbers"
 
 # User-defined PATH executables
