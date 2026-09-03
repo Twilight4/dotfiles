@@ -497,7 +497,12 @@ Mirrors `text-scale-increase' (C-=) under the transparency prefix."
 (setq tab-bar-show 1
       tab-bar-new-tab-choice "*dashboard*"
       ;; Only the tabs themselves — no `«»' history arrows (left) or `+'
-      tab-bar-format '(tab-bar-format-tabs)
+      ;; The trailing propertized space matters: xdisp's
+      ;; `extend_face_to_end_of_line' fills the rest of a tab-bar row with the
+      ;; LAST rendered face, so without it the last (e.g. active) tab's
+      ;; background stretches to the right edge instead of hugging its name.
+      tab-bar-format (list #'tab-bar-format-tabs
+                           (propertize " " 'face 'tab-bar))
       ;; Tab width = its name length (kitty-style). The default `t' stretches
       ;; every tab to fill the bar
       tab-bar-auto-width nil
