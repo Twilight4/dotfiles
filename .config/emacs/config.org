@@ -407,11 +407,16 @@ These settings only take effect on graphical frames — text-terminal frames ign
 ;; Zooming in-out (keyboard only — touchpad gestures must not zoom)
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
-;; Disable touchpad zoom: two-finger pinch arrives as both `pinch' (Emacs 31
-;; pgtk default: `text-scale-pinch') and synthesized Ctrl+wheel events.
+;; Disable pinch zoom — three separate Emacs 31 pgtk paths:
+;;  - `pinch' (touchpad two-finger; default binding text-scale-pinch)
+;;  - `touchscreen-pinch' (touchscreen two-finger; touch-screen.el binds
+;;    touch-screen-pinch, which scales text by the pinch ratio) — this is
+;;    the one a touchscreen pinch actually fires
+;;  - GTK-synthesized Ctrl+wheel events
 (global-set-key (kbd "<C-wheel-up>") 'ignore)
 (global-set-key (kbd "<C-wheel-down>") 'ignore)
 (global-set-key [pinch] 'ignore)
+(global-set-key [touchscreen-pinch] 'ignore)
 #+end_src
 
 ** Transparency
