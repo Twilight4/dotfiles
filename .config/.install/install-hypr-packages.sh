@@ -290,7 +290,6 @@ extra=(
   "python-pycryptodomex"
   "graphviz"
   "nyancat"
-  "superproductivity-bin"
   "musikcube"
   "android-tools"
   "appmenu-gtk-module"
