@@ -1749,6 +1749,14 @@ The two modes are mutually exclusive; only one is active at a time."
       (and toml-key (tl/toml-color toml-key))
       fallback))
 
+(defun tl/color-lighten (hex percent)
+  "Lighten #rrggbb HEX by PERCENT (0-100) toward white."
+  (apply #'format "#%02x%02x%02x"
+         (mapcar (lambda (ch) (+ ch (round (* (- 255 ch) percent 0.01))))
+                 (list (string-to-number (substring hex 1 3) 16)
+                       (string-to-number (substring hex 3 5) 16)
+                       (string-to-number (substring hex 5 7) 16)))))
+
 (defun tl/theme-org-level-colors ()
   "Eight org heading colors (levels 1-8) from the active palette."
   (list (tl/palette-color "color1" "red" "#FA95A2")
@@ -1762,34 +1770,37 @@ The two modes are mutually exclusive; only one is active at a time."
 
 (defvar tl/theme-last-palette nil
   "Last palette applied by `tl/sync-theme-colors' (digest for no-op skips).")
-
 (defun tl/theme-palette ()
   "Resolve the whole palette as an alist of (ROLE . #rrggbb)."
-  `((background . ,(tl/palette-color "background" "background" "#070707"))
-    (foreground . ,(tl/palette-color "foreground" "foreground" "#B6AE9F"))
-    (darker     . ,(tl/toml-color "darker_background" "#040404"))
-    (dark       . ,(tl/toml-color "dark_background" "#050505"))
-    (lighter    . ,(tl/toml-color "lighter_background" "#202020"))
-    (dark-fg    . ,(tl/palette-color "inactive_tab_foreground" "dark_foreground" "#898377"))
-    (bright-fg  . ,(tl/toml-color "bright_foreground" "#c8c2b7"))
-    (muted      . ,(tl/palette-color "color8" "muted" "#5f5d57"))
-    (brown      . ,(tl/toml-color "brown" "#6b6156"))
-    (accent     . ,(tl/palette-color "active_tab_background" "accent" "#98786d"))
-    (red        . ,(tl/palette-color "color1" "red" "#a6927c"))
-    (orange     . ,(tl/toml-color "orange" "#b3a290"))
-    (yellow     . ,(tl/palette-color "color3" "yellow" "#fff1c7"))
-    (green      . ,(tl/palette-color "color2" "green" "#cac4a1"))
-    (cyan       . ,(tl/palette-color "color6" "cyan" "#dadfb1"))
-    (blue       . ,(tl/palette-color "color4" "blue" "#98786d"))
-    (purple     . ,(tl/palette-color "color5" "purple" "#c7a48d"))
-    (magenta    . ,(tl/toml-color "magenta" "#c7a48d"))
-    (cursor-c   . ,(tl/palette-color "cursor" "cursor" "#c8c2b7"))
-    (sel-bg     . ,(tl/palette-color "selection_background" "selection_background" "#B6AE9F"))
-    (sel-fg     . ,(tl/palette-color "selection_foreground" "selection_foreground" "#070707"))
-    (tab-bar    . ,(tl/palette-color "tab_bar_background" "darker_background" "#040404"))
-    (tab-fg     . ,(tl/palette-color "active_tab_foreground" "background" "#070707"))
-    (tab-inact  . ,(tl/palette-color "inactive_tab_background" "dark_background" "#050505"))
-    (tab-inact-fg . ,(tl/palette-color "inactive_tab_foreground" "dark_foreground" "#898377"))
+  (let ((accent (tl/palette-color "active_tab_background" "accent" "#98786d")))
+    `((background . ,(tl/palette-color "background" "background" "#070707"))
+      (foreground . ,(tl/palette-color "foreground" "foreground" "#B6AE9F"))
+      (darker     . ,(tl/toml-color "darker_background" "#040404"))
+      (dark       . ,(tl/toml-color "dark_background" "#050505"))
+      (lighter    . ,(tl/toml-color "lighter_background" "#202020"))
+      (dark-fg    . ,(tl/palette-color "inactive_tab_foreground" "dark_foreground" "#898377"))
+      (bright-fg  . ,(tl/toml-color "bright_foreground" "#c8c2b7"))
+      (muted      . ,(tl/palette-color "color8" "muted" "#5f5d57"))
+      (brown      . ,(tl/toml-color "brown" "#6b6156"))
+      (accent     . ,accent)
+      (red        . ,(tl/palette-color "color1" "red" "#a6927c"))
+      (orange     . ,(tl/toml-color "orange" "#b3a290"))
+      (yellow     . ,(tl/palette-color "color3" "yellow" "#fff1c7"))
+      (green      . ,(tl/palette-color "color2" "green" "#cac4a1"))
+      (cyan       . ,(tl/palette-color "color6" "cyan" "#dadfb1"))
+      (blue       . ,(tl/palette-color "color4" "blue" "#98786d"))
+      (purple     . ,(tl/palette-color "color5" "purple" "#c7a48d"))
+      (magenta    . ,(tl/toml-color "magenta" "#c7a48d"))
+      (cursor-c   . ,(tl/palette-color "cursor" "cursor" "#c8c2b7"))
+      (sel-bg     . ,(tl/palette-color "selection_background" "selection_background" "#B6AE9F"))
+      (sel-fg     . ,(tl/palette-color "selection_foreground" "selection_foreground" "#070707"))
+      (tab-bar    . ,(tl/palette-color "tab_bar_background" "darker_background" "#040404"))
+      (tab-fg     . ,(tl/palette-color "active_tab_foreground" "background" "#070707"))
+      ;; Inactive tab: kitty.conf's inactive_tab_* keys are unusable in many
+      ;; themes (foreground == background, an invisible tab name) — derive it
+      ;; instead: a slightly lightened active bg with the active tab's text
+      ;; color, so inactive tabs read clearly but stay visibly secondary.
+      (tab-inact  . ,(tl/color-lighten accent 10))
     (ansi-0  . ,(tl/palette-color "color0" nil "#070707"))
     (ansi-1  . ,(tl/palette-color "color1" nil "#a6927c"))
     (ansi-2  . ,(tl/palette-color "color2" nil "#cac4a1"))
@@ -1805,7 +1816,7 @@ The two modes are mutually exclusive; only one is active at a time."
     (ansi-12 . ,(tl/palette-color "color12" nil "#b28b7e"))
     (ansi-13 . ,(tl/palette-color "color13" nil "#e4b89b"))
     (ansi-14 . ,(tl/palette-color "color14" nil "#f1f7be"))
-    (ansi-15 . ,(tl/palette-color "color15" nil "#faf5ea"))))
+    (ansi-15 . ,(tl/palette-color "color15" nil "#faf5ea")))))
 
 (defun tl/theme-apply-faces (p)
   "Push palette P (alist from `tl/theme-palette') into the Emacs faces.
@@ -1823,21 +1834,29 @@ Faces owned by not-yet-loaded packages are skipped (`facep' guard); the
         (cur (alist-get 'cursor-c p))
         (sel-bg (alist-get 'sel-bg p)) (sel-fg (alist-get 'sel-fg p))
         (tab-bar (alist-get 'tab-bar p)) (tab-fg (alist-get 'tab-fg p))
-        (tab-inact (alist-get 'tab-inact p))
-        (tab-inact-fg (alist-get 'tab-inact-fg p)))
+        (tab-inact (alist-get 'tab-inact p)))
     (dolist (spec
              `((default :background ,bg :foreground ,fg)
                (cursor :background ,cur)
                (fringe :background ,bg)
                (region :background ,sel-bg :foreground ,sel-fg)
                (hl-line :background ,darker)
-               (line-number :background ,darker :foreground ,muted
+               ;; Gutter matches the buffer background exactly (transparent
+               ;; strip); only the number colors differ.
+               (line-number :background ,bg :foreground ,muted
                             :slant italic :weight normal)
-               (line-number-current-line :background ,darker :foreground ,fg
+               (line-number-current-line :background ,bg :foreground ,fg
                                          :weight bold)
                (mode-line :background ,lighter :foreground ,fg)
                (mode-line-active :background ,lighter :foreground ,fg)
                (mode-line-inactive :background ,dark :foreground ,dark-fg)
+               ;; doom-ayu's yellow (#e6b450) leaks through here: buffer names
+               ;; ("oh-my-pi Agent @ …") inherit mode-line-emphasis, the
+               ;; major-mode segment ("Agent Shell Viewport (Edit)") inherits
+               ;; doom-modeline-emphasis -> mode-line-emphasis, and the M-x
+               ;; prompt face. Accent covers all three.
+               (mode-line-emphasis :foreground ,accent)
+               (minibuffer-prompt :foreground ,accent)
                (vertical-border :foreground ,dark-fg)
                (shadow :foreground ,dark-fg)
                ;; Syntax: kitty's highlighting rides color0-15; the same
@@ -1871,17 +1890,23 @@ Faces owned by not-yet-loaded packages are skipped (`facep' guard); the
                (org-agenda-date-today :foreground ,yellow :weight bold)
                (org-agenda-deadline :foreground ,red)
                (org-agenda-scheduled :foreground ,yellow)
-               ;; Tab bar: kitty.conf's own keys (resolved in the palette)
-               ;; win — byte-exact parity with the kitty tab bar.
+               ;; Tab bar: active = accent (kitty's active_tab keys resolved
+               ;; in the palette); inactive = lightened accent + the active
+               ;; tab's text color — kitty.conf's inactive_tab_* keys are
+               ;; unusable in many themes (fg == bg, invisible tab name).
                (tab-bar :background ,tab-bar :box nil)
                (tab-bar-tab :background ,accent :foreground ,tab-fg :box nil)
                (tab-bar-tab-inactive :background ,tab-inact
-                                     :foreground ,tab-inact-fg :box nil)
+                                     :foreground ,tab-fg :box nil)
                ;; Modeline + misc accents (guarded: late-loading packages).
                (doom-modeline-bar :background ,accent)
                (doom-modeline-bar-inactive :background ,dark)
                (doom-modeline-highlight :foreground ,accent)
                (doom-modeline-time :foreground ,blue)
+               ;; Corfu's builtin selection is blue (#00415e); ride the
+               ;; palette's selection family instead. corfu-terminal (TUI
+               ;; popup) renders with these same faces.
+               (corfu-current :background ,accent :foreground ,sel-fg)
                (highlight-indent-guides-character-face :foreground ,muted)
                ;; Ghostel's OSC 10/11 replies read these.
                (ghostel-default :background ,bg :foreground ,fg)))
