@@ -537,21 +537,22 @@ Mirrors `text-scale-increase' (C-=) under the transparency prefix."
     (propertize (concat " " name " ") 'face face)))
 (setq tab-bar-tab-name-format-function #'tl/tab-name-kitty)
 
-;; --- Mirror kitty's tab-bar + cursor colors. The kitty color file is the
-;; source of truth; `tl/kitty-theme-file' picks it per machine: the
-;; pywal-generated colors-kitty.conf on Garuda (theme.conf includes it LAST,
-;; so it overrides), or — when pywal colors are absent — the Omarchy theme
-;; state file written by `omarchy theme set'. `tl/sync-kitty-tab-colors'
-;; re-reads it and applies the colors, so regenerating the scheme is
-;; mirrored here with no second edit.
-;; Defined here; applied after `load-theme' in "Color theme" and hooked into
-;; `enable-theme-functions' to survive theme reloads. ---
+;; --- Palette readers. The kitty color file is the theme source of truth;
+;; `tl/kitty-theme-file' picks it per machine: the pywal-generated
+;; colors-kitty.conf on Garuda (theme.conf includes it LAST, so it
+;; overrides), or — when pywal colors are absent — the Omarchy theme state
+;; file written by `omarchy theme set'. `tl/toml-color' reads the Omarchy
+;; colors.toml shade roles (darker/lighter background, dark foreground,
+;; accent, ...) that the kitty themes omit. The theme engine that consumes
+;; these readers — `tl/sync-theme-colors', which also covers the tab-bar and
+;; cursor faces this section used to set — lives in the "Color theme"
+;; section. ---
 (defun tl/kitty-theme-file ()
   "Return the kitty color file to mirror in Emacs.
 Prefers the pywal-generated colors-kitty.conf (Garuda: pywal writes it and
 kitty's theme.conf includes it LAST, so it wins); on Omarchy there is no
 pywal, and the theme state file is the equivalent source of truth. Missing
-keys fall back to the constants in `tl/sync-kitty-tab-colors'."
+keys fall back to the constants in the theme engine (`tl/theme-palette')."
   (let ((pywal (expand-file-name "~/.cache/wal/colors-kitty.conf"))
         (omarchy (expand-file-name
                   "~/.local/state/omarchy/current/theme/kitty.conf")))
@@ -577,9 +578,9 @@ Return the hex string, or FALLBACK when the theme file or the key is absent."
 (defconst tl/omarchy-colors-toml
   (expand-file-name "~/.local/state/omarchy/current/theme/colors.toml")
   "Omarchy theme palette — darker/lighter shades keyed by role.
-The kitty.conf themes omit the tab-bar keys pywal provides; colors.toml
-carries the generator's full palette (darker_background, dark_foreground,
-accent, ...), so it fills exactly those holes.")
+The kitty.conf themes omit the shade keys; colors.toml carries the
+generator's full palette (darker_background, dark_foreground, accent, ...),
+so it fills exactly those holes.")
 
 (defun tl/toml-color (key &optional fallback)
   "Read the #rrggbb color for KEY from the Omarchy colors.toml palette.
@@ -593,34 +594,6 @@ Return the hex string, or FALLBACK when the file or the key is absent."
                         "\\s-=\\s-*\"\\(#[0-9a-fA-F]\\{6\\}\\)\"")
                 nil t)
            (match-string 1)))))
-
-(defun tl/sync-kitty-tab-colors (&optional _theme)
-  "Apply kitty's tab-bar and cursor colors to the Emacs faces.
-Sources: the kitty theme (`tl/kitty-theme-file') first — pywal's
-colors-kitty.conf defines every key; Omarchy's kitty.conf only cursor +
-active_tab_background. The remaining tab keys fall back to shade-matched
-roles from the Omarchy colors.toml palette (darker/dark background, dark
-foreground, accent), then to the built-in constants."
-  (interactive)
-  (let ((bar-bg (tl/kitty-color "tab_bar_background"
-                                (tl/toml-color "darker_background" "#040305")))
-        (act-fg (tl/kitty-color "active_tab_foreground"
-                                (tl/toml-color "background" "#061C24")))
-        (act-bg (tl/kitty-color "active_tab_background"
-                                (tl/toml-color "accent" "#adb6b7")))
-        (ina-fg (tl/kitty-color "inactive_tab_foreground"
-                                (tl/toml-color "dark_foreground" "#adb6b7")))
-        (ina-bg (tl/kitty-color "inactive_tab_background"
-                                (tl/toml-color "dark_background" "#061C24")))
-        (cursor (tl/kitty-color "cursor"
-                                (tl/toml-color "accent" "#adb6b7"))))
-    (set-face-attribute 'tab-bar nil :background bar-bg :box nil)
-    (set-face-attribute 'tab-bar-tab nil
-                        :background act-bg :foreground act-fg :box nil)
-    (set-face-attribute 'tab-bar-tab-inactive nil
-                        :background ina-bg :foreground ina-fg :box nil)
-    (set-face-attribute 'cursor nil :background cursor)
-    (set-cursor-color cursor)))
 
 ;; tabspaces: buffer isolation per tab + named-session save/restore.
 ;; `:demand' so the daemon loads it at init (not deferred); buffer filtering
@@ -1752,32 +1725,258 @@ The two modes are mutually exclusive; only one is active at a time."
   (setq doom-themes-enable-bold t      ; if nil, bold is universally disabled
         doom-themes-enable-italic t))   ; if nil, italics is universally disabled
 
-;; Line numbers
-(set-face-attribute 'line-number-current-line nil :background "#040305" :foreground "#bfbdb6" :weight 'bold)
-(set-face-attribute 'line-number nil :background "#040305" :foreground "#434850" :slant 'italic :weight 'normal)
-;; Text in code blocks
-(with-eval-after-load 'org-faces
-  (set-face-attribute 'org-block nil :foreground "#bfbdb6"))
-(set-face-attribute 'font-lock-comment-face nil :foreground "#595d62")
-;; Background color (same as in kitty terminal)
-(set-face-attribute 'default nil :background "#040305")
-;; Mode line
-(set-face-attribute 'mode-line nil :background "#161b24")
-(set-face-attribute 'mode-line-inactive nil :background "#161b24")
-;; Apply kitty's tab-bar/cursor colors (mirrors theme.conf via
-;; `tl/sync-kitty-tab-colors', defined in "Tab bar & workspaces"). Runs after
-;; `load-theme'; the hook re-applies on every theme enable so the mirror
-;; survives theme reloads.
-(tl/sync-kitty-tab-colors)
-(add-hook 'enable-theme-functions #'tl/sync-kitty-tab-colors)
-;; New daemon frames re-inherit the theme's cursor spec; re-override.
+;; --- Palette-driven theme engine -------------------------------------------
+;; The hand-picked hex constants that used to live in this block are gone:
+;; the active terminal palette is the single source of truth.  (Readers in
+;; "Tab bar & workspaces".)  `tl/theme-palette' resolves every role —
+;; kitty's theme file first (it carries color0-15, selection, cursor and the
+;; tab-bar keys on both machines), then the Omarchy colors.toml shade roles,
+;; then constants — and `tl/sync-theme-colors' pushes it into the faces in
+;; `tl/theme-apply-faces': base chrome, modeline, tab bar, font-lock syntax,
+;; org structure, and the ANSI faces (ghostel, agent-shell and every comint
+;; buffer render ANSI through `ansi-color-*', so one override colors all
+;; in-Emacs terminals).  doom-ayu-dark stays as the base theme — it provides
+;; shapes (bold/italic/underline) and rare accents the table doesn't name.
+;; Re-applied on theme reloads (`enable-theme-functions'), on new frames, on
+;; focus-in, and — the dynamic path — by a file watcher on the directory
+;; `omarchy theme set' rewrites (that script swaps the theme dir with `mv',
+;; so a watch INSIDE it dies with the swap; the watch sits on its parent).
+;; The palette digest skips no-op re-applies; FORCE bypasses it — theme
+;; reloads and late package loads reset faces to their defface specs. ---
+(defun tl/palette-color (kitty-key toml-key fallback)
+  "Resolve one palette color: kitty's theme file, then colors.toml, then FALLBACK."
+  (or (and kitty-key (tl/kitty-color kitty-key))
+      (and toml-key (tl/toml-color toml-key))
+      fallback))
+
+(defun tl/theme-org-level-colors ()
+  "Eight org heading colors (levels 1-8) from the active palette."
+  (list (tl/palette-color "color1" "red" "#FA95A2")
+        (tl/palette-color "color3" "orange" "#84DDF8")
+        (tl/palette-color "color2" "yellow" "#50C1F7")
+        (tl/palette-color "color6" "green" "#7FA7FB")
+        (tl/palette-color "color4" "cyan" "#84DDF8")
+        (tl/palette-color "color5" "blue" "#50C1F7")
+        (tl/palette-color nil "purple" "#7FA7FB")
+        (tl/palette-color nil "magenta" "#FA95A2")))
+
+(defvar tl/theme-last-palette nil
+  "Last palette applied by `tl/sync-theme-colors' (digest for no-op skips).")
+
+(defun tl/theme-palette ()
+  "Resolve the whole palette as an alist of (ROLE . #rrggbb)."
+  `((background . ,(tl/palette-color "background" "background" "#070707"))
+    (foreground . ,(tl/palette-color "foreground" "foreground" "#B6AE9F"))
+    (darker     . ,(tl/toml-color "darker_background" "#040404"))
+    (dark       . ,(tl/toml-color "dark_background" "#050505"))
+    (lighter    . ,(tl/toml-color "lighter_background" "#202020"))
+    (dark-fg    . ,(tl/palette-color "inactive_tab_foreground" "dark_foreground" "#898377"))
+    (bright-fg  . ,(tl/toml-color "bright_foreground" "#c8c2b7"))
+    (muted      . ,(tl/palette-color "color8" "muted" "#5f5d57"))
+    (brown      . ,(tl/toml-color "brown" "#6b6156"))
+    (accent     . ,(tl/palette-color "active_tab_background" "accent" "#98786d"))
+    (red        . ,(tl/palette-color "color1" "red" "#a6927c"))
+    (orange     . ,(tl/toml-color "orange" "#b3a290"))
+    (yellow     . ,(tl/palette-color "color3" "yellow" "#fff1c7"))
+    (green      . ,(tl/palette-color "color2" "green" "#cac4a1"))
+    (cyan       . ,(tl/palette-color "color6" "cyan" "#dadfb1"))
+    (blue       . ,(tl/palette-color "color4" "blue" "#98786d"))
+    (purple     . ,(tl/palette-color "color5" "purple" "#c7a48d"))
+    (magenta    . ,(tl/toml-color "magenta" "#c7a48d"))
+    (cursor-c   . ,(tl/palette-color "cursor" "cursor" "#c8c2b7"))
+    (sel-bg     . ,(tl/palette-color "selection_background" "selection_background" "#B6AE9F"))
+    (sel-fg     . ,(tl/palette-color "selection_foreground" "selection_foreground" "#070707"))
+    (tab-bar    . ,(tl/palette-color "tab_bar_background" "darker_background" "#040404"))
+    (tab-fg     . ,(tl/palette-color "active_tab_foreground" "background" "#070707"))
+    (tab-inact  . ,(tl/palette-color "inactive_tab_background" "dark_background" "#050505"))
+    (tab-inact-fg . ,(tl/palette-color "inactive_tab_foreground" "dark_foreground" "#898377"))
+    (ansi-0  . ,(tl/palette-color "color0" nil "#070707"))
+    (ansi-1  . ,(tl/palette-color "color1" nil "#a6927c"))
+    (ansi-2  . ,(tl/palette-color "color2" nil "#cac4a1"))
+    (ansi-3  . ,(tl/palette-color "color3" nil "#fff1c7"))
+    (ansi-4  . ,(tl/palette-color "color4" nil "#98786d"))
+    (ansi-5  . ,(tl/palette-color "color5" nil "#c7a48d"))
+    (ansi-6  . ,(tl/palette-color "color6" nil "#dadfb1"))
+    (ansi-7  . ,(tl/palette-color "color7" nil "#B6AE9F"))
+    (ansi-8  . ,(tl/palette-color "color8" nil "#5f5d57"))
+    (ansi-9  . ,(tl/palette-color "color9" nil "#bfa78b"))
+    (ansi-10 . ,(tl/palette-color "color10" nil "#e3dbad"))
+    (ansi-11 . ,(tl/palette-color "color11" nil "#fff1bd"))
+    (ansi-12 . ,(tl/palette-color "color12" nil "#b28b7e"))
+    (ansi-13 . ,(tl/palette-color "color13" nil "#e4b89b"))
+    (ansi-14 . ,(tl/palette-color "color14" nil "#f1f7be"))
+    (ansi-15 . ,(tl/palette-color "color15" nil "#faf5ea"))))
+
+(defun tl/theme-apply-faces (p)
+  "Push palette P (alist from `tl/theme-palette') into the Emacs faces.
+Faces owned by not-yet-loaded packages are skipped (`facep' guard); the
+`with-eval-after-load' re-fires below catch them as their packages load."
+  (let ((bg (alist-get 'background p)) (fg (alist-get 'foreground p))
+        (darker (alist-get 'darker p)) (dark (alist-get 'dark p))
+        (lighter (alist-get 'lighter p)) (dark-fg (alist-get 'dark-fg p))
+        (bright-fg (alist-get 'bright-fg p)) (muted (alist-get 'muted p))
+        (brown (alist-get 'brown p)) (accent (alist-get 'accent p))
+        (red (alist-get 'red p)) (orange (alist-get 'orange p))
+        (yellow (alist-get 'yellow p)) (green (alist-get 'green p))
+        (cyan (alist-get 'cyan p)) (blue (alist-get 'blue p))
+        (purple (alist-get 'purple p)) (magenta (alist-get 'magenta p))
+        (cur (alist-get 'cursor-c p))
+        (sel-bg (alist-get 'sel-bg p)) (sel-fg (alist-get 'sel-fg p))
+        (tab-bar (alist-get 'tab-bar p)) (tab-fg (alist-get 'tab-fg p))
+        (tab-inact (alist-get 'tab-inact p))
+        (tab-inact-fg (alist-get 'tab-inact-fg p)))
+    (dolist (spec
+             `((default :background ,bg :foreground ,fg)
+               (cursor :background ,cur)
+               (fringe :background ,bg)
+               (region :background ,sel-bg :foreground ,sel-fg)
+               (hl-line :background ,darker)
+               (line-number :background ,darker :foreground ,muted
+                            :slant italic :weight normal)
+               (line-number-current-line :background ,darker :foreground ,fg
+                                         :weight bold)
+               (mode-line :background ,lighter :foreground ,fg)
+               (mode-line-active :background ,lighter :foreground ,fg)
+               (mode-line-inactive :background ,dark :foreground ,dark-fg)
+               (vertical-border :foreground ,dark-fg)
+               (shadow :foreground ,dark-fg)
+               ;; Syntax: kitty's highlighting rides color0-15; the same
+               ;; palette drives font-lock so code looks identical in a prog
+               ;; buffer and in ghostel.
+               (font-lock-comment-face :foreground ,muted)
+               (font-lock-keyword-face :foreground ,magenta)
+               (font-lock-string-face :foreground ,green)
+               (font-lock-function-name-face :foreground ,yellow)
+               (font-lock-type-face :foreground ,cyan)
+               (font-lock-constant-face :foreground ,orange)
+               (font-lock-builtin-face :foreground ,purple)
+               (font-lock-preprocessor-face :foreground ,red)
+               (font-lock-doc-face :foreground ,brown)
+               (font-lock-warning-face :foreground ,red :weight bold)
+               ;; Org structure (heading colors ride the shared ramp in
+               ;; `tl/theme-org-level-colors'; heights stay owned by
+               ;; `tl/org-font-setup').
+               (org-block :background ,dark :foreground ,bright-fg)
+               (org-block-begin-line :background ,dark :foreground ,dark-fg)
+               (org-block-end-line :background ,dark :foreground ,dark-fg)
+               (org-code :foreground ,accent)
+               (org-verbatim :foreground ,accent)
+               (org-link :foreground ,accent :underline t)
+               (org-quote :background ,dark)
+               (org-verse :background ,dark)
+               (org-todo :foreground ,red :weight bold)
+               (org-done :foreground ,green :weight bold)
+               (org-agenda-structure :foreground ,yellow)
+               (org-agenda-date :foreground ,cyan)
+               (org-agenda-date-today :foreground ,yellow :weight bold)
+               (org-agenda-deadline :foreground ,red)
+               (org-agenda-scheduled :foreground ,yellow)
+               ;; Tab bar: kitty.conf's own keys (resolved in the palette)
+               ;; win — byte-exact parity with the kitty tab bar.
+               (tab-bar :background ,tab-bar :box nil)
+               (tab-bar-tab :background ,accent :foreground ,tab-fg :box nil)
+               (tab-bar-tab-inactive :background ,tab-inact
+                                     :foreground ,tab-inact-fg :box nil)
+               ;; Modeline + misc accents (guarded: late-loading packages).
+               (doom-modeline-bar :background ,accent)
+               (doom-modeline-bar-inactive :background ,dark)
+               (doom-modeline-highlight :foreground ,accent)
+               (doom-modeline-time :foreground ,blue)
+               (highlight-indent-guides-character-face :foreground ,muted)
+               ;; Ghostel's OSC 10/11 replies read these.
+               (ghostel-default :background ,bg :foreground ,fg)))
+      (when (facep (car spec))
+        (apply #'set-face-attribute (car spec) nil (cdr spec))))
+    ;; Org headings: colors only (the height ramp belongs to org setup).
+    (let ((colors (tl/theme-org-level-colors)))
+      (dolist (face '(org-level-1 org-level-2 org-level-3 org-level-4
+                       org-level-5 org-level-6 org-level-7 org-level-8))
+        (when (facep face)
+          (set-face-attribute face nil :foreground (pop colors)))))
+    ;; ANSI 16 — ghostel/comint inherit `ansi-color-*'; :foreground and
+    ;; :background both set per entry (SGR 30/40 pair), like kitty's
+    ;; color0-15.
+    (dotimes (i 16)
+      (let ((face (intern (format "ansi-color-%s"
+                                  (nth i '("black" "red" "green" "yellow" "blue"
+                                           "magenta" "cyan" "white"
+                                           "bright-black" "bright-red"
+                                           "bright-green" "bright-yellow"
+                                           "bright-blue" "bright-magenta"
+                                           "bright-cyan" "bright-white")))))
+            (color (alist-get (intern (format "ansi-%d" i)) p)))
+        (when (facep face)
+          (set-face-attribute face nil :foreground color :background color))))))
+
+(defun tl/sync-theme-colors (&optional _event force)
+  "Apply the active terminal palette to Emacs faces — the theme engine.
+Re-reads the palette and, unless it equals `tl/theme-last-palette' (and
+FORCE is nil), re-applies every face in `tl/theme-apply-faces' plus the
+cursor color.  FORCE also bypasses the digest after events known to reset
+faces (theme reloads, package loads)."
+  (interactive)
+  (let ((p (tl/theme-palette)))
+    (when (or force (not (equal p tl/theme-last-palette)))
+      (setq tl/theme-last-palette p)
+      (tl/theme-apply-faces p)
+      (set-cursor-color (alist-get 'cursor-c p)))))
+
+(tl/sync-theme-colors nil t)
+;; Theme reloads recalc faces from the theme's own specs — re-assert after.
+(add-hook 'enable-theme-functions
+          (lambda (&rest _) (tl/sync-theme-colors nil t)))
+;; New daemon frames re-inherit the theme's cursor spec — re-assert there too.
 (add-hook 'after-make-frame-functions
-          (lambda (frame) (with-selected-frame frame (tl/sync-kitty-tab-colors))))
-;; Highlight-line and org block
-;(set-face-attribute 'org-block nil :background "#0e0e16")
-;(set-face-attribute 'hl-line nil :background "#0B0B10")
-;; Divider
-(set-face-attribute 'vertical-border nil :foreground "#8a887f")  ; or any terminal color
+          (lambda (frame) (with-selected-frame frame (tl/sync-theme-colors nil t))))
+;; Catch palette changes made while Emacs was unfocused (watcher backup).
+(add-hook 'focus-in-hook #'tl/sync-theme-colors)
+;; Late-loading packages define their faces with theme defaults after the
+;; engine already ran; re-assert (forced) once each loads.
+(with-eval-after-load 'org-faces (tl/sync-theme-colors nil t))
+(with-eval-after-load 'doom-modeline (tl/sync-theme-colors nil t))
+(with-eval-after-load 'ghostel (tl/sync-theme-colors nil t))
+(with-eval-after-load 'highlight-indent-guides (tl/sync-theme-colors nil t))
+
+;; --- Dynamic re-sync: watch the palette source directory ------------------
+;; `omarchy theme set' swaps ~/.local/state/omarchy/current/theme with `mv',
+;; so a watch inside the theme dir dies with the swap — watch the PARENT.  On
+;; Garuda, pywal regenerates ~/.cache/wal/colors-kitty.conf — watch that dir
+;; instead (`tl/kitty-theme-file' already prefers it there).
+(defvar tl/theme-watch-descriptor nil
+  "Active `file-notify' watch for palette changes.")
+
+(defvar tl/theme-watch-timer nil
+  "Debounce timer draining palette-watch events.")
+
+(defun tl/theme-watch-dir ()
+  "Directory whose writes mean the palette may have changed."
+  (if (equal (tl/kitty-theme-file)
+             (expand-file-name "~/.cache/wal/colors-kitty.conf"))
+      (expand-file-name "~/.cache/wal")
+    (expand-file-name "~/.local/state/omarchy/current")))
+
+(defun tl/theme-watch-event (_event)
+  "Drain palette-watch events: re-sync once, half a second after the last one."
+  (when tl/theme-watch-timer (cancel-timer tl/theme-watch-timer))
+  (setq tl/theme-watch-timer
+        (run-at-time 0.5 nil #'tl/sync-theme-colors)))
+
+(defun tl/theme-watch-start ()
+  "(Re)arm the palette watcher.  Idempotent; watch errors are ignored —
+the focus-in digest check is the backup path."
+  (condition-case nil
+      (progn
+        (when tl/theme-watch-descriptor
+          (file-notify-rm-watch tl/theme-watch-descriptor))
+        (when (file-directory-p (tl/theme-watch-dir))
+          (setq tl/theme-watch-descriptor
+                (file-notify-add-watch (tl/theme-watch-dir)
+                                       '(change) #'tl/theme-watch-event))))
+    (file-notify-error)))
+
+(tl/theme-watch-start)
+
+;; Divider (color comes from the palette via `vertical-border' above)
 (set-display-table-slot standard-display-table 'vertical-border (make-glyph-code ?│))
 
 (defun tl/set-vertical-border ()
@@ -1800,7 +1999,10 @@ The two modes are mutually exclusive; only one is active at a time."
         doom-modeline-persp-name t   ;; Adds perspective name to modeline
         doom-modeline-persp-icon t   ;; Adds folder icon next to persp name
         doom-modeline-time-clock-size 1.0)  ;; Analog clock radius = height*0.5*1.0 (~7.5px); default 0.7 was tiny
-  (set-face-foreground 'doom-modeline-time "#39bae6")) ;; Colour the clock + time text (was muted modeline gray)
+  ;; Clock + time text color: the palette engine (`tl/theme-apply-faces')
+  ;; owns it now — its `doom-modeline-time' entry + the after-load re-fire
+  ;; cover both load orders.
+  )
 
 ;; Changing font size for doom modeline (default 1.0)
 ;(custom-set-faces
@@ -1829,8 +2031,11 @@ Show the indent guides highlight lines for scripts
                (or (derived-mode-p 'prog-mode)
                    (derived-mode-p 'yaml-mode)))
       (highlight-indent-guides-mode 1)))
-  (set-face-foreground 'highlight-indent-guides-character-face "#505050"))
+  ;; Guide color: the palette engine owns it (muted palette role) via its
+  ;; `highlight-indent-guides-character-face' entry + after-load re-fire.
+  )
 #+end_src
+
 
 ** Toggle mode line
 Function =toggle-mode-line= toggles the display of the mode line on and off.
@@ -5953,19 +6158,18 @@ Let’s make creating an Org buffer just that little bit easier.
 #+begin_src emacs-lisp
 (defun tl/org-font-setup ()
   "Set heading faces: per-level color plus a descending size hierarchy.
-HEIGHT is a scale factor relative to the default face height."
-  (dolist (spec '((org-level-1 "#50C1F7" 1.30)
-                  (org-level-2 "#7FA7FB" 1.20)
-                  (org-level-3 "#FA95A2" 1.10)
-                  (org-level-4 "#84DDF8" 1.05)
-                  (org-level-5 "#50C1F7" 1.00)
-                  (org-level-6 "#7FA7FB" 1.00)
-                  (org-level-7 "#FA95A2" 1.00)
-                  (org-level-8 "#84DDF8" 1.00)))
-    (pcase-let ((`(,face ,fg ,height) spec))
+Colors come from the active palette (`tl/theme-org-level-colors', defined
+in the \"Color theme\" section) so headings track the terminal theme; this
+hook re-runs per org buffer and would otherwise clobber the theme engine
+with hardcoded hexes.  HEIGHT is a scale factor relative to the default
+face height."
+  (let ((colors (tl/theme-org-level-colors))
+        (heights '(1.30 1.20 1.10 1.05 1.00 1.00 1.00 1.00)))
+    (dolist (face '(org-level-1 org-level-2 org-level-3 org-level-4
+                     org-level-5 org-level-6 org-level-7 org-level-8))
       (set-face-attribute face nil
-                          :foreground fg
-                          :height height
+                          :foreground (pop colors)
+                          :height (pop heights)
                           :slant 'italic
                           :weight 'bold))))
 
