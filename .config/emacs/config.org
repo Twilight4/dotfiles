@@ -1797,10 +1797,11 @@ The two modes are mutually exclusive; only one is active at a time."
       (tab-bar    . ,(tl/palette-color "tab_bar_background" "darker_background" "#040404"))
       (tab-fg     . ,(tl/palette-color "active_tab_foreground" "background" "#070707"))
       ;; Inactive tab: kitty.conf's inactive_tab_* keys are unusable in many
-      ;; themes (foreground == background, an invisible tab name) — derive it
-      ;; instead: a clearly lightened active bg with the active tab's text
-      ;; color, so the focused tab stands out at a glance.
-      (tab-inact  . ,(tl/color-lighten accent 40))
+      ;; themes (foreground == background, an invisible tab name) — derive
+      ;; the pair instead: the ACTIVE tab rides the bright variant (lightened
+      ;; accent), inactive tabs sit on the plain accent. Same text color on
+      ;; both; brightness marks the focus.
+      (tab-bright . ,(tl/color-lighten accent 40))
     (ansi-0  . ,(tl/palette-color "color0" nil "#070707"))
     (ansi-1  . ,(tl/palette-color "color1" nil "#a6927c"))
     (ansi-2  . ,(tl/palette-color "color2" nil "#cac4a1"))
@@ -1834,7 +1835,7 @@ Faces owned by not-yet-loaded packages are skipped (`facep' guard); the
         (cur (alist-get 'cursor-c p))
         (sel-bg (alist-get 'sel-bg p)) (sel-fg (alist-get 'sel-fg p))
         (tab-bar (alist-get 'tab-bar p)) (tab-fg (alist-get 'tab-fg p))
-        (tab-inact (alist-get 'tab-inact p)))
+        (tab-bright (alist-get 'tab-bright p)))
     (dolist (spec
              `((default :background ,bg :foreground ,fg)
                (cursor :background ,cur)
@@ -1891,27 +1892,27 @@ Faces owned by not-yet-loaded packages are skipped (`facep' guard); the
                (org-agenda-date-today :foreground ,yellow :weight bold)
                (org-agenda-deadline :foreground ,red)
                (org-agenda-scheduled :foreground ,yellow)
-               ;; Tab bar: active = accent (kitty's active_tab keys resolved
-               ;; in the palette); inactive = lightened accent + the active
-               ;; tab's text color — kitty.conf's inactive_tab_* keys are
-               ;; unusable in many themes (fg == bg, invisible tab name).
+               ;; Tab bar: ACTIVE tab = lightened accent (bright — marks the
+               ;; focus), inactive tabs = plain accent; shared text color.
+               ;; kitty.conf's inactive_tab_* keys are unusable in many
+               ;; themes (fg == bg, invisible tab name), hence derived.
                (tab-bar :background ,tab-bar :box nil)
-               (tab-bar-tab :background ,accent :foreground ,tab-fg :box nil)
-               (tab-bar-tab-inactive :background ,tab-inact
+               (tab-bar-tab :background ,tab-bright :foreground ,tab-fg :box nil)
+               (tab-bar-tab-inactive :background ,accent
                                      :foreground ,tab-fg :box nil)
                ;; Modeline + misc accents (guarded: late-loading packages).
                (doom-modeline-bar :background ,accent)
                (doom-modeline-bar-inactive :background ,dark)
                (doom-modeline-highlight :foreground ,accent)
                (doom-modeline-time :foreground ,blue)
+               ;; doom-modeline renders an unsaved buffer's NAME with this
+               ;; face (inherits doom-ayu's yellow `warning') — palette
+               ;; orange keeps the modified state visible without the leak.
+               (doom-modeline-buffer-modified :foreground ,orange)
                ;; Corfu's builtin selection is blue (#00415e); ride the
                ;; palette's selection family instead. corfu-terminal (TUI
                ;; popup) renders with these same faces.
                (corfu-current :background ,accent :foreground ,sel-fg)
-               ;; agent-shell's header renders the buffer title ("oh-my-pi
-               ;; Agent @ …") with this face (inherits the stale
-               ;; font-lock-variable-name color) — give it the accent.
-               (agent-shell-buffer-name :foreground ,accent :weight bold)
                (highlight-indent-guides-character-face :foreground ,muted)
                ;; Ghostel's OSC 10/11 replies read these.
                (ghostel-default :background ,bg :foreground ,fg)))
@@ -1963,7 +1964,6 @@ faces (theme reloads, package loads)."
 ;; Late-loading packages define their faces with theme defaults after the
 ;; engine already ran; re-assert (forced) once each loads.
 (with-eval-after-load 'org-faces (tl/sync-theme-colors nil t))
-(with-eval-after-load 'agent-shell-faces (tl/sync-theme-colors nil t))
 (with-eval-after-load 'doom-modeline (tl/sync-theme-colors nil t))
 (with-eval-after-load 'ghostel (tl/sync-theme-colors nil t))
 (with-eval-after-load 'highlight-indent-guides (tl/sync-theme-colors nil t))
