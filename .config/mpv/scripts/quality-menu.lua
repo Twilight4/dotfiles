@@ -727,7 +727,7 @@ local function show_menu(isvideo)
     end
 
     local function update_margins()
-        local shared_props = mp.get_property_native('shared-script-properties')
+        local shared_props = mp.get_property_native('shared-script-properties') or {} -- removed in mpv v0.40, guard for nil
         local val = shared_props['osc-margins']
         if val then
             -- formatted as "%f,%f,%f,%f" with left, right, top, bottom, each
