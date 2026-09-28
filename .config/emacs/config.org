@@ -3561,13 +3561,30 @@ In-Emacs translation via =gt= (formerly go-translate), replacing the habit of sh
   (require 'gt-engine-google)
   (require 'gt-render-posframe)
   (require 'gt-render-kill-ring)
+  ;; Upstream bug (Emacs 30+): completion metadata categories must be symbols;
+  ;; gt ships the string "gt" and vertico/marginalia error out on every
+  ;; gt-setup prompt (wrong-type-argument symbolp "gt"). Patched copy.
+  (defun gt-make-completion-table (items &optional order)
+    "Make completion table that ensure ITEMS sort by original ORDER."
+    (lambda (input pred action)
+      (if (eq action 'metadata)
+          `(metadata (category . gt)
+                     (display-sort-function . ,(or order #'identity)))
+        (complete-with-action action items input pred))))
   ;; Source detection: gt's built-in gt-lang-rules only know ja/ko/ru/zh, so
-  ;; (en pl) always translates TO Polish. Detect pl by diacritics, en by
-  ;; ASCII-only text; add-to-list prepends, so en is checked first.
-  ;; ponytail: ASCII-only Polish text ("kot siedzi") still detects as en --
-  ;; flip target with `t' in the result popup when that happens.
+  ;; with (en pl) detection is ambiguous and direction always falls to en->pl.
+  ;; ONE pl rule suffices: diacritics -> pl; no diacritics eliminates pl -> en.
+  ;; ponytail: ASCII-only Polish ("kot siedzi") still detects as en -- hit `t'
+  ;; in the popup to flip.
   (add-to-list 'gt-lang-rules '(pl . "[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]"))
-  (add-to-list 'gt-lang-rules '(en . (lambda () (not (re-search-forward "[^[:ascii:]]" nil t)))))
+  ;; TTS: no native speech service on Linux; edge-tts binary (uv tool) + mpv
+  (setq gt-tts-native-engine 'edge-tts)
+  ;; Focus the popup when it shows so q/t/y work immediately -- upstream only
+  ;; binds them inside the childframe and expects a click/tap there first.
+  (add-hook 'gt-posframe-pop-render-init-hook
+            (lambda ()
+              (when-let ((win (get-buffer-window gt-posframe-pop-render-buffer)))
+                (select-frame-set-input-focus (window-frame win)))))
   (setq gt-default-translator
         (gt-translator
          :taker (gt-taker :langs '(en pl) :text 'word :pick nil)
