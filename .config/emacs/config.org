@@ -985,8 +985,7 @@ owning tab and raises the window displaying the chosen buffer."
 ;(global-set-key (kbd "C-M-p") 'gptel--rewrite-previous)
 (global-set-key (kbd "C-M-k") 'tl/gptel-prompt-from-kill-ring)   ;; prompt from kill ring
 (global-set-key (kbd "C-M-q") 'tl/gptel-respond-to-echo-area)    ;; respond to echo area
-;(global-set-key (kbd "C-M-v") 'tl/gptel-send-to-session)         ;; send to gptel session (moved to C-M-m; C-M-v = gt prompt)
-(global-set-key (kbd "C-M-v") 'tl/gt-prompt)                      ;; gt interactive translate (region/word prefilled)
+(global-set-key (kbd "C-M-v") 'tl/gptel-send-to-session)         ;; send to gptel session
 (global-set-key (kbd "C-M-m") 'tl/gptel-send-to-session)         ;; send to gptel session
 (global-set-key (kbd "C-M-j") 'tl/gptel-respond-to-kill-ring)    ;; response to kill ring
 (global-set-key (kbd "C-M-n") 'tl/gptel-respond-from-minibuffer) ;; respond from minibuffer to current buffer
@@ -3580,13 +3579,14 @@ In-Emacs translation via =gt= (formerly go-translate), replacing the habit of sh
   ;; with (en pl) detection is ambiguous and direction always falls to en->pl.
   ;; ONE pl rule suffices: diacritics -> pl; no diacritics eliminates pl -> en.
   ;; ponytail: ASCII-only Polish ("kot siedzi") still detects as en -- set the
-  ;; direction explicitly with C-x T t instead.
+  ;; direction explicitly with C-x C-l instead.
   (add-to-list 'gt-lang-rules '(pl . "[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]"))
   ;; TTS: no native speech service on Linux; edge-tts binary (uv tool) + mpv
   (setq gt-tts-native-engine 'edge-tts)
   (setq gt-default-translator
         (gt-translator
          :taker (gt-taker :langs '(en pl) :text 'word :pick nil
+                          :prompt #'tl/gt--prompt-if-empty
                           :then #'tl/gt--force-target)
          :engines (gt-google-engine)
          :render (gt-posframe-pop-render :then (gt-kill-ring-render)))))
@@ -3599,9 +3599,10 @@ direction switcher supersedes the popup's =t= key. Note: "Result already in
 the kill ring." in the echo area is gt-kill-ring-render's own success notice
 -- the answer itself is in the popup.
 
-The interactive prompt (gt-native taker =:prompt t=): always asks, with the
-grabbed text prefilled (active region first, else word at point); =C-n=/=C-p=
-inside the prompt flips the target before submitting.
+The default translator (=C-x t=) behaves like =gt-speak=: active region or
+word at point translates immediately; when nothing was grabbed it asks in
+the minibuffer instead of erroring "no source text found" (the taker's
+=:prompt= function runs gt-prompt only when the translator has no text).
 
 #+begin_src emacs-lisp
 (defvar tl/gt-target 'auto
@@ -3613,6 +3614,12 @@ inside the prompt flips the target before submitting.
   (when (memq tl/gt-target '(en pl))
     (oset translator target
           (list (if (eq tl/gt-target 'en) 'pl 'en) tl/gt-target))))
+
+(defun tl/gt--prompt-if-empty (translator)
+  "Taker :prompt function: ask for text only when nothing was grabbed.
+Gives `gt-translate' the same grab-else-ask behavior as `gt-speak'."
+  (unless (oref translator text)
+    (gt-prompt (oref translator taker) translator t)))
 
 (defun tl/gt-cycle-target ()
   "Cycle translation direction: auto -> Polish -> English -> auto."
@@ -3629,18 +3636,6 @@ inside the prompt flips the target before submitting.
         (if gt-tts-edge-tts-voice nil "pl-PL-MarekNeural"))
   (pdd-cacher-clear gt-tts-cache-store t) ; TTS is cached by text
   (message "gt voice: %s" (or gt-tts-edge-tts-voice "default (en)")))
-
-(defun tl/gt-prompt ()
-  "Translate interactively: prompt with the grabbed text prefilled
-(active region first, else word at point); C-n/C-p in the prompt flips
-the target. Answer in the popup + kill ring."
-  (interactive)
-  (gt-start
-   (gt-translator
-    :taker (gt-taker :prompt t :text 'word :langs '(en pl) :pick nil
-                     :then #'tl/gt--force-target)
-    :engines (gt-google-engine)
-    :render (gt-posframe-pop-render :then (gt-kill-ring-render)))))
 #+end_src
 
 ** Markdown Mode

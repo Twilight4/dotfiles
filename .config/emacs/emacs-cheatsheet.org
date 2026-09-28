@@ -88,7 +88,6 @@ The world's greatest programmer once said:
 | s           | Speak word/region                   |
 | T           | gt translator setup                 |
 | C-t C-v     | Toggle gt voice (PL/default)        |
-| C-M-v       | gt interactive translate prompt     |
 | C-x C-f C-u | timeclock-in                       |
 | C-x C-f C-o | timeclock-out                      |
 | C-x C-f C-s | timeclock-status-string            |
