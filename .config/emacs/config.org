@@ -81,6 +81,7 @@
   - [[#beacon][Beacon]]
   - [[#goggles][Goggles]]
   - [[#zoxide][Zoxide]]
+  - [[#translation-gt][Translation (gt)]]
   - [[#markdown-mode][Markdown Mode]]
   - [[#undo-tree-mode][Undo tree mode]]
   - [[#treemacs][Treemacs]]
@@ -1172,7 +1173,8 @@ owning tab and raises the window displaying the chosen buffer."
     :prefix "C-x") ;; Set leader key
 
   (tl/leader-keys
-	;; Free keys: t, \, -, j, h, k, u, z
+	;; Free keys: \, -
+    "t" '(gt-translate :wk "Translate (EN↔PL)")
     "," '(consult-recent-file :wk "Find recent files")
     ;"." '(find-file :wk "Find file")
     "C-b" '(consult-buffer :wk "Switch to buffer")
@@ -3549,6 +3551,30 @@ This is useful when followed by an immediate kill."
   :hook (dired-mode . zoxide-add))
 #+end_src
 
+** Translation (gt)
+In-Emacs translation via =gt= (formerly go-translate), replacing the habit of shelling out to translate-shell (=trans=) in a terminal. One default translator: active region or word at point, EN<->PL with the source auto-detected, Google engine (the same free endpoint =trans= uses; dictionary-style output for single words), rendered to a posframe popup chained into the kill ring. The engine/render classes live in separate package files without autoload cookies, so they are required explicitly. Swap taker/engines/render interactively with =gt-setup=, TTS with =gt-speak=.
+
+#+begin_src emacs-lisp
+(use-package gt
+  :ensure t
+  :config
+  (require 'gt-engine-google)
+  (require 'gt-render-posframe)
+  (require 'gt-render-kill-ring)
+  ;; Source detection: gt's built-in gt-lang-rules only know ja/ko/ru/zh, so
+  ;; (en pl) always translates TO Polish. Detect pl by diacritics, en by
+  ;; ASCII-only text; add-to-list prepends, so en is checked first.
+  ;; ponytail: ASCII-only Polish text ("kot siedzi") still detects as en --
+  ;; flip target with `t' in the result popup when that happens.
+  (add-to-list 'gt-lang-rules '(pl . "[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]"))
+  (add-to-list 'gt-lang-rules '(en . (lambda () (not (re-search-forward "[^[:ascii:]]" nil t)))))
+  (setq gt-default-translator
+        (gt-translator
+         :taker (gt-taker :langs '(en pl) :text 'word :pick nil)
+         :engines (gt-google-engine)
+         :render (gt-posframe-pop-render :then (gt-kill-ring-render)))))
+#+end_src
+
 ** Markdown Mode
 #+begin_src emacs-lisp
 (use-package markdown-mode
@@ -4496,6 +4522,7 @@ Auto-scroll, automatically to end of response and set =org-mode= as default mode
           ,@(let ((res))
               (pcase-dolist (`(,sym ,filename)
                              '((improve_prompt "improve_prompt.md")
+                               (improve_prompt2 "improve_prompt2.md")
                                (extract_writing "extract_writing.md")
                                (extract_wisdom "extract_wisdom.md")
                                (clean_text "clean_text.md")
