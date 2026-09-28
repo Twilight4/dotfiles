@@ -84,6 +84,11 @@ The world's greatest programmer once said:
 | C-o         | Open image in swappy               |
 | m           | Select macro to run                |
 | t           | Translate (EN↔PL)                  |
+| T t         | Cycle gt direction (auto/PL/EN)     |
+| T v         | Toggle gt voice (PL/default)        |
+| T p         | Translate minibuffer -> echo area   |
+| T y         | Speak word/region                   |
+| T s         | gt translator setup                 |
 | C-x C-f C-u | timeclock-in                       |
 | C-x C-f C-o | timeclock-out                      |
 | C-x C-f C-s | timeclock-status-string            |

@@ -1175,6 +1175,12 @@ owning tab and raises the window displaying the chosen buffer."
   (tl/leader-keys
 	;; Free keys: \, -
     "t" '(gt-translate :wk "Translate (EN↔PL)")
+    "T" '(:ignore t :wk "Translate")
+    "T t" '(tl/gt-cycle-target :wk "Cycle direction (auto/->PL/->EN)")
+    "T v" '(tl/gt-toggle-voice :wk "Toggle voice (PL male/default)")
+    "T p" '(tl/gt-prompt :wk "Translate from minibuffer to echo")
+    "T y" '(gt-speak :wk "Speak word/region")
+    "T s" '(gt-setup :wk "Setup translator")
     "," '(consult-recent-file :wk "Find recent files")
     ;"." '(find-file :wk "Find file")
     "C-b" '(consult-buffer :wk "Switch to buffer")
@@ -3574,22 +3580,67 @@ In-Emacs translation via =gt= (formerly go-translate), replacing the habit of sh
   ;; Source detection: gt's built-in gt-lang-rules only know ja/ko/ru/zh, so
   ;; with (en pl) detection is ambiguous and direction always falls to en->pl.
   ;; ONE pl rule suffices: diacritics -> pl; no diacritics eliminates pl -> en.
-  ;; ponytail: ASCII-only Polish ("kot siedzi") still detects as en -- hit `t'
-  ;; in the popup to flip.
+  ;; ponytail: ASCII-only Polish ("kot siedzi") still detects as en -- set the
+  ;; direction explicitly with C-x T t instead.
   (add-to-list 'gt-lang-rules '(pl . "[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]"))
   ;; TTS: no native speech service on Linux; edge-tts binary (uv tool) + mpv
   (setq gt-tts-native-engine 'edge-tts)
-  ;; Focus the popup when it shows so q/t/y work immediately -- upstream only
-  ;; binds them inside the childframe and expects a click/tap there first.
-  (add-hook 'gt-posframe-pop-render-init-hook
-            (lambda ()
-              (when-let ((win (get-buffer-window gt-posframe-pop-render-buffer)))
-                (select-frame-set-input-focus (window-frame win)))))
   (setq gt-default-translator
         (gt-translator
-         :taker (gt-taker :langs '(en pl) :text 'word :pick nil)
+         :taker (gt-taker :langs '(en pl) :text 'word :pick nil
+                          :then #'tl/gt--force-target)
          :engines (gt-google-engine)
          :render (gt-posframe-pop-render :then (gt-kill-ring-render)))))
+#+end_src
+
+The popup childframe CANNOT take keyboard focus under Wayland (a client may
+not grab keyboard focus for its own child frame -- same pgtk ceiling that
+froze treemacs child-frame prompts here); tap/click it to interact, or use the
+global =C-x T= bindings below -- the direction switcher supersedes the popup's
+=t= key. Direction + voice switchers, the minibuffer-to-echo-area quick
+prompt, and bindings:
+
+#+begin_src emacs-lisp
+(defvar tl/gt-target 'auto
+  "Translation direction for the gt commands: 'auto (detect EN<->PL),
+'pl (always -> Polish) or 'en (always -> English).")
+
+(defun tl/gt--force-target (translator)
+  "Taker :then hook: force TRANSLATOR's direction per `tl/gt-target'."
+  (when (memq tl/gt-target '(en pl))
+    (oset translator target
+          (list (if (eq tl/gt-target 'en) 'pl 'en) tl/gt-target))))
+
+(defun tl/gt-cycle-target ()
+  "Cycle translation direction: auto -> Polish -> English -> auto."
+  (interactive)
+  (setq tl/gt-target (pcase tl/gt-target ('auto 'pl) ('pl 'en) ('en 'auto)))
+  (message "gt direction: %s"
+           (pcase tl/gt-target ('auto "auto-detect (EN<->PL)")
+             ('pl "EN -> PL") ('en "PL -> EN"))))
+
+(defun tl/gt-toggle-voice ()
+  "Toggle TTS voice: Polish male (Marek) <-> default (English)."
+  (interactive)
+  (setq gt-tts-edge-tts-voice
+        (if gt-tts-edge-tts-voice nil "pl-PL-MarekNeural"))
+  (pdd-cacher-clear gt-tts-cache-store t) ; TTS is cached by text
+  (message "gt voice: %s" (or gt-tts-edge-tts-voice "default (en)")))
+
+(defun tl/gt-prompt ()
+  "Translate text typed in the minibuffer; answer in the echo area + kill ring.
+Defaults to the word at point, so C-x T p RET translates it as-is."
+  (interactive)
+  (let ((text (string-trim
+               (read-string "Translate: "
+                            (thing-at-point 'word 'no-properties)))))
+    (unless (string-empty-p text)
+      (gt-start
+       (gt-translator
+        :taker (gt-taker :text text :langs '(en pl) :pick nil
+                         :then #'tl/gt--force-target)
+        :engines (gt-google-engine)
+        :render (gt-render :then (gt-kill-ring-render)))))))
 #+end_src
 
 ** Markdown Mode
